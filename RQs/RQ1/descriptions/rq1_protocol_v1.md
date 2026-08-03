@@ -57,8 +57,10 @@ ordered atomic-fact inventory. The following are mandatory and fail closed:
 - the entity scope, relative time range, aggregation, precision, units,
   missingness, candidate ordering, directed edges, and multi-hop facts are
   identical across representations;
-- every model-visible atomic fact has a stable `fact_id`, provenance hash, and
-  location in every arm;
+- every semantic atomic fact has a stable `fact_id`, provenance hash, and
+  per-arm location in the audit sidecar; model inputs expose the same semantic
+  fields while `source_pointer`, provenance hashes, and `derived_from` lineage
+  remain evaluator-only so they cannot become text-only evidence;
 - after duplicate encodings within an arm are ignored, text, visual, and hybrid
   inventories are exactly equal;
 - a legend such as `A -> B means A calls B` never substitutes for the incident's

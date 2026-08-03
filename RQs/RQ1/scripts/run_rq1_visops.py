@@ -19,7 +19,7 @@ from rq1lib.contracts import ContractError, canonical_json, sha256_bytes, stable
 from rq1lib.prompts import build_prompt_bundle_from_artifacts
 from rq1lib.scoring import parse_visops_response, score_visops_answer
 from rq1lib.settings import assert_runner_may_execute, load_yaml_config
-from vlmrca.vlm.client import call_vlm
+from vlmrca.vlm.client import call_vlm, count_vllm_prompt_tokens
 from vlmrca.vlm.configs import get_config
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -547,6 +547,36 @@ def _verify_server_attestation(
     return payload
 
 
+def _preflight_context_budget(
+    calls: list[dict[str, Any]], *, model: str, config: Mapping[str, Any]
+) -> None:
+    """Tokenize every frozen prompt before the first model-generation call."""
+
+    max_model_len = int(config["inference"]["max_model_len"])
+    max_tokens = int(config["inference"]["max_tokens"])
+    failures: list[str] = []
+    for index, row in enumerate(calls, start=1):
+        input_tokens = count_vllm_prompt_tokens(
+            row["prompt_parts"], model, system=row["prompt_system"]
+        )
+        if input_tokens is None or input_tokens <= 0:
+            raise ContractError(
+                "live vLLM tokenizer preflight failed before model execution"
+            )
+        row["preflight_input_tokens"] = int(input_tokens)
+        if input_tokens + max_tokens > max_model_len:
+            failures.append(
+                f"{row['opaque_incident_id']}/{row['query']['query_id']}/{row['arm']}="
+                f"{input_tokens}+{max_tokens}>{max_model_len}"
+            )
+        if index == len(calls) or index % max(1, len(calls) // 10) == 0:
+            print(f"context preflight [{index}/{len(calls)}]", flush=True)
+    if failures:
+        raise ContractError(
+            "frozen prompt exceeds model context budget: " + "; ".join(failures)
+        )
+
+
 def _call_contract(
     row: Mapping[str, Any],
     *,
@@ -576,6 +606,7 @@ def _call_contract(
         "visual_sha256": row["visual_sha256"],
         "text_sha256": row["text_sha256"],
         "answer_key_sha256": row["answer_key_sha256"],
+        "preflight_input_tokens": row["preflight_input_tokens"],
         "experiment_config_hash": stable_hash(config),
         "roster_contract_hash": stable_hash(roster),
         "model_config": dict(model_config),
@@ -738,6 +769,7 @@ def main() -> int:
         model=args.model,
         config=config,
     )
+    _preflight_context_budget(calls, model=args.model, config=config)
     allowed = _allowed_opaque_ids(roster)
     outside = sorted({row["opaque_incident_id"] for row in calls} - allowed)
     if outside:

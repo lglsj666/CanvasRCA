@@ -244,6 +244,25 @@ class AtomicFact:
             "derived_from": list(self.derived_from),
         }
 
+    def model_visible_dict(self) -> dict[str, Any]:
+        """Return only the semantic fact encoded in both text and pixels.
+
+        ``source_pointer``, provenance hashes, and potentially very large
+        ``derived_from`` lists are audit lineage, not incident evidence.  They
+        remain frozen in ``contract_dict`` and the paired location map but must
+        not be injected only into the text arm.
+        """
+
+        return {
+            "fact_id": self.fact_id,
+            "domain": self.domain,
+            "field": self.field,
+            "entity": self.entity,
+            "relative_bin": self.relative_bin,
+            "value": self.value,
+            "unit": self.unit,
+        }
+
     def contract_dict(self) -> dict[str, Any]:
         return {**self.public_dict(), "source_pointer": self.source_pointer}
 

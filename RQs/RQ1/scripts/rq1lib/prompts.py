@@ -159,7 +159,7 @@ def audit_paired_views(
     failures: list[str] = []
     expected = tuple(sorted(task.query.fact_ids))
     parsed_text_facts = parse_text_view_inventory(text_view.artifact_bytes)
-    text_ids = tuple(sorted(fact.fact_id for fact in parsed_text_facts))
+    text_ids = tuple(sorted(str(fact["fact_id"]) for fact in parsed_text_facts))
     visual_ids = parse_visual_view_inventory(visual_view.primitive_manifest)
     hybrid_ids = tuple(sorted(set(visual_ids) | set(text_ids)))
     for name, ids in (
@@ -170,11 +170,13 @@ def audit_paired_views(
         if ids != expected:
             failures.append(f"{name}_fact_inventory_mismatch")
     expected_public_hashes = {
-        fact.fact_id: sha256_bytes(canonical_json(fact.public_dict()).encode("utf-8"))
+        fact.fact_id: sha256_bytes(
+            canonical_json(fact.model_visible_dict()).encode("utf-8")
+        )
         for fact in task.facts
     }
     text_public_hashes = {
-        fact.fact_id: sha256_bytes(canonical_json(fact.public_dict()).encode("utf-8"))
+        str(fact["fact_id"]): sha256_bytes(canonical_json(fact).encode("utf-8"))
         for fact in parsed_text_facts
     }
     visual_public_hashes = dict(

@@ -31,6 +31,15 @@ def test_hybrid_is_exact_A_plus_B_without_rewrite_or_deduplication():
         assert item.paired_audit["prompt_composition"]["order"] == "A_PLUS_B"
 
 
+def test_text_prompt_excludes_audit_only_provenance_lineage():
+    for item in _prepared():
+        payload = item.text_view.artifact_bytes
+        assert b'"derived_from"' not in payload
+        assert b'"provenance_hash"' not in payload
+        assert b'"source_pointer"' not in payload
+        assert b'"fact_id"' in payload
+
+
 def test_tampered_model_visible_fact_fails_closed():
     item = _prepared()[0]
     blob = item.text_view.artifact_bytes.decode("utf-8")

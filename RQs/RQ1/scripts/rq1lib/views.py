@@ -90,7 +90,9 @@ def compile_text_view(task: VisOpsTask) -> ViewArtifact:
     location_map: dict[str, Any] = {}
     cursor = len(chunks[0])
     for fact in task.facts:
-        line = ("FACT " + canonical_json(fact.public_dict()) + "\n").encode("utf-8")
+        line = ("FACT " + canonical_json(fact.model_visible_dict()) + "\n").encode(
+            "utf-8"
+        )
         location_map[fact.fact_id] = {
             "kind": "utf8_span",
             "start": cursor,
@@ -116,28 +118,26 @@ def compile_text_view(task: VisOpsTask) -> ViewArtifact:
     return artifact
 
 
-def parse_text_view_inventory(payload: bytes) -> tuple[AtomicFact, ...]:
+def parse_text_view_inventory(payload: bytes) -> tuple[dict[str, Any], ...]:
     """Independently reconstruct the fact inventory from model-visible text."""
 
-    facts: list[AtomicFact] = []
+    facts: list[dict[str, Any]] = []
     for raw_line in payload.decode("utf-8").splitlines():
         if not raw_line.startswith("FACT "):
             continue
         row = json.loads(raw_line[5:])
-        facts.append(
-            AtomicFact(
-                fact_id=row["fact_id"],
-                domain=row["domain"],
-                field=row["field"],
-                value=row.get("value"),
-                source_pointer="/model_visible_text/" + row["fact_id"],
-                provenance_hash=row["provenance_hash"],
-                entity=row.get("entity"),
-                unit=row.get("unit"),
-                relative_bin=row.get("relative_bin"),
-                derived_from=tuple(row.get("derived_from") or []),
-            )
-        )
+        expected_keys = {
+            "fact_id",
+            "domain",
+            "field",
+            "entity",
+            "relative_bin",
+            "value",
+            "unit",
+        }
+        if set(row) != expected_keys:
+            raise ContractError("text fact record has unexpected semantic fields")
+        facts.append(row)
     return tuple(facts)
 
 
@@ -489,7 +489,7 @@ def compile_visual_view(task: VisOpsTask) -> ViewArtifact:
         "fact_ids": sorted(locations),
         "public_fact_hashes": {
             fact.fact_id: sha256_bytes(
-                canonical_json(fact.public_dict()).encode("utf-8")
+                canonical_json(fact.model_visible_dict()).encode("utf-8")
             )
             for fact in task.facts
         },
