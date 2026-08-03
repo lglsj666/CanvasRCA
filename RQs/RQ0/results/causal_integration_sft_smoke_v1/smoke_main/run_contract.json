@@ -1,0 +1,146 @@
+{
+  "schema_version": "CausalIntegrationSFTOptimizerContractV1",
+  "created_before_optimizer_step": true,
+  "mode": "smoke",
+  "config_path": "RQs/RQ0/configs/training/causal_integration_sft_v1.yaml",
+  "config_sha256": "97a9e3bc176afff49c4c5f81cf39f8b8045acc65367108e6f39743d97df16d4a",
+  "roster_path": "RQs/RQ0/configs/training/causal_integration_sft_v1_roster.json",
+  "roster_file_sha256": "8ea10b542fd39757a16c243c9b32e93fcee2a8894dd3e6948c9cceba27ede962",
+  "roster_declared_sha256": "4b22295b74b3395e9b01f3e88a7356994981660756a32f2b3d333584325e2f74",
+  "source_partition": "development",
+  "split_assignment_sha256": "f460ca5ac0043dc344bf9538a3a1ab8e0ac89eccf133d6f914d4f481b0183083",
+  "selected_records_sha256": "3e8edbe9af504b1d3430abe334e9ec77c7c8bf895bc037b808ce180faf999f26",
+  "selected_cases": [
+    {
+      "dataset": "re2_ob",
+      "opaque_incident_id": "INC-FC88448A9C8E",
+      "private_case_id_sha256": "fc88448a9c8e7cb9d43dd1201dedf2ffe3e5be434878a7ed6cae97bfe50ccbd5",
+      "stage_partition": "train",
+      "ceb_hash": "3c8cf9ef648aaeefffe641172c8a08e4206b25539e7afab65fc39e710021a943",
+      "fact_inventory_hash": "0197cab2e36bb83a51fd5a1a5ea3a60eec299f21959c79f8e80957ba8c99abaa",
+      "input_sha256": "3b8e936c258ec68aa4f83d789cd02147e1ffb24c426c9afadd3bc9bab9bb9f2d",
+      "target_sha256": "fd9ea5c3a014dd3a8c2861e8510cd4f9a59f07066b0ee2f8fbf41adbc6da102d"
+    },
+    {
+      "dataset": "aiops2022",
+      "opaque_incident_id": "INC-8BFCFB2E5E54",
+      "private_case_id_sha256": "8bfcfb2e5e5485dca174ac5f6c08be55693515e4e2fed30f3a85e598f8458bdc",
+      "stage_partition": "train",
+      "ceb_hash": "37da4004f9a20337e7c57bfc2d8047cca160689560ffd31986757ef77a9c91c0",
+      "fact_inventory_hash": "e16d5cb2f84128f8d473fe62218da18e5719fa0e24eeb9a3a3ec358fd216c64a",
+      "input_sha256": "d0f7f57d6b6d93b1c2ddf70c4ffda8c147e9c253d8eacf3030b930814d98017a",
+      "target_sha256": "373af067e30af51e5612cfca4840d30d540b6c7b7b0d867b64485ccfddc8bb6a"
+    },
+    {
+      "dataset": "aiops2025",
+      "opaque_incident_id": "INC-2E9DC5C4A090",
+      "private_case_id_sha256": "2e9dc5c4a090058b37199ea91798e4fc9f83fd04e689774cbcb22ee2e4d24acd",
+      "stage_partition": "train",
+      "ceb_hash": "1606bbac120b26f682cc95311321a7b054d646e14f2e0a2d19b01d7d9b9ee30e",
+      "fact_inventory_hash": "3bc34ee0710e85d879529089d07c66aa1a6852e375a99b3c3c9a788b9282ad18",
+      "input_sha256": "7f86a834b0682de1406cca96cc078fed32f0d1926e2d84ef86bc8885677a5e93",
+      "target_sha256": "50d9fcdf2e9faabe95b319be71ffb50567b9c69c90d66103fd3e203b7bba8bcf"
+    }
+  ],
+  "token_inventory": [
+    {
+      "opaque_incident_id": "INC-FC88448A9C8E",
+      "prompt_tokens": 14199,
+      "target_tokens": 84,
+      "total_tokens": 14283
+    },
+    {
+      "opaque_incident_id": "INC-8BFCFB2E5E54",
+      "prompt_tokens": 10288,
+      "target_tokens": 81,
+      "total_tokens": 10369
+    },
+    {
+      "opaque_incident_id": "INC-2E9DC5C4A090",
+      "prompt_tokens": 10525,
+      "target_tokens": 86,
+      "total_tokens": 10611
+    }
+  ],
+  "model_lock": {
+    "repo_id": "Qwen/Qwen3.6-27B",
+    "revision": "6a9e13bd6fc8f0983b9b99948120bc37f49c13e9",
+    "local_path": "/home/lglsj/CanvasRCA/models/Qwen3.6-27B",
+    "dtype": "bfloat16",
+    "quantization": null,
+    "weight_shards": 15,
+    "config_sha256": "69db4eb7196bc8190813231b3018ca05d8c2e3abc7b1af19d55c157af44a9d9c",
+    "index_sha256": "a8ad2c26fb707ff8c245806315b03e3b4b74595528492423af5dae0ce39b4d9b",
+    "tokenizer_config_sha256": "5186f0defcd7f232382c7f0aebcd2252d073bb921ab240e407b7ae8745d2b29b"
+  },
+  "canvasrca_git_head": "6ceb513fc560cdfc562370307760d794f294d543",
+  "working_tree_diff_sha256": "9d73cc558a3f0336b903f1c2bf66722224ce43e8c799eb8ab78a26af617e4c44",
+  "implementation_files": {
+    "RQs/vlmrca/training/train.py": "57c24b0ff33fc8190af2d9bb177afd5326c2901fae9920f881c921e730f9448b",
+    "RQs/vlmrca/training/causal_sft.py": "cff94b7ff28d6903a5095bcd41e1618937293fb13282301e4d8a87e35e12f232",
+    "RQs/vlmrca/rq0/evidence.py": "3c8c81713d75cc85b75725cbd30dd680dddce5a29cffc4dece37158b8514924e"
+  },
+  "environment": {
+    "python": "3.12.3 (main, Jun 19 2026, 12:46:00) [GCC 13.3.0]",
+    "packages": {
+      "torch": "2.9.1+cu128",
+      "transformers": "5.8.1",
+      "peft": "0.18.0",
+      "accelerate": "1.12.0",
+      "flash_attn": "2.8.3",
+      "flash-linear-attention": "0.5.2"
+    },
+    "torch_cuda": "12.8",
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Workstation Edition",
+    "gpu_total_memory_bytes": 102641500160,
+    "flash_linear_attention_available": true,
+    "causal_conv1d_available": false,
+    "process_co_residency": "no_project_vllm_server; display_processes_only"
+  },
+  "effective_training_config": {
+    "dtype": "bfloat16",
+    "quantization": null,
+    "attention_implementation": "flash_attention_2",
+    "gdn_backend": "flash-linear-attention-0.5.2",
+    "causal_conv1d_backend": "pytorch_fallback_no_local_nvcc",
+    "max_sequence_length": 16384,
+    "lora": {
+      "rank": 8,
+      "alpha": 16,
+      "dropout": 0.05,
+      "bias": "none",
+      "target_scope": "all_language_layer_linear_projections"
+    },
+    "training": {
+      "max_sequence_length": 16384,
+      "micro_batch_size": 1,
+      "gradient_accumulation_steps": 4,
+      "learning_rate": 0.0001,
+      "weight_decay": 0.0,
+      "warmup_ratio": 0.1,
+      "max_grad_norm": 1.0,
+      "optimizer": "adamw_torch_fused",
+      "gradient_checkpointing": true,
+      "seed": 42,
+      "pilot_max_optimizer_steps": 6,
+      "checkpoint_every_steps": 2
+    },
+    "mode_overrides": {
+      "gradient_accumulation_steps": 3,
+      "max_optimizer_steps": 1,
+      "result_root": "RQs/RQ0/results/causal_integration_sft_smoke_v1",
+      "checkpoint_root": "models/checkpoints/causal_integration_sft_smoke_v1"
+    }
+  },
+  "contract_migration": {
+    "migration_id": "rq_layout_migration_2026-07-31",
+    "manifest_path": "RQs/RQ0/configs/contract_migration_2026-07-31.json",
+    "metadata_only": true,
+    "execution_semantics_changed": false,
+    "configuration_paths_migrated": true,
+    "script_paths_migrated": true,
+    "result_paths_migrated": true,
+    "historical_experiments_deemed_executed_under_migrated_contract": true,
+    "contract_validity_preserved": true
+  }
+}

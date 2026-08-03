@@ -1,0 +1,198 @@
+[
+  {
+    "task_id": "metric_service",
+    "category": "metric_identity",
+    "question": "Which option is the service name shown in the title of panel [M7]?",
+    "options": [
+      {
+        "label": "A",
+        "text": "adservice2"
+      },
+      {
+        "label": "B",
+        "text": "paymentservice2-0"
+      },
+      {
+        "label": "C",
+        "text": "istio-egressgateway-7bfdcc9d86-22q7z"
+      },
+      {
+        "label": "D",
+        "text": "istio-ingressgateway-565bffd4d-4nr6v"
+      }
+    ],
+    "answer_label": "D",
+    "answer_value": "istio-ingressgateway-565bffd4d-4nr6v",
+    "visual_primitive": "M7",
+    "metadata": {}
+  },
+  {
+    "task_id": "metric_direction",
+    "category": "metric_pattern",
+    "question": "From the printed baseline-to-peak annotation beneath panel [M6], what is the direction of change?",
+    "options": [
+      {
+        "label": "A",
+        "text": "not shown"
+      },
+      {
+        "label": "B",
+        "text": "approximately unchanged"
+      },
+      {
+        "label": "C",
+        "text": "increase"
+      },
+      {
+        "label": "D",
+        "text": "decrease"
+      }
+    ],
+    "answer_label": "C",
+    "answer_value": "increase",
+    "visual_primitive": "M6",
+    "metadata": {}
+  },
+  {
+    "task_id": "propagation_rank",
+    "category": "topology_order",
+    "question": "Which service is printed at rank 1 in the Anomaly propagation panel?",
+    "options": [
+      {
+        "label": "A",
+        "text": "adservice2"
+      },
+      {
+        "label": "B",
+        "text": "istio-egressgateway"
+      },
+      {
+        "label": "C",
+        "text": "paymentservice"
+      },
+      {
+        "label": "D",
+        "text": "checkoutservice2"
+      }
+    ],
+    "answer_label": "C",
+    "answer_value": "paymentservice",
+    "visual_primitive": "P1",
+    "metadata": {
+      "rank": 1
+    }
+  },
+  {
+    "task_id": "propagation_onset",
+    "category": "topology_time",
+    "question": "What relative onset value is printed on the row for node-6 in the Anomaly propagation panel?",
+    "options": [
+      {
+        "label": "A",
+        "text": "+21.0m"
+      },
+      {
+        "label": "B",
+        "text": "+20.0m"
+      },
+      {
+        "label": "C",
+        "text": "+19.0m"
+      },
+      {
+        "label": "D",
+        "text": "+30.0m"
+      }
+    ],
+    "answer_label": "D",
+    "answer_value": "+30.0m",
+    "visual_primitive": "P1",
+    "metadata": {}
+  },
+  {
+    "task_id": "log_value",
+    "category": "table_log",
+    "question": "In the Log signals table, what value is printed in the during column for emailservice-1?",
+    "options": [
+      {
+        "label": "A",
+        "text": "7"
+      },
+      {
+        "label": "B",
+        "text": "9"
+      },
+      {
+        "label": "C",
+        "text": "104"
+      },
+      {
+        "label": "D",
+        "text": "51"
+      }
+    ],
+    "answer_label": "A",
+    "answer_value": "7",
+    "visual_primitive": "G1",
+    "metadata": {
+      "log_mode": "volume",
+      "column": "during"
+    }
+  },
+  {
+    "task_id": "trace_value",
+    "category": "table_trace",
+    "question": "In the Trace signals table, what compact value is printed in the during column for paymentservice2-0?",
+    "options": [
+      {
+        "label": "A",
+        "text": "49"
+      },
+      {
+        "label": "B",
+        "text": "0.01"
+      },
+      {
+        "label": "C",
+        "text": "0.16"
+      },
+      {
+        "label": "D",
+        "text": "0.66"
+      }
+    ],
+    "answer_label": "D",
+    "answer_value": "0.66",
+    "visual_primitive": "R1",
+    "metadata": {}
+  },
+  {
+    "task_id": "topology_edge",
+    "category": "topology_edge",
+    "question": "Which unordered service pair is joined by one of the visible curved arrows in the Anomaly propagation panel?",
+    "options": [
+      {
+        "label": "A",
+        "text": "checkoutservice2 ↔ paymentservice"
+      },
+      {
+        "label": "B",
+        "text": "adservice2 ↔ paymentservice"
+      },
+      {
+        "label": "C",
+        "text": "istio-egressgateway ↔ paymentservice"
+      },
+      {
+        "label": "D",
+        "text": "checkoutservice2 ↔ shippingservice2"
+      }
+    ],
+    "answer_label": "D",
+    "answer_value": "checkoutservice2 ↔ shippingservice2",
+    "visual_primitive": "P1",
+    "metadata": {
+      "variant": "pair"
+    }
+  }
+]

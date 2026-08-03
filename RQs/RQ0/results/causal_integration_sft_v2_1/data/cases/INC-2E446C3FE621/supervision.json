@@ -1,0 +1,48 @@
+{
+  "schema_version": "CausalIntegrationSFTV2",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "ts-user-service",
+  "hard_symptom_candidate": "ts-cancel-service",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "ts-cancel-service",
+    "ts-user-service"
+  ],
+  "root_evidence": {
+    "source": "metric",
+    "rank": 2,
+    "service": "ts-user-service",
+    "metric": "container.filesystem.usage",
+    "signed_z": -999.0,
+    "persistence_bins": 6,
+    "onset_rel_s": 243.406
+  },
+  "symptom_evidence": {
+    "rank": 9,
+    "service": "ts-cancel-service",
+    "onset_rel_s": 409.2,
+    "severity_z": 74.062,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "ts-user-service",
+      "ts-seat-service",
+      "ts-ticket-office-service",
+      "ts-cancel-service",
+      "mysql"
+    ],
+    "reason": "Rank ts-user-service first because ts-user-service has direct container.filesystem.usage evidence (signed-z -999, persistence 6 bins); although ts-cancel-service is salient, the caller path ts-cancel-service -> ts-user-service means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank ts-user-service first because ts-user-service has direct container.filesystem.usage evidence (signed-z -999, persistence 6 bins); although ts-cancel-service is salient, the caller path ts-cancel-service -> ts-user-service means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.\",\"services\":[\"ts-user-service\",\"ts-seat-service\",\"ts-ticket-office-service\",\"ts-cancel-service\",\"mysql\"]}",
+  "curriculum_role": "base_correct_preservation",
+  "base_predictions_private_training_only": [
+    "ts-user-service",
+    "ts-seat-service",
+    "ts-ticket-office-service"
+  ],
+  "base_top1_correct": true
+}

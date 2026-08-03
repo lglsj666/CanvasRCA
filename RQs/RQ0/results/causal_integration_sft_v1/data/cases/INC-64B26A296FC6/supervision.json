@@ -1,0 +1,39 @@
+{
+  "schema_version": "CausalIntegrationSFTV1",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "emailservice",
+  "hard_symptom_candidate": "redis-cart",
+  "contrast_type": "direct_root_evidence_over_onset_salience",
+  "caller_path": null,
+  "root_evidence": {
+    "source": "trace",
+    "rank": 1,
+    "service": "emailservice",
+    "summary": {
+      "service": "emailservice",
+      "p95_pre_ms": 1.1974999999999996,
+      "p95_during_ms": 0.8397999999999999,
+      "delta_pct": -29.9,
+      "error_pct": 0.0,
+      "spans": 172
+    }
+  },
+  "symptom_evidence": {
+    "rank": 1,
+    "service": "redis-cart",
+    "onset_rel_s": 960.0,
+    "severity_z": 53.447,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "emailservice",
+      "redis-cart"
+    ],
+    "reason": "Rank emailservice first because emailservice has direct trace evidence; redis-cart is second despite propagation rank 1 because onset ordering alone does not establish the causal origin.",
+    "confidence": "medium"
+  },
+  "target_text": "{\"confidence\":\"medium\",\"reason\":\"Rank emailservice first because emailservice has direct trace evidence; redis-cart is second despite propagation rank 1 because onset ordering alone does not establish the causal origin.\",\"services\":[\"emailservice\",\"redis-cart\"]}"
+}

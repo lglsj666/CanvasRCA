@@ -1,0 +1,27 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+.env
+# Rendered dashboards are large and regenerable from (case, DashboardConfig).
+results/**/renders/
+results/**/sbatch_logs/
+RQs/*/results/**/renders/
+RQs/*/results/**/sbatch_logs/
+# Content-addressed render cache (case + config fingerprint); regenerable.
+results/render_cache/
+RQs/*/results/render_cache/
+# Transient SLURM job-id handoff between submit and the bake-off watcher.
+.bakeoff_jobid
+/dataset
+/venvs
+/build
+/models
+/tests
+
+# RQ0 keeps complete local artifacts, but only compact reports/trajectories are
+# suitable for version control.
+/RQs/RQ0/results/rq0_equal_information_equal_compute_v1/**/evidence/
+/RQs/RQ0/results/rq0_equal_information_equal_compute_v1/**/conversations/
+/RQs/RQ0/results/rq0_equal_information_equal_compute_v1/**/logs/
+/RQs/RQ0/results/rq0_equal_information_equal_compute_v1/**/*_contact.png

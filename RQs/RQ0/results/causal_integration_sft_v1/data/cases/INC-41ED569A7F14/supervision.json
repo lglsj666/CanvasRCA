@@ -1,0 +1,38 @@
+{
+  "schema_version": "CausalIntegrationSFTV1",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "checkoutservice",
+  "hard_symptom_candidate": "frontend",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "frontend",
+    "checkoutservice"
+  ],
+  "root_evidence": {
+    "source": "metric",
+    "rank": 2,
+    "service": "checkoutservice",
+    "metric": "container-memory-mapped-file",
+    "signed_z": 961.055,
+    "persistence_bins": 32,
+    "onset_rel_s": 731.25
+  },
+  "symptom_evidence": {
+    "rank": 9,
+    "service": "frontend",
+    "onset_rel_s": 1234.8,
+    "severity_z": 40.0,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "checkoutservice",
+      "frontend"
+    ],
+    "reason": "Rank checkoutservice first because checkoutservice has direct container-memory-mapped-file evidence (signed-z 961.05, persistence 32 bins); although frontend is salient, the caller path frontend -> checkoutservice means a disturbance in the callee can propagate back toward that caller-side symptom.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank checkoutservice first because checkoutservice has direct container-memory-mapped-file evidence (signed-z 961.05, persistence 32 bins); although frontend is salient, the caller path frontend -> checkoutservice means a disturbance in the callee can propagate back toward that caller-side symptom.\",\"services\":[\"checkoutservice\",\"frontend\"]}"
+}

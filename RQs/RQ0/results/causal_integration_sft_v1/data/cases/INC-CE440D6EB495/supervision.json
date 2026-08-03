@@ -1,0 +1,37 @@
+{
+  "schema_version": "CausalIntegrationSFTV1",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "currencyservice-2",
+  "hard_symptom_candidate": "tidb-tidb",
+  "contrast_type": "direct_root_evidence_over_onset_salience",
+  "caller_path": null,
+  "root_evidence": {
+    "source": "log",
+    "rank": 1,
+    "service": "currencyservice-2",
+    "summary": {
+      "service": "currencyservice-2",
+      "error_logs": 2,
+      "total_logs": 313,
+      "error_pct": 0.64
+    }
+  },
+  "symptom_evidence": {
+    "rank": 1,
+    "service": "tidb-tidb",
+    "onset_rel_s": 900.0,
+    "severity_z": 999.0,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "currencyservice-2",
+      "tidb-tidb"
+    ],
+    "reason": "Rank currencyservice-2 first because currencyservice-2 has direct log evidence; tidb-tidb is second despite propagation rank 1 because onset ordering alone does not establish the causal origin.",
+    "confidence": "medium"
+  },
+  "target_text": "{\"confidence\":\"medium\",\"reason\":\"Rank currencyservice-2 first because currencyservice-2 has direct log evidence; tidb-tidb is second despite propagation rank 1 because onset ordering alone does not establish the causal origin.\",\"services\":[\"currencyservice-2\",\"tidb-tidb\"]}"
+}

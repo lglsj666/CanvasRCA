@@ -1,0 +1,198 @@
+[
+  {
+    "task_id": "metric_service",
+    "category": "metric_identity",
+    "question": "Which option is the service name shown in the title of panel [M8]?",
+    "options": [
+      {
+        "label": "A",
+        "text": "ts-food-delivery-service"
+      },
+      {
+        "label": "B",
+        "text": "ts-wait-order-service"
+      },
+      {
+        "label": "C",
+        "text": "ts-assurance-service"
+      },
+      {
+        "label": "D",
+        "text": "ts-delivery-service"
+      }
+    ],
+    "answer_label": "B",
+    "answer_value": "ts-wait-order-service",
+    "visual_primitive": "M8",
+    "metadata": {}
+  },
+  {
+    "task_id": "metric_direction",
+    "category": "metric_pattern",
+    "question": "From the printed baseline-to-peak annotation beneath panel [M8], what is the direction of change?",
+    "options": [
+      {
+        "label": "A",
+        "text": "decrease"
+      },
+      {
+        "label": "B",
+        "text": "not shown"
+      },
+      {
+        "label": "C",
+        "text": "increase"
+      },
+      {
+        "label": "D",
+        "text": "approximately unchanged"
+      }
+    ],
+    "answer_label": "C",
+    "answer_value": "increase",
+    "visual_primitive": "M8",
+    "metadata": {}
+  },
+  {
+    "task_id": "propagation_rank",
+    "category": "topology_order",
+    "question": "Which service is printed at rank 6 in the Anomaly propagation panel?",
+    "options": [
+      {
+        "label": "A",
+        "text": "ts-assurance-service"
+      },
+      {
+        "label": "B",
+        "text": "ts-admin-basic-info-service"
+      },
+      {
+        "label": "C",
+        "text": "ts-delivery-service"
+      },
+      {
+        "label": "D",
+        "text": "ts-wait-order-service"
+      }
+    ],
+    "answer_label": "C",
+    "answer_value": "ts-delivery-service",
+    "visual_primitive": "P1",
+    "metadata": {
+      "rank": 6
+    }
+  },
+  {
+    "task_id": "propagation_onset",
+    "category": "topology_time",
+    "question": "What relative onset value is printed on the row for ts-assurance-service in the Anomaly propagation panel?",
+    "options": [
+      {
+        "label": "A",
+        "text": "+5.2m"
+      },
+      {
+        "label": "B",
+        "text": "+5.1m"
+      },
+      {
+        "label": "C",
+        "text": "+4.1m"
+      },
+      {
+        "label": "D",
+        "text": "+5.4m"
+      }
+    ],
+    "answer_label": "C",
+    "answer_value": "+4.1m",
+    "visual_primitive": "P1",
+    "metadata": {}
+  },
+  {
+    "task_id": "log_value",
+    "category": "table_log",
+    "question": "In the Log signals table, what value is printed in the err column for ts-travel2-service?",
+    "options": [
+      {
+        "label": "A",
+        "text": "283"
+      },
+      {
+        "label": "B",
+        "text": "143"
+      },
+      {
+        "label": "C",
+        "text": "3151"
+      },
+      {
+        "label": "D",
+        "text": "4"
+      }
+    ],
+    "answer_label": "D",
+    "answer_value": "4",
+    "visual_primitive": "G1",
+    "metadata": {
+      "log_mode": "errors",
+      "column": "err"
+    }
+  },
+  {
+    "task_id": "trace_value",
+    "category": "table_trace",
+    "question": "In the Trace signals table, what compact value is printed in the during column for ts-travel2-service?",
+    "options": [
+      {
+        "label": "A",
+        "text": "210"
+      },
+      {
+        "label": "B",
+        "text": "18.7k"
+      },
+      {
+        "label": "C",
+        "text": "19.1k"
+      },
+      {
+        "label": "D",
+        "text": "29.5k"
+      }
+    ],
+    "answer_label": "B",
+    "answer_value": "18.7k",
+    "visual_primitive": "R1",
+    "metadata": {}
+  },
+  {
+    "task_id": "topology_edge",
+    "category": "topology_edge",
+    "question": "How many curved call-edge arrows are visible in the Anomaly propagation panel?",
+    "options": [
+      {
+        "label": "A",
+        "text": "1"
+      },
+      {
+        "label": "B",
+        "text": "0"
+      },
+      {
+        "label": "C",
+        "text": "2"
+      },
+      {
+        "label": "D",
+        "text": "3 or more"
+      }
+    ],
+    "answer_label": "B",
+    "answer_value": "0",
+    "visual_primitive": "P1",
+    "metadata": {
+      "variant": "count_zero"
+    }
+  }
+]

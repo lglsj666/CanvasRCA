@@ -1,0 +1,42 @@
+{
+  "schema_version": "CausalIntegrationSFTV1",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "emailservice-0",
+  "hard_symptom_candidate": "checkoutservice-0",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "checkoutservice",
+    "emailservice"
+  ],
+  "root_evidence": {
+    "source": "trace",
+    "rank": 8,
+    "service": "emailservice-0",
+    "summary": {
+      "service": "emailservice-0",
+      "p95_pre_ms": 0.238,
+      "p95_during_ms": 0.2492,
+      "delta_pct": 4.7,
+      "error_pct": 0.0,
+      "spans": 158
+    }
+  },
+  "symptom_evidence": {
+    "rank": 2,
+    "service": "checkoutservice",
+    "onset_rel_s": 1320.0,
+    "severity_z": 40.191,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "emailservice-0",
+      "checkoutservice-0"
+    ],
+    "reason": "Rank emailservice-0 first because emailservice-0 has direct trace evidence; although checkoutservice-0 is salient, the caller path checkoutservice -> emailservice means a disturbance in the callee can propagate back toward that caller-side symptom.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank emailservice-0 first because emailservice-0 has direct trace evidence; although checkoutservice-0 is salient, the caller path checkoutservice -> emailservice means a disturbance in the callee can propagate back toward that caller-side symptom.\",\"services\":[\"emailservice-0\",\"checkoutservice-0\"]}"
+}

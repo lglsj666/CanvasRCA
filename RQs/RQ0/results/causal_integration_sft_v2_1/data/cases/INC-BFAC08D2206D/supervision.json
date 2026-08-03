@@ -1,0 +1,50 @@
+{
+  "schema_version": "CausalIntegrationSFTV2",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "adservice",
+  "hard_symptom_candidate": "frontend-0",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "frontend",
+    "adservice"
+  ],
+  "root_evidence": {
+    "source": "metric",
+    "rank": 1,
+    "service": "adservice-0",
+    "metric": "istio_request_duration_milliseconds.grpc.200.0.0",
+    "signed_z": 999.0,
+    "persistence_bins": 0,
+    "onset_rel_s": null
+  },
+  "symptom_evidence": {
+    "rank": 3,
+    "service": "frontend",
+    "onset_rel_s": 1243.2,
+    "severity_z": 102.997,
+    "evidence_source": "trace"
+  },
+  "target_object": {
+    "services": [
+      "adservice",
+      "adservice2",
+      "frontend2-0",
+      "currencyservice-0",
+      "frontend-0"
+    ],
+    "reason": "Rank adservice first because adservice has direct istio_request_duration_milliseconds.grpc.200.0.0 evidence (signed-z 999, persistence 0 bins); although frontend-0 is salient, the caller path frontend -> adservice means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank adservice first because adservice has direct istio_request_duration_milliseconds.grpc.200.0.0 evidence (signed-z 999, persistence 0 bins); although frontend-0 is salient, the caller path frontend -> adservice means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.\",\"services\":[\"adservice\",\"adservice2\",\"frontend2-0\",\"currencyservice-0\",\"frontend-0\"]}",
+  "curriculum_role": "base_wrong_correction",
+  "base_predictions_private_training_only": [
+    "adservice2",
+    "adservice2-0",
+    "frontend2",
+    "frontend2-0",
+    "currencyservice"
+  ],
+  "base_top1_correct": false
+}

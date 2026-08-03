@@ -1,0 +1,52 @@
+{
+  "schema_version": "CausalIntegrationSFTV2",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "cartservice-0",
+  "hard_symptom_candidate": "frontend-0",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "frontend",
+    "cartservice"
+  ],
+  "root_evidence": {
+    "source": "log",
+    "rank": 4,
+    "service": "cartservice-0",
+    "summary": {
+      "service": "cartservice-0",
+      "error_logs": 96,
+      "total_logs": 42681,
+      "error_pct": 0.22
+    }
+  },
+  "symptom_evidence": {
+    "rank": 1,
+    "service": "frontend",
+    "onset_rel_s": 1200.0,
+    "severity_z": 999.0,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "cartservice-0",
+      "cartservice-2",
+      "cartservice-1",
+      "checkoutservice-0",
+      "frontend-0"
+    ],
+    "reason": "Rank cartservice-0 first because cartservice-0 has direct log evidence; although frontend-0 is salient, the caller path frontend -> cartservice means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank cartservice-0 first because cartservice-0 has direct log evidence; although frontend-0 is salient, the caller path frontend -> cartservice means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.\",\"services\":[\"cartservice-0\",\"cartservice-2\",\"cartservice-1\",\"checkoutservice-0\",\"frontend-0\"]}",
+  "curriculum_role": "base_correct_preservation",
+  "base_predictions_private_training_only": [
+    "cartservice",
+    "cartservice-2",
+    "cartservice-0",
+    "cartservice-1",
+    "checkoutservice"
+  ],
+  "base_top1_correct": true
+}

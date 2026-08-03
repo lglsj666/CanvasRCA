@@ -1,0 +1,56 @@
+{
+  "schema_version": "RQ0V7EdgeKeyCaseIntegrationV1",
+  "scope": "development_only_nonconfirmatory_renderer_intervention",
+  "n_calls": 24,
+  "conditions": {
+    "v6_curved": {
+      "n": 12,
+      "parse_rate": 1.0,
+      "error_rate": 0.0,
+      "mrr": 0.3541666666666667,
+      "ac1": 0.3333333333333333,
+      "ac3": 0.3333333333333333,
+      "ac5": 0.4166666666666667,
+      "avg3": 0.3333333333333333,
+      "avg5": 0.3666666666666667,
+      "mean_input_tokens": 10546.416666666666,
+      "mean_output_tokens": 117.0,
+      "mean_total_tokens": 10663.416666666666,
+      "mean_wall_time_s": 8.733162166666666
+    },
+    "v7_large_edge_key": {
+      "n": 12,
+      "parse_rate": 1.0,
+      "error_rate": 0.0,
+      "mrr": 0.3333333333333333,
+      "ac1": 0.3333333333333333,
+      "ac3": 0.3333333333333333,
+      "ac5": 0.3333333333333333,
+      "avg3": 0.3333333333333333,
+      "avg5": 0.3333333333333333,
+      "mean_input_tokens": 10938.416666666666,
+      "mean_output_tokens": 110.5,
+      "mean_total_tokens": 11048.916666666666,
+      "mean_wall_time_s": 8.447967833333333
+    }
+  },
+  "paired": {
+    "n": 12,
+    "mean_delta_mrr_v7_minus_v6": -0.020833333333333332,
+    "improved": 0,
+    "degraded": 1,
+    "tied": 11,
+    "top1_changed": 1,
+    "status_counts": {
+      "success": 24
+    },
+    "no_truncation": true,
+    "server_token_count_match": true,
+    "prompt_text_hash_paired": true
+  },
+  "model": "qwen3.6-27b",
+  "replicate": "main",
+  "requested_calls": 24,
+  "complete": true,
+  "artifact_roster_sha256": "94a285066a267fe2599814130a93b07a90c7ddf949c289e4a55287147e42a3e4"
+}

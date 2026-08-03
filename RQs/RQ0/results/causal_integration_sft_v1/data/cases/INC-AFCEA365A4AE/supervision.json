@@ -1,0 +1,38 @@
+{
+  "schema_version": "CausalIntegrationSFTV1",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "productcatalogservice",
+  "hard_symptom_candidate": "recommendationservice",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "recommendationservice",
+    "productcatalogservice"
+  ],
+  "root_evidence": {
+    "source": "metric",
+    "rank": 1,
+    "service": "productcatalogservice",
+    "metric": "container-memory-mapped-file",
+    "signed_z": 999.0,
+    "persistence_bins": 32,
+    "onset_rel_s": 731.25
+  },
+  "symptom_evidence": {
+    "rank": 1,
+    "service": "recommendationservice",
+    "onset_rel_s": 735.0,
+    "severity_z": 120.127,
+    "evidence_source": "trace"
+  },
+  "target_object": {
+    "services": [
+      "productcatalogservice",
+      "recommendationservice"
+    ],
+    "reason": "Rank productcatalogservice first because productcatalogservice has direct container-memory-mapped-file evidence (signed-z 999, persistence 32 bins); although recommendationservice is salient, the caller path recommendationservice -> productcatalogservice means a disturbance in the callee can propagate back toward that caller-side symptom.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank productcatalogservice first because productcatalogservice has direct container-memory-mapped-file evidence (signed-z 999, persistence 32 bins); although recommendationservice is salient, the caller path recommendationservice -> productcatalogservice means a disturbance in the callee can propagate back toward that caller-side symptom.\",\"services\":[\"productcatalogservice\",\"recommendationservice\"]}"
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": "CausalIntegrationSFTV1",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "emailservice-1",
+  "hard_symptom_candidate": "checkoutservice-0",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "checkoutservice",
+    "emailservice"
+  ],
+  "root_evidence": {
+    "source": "metric",
+    "rank": 4,
+    "service": "emailservice-1",
+    "metric": "container_fs_inodes./dev/vda1",
+    "signed_z": 999.0,
+    "persistence_bins": 0,
+    "onset_rel_s": null
+  },
+  "symptom_evidence": {
+    "rank": 10,
+    "service": "checkoutservice",
+    "onset_rel_s": 1740.0,
+    "severity_z": 44.608,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "emailservice-1",
+      "checkoutservice-0"
+    ],
+    "reason": "Rank emailservice-1 first because emailservice-1 has direct container_fs_inodes./dev/vda1 evidence (signed-z 999, persistence 0 bins); although checkoutservice-0 is salient, the caller path checkoutservice -> emailservice means a disturbance in the callee can propagate back toward that caller-side symptom.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank emailservice-1 first because emailservice-1 has direct container_fs_inodes./dev/vda1 evidence (signed-z 999, persistence 0 bins); although checkoutservice-0 is salient, the caller path checkoutservice -> emailservice means a disturbance in the callee can propagate back toward that caller-side symptom.\",\"services\":[\"emailservice-1\",\"checkoutservice-0\"]}"
+}

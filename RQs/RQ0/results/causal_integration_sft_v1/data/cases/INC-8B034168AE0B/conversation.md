@@ -1,0 +1,126 @@
+# System
+
+You are an expert Site Reliability Engineer performing Root Cause Analysis (RCA) for a microservice application deployed on a Kubernetes cluster. A fault has occurred in the system. Your task is to identify the root cause of the incident.
+
+Root causes can occur at three levels:
+- Pod level: a specific container replica (e.g., "cartservice-0")
+- Service level: a microservice type (e.g., "paymentservice") — predict any pod of that service
+- Node level: an infrastructure host (e.g., "node-6") — nodes appear as isolated entities with system metrics (CPU, memory, network, disk) but no application logs or traces
+
+The system consists of multiple services communicating over HTTP/gRPC, running on shared infrastructure nodes. A fault in one component (pod, service, or node) can propagate to dependent components, causing them to appear degraded even though they are not the root cause.
+
+Node-level faults (e.g., host memory exhaustion, CPU saturation, disk I/O) often manifest as correlated anomalies across multiple pods. If several unrelated pods show simultaneous degradation and a node shows critical system-level metrics, the node is likely the root cause.
+
+Focus on distinguishing the ORIGIN of the fault from its SYMPTOMS in downstream or co-located components.
+
+# User
+
+[image: dashboard.png]
+
+Analyze this incident using only the supplied evidence. Rank the most likely
+root-cause components, distinguishing the origin from propagated symptoms.
+
+Evidence semantics shared by all representations:
+- candidates are exhaustive and appear in a fixed alphabetical order;
+- every metric has 64 equal-width bins from window start t=0; null means no
+  observed sample in that bin and observed_count gives the number aggregated;
+- shared_bin_centers_rel_s applies to all metric series; missing_mask_bits uses
+  one bit per bin (1=missing, 0=observed); observed_counts_compact is either a
+  comma-separated integer vector prefixed csv: or value*run pairs prefixed rle:;
+- values_compact is lossless: raw: is a JSON vector, rle: is value*run pairs,
+  and delta: stores the first observed value followed by cumulative deltas;
+  missing_mask_bits restores null positions for delta encoding;
+- signed_z is relative to the pre-incident baseline; onset and persistence are
+  deterministic label-blind anomaly summaries;
+- a directed edge A -> B means A calls B, so a disturbance in B can propagate
+  back to A;
+- propagation ranks are ordered by relative onset, not by causal likelihood;
+- source t/trace and m/metric use different instruments and their z magnitudes
+  must not be compared directly.
+
+
+=== INCIDENT ===
+schema_version: CanonicalEvidenceBundleV1
+opaque_id: INC-8B034168AE0B
+observation_window={"duration_rel_s":1440.0,"source_metric_rows":1441}
+selection_summary={"candidate_count":17,"hot_z_threshold":10.0,"metric_ranker":"ksigma","metric_series_scored":261,"metric_series_shown":12}
+
+=== CANDIDATES (fixed order) ===
+["adservice","cartservice","checkoutservice","currencyservice","emailservice","frontend","frontend-external","gke-gke-cluster-default-pool-2e1807ce-0e4z","gke-gke-cluster-default-pool-2e1807ce-cx8g","gke-gke-cluster-default-pool-2e1807ce-w819","gke-gke-cluster-default-pool-2e1807ce-xte3","loadgenerator","paymentservice","productcatalogservice","recommendationservice","redis","shippingservice"]
+
+=== METRIC SERIES (all 64 bins; null=missing) ===
+shared_bin_centers_rel_s=[11.25,33.75,56.25,78.75,101.25,123.75,146.25,168.75,191.25,213.75,236.25,258.75,281.25,303.75,326.25,348.75,371.25,393.75,416.25,438.75,461.25,483.75,506.25,528.75,551.25,573.75,596.25,618.75,641.25,663.75,686.25,708.75,731.25,753.75,776.25,798.75,821.25,843.75,866.25,888.75,911.25,933.75,956.25,978.75,1001.25,1023.75,1046.25,1068.75,1091.25,1113.75,1136.25,1158.75,1181.25,1203.75,1226.25,1248.75,1271.25,1293.75,1316.25,1338.75,1361.25,1383.75,1406.25,1428.75]
+[M1] rank=1 service=checkoutservice metric=istio-latency-90 baseline=0.222487 peak=19.333333 signed_z=999.0 onset_bin=33 onset_rel_s=753.75 persistence_bins=31
+values_compact=raw:[0.22375,0.223947,0.225217,0.234583,0.2314,0.18,0.21,0.219118,0.22225,0.225455,0.236875,0.24,0.2225,0.222885,0.219375,0.219444,0.219348,0.221304,0.2278,0.224773,0.224565,0.217391,0.198571,0.205,0.220938,0.22,0.214643,0.224091,0.237857,0.2355,0.2375,0.236364,0.23375,0.516667,0.80625,0.95,0.95,0.916667,1.374998,0.92,0.942857,1.728565,4.083333,4.958335,4.166667,3.333333,0.866667,0.92,0.99375,1.964286,1.9875,1.835714,1.6,0.85,0.966667,0.9,0.73125,0.829167,0.93125,1.6,18.666667,15.0,0.820833,0.9]
+missing_mask_bits=0000000000000000000000000000000000000000000000000000000000000000
+observed_counts_compact=csv:23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,23
+[M2] rank=2 service=frontend metric=istio-latency-90 baseline=0.203997 peak=50.58 signed_z=999.0 onset_bin=33 onset_rel_s=753.75 persistence_bins=31
+values_compact=raw:[0.211294,0.193852,0.193607,0.212056,0.207242,0.182434,0.196897,0.196537,0.193207,0.18738,0.191394,0.197071,0.213027,0.232703,0.219848,0.190197,0.191868,0.214837,0.212716,0.202394,0.216277,0.210558,0.19605,0.189934,0.181,0.199856,0.206322,0.21592,0.228869,0.224623,0.217666,0.199846,0.193341,0.973214,1.737395,3.59,3.758065,2.488767,1.894611,2.452778,2.899533,2.16807,1.862013,2.23681,2.264525,6.55263,7.768987,5.284091,21.08,12.06,3.627551,3.199074,1.635526,50.58,39.84,3.055769,2.465461,1.915132,2.02619,2.332031,2.320221,4.775316,4.220238,2.146094]
+missing_mask_bits=0000000000000000000000000000000000000000000000000000000000000000
+observed_counts_compact=csv:23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,15,17,23,22,23,22,23,22,23,22,23,23
+[M3] rank=3 service=recommendationservice metric=istio-latency-90 baseline=0.009572 peak=0.193261 signed_z=999.0 onset_bin=33 onset_rel_s=753.75 persistence_bins=31
+values_compact=raw:[0.00964,0.009546,0.00951,0.009531,0.009546,0.009556,0.009553,0.009563,0.009579,0.009549,0.009528,0.009548,0.009672,0.009654,0.009576,0.009566,0.009524,0.009575,0.00966,0.009659,0.009683,0.009636,0.009541,0.009555,0.009551,0.009551,0.009558,0.009581,0.009558,0.009526,0.009515,0.009506,0.009637,0.017384,0.023653,0.02368,0.022392,0.021078,0.018516,0.023848,0.060349,0.023207,0.022184,0.023357,0.022997,0.029674,0.163231,0.193261,0.127439,0.047016,0.024259,0.045682,0.025,0.15625,0.080784,0.022861,0.021147,0.021525,0.021812,0.021599,0.022307,0.041316,0.036719,0.022609]
+missing_mask_bits=0000000000000000000000000000000000000000000000000000000000000000
+observed_counts_compact=csv:23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,13,20,23,22,23,22,23,22,23,22,23,23
+[M4] rank=4 service=currencyservice metric=istio-latency-95 baseline=0.074542 peak=43.8 signed_z=999.0 onset_bin=33 onset_rel_s=753.75 persistence_bins=31
+values_compact=raw:[0.075428,0.070126,0.073694,0.076182,0.074619,0.066508,0.069617,0.072158,0.073218,0.068629,0.068961,0.072915,0.076135,0.081522,0.080384,0.072218,0.069283,0.076905,0.07674,0.076253,0.076487,0.073799,0.072806,0.069819,0.064967,0.075954,0.077316,0.077565,0.081817,0.083424,0.082281,0.077372,0.073349,0.248131,0.828794,1.971429,1.837392,1.530357,0.798922,1.225,1.597321,0.952127,0.834746,1.052225,0.792672,3.734375,5.27459,3.973214,15.86,3.439394,1.89,0.851116,0.249326,42.99,4.698529,1.4875,1.295,0.97161,1.132955,1.421875,1.050625,2.314063,2.123636,1.179741]
+missing_mask_bits=0000000000000000000000000000000000000000000000000000000000000000
+observed_counts_compact=csv:23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,23
+[M5] rank=5 service=frontend metric=istio-latency-95 baseline=0.242535 peak=55.29 signed_z=999.0 onset_bin=33 onset_rel_s=753.75 persistence_bins=31
+values_compact=raw:[0.242448,0.22893,0.22896,0.243571,0.238763,0.220164,0.234498,0.23144,0.226766,0.22655,0.230321,0.232126,0.245576,0.343966,0.249571,0.229309,0.22478,0.242211,0.244308,0.235463,0.248032,0.246713,0.234055,0.227172,0.220384,0.232509,0.236297,0.24976,0.333468,0.28375,0.247243,0.237478,0.231898,1.698138,2.326681,6.284483,4.997312,3.839489,2.358982,3.734012,3.996495,2.752234,2.361201,3.547169,3.558962,8.320175,8.947785,7.755682,25.54,21.03,4.82398,4.469907,2.067763,55.29,49.92,4.047115,3.730053,2.253618,2.334524,3.480903,3.744141,7.464744,6.614865,2.786765]
+missing_mask_bits=0000000000000000000000000000000000000000000000000000000000000000
+observed_counts_compact=csv:23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,15,17,23,22,23,22,23,22,23,22,23,23
+[M6] rank=6 service=recommendationservice metric=istio-latency-95 baseline=0.009834 peak=0.244457 signed_z=999.0 onset_bin=33 onset_rel_s=753.75 persistence_bins=31
+values_compact=raw:[0.009902,0.009804,0.009767,0.009789,0.009809,0.009819,0.009812,0.009821,0.009837,0.009808,0.009785,0.009806,0.009937,0.009921,0.009837,0.009826,0.009782,0.009838,0.009928,0.009927,0.009953,0.009904,0.009805,0.009822,0.009815,0.009812,0.009821,0.009846,0.00982,0.009785,0.009779,0.009768,0.009897,0.02242,0.065577,0.0675,0.024878,0.023901,0.021969,0.071927,0.099803,0.07842,0.047337,0.048804,0.04275,0.125625,0.222769,0.244457,0.18872,0.118309,0.078583,0.097625,0.1,0.207812,0.139324,0.067786,0.024466,0.024615,0.024751,0.024971,0.047895,0.088529,0.085855,0.05625]
+missing_mask_bits=0000000000000000000000000000000000000000000000000000000000000000
+observed_counts_compact=csv:23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,13,20,23,22,23,22,23,22,23,22,23,23
+[M7] rank=7 service=currencyservice metric=istio-latency-99 baseline=0.095223 peak=56.76 signed_z=999.0 onset_bin=33 onset_rel_s=753.75 persistence_bins=31
+values_compact=raw:[0.095433,0.094025,0.095188,0.09565,0.094924,0.093302,0.093923,0.094432,0.094644,0.093726,0.093792,0.094583,0.095702,0.09663,0.096428,0.094975,0.093857,0.096016,0.096005,0.095355,0.0954,0.095,0.094806,0.093964,0.092993,0.095294,0.095561,0.097095,0.09774,0.097542,0.097434,0.095582,0.094797,0.921375,4.917177,7.172727,3.229999,2.636765,1.925862,3.455208,3.446875,2.460202,2.4125,3.348715,2.363973,8.73,9.054918,7.921875,27.172,24.352,4.327358,3.942578,0.798495,56.598,53.754,3.825,3.375,2.17087,2.226591,3.373913,4.094565,8.394118,7.56875,3.284524]
+missing_mask_bits=0000000000000000000000000000000000000000000000000000000000000000
+observed_counts_compact=csv:23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,23
+[M8] rank=8 service=cartservice metric=istio-bytes-90 baseline=0.24727 peak=1.6 signed_z=999.0 onset_bin=51 onset_rel_s=1158.75 persistence_bins=5
+values_compact=raw:[0.247202,0.247218,0.247374,0.24725,0.247203,0.247355,0.247297,0.247302,0.247273,0.247074,0.247273,0.247506,0.247135,0.247284,0.247308,0.24712,0.247341,0.247318,0.247139,0.247224,0.247412,0.247318,0.247239,0.247344,0.247321,0.247076,0.247165,0.247223,0.247285,0.247405,0.247397,0.247199,0.247236,0.247246,0.247211,0.247143,0.247214,0.247452,0.247067,0.246978,0.247391,0.247437,0.247286,0.247445,0.247021,0.247135,0.247186,0.247106,0.248231,0.247347,0.247183,0.246101,1.1,0.248425,0.246966,0.247301,0.247409,0.247232,0.247218,0.247108,0.246806,0.247621,0.24785,0.247244]
+missing_mask_bits=0000000000000000000000000000000000000000000000000000000000000000
+observed_counts_compact=csv:23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,23
+[M9] rank=9 service=currencyservice metric=istio-bytes-90 baseline=0.244466 peak=1.59628 signed_z=999.0 onset_bin=33 onset_rel_s=753.75 persistence_bins=31
+values_compact=raw:[0.244545,0.244564,0.244372,0.244469,0.244545,0.244563,0.244518,0.244406,0.244508,0.244484,0.244507,0.244486,0.244464,0.244406,0.244561,0.244661,0.244409,0.244512,0.244461,0.244483,0.244429,0.24435,0.244513,0.24463,0.244432,0.244456,0.244381,0.244336,0.24459,0.244448,0.244341,0.244568,0.24447,0.241026,0.236249,0.098384,0.098351,0.098501,0.098526,0.098394,0.098404,0.098371,0.098394,0.098417,0.243408,0.098387,0.098175,0.098176,0.098446,0.098393,0.098326,0.23586,1.066419,0.098024,0.098118,0.098477,0.098493,0.098403,0.09841,0.098467,0.09851,0.098411,0.09844,0.098539]
+missing_mask_bits=0000000000000000000000000000000000000000000000000000000000000000
+observed_counts_compact=csv:23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,23
+[M10] rank=10 service=productcatalogservice metric=istio-bytes-90 baseline=0.2457 peak=1.6 signed_z=999.0 onset_bin=51 onset_rel_s=1158.75 persistence_bins=4
+values_compact=raw:[0.2457,0.245479,0.245254,0.246067,0.246229,0.245569,0.245316,0.245746,0.245755,0.245401,0.245757,0.246298,0.245415,0.245721,0.245391,0.245299,0.245822,0.245373,0.245656,0.246105,0.245478,0.245835,0.245813,0.245333,0.246055,0.245897,0.245876,0.245506,0.245194,0.245536,0.245829,0.246095,0.245376,0.245675,0.246009,0.245818,0.245683,0.245866,0.245718,0.245574,0.246024,0.245077,0.245284,0.246883,0.245594,0.246381,0.24677,0.247034,0.24575,0.244238,0.245474,0.247583,1.089849,0.237948,0.243799,0.245769,0.245668,0.245546,0.245799,0.246148,0.245998,0.2453,0.245696,0.246411]
+missing_mask_bits=0000000000000000000000000000000000000000000000000000000000000000
+observed_counts_compact=csv:23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,23
+[M11] rank=11 service=adservice metric=istio-bytes-99 baseline=2.320086 peak=0.22 signed_z=-999.0 onset_bin=52 onset_rel_s=1181.25 persistence_bins=3
+values_compact=raw:[2.319737,2.320508,2.319492,2.319727,2.318019,2.320833,2.322222,2.318636,2.320259,2.32181,2.318364,2.316831,2.320818,2.320522,2.321875,2.321579,2.32,2.321525,2.32,2.317222,2.318091,2.322632,2.322411,2.318868,2.317222,2.319483,2.321579,2.321579,2.321034,2.317672,2.320789,2.322069,2.321,2.318302,2.310122,2.32439,2.325426,2.318696,2.3206,2.318696,2.321047,2.323133,2.320306,2.32489,2.327041,2.319143,2.309688,2.321429,2.323571,2.318537,2.325114,2.325556,2.328182,2.311562,2.313906,2.320319,2.3225,2.319423,2.318525,2.321277,2.324004,2.318571,2.32125,2.319674]
+missing_mask_bits=0000000000000000000000000000000000000000000000000000000000000000
+observed_counts_compact=csv:23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,13,18,23,22,23,22,23,22,23,22,23,23
+[M12] rank=12 service=currencyservice metric=istio-bytes-99 baseline=2.319995 peak=0.0995 signed_z=-999.0 onset_bin=33 onset_rel_s=753.75 persistence_bins=31
+values_compact=raw:[2.32026,2.320404,2.319595,2.320192,2.320356,2.320486,2.320323,2.319497,2.320047,2.319851,2.320051,2.320059,2.320164,2.319948,2.320453,2.321101,2.319645,2.320203,2.320051,2.32,2.319752,2.319283,2.32015,2.32086,2.319719,2.319952,2.319757,2.319402,2.320723,2.319909,2.319417,2.320798,2.319947,2.300592,2.27327,0.228552,0.228357,0.22922,0.229359,0.228611,0.228668,0.228476,0.228611,0.228748,2.314156,0.228569,0.227243,0.22725,0.22891,0.228606,0.228204,2.270593,2.356642,0.226176,0.226851,0.229086,0.229175,0.228664,0.228708,0.229028,0.22927,0.228709,0.228877,0.229425]
+missing_mask_bits=0000000000000000000000000000000000000000000000000000000000000000
+observed_counts_compact=csv:23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,22,23,23
+
+=== ESTIMATED FAULT WINDOW (relative seconds) ===
+[1007.0,1127.0]
+
+=== LOG SUMMARY ===
+{"entries":[{"error_logs":16,"error_pct":0.03,"service":"frontend","total_logs":55333}],"mode":"errors","omitted_services":9,"service_count":10}
+=== TRACE SUMMARY ===
+{"entries":[{"delta_pct":1279.2,"error_pct":0.0,"p95_during_ms":86.87899999999993,"p95_pre_ms":6.299249999999989,"service":"recommendationservice","spans":24008},{"delta_pct":456.2,"error_pct":0.0,"p95_during_ms":1351.6324999999988,"p95_pre_ms":242.99025,"service":"frontend","spans":180513},{"delta_pct":184.5,"error_pct":0.0,"p95_during_ms":548.79425,"p95_pre_ms":192.91825,"service":"checkoutservice","spans":8052},{"delta_pct":-31.8,"error_pct":0.0,"p95_during_ms":0.256,"p95_pre_ms":0.3755499999999994,"service":"paymentservice","spans":863},{"delta_pct":16.7,"error_pct":0.0,"p95_during_ms":0.028,"p95_pre_ms":0.024,"service":"productcatalogservice","spans":90118},{"delta_pct":10.9,"error_pct":0.0,"p95_during_ms":0.296,"p95_pre_ms":0.267,"service":"currencyservice","spans":49598},{"delta_pct":-4.1,"error_pct":0.0,"p95_during_ms":0.4127999999999999,"p95_pre_ms":0.43025,"service":"emailservice","spans":1151}],"omitted_services":0,"service_count":7}
+
+=== PROPAGATION SERVICES ===
+mode=onset omitted_services=3 omitted_edges=1
+[{"evidence_source":"metric","onset_rel_s":766.8,"rank":1,"service":"gke-gke-cluster-default-pool-2e1807ce-0e4z","severity_z":24.009},{"evidence_source":"metric","onset_rel_s":768.0,"rank":2,"service":"gke-gke-cluster-default-pool-2e1807ce-xte3","severity_z":23.056},{"evidence_source":"metric","onset_rel_s":769.2,"rank":3,"service":"gke-gke-cluster-default-pool-2e1807ce-cx8g","severity_z":23.658},{"evidence_source":"metric","onset_rel_s":949.8,"rank":4,"service":"emailservice","severity_z":69.517},{"evidence_source":"trace","onset_rel_s":1035.0,"rank":5,"service":"recommendationservice","severity_z":4.853},{"evidence_source":"trace","onset_rel_s":1155.0,"rank":6,"service":"productcatalogservice","severity_z":999.0},{"evidence_source":"metric","onset_rel_s":1168.2,"rank":7,"service":"cartservice","severity_z":999.0},{"evidence_source":"metric","onset_rel_s":1182.0,"rank":8,"service":"adservice","severity_z":999.0},{"evidence_source":"metric","onset_rel_s":1183.2,"rank":9,"service":"shippingservice","severity_z":176.752},{"evidence_source":"metric","onset_rel_s":1192.2,"rank":10,"service":"paymentservice","severity_z":91.436},{"evidence_source":"metric","onset_rel_s":1198.2,"rank":11,"service":"currencyservice","severity_z":999.0},{"evidence_source":"metric","onset_rel_s":1198.2,"rank":12,"service":"frontend","severity_z":999.0},{"evidence_source":"trace","onset_rel_s":1335.0,"rank":13,"service":"checkoutservice","severity_z":36.426},{"evidence_source":"metric","onset_rel_s":1423.2,"rank":14,"service":"frontend-external","severity_z":223.004}]
+=== DIRECTED CALL EDGES (caller -> callee) ===
+[{"callee":"currencyservice","caller":"checkoutservice"},{"callee":"emailservice","caller":"checkoutservice"},{"callee":"paymentservice","caller":"checkoutservice"},{"callee":"productcatalogservice","caller":"checkoutservice"},{"callee":"checkoutservice","caller":"frontend"},{"callee":"currencyservice","caller":"frontend"},{"callee":"productcatalogservice","caller":"frontend"},{"callee":"recommendationservice","caller":"frontend"},{"callee":"productcatalogservice","caller":"recommendationservice"}]
+
+=== EXPLICIT MISSINGNESS ===
+{"logs_missing":false,"propagation_missing":false,"traces_missing":false}
+
+Return only one JSON object, with no analysis, preamble, markdown, or code fence:
+{"services":["name1","name2","name3"],"reason":"one sentence citing the strongest metric/log/topology evidence","confidence":"high|medium|low"}
+The services array must be ranked, contain at most five exact candidate
+identifiers, and put the most likely root cause first.
+
+# Assistant target
+
+{"confidence":"high","reason":"Rank currencyservice first because currencyservice has direct istio-latency-95 evidence (signed-z 999, persistence 31 bins); although frontend is salient, the caller path frontend -> currencyservice means a disturbance in the callee can propagate back toward that caller-side symptom.","services":["currencyservice","frontend"]}

@@ -1,0 +1,50 @@
+{
+  "schema_version": "CausalIntegrationSFTV2",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "shippingservice-0",
+  "hard_symptom_candidate": "checkoutservice-0",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "checkoutservice",
+    "shippingservice"
+  ],
+  "root_evidence": {
+    "source": "metric",
+    "rank": 11,
+    "service": "shippingservice-0",
+    "metric": "container_memory_rss",
+    "signed_z": 249.047,
+    "persistence_bins": 4,
+    "onset_rel_s": 1151.719
+  },
+  "symptom_evidence": {
+    "rank": 10,
+    "service": "checkoutservice",
+    "onset_rel_s": 1779.6,
+    "severity_z": 262.267,
+    "evidence_source": "trace"
+  },
+  "target_object": {
+    "services": [
+      "shippingservice-0",
+      "adservice2",
+      "node-4",
+      "checkoutservice2-0",
+      "paymentservice2-0"
+    ],
+    "reason": "Rank shippingservice-0 first because shippingservice-0 has direct container_memory_rss evidence (signed-z 249.05, persistence 4 bins); although checkoutservice-0 is salient, the caller path checkoutservice -> shippingservice means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank shippingservice-0 first because shippingservice-0 has direct container_memory_rss evidence (signed-z 249.05, persistence 4 bins); although checkoutservice-0 is salient, the caller path checkoutservice -> shippingservice means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.\",\"services\":[\"shippingservice-0\",\"adservice2\",\"node-4\",\"checkoutservice2-0\",\"paymentservice2-0\"]}",
+  "curriculum_role": "base_wrong_correction",
+  "base_predictions_private_training_only": [
+    "adservice2",
+    "shippingservice-0",
+    "node-4",
+    "checkoutservice2",
+    "paymentservice2-0"
+  ],
+  "base_top1_correct": false
+}

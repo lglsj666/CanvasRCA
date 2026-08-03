@@ -1,0 +1,35 @@
+{
+  "schema_version": "CausalIntegrationSFTV1",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "ts-auth-service",
+  "hard_symptom_candidate": "ts-travel-service",
+  "contrast_type": "direct_root_evidence_over_onset_salience",
+  "caller_path": null,
+  "root_evidence": {
+    "source": "metric",
+    "rank": 1,
+    "service": "ts-auth-service-6477f4967c-l9mwz",
+    "metric": "k8s.container.restarts",
+    "signed_z": 999.0,
+    "persistence_bins": 24,
+    "onset_rel_s": 243.618
+  },
+  "symptom_evidence": {
+    "rank": 1,
+    "service": "ts-travel-service",
+    "onset_rel_s": 234.6,
+    "severity_z": 21.78,
+    "evidence_source": "trace"
+  },
+  "target_object": {
+    "services": [
+      "ts-auth-service",
+      "ts-travel-service"
+    ],
+    "reason": "Rank ts-auth-service first because ts-auth-service has direct k8s.container.restarts evidence (signed-z 999, persistence 24 bins); ts-travel-service is second despite propagation rank 1 because onset ordering alone does not establish the causal origin.",
+    "confidence": "medium"
+  },
+  "target_text": "{\"confidence\":\"medium\",\"reason\":\"Rank ts-auth-service first because ts-auth-service has direct k8s.container.restarts evidence (signed-z 999, persistence 24 bins); ts-travel-service is second despite propagation rank 1 because onset ordering alone does not establish the causal origin.\",\"services\":[\"ts-auth-service\",\"ts-travel-service\"]}"
+}

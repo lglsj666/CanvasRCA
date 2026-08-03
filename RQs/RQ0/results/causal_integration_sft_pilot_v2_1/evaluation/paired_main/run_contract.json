@@ -1,0 +1,63 @@
+{
+  "schema_version": "CausalIntegrationSFTPilotEvalContractV1",
+  "scope": "development_only_nonconfirmatory_model_selection",
+  "config_sha256": "bbbf4f12931f4ebe3fe9e814520e011e25804fef862ad94372b1cf8876954eb8",
+  "roster_sha256": "3170e8acf21bfc1ca9b377c07df2350756938500051f79f7087548494053d239",
+  "selection_sha256": "e43d1f359b155cd6bd0c919cf675e5386622f1346463488f4a0225de887c42ec",
+  "adapter_path": "/home/lglsj/CanvasRCA/models/checkpoints/causal_integration_sft_pilot_v2_1/pilot_main/step-0008",
+  "adapter_config_sha256": "9ba98093001fadc0eae0e37cdd02cdf24ab2b6895d727669cf85f9c6bfd6c197",
+  "adapter_model_sha256": "40f27ebaad3b64c71547e9002f96206c285966b10533952f54760ea7f5b5c42b",
+  "base_model_config": {
+    "tag": "qwen3.6-27b",
+    "backend": "openai",
+    "model_id": "Qwen/Qwen3.6-27B",
+    "max_tokens": 16384,
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "seed": 42,
+    "thinking": false,
+    "thinking_via_template": true,
+    "base_url_env": "VLLM_BASE_URL",
+    "api_key_env": "VLLM_API_KEY",
+    "request_timeout_s": 1800.0,
+    "extra": {}
+  },
+  "adapter_model_config": {
+    "tag": "qwen3.6-27b-causal-sft-pilot",
+    "backend": "openai",
+    "model_id": "canvasrca-causal-sft-v2-1",
+    "max_tokens": 16384,
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "seed": 42,
+    "thinking": false,
+    "thinking_via_template": true,
+    "base_url_env": "VLLM_BASE_URL",
+    "api_key_env": "VLLM_API_KEY",
+    "request_timeout_s": 1800.0,
+    "extra": {}
+  },
+  "conditions": [
+    "base",
+    "adapter"
+  ],
+  "condition_order": "opaque_hash_balanced",
+  "promotion_gate": {
+    "minimum_macro_delta_mrr": 0.05,
+    "minimum_parse_rate": 0.95,
+    "maximum_dataset_reverse_delta_mrr": -0.1,
+    "require_zero_infrastructure_failures": true
+  },
+  "formal_or_reserve_cases_used": false,
+  "contract_migration": {
+    "migration_id": "rq_layout_migration_2026-07-31",
+    "manifest_path": "RQs/RQ0/configs/contract_migration_2026-07-31.json",
+    "metadata_only": true,
+    "execution_semantics_changed": false,
+    "configuration_paths_migrated": true,
+    "script_paths_migrated": true,
+    "result_paths_migrated": true,
+    "historical_experiments_deemed_executed_under_migrated_contract": true,
+    "contract_validity_preserved": true
+  }
+}

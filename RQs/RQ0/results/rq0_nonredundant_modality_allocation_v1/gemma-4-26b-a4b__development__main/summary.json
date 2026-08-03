@@ -1,0 +1,89 @@
+{
+  "schema_version": "RQ0AllocationSummaryV1",
+  "scope": "exposed_development_only_nonconfirmatory",
+  "n_calls": 72,
+  "expected_calls": 72,
+  "arms": {
+    "allocated_visual_text": {
+      "n": 24,
+      "mrr": 0.5812499999999999,
+      "ac1": 0.5416666666666666,
+      "ac3": 0.5833333333333334,
+      "ac5": 0.6666666666666666,
+      "avg3": 0.5694444444444444,
+      "avg5": 0.6,
+      "parse_rate": 1.0,
+      "infrastructure_failures": 0,
+      "mean_input_tokens": 4219.375,
+      "mean_output_tokens": 77.66666666666667,
+      "mean_wall_time_s": 2.904509666666667
+    },
+    "duplicated_visual_text": {
+      "n": 24,
+      "mrr": 0.49583333333333335,
+      "ac1": 0.4583333333333333,
+      "ac3": 0.4583333333333333,
+      "ac5": 0.625,
+      "avg3": 0.4583333333333333,
+      "avg5": 0.5083333333333334,
+      "parse_rate": 1.0,
+      "infrastructure_failures": 0,
+      "mean_input_tokens": 9918.875,
+      "mean_output_tokens": 82.04166666666667,
+      "mean_wall_time_s": 3.910870291666667
+    },
+    "full_text_only": {
+      "n": 24,
+      "mrr": 0.425,
+      "ac1": 0.375,
+      "ac3": 0.4166666666666667,
+      "ac5": 0.5416666666666666,
+      "avg3": 0.40277777777777773,
+      "avg5": 0.45,
+      "parse_rate": 1.0,
+      "infrastructure_failures": 0,
+      "mean_input_tokens": 9646.875,
+      "mean_output_tokens": 80.25,
+      "mean_wall_time_s": 3.0641699166666663
+    }
+  },
+  "comparisons": {
+    "D_minus_B": {
+      "left": "allocated_visual_text",
+      "right": "full_text_only",
+      "n": 24,
+      "delta_mrr": 0.15625,
+      "improved": 6,
+      "degraded": 1,
+      "tied": 17,
+      "wilcoxon_p_descriptive": 0.03364536295502513,
+      "paired_cohens_d": 0.46458674199856465,
+      "delta_by_dataset": {
+        "aegislab": 0.15625,
+        "aiops2022": 0.21875,
+        "aiops2025": 0.09375
+      }
+    },
+    "D_minus_A": {
+      "left": "allocated_visual_text",
+      "right": "duplicated_visual_text",
+      "n": 24,
+      "delta_mrr": 0.08541666666666665,
+      "improved": 3,
+      "degraded": 1,
+      "tied": 20,
+      "wilcoxon_p_descriptive": 0.14077277337135014,
+      "paired_cohens_d": 0.29506729779352087,
+      "delta_by_dataset": {
+        "aegislab": 0.0,
+        "aiops2022": 0.225,
+        "aiops2025": 0.03125
+      }
+    }
+  },
+  "gate": {
+    "pass_for_this_model": true,
+    "failures": [],
+    "interpretation": "development mechanism qualification; never confirmatory"
+  }
+}

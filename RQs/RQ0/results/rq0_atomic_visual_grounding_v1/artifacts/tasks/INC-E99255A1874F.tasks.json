@@ -1,0 +1,198 @@
+[
+  {
+    "task_id": "metric_service",
+    "category": "metric_identity",
+    "question": "Which option is the service name shown in the title of panel [M2]?",
+    "options": [
+      {
+        "label": "A",
+        "text": "frontend-2"
+      },
+      {
+        "label": "B",
+        "text": "frontend-0"
+      },
+      {
+        "label": "C",
+        "text": "frontend"
+      },
+      {
+        "label": "D",
+        "text": "frontend-1"
+      }
+    ],
+    "answer_label": "B",
+    "answer_value": "frontend-0",
+    "visual_primitive": "M2",
+    "metadata": {}
+  },
+  {
+    "task_id": "metric_direction",
+    "category": "metric_pattern",
+    "question": "From the printed baseline-to-peak annotation beneath panel [M3], what is the direction of change?",
+    "options": [
+      {
+        "label": "A",
+        "text": "decrease"
+      },
+      {
+        "label": "B",
+        "text": "increase"
+      },
+      {
+        "label": "C",
+        "text": "not shown"
+      },
+      {
+        "label": "D",
+        "text": "approximately unchanged"
+      }
+    ],
+    "answer_label": "B",
+    "answer_value": "increase",
+    "visual_primitive": "M3",
+    "metadata": {}
+  },
+  {
+    "task_id": "propagation_rank",
+    "category": "topology_order",
+    "question": "Which service is printed at rank 2 in the Anomaly propagation panel?",
+    "options": [
+      {
+        "label": "A",
+        "text": "tidb-tidb"
+      },
+      {
+        "label": "B",
+        "text": "tidb-tikv"
+      },
+      {
+        "label": "C",
+        "text": "frontend"
+      },
+      {
+        "label": "D",
+        "text": "redis-cart"
+      }
+    ],
+    "answer_label": "A",
+    "answer_value": "tidb-tidb",
+    "visual_primitive": "P1",
+    "metadata": {
+      "rank": 2
+    }
+  },
+  {
+    "task_id": "propagation_onset",
+    "category": "topology_time",
+    "question": "What relative onset value is printed on the row for adservice in the Anomaly propagation panel?",
+    "options": [
+      {
+        "label": "A",
+        "text": "+15.0m"
+      },
+      {
+        "label": "B",
+        "text": "+18.0m"
+      },
+      {
+        "label": "C",
+        "text": "+14.8m"
+      },
+      {
+        "label": "D",
+        "text": "+15.4m"
+      }
+    ],
+    "answer_label": "B",
+    "answer_value": "+18.0m",
+    "visual_primitive": "P1",
+    "metadata": {}
+  },
+  {
+    "task_id": "log_value",
+    "category": "table_log",
+    "question": "In the Log signals table, what value is printed in the err column for frontend-1?",
+    "options": [
+      {
+        "label": "A",
+        "text": "45"
+      },
+      {
+        "label": "B",
+        "text": "42"
+      },
+      {
+        "label": "C",
+        "text": "43"
+      },
+      {
+        "label": "D",
+        "text": "44"
+      }
+    ],
+    "answer_label": "D",
+    "answer_value": "44",
+    "visual_primitive": "G1",
+    "metadata": {
+      "log_mode": "errors",
+      "column": "err"
+    }
+  },
+  {
+    "task_id": "trace_value",
+    "category": "table_trace",
+    "question": "In the Trace signals table, what compact value is printed in the during column for redis?",
+    "options": [
+      {
+        "label": "A",
+        "text": "18"
+      },
+      {
+        "label": "B",
+        "text": "526"
+      },
+      {
+        "label": "C",
+        "text": "1.2k"
+      },
+      {
+        "label": "D",
+        "text": "60.0k"
+      }
+    ],
+    "answer_label": "A",
+    "answer_value": "18",
+    "visual_primitive": "R1",
+    "metadata": {}
+  },
+  {
+    "task_id": "topology_edge",
+    "category": "topology_edge",
+    "question": "Which unordered service pair is joined by one of the visible curved arrows in the Anomaly propagation panel?",
+    "options": [
+      {
+        "label": "A",
+        "text": "frontend ↔ tidb-tikv"
+      },
+      {
+        "label": "B",
+        "text": "frontend ↔ tidb-tidb"
+      },
+      {
+        "label": "C",
+        "text": "frontend ↔ redis-cart"
+      },
+      {
+        "label": "D",
+        "text": "cartservice ↔ checkoutservice"
+      }
+    ],
+    "answer_label": "D",
+    "answer_value": "cartservice ↔ checkoutservice",
+    "visual_primitive": "P1",
+    "metadata": {
+      "variant": "pair"
+    }
+  }
+]

@@ -1,0 +1,69 @@
+{
+  "n": 100,
+  "mrr": 0.4533333333333333,
+  "top1": 0.41,
+  "top3": 0.5,
+  "top5": 0.5,
+  "parse_rate": 1.0,
+  "avg_input_tokens": 9012.2,
+  "avg_output_tokens": 713.97,
+  "avg_total_tokens": 9726.17,
+  "avg_wall_clock_s": 4.060569560527801,
+  "mrr_by_dataset": {
+    "aegislab": 0.4533333333333333
+  },
+  "n_by_dataset": {
+    "aegislab": 100
+  },
+  "mrr_by_fault_bucket": {
+    "HTTP": 0.3148148148148148,
+    "JVM": 0.825,
+    "K8s_Control": 0.8636363636363636,
+    "Network": 0.15555555555555553
+  },
+  "n_by_fault_bucket": {
+    "HTTP": 54,
+    "JVM": 20,
+    "K8s_Control": 11,
+    "Network": 15
+  },
+  "experiment": "rq3_v1_gemma-4-26b-a4b_cov12_hybrid",
+  "model": "gemma-4-26b-a4b",
+  "modality": "hybrid",
+  "dashboard_config": {
+    "name": "cov12",
+    "panel_budget": 12,
+    "ranker": "ksigma",
+    "max_per_family": 0,
+    "max_per_service": 0,
+    "selector": "coverage_first",
+    "coverage_services": 12,
+    "layout": "small_multiples",
+    "grid_cols": 3,
+    "topology": "colored",
+    "topology_labels": "numbered",
+    "max_topology_nodes": 25,
+    "show_legend_table": true,
+    "shade_fault_window": true,
+    "annotate_extremes": true,
+    "normalize_panels": false,
+    "long_side_px": 1568,
+    "show_logs": true,
+    "show_traces": true
+  },
+  "model_config": {
+    "tag": "gemma-4-26b-a4b",
+    "backend": "openai",
+    "model_id": "google/gemma-4-26B-A4B-it",
+    "max_tokens": 16384,
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "seed": 42,
+    "thinking": false,
+    "thinking_via_template": false,
+    "base_url_env": "VLLM_BASE_URL",
+    "api_key_env": "VLLM_API_KEY",
+    "request_timeout_s": 1800.0,
+    "extra": {}
+  }
+}

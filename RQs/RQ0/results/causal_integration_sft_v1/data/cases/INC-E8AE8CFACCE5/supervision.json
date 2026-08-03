@@ -1,0 +1,38 @@
+{
+  "schema_version": "CausalIntegrationSFTV1",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "ts-travel-service",
+  "hard_symptom_candidate": "ts-ui-dashboard",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "ts-ui-dashboard",
+    "ts-travel-service"
+  ],
+  "root_evidence": {
+    "source": "metric",
+    "rank": 2,
+    "service": "ts-travel-service",
+    "metric": "container.filesystem.usage",
+    "signed_z": 848.404,
+    "persistence_bins": 11,
+    "onset_rel_s": 243.041
+  },
+  "symptom_evidence": {
+    "rank": 1,
+    "service": "ts-ui-dashboard",
+    "onset_rel_s": 254.4,
+    "severity_z": 86.786,
+    "evidence_source": "trace"
+  },
+  "target_object": {
+    "services": [
+      "ts-travel-service",
+      "ts-ui-dashboard"
+    ],
+    "reason": "Rank ts-travel-service first because ts-travel-service has direct container.filesystem.usage evidence (signed-z 848.4, persistence 11 bins); although ts-ui-dashboard is salient, the caller path ts-ui-dashboard -> ts-travel-service means a disturbance in the callee can propagate back toward that caller-side symptom.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank ts-travel-service first because ts-travel-service has direct container.filesystem.usage evidence (signed-z 848.4, persistence 11 bins); although ts-ui-dashboard is salient, the caller path ts-ui-dashboard -> ts-travel-service means a disturbance in the callee can propagate back toward that caller-side symptom.\",\"services\":[\"ts-travel-service\",\"ts-ui-dashboard\"]}"
+}

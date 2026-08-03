@@ -1,0 +1,239 @@
+{
+  "schema_version": "RQ0AllocationCrossModelAnalysisV1",
+  "scope": "exposed_development_only_nonconfirmatory",
+  "models": {
+    "qwen3.6-27b": {
+      "status": "complete",
+      "summary": {
+        "schema_version": "RQ0AllocationSummaryV1",
+        "scope": "exposed_development_only_nonconfirmatory",
+        "n_calls": 72,
+        "expected_calls": 72,
+        "arms": {
+          "allocated_visual_text": {
+            "n": 24,
+            "mrr": 0.48055555555555557,
+            "ac1": 0.4166666666666667,
+            "ac3": 0.5416666666666666,
+            "ac5": 0.5833333333333334,
+            "avg3": 0.4861111111111111,
+            "avg5": 0.5166666666666667,
+            "parse_rate": 1.0,
+            "infrastructure_failures": 0,
+            "mean_input_tokens": 5568.958333333333,
+            "mean_output_tokens": 113.0,
+            "mean_wall_time_s": 7.5265967499999995
+          },
+          "duplicated_visual_text": {
+            "n": 24,
+            "mrr": 0.48055555555555557,
+            "ac1": 0.4166666666666667,
+            "ac3": 0.5416666666666666,
+            "ac5": 0.5833333333333334,
+            "avg3": 0.4861111111111111,
+            "avg5": 0.5166666666666667,
+            "parse_rate": 1.0,
+            "infrastructure_failures": 0,
+            "mean_input_tokens": 11214.833333333334,
+            "mean_output_tokens": 111.70833333333333,
+            "mean_wall_time_s": 8.919570875
+          },
+          "full_text_only": {
+            "n": 24,
+            "mrr": 0.5097222222222223,
+            "ac1": 0.4583333333333333,
+            "ac3": 0.5416666666666666,
+            "ac5": 0.625,
+            "avg3": 0.5,
+            "avg5": 0.5333333333333333,
+            "parse_rate": 1.0,
+            "infrastructure_failures": 0,
+            "mean_input_tokens": 9252.833333333334,
+            "mean_output_tokens": 108.29166666666667,
+            "mean_wall_time_s": 8.070583541666666
+          }
+        },
+        "comparisons": {
+          "D_minus_B": {
+            "left": "allocated_visual_text",
+            "right": "full_text_only",
+            "n": 24,
+            "delta_mrr": -0.029166666666666664,
+            "improved": 0,
+            "degraded": 2,
+            "tied": 22,
+            "wilcoxon_p_descriptive": 0.17971249487899976,
+            "paired_cohens_d": -0.2694040974977612,
+            "delta_by_dataset": {
+              "aegislab": 0.0,
+              "aiops2022": 0.0,
+              "aiops2025": -0.0875
+            }
+          },
+          "D_minus_A": {
+            "left": "allocated_visual_text",
+            "right": "duplicated_visual_text",
+            "n": 24,
+            "delta_mrr": 0.0,
+            "improved": 0,
+            "degraded": 0,
+            "tied": 24,
+            "wilcoxon_p_descriptive": 1.0,
+            "paired_cohens_d": 0.0,
+            "delta_by_dataset": {
+              "aegislab": 0.0,
+              "aiops2022": 0.0,
+              "aiops2025": 0.0
+            }
+          }
+        },
+        "gate": {
+          "pass_for_this_model": false,
+          "failures": [
+            "D_minus_B_below_0.05",
+            "D_minus_B_direction_margin_below_3",
+            "D_does_not_beat_A"
+          ],
+          "interpretation": "development mechanism qualification; never confirmatory"
+        }
+      },
+      "integrity": {
+        "n_calls": 72,
+        "n_cases": 24,
+        "three_arms_each": true,
+        "common_summary_equal_each_case": true,
+        "source_inventory_equal_each_case": true,
+        "a_b_text_equal_each_case": true,
+        "d_a_image_equal_each_case": true,
+        "all_leakage_audits_pass": true,
+        "all_server_tokens_match": true,
+        "all_scoring_contracts_match": true,
+        "order_counts": {
+          "ABD": 4,
+          "ADB": 4,
+          "BAD": 4,
+          "BDA": 4,
+          "DAB": 4,
+          "DBA": 4
+        }
+      }
+    },
+    "gemma-4-26b-a4b": {
+      "status": "complete",
+      "summary": {
+        "schema_version": "RQ0AllocationSummaryV1",
+        "scope": "exposed_development_only_nonconfirmatory",
+        "n_calls": 72,
+        "expected_calls": 72,
+        "arms": {
+          "allocated_visual_text": {
+            "n": 24,
+            "mrr": 0.5812499999999999,
+            "ac1": 0.5416666666666666,
+            "ac3": 0.5833333333333334,
+            "ac5": 0.6666666666666666,
+            "avg3": 0.5694444444444444,
+            "avg5": 0.6,
+            "parse_rate": 1.0,
+            "infrastructure_failures": 0,
+            "mean_input_tokens": 4219.375,
+            "mean_output_tokens": 77.66666666666667,
+            "mean_wall_time_s": 2.904509666666667
+          },
+          "duplicated_visual_text": {
+            "n": 24,
+            "mrr": 0.49583333333333335,
+            "ac1": 0.4583333333333333,
+            "ac3": 0.4583333333333333,
+            "ac5": 0.625,
+            "avg3": 0.4583333333333333,
+            "avg5": 0.5083333333333334,
+            "parse_rate": 1.0,
+            "infrastructure_failures": 0,
+            "mean_input_tokens": 9918.875,
+            "mean_output_tokens": 82.04166666666667,
+            "mean_wall_time_s": 3.910870291666667
+          },
+          "full_text_only": {
+            "n": 24,
+            "mrr": 0.425,
+            "ac1": 0.375,
+            "ac3": 0.4166666666666667,
+            "ac5": 0.5416666666666666,
+            "avg3": 0.40277777777777773,
+            "avg5": 0.45,
+            "parse_rate": 1.0,
+            "infrastructure_failures": 0,
+            "mean_input_tokens": 9646.875,
+            "mean_output_tokens": 80.25,
+            "mean_wall_time_s": 3.0641699166666663
+          }
+        },
+        "comparisons": {
+          "D_minus_B": {
+            "left": "allocated_visual_text",
+            "right": "full_text_only",
+            "n": 24,
+            "delta_mrr": 0.15625,
+            "improved": 6,
+            "degraded": 1,
+            "tied": 17,
+            "wilcoxon_p_descriptive": 0.03364536295502513,
+            "paired_cohens_d": 0.46458674199856465,
+            "delta_by_dataset": {
+              "aegislab": 0.15625,
+              "aiops2022": 0.21875,
+              "aiops2025": 0.09375
+            }
+          },
+          "D_minus_A": {
+            "left": "allocated_visual_text",
+            "right": "duplicated_visual_text",
+            "n": 24,
+            "delta_mrr": 0.08541666666666665,
+            "improved": 3,
+            "degraded": 1,
+            "tied": 20,
+            "wilcoxon_p_descriptive": 0.14077277337135014,
+            "paired_cohens_d": 0.29506729779352087,
+            "delta_by_dataset": {
+              "aegislab": 0.0,
+              "aiops2022": 0.225,
+              "aiops2025": 0.03125
+            }
+          }
+        },
+        "gate": {
+          "pass_for_this_model": true,
+          "failures": [],
+          "interpretation": "development mechanism qualification; never confirmatory"
+        }
+      },
+      "integrity": {
+        "n_calls": 72,
+        "n_cases": 24,
+        "three_arms_each": true,
+        "common_summary_equal_each_case": true,
+        "source_inventory_equal_each_case": true,
+        "a_b_text_equal_each_case": true,
+        "d_a_image_equal_each_case": true,
+        "all_leakage_audits_pass": true,
+        "all_server_tokens_match": true,
+        "all_scoring_contracts_match": true,
+        "order_counts": {
+          "ABD": 4,
+          "ADB": 4,
+          "BAD": 4,
+          "BDA": 4,
+          "DAB": 4,
+          "DBA": 4
+        }
+      }
+    }
+  },
+  "cross_model_gate": {
+    "pass": false,
+    "integrity_pass": true,
+    "decision": "stop_this_representation_without_reserve_calls"
+  }
+}

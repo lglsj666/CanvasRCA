@@ -1,0 +1,48 @@
+{
+  "schema_version": "CausalIntegrationSFTV2",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "cartservice",
+  "hard_symptom_candidate": "frontend",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "frontend",
+    "cartservice"
+  ],
+  "root_evidence": {
+    "source": "metric",
+    "rank": 1,
+    "service": "cartservice-0",
+    "metric": "server_error",
+    "signed_z": 999.0,
+    "persistence_bins": 0,
+    "onset_rel_s": null
+  },
+  "symptom_evidence": {
+    "rank": 1,
+    "service": "frontend",
+    "onset_rel_s": 900.0,
+    "severity_z": 999.0,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "cartservice",
+      "frontend",
+      "checkoutservice",
+      "hipstershop",
+      "tidb-tidb"
+    ],
+    "reason": "Rank cartservice first because cartservice has direct server_error evidence (signed-z 999, persistence 0 bins); although frontend is salient, the caller path frontend -> cartservice means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank cartservice first because cartservice has direct server_error evidence (signed-z 999, persistence 0 bins); although frontend is salient, the caller path frontend -> cartservice means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.\",\"services\":[\"cartservice\",\"frontend\",\"checkoutservice\",\"hipstershop\",\"tidb-tidb\"]}",
+  "curriculum_role": "base_correct_preservation",
+  "base_predictions_private_training_only": [
+    "cartservice",
+    "frontend",
+    "checkoutservice"
+  ],
+  "base_top1_correct": true
+}

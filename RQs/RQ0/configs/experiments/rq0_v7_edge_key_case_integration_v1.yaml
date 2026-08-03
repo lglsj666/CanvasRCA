@@ -1,0 +1,25 @@
+schema_version: 1
+experiment: rq0_v7_edge_key_case_integration_v1
+scope: development_only_nonconfirmatory_renderer_intervention
+models: [qwen3.6-27b, gemma-4-26b-a4b]
+cases: 12
+datasets: [aegislab, aiops2022, aiops2025]
+conditions: [v6_curved, v7_large_edge_key]
+common_text: byte-identical CanonicalEvidenceBundleV1 evidence text
+changed_factor: explicit large directional caller-rank to callee-rank edge key
+condition_order: opaque-incident-hash balanced
+decoding:
+  temperature: 0.0
+  top_p: 1.0
+  seed: 42
+  max_tokens: 16384
+runtime:
+  dtype: bfloat16
+  quantization: null
+  max_model_len: 32768
+  gpu_memory_utilization: 0.65
+  enforce_eager: true
+interpretation:
+  confirmatory_rq0_metric: false
+  formal_cases_may_be_used: false
+  purpose: test whether qualified edge legibility changes case-level RCA

@@ -1,0 +1,37 @@
+{
+  "schema_version": "CausalIntegrationSFTV1",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "paymentservice-0",
+  "hard_symptom_candidate": "checkoutservice-0",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "checkoutservice",
+    "paymentservice"
+  ],
+  "root_evidence": {
+    "source": "propagation",
+    "rank": 8,
+    "service": "paymentservice",
+    "onset_rel_s": 1680.0,
+    "severity_z": 999.0,
+    "evidence_source": "metric"
+  },
+  "symptom_evidence": {
+    "rank": 5,
+    "service": "checkoutservice",
+    "onset_rel_s": 1243.2,
+    "severity_z": 193.577,
+    "evidence_source": "trace"
+  },
+  "target_object": {
+    "services": [
+      "paymentservice-0",
+      "checkoutservice-0"
+    ],
+    "reason": "Rank paymentservice-0 first because paymentservice-0 has metric evidence at propagation rank 8; although checkoutservice-0 is salient, the caller path checkoutservice -> paymentservice means a disturbance in the callee can propagate back toward that caller-side symptom.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank paymentservice-0 first because paymentservice-0 has metric evidence at propagation rank 8; although checkoutservice-0 is salient, the caller path checkoutservice -> paymentservice means a disturbance in the callee can propagate back toward that caller-side symptom.\",\"services\":[\"paymentservice-0\",\"checkoutservice-0\"]}"
+}

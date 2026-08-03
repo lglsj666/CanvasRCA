@@ -1,0 +1,740 @@
+{
+  "schema_version": "CanvasRCAContractMigrationV1",
+  "migration_id": "rq_layout_migration_2026-07-31",
+  "effective_date": "2026-07-31",
+  "project_root": "/home/lglsj/CanvasRCA",
+  "purpose": "Canonicalize RQ-specific configurations, mutable scripts, and results under RQs/<rq>/ while preserving historical experiment validity.",
+  "policy": {
+    "metadata_only": true,
+    "execution_semantics_changed": false,
+    "model_inputs_changed": false,
+    "model_or_checkpoint_changed": false,
+    "decoding_changed": false,
+    "scoring_changed": false,
+    "configuration_paths_migrated": true,
+    "script_paths_migrated": true,
+    "result_paths_migrated": true,
+    "historical_experiments_deemed_executed_under_migrated_contract": true,
+    "contract_validity_preserved": true,
+    "comparability_preserved": true,
+    "substantive_change_exception": "This validity rule does not cover changes to configuration values, code behavior, evidence, prompts, models, decoding, or scoring."
+  },
+  "canonical_layout": {
+    "shared_python_package": "RQs/vlmrca/",
+    "shared_scripts": "scripts/",
+    "rq_mutable_scripts": "RQs/<rq>/scripts/",
+    "rq_finalized_submission_source": "RQs/<rq>/src/",
+    "rq_configs": "RQs/<rq>/configs/",
+    "rq_results": "RQs/<rq>/results/",
+    "unified_configs": "configs/"
+  },
+  "compatibility": {
+    "vlmrca_symlink": "vlmrca -> RQs/vlmrca",
+    "legacy_config_aliases": "RQs/vlmrca/config_paths.py accepts legacy paths for read compatibility only; legacy aliases are not canonical write locations.",
+    "root_scripts_is_real_shared_directory": true,
+    "root_results_reserved_for_non_RQ_project_wide_outputs": true
+  },
+  "path_migrations": {
+    "configurations": [
+      {
+        "legacy_path": "configs/rq0/checkpoint_lock.json",
+        "canonical_path": "RQs/RQ0/configs/checkpoint_lock.json",
+        "legacy_sha256": null,
+        "canonical_sha256": "97df4acb968399da50839b55763c6a9512313cc558f00915187c3d2161896dee",
+        "hash_relation": "path_mapping_recorded; legacy byte hash not asserted"
+      },
+      {
+        "legacy_path": "configs/experiments/rq0_atomic_visual_grounding_v1.yaml",
+        "canonical_path": "RQs/RQ0/configs/experiments/rq0_atomic_visual_grounding_v1.yaml",
+        "legacy_sha256": "5caf5424cfe7cfedcb1fdb867f8dd9036091fdfe57182e8546a5b705b60e12e6",
+        "canonical_sha256": "beeb97c14eb6259d08356979fa2f3780e779c09666d0effb4091d3c8bc8a4626",
+        "hash_relation": "confirmed_relocation_only_successor"
+      },
+      {
+        "legacy_path": "configs/experiments/rq0_equal_information_equal_compute.yaml",
+        "canonical_path": "RQs/RQ0/configs/experiments/rq0_equal_information_equal_compute.yaml",
+        "legacy_sha256": "aaa394f2717a4f589e5058b85aaf5277de25126532c044fb6e9f3dcc7d98c66d",
+        "canonical_sha256": "0978233aa0b48d22973e597543c0efe572a6fccb76de630259d695162da25720",
+        "hash_relation": "confirmed_relocation_only_successor"
+      },
+      {
+        "legacy_path": "configs/experiments/rq0_nonredundant_modality_allocation_v1.yaml",
+        "canonical_path": "RQs/RQ0/configs/experiments/rq0_nonredundant_modality_allocation_v1.yaml",
+        "legacy_sha256": "4caf17fc578ae447c8b3c30f982b517b39818298d87c9009d6b255b3fd200565",
+        "canonical_sha256": "1c826b9e723a43ea848ffb2c69c91a0120a35dd100dcd22f5365f9c02eaff55c",
+        "hash_relation": "confirmed_relocation_only_successor"
+      },
+      {
+        "legacy_path": "configs/experiments/rq0_topology_edge_key_v1.yaml",
+        "canonical_path": "RQs/RQ0/configs/experiments/rq0_topology_edge_key_v1.yaml",
+        "legacy_sha256": null,
+        "canonical_sha256": "668c456c4ae480db62ba558e8e10af4f5021ac40d62545fc0c420683f151e8b8",
+        "hash_relation": "path_mapping_recorded; legacy byte hash not asserted"
+      },
+      {
+        "legacy_path": "configs/experiments/rq0_topology_edge_key_v2.yaml",
+        "canonical_path": "RQs/RQ0/configs/experiments/rq0_topology_edge_key_v2.yaml",
+        "legacy_sha256": null,
+        "canonical_sha256": "76a4b967e680da6e6f7836d929bbbf571d2841442606c64498954786c5de35c2",
+        "hash_relation": "path_mapping_recorded; legacy byte hash not asserted"
+      },
+      {
+        "legacy_path": "configs/experiments/rq0_v7_edge_key_case_integration_v1.yaml",
+        "canonical_path": "RQs/RQ0/configs/experiments/rq0_v7_edge_key_case_integration_v1.yaml",
+        "legacy_sha256": null,
+        "canonical_sha256": "b19a867a8bb2cf4cce76a1af11fcda1e20689fd7378e16d60c2828e7b8e9cb39",
+        "hash_relation": "path_mapping_recorded; legacy byte hash not asserted"
+      },
+      {
+        "legacy_path": "configs/rq0/exposure_ledger.json",
+        "canonical_path": "RQs/RQ0/configs/exposure_ledger.json",
+        "legacy_sha256": null,
+        "canonical_sha256": "43f3a67f08cf780742f4e986556206fbd2d7d804caadde24dd4c6344805f4687",
+        "hash_relation": "path_mapping_recorded; legacy byte hash not asserted"
+      },
+      {
+        "legacy_path": "configs/rq0/nonredundant_allocation_development_roster.json",
+        "canonical_path": "RQs/RQ0/configs/nonredundant_allocation_development_roster.json",
+        "legacy_sha256": null,
+        "canonical_sha256": "4fb85650b8e58cf3cde07d740eadaa291cc2128fc61d0f470b0f48eb2e1ba49c",
+        "hash_relation": "path_mapping_recorded; legacy byte hash not asserted"
+      },
+      {
+        "legacy_path": "configs/rq0/partition_roster.json",
+        "canonical_path": "RQs/RQ0/configs/partition_roster.json",
+        "legacy_sha256": null,
+        "canonical_sha256": "b83b4aae65398a1c029e46dd78104baa169e2fb9f10239069c44021a6da7135d",
+        "hash_relation": "path_mapping_recorded; legacy byte hash not asserted"
+      },
+      {
+        "legacy_path": "configs/rq0/software_lock.json",
+        "canonical_path": "RQs/RQ0/configs/software_lock.json",
+        "legacy_sha256": null,
+        "canonical_sha256": "84c4908fb8b427bdbfab4f191e461449235dede41a6ea18e7bb6bf22a1111e04",
+        "hash_relation": "path_mapping_recorded; legacy byte hash not asserted"
+      },
+      {
+        "legacy_path": "configs/training/causal_integration_sft_v1.yaml",
+        "canonical_path": "RQs/RQ0/configs/training/causal_integration_sft_v1.yaml",
+        "legacy_sha256": "adf47864c6ef3c8fa0c8a90d2a869693b3c796be8a9be1d680b89ed175191abf",
+        "canonical_sha256": "97a9e3bc176afff49c4c5f81cf39f8b8045acc65367108e6f39743d97df16d4a",
+        "hash_relation": "confirmed_relocation_only_successor"
+      },
+      {
+        "legacy_path": "configs/training/causal_integration_sft_v1_roster.json",
+        "canonical_path": "RQs/RQ0/configs/training/causal_integration_sft_v1_roster.json",
+        "legacy_sha256": null,
+        "canonical_sha256": "8ea10b542fd39757a16c243c9b32e93fcee2a8894dd3e6948c9cceba27ede962",
+        "hash_relation": "path_mapping_recorded; legacy byte hash not asserted"
+      },
+      {
+        "legacy_path": "configs/training/causal_integration_sft_v2.yaml",
+        "canonical_path": "RQs/RQ0/configs/training/causal_integration_sft_v2.yaml",
+        "legacy_sha256": "d4e0f431ad890a83fa399d5a439cd9e81e2b5326cd512e2bc77fc4e9da2b3b8f",
+        "canonical_sha256": "7084180a5a1459f620b506b1e498a03deaad4f731dd6b39488d1294346bbd82b",
+        "hash_relation": "confirmed_relocation_only_successor"
+      },
+      {
+        "legacy_path": "configs/training/causal_integration_sft_v2_1.yaml",
+        "canonical_path": "RQs/RQ0/configs/training/causal_integration_sft_v2_1.yaml",
+        "legacy_sha256": "21d2371ccf5e4a1d87b4ea8c85327dda4f116d95a07e712716a098d30d17c7f6",
+        "canonical_sha256": "bbbf4f12931f4ebe3fe9e814520e011e25804fef862ad94372b1cf8876954eb8",
+        "hash_relation": "confirmed_relocation_only_successor"
+      },
+      {
+        "legacy_path": "configs/training/causal_integration_sft_v2_1_roster.json",
+        "canonical_path": "RQs/RQ0/configs/training/causal_integration_sft_v2_1_roster.json",
+        "legacy_sha256": null,
+        "canonical_sha256": "a9d1c459f4a5a157eab9b239aec6a9b28bd418be27669649a841b1026e90bbf7",
+        "hash_relation": "path_mapping_recorded; legacy byte hash not asserted"
+      },
+      {
+        "legacy_path": "configs/training/causal_integration_sft_v2_candidate_plan.json",
+        "canonical_path": "RQs/RQ0/configs/training/causal_integration_sft_v2_candidate_plan.json",
+        "legacy_sha256": null,
+        "canonical_sha256": "a9c01ec2237de84619af205e35903f8d2fe27e019c052fbdb5ada779ac3723d4",
+        "hash_relation": "path_mapping_recorded; legacy byte hash not asserted"
+      },
+      {
+        "legacy_path": "configs/training/software_lock.json",
+        "canonical_path": "RQs/RQ0/configs/training/software_lock.json",
+        "legacy_sha256": null,
+        "canonical_sha256": "007efe38cf24750bcc57708e53493bc88f8043dccb41850ec3868acfc62b3fcd",
+        "hash_relation": "path_mapping_recorded; legacy byte hash not asserted"
+      },
+      {
+        "legacy_path": "configs/experiments/rq3_v1_modality.yaml",
+        "canonical_path": "RQs/RQ3/configs/rq3_v1_modality.yaml",
+        "legacy_sha256": "914329745b175eb3f99272cec6e915dc600c90340fac20cb14ddf8f6015fe2b5",
+        "canonical_sha256": "2d528ae114294d686b3b906835cadbc911984acaa244d5699126fbf85b8906d1",
+        "hash_relation": "confirmed_relocation_only_successor"
+      }
+    ],
+    "scripts": [
+      {
+        "legacy_path": "vlmrca/",
+        "canonical_path": "RQs/vlmrca/",
+        "classification": "shared Python package; root compatibility symlink retained"
+      },
+      {
+        "legacy_path": "scripts/<RQ0-specific>",
+        "canonical_path": "RQs/RQ0/scripts/",
+        "classification": "mutable RQ0 scripts and launchers"
+      },
+      {
+        "legacy_path": "scripts/<RQ3-specific>",
+        "canonical_path": "RQs/RQ3/scripts/",
+        "classification": "mutable RQ3 scripts and launchers"
+      },
+      {
+        "legacy_path": "scripts/<shared>",
+        "canonical_path": "scripts/",
+        "classification": "shared scripts remain at project root"
+      }
+    ],
+    "results": [
+      {
+        "rq": "RQ0",
+        "legacy_path": "results/causal_integration_sft_pilot_v1",
+        "canonical_path": "RQs/RQ0/results/causal_integration_sft_pilot_v1"
+      },
+      {
+        "rq": "RQ0",
+        "legacy_path": "results/causal_integration_sft_pilot_v2_1",
+        "canonical_path": "RQs/RQ0/results/causal_integration_sft_pilot_v2_1"
+      },
+      {
+        "rq": "RQ0",
+        "legacy_path": "results/causal_integration_sft_smoke_v1",
+        "canonical_path": "RQs/RQ0/results/causal_integration_sft_smoke_v1"
+      },
+      {
+        "rq": "RQ0",
+        "legacy_path": "results/causal_integration_sft_smoke_v2_1",
+        "canonical_path": "RQs/RQ0/results/causal_integration_sft_smoke_v2_1"
+      },
+      {
+        "rq": "RQ0",
+        "legacy_path": "results/causal_integration_sft_v1",
+        "canonical_path": "RQs/RQ0/results/causal_integration_sft_v1"
+      },
+      {
+        "rq": "RQ0",
+        "legacy_path": "results/causal_integration_sft_v2",
+        "canonical_path": "RQs/RQ0/results/causal_integration_sft_v2"
+      },
+      {
+        "rq": "RQ0",
+        "legacy_path": "results/causal_integration_sft_v2_1",
+        "canonical_path": "RQs/RQ0/results/causal_integration_sft_v2_1"
+      },
+      {
+        "rq": "RQ0",
+        "legacy_path": "results/rq0_atomic_visual_grounding_v1",
+        "canonical_path": "RQs/RQ0/results/rq0_atomic_visual_grounding_v1"
+      },
+      {
+        "rq": "RQ0",
+        "legacy_path": "results/rq0_equal_information_equal_compute_v1",
+        "canonical_path": "RQs/RQ0/results/rq0_equal_information_equal_compute_v1"
+      },
+      {
+        "rq": "RQ0",
+        "legacy_path": "results/rq0_nonredundant_modality_allocation_v1",
+        "canonical_path": "RQs/RQ0/results/rq0_nonredundant_modality_allocation_v1"
+      },
+      {
+        "rq": "RQ0",
+        "legacy_path": "results/rq0_topology_edge_key_v1",
+        "canonical_path": "RQs/RQ0/results/rq0_topology_edge_key_v1"
+      },
+      {
+        "rq": "RQ0",
+        "legacy_path": "results/rq0_topology_edge_key_v2",
+        "canonical_path": "RQs/RQ0/results/rq0_topology_edge_key_v2"
+      },
+      {
+        "rq": "RQ0",
+        "legacy_path": "results/rq0_v7_edge_key_case_integration_v1",
+        "canonical_path": "RQs/RQ0/results/rq0_v7_edge_key_case_integration_v1"
+      },
+      {
+        "rq": "RQ1",
+        "legacy_path": "results/aegis_dedup_off",
+        "canonical_path": "RQs/RQ1/results/aegis_dedup_off"
+      },
+      {
+        "rq": "RQ1",
+        "legacy_path": "results/aegis_dedup_on",
+        "canonical_path": "RQs/RQ1/results/aegis_dedup_on"
+      },
+      {
+        "rq": "RQ1",
+        "legacy_path": "results/gallery_re2_ob_v0",
+        "canonical_path": "RQs/RQ1/results/gallery_re2_ob_v0"
+      },
+      {
+        "rq": "RQ1",
+        "legacy_path": "results/smoke_aegislab_sonnet",
+        "canonical_path": "RQs/RQ1/results/smoke_aegislab_sonnet"
+      },
+      {
+        "rq": "RQ1",
+        "legacy_path": "results/smoke_aegislab_v0fix",
+        "canonical_path": "RQs/RQ1/results/smoke_aegislab_v0fix"
+      },
+      {
+        "rq": "RQ1",
+        "legacy_path": "results/smoke_aegislab_v1",
+        "canonical_path": "RQs/RQ1/results/smoke_aegislab_v1"
+      },
+      {
+        "rq": "RQ1",
+        "legacy_path": "results/smoke_aegislab_v2dedup",
+        "canonical_path": "RQs/RQ1/results/smoke_aegislab_v2dedup"
+      },
+      {
+        "rq": "RQ1",
+        "legacy_path": "results/smoke_re2ob_opus",
+        "canonical_path": "RQs/RQ1/results/smoke_re2ob_opus"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/bakeoff_gemma-4-12b",
+        "canonical_path": "RQs/RQ3/results/bakeoff_gemma-4-12b"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/bakeoff_gemma-4-e4b",
+        "canonical_path": "RQs/RQ3/results/bakeoff_gemma-4-e4b"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/bakeoff_nothink_qwen3.5-4b",
+        "canonical_path": "RQs/RQ3/results/bakeoff_nothink_qwen3.5-4b"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/bakeoff_nothink_qwen3.5-9b",
+        "canonical_path": "RQs/RQ3/results/bakeoff_nothink_qwen3.5-9b"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/bakeoff_nothink_qwen3.6-27b",
+        "canonical_path": "RQs/RQ3/results/bakeoff_nothink_qwen3.6-27b"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/bakeoff_qwen3.5-4b",
+        "canonical_path": "RQs/RQ3/results/bakeoff_qwen3.5-4b"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/bakeoff_qwen3.5-9b",
+        "canonical_path": "RQs/RQ3/results/bakeoff_qwen3.5-9b"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/bakeoff_qwen3.6-27b",
+        "canonical_path": "RQs/RQ3/results/bakeoff_qwen3.6-27b"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/determinism_gemma-4-e4b_a",
+        "canonical_path": "RQs/RQ3/results/determinism_gemma-4-e4b_a"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/determinism_gemma-4-e4b_b",
+        "canonical_path": "RQs/RQ3/results/determinism_gemma-4-e4b_b"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/determinism_gemma-4-e4b_eager_a",
+        "canonical_path": "RQs/RQ3/results/determinism_gemma-4-e4b_eager_a"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/determinism_gemma-4-e4b_eager_b",
+        "canonical_path": "RQs/RQ3/results/determinism_gemma-4-e4b_eager_b"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/determinism_gemma-4-e4b_nocache_a",
+        "canonical_path": "RQs/RQ3/results/determinism_gemma-4-e4b_nocache_a"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/determinism_gemma-4-e4b_nocache_b",
+        "canonical_path": "RQs/RQ3/results/determinism_gemma-4-e4b_nocache_b"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_gemma-4-12b_cov12_hybrid",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_gemma-4-12b_cov12_hybrid"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_gemma-4-12b_cov30_hybrid",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_gemma-4-12b_cov30_hybrid"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_gemma-4-12b_cov30_image_only",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_gemma-4-12b_cov30_image_only"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_gemma-4-12b_cov30_text_only",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_gemma-4-12b_cov30_text_only"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_gemma-4-12b_v0_hybrid",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_gemma-4-12b_v0_hybrid"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_gemma-4-26b-a4b_cov12_hybrid",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_gemma-4-26b-a4b_cov12_hybrid"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_gemma-4-26b-a4b_cov30_hybrid",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_gemma-4-26b-a4b_cov30_hybrid"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_gemma-4-26b-a4b_cov30_image_only",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_gemma-4-26b-a4b_cov30_image_only"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_gemma-4-26b-a4b_cov30_text_only",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_gemma-4-26b-a4b_cov30_text_only"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_gemma-4-26b-a4b_v0_hybrid",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_gemma-4-26b-a4b_v0_hybrid"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_gemma-4-e4b_cov12_hybrid",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_gemma-4-e4b_cov12_hybrid"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_gemma-4-e4b_cov30_hybrid",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_gemma-4-e4b_cov30_hybrid"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_gemma-4-e4b_cov30_image_only",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_gemma-4-e4b_cov30_image_only"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_gemma-4-e4b_cov30_text_only",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_gemma-4-e4b_cov30_text_only"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_gemma-4-e4b_v0_hybrid",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_gemma-4-e4b_v0_hybrid"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_qwen3.5-4b_cov12_hybrid",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_qwen3.5-4b_cov12_hybrid"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_qwen3.5-4b_cov30_hybrid",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_qwen3.5-4b_cov30_hybrid"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_qwen3.5-4b_cov30_image_only",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_qwen3.5-4b_cov30_image_only"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_qwen3.5-4b_cov30_text_only",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_qwen3.5-4b_cov30_text_only"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_qwen3.5-4b_v0_hybrid",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_qwen3.5-4b_v0_hybrid"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_qwen3.5-9b_cov30_hybrid",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_qwen3.5-9b_cov30_hybrid"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_qwen3.5-9b_cov30_image_only",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_qwen3.5-9b_cov30_image_only"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_qwen3.5-9b_cov30_text_only",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_qwen3.5-9b_cov30_text_only"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_qwen3.5-9b_v0_hybrid",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_qwen3.5-9b_v0_hybrid"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_qwen3.6-27b_cov12_hybrid",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_qwen3.6-27b_cov12_hybrid"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_qwen3.6-27b_cov30_hybrid",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_qwen3.6-27b_cov30_hybrid"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_qwen3.6-27b_cov30_image_only",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_qwen3.6-27b_cov30_image_only"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_qwen3.6-27b_cov30_text_only",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_qwen3.6-27b_cov30_text_only"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_qwen3.6-27b_v0_hybrid",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_qwen3.6-27b_v0_hybrid"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_think_qwen3.5-4b_cov30_hybrid",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_think_qwen3.5-4b_cov30_hybrid"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_think_qwen3.5-9b_cov30_hybrid",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_think_qwen3.5-9b_cov30_hybrid"
+      },
+      {
+        "rq": "RQ3",
+        "legacy_path": "results/rq3_v1_think_qwen3.6-27b_cov30_hybrid",
+        "canonical_path": "RQs/RQ3/results/rq3_v1_think_qwen3.6-27b_cov30_hybrid"
+      }
+    ]
+  },
+  "hash_migrations": {
+    "relocation_only_configuration_hashes": [
+      {
+        "legacy_path": "configs/experiments/rq0_atomic_visual_grounding_v1.yaml",
+        "canonical_path": "RQs/RQ0/configs/experiments/rq0_atomic_visual_grounding_v1.yaml",
+        "legacy_sha256": "5caf5424cfe7cfedcb1fdb867f8dd9036091fdfe57182e8546a5b705b60e12e6",
+        "canonical_sha256": "beeb97c14eb6259d08356979fa2f3780e779c09666d0effb4091d3c8bc8a4626",
+        "hash_relation": "confirmed_relocation_only_successor"
+      },
+      {
+        "legacy_path": "configs/experiments/rq0_equal_information_equal_compute.yaml",
+        "canonical_path": "RQs/RQ0/configs/experiments/rq0_equal_information_equal_compute.yaml",
+        "legacy_sha256": "aaa394f2717a4f589e5058b85aaf5277de25126532c044fb6e9f3dcc7d98c66d",
+        "canonical_sha256": "0978233aa0b48d22973e597543c0efe572a6fccb76de630259d695162da25720",
+        "hash_relation": "confirmed_relocation_only_successor"
+      },
+      {
+        "legacy_path": "configs/experiments/rq0_nonredundant_modality_allocation_v1.yaml",
+        "canonical_path": "RQs/RQ0/configs/experiments/rq0_nonredundant_modality_allocation_v1.yaml",
+        "legacy_sha256": "4caf17fc578ae447c8b3c30f982b517b39818298d87c9009d6b255b3fd200565",
+        "canonical_sha256": "1c826b9e723a43ea848ffb2c69c91a0120a35dd100dcd22f5365f9c02eaff55c",
+        "hash_relation": "confirmed_relocation_only_successor"
+      },
+      {
+        "legacy_path": "configs/training/causal_integration_sft_v1.yaml",
+        "canonical_path": "RQs/RQ0/configs/training/causal_integration_sft_v1.yaml",
+        "legacy_sha256": "adf47864c6ef3c8fa0c8a90d2a869693b3c796be8a9be1d680b89ed175191abf",
+        "canonical_sha256": "97a9e3bc176afff49c4c5f81cf39f8b8045acc65367108e6f39743d97df16d4a",
+        "hash_relation": "confirmed_relocation_only_successor"
+      },
+      {
+        "legacy_path": "configs/training/causal_integration_sft_v2.yaml",
+        "canonical_path": "RQs/RQ0/configs/training/causal_integration_sft_v2.yaml",
+        "legacy_sha256": "d4e0f431ad890a83fa399d5a439cd9e81e2b5326cd512e2bc77fc4e9da2b3b8f",
+        "canonical_sha256": "7084180a5a1459f620b506b1e498a03deaad4f731dd6b39488d1294346bbd82b",
+        "hash_relation": "confirmed_relocation_only_successor"
+      },
+      {
+        "legacy_path": "configs/training/causal_integration_sft_v2_1.yaml",
+        "canonical_path": "RQs/RQ0/configs/training/causal_integration_sft_v2_1.yaml",
+        "legacy_sha256": "21d2371ccf5e4a1d87b4ea8c85327dda4f116d95a07e712716a098d30d17c7f6",
+        "canonical_sha256": "bbbf4f12931f4ebe3fe9e814520e011e25804fef862ad94372b1cf8876954eb8",
+        "hash_relation": "confirmed_relocation_only_successor"
+      },
+      {
+        "legacy_path": "configs/experiments/rq3_v1_modality.yaml",
+        "canonical_path": "RQs/RQ3/configs/rq3_v1_modality.yaml",
+        "legacy_sha256": "914329745b175eb3f99272cec6e915dc600c90340fac20cb14ddf8f6015fe2b5",
+        "canonical_sha256": "2d528ae114294d686b3b906835cadbc911984acaa244d5699126fbf85b8906d1",
+        "hash_relation": "confirmed_relocation_only_successor"
+      }
+    ],
+    "path_bearing_semantic_hashes": [
+      {
+        "artifact": "RQs/RQ0/results/rq0_atomic_visual_grounding_v1/artifacts/task_roster.json",
+        "field": "roster_sha256",
+        "legacy_sha256": "5efe44393f2e563319b67035fa8f33454eed1e83c5f16a77df7df5027e841e85",
+        "canonical_sha256": "27e08dcc2db3b8fe5f755efc04b8d56d7aed51ab1efa692bf8f0495bb82daa39"
+      },
+      {
+        "artifact": "RQs/RQ0/results/rq0_topology_edge_key_v1/artifacts/task_roster.json",
+        "field": "roster_sha256",
+        "legacy_sha256": "a43c512b048c7e5d7f6ddd91361fc14418e414cbb279f9fe97fb75c25a74d665",
+        "canonical_sha256": "b76b10e4a0ff1cb694e5f0e84f4d702ffa933613ac3f91ae0f0555d332708402"
+      },
+      {
+        "artifact": "RQs/RQ0/results/rq0_topology_edge_key_v2/artifacts/task_roster.json",
+        "field": "roster_sha256",
+        "legacy_sha256": "8439653f5f0e3959be2b6e28c40dcd84e1808a0b7f064377e38d8f27d2495f7e",
+        "canonical_sha256": "f1aef04e71f2af953ba23cb793a45ca17055d09b27f8afc6603a44a058a2e087"
+      },
+      {
+        "artifact": "RQs/RQ0/results/rq0_v7_edge_key_case_integration_v1/artifacts/artifact_roster.json",
+        "field": "roster_sha256",
+        "legacy_sha256": "e4a8ba821ebfa0cb1ddc350ffb4b99eef89b677c1242b7a354fea516c761f096",
+        "canonical_sha256": "94a285066a267fe2599814130a93b07a90c7ddf949c289e4a55287147e42a3e4"
+      },
+      {
+        "artifact": "RQs/RQ0/configs/training/causal_integration_sft_v1_roster.json",
+        "field": "roster_sha256",
+        "legacy_sha256": "b4bd178cc90d0c39aa82636d31562dc80ac57a0015c46217c6cfc2d6e2a4833a",
+        "canonical_sha256": "4b22295b74b3395e9b01f3e88a7356994981660756a32f2b3d333584325e2f74"
+      },
+      {
+        "artifact": "RQs/RQ0/configs/training/causal_integration_sft_v2_candidate_plan.json",
+        "field": "candidate_plan_sha256",
+        "legacy_sha256": "144a13394c0f61af62cb9451e2ce2425c7b40a7dffbec5ab10e8b98bcc855888",
+        "canonical_sha256": "aab989e2ba43b61c349dc52a5765a138ac32b895941f0137d21ef30d62ffb20a"
+      },
+      {
+        "artifact": "RQs/RQ0/configs/training/causal_integration_sft_v2_1_roster.json",
+        "field": "roster_sha256",
+        "legacy_sha256": "73ce2eaadaf67e0be102d9364cc83adc8cc60cd155c272fa829bd2043681965e",
+        "canonical_sha256": "3170e8acf21bfc1ca9b377c07df2350756938500051f79f7087548494053d239"
+      }
+    ],
+    "selection_hash_note": "SFT selection hashes were recomputed because selected roster rows contain migrated artifact paths.",
+    "historical_source_provenance": "Historical source/serializer/implementation digests that identify genuine earlier code versions are preserved. Current source hashes were not substituted retroactively.",
+    "implementation_files_note": "Optimizer contract implementation_files keys were canonicalized to RQs/vlmrca/... while their historical version digests were preserved."
+  },
+  "affected_run_contracts": [
+    {
+      "legacy_path": "results/causal_integration_sft_pilot_v1/evaluation/paired_main/run_contract.json",
+      "canonical_path": "RQs/RQ0/results/causal_integration_sft_pilot_v1/evaluation/paired_main/run_contract.json",
+      "legacy_file_sha256": "853f2de515876e5f3cb38e0e2f1633fffe3e8119fd63578b1a7e2c744fa66547",
+      "canonical_file_sha256": "4dc16a88a6b02c6e8373894c3fff80c342fe3fb76f645b2faad6d2c0258592cf",
+      "valid_under_migrated_contract": true
+    },
+    {
+      "legacy_path": "results/causal_integration_sft_pilot_v1/pilot_main/run_contract.json",
+      "canonical_path": "RQs/RQ0/results/causal_integration_sft_pilot_v1/pilot_main/run_contract.json",
+      "legacy_file_sha256": "1fd855a41fd8a56f7392d661d056a7daead25cd5bd87ddce8de63a7d2b1d493e",
+      "canonical_file_sha256": "d0256fa4c749d4d096dc4f9611e162901a474349f7b8ac8825934063805a0e08",
+      "valid_under_migrated_contract": true
+    },
+    {
+      "legacy_path": "results/causal_integration_sft_pilot_v2_1/evaluation/paired_main/run_contract.json",
+      "canonical_path": "RQs/RQ0/results/causal_integration_sft_pilot_v2_1/evaluation/paired_main/run_contract.json",
+      "legacy_file_sha256": "2d686d33262ad7b3c5d9e1e5dbd43446eb09ec3e631fb68f2767fb31d422d3a0",
+      "canonical_file_sha256": "910d68f7642a22403eb71abc354bd92d6a7e0356a6d158f9db308cc2c3ba9fb5",
+      "valid_under_migrated_contract": true
+    },
+    {
+      "legacy_path": "results/causal_integration_sft_pilot_v2_1/pilot_main/run_contract.json",
+      "canonical_path": "RQs/RQ0/results/causal_integration_sft_pilot_v2_1/pilot_main/run_contract.json",
+      "legacy_file_sha256": "36892dd8105681d730a3e85db7e75daf7ea171a475c1e607b730f4f73bf28b3e",
+      "canonical_file_sha256": "53eb2cbca4d4841078ab629402be95dd73d1eca9ba895d443c3252e207ed7175",
+      "valid_under_migrated_contract": true
+    },
+    {
+      "legacy_path": "results/causal_integration_sft_smoke_v1/smoke_main/run_contract.json",
+      "canonical_path": "RQs/RQ0/results/causal_integration_sft_smoke_v1/smoke_main/run_contract.json",
+      "legacy_file_sha256": "205e4bf8dde777fdad2c1b1acb395ba4e45f0fec57cd872c5d7daaeed60b0d07",
+      "canonical_file_sha256": "8fcd1e0a02b22a22987a4a97cd3ceb8455b1ec116cbd2f413bada7246802b76f",
+      "valid_under_migrated_contract": true
+    },
+    {
+      "legacy_path": "results/causal_integration_sft_smoke_v2_1/smoke_main/run_contract.json",
+      "canonical_path": "RQs/RQ0/results/causal_integration_sft_smoke_v2_1/smoke_main/run_contract.json",
+      "legacy_file_sha256": "4744e79e79b4c75900ff4d4031ef1f057f73b33dcbdec197b594cbdd5be55d62",
+      "canonical_file_sha256": "6d27784a2ad63f10976089603151a38bf5c0a5cbc417087895c2a93547c81b6c",
+      "valid_under_migrated_contract": true
+    },
+    {
+      "legacy_path": "results/causal_integration_sft_v2/base_rollouts/failed_before_calls_missing_vllm_env/run_contract.json",
+      "canonical_path": "RQs/RQ0/results/causal_integration_sft_v2/base_rollouts/failed_before_calls_missing_vllm_env/run_contract.json",
+      "legacy_file_sha256": "bd4a481ae591b10ddd93e36b9a9722484e6cd4b118e6b7f7ccae7d6673f612d4",
+      "canonical_file_sha256": "31cf303a3349e22687fa9629209240f581cd83676a1d3ebe2be4b29348b7c500",
+      "valid_under_migrated_contract": true
+    },
+    {
+      "legacy_path": "results/causal_integration_sft_v2/base_rollouts/main/run_contract.json",
+      "canonical_path": "RQs/RQ0/results/causal_integration_sft_v2/base_rollouts/main/run_contract.json",
+      "legacy_file_sha256": "bd4a481ae591b10ddd93e36b9a9722484e6cd4b118e6b7f7ccae7d6673f612d4",
+      "canonical_file_sha256": "31cf303a3349e22687fa9629209240f581cd83676a1d3ebe2be4b29348b7c500",
+      "valid_under_migrated_contract": true
+    },
+    {
+      "legacy_path": "results/rq0_nonredundant_modality_allocation_v1/gemma-4-26b-a4b__development__main/run_contract.json",
+      "canonical_path": "RQs/RQ0/results/rq0_nonredundant_modality_allocation_v1/gemma-4-26b-a4b__development__main/run_contract.json",
+      "legacy_file_sha256": "49789e4c16f0a3ff3a72109243263c5c591f5daf4da6a821ec800efe276d8caa",
+      "canonical_file_sha256": "8b8d520add5fcf5c18078cc2a36f1ad4aac967dab3a222c88be215694d162060",
+      "valid_under_migrated_contract": true
+    },
+    {
+      "legacy_path": "results/rq0_nonredundant_modality_allocation_v1/gemma-4-26b-a4b__development__smoke/run_contract.json",
+      "canonical_path": "RQs/RQ0/results/rq0_nonredundant_modality_allocation_v1/gemma-4-26b-a4b__development__smoke/run_contract.json",
+      "legacy_file_sha256": "755435a9ad4a6b4ae8067f3c894764de028d1893d5c4d01b42fd7a0a790a4a0f",
+      "canonical_file_sha256": "5f79b3a9df6003244f6a48a7fec80acdfa9bf7e71c5da4cd792b1ddf55031fa8",
+      "valid_under_migrated_contract": true
+    },
+    {
+      "legacy_path": "results/rq0_nonredundant_modality_allocation_v1/qwen3.6-27b__development__main/run_contract.json",
+      "canonical_path": "RQs/RQ0/results/rq0_nonredundant_modality_allocation_v1/qwen3.6-27b__development__main/run_contract.json",
+      "legacy_file_sha256": "2c72c66beff41b41ae54b6aa9f8846104c54427e1ff6606716cca2cc5e6f2541",
+      "canonical_file_sha256": "4a7da1281bca38b4fa4bfd3a54bd2c03215f6a43f4a14c9149eba8701069ff07",
+      "valid_under_migrated_contract": true
+    },
+    {
+      "legacy_path": "results/rq0_nonredundant_modality_allocation_v1/qwen3.6-27b__development__smoke/run_contract.json",
+      "canonical_path": "RQs/RQ0/results/rq0_nonredundant_modality_allocation_v1/qwen3.6-27b__development__smoke/run_contract.json",
+      "legacy_file_sha256": "1c37435b7c433a6f702f48345ccfde25aca64c850b1fe05eb8b9d2f3db5e0f90",
+      "canonical_file_sha256": "38016d6a856cf0a3131598de2df563ba48a7b7cb45345b06c02e0dc5def2d7b5",
+      "valid_under_migrated_contract": true
+    }
+  ],
+  "result_assignment_counts": {
+    "RQ0": 13,
+    "RQ1": 8,
+    "RQ3": 46
+  },
+  "integrity_status": {
+    "root_results_empty": true,
+    "canonical_self_hashes_verified": true,
+    "run_contract_headers_verified": true,
+    "equal_information_trajectory_log_headers_reconciled": true,
+    "legacy_path_scan_passed": true,
+    "structured_files_validated": {
+      "json_files": 9682,
+      "jsonl_records": 16146
+    },
+    "case_manifest_reproducible": true,
+    "python_compileall_passed": true,
+    "shell_syntax_passed": true,
+    "pytest": "90 passed in 51.39s",
+    "wheel_build_passed": true
+  }
+}

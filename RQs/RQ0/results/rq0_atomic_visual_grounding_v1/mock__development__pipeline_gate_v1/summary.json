@@ -1,0 +1,141 @@
+{
+  "schema_version": "RQ0AtomicVisualGroundingV1",
+  "scope": "development_only_nonconfirmatory",
+  "n_calls": 6,
+  "conditions": {
+    "actual_image": {
+      "n_calls": 2,
+      "parse_rate": 0.0,
+      "answer_completion_rate": 0.0,
+      "task_accuracy": 0.0,
+      "by_category": {
+        "metric_identity": {
+          "n": 2,
+          "accuracy": 0.0
+        },
+        "metric_pattern": {
+          "n": 2,
+          "accuracy": 0.0
+        },
+        "table_log": {
+          "n": 2,
+          "accuracy": 0.0
+        },
+        "table_trace": {
+          "n": 2,
+          "accuracy": 0.0
+        },
+        "topology_edge": {
+          "n": 2,
+          "accuracy": 0.0
+        },
+        "topology_order": {
+          "n": 2,
+          "accuracy": 0.0
+        },
+        "topology_time": {
+          "n": 2,
+          "accuracy": 0.0
+        }
+      },
+      "avg_input_tokens": 1574.0,
+      "avg_output_tokens": 40.0,
+      "avg_wall_time_s": 0.063874,
+      "infrastructure_failures": 0,
+      "truncations": 0
+    },
+    "swapped_image": {
+      "n_calls": 2,
+      "parse_rate": 0.0,
+      "answer_completion_rate": 0.0,
+      "task_accuracy": 0.0,
+      "by_category": {
+        "metric_identity": {
+          "n": 2,
+          "accuracy": 0.0
+        },
+        "metric_pattern": {
+          "n": 2,
+          "accuracy": 0.0
+        },
+        "table_log": {
+          "n": 2,
+          "accuracy": 0.0
+        },
+        "table_trace": {
+          "n": 2,
+          "accuracy": 0.0
+        },
+        "topology_edge": {
+          "n": 2,
+          "accuracy": 0.0
+        },
+        "topology_order": {
+          "n": 2,
+          "accuracy": 0.0
+        },
+        "topology_time": {
+          "n": 2,
+          "accuracy": 0.0
+        }
+      },
+      "avg_input_tokens": 1574.0,
+      "avg_output_tokens": 40.0,
+      "avg_wall_time_s": 0.0643335,
+      "infrastructure_failures": 0,
+      "truncations": 0
+    },
+    "no_image": {
+      "n_calls": 2,
+      "parse_rate": 0.0,
+      "answer_completion_rate": 0.0,
+      "task_accuracy": 0.0,
+      "by_category": {
+        "metric_identity": {
+          "n": 2,
+          "accuracy": 0.0
+        },
+        "metric_pattern": {
+          "n": 2,
+          "accuracy": 0.0
+        },
+        "table_log": {
+          "n": 2,
+          "accuracy": 0.0
+        },
+        "table_trace": {
+          "n": 2,
+          "accuracy": 0.0
+        },
+        "topology_edge": {
+          "n": 2,
+          "accuracy": 0.0
+        },
+        "topology_order": {
+          "n": 2,
+          "accuracy": 0.0
+        },
+        "topology_time": {
+          "n": 2,
+          "accuracy": 0.0
+        }
+      },
+      "avg_input_tokens": 374.0,
+      "avg_output_tokens": 40.0,
+      "avg_wall_time_s": 0.0658155,
+      "infrastructure_failures": 0,
+      "truncations": 0
+    }
+  },
+  "diagnostic_deltas": {
+    "actual_minus_swapped": 0.0,
+    "actual_minus_no_image": 0.0,
+    "multiple_choice_random_chance": 0.25
+  },
+  "rca_metrics_applicable": false,
+  "model": "mock",
+  "replicate": "pipeline_gate_v1",
+  "requested_calls": 6,
+  "complete": true,
+  "task_roster_sha256": "27e08dcc2db3b8fe5f755efc04b8d56d7aed51ab1efa692bf8f0495bb82daa39"
+}

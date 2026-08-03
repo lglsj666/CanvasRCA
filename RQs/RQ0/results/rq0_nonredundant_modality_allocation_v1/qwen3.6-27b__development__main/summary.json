@@ -1,0 +1,93 @@
+{
+  "schema_version": "RQ0AllocationSummaryV1",
+  "scope": "exposed_development_only_nonconfirmatory",
+  "n_calls": 72,
+  "expected_calls": 72,
+  "arms": {
+    "allocated_visual_text": {
+      "n": 24,
+      "mrr": 0.48055555555555557,
+      "ac1": 0.4166666666666667,
+      "ac3": 0.5416666666666666,
+      "ac5": 0.5833333333333334,
+      "avg3": 0.4861111111111111,
+      "avg5": 0.5166666666666667,
+      "parse_rate": 1.0,
+      "infrastructure_failures": 0,
+      "mean_input_tokens": 5568.958333333333,
+      "mean_output_tokens": 113.0,
+      "mean_wall_time_s": 7.5265967499999995
+    },
+    "duplicated_visual_text": {
+      "n": 24,
+      "mrr": 0.48055555555555557,
+      "ac1": 0.4166666666666667,
+      "ac3": 0.5416666666666666,
+      "ac5": 0.5833333333333334,
+      "avg3": 0.4861111111111111,
+      "avg5": 0.5166666666666667,
+      "parse_rate": 1.0,
+      "infrastructure_failures": 0,
+      "mean_input_tokens": 11214.833333333334,
+      "mean_output_tokens": 111.70833333333333,
+      "mean_wall_time_s": 8.919570875
+    },
+    "full_text_only": {
+      "n": 24,
+      "mrr": 0.5097222222222223,
+      "ac1": 0.4583333333333333,
+      "ac3": 0.5416666666666666,
+      "ac5": 0.625,
+      "avg3": 0.5,
+      "avg5": 0.5333333333333333,
+      "parse_rate": 1.0,
+      "infrastructure_failures": 0,
+      "mean_input_tokens": 9252.833333333334,
+      "mean_output_tokens": 108.29166666666667,
+      "mean_wall_time_s": 8.070583541666666
+    }
+  },
+  "comparisons": {
+    "D_minus_B": {
+      "left": "allocated_visual_text",
+      "right": "full_text_only",
+      "n": 24,
+      "delta_mrr": -0.029166666666666664,
+      "improved": 0,
+      "degraded": 2,
+      "tied": 22,
+      "wilcoxon_p_descriptive": 0.17971249487899976,
+      "paired_cohens_d": -0.2694040974977612,
+      "delta_by_dataset": {
+        "aegislab": 0.0,
+        "aiops2022": 0.0,
+        "aiops2025": -0.0875
+      }
+    },
+    "D_minus_A": {
+      "left": "allocated_visual_text",
+      "right": "duplicated_visual_text",
+      "n": 24,
+      "delta_mrr": 0.0,
+      "improved": 0,
+      "degraded": 0,
+      "tied": 24,
+      "wilcoxon_p_descriptive": 1.0,
+      "paired_cohens_d": 0.0,
+      "delta_by_dataset": {
+        "aegislab": 0.0,
+        "aiops2022": 0.0,
+        "aiops2025": 0.0
+      }
+    }
+  },
+  "gate": {
+    "pass_for_this_model": false,
+    "failures": [
+      "D_minus_B_below_0.05",
+      "D_minus_B_direction_margin_below_3",
+      "D_does_not_beat_A"
+    ],
+    "interpretation": "development mechanism qualification; never confirmatory"
+  }
+}

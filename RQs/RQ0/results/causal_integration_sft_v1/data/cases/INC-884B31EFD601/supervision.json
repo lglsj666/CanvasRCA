@@ -1,0 +1,38 @@
+{
+  "schema_version": "CausalIntegrationSFTV1",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "ts-order-service",
+  "hard_symptom_candidate": "ts-security-service",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "ts-security-service",
+    "ts-order-service"
+  ],
+  "root_evidence": {
+    "source": "metric",
+    "rank": 1,
+    "service": "ts-order-service",
+    "metric": "container.filesystem.usage",
+    "signed_z": 848.404,
+    "persistence_bins": 31,
+    "onset_rel_s": 250.689
+  },
+  "symptom_evidence": {
+    "rank": 1,
+    "service": "ts-security-service",
+    "onset_rel_s": 244.2,
+    "severity_z": 16.589,
+    "evidence_source": "trace"
+  },
+  "target_object": {
+    "services": [
+      "ts-order-service",
+      "ts-security-service"
+    ],
+    "reason": "Rank ts-order-service first because ts-order-service has direct container.filesystem.usage evidence (signed-z 848.4, persistence 31 bins); although ts-security-service is salient, the caller path ts-security-service -> ts-order-service means a disturbance in the callee can propagate back toward that caller-side symptom.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank ts-order-service first because ts-order-service has direct container.filesystem.usage evidence (signed-z 848.4, persistence 31 bins); although ts-security-service is salient, the caller path ts-security-service -> ts-order-service means a disturbance in the callee can propagate back toward that caller-side symptom.\",\"services\":[\"ts-order-service\",\"ts-security-service\"]}"
+}

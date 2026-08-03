@@ -1,0 +1,141 @@
+{
+  "schema_version": "RQ0AtomicVisualGroundingV1",
+  "scope": "development_only_nonconfirmatory",
+  "n_calls": 36,
+  "conditions": {
+    "actual_image": {
+      "n_calls": 12,
+      "parse_rate": 1.0,
+      "answer_completion_rate": 1.0,
+      "task_accuracy": 0.6428571428571429,
+      "by_category": {
+        "metric_identity": {
+          "n": 12,
+          "accuracy": 0.75
+        },
+        "metric_pattern": {
+          "n": 12,
+          "accuracy": 0.8333333333333334
+        },
+        "table_log": {
+          "n": 12,
+          "accuracy": 0.6666666666666666
+        },
+        "table_trace": {
+          "n": 12,
+          "accuracy": 0.5
+        },
+        "topology_edge": {
+          "n": 12,
+          "accuracy": 0.08333333333333333
+        },
+        "topology_order": {
+          "n": 12,
+          "accuracy": 0.9166666666666666
+        },
+        "topology_time": {
+          "n": 12,
+          "accuracy": 0.75
+        }
+      },
+      "avg_input_tokens": 789.4166666666666,
+      "avg_output_tokens": 51.0,
+      "avg_wall_time_s": 1.81679575,
+      "infrastructure_failures": 0,
+      "truncations": 0
+    },
+    "swapped_image": {
+      "n_calls": 12,
+      "parse_rate": 1.0,
+      "answer_completion_rate": 1.0,
+      "task_accuracy": 0.36904761904761907,
+      "by_category": {
+        "metric_identity": {
+          "n": 12,
+          "accuracy": 0.5
+        },
+        "metric_pattern": {
+          "n": 12,
+          "accuracy": 0.75
+        },
+        "table_log": {
+          "n": 12,
+          "accuracy": 0.5
+        },
+        "table_trace": {
+          "n": 12,
+          "accuracy": 0.3333333333333333
+        },
+        "topology_edge": {
+          "n": 12,
+          "accuracy": 0.16666666666666666
+        },
+        "topology_order": {
+          "n": 12,
+          "accuracy": 0.16666666666666666
+        },
+        "topology_time": {
+          "n": 12,
+          "accuracy": 0.16666666666666666
+        }
+      },
+      "avg_input_tokens": 789.4166666666666,
+      "avg_output_tokens": 51.0,
+      "avg_wall_time_s": 1.83550125,
+      "infrastructure_failures": 0,
+      "truncations": 0
+    },
+    "no_image": {
+      "n_calls": 12,
+      "parse_rate": 1.0,
+      "answer_completion_rate": 1.0,
+      "task_accuracy": 0.2857142857142857,
+      "by_category": {
+        "metric_identity": {
+          "n": 12,
+          "accuracy": 0.5
+        },
+        "metric_pattern": {
+          "n": 12,
+          "accuracy": 1.0
+        },
+        "table_log": {
+          "n": 12,
+          "accuracy": 0.08333333333333333
+        },
+        "table_trace": {
+          "n": 12,
+          "accuracy": 0.16666666666666666
+        },
+        "topology_edge": {
+          "n": 12,
+          "accuracy": 0.0
+        },
+        "topology_order": {
+          "n": 12,
+          "accuracy": 0.16666666666666666
+        },
+        "topology_time": {
+          "n": 12,
+          "accuracy": 0.08333333333333333
+        }
+      },
+      "avg_input_tokens": 527.4166666666666,
+      "avg_output_tokens": 51.0,
+      "avg_wall_time_s": 1.8016225,
+      "infrastructure_failures": 0,
+      "truncations": 0
+    }
+  },
+  "diagnostic_deltas": {
+    "actual_minus_swapped": 0.27380952380952384,
+    "actual_minus_no_image": 0.3571428571428572,
+    "multiple_choice_random_chance": 0.25
+  },
+  "rca_metrics_applicable": false,
+  "model": "gemma-4-26b-a4b",
+  "replicate": "main",
+  "requested_calls": 36,
+  "complete": true,
+  "task_roster_sha256": "27e08dcc2db3b8fe5f755efc04b8d56d7aed51ab1efa692bf8f0495bb82daa39"
+}

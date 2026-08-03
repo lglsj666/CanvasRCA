@@ -1,0 +1,50 @@
+{
+  "n": 20,
+  "mrr": 0.6583333333333333,
+  "top1": 0.6,
+  "top3": 0.75,
+  "top5": 0.75,
+  "parse_rate": 1.0,
+  "avg_input_tokens": 9412.4,
+  "avg_output_tokens": 1386.5,
+  "avg_total_tokens": 10798.9,
+  "avg_wall_clock_s": 51.8445065498352,
+  "mrr_by_dataset": {
+    "aegislab": 0.6583333333333333
+  },
+  "n_by_dataset": {
+    "aegislab": 20
+  },
+  "mrr_by_fault_bucket": {
+    "HTTP": 0.5119047619047619,
+    "JVM": 1.0,
+    "Network": 1.0
+  },
+  "n_by_fault_bucket": {
+    "HTTP": 14,
+    "JVM": 4,
+    "Network": 2
+  },
+  "experiment": "bakeoff_nothink_qwen3.6-27b",
+  "model": "qwen3.6-27b",
+  "modality": "hybrid",
+  "dashboard_config": {
+    "name": "v0",
+    "panel_budget": 12,
+    "ranker": "ksigma",
+    "max_per_family": 0,
+    "max_per_service": 0,
+    "layout": "small_multiples",
+    "grid_cols": 3,
+    "topology": "colored",
+    "topology_labels": "numbered",
+    "max_topology_nodes": 25,
+    "show_legend_table": true,
+    "shade_fault_window": true,
+    "annotate_extremes": true,
+    "normalize_panels": false,
+    "long_side_px": 1568,
+    "show_logs": true,
+    "show_traces": true
+  }
+}

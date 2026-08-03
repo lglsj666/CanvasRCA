@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "verification": "huggingface_hub dry-run reports zero missing/outdated files",
+  "models": {
+    "qwen3.6-27b": {
+      "repo_id": "Qwen/Qwen3.6-27B",
+      "revision": "6a9e13bd6fc8f0983b9b99948120bc37f49c13e9",
+      "local_path": "/home/lglsj/CanvasRCA/models/Qwen3.6-27B",
+      "dtype": "bfloat16",
+      "quantization": null,
+      "weight_shards": 15,
+      "config_sha256": "69db4eb7196bc8190813231b3018ca05d8c2e3abc7b1af19d55c157af44a9d9c",
+      "index_sha256": "a8ad2c26fb707ff8c245806315b03e3b4b74595528492423af5dae0ce39b4d9b",
+      "tokenizer_config_sha256": "5186f0defcd7f232382c7f0aebcd2252d073bb921ab240e407b7ae8745d2b29b"
+    },
+    "gemma-4-26b-a4b": {
+      "repo_id": "google/gemma-4-26B-A4B-it",
+      "revision": "4d7ae4984b7db7de8f8457170b3f1a419ee76d52",
+      "local_path": "/home/lglsj/CanvasRCA/models/gemma-4-26B-A4B-it",
+      "dtype": "bfloat16",
+      "quantization": null,
+      "weight_shards": 2,
+      "config_sha256": "ed0c1eb3633de771906e9ba004a44cc5635bcc06ee2062077c3d2e88a50707d3",
+      "index_sha256": "907826a6e46ff454272bd6db1fee629d5531a2303be22986d825a0871d7dc7a7",
+      "tokenizer_config_sha256": "9f4fec4b1dc6ecddf8f4a92e9caea5971c0e67d81309f3f9066a2bee8c362633"
+    }
+  }
+}

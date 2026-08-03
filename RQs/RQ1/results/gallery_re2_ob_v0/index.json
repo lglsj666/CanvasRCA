@@ -1,0 +1,50 @@
+[
+  {
+    "case_id": "re2_ob_checkoutservice_cpu_1",
+    "ground_truth": "checkoutservice",
+    "fault_type": "cpu",
+    "render_s": 0.9,
+    "png": "/scratch/tianyifa/vlm-rca/RQs/RQ1/results/gallery_re2_ob_v0/re2_ob_checkoutservice_cpu_1.png",
+    "top_panels": [
+      "checkoutservice\u00b7cpu z=248.7",
+      "checkoutservice\u00b7socket z=181.8",
+      "frontend\u00b7socket z=32.3"
+    ]
+  },
+  {
+    "case_id": "re2_ob_checkoutservice_cpu_2",
+    "ground_truth": "checkoutservice",
+    "fault_type": "cpu",
+    "render_s": 0.53,
+    "png": "/scratch/tianyifa/vlm-rca/RQs/RQ1/results/gallery_re2_ob_v0/re2_ob_checkoutservice_cpu_2.png",
+    "top_panels": [
+      "currencyservice\u00b7socket z=-500.0",
+      "emailservice\u00b7socket z=-333.3",
+      "paymentservice\u00b7socket z=-333.3"
+    ]
+  },
+  {
+    "case_id": "re2_ob_checkoutservice_cpu_3",
+    "ground_truth": "checkoutservice",
+    "fault_type": "cpu",
+    "render_s": 0.89,
+    "png": "/scratch/tianyifa/vlm-rca/RQs/RQ1/results/gallery_re2_ob_v0/re2_ob_checkoutservice_cpu_3.png",
+    "top_panels": [
+      "adservice\u00b7mem z=445.5",
+      "checkoutservice\u00b7socket z=307.7",
+      "checkoutservice\u00b7cpu z=254.3"
+    ]
+  },
+  {
+    "case_id": "re2_ob_checkoutservice_delay_1",
+    "ground_truth": "checkoutservice",
+    "fault_type": "delay",
+    "render_s": 0.74,
+    "png": "/scratch/tianyifa/vlm-rca/RQs/RQ1/results/gallery_re2_ob_v0/re2_ob_checkoutservice_delay_1.png",
+    "top_panels": [
+      "emailservice\u00b7latency z=999.0",
+      "shippingservice\u00b7latency z=999.0",
+      "checkoutservice\u00b7latency z=419.2"
+    ]
+  }
+]

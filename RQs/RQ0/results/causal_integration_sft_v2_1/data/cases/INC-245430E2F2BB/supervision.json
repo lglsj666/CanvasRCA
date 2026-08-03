@@ -1,0 +1,47 @@
+{
+  "schema_version": "CausalIntegrationSFTV2",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "node-6",
+  "hard_symptom_candidate": "node-3",
+  "contrast_type": "direct_root_evidence_over_onset_salience",
+  "caller_path": null,
+  "root_evidence": {
+    "source": "metric",
+    "rank": 3,
+    "service": "node-6",
+    "metric": "node_disk_read_bytes_total",
+    "signed_z": 999.0,
+    "persistence_bins": 0,
+    "onset_rel_s": null
+  },
+  "symptom_evidence": {
+    "rank": 1,
+    "service": "node-3",
+    "onset_rel_s": 1140.0,
+    "severity_z": 17.806,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "node-6",
+      "node-8",
+      "node-5",
+      "node-4",
+      "node-3"
+    ],
+    "reason": "Rank node-6 first because node-6 has direct node_disk_read_bytes_total evidence (signed-z 999, persistence 0 bins); node-3 is second despite propagation rank 1 because onset ordering alone does not establish the causal origin. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.",
+    "confidence": "medium"
+  },
+  "target_text": "{\"confidence\":\"medium\",\"reason\":\"Rank node-6 first because node-6 has direct node_disk_read_bytes_total evidence (signed-z 999, persistence 0 bins); node-3 is second despite propagation rank 1 because onset ordering alone does not establish the causal origin. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.\",\"services\":[\"node-6\",\"node-8\",\"node-5\",\"node-4\",\"node-3\"]}",
+  "curriculum_role": "base_wrong_correction",
+  "base_predictions_private_training_only": [
+    "node-8",
+    "node-5",
+    "node-6",
+    "node-4",
+    "node-3"
+  ],
+  "base_top1_correct": false
+}

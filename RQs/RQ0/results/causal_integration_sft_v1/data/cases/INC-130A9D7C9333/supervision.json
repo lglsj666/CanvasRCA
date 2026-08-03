@@ -1,0 +1,35 @@
+{
+  "schema_version": "CausalIntegrationSFTV1",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "ts-assurance-service",
+  "hard_symptom_candidate": "ts-wait-order-service",
+  "contrast_type": "direct_root_evidence_over_onset_salience",
+  "caller_path": null,
+  "root_evidence": {
+    "source": "metric",
+    "rank": 5,
+    "service": "ts-assurance-service",
+    "metric": "container.filesystem.usage",
+    "signed_z": 848.404,
+    "persistence_bins": 24,
+    "onset_rel_s": 241.611
+  },
+  "symptom_evidence": {
+    "rank": 2,
+    "service": "ts-wait-order-service",
+    "onset_rel_s": 308.4,
+    "severity_z": 817.381,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "ts-assurance-service",
+      "ts-wait-order-service"
+    ],
+    "reason": "Rank ts-assurance-service first because ts-assurance-service has direct container.filesystem.usage evidence (signed-z 848.4, persistence 24 bins); ts-wait-order-service is second despite propagation rank 2 because onset ordering alone does not establish the causal origin.",
+    "confidence": "medium"
+  },
+  "target_text": "{\"confidence\":\"medium\",\"reason\":\"Rank ts-assurance-service first because ts-assurance-service has direct container.filesystem.usage evidence (signed-z 848.4, persistence 24 bins); ts-wait-order-service is second despite propagation rank 2 because onset ordering alone does not establish the causal origin.\",\"services\":[\"ts-assurance-service\",\"ts-wait-order-service\"]}"
+}

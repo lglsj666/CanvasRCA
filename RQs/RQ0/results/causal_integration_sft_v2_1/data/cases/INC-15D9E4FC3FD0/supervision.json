@@ -1,0 +1,54 @@
+{
+  "schema_version": "CausalIntegrationSFTV2",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "shippingservice-0",
+  "hard_symptom_candidate": "checkoutservice",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "checkoutservice",
+    "shippingservice"
+  ],
+  "root_evidence": {
+    "source": "trace",
+    "rank": 1,
+    "service": "shippingservice",
+    "summary": {
+      "service": "shippingservice",
+      "p95_pre_ms": 0.495,
+      "p95_during_ms": 0.5907999999999997,
+      "delta_pct": 19.4,
+      "error_pct": 0.0,
+      "spans": 3496
+    }
+  },
+  "symptom_evidence": {
+    "rank": 13,
+    "service": "checkoutservice",
+    "onset_rel_s": null,
+    "severity_z": 0.0,
+    "evidence_source": "none"
+  },
+  "target_object": {
+    "services": [
+      "shippingservice-0",
+      "adservice",
+      "node-1",
+      "hipstershop",
+      "emailservice"
+    ],
+    "reason": "Rank shippingservice-0 first because shippingservice-0 has direct trace evidence; although checkoutservice is salient, the caller path checkoutservice -> shippingservice means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank shippingservice-0 first because shippingservice-0 has direct trace evidence; although checkoutservice is salient, the caller path checkoutservice -> shippingservice means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.\",\"services\":[\"shippingservice-0\",\"adservice\",\"node-1\",\"hipstershop\",\"emailservice\"]}",
+  "curriculum_role": "base_wrong_correction",
+  "base_predictions_private_training_only": [
+    "adservice",
+    "adservice-0",
+    "node-1",
+    "hipstershop",
+    "emailservice"
+  ],
+  "base_top1_correct": false
+}

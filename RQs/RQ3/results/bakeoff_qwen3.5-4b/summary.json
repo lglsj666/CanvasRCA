@@ -1,0 +1,50 @@
+{
+  "n": 20,
+  "mrr": 0.485,
+  "top1": 0.45,
+  "top3": 0.5,
+  "top5": 0.55,
+  "parse_rate": 0.95,
+  "avg_input_tokens": 9410.4,
+  "avg_output_tokens": 9779.9,
+  "avg_total_tokens": 19190.3,
+  "avg_wall_clock_s": 133.240960419178,
+  "mrr_by_dataset": {
+    "aegislab": 0.485
+  },
+  "n_by_dataset": {
+    "aegislab": 20
+  },
+  "mrr_by_fault_bucket": {
+    "HTTP": 0.5142857142857143,
+    "JVM": 0.375,
+    "Network": 0.5
+  },
+  "n_by_fault_bucket": {
+    "HTTP": 14,
+    "JVM": 4,
+    "Network": 2
+  },
+  "experiment": "bakeoff_qwen3.5-4b",
+  "model": "qwen3.5-4b",
+  "modality": "hybrid",
+  "dashboard_config": {
+    "name": "v0",
+    "panel_budget": 12,
+    "ranker": "ksigma",
+    "max_per_family": 0,
+    "max_per_service": 0,
+    "layout": "small_multiples",
+    "grid_cols": 3,
+    "topology": "colored",
+    "topology_labels": "numbered",
+    "max_topology_nodes": 25,
+    "show_legend_table": true,
+    "shade_fault_window": true,
+    "annotate_extremes": true,
+    "normalize_panels": false,
+    "long_side_px": 1568,
+    "show_logs": true,
+    "show_traces": true
+  }
+}

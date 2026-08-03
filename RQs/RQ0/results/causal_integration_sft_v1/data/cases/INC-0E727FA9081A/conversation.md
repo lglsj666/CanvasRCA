@@ -1,0 +1,126 @@
+# System
+
+You are an expert Site Reliability Engineer performing Root Cause Analysis (RCA) for a microservice application deployed on a Kubernetes cluster. A fault has occurred in the system. Your task is to identify the root cause of the incident.
+
+Root causes can occur at three levels:
+- Pod level: a specific container replica (e.g., "cartservice-0")
+- Service level: a microservice type (e.g., "paymentservice") — predict any pod of that service
+- Node level: an infrastructure host (e.g., "node-6") — nodes appear as isolated entities with system metrics (CPU, memory, network, disk) but no application logs or traces
+
+The system consists of multiple services communicating over HTTP/gRPC, running on shared infrastructure nodes. A fault in one component (pod, service, or node) can propagate to dependent components, causing them to appear degraded even though they are not the root cause.
+
+Node-level faults (e.g., host memory exhaustion, CPU saturation, disk I/O) often manifest as correlated anomalies across multiple pods. If several unrelated pods show simultaneous degradation and a node shows critical system-level metrics, the node is likely the root cause.
+
+Focus on distinguishing the ORIGIN of the fault from its SYMPTOMS in downstream or co-located components.
+
+# User
+
+[image: dashboard.png]
+
+Analyze this incident using only the supplied evidence. Rank the most likely
+root-cause components, distinguishing the origin from propagated symptoms.
+
+Evidence semantics shared by all representations:
+- candidates are exhaustive and appear in a fixed alphabetical order;
+- every metric has 64 equal-width bins from window start t=0; null means no
+  observed sample in that bin and observed_count gives the number aggregated;
+- shared_bin_centers_rel_s applies to all metric series; missing_mask_bits uses
+  one bit per bin (1=missing, 0=observed); observed_counts_compact is either a
+  comma-separated integer vector prefixed csv: or value*run pairs prefixed rle:;
+- values_compact is lossless: raw: is a JSON vector, rle: is value*run pairs,
+  and delta: stores the first observed value followed by cumulative deltas;
+  missing_mask_bits restores null positions for delta encoding;
+- signed_z is relative to the pre-incident baseline; onset and persistence are
+  deterministic label-blind anomaly summaries;
+- a directed edge A -> B means A calls B, so a disturbance in B can propagate
+  back to A;
+- propagation ranks are ordered by relative onset, not by causal likelihood;
+- source t/trace and m/metric use different instruments and their z magnitudes
+  must not be compared directly.
+
+
+=== INCIDENT ===
+schema_version: CanonicalEvidenceBundleV1
+opaque_id: INC-0E727FA9081A
+observation_window={"duration_rel_s":479.74,"source_metric_rows":951}
+selection_summary={"candidate_count":104,"hot_z_threshold":10.0,"metric_ranker":"ksigma","metric_series_scored":915,"metric_series_shown":12}
+
+=== CANDIDATES (fixed order) ===
+["loadgenerator","loadgenerator-76c5949c78-m2thg","mysql","mysql-0","rabbitmq","rabbitmq-0","ts-admin-basic-info-service","ts-admin-basic-info-service-579bc4cd8d-bvfrt","ts-admin-order-service","ts-admin-order-service-76fc4c68d5-vzj95","ts-admin-route-service","ts-admin-route-service-85bffd5f6-fzzcs","ts-admin-travel-service","ts-admin-travel-service-797ccbcff7-klxx2","ts-admin-user-service","ts-admin-user-service-7874ccc7c4-kt8cj","ts-assurance-service","ts-assurance-service-d87bf675d-jhtkw","ts-auth-service","ts-auth-service-6477f4967c-l9mwz","ts-avatar-service","ts-avatar-service-74fd5ff4c7-gmm5p","ts-basic-service","ts-basic-service-59f887c7d5-b5bnb","ts-cancel-service","ts-cancel-service-67454d8789-mzvfm","ts-config-service","ts-config-service-56457f8db5-48c52","ts-consign-price-service","ts-consign-price-service-54b69c6854-b2745","ts-consign-service","ts-consign-service-686f9c998-74rv6","ts-contacts-service","ts-contacts-service-7df9fc84b6-8kpz9","ts-delivery-service","ts-delivery-service-55b55bb555-mbf5r","ts-execute-service","ts-execute-service-64b744d564-j9vp9","ts-food-delivery-service","ts-food-delivery-service-599dfbdb6d-mbd6x","ts-food-service","ts-food-service-755696bb9f-8fv6k","ts-gateway-service","ts-gateway-service-9cdfbbdfc-mfnjd","ts-inside-payment-service","ts-inside-payment-service-7666f6c64d-pbcqb","ts-news-service","ts-news-service-7869d45c45-2bjzg","ts-notification-service","ts-notification-service-b5b74bb44-m8rmv","ts-order-other-service","ts-order-other-service-67cbddcb88-8jvsl","ts-order-service","ts-order-service-85b9979d59-5cjzq","ts-payment-service","ts-payment-service-5df5775665-jwmqs","ts-preserve-other-service","ts-preserve-other-service-74f69f9db4-4b7wr","ts-preserve-service","ts-preserve-service-7f8d678dcf-55vt9","ts-price-service","ts-price-service-c4b84c894-8vstq","ts-rebook-service","ts-rebook-service-776674d89f-5t58c","ts-route-plan-service","ts-route-plan-service-7f4b79f79b-7n4gc","ts-route-service","ts-route-service-6db4bdfd5d-wlw52","ts-seat-service","ts-seat-service-5dddf49dfd-xqq8s","ts-security-service","ts-security-service-69797c9fdf-8lzhk","ts-station-food-service","ts-station-food-service-6c88c88456-f8mvv","ts-station-service","ts-station-service-75dc8bb94c-hsx5z","ts-ticket-office-service","ts-ticket-office-service-7cd6fff84-gjvj2","ts-train-food-service","ts-train-food-service-5cb6b7d98b-cmzwk","ts-train-service","ts-train-service-6ccc6f4465-6cs4v","ts-travel-plan-service","ts-travel-plan-service-56754fc8bc-shp47","ts-travel-service","ts-travel-service-5577469b95-5dtk7","ts-travel2-service","ts-travel2-service-859b87cf49-gm8tt","ts-ui-dashboard","ts-ui-dashboard-897fdb6b4-bhn2g","ts-user-service","ts-user-service-7fdd6fdfb8-tjbvb","ts-verification-code-service","ts-verification-code-service-5795bcf896-hvvxz","ts-voucher-service","ts-voucher-service-6db9df749b-8hggb","ts-wait-order-service","ts-wait-order-service-5b9fcd797f-wtm4l","worker1","worker2","worker3","worker4","worker5","worker6"]
+
+=== METRIC SERIES (all 64 bins; null=missing) ===
+shared_bin_centers_rel_s=[3.748,11.244,18.74,26.236,33.732,41.228,48.724,56.22,63.715,71.211,78.707,86.203,93.699,101.195,108.691,116.187,123.683,131.179,138.675,146.171,153.667,161.163,168.659,176.155,183.65,191.146,198.642,206.138,213.634,221.13,228.626,236.122,243.618,251.114,258.61,266.106,273.602,281.098,288.594,296.09,303.585,311.081,318.577,326.073,333.569,341.065,348.561,356.057,363.553,371.049,378.545,386.041,393.537,401.033,408.529,416.025,423.52,431.016,438.512,446.008,453.504,461.0,468.496,475.992]
+[M1] rank=1 service=ts-auth-service-6477f4967c-l9mwz metric=k8s.container.restarts baseline=0.0 peak=1.0 signed_z=999.0 onset_bin=32 onset_rel_s=243.618 persistence_bins=24
+values_compact=delta:0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+missing_mask_bits=0010001000100010001000100010001000100010001000100010001000100010
+observed_counts_compact=csv:1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1
+[M2] rank=2 service=ts-voucher-service metric=k8s.pod.memory.node.utilization baseline=0.000293 peak=0.000293 signed_z=999.0 onset_bin=0 onset_rel_s=3.748 persistence_bins=64
+values_compact=rle:0.000293*64
+missing_mask_bits=0000000000000000000000000000000000000000000000000000000000000000
+observed_counts_compact=csv:1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,2,1,1,2,2
+[M3] rank=3 service=ts-voucher-service metric=k8s.pod.memory_limit_utilization baseline=0.012267 peak=0.012268 signed_z=999.0 onset_bin=0 onset_rel_s=3.748 persistence_bins=64
+values_compact=rle:0.012267*42,0.012268*22
+missing_mask_bits=0000000000000000000000000000000000000000000000000000000000000000
+observed_counts_compact=csv:1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,2,1,1,2,2
+[M4] rank=4 service=ts-auth-service metric=container.filesystem.usage baseline=466944.0 peak=69632.0 signed_z=-850.877 onset_bin=32 onset_rel_s=243.618 persistence_bins=7
+values_compact=rle:466944*32,69632*3,442368*4,466944*25
+missing_mask_bits=0000000000000000000000000000000000000000000000000000000000000000
+observed_counts_compact=csv:1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,2,1,1,2,2
+[M5] rank=5 service=ts-auth-service metric=k8s.pod.memory.rss baseline=795116652.93617 peak=127037440.0 signed_z=-314.068 onset_bin=32 onset_rel_s=243.618 persistence_bins=24
+values_compact=delta:788295680,2076672,0,2912256,172032,0,73728,106496,106496,0,1724416,0,712704,4096,4096,-49152,0,0,69632,40960,40960,12288,53248,0,73728,-266240,-266240,4096,0,106496,3592192,0,-672563200,0,111841280,0,58388480,175325184,175325184,60829696,60829696,2445312,2445312,0,9543680,8177664,8177664,0,-3633152,0,3026944,319488,319488,3141632,0,565248,0,0,1503232,157696,157696,0,49152,151552
+missing_mask_bits=0000000000000000000000000000000000000000000000000000000000000000
+observed_counts_compact=csv:1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,2,1,1,2,2
+[M6] rank=6 service=ts-auth-service metric=k8s.pod.memory.node.utilization baseline=0.005977 peak=0.001009 signed_z=-308.464 onset_bin=32 onset_rel_s=243.618 persistence_bins=24
+values_compact=delta:0.005925,0.000016,0,0.000021,0.000002,0,0,0.000001,0.000001,0,0.000015,0,0.000005,0,0,-0.000003,0.000001,0,0,0.000001,0.000002,0,-0.000002,0,0.000003,-0.000003,-0.000003,0.000002,0,-0.000001,0.000026,0,-0.005,0,0.00083,0,0.000436,0.001329,0.001329,0.000434,0.000434,0.00002,0.00002,0,0.00006,0.000062,0.000061,0,-0.000031,0,0.000026,0.000001,0,0.000024,0,0.000008,0,0,0.000009,0,0,0,0.000002,0
+missing_mask_bits=0000000000000000000000000000000000000000000000000000000000000000
+observed_counts_compact=csv:1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,2,1,1,2,2
+[M7] rank=7 service=ts-auth-service metric=k8s.pod.memory.usage baseline=807038365.957447 peak=136204288.0 signed_z=-308.464 onset_bin=32 onset_rel_s=243.618 persistence_bins=24
+values_compact=delta:800120832,2084864,0,2883584,176128,0,102400,102400,102400,0,1978368,0,716800,8192,8192,-335872,8192,0,98304,161792,161792,20480,-188416,0,315392,-393216,-393216,290816,0,-163840,3579904,0,-675241984,0,112128000,0,58892288,179408896,179408896,58662912,58662912,2650112,2650112,0,8196096,8284160,8284160,0,-4202496,0,3547136,51200,51200,3178496,0,1093632,0,0,1200128,47104,47104,0,258048,28672
+missing_mask_bits=0000000000000000000000000000000000000000000000000000000000000000
+observed_counts_compact=csv:1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,2,1,1,2,2
+[M8] rank=8 service=ts-auth-service metric=k8s.pod.memory_limit_utilization baseline=0.250538 peak=0.042283 signed_z=-308.464 onset_bin=32 onset_rel_s=243.618 persistence_bins=24
+values_compact=delta:0.24839,0.000647,0,0.000896,0.000054,0,0.000032,0.000032,0.000032,0,0.000614,0,0.000222,0.000003,0.000002,-0.000104,0.000003,0,0.00003,0.00005,0.000051,0.000006,-0.000058,0,0.000097,-0.000122,-0.000122,0.000091,0,-0.000051,0.001111,0,-0.209623,0,0.034809,0,0.018283,0.055696,0.055696,0.018211,0.018211,0.000823,0.000823,0,0.002544,0.002572,0.002572,0,-0.001305,0,0.001101,0.000016,0.000016,0.000987,0,0.000339,0,0,0.000373,0.000015,0.000014,0,0.00008,0.000009
+missing_mask_bits=0000000000000000000000000000000000000000000000000000000000000000
+observed_counts_compact=csv:1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,2,1,1,2,2
+[M9] rank=9 service=ts-auth-service metric=k8s.pod.memory.working_set baseline=806653341.957447 peak=135852032.0 signed_z=-308.449 onset_bin=32 onset_rel_s=243.618 persistence_bins=24
+values_compact=delta:799735808,2084864,0,2883584,176128,0,102400,102400,102400,0,1978368,0,716800,8192,8192,-335872,8192,0,98304,161792,161792,20480,-188416,0,315392,-393216,-393216,290816,0,-163840,3579904,0,-675209216,0,112128000,0,58540032,179408896,179408896,58658816,58658816,2650112,2650112,0,8196096,8284160,8284160,0,-4202496,0,3547136,51200,51200,3178496,0,1093632,0,0,1200128,47104,47104,0,258048,28672
+missing_mask_bits=0000000000000000000000000000000000000000000000000000000000000000
+observed_counts_compact=csv:1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,2,1,1,2,2
+[M10] rank=10 service=ts-auth-service metric=k8s.pod.memory.available baseline=2414572130.042553 peak=3085373440.0 signed_z=308.449 onset_bin=32 onset_rel_s=243.618 persistence_bins=24
+values_compact=delta:2421489664,-2084864,0,-2883584,-176128,0,-102400,-102400,-102400,0,-1978368,0,-716800,-8192,-8192,335872,-8192,0,-98304,-161792,-161792,-20480,188416,0,-315392,393216,393216,-290816,0,163840,-3579904,0,675209216,0,-112128000,0,-58540032,-179408896,-179408896,-58658816,-58658816,-2650112,-2650112,0,-8196096,-8284160,-8284160,0,4202496,0,-3547136,-51200,-51200,-3178496,0,-1093632,0,0,-1200128,-47104,-47104,0,-258048,-28672
+missing_mask_bits=0000000000000000000000000000000000000000000000000000000000000000
+observed_counts_compact=csv:1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,2,1,1,2,2
+[M11] rank=11 service=ts-auth-service metric=container.memory.working_set baseline=805649037.617021 peak=211279872.0 signed_z=-293.928 onset_bin=32 onset_rel_s=243.618 persistence_bins=25
+values_compact=delta:799059968,2101248,0,1513472,1513472,0,4096,0,0,352256,1679360,0,0,724992,0,184320,0,-253952,0,86016,94208,0,65536,0,65536,-249856,-249856,-16384,0,110592,0,1798144,-597303296,33712128,37849088,0,0,304357376,0,143933440,0,50348032,0,8441856,5636096,0,11235328,0,0,1110016,0,3125248,0,1767424,1767424,802816,802816,0,434176,0,81920,0,0,401408
+missing_mask_bits=0000000000000000000000000000000000000000000000000000000000000000
+observed_counts_compact=csv:1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,2,1,1,2,2
+[M12] rank=12 service=ts-auth-service metric=container.memory.rss baseline=794830891.574468 peak=274702336.0 signed_z=-259.092 onset_bin=35 onset_rel_s=266.106 persistence_bins=22
+values_compact=delta:788254720,2105344,0,1521664,1521664,0,8192,0,0,323584,1687552,0,0,720896,0,-49152,0,0,0,69632,94208,0,53248,0,73728,-266240,-266240,4096,0,106496,0,1798144,-523059200,0,298205184,0,140951552,0,56664064,0,7671808,5812224,0,12009472,0,0,851968,0,3383296,0,1757184,1757184,798720,798720,0,200704,0,315392,0,0,204800
+missing_mask_bits=0000000000000000000000000000000011100000000000000000000000000000
+observed_counts_compact=csv:1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,0,0,0,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,2,1,1,2,2
+
+=== ESTIMATED FAULT WINDOW (relative seconds) ===
+[233.5278720855713,473.52742552757263]
+
+=== LOG SUMMARY ===
+{"entries":[{"error_logs":5079,"error_pct":19.24,"service":"ts-seat-service","total_logs":26404},{"error_logs":1960,"error_pct":13.0,"service":"ts-ui-dashboard","total_logs":15082},{"error_logs":532,"error_pct":16.46,"service":"ts-food-service","total_logs":3233},{"error_logs":185,"error_pct":5.42,"service":"ts-preserve-service","total_logs":3412},{"error_logs":185,"error_pct":1.9,"service":"ts-order-service","total_logs":9750},{"error_logs":66,"error_pct":25.0,"service":"ts-delivery-service","total_logs":264},{"error_logs":66,"error_pct":25.0,"service":"ts-notification-service","total_logs":264},{"error_logs":10,"error_pct":100.0,"service":"mysql","total_logs":10}],"mode":"errors","omitted_services":24,"service_count":32}
+=== TRACE SUMMARY ===
+{"entries":[{"delta_pct":-97.0,"error_pct":0.0,"p95_during_ms":34.753809999999994,"p95_pre_ms":1150.473411,"service":"ts-food-service","spans":3386},{"delta_pct":-60.2,"error_pct":0.0,"p95_during_ms":10.048269199999998,"p95_pre_ms":25.26032025,"service":"ts-consign-service","spans":1245},{"delta_pct":-38.2,"error_pct":0.0,"p95_during_ms":35.1973972,"p95_pre_ms":56.9389245,"service":"ts-cancel-service","spans":45},{"delta_pct":-33.6,"error_pct":0.0,"p95_during_ms":11.083890849999998,"p95_pre_ms":16.701348399999993,"service":"ts-payment-service","spans":630},{"delta_pct":-31.9,"error_pct":0.0,"p95_during_ms":115.35387309999997,"p95_pre_ms":169.42272219999998,"service":"ts-ui-dashboard","spans":14101},{"delta_pct":-31.7,"error_pct":12.12,"p95_during_ms":116.15946319999996,"p95_pre_ms":170.15359085,"service":"loadgenerator","spans":14101},{"delta_pct":-26.3,"error_pct":0.0,"p95_during_ms":68.36809,"p95_pre_ms":92.729408,"service":"ts-travel2-service","spans":8406},{"delta_pct":-24.6,"error_pct":0.0,"p95_during_ms":5.446096999999999,"p95_pre_ms":7.225698,"service":"ts-contacts-service","spans":5086}],"omitted_services":22,"service_count":30}
+
+=== PROPAGATION SERVICES ===
+mode=onset omitted_services=35 omitted_edges=2
+[{"evidence_source":"trace","onset_rel_s":234.6,"rank":1,"service":"ts-travel-service","severity_z":21.78},{"evidence_source":"trace","onset_rel_s":234.6,"rank":2,"service":"ts-travel2-service","severity_z":20.569},{"evidence_source":"trace","onset_rel_s":234.6,"rank":3,"service":"ts-user-service","severity_z":19.073},{"evidence_source":"trace","onset_rel_s":234.6,"rank":4,"service":"ts-basic-service","severity_z":16.312},{"evidence_source":"trace","onset_rel_s":234.6,"rank":5,"service":"ts-order-other-service","severity_z":11.462},{"evidence_source":"metric","onset_rel_s":243.6,"rank":6,"service":"ts-auth-service","severity_z":999.0},{"evidence_source":"metric","onset_rel_s":315.0,"rank":7,"service":"ts-voucher-service","severity_z":999.0},{"evidence_source":"metric","onset_rel_s":330.0,"rank":8,"service":"ts-avatar-service","severity_z":10.03},{"evidence_source":"metric","onset_rel_s":375.0,"rank":9,"service":"mysql","severity_z":11.507},{"evidence_source":"metric","onset_rel_s":414.0,"rank":10,"service":"rabbitmq","severity_z":10.816},{"evidence_source":"none","onset_rel_s":null,"rank":11,"service":"ts-security-service","severity_z":0.0},{"evidence_source":"none","onset_rel_s":null,"rank":12,"service":"ts-config-service","severity_z":0.0},{"evidence_source":"none","onset_rel_s":null,"rank":13,"service":"loadgenerator","severity_z":0.0},{"evidence_source":"none","onset_rel_s":null,"rank":14,"service":"ts-preserve-service","severity_z":0.0}]
+=== DIRECTED CALL EDGES (caller -> callee) ===
+[{"callee":"ts-basic-service","caller":"ts-preserve-service"},{"callee":"ts-security-service","caller":"ts-preserve-service"},{"callee":"ts-travel-service","caller":"ts-preserve-service"},{"callee":"ts-user-service","caller":"ts-preserve-service"},{"callee":"ts-order-other-service","caller":"ts-security-service"},{"callee":"ts-basic-service","caller":"ts-travel-service"},{"callee":"ts-basic-service","caller":"ts-travel2-service"}]
+
+=== EXPLICIT MISSINGNESS ===
+{"logs_missing":false,"propagation_missing":false,"traces_missing":false}
+
+Return only one JSON object, with no analysis, preamble, markdown, or code fence:
+{"services":["name1","name2","name3"],"reason":"one sentence citing the strongest metric/log/topology evidence","confidence":"high|medium|low"}
+The services array must be ranked, contain at most five exact candidate
+identifiers, and put the most likely root cause first.
+
+# Assistant target
+
+{"confidence":"medium","reason":"Rank ts-auth-service first because ts-auth-service has direct k8s.container.restarts evidence (signed-z 999, persistence 24 bins); ts-travel-service is second despite propagation rank 1 because onset ordering alone does not establish the causal origin.","services":["ts-auth-service","ts-travel-service"]}

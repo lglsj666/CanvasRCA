@@ -1,0 +1,38 @@
+{
+  "schema_version": "CausalIntegrationSFTV1",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "checkoutservice",
+  "hard_symptom_candidate": "frontend",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "frontend",
+    "checkoutservice"
+  ],
+  "root_evidence": {
+    "source": "metric",
+    "rank": 9,
+    "service": "checkoutservice",
+    "metric": "istio-latency-90",
+    "signed_z": 550.61,
+    "persistence_bins": 31,
+    "onset_rel_s": 753.75
+  },
+  "symptom_evidence": {
+    "rank": 5,
+    "service": "frontend",
+    "onset_rel_s": 775.2,
+    "severity_z": 21.595,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "checkoutservice",
+      "frontend"
+    ],
+    "reason": "Rank checkoutservice first because checkoutservice has direct istio-latency-90 evidence (signed-z 550.61, persistence 31 bins); although frontend is salient, the caller path frontend -> checkoutservice means a disturbance in the callee can propagate back toward that caller-side symptom.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank checkoutservice first because checkoutservice has direct istio-latency-90 evidence (signed-z 550.61, persistence 31 bins); although frontend is salient, the caller path frontend -> checkoutservice means a disturbance in the callee can propagate back toward that caller-side symptom.\",\"services\":[\"checkoutservice\",\"frontend\"]}"
+}

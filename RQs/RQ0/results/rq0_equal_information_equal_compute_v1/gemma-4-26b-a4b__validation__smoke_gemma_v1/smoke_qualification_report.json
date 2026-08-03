@@ -1,0 +1,27 @@
+{
+  "gate": "rq0_partition_aware_three_case_smoke",
+  "run_dir": "/home/lglsj/CanvasRCA/RQs/RQ0/results/rq0_equal_information_equal_compute_v1/gemma-4-26b-a4b__validation__smoke_gemma_v1",
+  "trajectory_sha256": "e57f4634e38eddc1189bd6d5eed1fed4138d5068542b32d0509611771cc43919",
+  "model": "gemma-4-26b-a4b",
+  "datasets": [
+    "re2_ob",
+    "aiops2022",
+    "aiops2025"
+  ],
+  "episode_count": 9,
+  "parse_failures_observed_not_gated": 0,
+  "model_truncations_observed_not_gated": 0,
+  "failures": [],
+  "pass": true,
+  "contract_migration": {
+    "migration_id": "rq_layout_migration_2026-07-31",
+    "manifest_path": "RQs/RQ0/configs/contract_migration_2026-07-31.json",
+    "metadata_only": true,
+    "execution_semantics_changed": false,
+    "configuration_paths_migrated": true,
+    "script_paths_migrated": true,
+    "result_paths_migrated": true,
+    "historical_experiments_deemed_executed_under_migrated_contract": true,
+    "contract_validity_preserved": true
+  }
+}

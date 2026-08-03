@@ -1,0 +1,35 @@
+{
+  "schema_version": "CausalIntegrationSFTV1",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "emailservice-1",
+  "hard_symptom_candidate": "adservice",
+  "contrast_type": "direct_root_evidence_over_onset_salience",
+  "caller_path": null,
+  "root_evidence": {
+    "source": "metric",
+    "rank": 11,
+    "service": "emailservice-1",
+    "metric": "container_cpu_usage_seconds",
+    "signed_z": 999.0,
+    "persistence_bins": 6,
+    "onset_rel_s": 1334.531
+  },
+  "symptom_evidence": {
+    "rank": 1,
+    "service": "adservice",
+    "onset_rel_s": 1260.0,
+    "severity_z": 999.0,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "emailservice-1",
+      "adservice"
+    ],
+    "reason": "Rank emailservice-1 first because emailservice-1 has direct container_cpu_usage_seconds evidence (signed-z 999, persistence 6 bins); adservice is second despite propagation rank 1 because onset ordering alone does not establish the causal origin.",
+    "confidence": "medium"
+  },
+  "target_text": "{\"confidence\":\"medium\",\"reason\":\"Rank emailservice-1 first because emailservice-1 has direct container_cpu_usage_seconds evidence (signed-z 999, persistence 6 bins); adservice is second despite propagation rank 1 because onset ordering alone does not establish the causal origin.\",\"services\":[\"emailservice-1\",\"adservice\"]}"
+}

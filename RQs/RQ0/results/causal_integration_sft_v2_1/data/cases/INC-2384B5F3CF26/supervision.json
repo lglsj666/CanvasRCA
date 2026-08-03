@@ -1,0 +1,49 @@
+{
+  "schema_version": "CausalIntegrationSFTV2",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "emailservice-0",
+  "hard_symptom_candidate": "checkoutservice-0",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "checkoutservice",
+    "emailservice"
+  ],
+  "root_evidence": {
+    "source": "propagation",
+    "rank": 1,
+    "service": "emailservice",
+    "onset_rel_s": 1260.0,
+    "severity_z": 186.012,
+    "evidence_source": "metric"
+  },
+  "symptom_evidence": {
+    "rank": 5,
+    "service": "checkoutservice",
+    "onset_rel_s": 1440.0,
+    "severity_z": 38.886,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "emailservice-0",
+      "node-2",
+      "frontend-0",
+      "redis-cart2-0",
+      "checkoutservice-0"
+    ],
+    "reason": "Rank emailservice-0 first because emailservice-0 has metric evidence at propagation rank 1; although checkoutservice-0 is salient, the caller path checkoutservice -> emailservice means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank emailservice-0 first because emailservice-0 has metric evidence at propagation rank 1; although checkoutservice-0 is salient, the caller path checkoutservice -> emailservice means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.\",\"services\":[\"emailservice-0\",\"node-2\",\"frontend-0\",\"redis-cart2-0\",\"checkoutservice-0\"]}",
+  "curriculum_role": "base_wrong_correction",
+  "base_predictions_private_training_only": [
+    "node-2",
+    "emailservice",
+    "frontend",
+    "redis-cart2",
+    "checkoutservice"
+  ],
+  "base_top1_correct": false
+}

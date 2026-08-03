@@ -1,0 +1,50 @@
+{
+  "schema_version": "CausalIntegrationSFTV2",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "currencyservice-1",
+  "hard_symptom_candidate": "checkoutservice-0",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "checkoutservice",
+    "currencyservice"
+  ],
+  "root_evidence": {
+    "source": "metric",
+    "rank": 7,
+    "service": "currencyservice-1",
+    "metric": "container_cpu_cfs_throttled_seconds",
+    "signed_z": 999.0,
+    "persistence_bins": 0,
+    "onset_rel_s": null
+  },
+  "symptom_evidence": {
+    "rank": 5,
+    "service": "checkoutservice",
+    "onset_rel_s": 1320.0,
+    "severity_z": 41.713,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "currencyservice-1",
+      "checkoutservice-0",
+      "paymentservice-0",
+      "emailservice-0",
+      "currencyservice-0"
+    ],
+    "reason": "Rank currencyservice-1 first because currencyservice-1 has direct container_cpu_cfs_throttled_seconds evidence (signed-z 999, persistence 0 bins); although checkoutservice-0 is salient, the caller path checkoutservice -> currencyservice means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank currencyservice-1 first because currencyservice-1 has direct container_cpu_cfs_throttled_seconds evidence (signed-z 999, persistence 0 bins); although checkoutservice-0 is salient, the caller path checkoutservice -> currencyservice means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.\",\"services\":[\"currencyservice-1\",\"checkoutservice-0\",\"paymentservice-0\",\"emailservice-0\",\"currencyservice-0\"]}",
+  "curriculum_role": "base_correct_preservation",
+  "base_predictions_private_training_only": [
+    "currencyservice-1",
+    "currencyservice",
+    "checkoutservice",
+    "paymentservice",
+    "emailservice"
+  ],
+  "base_top1_correct": true
+}

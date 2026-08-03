@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "scope": "development_only_nonconfirmatory_renderer_intervention",
+  "models": [
+    "qwen3.6-27b",
+    "gemma-4-26b-a4b"
+  ],
+  "n_cases": 12,
+  "random_chance": 0.25,
+  "curved_edge_baseline": {
+    "qwen3.6-27b": {
+      "actual_image": 0.25,
+      "swapped_image": 0.0,
+      "no_image": 0.16666666666666666
+    },
+    "gemma-4-26b-a4b": {
+      "actual_image": 0.08333333333333333,
+      "swapped_image": 0.16666666666666666,
+      "no_image": 0.0
+    }
+  },
+  "interventions": {
+    "compact_edge_key": {
+      "qwen3.6-27b": {
+        "trajectory": "RQs/RQ0/results/rq0_topology_edge_key_v1/qwen3.6-27b__development__main/trajectories/episodes.jsonl",
+        "integrity": {
+          "expected_calls": 36,
+          "observed_calls": 36,
+          "unique_case_conditions": 36,
+          "status_counts": {
+            "success": 36
+          },
+          "infrastructure_failures": 0,
+          "no_truncation": true,
+          "server_token_count_match": true,
+          "actual_image_all_parse": true
+        },
+        "conditions": {
+          "actual_image": {
+            "n_calls": 12,
+            "parse_rate": 1.0,
+            "accuracy": 1.0,
+            "mean_image_tokens": 1766.0
+          },
+          "swapped_image": {
+            "n_calls": 12,
+            "parse_rate": 1.0,
+            "accuracy": 0.0,
+            "mean_image_tokens": 1766.0
+          },
+          "no_image": {
+            "n_calls": 12,
+            "parse_rate": 1.0,
+            "accuracy": 0.08333333333333333,
+            "mean_image_tokens": 0.0
+          }
+        },
+        "actual_lift_over_stronger_control": 0.9166666666666666
+      },
+      "gemma-4-26b-a4b": {
+        "trajectory": "RQs/RQ0/results/rq0_topology_edge_key_v1/gemma-4-26b-a4b__development__main/trajectories/episodes.jsonl",
+        "integrity": {
+          "expected_calls": 36,
+          "observed_calls": 36,
+          "unique_case_conditions": 36,
+          "status_counts": {
+            "model_parse_failure": 3,
+            "success": 33
+          },
+          "infrastructure_failures": 0,
+          "no_truncation": true,
+          "server_token_count_match": true,
+          "actual_image_all_parse": true
+        },
+        "conditions": {
+          "actual_image": {
+            "n_calls": 12,
+            "parse_rate": 1.0,
+            "accuracy": 0.4166666666666667,
+            "mean_image_tokens": 268.0
+          },
+          "swapped_image": {
+            "n_calls": 12,
+            "parse_rate": 1.0,
+            "accuracy": 0.08333333333333333,
+            "mean_image_tokens": 268.0
+          },
+          "no_image": {
+            "n_calls": 12,
+            "parse_rate": 0.75,
+            "accuracy": 0.0,
+            "mean_image_tokens": 0.0
+          }
+        },
+        "actual_lift_over_stronger_control": 0.33333333333333337
+      }
+    },
+    "large_edge_key": {
+      "qwen3.6-27b": {
+        "trajectory": "RQs/RQ0/results/rq0_topology_edge_key_v2/qwen3.6-27b__development__main/trajectories/episodes.jsonl",
+        "integrity": {
+          "expected_calls": 36,
+          "observed_calls": 36,
+          "unique_case_conditions": 36,
+          "status_counts": {
+            "success": 36
+          },
+          "infrastructure_failures": 0,
+          "no_truncation": true,
+          "server_token_count_match": true,
+          "actual_image_all_parse": true
+        },
+        "conditions": {
+          "actual_image": {
+            "n_calls": 12,
+            "parse_rate": 1.0,
+            "accuracy": 1.0,
+            "mean_image_tokens": 1962.0
+          },
+          "swapped_image": {
+            "n_calls": 12,
+            "parse_rate": 1.0,
+            "accuracy": 0.25,
+            "mean_image_tokens": 1962.0
+          },
+          "no_image": {
+            "n_calls": 12,
+            "parse_rate": 1.0,
+            "accuracy": 0.08333333333333333,
+            "mean_image_tokens": 0.0
+          }
+        },
+        "actual_lift_over_stronger_control": 0.75
+      },
+      "gemma-4-26b-a4b": {
+        "trajectory": "RQs/RQ0/results/rq0_topology_edge_key_v2/gemma-4-26b-a4b__development__main/trajectories/episodes.jsonl",
+        "integrity": {
+          "expected_calls": 36,
+          "observed_calls": 36,
+          "unique_case_conditions": 36,
+          "status_counts": {
+            "model_parse_failure": 3,
+            "success": 33
+          },
+          "infrastructure_failures": 0,
+          "no_truncation": true,
+          "server_token_count_match": true,
+          "actual_image_all_parse": true
+        },
+        "conditions": {
+          "actual_image": {
+            "n_calls": 12,
+            "parse_rate": 1.0,
+            "accuracy": 0.9166666666666666,
+            "mean_image_tokens": 272.0
+          },
+          "swapped_image": {
+            "n_calls": 12,
+            "parse_rate": 1.0,
+            "accuracy": 0.0,
+            "mean_image_tokens": 272.0
+          },
+          "no_image": {
+            "n_calls": 12,
+            "parse_rate": 0.75,
+            "accuracy": 0.0,
+            "mean_image_tokens": 0.0
+          }
+        },
+        "actual_lift_over_stronger_control": 0.9166666666666666
+      }
+    }
+  },
+  "posthoc_operational_legibility_gate": {
+    "actual_accuracy_min": 0.9,
+    "actual_lift_over_stronger_control_min": 0.5,
+    "large_edge_key_passes_both_models": true
+  },
+  "decision": {
+    "confirmatory_rq0_unchanged": "unsupported",
+    "generic_visual_grounding_sft_is_next": false,
+    "renderer_v7_development_candidate": true,
+    "case_level_causal_integration_test_is_next": true,
+    "formal_cases_may_be_reused": false
+  }
+}

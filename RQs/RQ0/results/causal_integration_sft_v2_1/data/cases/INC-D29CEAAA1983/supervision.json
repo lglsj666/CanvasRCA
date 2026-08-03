@@ -1,0 +1,46 @@
+{
+  "schema_version": "CausalIntegrationSFTV2",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "tidb-tikv",
+  "hard_symptom_candidate": "adservice",
+  "contrast_type": "direct_root_evidence_over_onset_salience",
+  "caller_path": null,
+  "root_evidence": {
+    "source": "propagation",
+    "rank": 3,
+    "service": "tidb-tikv",
+    "onset_rel_s": 1140.0,
+    "severity_z": 999.0,
+    "evidence_source": "metric"
+  },
+  "symptom_evidence": {
+    "rank": 1,
+    "service": "adservice",
+    "onset_rel_s": 1020.0,
+    "severity_z": 999.0,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "tidb-tikv",
+      "adservice",
+      "hipstershop",
+      "currencyservice",
+      "cartservice"
+    ],
+    "reason": "Rank tidb-tikv first because tidb-tikv has metric evidence at propagation rank 3; adservice is second despite propagation rank 1 because onset ordering alone does not establish the causal origin. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.",
+    "confidence": "medium"
+  },
+  "target_text": "{\"confidence\":\"medium\",\"reason\":\"Rank tidb-tikv first because tidb-tikv has metric evidence at propagation rank 3; adservice is second despite propagation rank 1 because onset ordering alone does not establish the causal origin. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.\",\"services\":[\"tidb-tikv\",\"adservice\",\"hipstershop\",\"currencyservice\",\"cartservice\"]}",
+  "curriculum_role": "base_wrong_correction",
+  "base_predictions_private_training_only": [
+    "adservice",
+    "hipstershop",
+    "currencyservice",
+    "cartservice",
+    "node-8"
+  ],
+  "base_top1_correct": false
+}

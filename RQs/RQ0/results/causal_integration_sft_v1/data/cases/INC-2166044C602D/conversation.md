@@ -1,0 +1,126 @@
+# System
+
+You are an expert Site Reliability Engineer performing Root Cause Analysis (RCA) for a microservice application deployed on a Kubernetes cluster. A fault has occurred in the system. Your task is to identify the root cause of the incident.
+
+Root causes can occur at three levels:
+- Pod level: a specific container replica (e.g., "cartservice-0")
+- Service level: a microservice type (e.g., "paymentservice") — predict any pod of that service
+- Node level: an infrastructure host (e.g., "node-6") — nodes appear as isolated entities with system metrics (CPU, memory, network, disk) but no application logs or traces
+
+The system consists of multiple services communicating over HTTP/gRPC, running on shared infrastructure nodes. A fault in one component (pod, service, or node) can propagate to dependent components, causing them to appear degraded even though they are not the root cause.
+
+Node-level faults (e.g., host memory exhaustion, CPU saturation, disk I/O) often manifest as correlated anomalies across multiple pods. If several unrelated pods show simultaneous degradation and a node shows critical system-level metrics, the node is likely the root cause.
+
+Focus on distinguishing the ORIGIN of the fault from its SYMPTOMS in downstream or co-located components.
+
+# User
+
+[image: dashboard.png]
+
+Analyze this incident using only the supplied evidence. Rank the most likely
+root-cause components, distinguishing the origin from propagated symptoms.
+
+Evidence semantics shared by all representations:
+- candidates are exhaustive and appear in a fixed alphabetical order;
+- every metric has 64 equal-width bins from window start t=0; null means no
+  observed sample in that bin and observed_count gives the number aggregated;
+- shared_bin_centers_rel_s applies to all metric series; missing_mask_bits uses
+  one bit per bin (1=missing, 0=observed); observed_counts_compact is either a
+  comma-separated integer vector prefixed csv: or value*run pairs prefixed rle:;
+- values_compact is lossless: raw: is a JSON vector, rle: is value*run pairs,
+  and delta: stores the first observed value followed by cumulative deltas;
+  missing_mask_bits restores null positions for delta encoding;
+- signed_z is relative to the pre-incident baseline; onset and persistence are
+  deterministic label-blind anomaly summaries;
+- a directed edge A -> B means A calls B, so a disturbance in B can propagate
+  back to A;
+- propagation ranks are ordered by relative onset, not by causal likelihood;
+- source t/trace and m/metric use different instruments and their z magnitudes
+  must not be compared directly.
+
+
+=== INCIDENT ===
+schema_version: CanonicalEvidenceBundleV1
+opaque_id: INC-2166044C602D
+observation_window={"duration_rel_s":2100.0,"source_metric_rows":36}
+selection_summary={"candidate_count":60,"hot_z_threshold":10.0,"metric_ranker":"ksigma","metric_series_scored":489,"metric_series_shown":12}
+
+=== CANDIDATES (fixed order) ===
+["adservice","adservice-0","adservice-1","adservice-2","cartservice","cartservice-0","cartservice-1","cartservice-2","checkoutservice","checkoutservice-0","checkoutservice-1","checkoutservice-2","currencyservice","currencyservice-0","currencyservice-1","currencyservice-2","emailservice","emailservice-0","emailservice-1","emailservice-2","example-ant-10-29152320-7q99m","example-ant-29152320-kszxj","frontend","frontend-0","frontend-1","frontend-2","hipstershop","k8s-master1","k8s-master2","k8s-master3","node-1","node-2","node-3","node-4","node-5","node-6","node-7","node-8","paymentservice","paymentservice-0","paymentservice-1","paymentservice-2","productcatalogservice","productcatalogservice-0","productcatalogservice-1","productcatalogservice-2","recommendationservice","recommendationservice-0","recommendationservice-1","recommendationservice-2","redis","redis-cart","redis-cart-0","shippingservice","shippingservice-0","shippingservice-1","shippingservice-2","tidb-pd","tidb-tidb","tidb-tikv"]
+
+=== METRIC SERIES (all 64 bins; null=missing) ===
+shared_bin_centers_rel_s=[16.406,49.219,82.031,114.844,147.656,180.469,213.281,246.094,278.906,311.719,344.531,377.344,410.156,442.969,475.781,508.594,541.406,574.219,607.031,639.844,672.656,705.469,738.281,771.094,803.906,836.719,869.531,902.344,935.156,967.969,1000.781,1033.594,1066.406,1099.219,1132.031,1164.844,1197.656,1230.469,1263.281,1296.094,1328.906,1361.719,1394.531,1427.344,1460.156,1492.969,1525.781,1558.594,1591.406,1624.219,1657.031,1689.844,1722.656,1755.469,1788.281,1821.094,1853.906,1886.719,1919.531,1952.344,1985.156,2017.969,2050.781,2083.594]
+[M1] rank=1 service=adservice-1 metric=pod_memory_working_set_bytes baseline=3470.496667 peak=21532507.51 signed_z=999.0 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,62390.99,-62313.04,-77.95,0,17174522.59,-17174522.59,0,15206949.96,-15206949.96,21532507.51,-21532422.18,10.94,18011843.6,1625536.32,-19637476.19,0,0,0,0,0,16177836.62
+missing_mask_bits=0010101010010101010100101010101001010101010010101010100101010100
+observed_counts_compact=csv:1,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,1
+[M2] rank=2 service=emailservice-2 metric=pod_memory_working_set_bytes baseline=9.643333 peak=926226.71 signed_z=999.0 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:0,92.49,-92.49,0,0,0,0,0,0,0,0,0,0,0,0,81.09,-81.09,0,0,0,0,0,0,0,0,868725.53,-868725.53,0,0,0,0,0,0,926226.71,-926226.71,0
+missing_mask_bits=0010101010010101010100101010101001010101010010101010100101010100
+observed_counts_compact=csv:1,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,1
+[M3] rank=3 service=node-7 metric=node_network_receive_bytes_total baseline=164.07 peak=164.02 signed_z=-999.0 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:164.07,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-0.04,0.07,-0.03,0,-0.05,0.02,0.03,-0.03,0.03
+missing_mask_bits=0010101010010101010100101010101001010101010010101010100101010100
+observed_counts_compact=csv:1,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,1
+[M4] rank=4 service=paymentservice-2 metric=pod_memory_working_set_bytes baseline=1272.207778 peak=748373.84 signed_z=999.0 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:1432.57,-253.56,-201.17,424.8,-241.47,318.53,-383.03,545.14,-579.1,-746.72,572.74,1387.03,-1567.27,1305.65,-1440.21,977.98,-357.12,747.09,-1167.4,821.41,-741.86,1250.85,-1593.71,1397.81,-888.62,1027.04,-512.74,958.2,-1283.68,275.24,-284.76,747174.18,-748236.35,-0.96,24.84,-26.28
+missing_mask_bits=0010101010010101010100101010101001010101010010101010100101010100
+observed_counts_compact=csv:1,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,1
+[M5] rank=5 service=tidb-tikv metric=raft_propose_wait baseline=0.0 peak=0.01 signed_z=999.0 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.01,-0.01,0,0,0,0,0,0,0,0,0,0,0.01,-0.01,0
+missing_mask_bits=0010101010010101010100101010101001010101010010101010100101010100
+observed_counts_compact=csv:1,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,1
+[M6] rank=6 service=paymentservice-1 metric=pod_memory_working_set_bytes baseline=1086.568333 peak=959090.46 signed_z=549.605 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:240.18,115.5,-149.94,109.91,127.54,177.68,-181.86,99.91,341.07,55.57,-78.36,378.1,-707.53,7580.56,-7277.87,707.85,-1272.53,954.51,-373.25,336.3,-290.3,673.37,-806.51,552.62,-902.92,1236.37,-1005.49,631.8,-88.68,-142.42,464.29,-273.66,805916.28,-805646.47,957588.84,-958218.23
+missing_mask_bits=0010101010010101010100101010101001010101010010101010100101010100
+observed_counts_compact=csv:1,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,1
+[M7] rank=7 service=currencyservice-0 metric=rrt_max baseline=8414.888889 peak=166659.0 signed_z=23.816 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:14246,-9524,3553,-245,-958,-2654,-340,3737,-3809,1378,4314,-6261,30000,-29589,6773,-2814,-267,-506,1431,-2939,152,1769,15361,-15645,-551,-3178,8028,-5622,1756,782,-3064,208,161137,-158104,-2832,-1512
+missing_mask_bits=0010101010010101010100101010101001010101010010101010100101010100
+observed_counts_compact=csv:1,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,1
+[M8] rank=8 service=adservice metric=timeout baseline=0.0 peak=3.0 signed_z=15.528 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,-3,0,0,0,0,0,0,0,0,0,0,0,0,0
+missing_mask_bits=0010101010010101010100101010101001010101010010101010100101010100
+observed_counts_compact=csv:1,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,1
+[M9] rank=9 service=adservice-0 metric=timeout baseline=0.0 peak=1.0 signed_z=15.528 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0
+missing_mask_bits=0010101010010101010100101010101001010101010010101010100101010100
+observed_counts_compact=csv:1,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,1
+[M10] rank=10 service=adservice-1 metric=timeout baseline=0.0 peak=1.0 signed_z=15.528 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0
+missing_mask_bits=0010101010010101010100101010101001010101010010101010100101010100
+observed_counts_compact=csv:1,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,1
+[M11] rank=11 service=adservice-2 metric=timeout baseline=0.0 peak=1.0 signed_z=15.528 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0
+missing_mask_bits=0010101010010101010100101010101001010101010010101010100101010100
+observed_counts_compact=csv:1,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,1
+[M12] rank=12 service=adservice-2 metric=rrt_max baseline=54080.833333 peak=363028.0 signed_z=14.339 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:41929,281,-647,1151,41,-299,-257,694,-1569,1757,674,2119,-4748,1620,46572,10584,-5852,-490,5820,-7836,8389,263095,-269533,-718,-3583,11266,-9927,4974,-8154,6099,-9043,11915,144,-4513,6043,-8882
+missing_mask_bits=0010101010010101010100101010101001010101010010101010100101010100
+observed_counts_compact=csv:1,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,1
+
+=== ESTIMATED FAULT WINDOW (relative seconds) ===
+[1800.0,1980.0]
+
+=== LOG SUMMARY ===
+{"entries":[{"error_logs":6,"error_pct":0.07,"service":"adservice-0","total_logs":8773},{"error_logs":6,"error_pct":1.07,"service":"adservice-1","total_logs":563},{"error_logs":6,"error_pct":1.07,"service":"adservice-2","total_logs":559}],"mode":"errors","omitted_services":21,"service_count":24}
+=== TRACE SUMMARY ===
+{"entries":[{"delta_pct":-15.1,"error_pct":0.0,"p95_during_ms":3.11045,"p95_pre_ms":3.6617999999999955,"service":"redis","spans":13807},{"delta_pct":12.2,"error_pct":0.0,"p95_during_ms":1.292,"p95_pre_ms":1.1512499999999999,"service":"emailservice","spans":537},{"delta_pct":-11.8,"error_pct":0.0,"p95_during_ms":4.5858,"p95_pre_ms":5.201499999999999,"service":"cartservice","spans":12741},{"delta_pct":8.4,"error_pct":0.0,"p95_during_ms":148.92454999999987,"p95_pre_ms":137.3722999999999,"service":"checkoutservice","spans":6348},{"delta_pct":-7.5,"error_pct":0.0,"p95_during_ms":0.5388999999999997,"p95_pre_ms":0.5825999999999999,"service":"shippingservice","spans":3748},{"delta_pct":2.4,"error_pct":0.0,"p95_during_ms":99.65559999999999,"p95_pre_ms":97.34615,"service":"frontend","spans":155651},{"delta_pct":-0.8,"error_pct":0.0,"p95_during_ms":15.507200000000003,"p95_pre_ms":15.638199999999998,"service":"productcatalogservice","spans":71832},{"delta_pct":0.0,"error_pct":0.0,"p95_during_ms":5.33175,"p95_pre_ms":5.331,"service":"recommendationservice","spans":19072}],"omitted_services":0,"service_count":8}
+
+=== PROPAGATION SERVICES ===
+mode=onset omitted_services=7 omitted_edges=0
+[{"evidence_source":"metric","onset_rel_s":1080.0,"rank":1,"service":"redis-cart","severity_z":11.816},{"evidence_source":"metric","onset_rel_s":1260.0,"rank":2,"service":"tidb-tikv","severity_z":999.0},{"evidence_source":"metric","onset_rel_s":1440.0,"rank":3,"service":"adservice","severity_z":999.0},{"evidence_source":"metric","onset_rel_s":1620.0,"rank":4,"service":"node-7","severity_z":999.0},{"evidence_source":"metric","onset_rel_s":1620.0,"rank":5,"service":"node-2","severity_z":13.294},{"evidence_source":"metric","onset_rel_s":1860.0,"rank":6,"service":"paymentservice","severity_z":999.0},{"evidence_source":"metric","onset_rel_s":1920.0,"rank":7,"service":"currencyservice","severity_z":23.816},{"evidence_source":"metric","onset_rel_s":1980.0,"rank":8,"service":"emailservice","severity_z":999.0},{"evidence_source":"none","onset_rel_s":null,"rank":9,"service":"recommendationservice","severity_z":0.0},{"evidence_source":"none","onset_rel_s":null,"rank":10,"service":"cartservice","severity_z":0.0},{"evidence_source":"none","onset_rel_s":null,"rank":11,"service":"hipstershop","severity_z":0.0},{"evidence_source":"none","onset_rel_s":null,"rank":12,"service":"tidb-pd","severity_z":0.0},{"evidence_source":"none","onset_rel_s":null,"rank":13,"service":"frontend","severity_z":0.0},{"evidence_source":"none","onset_rel_s":null,"rank":14,"service":"tidb-tidb","severity_z":0.0}]
+=== DIRECTED CALL EDGES (caller -> callee) ===
+[{"callee":"cartservice","caller":"frontend"},{"callee":"recommendationservice","caller":"frontend"}]
+
+=== EXPLICIT MISSINGNESS ===
+{"logs_missing":false,"propagation_missing":false,"traces_missing":false}
+
+Return only one JSON object, with no analysis, preamble, markdown, or code fence:
+{"services":["name1","name2","name3"],"reason":"one sentence citing the strongest metric/log/topology evidence","confidence":"high|medium|low"}
+The services array must be ranked, contain at most five exact candidate
+identifiers, and put the most likely root cause first.
+
+# Assistant target
+
+{"confidence":"medium","reason":"Rank adservice first because adservice has direct pod_memory_working_set_bytes evidence (signed-z 999, persistence 0 bins); redis-cart is second despite propagation rank 1 because onset ordering alone does not establish the causal origin.","services":["adservice","redis-cart"]}

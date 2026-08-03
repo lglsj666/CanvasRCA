@@ -1,0 +1,58 @@
+{
+  "n": 20,
+  "mrr": 0.7458333333333333,
+  "mrr_ci95": [
+    0.5583333333333333,
+    0.9166666666666666
+  ],
+  "top1": 0.7,
+  "top1_ci95": [
+    0.5,
+    0.9
+  ],
+  "top3": 0.8,
+  "top5": 0.85,
+  "parse_rate": 0.95,
+  "avg_input_tokens": 12257.05,
+  "avg_output_tokens": 834.55,
+  "avg_total_tokens": 13091.599999999999,
+  "avg_wall_clock_s": 15.413375425338746,
+  "mrr_by_dataset": {
+    "aegislab": 0.7458333333333333
+  },
+  "n_by_dataset": {
+    "aegislab": 20
+  },
+  "mrr_by_fault_bucket": {
+    "HTTP": 0.738095238095238,
+    "JVM": 1.0,
+    "Network": 0.29166666666666663
+  },
+  "n_by_fault_bucket": {
+    "HTTP": 14,
+    "JVM": 4,
+    "Network": 2
+  },
+  "experiment": "aegis_dedup_on",
+  "model": "claude-sonnet-5",
+  "modality": "hybrid",
+  "dashboard_config": {
+    "name": "v0",
+    "panel_budget": 12,
+    "ranker": "ksigma",
+    "max_per_family": 3,
+    "max_per_service": 4,
+    "layout": "small_multiples",
+    "grid_cols": 3,
+    "topology": "colored",
+    "topology_labels": "numbered",
+    "max_topology_nodes": 25,
+    "show_legend_table": true,
+    "shade_fault_window": true,
+    "annotate_extremes": true,
+    "normalize_panels": false,
+    "long_side_px": 1568,
+    "show_logs": true,
+    "show_traces": true
+  }
+}

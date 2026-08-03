@@ -1,0 +1,37 @@
+{
+  "schema_version": "CausalIntegrationSFTV2BaseRolloutContractV1",
+  "scope": "development_train_only_target_construction",
+  "created_before_model_call": true,
+  "config_sha256": "631fde48be2e22e6aed893b24b67ab255dbc162c9304f6e8e72cc27e2b3e5cf1",
+  "candidate_plan_sha256": "aab989e2ba43b61c349dc52a5765a138ac32b895941f0137d21ef30d62ffb20a",
+  "selected_records_sha256": "603ea9d390e9b8b3ac5d9e29aedcd29fd1937b013782da3b4dfae7014b825d94",
+  "model_config": {
+    "tag": "qwen3.6-27b",
+    "backend": "openai",
+    "model_id": "Qwen/Qwen3.6-27B",
+    "max_tokens": 16384,
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "seed": 42,
+    "thinking": false,
+    "thinking_via_template": true,
+    "base_url_env": "VLLM_BASE_URL",
+    "api_key_env": "VLLM_API_KEY",
+    "request_timeout_s": 1800.0,
+    "extra": {}
+  },
+  "arm": "visual_text_topology",
+  "maximum_admissible_input_tokens": 16384,
+  "formal_or_reserve_cases_used": false,
+  "contract_migration": {
+    "migration_id": "rq_layout_migration_2026-07-31",
+    "manifest_path": "RQs/RQ0/configs/contract_migration_2026-07-31.json",
+    "metadata_only": true,
+    "execution_semantics_changed": false,
+    "configuration_paths_migrated": true,
+    "script_paths_migrated": true,
+    "result_paths_migrated": true,
+    "historical_experiments_deemed_executed_under_migrated_contract": true,
+    "contract_validity_preserved": true
+  }
+}

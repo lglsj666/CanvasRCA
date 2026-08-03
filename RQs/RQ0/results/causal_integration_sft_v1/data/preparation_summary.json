@@ -1,0 +1,1113 @@
+{
+  "schema_version": "CausalIntegrationSFTRosterV1",
+  "scope": "development_only_nonconfirmatory_case_level_causal_integration_sft",
+  "counts": {
+    "aegislab": {
+      "total": 100,
+      "train": 80,
+      "development_heldout": 20,
+      "eligible": 31,
+      "eligible_train": 25,
+      "eligible_development_heldout": 6
+    },
+    "aiops2022": {
+      "total": 100,
+      "train": 80,
+      "development_heldout": 20,
+      "eligible": 87,
+      "eligible_train": 69,
+      "eligible_development_heldout": 18
+    },
+    "aiops2025": {
+      "total": 93,
+      "train": 74,
+      "development_heldout": 19,
+      "eligible": 61,
+      "eligible_train": 48,
+      "eligible_development_heldout": 13
+    },
+    "re2_ob": {
+      "total": 90,
+      "train": 90,
+      "development_heldout": 0,
+      "eligible": 90,
+      "eligible_train": 90,
+      "eligible_development_heldout": 0
+    }
+  },
+  "selections": {
+    "smoke_train": [
+      {
+        "dataset": "re2_ob",
+        "private_case_id": "re2_ob_currencyservice_socket_2",
+        "opaque_incident_id": "INC-FC88448A9C8E",
+        "stage_partition": "train",
+        "ceb_hash": "3c8cf9ef648aaeefffe641172c8a08e4206b25539e7afab65fc39e710021a943",
+        "fact_inventory_hash": "0197cab2e36bb83a51fd5a1a5ea3a60eec299f21959c79f8e80957ba8c99abaa",
+        "input_sha256": "3b8e936c258ec68aa4f83d789cd02147e1ffb24c426c9afadd3bc9bab9bb9f2d",
+        "target_sha256": "fd9ea5c3a014dd3a8c2861e8510cd4f9a59f07066b0ee2f8fbf41adbc6da102d",
+        "contrast_type": "caller_path_to_root",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-FC88448A9C8E/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-FC88448A9C8E/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-FC88448A9C8E/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-FC88448A9C8E/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-FC88448A9C8E/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-FC88448A9C8E/conversation.md"
+        },
+        "file_sha256": {
+          "image": "712a4c668a2b6b2623ff75c1ed8fd6e5e19137c68336ee23fb90cebb5c6d372c",
+          "manifest": "3e43407a2f6b4f3bf10894913d2b13ee43e0ad7a3b0b8bed39880e8646cd79c2",
+          "ceb": "14ab76e5a385aa152c5756a2395225f78c9b66cbe5b12642d90e50b796e2b887",
+          "input": "279cc303f81f6ebea7590418b2660f3264776fe8f4800850cf97e2c5348a358b",
+          "supervision": "2e4a3d4ebcedf3dfd12d92fa02c193677f0e1f141eed60c612a331dcee07efdf",
+          "conversation": "0ba11425cdd05ef1055e34c6452f6e03a9c52f1d5e5636b6e4bd6210cdb688f9"
+        }
+      },
+      {
+        "dataset": "aiops2022",
+        "private_case_id": "aiops2022_2022-03-20-cloudbed3_010",
+        "opaque_incident_id": "INC-8BFCFB2E5E54",
+        "stage_partition": "train",
+        "ceb_hash": "37da4004f9a20337e7c57bfc2d8047cca160689560ffd31986757ef77a9c91c0",
+        "fact_inventory_hash": "e16d5cb2f84128f8d473fe62218da18e5719fa0e24eeb9a3a3ec358fd216c64a",
+        "input_sha256": "d0f7f57d6b6d93b1c2ddf70c4ffda8c147e9c253d8eacf3030b930814d98017a",
+        "target_sha256": "373af067e30af51e5612cfca4840d30d540b6c7b7b0d867b64485ccfddc8bb6a",
+        "contrast_type": "direct_root_evidence_over_onset_salience",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-8BFCFB2E5E54/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-8BFCFB2E5E54/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-8BFCFB2E5E54/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-8BFCFB2E5E54/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-8BFCFB2E5E54/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-8BFCFB2E5E54/conversation.md"
+        },
+        "file_sha256": {
+          "image": "68c3d29c5737f8f2a58d373c35f7b817666fd20a2a664a034f0d667248bb1d57",
+          "manifest": "380347a15ed0c1c1132cb8ddbcc8204b3d1ba4697b5a5ea90d942becd4f835ca",
+          "ceb": "af759bcfe7f59f063955a8c3ec98b75851d45ffc11f35eec43853d95faac6635",
+          "input": "78d5cfefd4d4f8172910f734e122223ab13209e45f2b0e5154c622d83c028e9d",
+          "supervision": "7303aa582dbdf3236cb2a52f9d4be75649404d7df09bf09acf3440640abbc72b",
+          "conversation": "49ce97511cfdbaa730efbb434fa64393b301d9d5bb7350080a8f10274be49b94"
+        }
+      },
+      {
+        "dataset": "aiops2025",
+        "private_case_id": "aiops2025_31392fda-93",
+        "opaque_incident_id": "INC-2E9DC5C4A090",
+        "stage_partition": "train",
+        "ceb_hash": "1606bbac120b26f682cc95311321a7b054d646e14f2e0a2d19b01d7d9b9ee30e",
+        "fact_inventory_hash": "3bc34ee0710e85d879529089d07c66aa1a6852e375a99b3c3c9a788b9282ad18",
+        "input_sha256": "7f86a834b0682de1406cca96cc078fed32f0d1926e2d84ef86bc8885677a5e93",
+        "target_sha256": "50d9fcdf2e9faabe95b319be71ffb50567b9c69c90d66103fd3e203b7bba8bcf",
+        "contrast_type": "caller_path_to_root",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-2E9DC5C4A090/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-2E9DC5C4A090/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-2E9DC5C4A090/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-2E9DC5C4A090/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-2E9DC5C4A090/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-2E9DC5C4A090/conversation.md"
+        },
+        "file_sha256": {
+          "image": "f989b49be930228ad9c749826b844e5410dea4b584424638f440930669df844c",
+          "manifest": "72d4757e2bf98dd3f4a2d425fdaca17a6c31900e233e5c9c4dcf53e2ba68cbe1",
+          "ceb": "9af35aa837be84fe1896683833fe6d2bc3accc6b5e50f87711e4a9df21fac6bf",
+          "input": "0661bc3cc6e6c78897e8f0aea8f0f44738f0c0487d4beffe56a22fe970e6250c",
+          "supervision": "3f9426238f76c2fc046328494386583569d9cc29dd7c1a009c33df3e25dc6f98",
+          "conversation": "e5755e5c4c8a501556efdbc5e8a55a803096b87da58dddfdf98108653a532385"
+        }
+      }
+    ],
+    "pilot_train": [
+      {
+        "dataset": "aegislab",
+        "private_case_id": "aegislab_ts2-ts-travel-service-stress-fxpb9q",
+        "opaque_incident_id": "INC-7AC4AA9F8A6B",
+        "stage_partition": "train",
+        "ceb_hash": "8ad9df95f25b666a2baa7fba05c689072d93c24fe85966e2334a4a22faf0024b",
+        "fact_inventory_hash": "fa328a17ad605902e8a12c4251e77285fd5f9b699b9d2eeb5b610c12afce804f",
+        "input_sha256": "f8c8f08792103992ffd60c31403d70947bc38e173316042408b5b6436fc39065",
+        "target_sha256": "d21d8de6427a7a6b03b24ff3a7493d65a64c59e5de4a8f64428496f463247db6",
+        "contrast_type": "caller_path_to_root",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-7AC4AA9F8A6B/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-7AC4AA9F8A6B/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-7AC4AA9F8A6B/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-7AC4AA9F8A6B/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-7AC4AA9F8A6B/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-7AC4AA9F8A6B/conversation.md"
+        },
+        "file_sha256": {
+          "image": "3bc8e225463065687e5874b6ec63feabcc868b10524aca659b31eda404de9daf",
+          "manifest": "af74f7756fcb0f724324d32a8c1e0bcfb8eaefbbd033f93e3a52aded2ae5e19c",
+          "ceb": "d0a1a9445d376068500ca58b791decc00d89fb83c38b73cedadb659b85b6a0c4",
+          "input": "5cef7cc83f1e69f4e0eb250605659228781900321aab33cd2e4340bd6c60897b",
+          "supervision": "5f4ef92a90adb5e99475d2b45dd761f87e9abc41ab63f308b675564a02fc4853",
+          "conversation": "03c65198de7887e466c79735b1f744fc70e9dd3b613177d9ddb6a476ec6a0fd0"
+        }
+      },
+      {
+        "dataset": "aegislab",
+        "private_case_id": "aegislab_ts4-ts-route-service-stress-dbqrpq",
+        "opaque_incident_id": "INC-E8E61663F6F2",
+        "stage_partition": "train",
+        "ceb_hash": "478e4fb8987991e3000bb9fb2832593349f3b01e0d28796d2b9eaf08480d516c",
+        "fact_inventory_hash": "6840e2e3b2abc5c99c5f55a58ea1c9ba2caecb0658ee55c8c997f2f5dacaecc2",
+        "input_sha256": "8ad8a822b3fb7b9aef84d4ceda369f96ec72cb4c3b42f7ecf9c74db5746936e6",
+        "target_sha256": "7b19ba58a24300e835a6faaa29430710ab2eba2f336831fc687eb30949f1d047",
+        "contrast_type": "direct_root_evidence_over_onset_salience",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-E8E61663F6F2/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-E8E61663F6F2/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-E8E61663F6F2/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-E8E61663F6F2/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-E8E61663F6F2/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-E8E61663F6F2/conversation.md"
+        },
+        "file_sha256": {
+          "image": "316a842a3c7de174acb15efac4165e6df2002d070ba9e950a658c923d2e65b15",
+          "manifest": "f256b95bfcb75776d0c8a15d8e0619aab1880896d84c69b195be88ce8580987f",
+          "ceb": "2c0c32b9643cd69257a00b9a3ad852819b5e2505e0809f9cd7c2ae7c6cdebc24",
+          "input": "6e81007d2c429f605533ebe29e0031cdfa277f25c7ff1acc5d80214c9e2d90ba",
+          "supervision": "7e9fcd1f7c1443b948615007a1096e4895633085437f743326fe40cbd7abbbf3",
+          "conversation": "a429ce51e7cd67831592c56d74939e47c88d11376b37aa0d99dabb5f87b4d0af"
+        }
+      },
+      {
+        "dataset": "aegislab",
+        "private_case_id": "aegislab_ts4-ts-travel-plan-service-exception-rk7zkm",
+        "opaque_incident_id": "INC-ECC8FA38F8C2",
+        "stage_partition": "train",
+        "ceb_hash": "9d0148d5220d6d52a5d0fdd6a72dfb6a9a92fb0963bd1fe49b1dd22dc9f4e577",
+        "fact_inventory_hash": "c073b8857fda402cf5f4a26aa8e9d49fa015186c4a5eb0fcc20edc2e47017b2c",
+        "input_sha256": "dd330dca3ce7a9f975f0a9655caee05ac119829ddcf070f691898f91f878709f",
+        "target_sha256": "2ade6ca4142286a242f8f24f63cde8c4a1f645f55d11cae153f2c5bcef5591f6",
+        "contrast_type": "direct_root_evidence_over_onset_salience",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-ECC8FA38F8C2/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-ECC8FA38F8C2/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-ECC8FA38F8C2/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-ECC8FA38F8C2/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-ECC8FA38F8C2/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-ECC8FA38F8C2/conversation.md"
+        },
+        "file_sha256": {
+          "image": "7ad285b823dd2314013703186c1fcac123b76b0807dd7b409e8fa7f6ad7a6641",
+          "manifest": "179444804bb5adbd0261d78c825fde80407fb13d19032ab18652dc8871f5b6bc",
+          "ceb": "c2320b33c145f40828b280b8575a94ee09e34f4818a10acbd0b49a65d75fca01",
+          "input": "46f4eda96c3f9232be366eab7f27cf4ffd5edab25215b49c3dd3446b1831c1ce",
+          "supervision": "a53ce78f929d9d57a6331277d8e80e72c2975eb366bf6bbde1b465ee81377d0e",
+          "conversation": "50777e9c6a3daf862a845fcbf732e67aa1b781eccc55754455b36130fc52d35e"
+        }
+      },
+      {
+        "dataset": "aegislab",
+        "private_case_id": "aegislab_ts1-ts-travel-service-stress-9rhgns",
+        "opaque_incident_id": "INC-E8AE8CFACCE5",
+        "stage_partition": "train",
+        "ceb_hash": "6535d14a3c33ab6b67315f710d065e46accf1c9cbcfbf5ff36dcafc0591361a5",
+        "fact_inventory_hash": "26b99e9e8cbf31c0aa732a4ca6eb97d7ff6f33f784e1597be9b31e3762460a85",
+        "input_sha256": "463153ae8992b4944dba671ef240c978eeaa315dc8a03881bce76611d1611b92",
+        "target_sha256": "382b91003e153ee97da563933a60279d3613183eedddc40d24891c9d9ff763b0",
+        "contrast_type": "caller_path_to_root",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-E8AE8CFACCE5/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-E8AE8CFACCE5/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-E8AE8CFACCE5/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-E8AE8CFACCE5/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-E8AE8CFACCE5/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-E8AE8CFACCE5/conversation.md"
+        },
+        "file_sha256": {
+          "image": "cf2cd160a92a9b4261c437925bbf1ed747e4f48cd4c9cf65c601f963d584952c",
+          "manifest": "112a69eaf1f33b225748b3ba02002650ee5c7b4818f3460f06a0a5f05db887aa",
+          "ceb": "49313007b5d744130018e980e8c3f140a438c2cd2ce65e5c4966b83911629f03",
+          "input": "c8a4b1380d18460dcec7d9575c905d5d16eda2d59db903f49b4941c9865e595e",
+          "supervision": "32b8ba1df4f9c7db586693909933c4add7355fdaf67b71361a7a075686bdc729",
+          "conversation": "7c646714722b78fcbf137ebb6044c68c374fe9778baaf519f5b376d74dbe27c7"
+        }
+      },
+      {
+        "dataset": "aegislab",
+        "private_case_id": "aegislab_ts4-ts-inside-payment-service-return-x4gr5r",
+        "opaque_incident_id": "INC-93A6CA128F9C",
+        "stage_partition": "train",
+        "ceb_hash": "b39a03932ca110929ba9e1f9b3e0fb7920e9bdc2204d0cd72387f0b5733617e1",
+        "fact_inventory_hash": "00201f968c43f0847520dc9aad184dfa25179784bc1044c045c6f9a6a8c5b679",
+        "input_sha256": "1dd56a2f07d7cd47015b8dbaa4c85350c7c51541818de54bb1d2185546b45bf5",
+        "target_sha256": "c55f822b78ee90269f3dbc69ca1f11396bfd7c371a7722abf0ee8ad01cf2ee38",
+        "contrast_type": "caller_path_to_root",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-93A6CA128F9C/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-93A6CA128F9C/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-93A6CA128F9C/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-93A6CA128F9C/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-93A6CA128F9C/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-93A6CA128F9C/conversation.md"
+        },
+        "file_sha256": {
+          "image": "b64e2c2abe47a02e22aaca404169b807db58da269d113a1795ed95536d178395",
+          "manifest": "b5eae9bbc58effe739e59b475a784aa33e9223930a9adf02fdc3d63c5a9fb910",
+          "ceb": "1a9a625667bb85d8c1835677f7ee6acc8d1e2d7c5ddb9e94e58a411058826998",
+          "input": "89062640437ea7639278fd25131ed2bb4ad67c254ef13d5e2f3e717a2cb12ebb",
+          "supervision": "30c793babbf4b0b6b8c63573539eac481feb67368984b7dd21579232966b2b18",
+          "conversation": "d4115b40359b6f7d9aa12b437d4ed0438ef74e32d24c9f109b66a492ddc08a9f"
+        }
+      },
+      {
+        "dataset": "aegislab",
+        "private_case_id": "aegislab_ts5-ts-user-service-pod-kill-ds2t2b",
+        "opaque_incident_id": "INC-2E446C3FE621",
+        "stage_partition": "train",
+        "ceb_hash": "59469f741f9a9fcec3fd1cd20acbdd5be8c95409f78ca4f646b311a97ac376e1",
+        "fact_inventory_hash": "5918d72f795098cfbb2e8b4747cd309035f614af78c99a7346012f1835e8d067",
+        "input_sha256": "4c0bfbaad749ebbba424ab8b16f55607b64a12ec73f698d23c7fea1b480e8bbe",
+        "target_sha256": "9d7f238e0c5f4d5ab8efaff2e5c1bc19670f85c291983fe2531bb681c0a58b1a",
+        "contrast_type": "caller_path_to_root",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-2E446C3FE621/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-2E446C3FE621/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-2E446C3FE621/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-2E446C3FE621/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-2E446C3FE621/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-2E446C3FE621/conversation.md"
+        },
+        "file_sha256": {
+          "image": "fab5fc28bf8e79ad488a7c8fd832ce5e8dd1d0be414d6c80f49d3c38e09ccdae",
+          "manifest": "99a7d0aca333a5bb764d487b84efbb1d829f910d27d02453c1f16960ea8c7102",
+          "ceb": "da04810b99e8ed3caf9d753814d2d0b9e75a79e502eeeab1f53ae53253c6312e",
+          "input": "fe00ef0b3e74b94bac24d37fd63a6f34fb8b75e71c17cc40a86dfbcc37645c3f",
+          "supervision": "57189d3b4a6e8cf9874e0e809e8fd5f1ed87ecd2ce3479ac8c51b278907adf47",
+          "conversation": "df42eb280381a667fd57c0490f2b8669b665f71e05f6b80c48b726c3d9dec20f"
+        }
+      },
+      {
+        "dataset": "aegislab",
+        "private_case_id": "aegislab_ts4-ts-config-service-stress-wfgt8h",
+        "opaque_incident_id": "INC-E3CC86BC792F",
+        "stage_partition": "train",
+        "ceb_hash": "25de062d3564f4ff277d17693160927a871405405a96aebf146abd5145261008",
+        "fact_inventory_hash": "9ee8a0bb68e28262da5a1efc7b2a7ca6792387680128458739073647b18c2482",
+        "input_sha256": "e9ced223e5299480a52d94ed6cdc21c1398ee1b55938eb7a272b53d1639a22a5",
+        "target_sha256": "7539d0f8f2b1ae47053eb1c746449f47339e27b797ed3cb763b7dd518213595a",
+        "contrast_type": "caller_path_to_root",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-E3CC86BC792F/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-E3CC86BC792F/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-E3CC86BC792F/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-E3CC86BC792F/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-E3CC86BC792F/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-E3CC86BC792F/conversation.md"
+        },
+        "file_sha256": {
+          "image": "7c9a26717440f1add62947e445ec208ebf91a8cf6d80198ad775ba22be62197e",
+          "manifest": "cef9d11ad5d51d9f9a46852f953d9437fdc1882a432b417361249d5297cbe63e",
+          "ceb": "7e6862b794bdfdde2f4b8d4c0c54b5b8ad88eb34624231772fd0f0ce16943fcd",
+          "input": "bf33ab7e94172382642615b80647cc037fa7f3b57613264f8fc00f540574bc7e",
+          "supervision": "6d64f602558e7cd666de8a7ce54fc9133ae4ce484f424e1d5bb6e91c3c086fd4",
+          "conversation": "7c881d5c6befe5137e8f4c29a82068ea64c6ecc3127f1506217242c6ff24eb6d"
+        }
+      },
+      {
+        "dataset": "aegislab",
+        "private_case_id": "aegislab_ts4-ts-assurance-service-return-x28fwz",
+        "opaque_incident_id": "INC-130A9D7C9333",
+        "stage_partition": "train",
+        "ceb_hash": "dfd4c7f0bd32ffd90253ca1fe5a91a5b497dda8f1c658b1c7e01964803696a02",
+        "fact_inventory_hash": "749b0e23cb0d0213fe3980487cb1fe787845fb507eb02a3ed6ee13fa301dc8d6",
+        "input_sha256": "70549771ed2f65a4d1195ee9d65e5a3b0f30273df016301a72be9ea24452c61a",
+        "target_sha256": "066b03723a0da2392aab2fa18156642db8ec5af2d0803784cd9be7691bfa5656",
+        "contrast_type": "direct_root_evidence_over_onset_salience",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-130A9D7C9333/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-130A9D7C9333/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-130A9D7C9333/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-130A9D7C9333/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-130A9D7C9333/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-130A9D7C9333/conversation.md"
+        },
+        "file_sha256": {
+          "image": "b42f851f67bcb950e343460e2eb4a50fd54758d3dafe6a2aedfb5cda02e02cbd",
+          "manifest": "b24158d6b9468dc315a52ed00752c9eae444492d805e50297bbf6df5b207177b",
+          "ceb": "ced5a3394c6a21341daaf2c2b74743498fed53583b47e638e9b32fe37a01f15e",
+          "input": "ab382898916c0b48f71037c1352ccc1a237c6d02fc1918339e5b1d0830d666e0",
+          "supervision": "2e01ab02a36e42f2e237dc2fe7440cdaf40366f77cac1f48f5c48172fc474ad6",
+          "conversation": "b3b7ad80c1aa962df285d0e0d7579fbe8c7cef91b41b607714ed78ef16f9ac4e"
+        }
+      },
+      {
+        "dataset": "aiops2022",
+        "private_case_id": "aiops2022_2022-03-21-cloudbed3_015",
+        "opaque_incident_id": "INC-CD291E810570",
+        "stage_partition": "train",
+        "ceb_hash": "fbbde6177ed7a368cc270d864a325f5c627a3bb614f46dae87fc470572f1111c",
+        "fact_inventory_hash": "78afc8bd64838f7aaac5aeeaf2f30c9607fbda28155e58ffb15c928f4a33ffe2",
+        "input_sha256": "7a492567ea227c661430628a63f51c6711c00c6210bddb79955398fa3d8124c6",
+        "target_sha256": "5958079dfbc3041952a639da743ea352a7bfa449b55c25105b8260bc89806402",
+        "contrast_type": "caller_path_to_root",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-CD291E810570/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-CD291E810570/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-CD291E810570/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-CD291E810570/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-CD291E810570/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-CD291E810570/conversation.md"
+        },
+        "file_sha256": {
+          "image": "baae73984a6288411b7faa8d1bd37f38bf2255fde137e90ef0d69ecd2f9feb6e",
+          "manifest": "d92b507fc945a1484dfb60d9868551cd1a92727099612afd390e6e839b7911bc",
+          "ceb": "984e81223f5ca4788c493823e5e16c7fd3d37500f7f0183e27bebc58df2ee77e",
+          "input": "ea4a00eb91e6c6d2a21b040cfe9428c658932cf834ba94db53f4687899c68522",
+          "supervision": "9db8aae2f97d23a2fa7b46f7d9c28e7d7929d7a77a60ec40e3ac4839610adef7",
+          "conversation": "613db19efbf14f036066a10f9bc596d445bf9269aaf96e3289b6b375a3a935fe"
+        }
+      },
+      {
+        "dataset": "aiops2022",
+        "private_case_id": "aiops2022_2022-03-20-cloudbed1_000",
+        "opaque_incident_id": "INC-6E1553CAA55C",
+        "stage_partition": "train",
+        "ceb_hash": "25a9d8ae0af678856a7de225c71c8058a249686b31c55bfa83f85adc424cb922",
+        "fact_inventory_hash": "6e7cc677340697cdcaf468d0b5f8b5bab723c73d75397897a4b20c99211cd242",
+        "input_sha256": "59161e41acd8e09e088781fa2391a9f6ccb6183aa60267d46a7555799cf426cf",
+        "target_sha256": "c543dd38ff2f7307c698e18c9d9f4998a3ba0ed3244e79603cc9225f9dbd851d",
+        "contrast_type": "direct_root_evidence_over_onset_salience",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-6E1553CAA55C/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-6E1553CAA55C/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-6E1553CAA55C/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-6E1553CAA55C/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-6E1553CAA55C/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-6E1553CAA55C/conversation.md"
+        },
+        "file_sha256": {
+          "image": "7d9d2beff44ae2b0983bbff7ba32fce65e9c89595baa502d8c8c2d7a7248768c",
+          "manifest": "7db0b7ace739eb0fe10d48df697b510ac1e171d1f5ee54936febe483c3662c58",
+          "ceb": "88bdeb63bf387ec4eb74b8a8b07c6de6ffed6c6867803d1e5b50a65710115165",
+          "input": "f739e23fbd470b8bb71bbbae5eb49a37089eb1972e5fa15d1438dd498cd0ac55",
+          "supervision": "4ed806d466135daea5dbe81f313bc57d99267a93069ebbcbad69cc868a258ad3",
+          "conversation": "c58fed77ff7471f54ce405f988b9f64dbed611bc81f0c99e977baee2d1fe82b5"
+        }
+      },
+      {
+        "dataset": "aiops2022",
+        "private_case_id": "aiops2022_2022-03-20-cloudbed2_031",
+        "opaque_incident_id": "INC-4ADE81F9C874",
+        "stage_partition": "train",
+        "ceb_hash": "109c5370f64c9cae45531bddb6e6b15ffdfcd23b0266eb9dad95642996cc5db5",
+        "fact_inventory_hash": "2c42d462fcaa397b121e8bdb80313c938e09ff0e91a0e4bb86d3e2865eb26cac",
+        "input_sha256": "81089ccd1ed8c02c80d2a4b821fc12c9e16484c40c5c694a808beb17bec5dac7",
+        "target_sha256": "10f7b31cbaea0f86263139a9e2181ffb953fc5ec2c666f22f8c1a6519db914ea",
+        "contrast_type": "caller_path_to_root",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-4ADE81F9C874/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-4ADE81F9C874/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-4ADE81F9C874/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-4ADE81F9C874/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-4ADE81F9C874/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-4ADE81F9C874/conversation.md"
+        },
+        "file_sha256": {
+          "image": "28685ddab7730d4ab431b906b963ce76131dd04c71c948f6f2ff29b206d617e9",
+          "manifest": "06c28684bce2d89fcc8c3b897883f382931f1d357cdf61a4096271e4a733a1cc",
+          "ceb": "f40baaacec1864d5e6334b5c08ce33608f88f9a1c2854b6bb7bc6a2d9f54ccca",
+          "input": "f80d052871a2f4fbbb11bea87b1f089d622473c4fab909eb593c9e0ba2082a87",
+          "supervision": "5804a04e78f2f3e0155cab3b1bb441f495eef70e7f752cd68d807fe581380f4d",
+          "conversation": "1ea2914721b5e795811855c6b832b033db5ac550f29483c773f61db026205004"
+        }
+      },
+      {
+        "dataset": "aiops2022",
+        "private_case_id": "aiops2022_2022-03-20-cloudbed1_008",
+        "opaque_incident_id": "INC-180A6F99B037",
+        "stage_partition": "train",
+        "ceb_hash": "b55cdcf0277e9fe5cb08cf1c1141de34488f83c2e05866f47bd2c7a2f7f69deb",
+        "fact_inventory_hash": "09558f3e18cfe38c72b026455de18e6d221c57a0144ef2c1e132ec2f1a4550ef",
+        "input_sha256": "96993fa7681fa69de2567703f28820da279e524eb5d60df4b8330127b57c2f0d",
+        "target_sha256": "82028c6cab96fa7c0bcb04c627fb42d61cda7b0bbf4724712399fdeb5ea27e1b",
+        "contrast_type": "direct_root_evidence_over_onset_salience",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-180A6F99B037/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-180A6F99B037/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-180A6F99B037/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-180A6F99B037/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-180A6F99B037/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-180A6F99B037/conversation.md"
+        },
+        "file_sha256": {
+          "image": "6c2f68e7e1501e51613f58729b3baec45f023f1069429a24f84ef8f8b737085a",
+          "manifest": "f434f1049bbf8eaa3a955095fa59eba3fd17fb4a1b2a5b55c7e4571f89d49c6d",
+          "ceb": "0ef3404b81a44aaad7acb48386c7ffd5627fbaf05467c619fb13ab942b27d128",
+          "input": "a446a2e2542b1288f9becd33e70100a005c20b183b55f9cb175cb7cfb18f1ae9",
+          "supervision": "f51adcb640a28e2dc771f753250fc5a188455ea3ab5990565dfff973ec2d0ba0",
+          "conversation": "c841892be18405b02db3184447aa718be674aabd7189fcb4c1f4bbe4985d4fc1"
+        }
+      },
+      {
+        "dataset": "aiops2022",
+        "private_case_id": "aiops2022_2022-03-20-cloudbed1_029",
+        "opaque_incident_id": "INC-0FAC1A2DD9E9",
+        "stage_partition": "train",
+        "ceb_hash": "318f4a07a3cf5e81494470e647b11235e9a58d67851e2450db4c10967b4968d4",
+        "fact_inventory_hash": "002884c132280c2b87ed2d97d4c83fc68527db0fc1ea97d1b32241dc29c5238a",
+        "input_sha256": "c30636b1f5dc5fc96d3777833d16087593d2b0f5e14be4af4c9b944cb8d1b76a",
+        "target_sha256": "78f37e5ef9f8d8045ccb0207abc8fd8da24932c50368782b9ec53343fce8d792",
+        "contrast_type": "caller_path_to_root",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-0FAC1A2DD9E9/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-0FAC1A2DD9E9/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-0FAC1A2DD9E9/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-0FAC1A2DD9E9/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-0FAC1A2DD9E9/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-0FAC1A2DD9E9/conversation.md"
+        },
+        "file_sha256": {
+          "image": "a4c8c58fd30c2dd44ed8c07a732b4b7a5912ec88f14d135bdc0da8dcc94a3622",
+          "manifest": "502e0303d6febf77bc77b2d175213ec697c1c002c354ea880738467845a79302",
+          "ceb": "16bb7b4ca5c38ae8f65510be0df873adc2522de5cd1f27168c335d77f28225ee",
+          "input": "bdaf793139d07adae8c391d91c970bb7e71c19dd8b26f34ab82449bec3ad80f5",
+          "supervision": "f457e8950877fba29541334b369b65dc7755b50a8b614f418ea7b77e87d2ae96",
+          "conversation": "c64945d8962344867476cbefc8f99e747b122983279a79ae9257ab22991e5d31"
+        }
+      },
+      {
+        "dataset": "aiops2022",
+        "private_case_id": "aiops2022_2022-03-20-cloudbed3_006",
+        "opaque_incident_id": "INC-A33D2AD85F48",
+        "stage_partition": "train",
+        "ceb_hash": "450755b1dd5cc41e2de4923fa2d76dd7e6df1d1eb4331206ba8af27fcc69483f",
+        "fact_inventory_hash": "f9244bf3039e13960ad9bf616edc7c0e36ec44e23081052776335e27f2b6be53",
+        "input_sha256": "e1b426020672c237c6d3895e759354b6a6e18db97eee4f9df33c22052a26f756",
+        "target_sha256": "a9724b9e1cdc9a67400dd620db60a02c6f57901020ee63e11dab19d24de3ace3",
+        "contrast_type": "direct_root_evidence_over_onset_salience",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-A33D2AD85F48/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-A33D2AD85F48/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-A33D2AD85F48/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-A33D2AD85F48/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-A33D2AD85F48/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-A33D2AD85F48/conversation.md"
+        },
+        "file_sha256": {
+          "image": "aba8a131b308c71b92bb662ed1c2a35deb9a780d010f29f473124f74feb553df",
+          "manifest": "09518a8753109047b85634207d3b1fffa6fffe233fb65246493a221adadbaa03",
+          "ceb": "50730c81e8548dea4f50df9b62bc70d2e3936880b43810db1cca9faf3c3e7577",
+          "input": "e5f07b33990db1552b1dc79b6656853cb7f8aa954bf938ef756438830799e41e",
+          "supervision": "e5411a54b6bbd967b674ca078153eefffc5dcfbb21167ccf7448d4dcd6f4bebb",
+          "conversation": "9e2aba6cea3ccc92318ae3b41fe82c1958536df4d82f4d94a289ce4dab75dfc2"
+        }
+      },
+      {
+        "dataset": "aiops2022",
+        "private_case_id": "aiops2022_2022-03-20-cloudbed2_008",
+        "opaque_incident_id": "INC-BF3212A78970",
+        "stage_partition": "train",
+        "ceb_hash": "c05df3be90b5b3f8b21996828bc586f4159aa2ef1508014d1313e463bc797cc8",
+        "fact_inventory_hash": "9910d3c11e9cfe0025b7b8cfb75dfd11c8d04a96515fc254180311028ce5b452",
+        "input_sha256": "4f4796357a3f018973d8bd7fe6a5821c0b7386776311b08f715d86ddad6e4d4a",
+        "target_sha256": "57f5bb7e769164d6a2470e39ded3a3cd7143d36d48f3d464b35f7d7280623d48",
+        "contrast_type": "direct_root_evidence_over_onset_salience",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-BF3212A78970/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-BF3212A78970/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-BF3212A78970/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-BF3212A78970/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-BF3212A78970/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-BF3212A78970/conversation.md"
+        },
+        "file_sha256": {
+          "image": "1cc9dd2590134aae5d1bdb1ddd27376985df0d2281af6d1f4b21342aba8b3862",
+          "manifest": "691c9590f0f1fdc339e3ce757e632ff6a5132ba7b8030b0c6b8c0fe42c4e6f3c",
+          "ceb": "59124ba3de40f69a0b3f5b75c28c0d2c48dbd3ac02b811784d9bddc3921eb423",
+          "input": "966c6471ab585e4c9e06b63b9d07b50ccca585af963c6a19e648e9e2f11b32f9",
+          "supervision": "3bb70c32074a5a2eb24f36974b02c54347b106363437a1d0c6f643597b661db4",
+          "conversation": "bba24d8b8c6d410cf0bcea7b3b742424826319d942d78e177cbfed922612fea6"
+        }
+      },
+      {
+        "dataset": "aiops2022",
+        "private_case_id": "aiops2022_2022-03-21-cloudbed2_043",
+        "opaque_incident_id": "INC-CAD16F78D3DE",
+        "stage_partition": "train",
+        "ceb_hash": "ee36d16dd17c810a76391355418c517c8f314cadc819a6cb98c45fd40ae8bd71",
+        "fact_inventory_hash": "3cabe5f048baa0b08182b03e6feb0017c30b6c1e6e53faad8593db4784d5ef3a",
+        "input_sha256": "76000fcb43e280332a2cf043f676337297e70bb6c36837482d7a53a3d230dd19",
+        "target_sha256": "0e0f462b50fcc4d5ad2b78f5db636cec3185991ee4710109bbe99bf03d8c5f00",
+        "contrast_type": "direct_root_evidence_over_onset_salience",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-CAD16F78D3DE/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-CAD16F78D3DE/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-CAD16F78D3DE/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-CAD16F78D3DE/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-CAD16F78D3DE/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-CAD16F78D3DE/conversation.md"
+        },
+        "file_sha256": {
+          "image": "20b708e3537100295ee8c77c637a395986fb0358b12e7269d70fc186c1ef23e9",
+          "manifest": "471ceccf072fb8f6acde7c4ee3a67c36edd7dd8208cfc15fb6eaa4a6965e5831",
+          "ceb": "2d1c462721f0ae71ff299dbc548c1cc3c9551a3bd08fc8e9ea7275e53abb15b3",
+          "input": "30820cc9416acad2f0d822319e660414cac9b74269b9cafd4c3f459e7e4b009e",
+          "supervision": "d4b8d24595bf1197125c173c8c19da87be4cbb8042bb1cda831c2924a33d955f",
+          "conversation": "1aa5ac06e59dd05e91989c858cea42cd869cd9f6466335d9f0224608f1843b1c"
+        }
+      },
+      {
+        "dataset": "aiops2025",
+        "private_case_id": "aiops2025_df892932-168",
+        "opaque_incident_id": "INC-C6F690762676",
+        "stage_partition": "train",
+        "ceb_hash": "8ea8ca9ba108f99c2e2bf2ba4a03db3b736480b0aed6dd93953ed1aad8a782b6",
+        "fact_inventory_hash": "4f5e63c3b05b77200159685f460aa3d5c50c34ce41f6764d8980576c0ac5b7e8",
+        "input_sha256": "dc3a10d0ed350d884027c4378a780da7dfd65e3c518db0e4077ba8e5d4b0fc5e",
+        "target_sha256": "6d58ab0c0bcb4919fca96816872ddca05340c7d2ef41f15e2ef885804cddf741",
+        "contrast_type": "direct_root_evidence_over_onset_salience",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-C6F690762676/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-C6F690762676/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-C6F690762676/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-C6F690762676/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-C6F690762676/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-C6F690762676/conversation.md"
+        },
+        "file_sha256": {
+          "image": "6311cdb24e88458e274801f4aba7f9926f363ac51644c9b359c1a2cce1e84610",
+          "manifest": "0eca4bd1541cf03903bc1af847e372b711cb30ab2bd42492d897ef666d64456b",
+          "ceb": "57575dfa82b73f059fb6a8d4bcb4d40ff650d19170f007e7d7189d27bec14328",
+          "input": "1266e4b73c8982aea82ab7e812b52cab4359a1f33b8735c7b30fe4a599228118",
+          "supervision": "927860f1f144602afde0f4e270f99033e55479d7661dca874d382fd68db91f36",
+          "conversation": "847f63739d08f070a7bdd7a8515e12516885930ac611fb3a02bae83788d15208"
+        }
+      },
+      {
+        "dataset": "aiops2025",
+        "private_case_id": "aiops2025_e55fb1cb-192",
+        "opaque_incident_id": "INC-A8DB96415028",
+        "stage_partition": "train",
+        "ceb_hash": "73a82f8906defa1224bccada578a6fc2eeccd410a33cabb7fe4450f466e73a22",
+        "fact_inventory_hash": "670f7a31cd2f22b42633571e80fee79f8b97613c92d705ecb214381cf13f4fe6",
+        "input_sha256": "43c8242b5d85817d1943758a0a68e633d63ca48746b664a46d64b3e8e7acd975",
+        "target_sha256": "6553d6636929fd431ddf5e52844c068784646c52dbcaf0689735e1494c0e8149",
+        "contrast_type": "direct_root_evidence_over_onset_salience",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-A8DB96415028/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-A8DB96415028/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-A8DB96415028/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-A8DB96415028/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-A8DB96415028/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-A8DB96415028/conversation.md"
+        },
+        "file_sha256": {
+          "image": "c0b296771c519d2ed61d8fd0af4172eec9d26ee99798538a1a2c0aa90cf60bd4",
+          "manifest": "054571ffcf68e947d3c5d2e6814660de128f4d8bfb55fdb47a358185cf009df1",
+          "ceb": "03e23bf5fbb5827a8f88cc27e7834e8c97dc782db5604c80a7a588cc64433c50",
+          "input": "71d17e1c47df438f85c2b5347f63b5e72886195f4ed04d2e3d8e7257ae34ae7e",
+          "supervision": "d59eb6fd98f9d818cf14d49b2c13e7f1ff13693cb8e350a0f5e1a2bb7aa43faf",
+          "conversation": "c820319d5c619349c11d40f03ab2cc919993d2c57a6fd8b0be3b99aeae069ae2"
+        }
+      },
+      {
+        "dataset": "aiops2025",
+        "private_case_id": "aiops2025_7a54210f-562",
+        "opaque_incident_id": "INC-60256BDA42EF",
+        "stage_partition": "train",
+        "ceb_hash": "37dc0d4e4f856735779f1c094735b50bbdd10adcc5bf6b61154eb3b817fdb3e9",
+        "fact_inventory_hash": "d588e88b8df6cda81bb16c628b876715d1439d37fa6a28497d410e90b257548b",
+        "input_sha256": "219ce1ce3f760f89d8787e91ce11ec4547c29381e083b1b1720921a7c3578fe0",
+        "target_sha256": "c426b1b2c6e7580f4a6e5759f1923771b73642f8a8ea0bdcf6c43b428125ba33",
+        "contrast_type": "direct_root_evidence_over_onset_salience",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-60256BDA42EF/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-60256BDA42EF/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-60256BDA42EF/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-60256BDA42EF/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-60256BDA42EF/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-60256BDA42EF/conversation.md"
+        },
+        "file_sha256": {
+          "image": "4064afaef362ad0bbf2fba3021a4b025b9da54092b5ee1f91ba28bfd5cec23fe",
+          "manifest": "3c98ca9b64242bf6bb8558fe575db4eebeec8e2dbe34161a8f290e20c31a5651",
+          "ceb": "5eec1ecaabb0e2932b17b9bb6abfc8f14184ee452a8ebf0d373cf2d8c1565121",
+          "input": "53bbd004ea394e799ec55885dce6f79f76120a3f9b6c3be025a481bcc3e39646",
+          "supervision": "c823c37fdccfc7051b21f6648e4608e5cf2968664df4cd99422bcef45bd01386",
+          "conversation": "5a235fad9784c3c1141be4688dfb1074352f5769efcee2a593c6d9f2d17cb6ce"
+        }
+      },
+      {
+        "dataset": "aiops2025",
+        "private_case_id": "aiops2025_4ab999b7-96",
+        "opaque_incident_id": "INC-15D9E4FC3FD0",
+        "stage_partition": "train",
+        "ceb_hash": "187a6f505f08160d9813b563cffe43f761408e59551fc84e8ae4969baf404a3c",
+        "fact_inventory_hash": "c8984f0e4d570f947fc90117b502be8e266edd4b70726dfe7d827b27ec70be9c",
+        "input_sha256": "141d30c4babfc08c93c9130e86a50cf94559affa0d246a96c7291a977119693d",
+        "target_sha256": "73035c262ae8fd4070d75bff9e898b1ebb52b76556272a9d876772de8358e1be",
+        "contrast_type": "caller_path_to_root",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-15D9E4FC3FD0/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-15D9E4FC3FD0/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-15D9E4FC3FD0/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-15D9E4FC3FD0/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-15D9E4FC3FD0/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-15D9E4FC3FD0/conversation.md"
+        },
+        "file_sha256": {
+          "image": "77cc4e38b887d0f2acb89717756f1d8fa2291694934a33cce4088c9d944603bd",
+          "manifest": "6df732dab145e969eef0c8f87bdce420729045845622b4e45ee882918483409c",
+          "ceb": "4e5bbf5c0962af82f27f6d4ff1d1b840ae623ce9725cd63e75f35c881636a386",
+          "input": "23fa509bd3f6058f4fe16415b1166bd91126ccba878d6b935f4fb2b5efcac4d1",
+          "supervision": "0e261f0de197f7d61ea03573a87dd8366bde12fe3667efaa5444ce2dd4868a96",
+          "conversation": "ca96580604780a214561256c3b08bd733eff17e89e27724470412221bb0cfed7"
+        }
+      },
+      {
+        "dataset": "aiops2025",
+        "private_case_id": "aiops2025_b1dff953-217",
+        "opaque_incident_id": "INC-6EC49604121B",
+        "stage_partition": "train",
+        "ceb_hash": "140ab41c1a819624ee9365f5c4a8909fcd23dcb62e1a16a40bd8d69a502045eb",
+        "fact_inventory_hash": "539b9936dc73c9c3679c2091dc2cf09c61d70ef85eaeeba0164bc815af2d8396",
+        "input_sha256": "aa35c1e41efc282eef17615cbc88b93c42b58e98914feaf19f152d64c6c00ac1",
+        "target_sha256": "863f148ee8cea03f0308636d9d0443211dec48394909f0577fc5564d23ef35de",
+        "contrast_type": "direct_root_evidence_over_onset_salience",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-6EC49604121B/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-6EC49604121B/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-6EC49604121B/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-6EC49604121B/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-6EC49604121B/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-6EC49604121B/conversation.md"
+        },
+        "file_sha256": {
+          "image": "e4dd22662c2c857361e1360a6cb754d69e2d45392938c442f3a379c9a2ec10b4",
+          "manifest": "59e932e8aaa8c6836c53a534a516e30c840d0b4a4a43d9862fecd60ad27a424c",
+          "ceb": "3eae1fa6d1a971060533d300ce914ce68dfd497c31a4baf7d513279d53a2a266",
+          "input": "02582425393150b60aa1086e2170af34c857e5ec02669b8adb2d554e2cc0f1e5",
+          "supervision": "26ea0c97244f729faca3c6732da343d3836fd562de66a772072b68576b43b5a5",
+          "conversation": "946731dcb410c77029f5c76d58352ba3c4f309e1e4a7f1c17866ecaf9cfbfda2"
+        }
+      },
+      {
+        "dataset": "aiops2025",
+        "private_case_id": "aiops2025_ac8cf6cb-553",
+        "opaque_incident_id": "INC-BD7A6C9F50A9",
+        "stage_partition": "train",
+        "ceb_hash": "e5c8484445c29610c37202f0ceff32dbcc5f7e2bdac3df494105802fd0b4b1c0",
+        "fact_inventory_hash": "cb6c836ae51a4ba1ee303c88c60aed83a67c005e5eb1438e710c66e8fc91791e",
+        "input_sha256": "04a352cba08e43cd796d1d7183765bba78d7d111f48c50f4e547957b649054e7",
+        "target_sha256": "7f6342593657d66d9446915d84e257206607a45021f13a282cc70f1730417fa3",
+        "contrast_type": "caller_path_to_root",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-BD7A6C9F50A9/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-BD7A6C9F50A9/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-BD7A6C9F50A9/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-BD7A6C9F50A9/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-BD7A6C9F50A9/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-BD7A6C9F50A9/conversation.md"
+        },
+        "file_sha256": {
+          "image": "6d45a282b377e5197caf0bb7c201969041bd041704c0ad154c24fe740e956e5a",
+          "manifest": "55f6ee77b5e38a684e6b710ba2f05ae86abf2373e34fd9a7392e37dfe4e68c83",
+          "ceb": "8dbb566d347a9e315c02a3b4719719fe4250ec96048bfccf1e824710001f7a10",
+          "input": "25e19e11335f66638eaa485cbf41c8bce66669afeb6e7631b93d9b988cf9345b",
+          "supervision": "eb67635be1b16eddd469ae6f30b47ec90a95a97a95dc8e0f134b6d1ad3e12a9a",
+          "conversation": "b396fcf463424b07abd3b0bc525342cff000a4d2c154c7b50de41994f79dd271"
+        }
+      },
+      {
+        "dataset": "aiops2025",
+        "private_case_id": "aiops2025_8e7a3965-336",
+        "opaque_incident_id": "INC-B10955A910AF",
+        "stage_partition": "train",
+        "ceb_hash": "05873561d4f3a8570367b97a9093d25577aecc97d14dca7c8a660a5419ddd523",
+        "fact_inventory_hash": "09a1609ea7c339926c95623f8a8ac4c8bbb786c851362a6276a7ff4e2413f2ae",
+        "input_sha256": "661af695b4e502c64b7c2d744d049da06cd025b73c52070366d688ea01af0643",
+        "target_sha256": "513492aafa8d1a005421dbaf9e58b8663cc6bb89e11b98370da45a8649d92c45",
+        "contrast_type": "direct_root_evidence_over_onset_salience",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-B10955A910AF/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-B10955A910AF/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-B10955A910AF/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-B10955A910AF/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-B10955A910AF/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-B10955A910AF/conversation.md"
+        },
+        "file_sha256": {
+          "image": "7e9abb928bf888ae20438588459a189fdb48760a11ad13e246d1bb5aeae44535",
+          "manifest": "d1074884d6d9cbe4369686d05e040b47e57e427e6c0026923f664d0cd591f783",
+          "ceb": "f8d5858052dbc3a424383a92b02ce0dd6a07f4aa17b3add29a08531eaa74de1b",
+          "input": "9aaf91621de9bf60a1333fd92ee105c3e64d8522afc1834ee9690b999545c80a",
+          "supervision": "29c4a43ff6d751cc50c171014012a7b66d7b6cff4ad04fe26ebb296810b34110",
+          "conversation": "e76e5f1e7aeae8267d24c7d0d749d8c6012284b48a5598335eda9c8bd50424dc"
+        }
+      },
+      {
+        "dataset": "aiops2025",
+        "private_case_id": "aiops2025_ae4abdbe-103",
+        "opaque_incident_id": "INC-AF0A64C5D6C5",
+        "stage_partition": "train",
+        "ceb_hash": "42d6ec9bdc95e1991711d48f561cf617ee061cd6b201ae3d410e56f64d68862d",
+        "fact_inventory_hash": "830781dce6c7937542ea5adec43efc7bb0fd61d131658af9e33c60e0699734c3",
+        "input_sha256": "1b89e467c1d25332545fc4101eec95935aeedf4bf5656a1c5a0a67a8f999449b",
+        "target_sha256": "3f9c73a83909598e30e9fac0f8b8ceac2c14535a87161e75315908d45d7b3c6f",
+        "contrast_type": "caller_path_to_root",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-AF0A64C5D6C5/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-AF0A64C5D6C5/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-AF0A64C5D6C5/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-AF0A64C5D6C5/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-AF0A64C5D6C5/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-AF0A64C5D6C5/conversation.md"
+        },
+        "file_sha256": {
+          "image": "bcd334d08ae59dac9fc66f6aceda077b9995adc411214e741eaf222afd036d94",
+          "manifest": "8ba418ac96a8b6db62b0ef3e8da95469d5ad8f152cf8514033cb79616c04b187",
+          "ceb": "7782ae01ef9ce0f682158b48af403e27291b2e04a7354904afae0237fb2b749b",
+          "input": "ad81b433c281db052934ca154d80958d1debae248c969019c01db304d410f2f4",
+          "supervision": "f58294e537f09c6daab98caa51369ca5ac8c0e9344e2a8f91757626a3fc629ff",
+          "conversation": "ac4f8f6a97c1d9e53ef372932dbaac9fe2e4355ddcef020ded841b2df96bf8d7"
+        }
+      }
+    ],
+    "pilot_eval": [
+      {
+        "dataset": "aegislab",
+        "private_case_id": "aegislab_ts0-ts-price-service-stress-n787pd",
+        "opaque_incident_id": "INC-1E9A7D79E8F3",
+        "stage_partition": "development_heldout",
+        "ceb_hash": "57f56cba78bed7ebe3c8d658eeaf1c916b8bce05ee1118cb8a3f73955409ffa0",
+        "fact_inventory_hash": "4c38a2e029be01b3b18fbd22ffbb2190685a793ec765636660e2c658882ba668",
+        "input_sha256": "f00fc32d26e93464558e74c148c83353f3edaef0a891733cd3f888678cd6c7eb",
+        "target_sha256": "848044d7df4eede5a557f3922456a4863bf2132985e253ad4dc034346bd2d389",
+        "contrast_type": "caller_path_to_root",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-1E9A7D79E8F3/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-1E9A7D79E8F3/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-1E9A7D79E8F3/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-1E9A7D79E8F3/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-1E9A7D79E8F3/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-1E9A7D79E8F3/conversation.md"
+        },
+        "file_sha256": {
+          "image": "c85b0368a486b0d5fd77b7bcafc85404cfac04f5b49822c462306357646509b7",
+          "manifest": "d719f837d9054c2c796ec4643390cab8f33e29fa7085aa36ea2e6a3c1e269419",
+          "ceb": "8756297fd6cbe68647dfcf9adc7ce67e97eee25085ebacc90bdc71b30a7ad467",
+          "input": "36e7298419f501b3ba7a7a02808820d155b5ca9cb64e2dc1303fab0a53d37f92",
+          "supervision": "94ed3727260ab773e0d3930b4af851f705c52c98316582084d8275a86e61bb4a",
+          "conversation": "38dfb003dd6fbd01e0be6e18b4c20f6d1a00896272b1e263a304678d1e0d6efb"
+        }
+      },
+      {
+        "dataset": "aegislab",
+        "private_case_id": "aegislab_ts1-ts-inside-payment-service-stress-n6mttx",
+        "opaque_incident_id": "INC-9AB4C2A326CD",
+        "stage_partition": "development_heldout",
+        "ceb_hash": "e224f4b31032dfff581e2d6e6b13943122accdc70f3602c4868be37ce307cf7c",
+        "fact_inventory_hash": "e86e27ab4c7bd6550e90630cc5a87fed6ea6acea7b4965ecfdf6d5e898e16a70",
+        "input_sha256": "e149e52f9b506fe75f14703218ece734a6e7c88b8a0e5ec241d621ab76f2a01b",
+        "target_sha256": "569c47368652f49e73a57c48eefb5694ee786ebd4aee2af8f85449e32c7ddee1",
+        "contrast_type": "caller_path_to_root",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-9AB4C2A326CD/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-9AB4C2A326CD/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-9AB4C2A326CD/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-9AB4C2A326CD/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-9AB4C2A326CD/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-9AB4C2A326CD/conversation.md"
+        },
+        "file_sha256": {
+          "image": "ecb6f5031d6e85068b17fd2527fcabf926d7fbff66e88b7b05ad88192a332be5",
+          "manifest": "9824770e956652c24d1a18abf477b56cabd226a205e5bed40440d33cb0ebbd04",
+          "ceb": "7afa478e9a97b6c153b11b1237a8c99cdf52814ca0edca8d50b7e66ef8aa2add",
+          "input": "2120feaf8904867a63910e3cb51a1bb95657ad8aff6cb04db02b32c80ea34d54",
+          "supervision": "a6ea0708b914f379fd45f05cf59f8c21f1a8da3a9eb4d6561bbc0c03f128a7c9",
+          "conversation": "34fb0efce0659203cbb80b76d059a4090b9147881d8168e9d34655f26f2f5bc1"
+        }
+      },
+      {
+        "dataset": "aegislab",
+        "private_case_id": "aegislab_ts5-ts-security-service-exception-kprxw5",
+        "opaque_incident_id": "INC-A37C0F9830EB",
+        "stage_partition": "development_heldout",
+        "ceb_hash": "1c5286a9831e2018b5120a1a983974326ef91021da4a0e18a9ea3a73c6badd78",
+        "fact_inventory_hash": "f36cdd1f2117c709899bf73fbf8b09c78c86028269c1deddaf5201f692330d26",
+        "input_sha256": "5509b5a39472ea5dc3126f00902b088a95d9acfe9019ba5600eef905778567f3",
+        "target_sha256": "d374b024e15cbe985c8f4b40e00588202e50c94421a52889692908f719d80bf3",
+        "contrast_type": "caller_path_to_root",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-A37C0F9830EB/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-A37C0F9830EB/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-A37C0F9830EB/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-A37C0F9830EB/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-A37C0F9830EB/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-A37C0F9830EB/conversation.md"
+        },
+        "file_sha256": {
+          "image": "72f5c0718ee0104a6bbdaa65e56c1e4bb2c2ef822da4600230131dd1233ac085",
+          "manifest": "aa8951bd65e8db3fdda04d4155487147283fd5d6c60a6f09de1754024f77642b",
+          "ceb": "a41969ed74075cfa28fa6f9462807c6de7944b328556ec1bcc6dca6d46fc43d9",
+          "input": "7872fc34c15f3325ae35592df73fba09440722fe2c1227b9afc8016131dfbc0f",
+          "supervision": "9814a1ffa76ff5ed48e7a70278c5faae43321d8ab599575514f9a20bdae992a4",
+          "conversation": "d8f5f6ff4280a489d573c96c750b0fe0efd590b22e7b17a3e35b699e1562f994"
+        }
+      },
+      {
+        "dataset": "aegislab",
+        "private_case_id": "aegislab_ts4-ts-seat-service-stress-sh4z62",
+        "opaque_incident_id": "INC-6CD252C2916B",
+        "stage_partition": "development_heldout",
+        "ceb_hash": "7018ff5e4a202c178af9baff36e2c13dbc4d187db850c21aaf116d971ba7610c",
+        "fact_inventory_hash": "d555536dede1f99ec743d80d1176fcb8799235eaa7aef612ce3aa887e8ca14a8",
+        "input_sha256": "da129df387e7d5eefd5921fd8e0db32fac1f08e08371d0f2e74fb55114b9f24b",
+        "target_sha256": "162910f877a26cb44568414cbed368fe897351bacdf16481f2c77a20f57d9670",
+        "contrast_type": "caller_path_to_root",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-6CD252C2916B/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-6CD252C2916B/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-6CD252C2916B/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-6CD252C2916B/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-6CD252C2916B/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-6CD252C2916B/conversation.md"
+        },
+        "file_sha256": {
+          "image": "271d3eb445e1b093a5f2b4f1d6fba37877370734eedd2a276e1a83f5ba4816c2",
+          "manifest": "c31d6b11240a4c06d236952561ee0943f5eed9987454628a8d998f7f2066f673",
+          "ceb": "c0fd5a81984c7ff81404f348e47ee76131985434d7fd166ba2137a968dff032c",
+          "input": "fac29e549e7a615029363c2ad92f37655823349da9969542d5e4ee119380bff6",
+          "supervision": "006268c8b4a69733c6c08f0be46659ed689d1267c547c93adb7ac091c3312327",
+          "conversation": "f80c23b79185a9b6a13bc3888c5b089d3c0891cb93315a2670c1b0cb758ac857"
+        }
+      },
+      {
+        "dataset": "aiops2022",
+        "private_case_id": "aiops2022_2022-03-21-cloudbed1_030",
+        "opaque_incident_id": "INC-0E0C9134847D",
+        "stage_partition": "development_heldout",
+        "ceb_hash": "b70d50c195f8759ae4eb8c910cc893447985ccae9b612e325104d778e6f1780c",
+        "fact_inventory_hash": "9223c939b4b24eec4886220fdb482ea260ebf07d177399ca6389056d969c9b0f",
+        "input_sha256": "3fe8e20cfff07a33c835405b3ad479512f73788548aa69493a616d394217884b",
+        "target_sha256": "0957eb6f08bce9daeaf5644b14547c240a2fa86d2f9187c5036e88bb8d80d002",
+        "contrast_type": "direct_root_evidence_over_onset_salience",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-0E0C9134847D/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-0E0C9134847D/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-0E0C9134847D/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-0E0C9134847D/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-0E0C9134847D/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-0E0C9134847D/conversation.md"
+        },
+        "file_sha256": {
+          "image": "def7b4f73188be177d4e8f02cb72bdd6fd734ab271078f39b29fd1332460427c",
+          "manifest": "f60b4b66fd4345c0c00b2f11012a49c37aacb81f8ec79907f672843de9821cf3",
+          "ceb": "1697685034a85fd43170315442fd8b13280e183ef361c6f82604ea7983f884fc",
+          "input": "73ba1ec3e4434c5ab0d68d09fd034a132e4980f230ff3da002b49f77593b6470",
+          "supervision": "59998efb024cab079fa5509106f0fa1e2531d1b2efcbb4b86e77b2441b02d7f9",
+          "conversation": "6da5e73653300a58c5ff51314e0f1820e186153b68a012d9a6a0ba296947bacb"
+        }
+      },
+      {
+        "dataset": "aiops2022",
+        "private_case_id": "aiops2022_2022-03-21-cloudbed2_016",
+        "opaque_incident_id": "INC-E65A5F4FE257",
+        "stage_partition": "development_heldout",
+        "ceb_hash": "0b0b058df7955a21613c3ea8cb33ef68f845041ff1246af17c128818b6af2442",
+        "fact_inventory_hash": "3df5cc25d289d6874bb836fcffd2d927892da923c6cffa2ffd6bd29bf1ae08a3",
+        "input_sha256": "40249916bf9e559fdc2460569f10ec8130e67038b9da5deca30fec09567070e6",
+        "target_sha256": "759bf09397499e5cd19f1cdd18feffb8454c930901ff1e9fc659f803c608f25e",
+        "contrast_type": "direct_root_evidence_over_onset_salience",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-E65A5F4FE257/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-E65A5F4FE257/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-E65A5F4FE257/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-E65A5F4FE257/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-E65A5F4FE257/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-E65A5F4FE257/conversation.md"
+        },
+        "file_sha256": {
+          "image": "2239cb4bcd9cc1fd3501e23b54fb83b3a986dca60b2b72a90cd76ca1971fc39b",
+          "manifest": "8de29a8ad6331a289e1529459cd4917e6f773ff34b0a516cbfcb5d82e9bcdf41",
+          "ceb": "539c045f73d77513887786adfccad4f19fdba3ee540d12f3727a5411c33660a2",
+          "input": "142dd4ed50d86c73df63b290a131b91e30adebc9bfef391d7b537c5320300145",
+          "supervision": "40f1abc8337b91c482411b40491aea95f18d582f3eeb54c7052975530b1f21ba",
+          "conversation": "f51b6ca3a2de668c8169c598c1ec1ff2bcf9fd5927ebb026997b383aa2800df1"
+        }
+      },
+      {
+        "dataset": "aiops2022",
+        "private_case_id": "aiops2022_2022-03-20-cloudbed1_032",
+        "opaque_incident_id": "INC-55AAEAD2FF27",
+        "stage_partition": "development_heldout",
+        "ceb_hash": "a832ab9b0822d875f2362ee82e6cb11ae58649d52f0f4d5c31c7190a10d9ef7d",
+        "fact_inventory_hash": "009525d3b468122346518ca46cf4f4c56303e07e16b6313687b0dc18da559ee0",
+        "input_sha256": "ad95491fb9962b294ad504f60c1c3fb310a603e84491a3278bbdac8719c78ed8",
+        "target_sha256": "d43ac2df8cce4f00263251950a9515b25bc5aa31f0dbe45d81d29972ac41caf2",
+        "contrast_type": "caller_path_to_root",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-55AAEAD2FF27/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-55AAEAD2FF27/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-55AAEAD2FF27/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-55AAEAD2FF27/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-55AAEAD2FF27/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-55AAEAD2FF27/conversation.md"
+        },
+        "file_sha256": {
+          "image": "346cb29fdcecc9aa4292d8bb7e644a66d41d6b8305bdb940f5d524459f7f1936",
+          "manifest": "6517b509a11cfa9d1754a29cf31bd0b02d02f6b48cdeef70cc300865819cbd81",
+          "ceb": "f63c04ef1a7134449fb07eec5de7e96dcc70ab3348a48b464b2c9881e77cb509",
+          "input": "cad028bd6c28ac0759ded580a0506ad8a4d3f4fb814d85d37e7fdc488ac4e1c0",
+          "supervision": "394cdbce30e1918c319e68fe2a7ae38707dacd7bacf7bd9de40a4ee0b4246cd4",
+          "conversation": "a2d8e001fcce1171b766dc3756ee553ec23e168fbce9c79bde175cbb1503c0e2"
+        }
+      },
+      {
+        "dataset": "aiops2022",
+        "private_case_id": "aiops2022_2022-03-21-cloudbed3_030",
+        "opaque_incident_id": "INC-47B07F421203",
+        "stage_partition": "development_heldout",
+        "ceb_hash": "939a31176f905782e141a00b8ba3e26d68af86544cee416f342ccb46b449c387",
+        "fact_inventory_hash": "e34d73e3b2da5015fb37151cc83986d0e2c55355b54bd7f9bdd762beb7968c51",
+        "input_sha256": "7bb8a64d34d99da99c442ff120aaaa2594f691ad7d3c2d048fd7e3f0942e7170",
+        "target_sha256": "c33bc751f729d553c55d43627584510116665b605d5d3d88f753cd7105e17f6c",
+        "contrast_type": "caller_path_to_root",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-47B07F421203/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-47B07F421203/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-47B07F421203/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-47B07F421203/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-47B07F421203/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-47B07F421203/conversation.md"
+        },
+        "file_sha256": {
+          "image": "185d854e46ccee0bd4e7e8491662ddb6a540027cb2b09dab61d135071a70d57a",
+          "manifest": "be84f3d6f13beb1bce441d989476b190c14aaefa435332f871c2b1340ae5fb50",
+          "ceb": "a4fbe972d2aef74baf8982591edc4f78548abf13b46c3876ad2ee451b9c49a97",
+          "input": "fff0ae4be418a260b244c73544a3701f45c230f7001b0065509674807a1008ea",
+          "supervision": "1e41d8241002576291bec0920d232632556a9b7f7c2a5f5946151363485f54b0",
+          "conversation": "69a12a2ab67b09954b869f63739b139cf190c6d2150801ffa2e5d6f1c74eefcc"
+        }
+      },
+      {
+        "dataset": "aiops2025",
+        "private_case_id": "aiops2025_6dee3cf4-590",
+        "opaque_incident_id": "INC-0B29DF51A0EB",
+        "stage_partition": "development_heldout",
+        "ceb_hash": "24f6fb7394d52b43fd507cc74a8a0bb71cadd504effb00e357e34b5bfced6901",
+        "fact_inventory_hash": "ead9f23ec7ca34141ea39470e179d90771a8c2b63b7871e37f552f3fa9334555",
+        "input_sha256": "e59b4f71f77b3a1477a7ba9650afa056f3134b457b6f3e862979f7fd5bc396c5",
+        "target_sha256": "d39a2328609197e1914b65547b5ca12918161d61d6d84c5de426540d1cd1b870",
+        "contrast_type": "direct_root_evidence_over_onset_salience",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-0B29DF51A0EB/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-0B29DF51A0EB/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-0B29DF51A0EB/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-0B29DF51A0EB/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-0B29DF51A0EB/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-0B29DF51A0EB/conversation.md"
+        },
+        "file_sha256": {
+          "image": "373b64f3f1ece4e347022fe09e7a592b2c4d3eb28830ac1c191e93415a6f1d46",
+          "manifest": "f4b08119e6d76759295dcfb56fc859aefaefb9ea6ac83e049800370374dab1c9",
+          "ceb": "7bcc2420cc1059077d56bf0b9485d59a63945d7ff8900b351ea78822e2ee83f0",
+          "input": "c39896d50e7631f4b68bce023e0edc6b2137295b1e4f3834f592dc963044c0c0",
+          "supervision": "64aa16a2eb5f17fc4e585ca777d8cfc7fcb36c66b4bf4483537da0e21e3ba919",
+          "conversation": "1399eab22b71a69e4112cb66c2f0b6fe0f4ee674177d638cec2c82fc340659df"
+        }
+      },
+      {
+        "dataset": "aiops2025",
+        "private_case_id": "aiops2025_21950e63-387",
+        "opaque_incident_id": "INC-34A7B23CE0BE",
+        "stage_partition": "development_heldout",
+        "ceb_hash": "183b77790c63589cd2452ea698b64448eab110af713660c597ace15e434e240d",
+        "fact_inventory_hash": "e4f94e0027144ebbae4691ecc0ced4ecb1cd7e536fb9a5eb1977584988ec2a0a",
+        "input_sha256": "fd6470b2afa52dfede923cdafa13783e9d05fdd6944709021a2c0a524f59c480",
+        "target_sha256": "10a22cff8598d14fc1eb2193ae55def1eac2ed449645e594d07df5454284f50c",
+        "contrast_type": "direct_root_evidence_over_onset_salience",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-34A7B23CE0BE/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-34A7B23CE0BE/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-34A7B23CE0BE/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-34A7B23CE0BE/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-34A7B23CE0BE/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-34A7B23CE0BE/conversation.md"
+        },
+        "file_sha256": {
+          "image": "eddbf74f420c16634feb24485d93e22cf33a11f38ebd30afdb9bb4393d00b478",
+          "manifest": "adb9461aeae23ac6e61a49afd75aefeca74844bdfa6415414301c5d1bde232cd",
+          "ceb": "e52be9f90755dc15edc0e1243202a56fecac25d992450aa72dd5eeb91f3476b6",
+          "input": "1ec6b927833c1cf5e14425a417d09bb823408eae9bb98c5c05fa2fcff15e7352",
+          "supervision": "6ad7e9403e0cced4c1d9f40742f5a79de2ba06dc98e4223cef883006b19527c7",
+          "conversation": "f84f1a29f3bd6002735607122db4f736e18ce8d612a206fe15be3c3dd062f12d"
+        }
+      },
+      {
+        "dataset": "aiops2025",
+        "private_case_id": "aiops2025_bc2f1dfa-114",
+        "opaque_incident_id": "INC-9706F4BA29B2",
+        "stage_partition": "development_heldout",
+        "ceb_hash": "2b3ced3718c41a79bbc2df30a46798d645edec6fa92544f9adba9a3ecce516fb",
+        "fact_inventory_hash": "af60894153ea0f838cdca0302b1bba9b51112e4e59accfca2a6fe2dc519a7917",
+        "input_sha256": "b95ed172c1013c778f80416229706b949905fdd6896759574a4a5073a3e0e58c",
+        "target_sha256": "bab36f2edb78a9b1c257dbfbe9b389b937ccb156cc5833c5b3aef273aa208f9e",
+        "contrast_type": "direct_root_evidence_over_onset_salience",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-9706F4BA29B2/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-9706F4BA29B2/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-9706F4BA29B2/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-9706F4BA29B2/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-9706F4BA29B2/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-9706F4BA29B2/conversation.md"
+        },
+        "file_sha256": {
+          "image": "6c547050006ed897ab09891ac704464b399b346b41943587be413782a113517a",
+          "manifest": "32c4927cb5c799b883be025997bbd0146b00807653702b1e24cd20e9fac4832a",
+          "ceb": "d49d6b78cb9d3ef951e936f472717e73ffe989439dd437aa8b089e8edbde3dbd",
+          "input": "40c528c19ca941c1a3f92757c298bc97c7601dfcc53fe65d491630fb36c08026",
+          "supervision": "9508d03ba660e57ade25ad33b133e1c4de170a9fc9fb196c1db8916a4ed597b4",
+          "conversation": "fb41248eb9a429fdbda7e044b0b6d907ff46625800792017167d4e8f83b89e31"
+        }
+      },
+      {
+        "dataset": "aiops2025",
+        "private_case_id": "aiops2025_8c1e905b-592",
+        "opaque_incident_id": "INC-886954DD634B",
+        "stage_partition": "development_heldout",
+        "ceb_hash": "37d6d32c84310a998a1bda61bbf9ec014185de58d896431bfa4513879a8f0274",
+        "fact_inventory_hash": "92136187f69c1a50a8ab0513be1ff1d714f7c09ce3f3649bc1599c7bf5fb01df",
+        "input_sha256": "8f0e6029a6e336fecba282cf41b5f3bcc5420c3b0a1453623b7bd8c819af5325",
+        "target_sha256": "54579a71858d5ffd0a83768aec804262daff55fa00c81cc2cd85b5721a505005",
+        "contrast_type": "direct_root_evidence_over_onset_salience",
+        "files": {
+          "image": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-886954DD634B/dashboard.png",
+          "manifest": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-886954DD634B/dashboard.manifest.json",
+          "ceb": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-886954DD634B/evidence.ceb.json",
+          "input": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-886954DD634B/model_input.json",
+          "supervision": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-886954DD634B/supervision.json",
+          "conversation": "RQs/RQ0/results/causal_integration_sft_v1/data/cases/INC-886954DD634B/conversation.md"
+        },
+        "file_sha256": {
+          "image": "fea30be08d6fa6849e71cef2ede0ecd1e5bdfd7b493dca32d6c01ca1ed1d1e59",
+          "manifest": "7e61edfbaceda2a6caf57fe8a4794c2aa4893d56e986da302b343837280b0d4a",
+          "ceb": "a258ed300f88edd56f3b964b718b872201a9cc806019e51694545fe66dee0458",
+          "input": "e02ea28ea1d87f3e4be74c23149ea3d7d54d56ac86fef005bfd5c3a38012d49e",
+          "supervision": "c2236ffb27277a71a84b34b61e3ea0d099d2a016acb07b51d84f4b06d3f0ed38",
+          "conversation": "da1bf68e183f4208733b79b39bdeb7143eed33fdf5ae5b23c48930006bfa28f3"
+        }
+      }
+    ]
+  },
+  "split_assignment_sha256": "f460ca5ac0043dc344bf9538a3a1ab8e0ac89eccf133d6f914d4f481b0183083",
+  "implementation_tree_sha256": "d2ffab6333438b5d36714d1bdad4f84e6e96db1533a1f27d47d4dd2ac8302bfc",
+  "roster_sha256": "4b22295b74b3395e9b01f3e88a7356994981660756a32f2b3d333584325e2f74",
+  "contract_migration": {
+    "migration_id": "rq_layout_migration_2026-07-31",
+    "manifest_path": "RQs/RQ0/configs/contract_migration_2026-07-31.json",
+    "metadata_only": true,
+    "execution_semantics_changed": false,
+    "configuration_paths_migrated": true,
+    "script_paths_migrated": true,
+    "result_paths_migrated": true,
+    "historical_experiments_deemed_executed_under_migrated_contract": true,
+    "contract_validity_preserved": true
+  }
+}

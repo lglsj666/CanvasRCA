@@ -1,0 +1,45 @@
+{
+  "schema_version": "CausalIntegrationSFTV2",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "node-3",
+  "hard_symptom_candidate": "emailservice-0",
+  "contrast_type": "direct_root_evidence_over_onset_salience",
+  "caller_path": null,
+  "root_evidence": {
+    "source": "metric",
+    "rank": 11,
+    "service": "node-3",
+    "metric": "system.disk.free",
+    "signed_z": -999.0,
+    "persistence_bins": 3,
+    "onset_rel_s": 1334.531
+  },
+  "symptom_evidence": {
+    "rank": 1,
+    "service": "emailservice",
+    "onset_rel_s": 1260.0,
+    "severity_z": 71.006,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "node-3",
+      "adservice-2",
+      "frontend-2",
+      "emailservice-0",
+      "frontend-0"
+    ],
+    "reason": "Rank node-3 first because node-3 has direct system.disk.free evidence (signed-z -999, persistence 3 bins); emailservice-0 is second despite propagation rank 1 because onset ordering alone does not establish the causal origin. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.",
+    "confidence": "medium"
+  },
+  "target_text": "{\"confidence\":\"medium\",\"reason\":\"Rank node-3 first because node-3 has direct system.disk.free evidence (signed-z -999, persistence 3 bins); emailservice-0 is second despite propagation rank 1 because onset ordering alone does not establish the causal origin. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.\",\"services\":[\"node-3\",\"adservice-2\",\"frontend-2\",\"emailservice-0\",\"frontend-0\"]}",
+  "curriculum_role": "base_correct_preservation",
+  "base_predictions_private_training_only": [
+    "node-3",
+    "adservice-2",
+    "frontend-2"
+  ],
+  "base_top1_correct": true
+}

@@ -1,0 +1,198 @@
+[
+  {
+    "task_id": "metric_service",
+    "category": "metric_identity",
+    "question": "Which option is the service name shown in the title of panel [M12]?",
+    "options": [
+      {
+        "label": "A",
+        "text": "adservice-1"
+      },
+      {
+        "label": "B",
+        "text": "tidb-tidb"
+      },
+      {
+        "label": "C",
+        "text": "adservice-0"
+      },
+      {
+        "label": "D",
+        "text": "recommendationservice"
+      }
+    ],
+    "answer_label": "D",
+    "answer_value": "recommendationservice",
+    "visual_primitive": "M12",
+    "metadata": {}
+  },
+  {
+    "task_id": "metric_direction",
+    "category": "metric_pattern",
+    "question": "From the printed baseline-to-peak annotation beneath panel [M9], what is the direction of change?",
+    "options": [
+      {
+        "label": "A",
+        "text": "not shown"
+      },
+      {
+        "label": "B",
+        "text": "increase"
+      },
+      {
+        "label": "C",
+        "text": "approximately unchanged"
+      },
+      {
+        "label": "D",
+        "text": "decrease"
+      }
+    ],
+    "answer_label": "B",
+    "answer_value": "increase",
+    "visual_primitive": "M9",
+    "metadata": {}
+  },
+  {
+    "task_id": "propagation_rank",
+    "category": "topology_order",
+    "question": "Which service is printed at rank 6 in the Anomaly propagation panel?",
+    "options": [
+      {
+        "label": "A",
+        "text": "tidb-tidb"
+      },
+      {
+        "label": "B",
+        "text": "hipstershop"
+      },
+      {
+        "label": "C",
+        "text": "cartservice"
+      },
+      {
+        "label": "D",
+        "text": "redis"
+      }
+    ],
+    "answer_label": "B",
+    "answer_value": "hipstershop",
+    "visual_primitive": "P1",
+    "metadata": {
+      "rank": 6
+    }
+  },
+  {
+    "task_id": "propagation_onset",
+    "category": "topology_time",
+    "question": "What relative onset value is printed on the row for adservice in the Anomaly propagation panel?",
+    "options": [
+      {
+        "label": "A",
+        "text": "+16.3m"
+      },
+      {
+        "label": "B",
+        "text": "+32.0m"
+      },
+      {
+        "label": "C",
+        "text": "+17.0m"
+      },
+      {
+        "label": "D",
+        "text": "+28.0m"
+      }
+    ],
+    "answer_label": "D",
+    "answer_value": "+28.0m",
+    "visual_primitive": "P1",
+    "metadata": {}
+  },
+  {
+    "task_id": "log_value",
+    "category": "table_log",
+    "question": "In the Log signals table, what value is printed in the err column for frontend-0?",
+    "options": [
+      {
+        "label": "A",
+        "text": "2339"
+      },
+      {
+        "label": "B",
+        "text": "1795"
+      },
+      {
+        "label": "C",
+        "text": "1793"
+      },
+      {
+        "label": "D",
+        "text": "1757"
+      }
+    ],
+    "answer_label": "B",
+    "answer_value": "1795",
+    "visual_primitive": "G1",
+    "metadata": {
+      "log_mode": "errors",
+      "column": "err"
+    }
+  },
+  {
+    "task_id": "trace_value",
+    "category": "table_trace",
+    "question": "In the Trace signals table, what compact value is printed in the during column for cartservice?",
+    "options": [
+      {
+        "label": "A",
+        "text": "19"
+      },
+      {
+        "label": "B",
+        "text": "2.03"
+      },
+      {
+        "label": "C",
+        "text": "5.20"
+      },
+      {
+        "label": "D",
+        "text": "31"
+      }
+    ],
+    "answer_label": "C",
+    "answer_value": "5.20",
+    "visual_primitive": "R1",
+    "metadata": {}
+  },
+  {
+    "task_id": "topology_edge",
+    "category": "topology_edge",
+    "question": "How many curved call-edge arrows are visible in the Anomaly propagation panel?",
+    "options": [
+      {
+        "label": "A",
+        "text": "3 or more"
+      },
+      {
+        "label": "B",
+        "text": "1"
+      },
+      {
+        "label": "C",
+        "text": "0"
+      },
+      {
+        "label": "D",
+        "text": "2"
+      }
+    ],
+    "answer_label": "C",
+    "answer_value": "0",
+    "visual_primitive": "P1",
+    "metadata": {
+      "variant": "count_zero"
+    }
+  }
+]

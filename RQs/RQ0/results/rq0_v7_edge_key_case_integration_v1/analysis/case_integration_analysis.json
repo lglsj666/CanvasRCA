@@ -1,0 +1,406 @@
+{
+  "schema_version": 1,
+  "scope": "development_only_nonconfirmatory_renderer_intervention",
+  "n_cases": 12,
+  "models": {
+    "qwen3.6-27b": {
+      "integrity": {
+        "expected_calls": 24,
+        "observed_calls": 24,
+        "unique_case_conditions": 24,
+        "status_counts": {
+          "success": 24
+        },
+        "no_infrastructure_failures": true,
+        "no_truncation": true,
+        "server_token_count_match": true,
+        "paired_prompt_text_hash_match": true
+      },
+      "conditions": {
+        "v6_curved": {
+          "n": 12,
+          "parse_rate": 1.0,
+          "mrr": 0.3541666666666667,
+          "ac1": 0.3333333333333333,
+          "ac3": 0.3333333333333333,
+          "ac5": 0.4166666666666667,
+          "mean_input_tokens": 10546.416666666666,
+          "mean_image_tokens": 1570.0
+        },
+        "v7_large_edge_key": {
+          "n": 12,
+          "parse_rate": 1.0,
+          "mrr": 0.3333333333333333,
+          "ac1": 0.3333333333333333,
+          "ac3": 0.3333333333333333,
+          "ac5": 0.3333333333333333,
+          "mean_input_tokens": 10938.416666666666,
+          "mean_image_tokens": 1962.0
+        }
+      },
+      "paired": {
+        "n": 12,
+        "mean_delta_mrr_v7_minus_v6": -0.020833333333333332,
+        "improved": 0,
+        "degraded": 1,
+        "tied": 11,
+        "top1_changed": 1,
+        "per_dataset_mean_delta_mrr": {
+          "aegislab": 0.0,
+          "aiops2022": -0.0625,
+          "aiops2025": 0.0
+        }
+      },
+      "case_audit": [
+        {
+          "opaque_incident_id": "INC-130A9D7C9333",
+          "dataset": "aegislab",
+          "v6_top1": "ts-assurance-service",
+          "v7_top1": "ts-assurance-service",
+          "v6_mrr": 1.0,
+          "v7_mrr": 1.0,
+          "delta_mrr": 0.0,
+          "top1_changed": false,
+          "v7_top1_propagation_rank": 1,
+          "v7_top1_is_shown_edge_endpoint": false
+        },
+        {
+          "opaque_incident_id": "INC-60C6035E698B",
+          "dataset": "aegislab",
+          "v6_top1": "ts-contacts-service",
+          "v7_top1": "ts-contacts-service",
+          "v6_mrr": 0.0,
+          "v7_mrr": 0.0,
+          "delta_mrr": 0.0,
+          "top1_changed": false,
+          "v7_top1_propagation_rank": 1,
+          "v7_top1_is_shown_edge_endpoint": true
+        },
+        {
+          "opaque_incident_id": "INC-6E1553CAA55C",
+          "dataset": "aiops2022",
+          "v6_top1": "node-1",
+          "v7_top1": "node-1",
+          "v6_mrr": 0.0,
+          "v7_mrr": 0.0,
+          "delta_mrr": 0.0,
+          "top1_changed": false,
+          "v7_top1_propagation_rank": 12,
+          "v7_top1_is_shown_edge_endpoint": false
+        },
+        {
+          "opaque_incident_id": "INC-97AEADEEDBFE",
+          "dataset": "aiops2025",
+          "v6_top1": "cartservice",
+          "v7_top1": "cartservice",
+          "v6_mrr": 1.0,
+          "v7_mrr": 1.0,
+          "delta_mrr": 0.0,
+          "top1_changed": false,
+          "v7_top1_propagation_rank": 14,
+          "v7_top1_is_shown_edge_endpoint": true
+        },
+        {
+          "opaque_incident_id": "INC-9B67302E67CB",
+          "dataset": "aiops2025",
+          "v6_top1": "node-6",
+          "v7_top1": "node-6",
+          "v6_mrr": 0.0,
+          "v7_mrr": 0.0,
+          "delta_mrr": 0.0,
+          "top1_changed": false,
+          "v7_top1_propagation_rank": 4,
+          "v7_top1_is_shown_edge_endpoint": false
+        },
+        {
+          "opaque_incident_id": "INC-BB9A90389B85",
+          "dataset": "aiops2025",
+          "v6_top1": "productcatalogservice",
+          "v7_top1": "productcatalogservice",
+          "v6_mrr": 0.0,
+          "v7_mrr": 0.0,
+          "delta_mrr": 0.0,
+          "top1_changed": false,
+          "v7_top1_propagation_rank": 1,
+          "v7_top1_is_shown_edge_endpoint": true
+        },
+        {
+          "opaque_incident_id": "INC-BD3BE3F9F138",
+          "dataset": "aiops2022",
+          "v6_top1": "paymentservice",
+          "v7_top1": "paymentservice",
+          "v6_mrr": 0.0,
+          "v7_mrr": 0.0,
+          "delta_mrr": 0.0,
+          "top1_changed": false,
+          "v7_top1_propagation_rank": 1,
+          "v7_top1_is_shown_edge_endpoint": true
+        },
+        {
+          "opaque_incident_id": "INC-C88FC0F74DEF",
+          "dataset": "aegislab",
+          "v6_top1": "ts-order-service",
+          "v7_top1": "ts-order-service",
+          "v6_mrr": 1.0,
+          "v7_mrr": 1.0,
+          "delta_mrr": 0.0,
+          "top1_changed": false,
+          "v7_top1_propagation_rank": 1,
+          "v7_top1_is_shown_edge_endpoint": true
+        },
+        {
+          "opaque_incident_id": "INC-CAD16F78D3DE",
+          "dataset": "aiops2022",
+          "v6_top1": "cartservice",
+          "v7_top1": "node-5",
+          "v6_mrr": 0.25,
+          "v7_mrr": 0.0,
+          "delta_mrr": -0.25,
+          "top1_changed": true,
+          "v7_top1_propagation_rank": 2,
+          "v7_top1_is_shown_edge_endpoint": false
+        },
+        {
+          "opaque_incident_id": "INC-CE957E991E12",
+          "dataset": "aegislab",
+          "v6_top1": "ts-order-other-service",
+          "v7_top1": "ts-order-other-service",
+          "v6_mrr": 1.0,
+          "v7_mrr": 1.0,
+          "delta_mrr": 0.0,
+          "top1_changed": false,
+          "v7_top1_propagation_rank": 2,
+          "v7_top1_is_shown_edge_endpoint": true
+        },
+        {
+          "opaque_incident_id": "INC-E79C255710D4",
+          "dataset": "aiops2022",
+          "v6_top1": "node-4",
+          "v7_top1": "node-4",
+          "v6_mrr": 0.0,
+          "v7_mrr": 0.0,
+          "delta_mrr": 0.0,
+          "top1_changed": false,
+          "v7_top1_propagation_rank": 13,
+          "v7_top1_is_shown_edge_endpoint": false
+        },
+        {
+          "opaque_incident_id": "INC-E99255A1874F",
+          "dataset": "aiops2025",
+          "v6_top1": "frontend",
+          "v7_top1": "frontend",
+          "v6_mrr": 0.0,
+          "v7_mrr": 0.0,
+          "delta_mrr": 0.0,
+          "top1_changed": false,
+          "v7_top1_propagation_rank": 1,
+          "v7_top1_is_shown_edge_endpoint": true
+        }
+      ]
+    },
+    "gemma-4-26b-a4b": {
+      "integrity": {
+        "expected_calls": 24,
+        "observed_calls": 24,
+        "unique_case_conditions": 24,
+        "status_counts": {
+          "success": 24
+        },
+        "no_infrastructure_failures": true,
+        "no_truncation": true,
+        "server_token_count_match": true,
+        "paired_prompt_text_hash_match": true
+      },
+      "conditions": {
+        "v6_curved": {
+          "n": 12,
+          "parse_rate": 1.0,
+          "mrr": 0.2986111111111111,
+          "ac1": 0.25,
+          "ac3": 0.3333333333333333,
+          "ac5": 0.4166666666666667,
+          "mean_input_tokens": 9627.416666666666,
+          "mean_image_tokens": 262.0
+        },
+        "v7_large_edge_key": {
+          "n": 12,
+          "parse_rate": 1.0,
+          "mrr": 0.3611111111111111,
+          "ac1": 0.3333333333333333,
+          "ac3": 0.4166666666666667,
+          "ac5": 0.4166666666666667,
+          "mean_input_tokens": 9637.416666666666,
+          "mean_image_tokens": 272.0
+        }
+      },
+      "paired": {
+        "n": 12,
+        "mean_delta_mrr_v7_minus_v6": 0.0625,
+        "improved": 1,
+        "degraded": 0,
+        "tied": 11,
+        "top1_changed": 3,
+        "per_dataset_mean_delta_mrr": {
+          "aegislab": 0.0,
+          "aiops2022": 0.0,
+          "aiops2025": 0.1875
+        }
+      },
+      "case_audit": [
+        {
+          "opaque_incident_id": "INC-130A9D7C9333",
+          "dataset": "aegislab",
+          "v6_top1": "ts-assurance-service",
+          "v7_top1": "ts-assurance-service",
+          "v6_mrr": 1.0,
+          "v7_mrr": 1.0,
+          "delta_mrr": 0.0,
+          "top1_changed": false,
+          "v7_top1_propagation_rank": 1,
+          "v7_top1_is_shown_edge_endpoint": false
+        },
+        {
+          "opaque_incident_id": "INC-60C6035E698B",
+          "dataset": "aegislab",
+          "v6_top1": "ts-contacts-service",
+          "v7_top1": "ts-contacts-service",
+          "v6_mrr": 0.0,
+          "v7_mrr": 0.0,
+          "delta_mrr": 0.0,
+          "top1_changed": false,
+          "v7_top1_propagation_rank": 1,
+          "v7_top1_is_shown_edge_endpoint": true
+        },
+        {
+          "opaque_incident_id": "INC-6E1553CAA55C",
+          "dataset": "aiops2022",
+          "v6_top1": "shippingservice2-0",
+          "v7_top1": "shippingservice2-0",
+          "v6_mrr": 0.0,
+          "v7_mrr": 0.0,
+          "delta_mrr": 0.0,
+          "top1_changed": false,
+          "v7_top1_propagation_rank": null,
+          "v7_top1_is_shown_edge_endpoint": false
+        },
+        {
+          "opaque_incident_id": "INC-97AEADEEDBFE",
+          "dataset": "aiops2025",
+          "v6_top1": "tidb-tidv",
+          "v7_top1": "cartservice-2",
+          "v6_mrr": 0.25,
+          "v7_mrr": 1.0,
+          "delta_mrr": 0.75,
+          "top1_changed": true,
+          "v7_top1_propagation_rank": null,
+          "v7_top1_is_shown_edge_endpoint": false
+        },
+        {
+          "opaque_incident_id": "INC-9B67302E67CB",
+          "dataset": "aiops2025",
+          "v6_top1": "adservice",
+          "v7_top1": "node-6",
+          "v6_mrr": 0.0,
+          "v7_mrr": 0.0,
+          "delta_mrr": 0.0,
+          "top1_changed": true,
+          "v7_top1_propagation_rank": 4,
+          "v7_top1_is_shown_edge_endpoint": false
+        },
+        {
+          "opaque_incident_id": "INC-BB9A90389B85",
+          "dataset": "aiops2025",
+          "v6_top1": "productcatalogservice",
+          "v7_top1": "tidb-pd",
+          "v6_mrr": 0.0,
+          "v7_mrr": 0.0,
+          "delta_mrr": 0.0,
+          "top1_changed": true,
+          "v7_top1_propagation_rank": 11,
+          "v7_top1_is_shown_edge_endpoint": false
+        },
+        {
+          "opaque_incident_id": "INC-BD3BE3F9F138",
+          "dataset": "aiops2022",
+          "v6_top1": "paymentservice2-0",
+          "v7_top1": "paymentservice2-0",
+          "v6_mrr": 0.0,
+          "v7_mrr": 0.0,
+          "delta_mrr": 0.0,
+          "top1_changed": false,
+          "v7_top1_propagation_rank": null,
+          "v7_top1_is_shown_edge_endpoint": false
+        },
+        {
+          "opaque_incident_id": "INC-C88FC0F74DEF",
+          "dataset": "aegislab",
+          "v6_top1": "ts-order-service",
+          "v7_top1": "ts-order-service",
+          "v6_mrr": 1.0,
+          "v7_mrr": 1.0,
+          "delta_mrr": 0.0,
+          "top1_changed": false,
+          "v7_top1_propagation_rank": 1,
+          "v7_top1_is_shown_edge_endpoint": true
+        },
+        {
+          "opaque_incident_id": "INC-CAD16F78D3DE",
+          "dataset": "aiops2022",
+          "v6_top1": "adservice2",
+          "v7_top1": "adservice2",
+          "v6_mrr": 0.3333333333333333,
+          "v7_mrr": 0.3333333333333333,
+          "delta_mrr": 0.0,
+          "top1_changed": false,
+          "v7_top1_propagation_rank": 11,
+          "v7_top1_is_shown_edge_endpoint": true
+        },
+        {
+          "opaque_incident_id": "INC-CE957E991E12",
+          "dataset": "aegislab",
+          "v6_top1": "ts-order-other-service",
+          "v7_top1": "ts-order-other-service",
+          "v6_mrr": 1.0,
+          "v7_mrr": 1.0,
+          "delta_mrr": 0.0,
+          "top1_changed": false,
+          "v7_top1_propagation_rank": 2,
+          "v7_top1_is_shown_edge_endpoint": true
+        },
+        {
+          "opaque_incident_id": "INC-E79C255710D4",
+          "dataset": "aiops2022",
+          "v6_top1": "node-4",
+          "v7_top1": "node-4",
+          "v6_mrr": 0.0,
+          "v7_mrr": 0.0,
+          "delta_mrr": 0.0,
+          "top1_changed": false,
+          "v7_top1_propagation_rank": 13,
+          "v7_top1_is_shown_edge_endpoint": false
+        },
+        {
+          "opaque_incident_id": "INC-E99255A1874F",
+          "dataset": "aiops2025",
+          "v6_top1": "tidb-tidb",
+          "v7_top1": "tidb-tidb",
+          "v6_mrr": 0.0,
+          "v7_mrr": 0.0,
+          "delta_mrr": 0.0,
+          "top1_changed": false,
+          "v7_top1_propagation_rank": 2,
+          "v7_top1_is_shown_edge_endpoint": false
+        }
+      ]
+    }
+  },
+  "decision": {
+    "confirmatory_rq0_unchanged": "unsupported",
+    "atomic_edge_legibility_passed": true,
+    "cross_model_case_level_benefit": false,
+    "advance_v7_to_fresh_reserve": false,
+    "generic_visual_grounding_sft_is_next": false,
+    "case_level_causal_integration_sft_is_next": true,
+    "rl_or_grpo_is_next": false
+  }
+}

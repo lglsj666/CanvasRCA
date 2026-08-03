@@ -1,0 +1,24 @@
+schema_version: 1
+experiment: rq0_topology_edge_key_v1
+scope: development_only_nonconfirmatory_renderer_intervention
+source_experiment: rq0_atomic_visual_grounding_v1
+models: [qwen3.6-27b, gemma-4-26b-a4b]
+cases: 12
+task: read one explicit directed caller-rank to callee-rank fact
+visual_change: append a compact edge key below otherwise unchanged v6 pixels
+conditions: [actual_image, swapped_image, no_image]
+decoding:
+  temperature: 0.0
+  top_p: 1.0
+  seed: 42
+  max_tokens: 16384
+runtime:
+  dtype: bfloat16
+  quantization: null
+  max_model_len: 32768
+  gpu_memory_utilization: 0.65
+  enforce_eager: true
+interpretation:
+  confirmatory_rq0_metric: false
+  rca_metrics_applicable: false
+  purpose: test whether explicit directional topology encoding repairs edge grounding

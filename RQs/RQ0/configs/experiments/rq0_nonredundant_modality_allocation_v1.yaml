@@ -1,0 +1,37 @@
+schema_version: 1
+experiment: rq0_nonredundant_modality_allocation_v1
+scope: exposed_development_only_nonconfirmatory
+seed: 42
+roster: RQs/RQ0/configs/nonredundant_allocation_development_roster.json
+renderer_preset: rq0_v7_edge_key
+models: [qwen3.6-27b, gemma-4-26b-a4b]
+arms:
+  D: allocated_visual_text
+  A: duplicated_visual_text
+  B: full_text_only
+primary_comparison: D_minus_B
+mechanism_comparison: D_minus_A
+runtime:
+  dtype: bfloat16
+  quantization: null
+  max_model_len: 32768
+  max_tokens: 16384
+  temperature: 0.0
+  top_p: 1.0
+  seed: 42
+  thinking: false
+  gpu_memory_utilization: 0.65
+  enforce_eager: true
+scoring_contract: CanvasRCAGranularityAwareScoringV1
+gate:
+  minimum_delta_mrr_each_model: 0.05
+  minimum_improved_minus_degraded_each_model: 3
+  maximum_dataset_reverse_delta_mrr: -0.10
+  require_D_beats_A_each_model: true
+  minimum_parse_rate: 0.95
+  require_complete_infrastructure_pairing: true
+integrity:
+  formal_cases_allowed: false
+  reserve_cases_allowed: false
+  inferential_claim_allowed: false
+  tune_after_results: false

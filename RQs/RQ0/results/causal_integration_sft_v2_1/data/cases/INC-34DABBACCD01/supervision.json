@@ -1,0 +1,50 @@
+{
+  "schema_version": "CausalIntegrationSFTV2",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "productcatalogservice-0",
+  "hard_symptom_candidate": "recommendationservice",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "recommendationservice",
+    "productcatalogservice"
+  ],
+  "root_evidence": {
+    "source": "metric",
+    "rank": 9,
+    "service": "productcatalogservice-0",
+    "metric": "client_error_ratio",
+    "signed_z": 8.228,
+    "persistence_bins": 0,
+    "onset_rel_s": null
+  },
+  "symptom_evidence": {
+    "rank": 12,
+    "service": "recommendationservice",
+    "onset_rel_s": null,
+    "severity_z": 0.0,
+    "evidence_source": "none"
+  },
+  "target_object": {
+    "services": [
+      "productcatalogservice-0",
+      "node-7",
+      "paymentservice-2",
+      "node-8",
+      "tidb-tikv"
+    ],
+    "reason": "Rank productcatalogservice-0 first because productcatalogservice-0 has direct client_error_ratio evidence (signed-z 8.23, persistence 0 bins); although recommendationservice is salient, the caller path recommendationservice -> productcatalogservice means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank productcatalogservice-0 first because productcatalogservice-0 has direct client_error_ratio evidence (signed-z 8.23, persistence 0 bins); although recommendationservice is salient, the caller path recommendationservice -> productcatalogservice means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.\",\"services\":[\"productcatalogservice-0\",\"node-7\",\"paymentservice-2\",\"node-8\",\"tidb-tikv\"]}",
+  "curriculum_role": "base_wrong_correction",
+  "base_predictions_private_training_only": [
+    "node-7",
+    "paymentservice-2",
+    "node-8",
+    "tidb-tikv",
+    "currencyservice-1"
+  ],
+  "base_top1_correct": false
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": "CausalIntegrationSFTV2",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "adservice",
+  "hard_symptom_candidate": "k8s-master2",
+  "contrast_type": "direct_root_evidence_over_onset_salience",
+  "caller_path": null,
+  "root_evidence": {
+    "source": "metric",
+    "rank": 10,
+    "service": "adservice-0",
+    "metric": "pod_cpu_usage",
+    "signed_z": 13.772,
+    "persistence_bins": 0,
+    "onset_rel_s": null
+  },
+  "symptom_evidence": {
+    "rank": 1,
+    "service": "k8s-master2",
+    "onset_rel_s": 1020.0,
+    "severity_z": 53.034,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "adservice",
+      "k8s-master2",
+      "node-3",
+      "node-5",
+      "node-2"
+    ],
+    "reason": "Rank adservice first because adservice has direct pod_cpu_usage evidence (signed-z 13.77, persistence 0 bins); k8s-master2 is second despite propagation rank 1 because onset ordering alone does not establish the causal origin. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.",
+    "confidence": "medium"
+  },
+  "target_text": "{\"confidence\":\"medium\",\"reason\":\"Rank adservice first because adservice has direct pod_cpu_usage evidence (signed-z 13.77, persistence 0 bins); k8s-master2 is second despite propagation rank 1 because onset ordering alone does not establish the causal origin. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.\",\"services\":[\"adservice\",\"k8s-master2\",\"node-3\",\"node-5\",\"node-2\"]}",
+  "curriculum_role": "base_wrong_correction",
+  "base_predictions_private_training_only": [
+    "k8s-master2",
+    "node-3",
+    "node-5",
+    "node-2",
+    "shippingservice"
+  ],
+  "base_top1_correct": false
+}

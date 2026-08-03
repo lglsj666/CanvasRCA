@@ -1,0 +1,38 @@
+{
+  "schema_version": "CausalIntegrationSFTV1",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "ts-travel2-service",
+  "hard_symptom_candidate": "ts-route-plan-service",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "ts-route-plan-service",
+    "ts-travel2-service"
+  ],
+  "root_evidence": {
+    "source": "metric",
+    "rank": 1,
+    "service": "ts-travel2-service-6659b8fd5f-g4cbf",
+    "metric": "k8s.container.restarts",
+    "signed_z": 999.0,
+    "persistence_bins": 20,
+    "onset_rel_s": 287.275
+  },
+  "symptom_evidence": {
+    "rank": 6,
+    "service": "ts-route-plan-service",
+    "onset_rel_s": 330.0,
+    "severity_z": 22.782,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "ts-travel2-service",
+      "ts-route-plan-service"
+    ],
+    "reason": "Rank ts-travel2-service first because ts-travel2-service has direct k8s.container.restarts evidence (signed-z 999, persistence 20 bins); although ts-route-plan-service is salient, the caller path ts-route-plan-service -> ts-travel2-service means a disturbance in the callee can propagate back toward that caller-side symptom.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank ts-travel2-service first because ts-travel2-service has direct k8s.container.restarts evidence (signed-z 999, persistence 20 bins); although ts-route-plan-service is salient, the caller path ts-route-plan-service -> ts-travel2-service means a disturbance in the callee can propagate back toward that caller-side symptom.\",\"services\":[\"ts-travel2-service\",\"ts-route-plan-service\"]}"
+}

@@ -1,0 +1,40 @@
+{
+  "schema_version": "CausalIntegrationSFTTrainingSummaryV1",
+  "experiment": "causal_integration_sft_v1",
+  "mode": "smoke",
+  "status": "complete",
+  "protocol_pass": true,
+  "n_cases": 3,
+  "datasets": [
+    "aiops2022",
+    "aiops2025",
+    "re2_ob"
+  ],
+  "optimizer_steps": 1,
+  "gradient_accumulation_steps": 3,
+  "mean_teacher_forced_loss": 2.227192838986715,
+  "loss_magnitude_used_as_smoke_gate": false,
+  "accuracy_used_as_smoke_gate": false,
+  "independent_generation_metrics": null,
+  "trainable_parameters": 58363904,
+  "total_parameters": 27415092464,
+  "peak_gpu_allocated_bytes": 114463455232,
+  "peak_gpu_reserved_bytes": 131128623104,
+  "wall_time_s": 490.5900065898895,
+  "checkpoints": [
+    "models/checkpoints/causal_integration_sft_smoke_v1/smoke_main/step-0001"
+  ],
+  "best_model_status": "pending_independent_generation_evaluation",
+  "contract_sha256": "8fcd1e0a02b22a22987a4a97cd3ceb8455b1ec116cbd2f413bada7246802b76f",
+  "contract_migration": {
+    "migration_id": "rq_layout_migration_2026-07-31",
+    "manifest_path": "RQs/RQ0/configs/contract_migration_2026-07-31.json",
+    "metadata_only": true,
+    "execution_semantics_changed": false,
+    "configuration_paths_migrated": true,
+    "script_paths_migrated": true,
+    "result_paths_migrated": true,
+    "historical_experiments_deemed_executed_under_migrated_contract": true,
+    "contract_validity_preserved": true
+  }
+}

@@ -1,0 +1,126 @@
+# System
+
+You are an expert Site Reliability Engineer performing Root Cause Analysis (RCA) for a microservice application deployed on a Kubernetes cluster. A fault has occurred in the system. Your task is to identify the root cause of the incident.
+
+Root causes can occur at three levels:
+- Pod level: a specific container replica (e.g., "cartservice-0")
+- Service level: a microservice type (e.g., "paymentservice") — predict any pod of that service
+- Node level: an infrastructure host (e.g., "node-6") — nodes appear as isolated entities with system metrics (CPU, memory, network, disk) but no application logs or traces
+
+The system consists of multiple services communicating over HTTP/gRPC, running on shared infrastructure nodes. A fault in one component (pod, service, or node) can propagate to dependent components, causing them to appear degraded even though they are not the root cause.
+
+Node-level faults (e.g., host memory exhaustion, CPU saturation, disk I/O) often manifest as correlated anomalies across multiple pods. If several unrelated pods show simultaneous degradation and a node shows critical system-level metrics, the node is likely the root cause.
+
+Focus on distinguishing the ORIGIN of the fault from its SYMPTOMS in downstream or co-located components.
+
+# User
+
+[image: dashboard.png]
+
+Analyze this incident using only the supplied evidence. Rank the most likely
+root-cause components, distinguishing the origin from propagated symptoms.
+
+Evidence semantics shared by all representations:
+- candidates are exhaustive and appear in a fixed alphabetical order;
+- every metric has 64 equal-width bins from window start t=0; null means no
+  observed sample in that bin and observed_count gives the number aggregated;
+- shared_bin_centers_rel_s applies to all metric series; missing_mask_bits uses
+  one bit per bin (1=missing, 0=observed); observed_counts_compact is either a
+  comma-separated integer vector prefixed csv: or value*run pairs prefixed rle:;
+- values_compact is lossless: raw: is a JSON vector, rle: is value*run pairs,
+  and delta: stores the first observed value followed by cumulative deltas;
+  missing_mask_bits restores null positions for delta encoding;
+- signed_z is relative to the pre-incident baseline; onset and persistence are
+  deterministic label-blind anomaly summaries;
+- a directed edge A -> B means A calls B, so a disturbance in B can propagate
+  back to A;
+- propagation ranks are ordered by relative onset, not by causal likelihood;
+- source t/trace and m/metric use different instruments and their z magnitudes
+  must not be compared directly.
+
+
+=== INCIDENT ===
+schema_version: CanonicalEvidenceBundleV1
+opaque_id: INC-697A7C4DD48E
+observation_window={"duration_rel_s":479.617,"source_metric_rows":1078}
+selection_summary={"candidate_count":104,"hot_z_threshold":10.0,"metric_ranker":"ksigma","metric_series_scored":1009,"metric_series_shown":12}
+
+=== CANDIDATES (fixed order) ===
+["loadgenerator","loadgenerator-794b57d884-zzvqt","mysql","mysql-0","rabbitmq","rabbitmq-0","ts-admin-basic-info-service","ts-admin-basic-info-service-8489f5b9dd-w5hqw","ts-admin-order-service","ts-admin-order-service-5b6c548fb5-bsz6x","ts-admin-route-service","ts-admin-route-service-6b7fcc6f9b-qf6bf","ts-admin-travel-service","ts-admin-travel-service-7d4bb8dcb9-vbvfj","ts-admin-user-service","ts-admin-user-service-5bff4bdf86-cqwkq","ts-assurance-service","ts-assurance-service-5597965598-vw76h","ts-auth-service","ts-auth-service-6d87cc4dc7-gxj4m","ts-avatar-service","ts-avatar-service-7c465d78b5-t8m5q","ts-basic-service","ts-basic-service-6968d4ccd5-qcg8l","ts-cancel-service","ts-cancel-service-6cf95f89fc-7jmt7","ts-config-service","ts-config-service-5d4b464d85-rbhqc","ts-consign-price-service","ts-consign-price-service-7d59bdd47d-dmmh8","ts-consign-service","ts-consign-service-848b6d5bcd-j92bd","ts-contacts-service","ts-contacts-service-55cfbdfdc8-zt269","ts-delivery-service","ts-delivery-service-d66597c7f-ctx2f","ts-execute-service","ts-execute-service-6687b7f74d-7z4zk","ts-food-delivery-service","ts-food-delivery-service-bcb844d44-47627","ts-food-service","ts-food-service-55f49f6b59-2wr24","ts-gateway-service","ts-gateway-service-7cc7b478fc-tfwgj","ts-inside-payment-service","ts-inside-payment-service-6d88d7f6b4-l6l4p","ts-news-service","ts-news-service-6d6c6d7855-k4z2b","ts-notification-service","ts-notification-service-596b87f8f6-znhwc","ts-order-other-service","ts-order-other-service-5fc6774cd8-wmsk9","ts-order-service","ts-order-service-668587b48c-whsj7","ts-payment-service","ts-payment-service-7679c6959c-5k6p4","ts-preserve-other-service","ts-preserve-other-service-6bf648d676-4mhjb","ts-preserve-service","ts-preserve-service-5d979f4b55-7hkkl","ts-price-service","ts-price-service-55957b666-7z8p8","ts-rebook-service","ts-rebook-service-79d845d787-v86rl","ts-route-plan-service","ts-route-plan-service-6865bfcc6d-45tcx","ts-route-service","ts-route-service-586ffc746-mkc67","ts-seat-service","ts-seat-service-7b7c5f5d7d-8kdwp","ts-security-service","ts-security-service-5454c847f7-l85l8","ts-station-food-service","ts-station-food-service-cb9656f7b-fzs4p","ts-station-service","ts-station-service-685fd4985f-fnmnl","ts-ticket-office-service","ts-ticket-office-service-9c7b9d55b-pdpzk","ts-train-food-service","ts-train-food-service-bdd545d98-qr7vq","ts-train-service","ts-train-service-7b96f444bf-6cqd4","ts-travel-plan-service","ts-travel-plan-service-b49559b55-k64dx","ts-travel-service","ts-travel-service-56c9999f79-5mc5x","ts-travel2-service","ts-travel2-service-8557fd66df-mr2gg","ts-ui-dashboard","ts-ui-dashboard-68fff76764-dnltz","ts-user-service","ts-user-service-644dc6f8fb-2mg4m","ts-verification-code-service","ts-verification-code-service-595bc8dd8d-cf8n7","ts-voucher-service","ts-voucher-service-c745bfccb-97f59","ts-wait-order-service","ts-wait-order-service-779f77459-86xrv","worker1","worker2","worker3","worker4","worker5","worker6"]
+
+=== METRIC SERIES (all 64 bins; null=missing) ===
+shared_bin_centers_rel_s=[3.747,11.241,18.735,26.229,33.723,41.217,48.711,56.205,63.699,71.193,78.687,86.181,93.675,101.169,108.663,116.157,123.651,131.145,138.639,146.133,153.627,161.121,168.616,176.11,183.604,191.098,198.592,206.086,213.58,221.074,228.568,236.062,243.556,251.05,258.544,266.038,273.532,281.026,288.52,296.014,303.508,311.002,318.496,325.99,333.484,340.978,348.472,355.966,363.46,370.954,378.448,385.942,393.436,400.93,408.424,415.918,423.412,430.906,438.4,445.894,453.388,460.882,468.376,475.87]
+[M1] rank=1 service=ts-preserve-service metric=hubble_http_request_duration_p99_seconds baseline=0.00495 peak=10.0 signed_z=999.0 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:0.00495,0,0,0,0,0,0,0,0,0.04455,9.9505,-9.9505,0,9.9505,0
+missing_mask_bits=0111011101110111011101110111011101110111111101110111011101110111
+observed_counts_compact=rle:1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*7,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3
+[M2] rank=2 service=ts-travel-service metric=hubble_http_request_duration_p50_seconds baseline=0.026217 peak=10.0 signed_z=999.0 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:0.021083,0.006499,0.00428,-0.001101,-0.0093,0.011006,-0.010607,0.000796,0.00127,0.004824,9.97125,-6.25,-3.729539,0.042039,1.419773,-1.451023
+missing_mask_bits=0111011101110111011101110111011101110111011101110111011101110111
+observed_counts_compact=csv:1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0
+[M3] rank=3 service=ts-travel2-service metric=hubble_http_request_duration_p50_seconds baseline=0.03718 peak=6.875 signed_z=999.0 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:0.041654,-0.013167,0.007584,0.001707,0.000151,0.001273,-0.007025,0.011964,-0.013876,-0.009417,6.854152,-6.859375,0.021637,0.025238,-0.04125,0.028214
+missing_mask_bits=0111011101110111011101110111011101110111011101110111011101110111
+observed_counts_compact=csv:1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0
+[M4] rank=4 service=ts-route-plan-service metric=hubble_http_request_duration_p90_seconds baseline=0.056236 peak=10.0 signed_z=966.968 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:0.051536,0.019464,-0.020833,0.026458,-0.025313,-0.002118,-0.000277,0.002222,-0.046639,0.03775,9.95775,-9.9905
+missing_mask_bits=1110111011101110111011101110111011111111111111111110111011101110
+observed_counts_compact=rle:0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*19,1*1,0*3,1*1,0*3,1*1,0*3,1*1
+[M5] rank=5 service=ts-basic-service metric=hubble_http_request_duration_p90_seconds baseline=0.028333 peak=0.178778 signed_z=872.419 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:0.028338,-0.000034,0.000307,-0.00026,0.000179,-0.000399,-0.00008,0.000295,0.091775,0.058657,-0.053845,0.00654,0.027961,-0.039086,0.005657,-0.003065
+missing_mask_bits=1110111011101110111011101110111011101110111011101110111011101110
+observed_counts_compact=csv:0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1
+[M6] rank=6 service=ts-travel2-service metric=hubble_http_request_duration_p95_seconds baseline=0.128354 peak=7.4375 signed_z=508.633 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:0.104266,0.020033,0.012086,-0.000687,0.00451,-0.012112,0.020788,-0.039891,2.441007,4.8875,-5.24125,0.23375,4.85125,-4.85875,5.015,0
+missing_mask_bits=1011101110111011101110111011101110111011101110111011101110111011
+observed_counts_compact=csv:0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0
+[M7] rank=7 service=ts-travel-service metric=hubble_http_request_duration_p95_seconds baseline=0.126137 peak=10.0 signed_z=459.293 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:0.141313,-0.01273,-0.001899,0.000035,-0.054189,0.07603,-0.018031,0.003646,0.914888,6.388437,-4.96,4.920227,0.034565,-4.928542,2.37125,5.125
+missing_mask_bits=1011101110111011101110111011101110111011101110111011101110111011
+observed_counts_compact=csv:0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0
+[M8] rank=8 service=ts-travel-service metric=hubble_http_request_duration_p90_seconds baseline=0.081837 peak=10.0 signed_z=433.198 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:0.070785,0.015688,-0.019411,0.073135,-0.069676,0.009347,-0.012033,0.004118,7.303047,-0.175,2.8,-2.6875,-2.5625,-2.385909,7.635909,-7.6325
+missing_mask_bits=1110111011101110111011101110111011101110111011101110111011101110
+observed_counts_compact=csv:0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1
+[M9] rank=9 service=ts-travel-plan-service metric=hubble_http_request_duration_p95_seconds baseline=0.606773 peak=10.0 signed_z=432.674 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:0.59375,0.010937,-0.008437,-0.034,0.051143,0.006919,0.007813,0.007292,0.498083,8.8665,-9.425,4.66875,0.96875
+missing_mask_bits=1011101110111011101110111011101110111111101110111011101111111111
+observed_counts_compact=rle:0*1,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*7,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*10
+[M10] rank=10 service=ts-travel-plan-service metric=hubble_http_request_duration_p50_seconds baseline=0.159622 peak=10.0 signed_z=403.544 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:0.153627,0.04167,-0.031391,0.031357,-0.031219,-0.031083,0.015383,-0.024807,0.133963,0.62625,-0.750938,9.867188,0
+missing_mask_bits=1101110111011101110111011101110111111111110111111101110111011101
+observed_counts_compact=rle:0*2,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*11,1*1,0*7,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*1
+[M11] rank=11 service=ts-travel2-service metric=hubble_http_request_duration_p90_seconds baseline=0.089038 peak=7.375 signed_z=315.192 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:0.070609,0.042155,0.020439,-0.028798,-0.036334,0.002123,0.000094,0.01248,7.292232,-2.625,2.625,-0.025,-0.475,-5.01875,5.51875
+missing_mask_bits=1110111011101110111011101110111011101110111111101110111011101110
+observed_counts_compact=rle:0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*7,1*1,0*3,1*1,0*3,1*1,0*3,1*1,0*3,1*1
+[M12] rank=12 service=ts-route-service metric=k8s.pod.memory.rss baseline=819637504.0 peak=1301852160.0 signed_z=261.5 onset_bin=33 onset_rel_s=251.05 persistence_bins=31
+values_compact=delta:821551104,0,102400,0,1183744,274432,0,-3813376,0,3309568,0,-4444160,0,0,-53248,0,122880,0,81920,81920,12288,12288,184320,0,-1617920,0,2273280,0,16384,16384,0,4096,3166208,3166208,10825728,0,-3280896,4739072,0,19783680,0,0,59084800,36798464,0,50454528,0,39845888,0,75399168,0,0,58769408,0,44048384,0,28311552,28311552,23113728,0,0,0,8192,8192
+missing_mask_bits=0000000000000000000000000000000000000000000000000000000000000000
+observed_counts_compact=csv:2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1
+
+=== ESTIMATED FAULT WINDOW (relative seconds) ===
+[272.8255262374878,362.8255262374878]
+
+=== LOG SUMMARY ===
+{"entries":[{"error_logs":8597,"error_pct":100.0,"service":"ts-ui-dashboard","total_logs":8597},{"error_logs":4762,"error_pct":11.76,"service":"ts-basic-service","total_logs":40501},{"error_logs":4756,"error_pct":61.14,"service":"ts-route-service","total_logs":7779},{"error_logs":364,"error_pct":16.16,"service":"ts-food-service","total_logs":2252},{"error_logs":230,"error_pct":2.18,"service":"ts-travel-service","total_logs":10572},{"error_logs":192,"error_pct":40.0,"service":"ts-delivery-service","total_logs":480},{"error_logs":192,"error_pct":40.0,"service":"ts-notification-service","total_logs":480},{"error_logs":147,"error_pct":6.2,"service":"ts-preserve-service","total_logs":2372}],"mode":"errors","omitted_services":23,"service_count":31}
+=== TRACE SUMMARY ===
+{"entries":[{"delta_pct":24057.2,"error_pct":51.72,"p95_during_ms":60053.0245002,"p95_pre_ms":248.5929307999996,"service":"ts-preserve-service","spans":1553},{"delta_pct":15623.4,"error_pct":12.86,"p95_during_ms":60034.08740945,"p95_pre_ms":381.81328149999996,"service":"ts-route-plan-service","spans":2088},{"delta_pct":11005.1,"error_pct":9.18,"p95_during_ms":60004.76377305,"p95_pre_ms":540.33338535,"service":"ts-travel-plan-service","spans":2726},{"delta_pct":3630.6,"error_pct":14.2,"p95_during_ms":4062.4768034,"p95_pre_ms":108.89591189999999,"service":"ts-travel2-service","spans":6936},{"delta_pct":2622.4,"error_pct":30.38,"p95_during_ms":4065.6410929999997,"p95_pre_ms":149.33950249999998,"service":"ts-travel-service","spans":12018},{"delta_pct":122.4,"error_pct":0.0,"p95_during_ms":391.0921554999974,"p95_pre_ms":175.87102244999994,"service":"ts-ui-dashboard","spans":8598},{"delta_pct":121.1,"error_pct":2.63,"p95_during_ms":393.29495254999733,"p95_pre_ms":177.9175573499999,"service":"loadgenerator","spans":8598},{"delta_pct":-61.8,"error_pct":0.0,"p95_during_ms":1.9344551999999977,"p95_pre_ms":5.058094150000005,"service":"ts-route-service","spans":55983}],"omitted_services":22,"service_count":30}
+
+=== PROPAGATION SERVICES ===
+mode=onset omitted_services=35 omitted_edges=10
+[{"evidence_source":"metric","onset_rel_s":265.2,"rank":1,"service":"ts-basic-service","severity_z":872.419},{"evidence_source":"trace","onset_rel_s":274.8,"rank":2,"service":"ts-travel2-service","severity_z":3.487},{"evidence_source":"trace","onset_rel_s":285.0,"rank":3,"service":"ts-preserve-service","severity_z":3.464},{"evidence_source":"trace","onset_rel_s":285.0,"rank":4,"service":"loadgenerator","severity_z":711.052},{"evidence_source":"trace","onset_rel_s":285.0,"rank":5,"service":"ts-ui-dashboard","severity_z":667.924},{"evidence_source":"metric","onset_rel_s":303.6,"rank":6,"service":"ts-travel-service","severity_z":999.0},{"evidence_source":"trace","onset_rel_s":324.6,"rank":7,"service":"ts-route-plan-service","severity_z":3.465},{"evidence_source":"trace","onset_rel_s":324.6,"rank":8,"service":"ts-travel-plan-service","severity_z":3.464},{"evidence_source":"metric","onset_rel_s":370.8,"rank":9,"service":"ts-route-service","severity_z":261.5},{"evidence_source":"trace","onset_rel_s":384.6,"rank":10,"service":"ts-contacts-service","severity_z":78.945},{"evidence_source":"metric","onset_rel_s":385.2,"rank":11,"service":"ts-order-service","severity_z":153.873},{"evidence_source":"metric","onset_rel_s":476.4,"rank":12,"service":"ts-consign-price-service","severity_z":106.285},{"evidence_source":"metric","onset_rel_s":476.4,"rank":13,"service":"ts-execute-service","severity_z":106.285},{"evidence_source":"metric","onset_rel_s":476.4,"rank":14,"service":"ts-price-service","severity_z":106.285}]
+=== DIRECTED CALL EDGES (caller -> callee) ===
+[{"callee":"ts-ui-dashboard","caller":"loadgenerator"},{"callee":"ts-price-service","caller":"ts-basic-service"},{"callee":"ts-route-service","caller":"ts-basic-service"},{"callee":"ts-basic-service","caller":"ts-preserve-service"},{"callee":"ts-contacts-service","caller":"ts-preserve-service"},{"callee":"ts-order-service","caller":"ts-preserve-service"},{"callee":"ts-travel-service","caller":"ts-preserve-service"},{"callee":"ts-route-service","caller":"ts-route-plan-service"},{"callee":"ts-travel-service","caller":"ts-route-plan-service"},{"callee":"ts-travel2-service","caller":"ts-route-plan-service"},{"callee":"ts-route-plan-service","caller":"ts-travel-plan-service"},{"callee":"ts-basic-service","caller":"ts-travel-service"},{"callee":"ts-route-service","caller":"ts-travel-service"},{"callee":"ts-basic-service","caller":"ts-travel2-service"},{"callee":"ts-route-service","caller":"ts-travel2-service"},{"callee":"ts-contacts-service","caller":"ts-ui-dashboard"},{"callee":"ts-order-service","caller":"ts-ui-dashboard"},{"callee":"ts-preserve-service","caller":"ts-ui-dashboard"},{"callee":"ts-route-service","caller":"ts-ui-dashboard"},{"callee":"ts-travel-plan-service","caller":"ts-ui-dashboard"},{"callee":"ts-travel-service","caller":"ts-ui-dashboard"},{"callee":"ts-travel2-service","caller":"ts-ui-dashboard"}]
+
+=== EXPLICIT MISSINGNESS ===
+{"logs_missing":false,"propagation_missing":false,"traces_missing":false}
+
+Return only one JSON object, with no analysis, preamble, markdown, or code fence:
+{"services":["name1","name2","name3"],"reason":"one sentence citing the strongest metric/log/topology evidence","confidence":"high|medium|low"}
+The services array must be ranked, contain at most five exact candidate
+identifiers, and put the most likely root cause first.
+
+# Assistant target
+
+[excluded before optimizer]

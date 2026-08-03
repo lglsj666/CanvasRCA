@@ -1,0 +1,45 @@
+{
+  "schema_version": "CausalIntegrationSFTV2",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "ts-consign-service",
+  "hard_symptom_candidate": "ts-cancel-service",
+  "contrast_type": "direct_root_evidence_over_onset_salience",
+  "caller_path": null,
+  "root_evidence": {
+    "source": "metric",
+    "rank": 1,
+    "service": "ts-consign-service",
+    "metric": "container.filesystem.usage",
+    "signed_z": 848.404,
+    "persistence_bins": 31,
+    "onset_rel_s": 250.682
+  },
+  "symptom_evidence": {
+    "rank": 1,
+    "service": "ts-cancel-service",
+    "onset_rel_s": 249.0,
+    "severity_z": 85.653,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "ts-consign-service",
+      "ts-cancel-service",
+      "ts-news-service",
+      "ts-travel-plan-service",
+      "mysql"
+    ],
+    "reason": "Rank ts-consign-service first because ts-consign-service has direct container.filesystem.usage evidence (signed-z 848.4, persistence 31 bins); ts-cancel-service is second despite propagation rank 1 because onset ordering alone does not establish the causal origin. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.",
+    "confidence": "medium"
+  },
+  "target_text": "{\"confidence\":\"medium\",\"reason\":\"Rank ts-consign-service first because ts-consign-service has direct container.filesystem.usage evidence (signed-z 848.4, persistence 31 bins); ts-cancel-service is second despite propagation rank 1 because onset ordering alone does not establish the causal origin. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.\",\"services\":[\"ts-consign-service\",\"ts-cancel-service\",\"ts-news-service\",\"ts-travel-plan-service\",\"mysql\"]}",
+  "curriculum_role": "base_wrong_correction",
+  "base_predictions_private_training_only": [
+    "ts-cancel-service",
+    "ts-consign-service",
+    "ts-news-service"
+  ],
+  "base_top1_correct": false
+}

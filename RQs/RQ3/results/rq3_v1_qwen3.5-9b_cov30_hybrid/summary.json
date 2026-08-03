@@ -1,0 +1,69 @@
+{
+  "n": 100,
+  "mrr": 0.33699999999999997,
+  "top1": 0.3,
+  "top3": 0.38,
+  "top5": 0.39,
+  "parse_rate": 0.74,
+  "avg_input_tokens": 11293.66,
+  "avg_output_tokens": 4945.76,
+  "avg_total_tokens": 16239.42,
+  "avg_wall_clock_s": 95.29664287567138,
+  "mrr_by_dataset": {
+    "aegislab": 0.33699999999999997
+  },
+  "n_by_dataset": {
+    "aegislab": 100
+  },
+  "mrr_by_fault_bucket": {
+    "HTTP": 0.17962962962962964,
+    "JVM": 0.625,
+    "K8s_Control": 0.6818181818181818,
+    "Network": 0.26666666666666666
+  },
+  "n_by_fault_bucket": {
+    "HTTP": 54,
+    "JVM": 20,
+    "K8s_Control": 11,
+    "Network": 15
+  },
+  "experiment": "rq3_v1_qwen3.5-9b_cov30_hybrid",
+  "model": "qwen3.5-9b",
+  "modality": "hybrid",
+  "dashboard_config": {
+    "name": "cov30",
+    "panel_budget": 30,
+    "ranker": "ksigma",
+    "max_per_family": 0,
+    "max_per_service": 0,
+    "selector": "coverage_first",
+    "coverage_services": 20,
+    "layout": "small_multiples",
+    "grid_cols": 5,
+    "topology": "colored",
+    "topology_labels": "numbered",
+    "max_topology_nodes": 25,
+    "show_legend_table": true,
+    "shade_fault_window": true,
+    "annotate_extremes": true,
+    "normalize_panels": false,
+    "long_side_px": 2048,
+    "show_logs": true,
+    "show_traces": true
+  },
+  "model_config": {
+    "tag": "qwen3.5-9b",
+    "backend": "openai",
+    "model_id": "Qwen/Qwen3.5-9B",
+    "max_tokens": 16384,
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "seed": 42,
+    "thinking": false,
+    "thinking_via_template": true,
+    "base_url_env": "VLLM_BASE_URL",
+    "api_key_env": "VLLM_API_KEY",
+    "request_timeout_s": 1800.0,
+    "extra": {}
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": "CausalIntegrationSFTV1",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "recommendationservice",
+  "hard_symptom_candidate": "frontend",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "frontend",
+    "recommendationservice"
+  ],
+  "root_evidence": {
+    "source": "trace",
+    "rank": 8,
+    "service": "recommendationservice",
+    "summary": {
+      "service": "recommendationservice",
+      "p95_pre_ms": 101.6818,
+      "p95_during_ms": 101.79379999999999,
+      "delta_pct": 0.1,
+      "error_pct": 0.0,
+      "spans": 5491
+    }
+  },
+  "symptom_evidence": {
+    "rank": 14,
+    "service": "frontend",
+    "onset_rel_s": null,
+    "severity_z": 0.0,
+    "evidence_source": "none"
+  },
+  "target_object": {
+    "services": [
+      "recommendationservice",
+      "frontend"
+    ],
+    "reason": "Rank recommendationservice first because recommendationservice has direct trace evidence; although frontend is salient, the caller path frontend -> recommendationservice means a disturbance in the callee can propagate back toward that caller-side symptom.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank recommendationservice first because recommendationservice has direct trace evidence; although frontend is salient, the caller path frontend -> recommendationservice means a disturbance in the callee can propagate back toward that caller-side symptom.\",\"services\":[\"recommendationservice\",\"frontend\"]}"
+}

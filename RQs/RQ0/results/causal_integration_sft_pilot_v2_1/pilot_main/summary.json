@@ -1,0 +1,48 @@
+{
+  "schema_version": "CausalIntegrationSFTTrainingSummaryV1",
+  "experiment": "causal_integration_sft_v2_1",
+  "mode": "pilot",
+  "status": "complete",
+  "protocol_pass": true,
+  "n_cases": 30,
+  "datasets": [
+    "aegislab",
+    "aiops2022",
+    "aiops2025"
+  ],
+  "optimizer_steps": 8,
+  "gradient_accumulation_steps": 4,
+  "mean_teacher_forced_loss": 2.125811421871185,
+  "loss_magnitude_used_as_smoke_gate": false,
+  "accuracy_used_as_smoke_gate": false,
+  "independent_generation_metrics": null,
+  "trainable_parameters": 58363904,
+  "total_parameters": 27415092464,
+  "peak_gpu_allocator_allocated_bytes": 110777544704,
+  "peak_gpu_allocator_reserved_bytes": 136774156288,
+  "allocator_measurement_semantics": "CUDA allocator logical bytes; may exceed physical residency with virtual-memory allocation",
+  "peak_gpu_physical_used_mib_sampled": 96213.0,
+  "gpu_physical_samples": 6233,
+  "gpu_physical_sampling_interval_s": 0.5,
+  "physical_measurement_includes_display_processes": true,
+  "wall_time_s": 5055.1318328380585,
+  "checkpoints": [
+    "models/checkpoints/causal_integration_sft_pilot_v2_1/pilot_main/step-0002",
+    "models/checkpoints/causal_integration_sft_pilot_v2_1/pilot_main/step-0004",
+    "models/checkpoints/causal_integration_sft_pilot_v2_1/pilot_main/step-0006",
+    "models/checkpoints/causal_integration_sft_pilot_v2_1/pilot_main/step-0008"
+  ],
+  "best_model_status": "pending_independent_generation_evaluation",
+  "contract_sha256": "53eb2cbca4d4841078ab629402be95dd73d1eca9ba895d443c3252e207ed7175",
+  "contract_migration": {
+    "migration_id": "rq_layout_migration_2026-07-31",
+    "manifest_path": "RQs/RQ0/configs/contract_migration_2026-07-31.json",
+    "metadata_only": true,
+    "execution_semantics_changed": false,
+    "configuration_paths_migrated": true,
+    "script_paths_migrated": true,
+    "result_paths_migrated": true,
+    "historical_experiments_deemed_executed_under_migrated_contract": true,
+    "contract_validity_preserved": true
+  }
+}

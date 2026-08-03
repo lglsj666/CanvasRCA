@@ -1,0 +1,51 @@
+{
+  "schema_version": "CausalIntegrationSFTV2",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "shippingservice-1",
+  "hard_symptom_candidate": "shippingservice2-0",
+  "contrast_type": "direct_root_evidence_over_onset_salience",
+  "caller_path": null,
+  "root_evidence": {
+    "source": "trace",
+    "rank": 3,
+    "service": "shippingservice-1",
+    "summary": {
+      "service": "shippingservice-1",
+      "p95_pre_ms": 0.086,
+      "p95_during_ms": 0.095,
+      "delta_pct": 10.5,
+      "error_pct": 0.0,
+      "spans": 434
+    }
+  },
+  "symptom_evidence": {
+    "rank": 1,
+    "service": "shippingservice2",
+    "onset_rel_s": 1260.0,
+    "severity_z": 215.556,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "shippingservice-1",
+      "node-1",
+      "shippingservice2-0",
+      "adservice-0",
+      "productcatalogservice-2"
+    ],
+    "reason": "Rank shippingservice-1 first because shippingservice-1 has direct trace evidence; shippingservice2-0 is second despite propagation rank 1 because onset ordering alone does not establish the causal origin. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.",
+    "confidence": "medium"
+  },
+  "target_text": "{\"confidence\":\"medium\",\"reason\":\"Rank shippingservice-1 first because shippingservice-1 has direct trace evidence; shippingservice2-0 is second despite propagation rank 1 because onset ordering alone does not establish the causal origin. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.\",\"services\":[\"shippingservice-1\",\"node-1\",\"shippingservice2-0\",\"adservice-0\",\"productcatalogservice-2\"]}",
+  "curriculum_role": "base_wrong_correction",
+  "base_predictions_private_training_only": [
+    "node-1",
+    "shippingservice2-0",
+    "adservice-0",
+    "productcatalogservice-2",
+    "emailservice-1"
+  ],
+  "base_top1_correct": false
+}

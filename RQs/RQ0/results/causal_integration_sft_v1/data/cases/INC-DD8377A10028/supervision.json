@@ -1,0 +1,42 @@
+{
+  "schema_version": "CausalIntegrationSFTV1",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "productcatalogservice-0",
+  "hard_symptom_candidate": "checkoutservice-0",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "checkoutservice",
+    "productcatalogservice"
+  ],
+  "root_evidence": {
+    "source": "trace",
+    "rank": 2,
+    "service": "productcatalogservice-0",
+    "summary": {
+      "service": "productcatalogservice-0",
+      "p95_pre_ms": 5.541699999999997,
+      "p95_during_ms": 4.937,
+      "delta_pct": -10.9,
+      "error_pct": 0.0,
+      "spans": 19433
+    }
+  },
+  "symptom_evidence": {
+    "rank": 5,
+    "service": "checkoutservice",
+    "onset_rel_s": 1500.0,
+    "severity_z": 999.0,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "productcatalogservice-0",
+      "checkoutservice-0"
+    ],
+    "reason": "Rank productcatalogservice-0 first because productcatalogservice-0 has direct trace evidence; although checkoutservice-0 is salient, the caller path checkoutservice -> productcatalogservice means a disturbance in the callee can propagate back toward that caller-side symptom.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank productcatalogservice-0 first because productcatalogservice-0 has direct trace evidence; although checkoutservice-0 is salient, the caller path checkoutservice -> productcatalogservice means a disturbance in the callee can propagate back toward that caller-side symptom.\",\"services\":[\"productcatalogservice-0\",\"checkoutservice-0\"]}"
+}

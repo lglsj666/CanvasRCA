@@ -1,0 +1,48 @@
+{
+  "schema_version": "CausalIntegrationSFTV2",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "productcatalogservice2-0",
+  "hard_symptom_candidate": "checkoutservice2-0",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "checkoutservice2",
+    "productcatalogservice2"
+  ],
+  "root_evidence": {
+    "source": "metric",
+    "rank": 7,
+    "service": "productcatalogservice2-0",
+    "metric": "container_memory_failcnt",
+    "signed_z": 318.635,
+    "persistence_bins": 21,
+    "onset_rel_s": 1151.719
+  },
+  "symptom_evidence": {
+    "rank": 10,
+    "service": "checkoutservice2",
+    "onset_rel_s": 1800.0,
+    "severity_z": 32.42,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "productcatalogservice2-0",
+      "node-6",
+      "frontend2-0",
+      "checkoutservice2-0",
+      "redis-cart2-0"
+    ],
+    "reason": "Rank productcatalogservice2-0 first because productcatalogservice2-0 has direct container_memory_failcnt evidence (signed-z 318.63, persistence 21 bins); although checkoutservice2-0 is salient, the caller path checkoutservice2 -> productcatalogservice2 means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank productcatalogservice2-0 first because productcatalogservice2-0 has direct container_memory_failcnt evidence (signed-z 318.63, persistence 21 bins); although checkoutservice2-0 is salient, the caller path checkoutservice2 -> productcatalogservice2 means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.\",\"services\":[\"productcatalogservice2-0\",\"node-6\",\"frontend2-0\",\"checkoutservice2-0\",\"redis-cart2-0\"]}",
+  "curriculum_role": "base_wrong_correction",
+  "base_predictions_private_training_only": [
+    "node-6",
+    "productcatalogservice2-0",
+    "frontend2-0"
+  ],
+  "base_top1_correct": false
+}

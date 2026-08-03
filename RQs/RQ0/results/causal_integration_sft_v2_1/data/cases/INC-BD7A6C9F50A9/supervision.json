@@ -1,0 +1,54 @@
+{
+  "schema_version": "CausalIntegrationSFTV2",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "checkoutservice-2",
+  "hard_symptom_candidate": "frontend",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "frontend",
+    "checkoutservice"
+  ],
+  "root_evidence": {
+    "source": "trace",
+    "rank": 1,
+    "service": "checkoutservice",
+    "summary": {
+      "service": "checkoutservice",
+      "p95_pre_ms": 1415.0004000000001,
+      "p95_during_ms": 5588.322999999999,
+      "delta_pct": 294.9,
+      "error_pct": 0.0,
+      "spans": 1032
+    }
+  },
+  "symptom_evidence": {
+    "rank": 7,
+    "service": "frontend",
+    "onset_rel_s": 1200.0,
+    "severity_z": 181.008,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "checkoutservice-2",
+      "node-7",
+      "tidb-tidb",
+      "tidb-tikv",
+      "frontend"
+    ],
+    "reason": "Rank checkoutservice-2 first because checkoutservice-2 has direct trace evidence; although frontend is salient, the caller path frontend -> checkoutservice means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank checkoutservice-2 first because checkoutservice-2 has direct trace evidence; although frontend is salient, the caller path frontend -> checkoutservice means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.\",\"services\":[\"checkoutservice-2\",\"node-7\",\"tidb-tidb\",\"tidb-tikv\",\"frontend\"]}",
+  "curriculum_role": "base_wrong_correction",
+  "base_predictions_private_training_only": [
+    "node-7",
+    "tidb-tidb",
+    "tidb-tikv",
+    "checkoutservice",
+    "frontend"
+  ],
+  "base_top1_correct": false
+}

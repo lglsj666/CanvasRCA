@@ -1,0 +1,15 @@
+{
+  "gate": "causal_integration_sft_partition_aware_three_case_smoke",
+  "run_dir": "/home/lglsj/CanvasRCA/RQs/RQ0/results/causal_integration_sft_smoke_v1/smoke_main",
+  "datasets": [
+    "aiops2022",
+    "aiops2025",
+    "re2_ob"
+  ],
+  "episode_count": 3,
+  "optimizer_steps": 1,
+  "mean_loss_observed_not_thresholded": 2.227192838986715,
+  "accuracy_observed_not_gated": null,
+  "failures": [],
+  "pass": true
+}

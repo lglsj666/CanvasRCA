@@ -1,0 +1,49 @@
+{
+  "schema_version": "CausalIntegrationSFTV2",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "cartservice-0",
+  "hard_symptom_candidate": "checkoutservice-0",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "checkoutservice",
+    "cartservice"
+  ],
+  "root_evidence": {
+    "source": "propagation",
+    "rank": 3,
+    "service": "cartservice",
+    "onset_rel_s": 1320.0,
+    "severity_z": 277.079,
+    "evidence_source": "metric"
+  },
+  "symptom_evidence": {
+    "rank": 12,
+    "service": "checkoutservice",
+    "onset_rel_s": 1925.4,
+    "severity_z": 6.253,
+    "evidence_source": "trace"
+  },
+  "target_object": {
+    "services": [
+      "cartservice-0",
+      "paymentservice-0",
+      "checkoutservice2-0",
+      "shippingservice-0",
+      "adservice"
+    ],
+    "reason": "Rank cartservice-0 first because cartservice-0 has metric evidence at propagation rank 3; although checkoutservice-0 is salient, the caller path checkoutservice -> cartservice means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank cartservice-0 first because cartservice-0 has metric evidence at propagation rank 3; although checkoutservice-0 is salient, the caller path checkoutservice -> cartservice means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.\",\"services\":[\"cartservice-0\",\"paymentservice-0\",\"checkoutservice2-0\",\"shippingservice-0\",\"adservice\"]}",
+  "curriculum_role": "base_wrong_correction",
+  "base_predictions_private_training_only": [
+    "paymentservice",
+    "checkoutservice2",
+    "cartservice",
+    "shippingservice",
+    "adservice"
+  ],
+  "base_top1_correct": false
+}

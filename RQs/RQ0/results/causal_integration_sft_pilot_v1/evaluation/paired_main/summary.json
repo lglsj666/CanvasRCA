@@ -1,0 +1,77 @@
+{
+  "schema_version": "CausalIntegrationSFTPilotEvaluationV1",
+  "n_calls": 24,
+  "conditions": {
+    "base": {
+      "n": 12,
+      "mrr": 0.5444444444444444,
+      "ac1": 0.4166666666666667,
+      "ac3": 0.6666666666666666,
+      "ac5": 0.75,
+      "avg3": 0.5555555555555556,
+      "avg5": 0.6166666666666667,
+      "parse_rate": 1.0,
+      "infrastructure_failures": 0,
+      "mean_input_tokens": 10843.166666666666,
+      "mean_output_tokens": 114.75,
+      "mean_wall_time_s": 9.458268523216248
+    },
+    "adapter": {
+      "n": 12,
+      "mrr": 0.47500000000000003,
+      "ac1": 0.4166666666666667,
+      "ac3": 0.5,
+      "ac5": 0.5833333333333334,
+      "avg3": 0.47222222222222227,
+      "avg5": 0.5,
+      "parse_rate": 1.0,
+      "infrastructure_failures": 0,
+      "mean_input_tokens": 10843.166666666666,
+      "mean_output_tokens": 91.33333333333333,
+      "mean_wall_time_s": 11.517813682556152
+    }
+  },
+  "datasets": {
+    "aegislab": {
+      "base": 0.875,
+      "adapter": 0.75,
+      "delta_mrr_adapter_minus_base": -0.125
+    },
+    "aiops2022": {
+      "base": 0.4583333333333333,
+      "adapter": 0.375,
+      "delta_mrr_adapter_minus_base": -0.08333333333333331
+    },
+    "aiops2025": {
+      "base": 0.3,
+      "adapter": 0.3,
+      "delta_mrr_adapter_minus_base": 0.0
+    }
+  },
+  "paired": {
+    "n": 12,
+    "delta_mrr_adapter_minus_base": -0.06944444444444443,
+    "improved": 0,
+    "degraded": 2,
+    "tied": 10,
+    "top1_changed": 5
+  },
+  "promotion_gate": {
+    "registered": {
+      "minimum_macro_delta_mrr": 0.05,
+      "minimum_parse_rate": 0.95,
+      "maximum_dataset_reverse_delta_mrr": -0.1,
+      "require_zero_infrastructure_failures": true
+    },
+    "failures": [
+      "macro_delta_mrr_below_registered_minimum",
+      "dataset_reverse_effect_exceeds_registered_limit"
+    ],
+    "pass": false,
+    "interpretation": "development-only pilot promotion gate; not confirmatory evidence"
+  },
+  "status_counts": {
+    "ok": 24
+  },
+  "promoted_best_adapter": null
+}

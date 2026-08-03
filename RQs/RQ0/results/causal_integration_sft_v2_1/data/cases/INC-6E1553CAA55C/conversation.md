@@ -1,0 +1,126 @@
+# System
+
+You are an expert Site Reliability Engineer performing Root Cause Analysis (RCA) for a microservice application deployed on a Kubernetes cluster. A fault has occurred in the system. Your task is to identify the root cause of the incident.
+
+Root causes can occur at three levels:
+- Pod level: a specific container replica (e.g., "cartservice-0")
+- Service level: a microservice type (e.g., "paymentservice") — predict any pod of that service
+- Node level: an infrastructure host (e.g., "node-6") — nodes appear as isolated entities with system metrics (CPU, memory, network, disk) but no application logs or traces
+
+The system consists of multiple services communicating over HTTP/gRPC, running on shared infrastructure nodes. A fault in one component (pod, service, or node) can propagate to dependent components, causing them to appear degraded even though they are not the root cause.
+
+Node-level faults (e.g., host memory exhaustion, CPU saturation, disk I/O) often manifest as correlated anomalies across multiple pods. If several unrelated pods show simultaneous degradation and a node shows critical system-level metrics, the node is likely the root cause.
+
+Focus on distinguishing the ORIGIN of the fault from its SYMPTOMS in downstream or co-located components.
+
+# User
+
+[image: dashboard.png]
+
+Analyze this incident using only the supplied evidence. Rank the most likely
+root-cause components, distinguishing the origin from propagated symptoms.
+
+Evidence semantics shared by all representations:
+- candidates are exhaustive and appear in a fixed alphabetical order;
+- every metric has 64 equal-width bins from window start t=0; null means no
+  observed sample in that bin and observed_count gives the number aggregated;
+- shared_bin_centers_rel_s applies to all metric series; missing_mask_bits uses
+  one bit per bin (1=missing, 0=observed); observed_counts_compact is either a
+  comma-separated integer vector prefixed csv: or value*run pairs prefixed rle:;
+- values_compact is lossless: raw: is a JSON vector, rle: is value*run pairs,
+  and delta: stores the first observed value followed by cumulative deltas;
+  missing_mask_bits restores null positions for delta encoding;
+- signed_z is relative to the pre-incident baseline; onset and persistence are
+  deterministic label-blind anomaly summaries;
+- a directed edge A -> B means A calls B, so a disturbance in B can propagate
+  back to A;
+- propagation ranks are ordered by relative onset, not by causal likelihood;
+- source t/trace and m/metric use different instruments and their z magnitudes
+  must not be compared directly.
+
+
+=== INCIDENT ===
+schema_version: CanonicalEvidenceBundleV1
+opaque_id: INC-6E1553CAA55C
+observation_window={"duration_rel_s":2340.0,"source_metric_rows":40}
+selection_summary={"candidate_count":63,"hot_z_threshold":10.0,"metric_ranker":"ksigma","metric_series_scored":1466,"metric_series_shown":12}
+
+=== CANDIDATES (fixed order) ===
+["adservice","adservice-0","adservice-1","adservice-2","adservice-grpc","adservice-http","adservice2","adservice2-0","cartservice-0","cartservice-1","cartservice-2","cartservice-grpc","cartservice2-0","checkoutservice-0","checkoutservice-1","checkoutservice-2","checkoutservice-grpc","checkoutservice2-0","currencyservice-0","currencyservice-1","currencyservice-2","currencyservice-grpc","currencyservice2-0","emailservice-0","emailservice-1","emailservice-2","emailservice-grpc","emailservice2-0","frontend-0","frontend-1","frontend-2","frontend-http","frontend2-0","istio-egressgateway-7bfdcc9d86-zpjpg","istio-ingressgateway-565bffd4d-6bl7m","node-1","node-2","node-3","node-4","node-5","node-6","paymentservice-0","paymentservice-1","paymentservice-2","paymentservice-grpc","paymentservice2-0","productcatalogservice-0","productcatalogservice-1","productcatalogservice-2","productcatalogservice-grpc","productcatalogservice2-0","recommendationservice-0","recommendationservice-1","recommendationservice-2","recommendationservice-grpc","recommendationservice2-0","redis-cart-0","redis-cart2-0","shippingservice-0","shippingservice-1","shippingservice-2","shippingservice-grpc","shippingservice2-0"]
+
+=== METRIC SERIES (all 64 bins; null=missing) ===
+shared_bin_centers_rel_s=[18.281,54.844,91.406,127.969,164.531,201.094,237.656,274.219,310.781,347.344,383.906,420.469,457.031,493.594,530.156,566.719,603.281,639.844,676.406,712.969,749.531,786.094,822.656,859.219,895.781,932.344,968.906,1005.469,1042.031,1078.594,1115.156,1151.719,1188.281,1224.844,1261.406,1297.969,1334.531,1371.094,1407.656,1444.219,1480.781,1517.344,1553.906,1590.469,1627.031,1663.594,1700.156,1736.719,1773.281,1809.844,1846.406,1882.969,1919.531,1956.094,1992.656,2029.219,2065.781,2102.344,2138.906,2175.469,2212.031,2248.594,2285.156,2321.719]
+[M1] rank=1 service=productcatalogservice-2 metric=istio_request_duration_milliseconds.grpc.200.0.0 baseline=8.3125 peak=4229.3 signed_z=999.0 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:8.825,-0.2375,-5.5625,7.0625,-2.775,1.025,-1.0125,5.5625,-3.7875,-1.7625,1,0,1.525,-1.025,-0.5,3.7875,-8.075,2.05,4.2625,-3.2875,3.2625,-2.775,3.7875,-4.5125,0.75,4221.7125,-4218.95,-5.55,4.3125,-4.5625,5.2875,-5.8,7.5625,-6.05,2.8,0.2375,6.0625,-10.8625,6.825,-1.5375
+missing_mask_bits=0010010100101001010010010100101001010010100100101001010010100100
+observed_counts_compact=csv:1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1
+[M2] rank=2 service=istio-ingressgateway-565bffd4d-6bl7m metric=istio_agent_go_memstats_heap_released_bytes baseline=52609433.6 peak=51904512.0 signed_z=-394.824 onset_bin=41 onset_rel_s=1517.344 persistence_bins=15
+values_compact=delta:52617216,-8192,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-344064,-352256,-8192,933888,-8192,-8192,0,0,0,0,0,0,0,-192512,-45056
+missing_mask_bits=0010010100101001010010010100101001010010100100101001010010100100
+observed_counts_compact=csv:1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1
+[M3] rank=3 service=node-1 metric=system.mem.free baseline=1530.95 peak=22032.0 signed_z=267.734 onset_bin=54 onset_rel_s=1992.656 persistence_bins=4
+values_compact=delta:1802,-313,-7,-2,-8,-9,-19,14,86,74,-23,-42,18,-47,12,-3,-14,-23,9,30,-56,24,-13,-2,171,-189,31,-27,-19,-15,2,3,20587,-19310,-344,-490,-112,-70,-179,24
+missing_mask_bits=0010010100101001010010010100101001010010100100101001010010100100
+observed_counts_compact=csv:1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1
+[M4] rank=4 service=emailservice-1 metric=container_network_receive_MB.eth0 baseline=0.024199 peak=0.606341 signed_z=229.017 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:0.024305,0.000313,0.004162,-0.006217,0.002666,-0.003443,0.007717,-0.008409,0.001895,0.000872,-0.003207,0,0.002115,0.005457,-0.004214,-0.001783,0.001946,0.002347,-0.003118,0.003204,-0.007169,0.00612,-0.001188,0.00112,-0.000889,0.581739,-0.584477,0.004571,-0.001765,-0.00032,-0.001366,0.005623,-0.006161,0.003647,-0.005187,0.005888,-0.003541,0.003615,-0.000574,-0.006375
+missing_mask_bits=0010010100101001010010010100101001010010100100101001010010100100
+observed_counts_compact=csv:1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1
+[M5] rank=5 service=node-1 metric=system.mem.real.pct_useage baseline=80.3725 peak=9.75 signed_z=-215.89 onset_bin=54 onset_rel_s=1992.656 persistence_bins=7
+values_compact=delta:79.17,0.96,0.32,-0.06,0.05,0.11,-0.29,-0.13,0.5,0.1,-0.3,0.07,0.12,-0.31,0.25,0.1,-0.16,-0.07,-0.36,0.42,0.09,-0.1,0.16,-0.44,-0.45,0.99,-0.56,0.55,-0.12,-0.75,1.08,-0.47,-70.72,40.2,1.96,2.62,0.2,-0.01,0.02,0.01
+missing_mask_bits=0010010100101001010010010100101001010010100100101001010010100100
+observed_counts_compact=csv:1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1
+[M6] rank=6 service=shippingservice2-0 metric=container_memory_mapped_file baseline=0.0 peak=811008.0 signed_z=215.556 onset_bin=36 onset_rel_s=1334.531 persistence_bins=18
+values_compact=delta:0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,405504,405504,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+missing_mask_bits=0010010100101001010010010100101001010010100100101001010010100100
+observed_counts_compact=csv:1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1
+[M7] rank=7 service=adservice-0 metric=container_network_receive_MB.eth0 baseline=0.047056 peak=0.633444 signed_z=204.813 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:0.042364,0.004821,0.005605,-0.006116,-0.001727,0.004184,0.000888,-0.001882,-0.002071,0.001749,-0.005015,0,0.001309,0.004519,0.000628,-0.000195,0.001913,-0.007413,0.005355,-0.003032,0.001533,0.586027,-0.579349,-0.010197,-0.000825,0.0035,0.000168,0.0024,-0.00749,0.008186,-0.005146,0.007699,-0.00321,-0.000761,-0.004539,0.008225,-0.010003,0.011294,-0.006493,0.00984
+missing_mask_bits=0010010100101001010010010100101001010010100100101001010010100100
+observed_counts_compact=csv:1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1
+[M8] rank=8 service=productcatalogservice2-0 metric=istio_request_duration_milliseconds.grpc.200.0.0 baseline=135.056875 peak=3628.075 signed_z=186.986 onset_bin=54 onset_rel_s=1992.656 persistence_bins=7
+values_compact=delta:109.425,20.9375,5.325,-21.225,6.3,-4.2875,21.25,11.325,4.7875,-38.625,28.475,0,1.075,20.4375,-46.425,-5.0625,57.35,-56.1,24.2125,23.9375,11.125,-50.025,28.875,0.05,21.45,3453.4875,-3493.9,31.05,-38.675,15.1875,8.45,-16.775,-37.15,117.7125,136.9125,-84.6625,15.225,28.3,-112.8875,68.7
+missing_mask_bits=0010010100101001010010010100101001010010100100101001010010100100
+observed_counts_compact=csv:1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1
+[M9] rank=9 service=shippingservice-0 metric=container_network_receive_MB.eth0 baseline=0.030086 peak=0.623828 signed_z=169.287 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:0.030468,-0.00465,0.002523,-0.000081,0.003218,0.001321,0.001708,-0.007541,0.006556,-0.008413,0.009401,0,-0.002444,-0.006771,0.005253,-0.000718,0.00278,-0.004761,0.006426,-0.011324,0.010762,0.590115,-0.58627,-0.009703,0.002259,-0.002169,0.003133,-0.000227,-0.002607,-0.001791,0.012212,-0.014333,0.013696,-0.011643,0.003924,-0.003099,0.009208,-0.011,0.007754,-0.004411
+missing_mask_bits=0010010100101001010010010100101001010010100100101001010010100100
+observed_counts_compact=csv:1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1
+[M10] rank=10 service=currencyservice2-0 metric=container_network_receive_MB.eth0 baseline=0.040387 peak=0.632432 signed_z=162.937 onset_bin=59 onset_rel_s=2175.469 persistence_bins=3
+values_compact=delta:0.038755,0.000418,-0.000653,0.000048,0.003501,-0.007666,0.011978,-0.010266,0.009396,-0.007585,0.004081,0,-0.005024,0.003074,0.003062,-0.005366,0.006957,-0.007998,0.002017,0.009513,-0.001165,-0.015553,0.011963,0.000807,0.001418,-0.006736,0.010867,-0.015978,0.011685,-0.009591,0.011652,-0.009273,0.005411,0.000756,0.035977,-0.032728,0.014504,0.570174,-0.580487,-0.003055
+missing_mask_bits=0010010100101001010010010100101001010010100100101001010010100100
+observed_counts_compact=csv:1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1
+[M11] rank=11 service=paymentservice-1 metric=container_network_receive_MB.eth0 baseline=0.022329 peak=0.324988 signed_z=153.061 onset_bin=44 onset_rel_s=1627.031 persistence_bins=2
+values_compact=delta:0.023844,-0.002385,-0.001824,0.003916,0.002628,-0.003813,0.001917,-0.002842,0.00026,0.000413,-0.002536,0,0.007041,-0.006368,0.001489,0.000676,-0.002003,0.003298,-0.001909,0.002093,-0.004023,0.000302,0.004347,-0.001604,0.000654,-0.00285,0.000839,0.301891,0.001537,-0.300706,-0.001612,-0.003751,0.009258,-0.002027,-0.006607,0.002727,-0.000113,0.000008,0.000475,-0.002374
+missing_mask_bits=0010010100101001010010010100101001010010100100101001010010100100
+observed_counts_compact=csv:1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1
+[M12] rank=12 service=adservice2-0 metric=container_network_receive_MB.eth0 baseline=0.038265 peak=0.39304 signed_z=114.14 onset_bin=None onset_rel_s=None persistence_bins=0
+values_compact=delta:0.038059,0.006397,-0.010424,0.003525,-0.000915,-0.001746,0.005774,-0.002966,0.003353,-0.004364,0.003763,0,-0.008664,0.0109,-0.005855,-0.001931,0.006331,-0.000141,-0.005007,0.001883,-0.000906,0.004776,-0.004811,-0.000134,0.003117,-0.00243,0.347604,0.007852,-0.356323,-0.001071,0.004909,0.000962,-0.003256,-0.00034,0.012598,-0.010244,-0.001768,0.008226,-0.005244,-0.000581
+missing_mask_bits=0010010100101001010010010100101001010010100100101001010010100100
+observed_counts_compact=csv:1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,1
+
+=== ESTIMATED FAULT WINDOW (relative seconds) ===
+[1440.0,2280.0]
+
+=== LOG SUMMARY ===
+{"entries":[{"error_logs":103,"error_pct":0.42,"service":"frontend-2","total_logs":24302},{"error_logs":102,"error_pct":0.42,"service":"frontend-1","total_logs":24006},{"error_logs":91,"error_pct":0.38,"service":"frontend-0","total_logs":24100},{"error_logs":2,"error_pct":0.11,"service":"adservice-2","total_logs":1876},{"error_logs":1,"error_pct":0.04,"service":"adservice-0","total_logs":2354}],"mode":"errors","omitted_services":26,"service_count":31}
+=== TRACE SUMMARY ===
+{"entries":[{"delta_pct":230.8,"error_pct":0.0,"p95_during_ms":0.5259999999999998,"p95_pre_ms":0.159,"service":"paymentservice2-0","spans":23},{"delta_pct":111.2,"error_pct":0.0,"p95_during_ms":0.215,"p95_pre_ms":0.10179999999999992,"service":"shippingservice2-0","spans":161},{"delta_pct":10.5,"error_pct":0.0,"p95_during_ms":0.095,"p95_pre_ms":0.086,"service":"shippingservice-1","spans":434},{"delta_pct":9.8,"error_pct":0.0,"p95_during_ms":0.02744999999999999,"p95_pre_ms":0.025,"service":"adservice-0","spans":936},{"delta_pct":8.7,"error_pct":0.0,"p95_during_ms":0.1678,"p95_pre_ms":0.1543,"service":"paymentservice-1","spans":62},{"delta_pct":8.0,"error_pct":0.0,"p95_during_ms":0.28619999999999995,"p95_pre_ms":0.2649,"service":"emailservice-2","spans":62},{"delta_pct":-3.8,"error_pct":0.0,"p95_during_ms":0.2635,"p95_pre_ms":0.274,"service":"emailservice-0","spans":63},{"delta_pct":3.6,"error_pct":0.0,"p95_during_ms":0.174,"p95_pre_ms":0.168,"service":"paymentservice-0","spans":62}],"omitted_services":32,"service_count":40}
+
+=== PROPAGATION SERVICES ===
+mode=onset omitted_services=13 omitted_edges=0
+[{"evidence_source":"metric","onset_rel_s":1260.0,"rank":1,"service":"shippingservice2","severity_z":215.556},{"evidence_source":"metric","onset_rel_s":1260.0,"rank":2,"service":"adservice","severity_z":204.813},{"evidence_source":"metric","onset_rel_s":1260.0,"rank":3,"service":"cartservice","severity_z":61.132},{"evidence_source":"metric","onset_rel_s":1380.0,"rank":4,"service":"currencyservice","severity_z":110.787},{"evidence_source":"metric","onset_rel_s":1500.0,"rank":5,"service":"productcatalogservice","severity_z":999.0},{"evidence_source":"metric","onset_rel_s":1500.0,"rank":6,"service":"emailservice","severity_z":229.017},{"evidence_source":"metric","onset_rel_s":1500.0,"rank":7,"service":"productcatalogservice2","severity_z":186.986},{"evidence_source":"metric","onset_rel_s":1560.0,"rank":8,"service":"istio-ingressgateway","severity_z":394.824},{"evidence_source":"metric","onset_rel_s":1560.0,"rank":9,"service":"adservice2","severity_z":114.14},{"evidence_source":"metric","onset_rel_s":1620.0,"rank":10,"service":"paymentservice","severity_z":153.061},{"evidence_source":"trace","onset_rel_s":1876.8,"rank":11,"service":"shippingservice","severity_z":9.099},{"evidence_source":"metric","onset_rel_s":1920.0,"rank":12,"service":"node-1","severity_z":267.734},{"evidence_source":"metric","onset_rel_s":1920.0,"rank":13,"service":"node-5","severity_z":97.133},{"evidence_source":"metric","onset_rel_s":2220.0,"rank":14,"service":"currencyservice2","severity_z":162.937}]
+=== DIRECTED CALL EDGES (caller -> callee) ===
+[]
+
+=== EXPLICIT MISSINGNESS ===
+{"logs_missing":false,"propagation_missing":false,"traces_missing":false}
+
+Return only one JSON object, with no analysis, preamble, markdown, or code fence:
+{"services":["name1","name2","name3"],"reason":"one sentence citing the strongest metric/log/topology evidence","confidence":"high|medium|low"}
+The services array must be ranked, contain at most five exact candidate
+identifiers, and put the most likely root cause first.
+
+# Assistant target
+
+{"confidence":"medium","reason":"Rank shippingservice-1 first because shippingservice-1 has direct trace evidence; shippingservice2-0 is second despite propagation rank 1 because onset ordering alone does not establish the causal origin. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.","services":["shippingservice-1","node-1","shippingservice2-0","adservice-0","productcatalogservice-2"]}

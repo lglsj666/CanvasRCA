@@ -1,0 +1,65 @@
+{
+  "n": 20,
+  "mrr": 0.475,
+  "top1": 0.2,
+  "top3": 0.85,
+  "top5": 0.85,
+  "parse_rate": 1.0,
+  "avg_input_tokens": 8982.8,
+  "avg_output_tokens": 896.3,
+  "avg_total_tokens": 9879.099999999999,
+  "avg_wall_clock_s": 19.046873962879182,
+  "mrr_by_dataset": {
+    "aegislab": 0.475
+  },
+  "n_by_dataset": {
+    "aegislab": 20
+  },
+  "mrr_by_fault_bucket": {
+    "HTTP": 0.4166666666666667,
+    "JVM": 0.5833333333333334,
+    "Network": 0.6666666666666666
+  },
+  "n_by_fault_bucket": {
+    "HTTP": 14,
+    "JVM": 4,
+    "Network": 2
+  },
+  "experiment": "determinism_gemma-4-e4b_a",
+  "model": "gemma-4-e4b",
+  "modality": "hybrid",
+  "dashboard_config": {
+    "name": "v0",
+    "panel_budget": 12,
+    "ranker": "ksigma",
+    "max_per_family": 0,
+    "max_per_service": 0,
+    "layout": "small_multiples",
+    "grid_cols": 3,
+    "topology": "colored",
+    "topology_labels": "numbered",
+    "max_topology_nodes": 25,
+    "show_legend_table": true,
+    "shade_fault_window": true,
+    "annotate_extremes": true,
+    "normalize_panels": false,
+    "long_side_px": 1568,
+    "show_logs": true,
+    "show_traces": true
+  },
+  "model_config": {
+    "tag": "gemma-4-e4b",
+    "backend": "openai",
+    "model_id": "google/gemma-4-E4B-it",
+    "max_tokens": 16384,
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "seed": 42,
+    "thinking": false,
+    "thinking_via_template": false,
+    "base_url_env": "VLLM_BASE_URL",
+    "api_key_env": "VLLM_API_KEY",
+    "request_timeout_s": 1800.0,
+    "extra": {}
+  }
+}

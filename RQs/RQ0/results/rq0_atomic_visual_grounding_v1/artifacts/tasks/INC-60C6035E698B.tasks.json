@@ -1,0 +1,198 @@
+[
+  {
+    "task_id": "metric_service",
+    "category": "metric_identity",
+    "question": "Which option is the service name shown in the title of panel [M11]?",
+    "options": [
+      {
+        "label": "A",
+        "text": "ts-contacts-service"
+      },
+      {
+        "label": "B",
+        "text": "ts-order-service"
+      },
+      {
+        "label": "C",
+        "text": "ts-news-service"
+      },
+      {
+        "label": "D",
+        "text": "ts-admin-order-service"
+      }
+    ],
+    "answer_label": "B",
+    "answer_value": "ts-order-service",
+    "visual_primitive": "M11",
+    "metadata": {}
+  },
+  {
+    "task_id": "metric_direction",
+    "category": "metric_pattern",
+    "question": "From the printed baseline-to-peak annotation beneath panel [M6], what is the direction of change?",
+    "options": [
+      {
+        "label": "A",
+        "text": "not shown"
+      },
+      {
+        "label": "B",
+        "text": "approximately unchanged"
+      },
+      {
+        "label": "C",
+        "text": "increase"
+      },
+      {
+        "label": "D",
+        "text": "decrease"
+      }
+    ],
+    "answer_label": "C",
+    "answer_value": "increase",
+    "visual_primitive": "M6",
+    "metadata": {}
+  },
+  {
+    "task_id": "propagation_rank",
+    "category": "topology_order",
+    "question": "Which service is printed at rank 1 in the Anomaly propagation panel?",
+    "options": [
+      {
+        "label": "A",
+        "text": "ts-preserve-service"
+      },
+      {
+        "label": "B",
+        "text": "ts-admin-order-service"
+      },
+      {
+        "label": "C",
+        "text": "ts-contacts-service"
+      },
+      {
+        "label": "D",
+        "text": "ts-order-service"
+      }
+    ],
+    "answer_label": "C",
+    "answer_value": "ts-contacts-service",
+    "visual_primitive": "P1",
+    "metadata": {
+      "rank": 1
+    }
+  },
+  {
+    "task_id": "propagation_onset",
+    "category": "topology_time",
+    "question": "What relative onset value is printed on the row for ts-admin-order-service in the Anomaly propagation panel?",
+    "options": [
+      {
+        "label": "A",
+        "text": "+4.0m"
+      },
+      {
+        "label": "B",
+        "text": "+6.7m"
+      },
+      {
+        "label": "C",
+        "text": "+5.0m"
+      },
+      {
+        "label": "D",
+        "text": "+5.3m"
+      }
+    ],
+    "answer_label": "C",
+    "answer_value": "+5.0m",
+    "visual_primitive": "P1",
+    "metadata": {}
+  },
+  {
+    "task_id": "log_value",
+    "category": "table_log",
+    "question": "In the Log signals table, what value is printed in the err column for ts-preserve-service?",
+    "options": [
+      {
+        "label": "A",
+        "text": "993"
+      },
+      {
+        "label": "B",
+        "text": "115"
+      },
+      {
+        "label": "C",
+        "text": "15"
+      },
+      {
+        "label": "D",
+        "text": "96"
+      }
+    ],
+    "answer_label": "C",
+    "answer_value": "15",
+    "visual_primitive": "G1",
+    "metadata": {
+      "log_mode": "errors",
+      "column": "err"
+    }
+  },
+  {
+    "task_id": "trace_value",
+    "category": "table_trace",
+    "question": "In the Trace signals table, what compact value is printed in the during column for ts-assurance-service?",
+    "options": [
+      {
+        "label": "A",
+        "text": "19.0k"
+      },
+      {
+        "label": "B",
+        "text": "3.99"
+      },
+      {
+        "label": "C",
+        "text": "130.6k"
+      },
+      {
+        "label": "D",
+        "text": "n/a"
+      }
+    ],
+    "answer_label": "D",
+    "answer_value": "n/a",
+    "visual_primitive": "R1",
+    "metadata": {}
+  },
+  {
+    "task_id": "topology_edge",
+    "category": "topology_edge",
+    "question": "Which unordered service pair is joined by one of the visible curved arrows in the Anomaly propagation panel?",
+    "options": [
+      {
+        "label": "A",
+        "text": "ts-contacts-service ↔ ts-security-service"
+      },
+      {
+        "label": "B",
+        "text": "ts-contacts-service ↔ ts-order-service"
+      },
+      {
+        "label": "C",
+        "text": "ts-contacts-service ↔ ts-ui-dashboard"
+      },
+      {
+        "label": "D",
+        "text": "ts-admin-order-service ↔ ts-contacts-service"
+      }
+    ],
+    "answer_label": "C",
+    "answer_value": "ts-contacts-service ↔ ts-ui-dashboard",
+    "visual_primitive": "P1",
+    "metadata": {
+      "variant": "pair"
+    }
+  }
+]

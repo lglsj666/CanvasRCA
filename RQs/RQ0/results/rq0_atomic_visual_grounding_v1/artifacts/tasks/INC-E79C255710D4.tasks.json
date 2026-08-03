@@ -1,0 +1,198 @@
+[
+  {
+    "task_id": "metric_service",
+    "category": "metric_identity",
+    "question": "Which option is the service name shown in the title of panel [M11]?",
+    "options": [
+      {
+        "label": "A",
+        "text": "adservice-2"
+      },
+      {
+        "label": "B",
+        "text": "cartservice-1"
+      },
+      {
+        "label": "C",
+        "text": "node-4"
+      },
+      {
+        "label": "D",
+        "text": "istio-ingressgateway-565bffd4d-4nr6v"
+      }
+    ],
+    "answer_label": "C",
+    "answer_value": "node-4",
+    "visual_primitive": "M11",
+    "metadata": {}
+  },
+  {
+    "task_id": "metric_direction",
+    "category": "metric_pattern",
+    "question": "From the printed baseline-to-peak annotation beneath panel [M2], what is the direction of change?",
+    "options": [
+      {
+        "label": "A",
+        "text": "not shown"
+      },
+      {
+        "label": "B",
+        "text": "approximately unchanged"
+      },
+      {
+        "label": "C",
+        "text": "increase"
+      },
+      {
+        "label": "D",
+        "text": "decrease"
+      }
+    ],
+    "answer_label": "C",
+    "answer_value": "increase",
+    "visual_primitive": "M2",
+    "metadata": {}
+  },
+  {
+    "task_id": "propagation_rank",
+    "category": "topology_order",
+    "question": "Which service is printed at rank 3 in the Anomaly propagation panel?",
+    "options": [
+      {
+        "label": "A",
+        "text": "redis-cart"
+      },
+      {
+        "label": "B",
+        "text": "cartservice"
+      },
+      {
+        "label": "C",
+        "text": "checkoutservice"
+      },
+      {
+        "label": "D",
+        "text": "paymentservice"
+      }
+    ],
+    "answer_label": "B",
+    "answer_value": "cartservice",
+    "visual_primitive": "P1",
+    "metadata": {
+      "rank": 3
+    }
+  },
+  {
+    "task_id": "propagation_onset",
+    "category": "topology_time",
+    "question": "What relative onset value is printed on the row for adservice in the Anomaly propagation panel?",
+    "options": [
+      {
+        "label": "A",
+        "text": "+20.0m"
+      },
+      {
+        "label": "B",
+        "text": "+36.0m"
+      },
+      {
+        "label": "C",
+        "text": "+23.0m"
+      },
+      {
+        "label": "D",
+        "text": "+22.0m"
+      }
+    ],
+    "answer_label": "B",
+    "answer_value": "+36.0m",
+    "visual_primitive": "P1",
+    "metadata": {}
+  },
+  {
+    "task_id": "log_value",
+    "category": "table_log",
+    "question": "In the Log signals table, what value is printed in the during column for checkoutservice-1?",
+    "options": [
+      {
+        "label": "A",
+        "text": "3"
+      },
+      {
+        "label": "B",
+        "text": "28"
+      },
+      {
+        "label": "C",
+        "text": "0"
+      },
+      {
+        "label": "D",
+        "text": "1"
+      }
+    ],
+    "answer_label": "C",
+    "answer_value": "0",
+    "visual_primitive": "G1",
+    "metadata": {
+      "log_mode": "volume",
+      "column": "during"
+    }
+  },
+  {
+    "task_id": "trace_value",
+    "category": "table_trace",
+    "question": "In the Trace signals table, what compact value is printed in the during column for checkoutservice-2?",
+    "options": [
+      {
+        "label": "A",
+        "text": "0.08"
+      },
+      {
+        "label": "B",
+        "text": "0.30"
+      },
+      {
+        "label": "C",
+        "text": "0.07"
+      },
+      {
+        "label": "D",
+        "text": "23"
+      }
+    ],
+    "answer_label": "D",
+    "answer_value": "23",
+    "visual_primitive": "R1",
+    "metadata": {}
+  },
+  {
+    "task_id": "topology_edge",
+    "category": "topology_edge",
+    "question": "Which unordered service pair is joined by one of the visible curved arrows in the Anomaly propagation panel?",
+    "options": [
+      {
+        "label": "A",
+        "text": "paymentservice ↔ redis-cart"
+      },
+      {
+        "label": "B",
+        "text": "checkoutservice ↔ currencyservice"
+      },
+      {
+        "label": "C",
+        "text": "checkoutservice ↔ redis-cart"
+      },
+      {
+        "label": "D",
+        "text": "cartservice ↔ redis-cart"
+      }
+    ],
+    "answer_label": "B",
+    "answer_value": "checkoutservice ↔ currencyservice",
+    "visual_primitive": "P1",
+    "metadata": {
+      "variant": "pair"
+    }
+  }
+]

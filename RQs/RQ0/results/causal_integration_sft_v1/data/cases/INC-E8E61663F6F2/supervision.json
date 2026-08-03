@@ -1,0 +1,35 @@
+{
+  "schema_version": "CausalIntegrationSFTV1",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "ts-route-service",
+  "hard_symptom_candidate": "rabbitmq",
+  "contrast_type": "direct_root_evidence_over_onset_salience",
+  "caller_path": null,
+  "root_evidence": {
+    "source": "metric",
+    "rank": 1,
+    "service": "ts-route-service-757558799f-jzjhg",
+    "metric": "k8s.container.ready",
+    "signed_z": -999.0,
+    "persistence_bins": 0,
+    "onset_rel_s": null
+  },
+  "symptom_evidence": {
+    "rank": 1,
+    "service": "rabbitmq",
+    "onset_rel_s": 262.8,
+    "severity_z": 697.564,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "ts-route-service",
+      "rabbitmq"
+    ],
+    "reason": "Rank ts-route-service first because ts-route-service has direct k8s.container.ready evidence (signed-z -999, persistence 0 bins); rabbitmq is second despite propagation rank 1 because onset ordering alone does not establish the causal origin.",
+    "confidence": "medium"
+  },
+  "target_text": "{\"confidence\":\"medium\",\"reason\":\"Rank ts-route-service first because ts-route-service has direct k8s.container.ready evidence (signed-z -999, persistence 0 bins); rabbitmq is second despite propagation rank 1 because onset ordering alone does not establish the causal origin.\",\"services\":[\"ts-route-service\",\"rabbitmq\"]}"
+}

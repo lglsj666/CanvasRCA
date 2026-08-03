@@ -1,0 +1,38 @@
+{
+  "schema_version": "CausalIntegrationSFTV1",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "checkoutservice-1",
+  "hard_symptom_candidate": "frontend-0",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "frontend",
+    "checkoutservice"
+  ],
+  "root_evidence": {
+    "source": "metric",
+    "rank": 2,
+    "service": "checkoutservice-1",
+    "metric": "container_cpu_cfs_throttled_seconds",
+    "signed_z": 999.0,
+    "persistence_bins": 2,
+    "onset_rel_s": 1517.344
+  },
+  "symptom_evidence": {
+    "rank": 8,
+    "service": "frontend",
+    "onset_rel_s": 1560.0,
+    "severity_z": 126.333,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "checkoutservice-1",
+      "frontend-0"
+    ],
+    "reason": "Rank checkoutservice-1 first because checkoutservice-1 has direct container_cpu_cfs_throttled_seconds evidence (signed-z 999, persistence 2 bins); although frontend-0 is salient, the caller path frontend -> checkoutservice means a disturbance in the callee can propagate back toward that caller-side symptom.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank checkoutservice-1 first because checkoutservice-1 has direct container_cpu_cfs_throttled_seconds evidence (signed-z 999, persistence 2 bins); although frontend-0 is salient, the caller path frontend -> checkoutservice means a disturbance in the callee can propagate back toward that caller-side symptom.\",\"services\":[\"checkoutservice-1\",\"frontend-0\"]}"
+}

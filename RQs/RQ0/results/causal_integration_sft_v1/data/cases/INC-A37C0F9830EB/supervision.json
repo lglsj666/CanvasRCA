@@ -1,0 +1,38 @@
+{
+  "schema_version": "CausalIntegrationSFTV1",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "ts-security-service",
+  "hard_symptom_candidate": "ts-preserve-service",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "ts-preserve-service",
+    "ts-security-service"
+  ],
+  "root_evidence": {
+    "source": "metric",
+    "rank": 3,
+    "service": "ts-security-service",
+    "metric": "container.filesystem.usage",
+    "signed_z": 848.404,
+    "persistence_bins": 32,
+    "onset_rel_s": 242.365
+  },
+  "symptom_evidence": {
+    "rank": 4,
+    "service": "ts-preserve-service",
+    "onset_rel_s": 352.2,
+    "severity_z": 38.0,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "ts-security-service",
+      "ts-preserve-service"
+    ],
+    "reason": "Rank ts-security-service first because ts-security-service has direct container.filesystem.usage evidence (signed-z 848.4, persistence 32 bins); although ts-preserve-service is salient, the caller path ts-preserve-service -> ts-security-service means a disturbance in the callee can propagate back toward that caller-side symptom.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank ts-security-service first because ts-security-service has direct container.filesystem.usage evidence (signed-z 848.4, persistence 32 bins); although ts-preserve-service is salient, the caller path ts-preserve-service -> ts-security-service means a disturbance in the callee can propagate back toward that caller-side symptom.\",\"services\":[\"ts-security-service\",\"ts-preserve-service\"]}"
+}

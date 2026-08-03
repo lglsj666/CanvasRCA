@@ -1,0 +1,54 @@
+{
+  "schema_version": "CausalIntegrationSFTV2",
+  "eligible": true,
+  "accepted_label_group_count": 1,
+  "exclusion_reason": null,
+  "root_candidate": "checkoutservice-0",
+  "hard_symptom_candidate": "frontend",
+  "contrast_type": "caller_path_to_root",
+  "caller_path": [
+    "frontend",
+    "checkoutservice"
+  ],
+  "root_evidence": {
+    "source": "trace",
+    "rank": 6,
+    "service": "checkoutservice",
+    "summary": {
+      "service": "checkoutservice",
+      "p95_pre_ms": 1240.809049999998,
+      "p95_during_ms": 1329.76685,
+      "delta_pct": 7.2,
+      "error_pct": 0.0,
+      "spans": 702
+    }
+  },
+  "symptom_evidence": {
+    "rank": 10,
+    "service": "frontend",
+    "onset_rel_s": 1740.0,
+    "severity_z": 16.402,
+    "evidence_source": "metric"
+  },
+  "target_object": {
+    "services": [
+      "checkoutservice-0",
+      "tidb-tidb",
+      "cartservice",
+      "redis-cart",
+      "frontend"
+    ],
+    "reason": "Rank checkoutservice-0 first because checkoutservice-0 has direct trace evidence; although frontend is salient, the caller path frontend -> checkoutservice means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.",
+    "confidence": "high"
+  },
+  "target_text": "{\"confidence\":\"high\",\"reason\":\"Rank checkoutservice-0 first because checkoutservice-0 has direct trace evidence; although frontend is salient, the caller path frontend -> checkoutservice means a disturbance in the callee can propagate back toward that caller-side symptom. The remaining entries preserve evidence-supported alternatives so the ranking retains calibrated uncertainty instead of collapsing to one answer.\",\"services\":[\"checkoutservice-0\",\"tidb-tidb\",\"cartservice\",\"redis-cart\",\"frontend\"]}",
+  "curriculum_role": "base_wrong_correction",
+  "base_predictions_private_training_only": [
+    "tidb-tidb",
+    "cartservice",
+    "redis-cart",
+    "checkoutservice",
+    "frontend"
+  ],
+  "base_top1_correct": false
+}

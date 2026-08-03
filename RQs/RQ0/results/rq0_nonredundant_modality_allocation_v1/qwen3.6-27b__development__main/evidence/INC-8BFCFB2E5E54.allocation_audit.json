@@ -1,0 +1,34 @@
+{
+  "schema_version": "AllocationRepresentationAuditV1",
+  "ceb_hash": "37da4004f9a20337e7c57bfc2d8047cca160689560ffd31986757ef77a9c91c0",
+  "source_fact_inventory_hash": "e16d5cb2f84128f8d473fe62218da18e5719fa0e24eeb9a3a3ec358fd216c64a",
+  "common_summary_sha256": "3e0d1460294044393641dbf26ec0eb5ea6d2d8a61bdf92c2badead650ddb288b",
+  "dense_appendix_sha256": "539059a898e10a4b896136e18b293e8fcf4db28adb56b1490d09209b4a38ece1",
+  "full_text_sha256": "ee61e561013b0342453b7b87d25c1103191d6ba5c439d72e17d3f55fda56dacd",
+  "arms": {
+    "allocated_visual_text": {
+      "common_summary_sha256": "3e0d1460294044393641dbf26ec0eb5ea6d2d8a61bdf92c2badead650ddb288b",
+      "dense_transport": "dashboard_pixels",
+      "source_fact_inventory_hash": "e16d5cb2f84128f8d473fe62218da18e5719fa0e24eeb9a3a3ec358fd216c64a",
+      "exact_scalar_text_transport": false
+    },
+    "duplicated_visual_text": {
+      "common_summary_sha256": "3e0d1460294044393641dbf26ec0eb5ea6d2d8a61bdf92c2badead650ddb288b",
+      "dense_transport": "dashboard_pixels_and_lossless_text",
+      "full_text_sha256": "ee61e561013b0342453b7b87d25c1103191d6ba5c439d72e17d3f55fda56dacd",
+      "source_fact_inventory_hash": "e16d5cb2f84128f8d473fe62218da18e5719fa0e24eeb9a3a3ec358fd216c64a",
+      "exact_scalar_text_transport": true
+    },
+    "full_text_only": {
+      "common_summary_sha256": "3e0d1460294044393641dbf26ec0eb5ea6d2d8a61bdf92c2badead650ddb288b",
+      "dense_transport": "lossless_text",
+      "full_text_sha256": "ee61e561013b0342453b7b87d25c1103191d6ba5c439d72e17d3f55fda56dacd",
+      "source_fact_inventory_hash": "e16d5cb2f84128f8d473fe62218da18e5719fa0e24eeb9a3a3ec358fd216c64a",
+      "exact_scalar_text_transport": true
+    }
+  },
+  "a_b_text_byte_identical": true,
+  "common_summary_byte_identical_all_arms": true,
+  "source_fact_inventory_equal_all_arms": true,
+  "disclosure": "D transports dense metric shapes and topology visually rather than providing the exact scalar appendix in text; this is an equal-source development mechanism test, not the registered RQ0 endpoint."
+}

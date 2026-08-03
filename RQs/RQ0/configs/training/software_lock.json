@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "captured_for": "causal_integration_sft_v1",
+  "environment": "venvs/train",
+  "python": "3.12.3",
+  "packages": {
+    "torch": "2.9.1+cu128",
+    "transformers": "5.8.1",
+    "peft": "0.18.0",
+    "trl": "0.29.1",
+    "accelerate": "1.12.0",
+    "datasets": "4.4.1",
+    "flash_attn": "2.8.3",
+    "flash-linear-attention": "0.5.2",
+    "fla-core": "0.5.2",
+    "pillow": "12.3.0"
+  },
+  "cuda_runtime": "12.8",
+  "host": {
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Workstation Edition",
+    "gpu_memory_mib_nvidia_smi": 97887,
+    "gpu_total_memory_bytes_torch": 102641500160,
+    "nvidia_driver": "596.36"
+  },
+  "kernels": {
+    "full_attention": "flash-attention-2",
+    "gated_delta_rule": "flash-linear-attention Triton chunk kernel",
+    "causal_conv1d": "PyTorch fallback",
+    "causal_conv1d_fallback_reason": "No local nvcc; source wheel build is unavailable"
+  },
+  "quantization": null
+}
