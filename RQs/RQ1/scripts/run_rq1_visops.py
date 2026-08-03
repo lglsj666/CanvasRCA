@@ -36,6 +36,7 @@ class _GPUAccounting:
     def __init__(self, interval_s: float = 0.05) -> None:
         self.interval_s = interval_s
         self._stop = threading.Event()
+        self._ready = threading.Event()
         self._thread: threading.Thread | None = None
         self._samples: list[tuple[float, float, int]] = []
         self._error: Exception | None = None
@@ -47,14 +48,23 @@ class _GPUAccounting:
 
                 pynvml.nvmlInit()
                 handle = pynvml.nvmlDeviceGetHandleByIndex(0)
-                while not self._stop.is_set():
+                # Take a synchronized sample before the request starts.  Some
+                # short text operations finish in less than the 50 ms sampling
+                # interval; without this handshake the worker may observe only
+                # the final sample and incorrectly classify a successful call
+                # as an accounting/infrastructure failure.
+                now = time.monotonic()
+                utilization = float(pynvml.nvmlDeviceGetUtilizationRates(handle).gpu)
+                memory = int(pynvml.nvmlDeviceGetMemoryInfo(handle).used)
+                self._samples.append((now, utilization, memory))
+                self._ready.set()
+                while not self._stop.wait(self.interval_s):
                     now = time.monotonic()
                     utilization = float(
                         pynvml.nvmlDeviceGetUtilizationRates(handle).gpu
                     )
                     memory = int(pynvml.nvmlDeviceGetMemoryInfo(handle).used)
                     self._samples.append((now, utilization, memory))
-                    self._stop.wait(self.interval_s)
                 now = time.monotonic()
                 utilization = float(pynvml.nvmlDeviceGetUtilizationRates(handle).gpu)
                 memory = int(pynvml.nvmlDeviceGetMemoryInfo(handle).used)
@@ -62,11 +72,16 @@ class _GPUAccounting:
                 pynvml.nvmlShutdown()
             except Exception as exc:  # noqa: BLE001 - accounting must fail closed
                 self._error = exc
+                self._ready.set()
 
         self._thread = threading.Thread(
             target=sample, name="rq1-gpu-accounting", daemon=True
         )
         self._thread.start()
+        if not self._ready.wait(timeout=5):
+            raise ContractError("GPU accounting did not initialize within 5 seconds")
+        if self._error is not None:
+            raise ContractError(f"GPU accounting failed to initialize: {self._error}")
         return self
 
     def __exit__(self, *_args: object) -> None:
