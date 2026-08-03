@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://canvasrca.local/schemas/exposure_ledger_v2.schema.json",
+  "title": "CanvasRCA project-wide exposure ledger v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "scope",
+    "cutoff_git_commit",
+    "unknown_case_policy",
+    "unused_policy",
+    "exposure_assignment_hash",
+    "exposures"
+  ],
+  "properties": {
+    "schema_version": {"const": "CanvasRCAExposureLedgerV2"},
+    "status": {"const": "frozen"},
+    "scope": {"const": "project_history_complete_through_cutoff"},
+    "cutoff_git_commit": {"type": "string", "pattern": "^[a-fA-F0-9]{7,64}$"},
+    "unknown_case_policy": {"const": "reject"},
+    "unused_policy": {"const": "terminal_embargo"},
+    "exposure_assignment_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "exposures": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "private_case_id",
+          "analysis_dataset",
+          "analysis_leakage_group_id",
+          "exposure_status",
+          "eligibility_status",
+          "allowed_uses",
+          "sources"
+        ],
+        "properties": {
+          "private_case_id": {"type": "string", "minLength": 1},
+          "analysis_dataset": {"type": "string", "minLength": 1},
+          "analysis_leakage_group_id": {
+            "type": ["string", "null"],
+            "minLength": 1
+          },
+          "exposure_status": {"const": "exposed"},
+          "eligibility_status": {
+            "enum": ["eligible", "invalid", "embargoed"]
+          },
+          "allowed_uses": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {"type": "string", "minLength": 1}
+          },
+          "sources": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {"type": "string", "minLength": 1}
+          }
+        }
+      }
+    }
+  }
+}

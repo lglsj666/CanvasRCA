@@ -1,0 +1,170 @@
+schema_version: RQ1ExperimentConfigV1
+experiment_id: rq1b_visops_v1
+research_question: >-
+  Under equal evidence access and matched investigation budgets, when and how
+  does visual-text, topology-aware observability provide incremental value for
+  VLM-based RCA?
+registered_description: RQs/RQ1/descriptions/rq1_protocol_v1.md
+roadmap: RQs/RQ1/descriptions/RQ1RoadMap.md
+seed: 42
+
+execution:
+  enabled: false
+  stage: static_implementation_only
+  blocker: >-
+    Freeze an exposed-only roster, exposure lineage, operation eligibility,
+    power analysis, renderer qualification, prompt hashes, and run contract
+    before enabling inference.
+  long_running_inference_allowed: false
+  training_allowed: false
+  heldout_access_allowed: false
+
+data:
+  source_root: dataset/processed
+  source_mode: read_only
+  allowed_partition: exposed_development_only
+  roster: RQs/RQ1/configs/rosters/rq1b_visops_exposed_development_v1.json
+  roster_status_required_for_execution: frozen
+  exposure_ledger_schema: RQs/RQ1/configs/schemas/exposure_ledger_v2.schema.json
+  private_selection_schema: RQs/RQ1/configs/schemas/private_exposed_selection_v1.schema.json
+  public_roster_schema: RQs/RQ1/configs/schemas/public_roster_v1.schema.json
+  private_roster_schema: RQs/RQ1/configs/schemas/private_roster_v1.schema.json
+  label_use: evaluation_only
+  task_truth_source: supplied_atomic_facts_only
+  maximum_workers: 4
+
+contracts:
+  query_spec_schema: RQs/RQ1/configs/schemas/query_spec_v1.schema.json
+  paired_view_schema: RQs/RQ1/configs/schemas/paired_view_audit_v1.schema.json
+  evidence_ledger_schema: RQs/RQ1/configs/schemas/evidence_ledger_v2.schema.json
+  private_answer_key_schema: RQs/RQ1/configs/schemas/visops_answer_key_v1.schema.json
+  canonical_source_compatibility: CanonicalEvidenceBundleV1
+  canonical_source_required_for_execution: CanonicalEvidenceStoreV2WithDenseLogAndTraceTimeSlices
+  atomic_fact_schema: AtomicFactV1
+  query_schema: QuerySpecV1
+  ledger_schema: EvidenceLedgerV2
+  prompt_hybrid_composition: A_PLUS_B
+  prompt_rewrite_or_deduplication: forbidden
+  exact_fact_inventory_equality: required
+  fail_closed_on_parity_or_leakage_failure: true
+
+visops:
+  arms:
+    T: text
+    V: visual
+    H: bounded_hybrid
+  hybrid_order: visual_then_text
+  operation_families:
+    exact_lookup:
+      - metric_exact_lookup
+      - log_exact_lookup
+      - trace_exact_lookup
+    temporal_scanning:
+      - earliest_onset
+      - longest_persistence
+    topology_path:
+      - directed_edge
+      - multi_hop_path
+    cross_modal_alignment:
+      - entity_modality_alignment
+    missingness_uncertainty:
+      - metric_missingness
+  omission_policy: omit_only_when_frozen_label_blind_eligibility_fails
+  answer_judge: deterministic_exact_or_set_match
+
+factorial_followup:
+  status: blocked_until_visops_gate
+  factors:
+    metrics: [text, visual]
+    logs: [text, visual_hybrid_with_representative_text]
+    traces_topology: [text, visual]
+  arms: [TTT, VTT, TVT, TTV, VVT, VTV, TVV, VVV]
+  primary_effects: [metrics_visual, logs_visual, traces_topology_visual]
+  interactions: [metrics_logs, metrics_traces, logs_traces, three_way]
+
+models:
+  primary:
+    tag: gemma-4-26b-a4b
+    checkpoint: models/gemma-4-26B-A4B-it
+    served_model_name: google/gemma-4-26B-A4B-it
+    batch_invariant: true
+    thinking_via_template: false
+  architecture_control:
+    tag: qwen3.6-27b
+    checkpoint: models/Qwen3.6-27B
+    served_model_name: Qwen/Qwen3.6-27B
+    batch_invariant: false
+    thinking_via_template: true
+  quantization: null
+  dtype: bfloat16
+
+inference:
+  unified_client: RQs/vlmrca/vlm/client.py
+  unified_model_config: RQs/vlmrca/vlm/configs.py
+  base_url: http://127.0.0.1:8000/v1
+  host: 0.0.0.0
+  port: 8000
+  vllm_python: venvs/infer/bin/python
+  max_model_len: 32768
+  max_tokens: 16384
+  temperature: 0.0
+  top_p: 1.0
+  seed: 42
+  disable_thinking: true
+  gpu_memory_utilization: 0.65
+  max_num_seqs: 8
+  max_images_per_prompt: 8
+  max_videos_per_prompt: 0
+  generation_config: vllm
+  enable_prefix_caching: false
+  enable_chunked_prefill: false
+  async_scheduling: false
+  use_flashinfer_sampler: false
+  gdn_prefill_backend: triton
+  moe_backend: triton
+  triton_force_first_config: true
+  enforce_eager: true
+  request_timeout_sec: 1800
+  wait_timeout_sec: 1800
+  retry_attempts: 3
+  tensor_parallel_size: 1
+  cublas_workspace_config: ":4096:8"
+  trust_remote_code: true
+  enable_log_requests: false
+  extra_server_args: []
+  process_identity_is_validity_criterion: false
+
+integrity:
+  minimum_parse_rate: 0.95
+  maximum_paired_whole_case_infrastructure_exclusion_fraction: 0.05
+  parse_failure_is_model_outcome: true
+  truncation_is_model_outcome: true
+  require_opaque_incident_id: true
+  forbid_absolute_time: true
+  forbid_raw_case_id_dataset_fault_type_and_labels: true
+  require_relative_time: true
+  require_renderer_determinism: true
+  require_model_visible_location_map: true
+  require_prompt_fragment_hashes: true
+
+gates:
+  rq1b_visops:
+    status: requires_power_analysis_and_preregistration_amendment
+    requirements:
+      - visual_advantage_on_temporal_relational_or_alignment_operations
+      - text_advantage_or_noninferiority_on_exact_lookup_or_log_semantics
+      - oracle_router_outperforms_best_fixed_representation
+  rq1c_matched_plan:
+    status: blocked_until_rq1b_passes
+  rq1d_causal_visual_utilization:
+    status: blocked_until_routed_observer_passes
+
+reporting:
+  paired_case_level: true
+  per_dataset: true
+  per_operation_family: true
+  per_telemetry_modality: true
+  cluster_aiops2022_by_leakage_group_id: true
+  report_confidence_intervals: false
+  report_tokens_wall_time_gpu_time: true
+  report_repair_break_and_net_correction: true

@@ -1,0 +1,19 @@
+extends: rq1b_visops_mapping_v1.yaml
+experiment_id: rq1b_visops_smoke_v1
+power_and_gate: RQs/RQ1/descriptions/rq1b_visops_smoke_contract_v1.md
+
+execution:
+  stage: rq1b_validation_smoke_registered
+  requires_smoke_qualification: false
+  partial_result_policy: diagnostic_only_excluded_from_efficacy_and_model_selection
+
+data:
+  allowed_partition: validation_smoke_only
+  roster: RQs/RQ1/configs/rosters/rq1b_visops_smoke_public_v1.json
+  private_roster: RQs/RQ1/configs/rosters/rq1b_visops_smoke_private_v1.json
+  mapping_cases_per_dataset: null
+  mapping_case_total: 3
+
+gates:
+  rq1b_visops_mapping:
+    status: blocked_until_this_smoke_passes
