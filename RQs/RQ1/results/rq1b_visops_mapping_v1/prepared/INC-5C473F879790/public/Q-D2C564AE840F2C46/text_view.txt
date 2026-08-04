@@ -1,0 +1,6 @@
+VIEW {"fact_inventory_hash":"cc757e1dc5a7fde99030bd8c03d610ba5b94bc7b1fde02ccf317b772f7e33967","query_hash":"140bf371cc796b4a3ef14a45a11698dec48413e1301b0c30ee81f227171da481","query_id":"Q-D2C564AE840F2C46","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"trace","entity":"recommendationservice-1","fact_id":"FD5D636FE6160","field":"bin_center_rel_s","relative_bin":19,"unit":"relative_seconds","value":712.96875}
+FACT {"domain":"trace","entity":"recommendationservice-1","fact_id":"FE09ECC61FC1E","field":"error_count","relative_bin":19,"unit":"spans","value":0}
+FACT {"domain":"trace","entity":"recommendationservice-1","fact_id":"F63AA8449299D","field":"latency_p95_ms","relative_bin":19,"unit":"milliseconds","value":2.402}
+FACT {"domain":"trace","entity":"recommendationservice-1","fact_id":"FFA13564ACFF5","field":"service","relative_bin":19,"unit":null,"value":"recommendationservice-1"}
+FACT {"domain":"trace","entity":"recommendationservice-1","fact_id":"F24CD3EAF8AB5","field":"span_count","relative_bin":19,"unit":"spans","value":26}

@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"85271ee09bfa716a0981f16f8a2773ebeef5f8c9e0afd30ee5fa63c8a2440a0e","query_hash":"17996b82928fa7d1fa179f37da0acceec8aabd009fbeb8b3f85bb25fb1593648","query_id":"Q-FD8A4EE774CFFBD6","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"log","entity":"cartservice-1","fact_id":"F5CBFA36B1712","field":"bin_center_rel_s","relative_bin":32,"unit":"relative_seconds","value":1188.28125}
+FACT {"domain":"log","entity":"cartservice-1","fact_id":"F32BBF667A86A","field":"dominant_template","relative_bin":32,"unit":null,"value":"[40m\u001b[32minfo\u001b[39m\u001b[22m\u001b[49m: microsoft.aspnetcore.hosting.diagnostics[<v>]"}
+FACT {"domain":"log","entity":"cartservice-1","fact_id":"F433C891D6A6E","field":"dominant_template_count","relative_bin":32,"unit":"events","value":18}
+FACT {"domain":"log","entity":"cartservice-1","fact_id":"F9F2508F62332","field":"dominant_template_id","relative_bin":32,"unit":null,"value":"LT-B2D14A5C92F1"}
+FACT {"domain":"log","entity":"cartservice-1","fact_id":"F6F45D6675A46","field":"error_count","relative_bin":32,"unit":"events","value":0}
+FACT {"domain":"log","entity":"cartservice-1","fact_id":"F353085B20086","field":"event_count","relative_bin":32,"unit":"events","value":90}
+FACT {"domain":"log","entity":"cartservice-1","fact_id":"F9800E144B52D","field":"service","relative_bin":32,"unit":null,"value":"cartservice-1"}

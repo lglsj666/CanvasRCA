@@ -1,0 +1,11 @@
+# RQ1 VisOps conversation — Q-CFDA92D1D1AABE04 — V
+
+- opaque incident: `INC-2E2F3D08DFAB`
+- model: `qwen3.6-27b`
+- prompt hash: `89c77511da0bf3c7777dd7dd951d013594360d3e08ef7b3609ce68ed7cf4adfb`
+- visual hash: `e70a5d5d8e4fa8815370cd441a23158182cf5ec7d767a77904138c6a01d57ac6`
+- text hash: `5ea1e283c99f033337a9870276304c609deb059ba4fa6cdac7b95428ee058818`
+
+## Response
+
+{"answer": ["ts-ticket-office-service"]}

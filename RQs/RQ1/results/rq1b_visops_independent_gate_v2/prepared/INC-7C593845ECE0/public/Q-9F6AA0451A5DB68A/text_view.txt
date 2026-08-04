@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"eab4110be6eb7786e8434a51fa0dae3d161703d9263df71ff623e4b90be995e5","query_hash":"588a285e4382755763594909018dcd68d9f2aa57927669d03930662d7b9d47ef","query_id":"Q-9F6AA0451A5DB68A","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"cartservice-0","fact_id":"FEE6F06D739AA","field":"metric","relative_bin":null,"unit":null,"value":"istio_request_bytes.grpc.0.2.0"}
+FACT {"domain":"metric","entity":"cartservice-0","fact_id":"FC556030C8D8D","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"cartservice-0","fact_id":"FEEE022997C87","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"cartservice-0","fact_id":"F7EEA4FAF16FC","field":"service","relative_bin":null,"unit":null,"value":"cartservice-0"}
+FACT {"domain":"metric","entity":"cartservice-1","fact_id":"FD3448AC050E0","field":"metric","relative_bin":null,"unit":null,"value":"istio_request_bytes.grpc.0.2.0"}
+FACT {"domain":"metric","entity":"cartservice-1","fact_id":"F1DE5F85F08B2","field":"panel_id","relative_bin":null,"unit":null,"value":"M3"}
+FACT {"domain":"metric","entity":"cartservice-1","fact_id":"F3E9D028AC47C","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"cartservice-1","fact_id":"FDB93CAC7ED20","field":"service","relative_bin":null,"unit":null,"value":"cartservice-1"}
+FACT {"domain":"metric","entity":"cartservice-2","fact_id":"FAA8ACAC81A9D","field":"metric","relative_bin":null,"unit":null,"value":"istio_request_duration_milliseconds.grpc.200.0.0"}
+FACT {"domain":"metric","entity":"cartservice-2","fact_id":"F4A29A52E475A","field":"panel_id","relative_bin":null,"unit":null,"value":"M5"}
+FACT {"domain":"metric","entity":"cartservice-2","fact_id":"F66E13C6F455B","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":18}
+FACT {"domain":"metric","entity":"cartservice-2","fact_id":"F005CE619A8BA","field":"service","relative_bin":null,"unit":null,"value":"cartservice-2"}
+FACT {"domain":"metric","entity":"checkoutservice-0","fact_id":"F50B51885F052","field":"metric","relative_bin":null,"unit":null,"value":"istio_request_bytes.grpc.0.2.0"}
+FACT {"domain":"metric","entity":"checkoutservice-0","fact_id":"F14D5092A7E35","field":"panel_id","relative_bin":null,"unit":null,"value":"M6"}
+FACT {"domain":"metric","entity":"checkoutservice-0","fact_id":"F6683BAB911C7","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"checkoutservice-0","fact_id":"FE7792619DBDE","field":"service","relative_bin":null,"unit":null,"value":"checkoutservice-0"}

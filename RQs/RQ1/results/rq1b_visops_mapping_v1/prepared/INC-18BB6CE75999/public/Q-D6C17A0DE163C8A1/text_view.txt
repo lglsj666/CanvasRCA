@@ -1,0 +1,25 @@
+VIEW {"fact_inventory_hash":"0cc7078d49b2e5e2d9b70f44b4d7ffd67211266d330f0b2644ccd68af0b638de","query_hash":"35df6d1bfc928e4e6960d908fd94b37c6ed2ae586fd715cf9b8155557f5b8d02","query_id":"Q-D6C17A0DE163C8A1","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"coverage","entity":"adservice-0","fact_id":"F09B9AF128A62","field":"log_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"adservice-0","fact_id":"FF8A190D90DEB","field":"metric_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"adservice-0","fact_id":"FD2C022426212","field":"trace_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"adservice-1","fact_id":"F9DDDCEEBA40E","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"adservice-1","fact_id":"F6E9940AE0B5A","field":"metric_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"adservice-1","fact_id":"FB323130E5C00","field":"trace_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"adservice-2","fact_id":"FEF04218EA054","field":"log_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"adservice-2","fact_id":"FCB160872AB39","field":"metric_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"adservice-2","fact_id":"FDC77EEA4B693","field":"trace_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"currencyservice-2","fact_id":"F98EB9FDA6C56","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"currencyservice-2","fact_id":"F708ED3301834","field":"metric_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"currencyservice-2","fact_id":"FD12FAE3AD9B0","field":"trace_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"frontend-1","fact_id":"FDA4BAD3CFE58","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"frontend-1","fact_id":"F30516A8A63FB","field":"metric_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"frontend-1","fact_id":"FE49FEA772A37","field":"trace_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"frontend","fact_id":"F79989B127E91","field":"log_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"frontend","fact_id":"FB6C0548238B0","field":"metric_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"frontend","fact_id":"FBF43B28C510D","field":"trace_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"recommendationservice-2","fact_id":"F32645C023681","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"recommendationservice-2","fact_id":"F03FA5F73E145","field":"metric_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"recommendationservice-2","fact_id":"F5528D1C40D6C","field":"trace_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"recommendationservice","fact_id":"FF956D7C7C378","field":"log_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"recommendationservice","fact_id":"FEFB3E93AAF54","field":"metric_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"recommendationservice","fact_id":"F30E23CF8F95C","field":"trace_available","relative_bin":null,"unit":null,"value":true}

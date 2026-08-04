@@ -1,0 +1,9 @@
+{
+  "schema_version": "CanvasRCAInvalidatedRunV1",
+  "status": "invalid_infrastructure_only",
+  "validity": "excluded_from_smoke_qualification_efficacy_and_all_model_comparisons",
+  "reason": "The runner used venvs/tools, which lacks pynvml. GPU accounting failed before every model request.",
+  "model_requests_sent": 0,
+  "calls_persisted_as_infrastructure_errors": 9,
+  "replacement_policy": "A new run must use venvs/infer and a distinct valid output directory; these artifacts remain invalid permanently."
+}

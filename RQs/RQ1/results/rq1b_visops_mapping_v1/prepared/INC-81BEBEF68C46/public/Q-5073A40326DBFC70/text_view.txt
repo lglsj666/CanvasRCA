@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"4f659a1aa9eeb17dc74a5775174c98ff23e8469aaca24a40ade85ce9641802c7","query_hash":"6edfcd988e6e5c6e3929c72220b0f3e36900c8b82d812e7d37b82a18a80994e7","query_id":"Q-5073A40326DBFC70","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"log","entity":"adservice-1","fact_id":"F7CDAF9764245","field":"bin_center_rel_s","relative_bin":63,"unit":"relative_seconds","value":2321.71875}
+FACT {"domain":"log","entity":"adservice-1","fact_id":"FEAB4A3625896","field":"dominant_template","relative_bin":63,"unit":null,"value":"\"post /api/v2/spans http/<v>\" <v> - via_upstream - \"-\" <v> <v> <v> <v> \"-\" \"okhttp/<v>\" \"<v>-3d3e-9d59-bb87-<v>\" \"jaeger-collector:<v>\" \"<v>\" outbound|<v>||jaeger-collector.ts.svc.cluster.local <v>:<v> <v> <v>:<v> - default"}
+FACT {"domain":"log","entity":"adservice-1","fact_id":"F64833D55C215","field":"dominant_template_count","relative_bin":63,"unit":"events","value":1}
+FACT {"domain":"log","entity":"adservice-1","fact_id":"FEA3B0D3AF834","field":"dominant_template_id","relative_bin":63,"unit":null,"value":"LT-3A59CCE4ED17"}
+FACT {"domain":"log","entity":"adservice-1","fact_id":"F974C0F033DE9","field":"error_count","relative_bin":63,"unit":"events","value":0}
+FACT {"domain":"log","entity":"adservice-1","fact_id":"F306AE3AC1BBA","field":"event_count","relative_bin":63,"unit":"events","value":10}
+FACT {"domain":"log","entity":"adservice-1","fact_id":"F8F5A3FD17988","field":"service","relative_bin":63,"unit":null,"value":"adservice-1"}

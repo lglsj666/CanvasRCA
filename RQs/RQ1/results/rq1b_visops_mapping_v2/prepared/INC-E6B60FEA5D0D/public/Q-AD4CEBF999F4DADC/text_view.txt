@@ -1,0 +1,9 @@
+VIEW {"fact_inventory_hash":"8a34a71f1fe6d8692156d0289fcbf7df19ed9f3b83de1ba258a9e56f74bbf9bd","query_hash":"1861bbc65992299fd0ea2c758dea355a871cc5abee4116f9e32b0d4b53100905","query_id":"Q-AD4CEBF999F4DADC","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-order-other-service-65f458c7fc-6wglg","fact_id":"F00CEFDB3A13C","field":"metric","relative_bin":null,"unit":null,"value":"k8s.container.restarts"}
+FACT {"domain":"metric","entity":"ts-order-other-service-65f458c7fc-6wglg","fact_id":"F3352DB84A7F9","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":278.356}
+FACT {"domain":"metric","entity":"ts-order-other-service-65f458c7fc-6wglg","fact_id":"FA013E8B9E31B","field":"panel_id","relative_bin":null,"unit":null,"value":"M3"}
+FACT {"domain":"metric","entity":"ts-order-other-service-65f458c7fc-6wglg","fact_id":"F2063B1EEF547","field":"service","relative_bin":null,"unit":null,"value":"ts-order-other-service-65f458c7fc-6wglg"}
+FACT {"domain":"metric","entity":"ts-voucher-service","fact_id":"FE25992BCA102","field":"metric","relative_bin":null,"unit":null,"value":"container.cpu.usage"}
+FACT {"domain":"metric","entity":"ts-voucher-service","fact_id":"FACEB4FC3E25D","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":278.356}
+FACT {"domain":"metric","entity":"ts-voucher-service","fact_id":"F2216631E58F1","field":"panel_id","relative_bin":null,"unit":null,"value":"M9"}
+FACT {"domain":"metric","entity":"ts-voucher-service","fact_id":"F0F2321156713","field":"service","relative_bin":null,"unit":null,"value":"ts-voucher-service"}

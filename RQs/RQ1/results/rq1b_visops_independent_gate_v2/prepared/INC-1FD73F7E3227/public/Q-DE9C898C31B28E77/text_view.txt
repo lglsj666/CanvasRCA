@@ -1,0 +1,6 @@
+VIEW {"fact_inventory_hash":"1d446b2aa5d4c1131cead7478000eebaa4cd74d7ec770bdcda45e5c9914bac47","query_hash":"3c61f4c29d60ec8f81500319450764934527d865349c6844f18b2da41e33c4b3","query_id":"Q-DE9C898C31B28E77","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"trace","entity":"ts-contacts-service","fact_id":"F1DA04BD2C1AB","field":"bin_center_rel_s","relative_bin":32,"unit":"relative_seconds","value":242.442744}
+FACT {"domain":"trace","entity":"ts-contacts-service","fact_id":"F985462A5F2B6","field":"error_count","relative_bin":32,"unit":"spans","value":0}
+FACT {"domain":"trace","entity":"ts-contacts-service","fact_id":"FF490D1B13349","field":"latency_p95_ms","relative_bin":32,"unit":"milliseconds","value":5.406334}
+FACT {"domain":"trace","entity":"ts-contacts-service","fact_id":"F3AF17B8D403B","field":"service","relative_bin":32,"unit":null,"value":"ts-contacts-service"}
+FACT {"domain":"trace","entity":"ts-contacts-service","fact_id":"FAE6D84F0616B","field":"span_count","relative_bin":32,"unit":"spans","value":104}

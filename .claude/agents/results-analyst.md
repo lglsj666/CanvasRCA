@@ -1,6 +1,6 @@
 ---
 name: results-analyst
-description: Aggregate VLM-RCA experiment outputs into statistically sound metrics tables and paired comparisons, and emit paper-ready markdown rows. Use when comparing two experiments, building the headline table, or reporting an ablation.
+description: Aggregate CanvasRCA experiment outputs into statistically sound metrics tables and paired comparisons, and emit paper-ready markdown rows. Use when comparing two experiments, building the headline table, or reporting an ablation.
 tools: Read, Glob, Grep, Bash
 model: sonnet
 ---

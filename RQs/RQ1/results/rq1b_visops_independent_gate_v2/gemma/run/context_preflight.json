@@ -1,0 +1,33 @@
+{
+  "excluded_incident_count": 1,
+  "excluded_incidents": [
+    "INC-2B2A0F21FD18"
+  ],
+  "exclusion_fraction": 0.011111111111111112,
+  "max_model_len": 32768,
+  "max_tokens": 16384,
+  "maximum_exclusion_fraction": 0.05,
+  "model": "gemma-4-26b-a4b",
+  "overflowing_calls": [
+    {
+      "arm": "H",
+      "input_tokens": 16719,
+      "max_model_len": 32768,
+      "max_tokens": 16384,
+      "opaque_incident_id": "INC-2B2A0F21FD18",
+      "query_id": "Q-78610C4585C69AF7"
+    },
+    {
+      "arm": "T",
+      "input_tokens": 16443,
+      "max_model_len": 32768,
+      "max_tokens": 16384,
+      "opaque_incident_id": "INC-2B2A0F21FD18",
+      "query_id": "Q-78610C4585C69AF7"
+    }
+  ],
+  "policy": "one_overflow_excludes_complete_incident_without_replacement",
+  "requested_incidents": 90,
+  "schema_version": "RQ1ContextPreflightV1",
+  "status": "passed_with_paired_exclusions"
+}

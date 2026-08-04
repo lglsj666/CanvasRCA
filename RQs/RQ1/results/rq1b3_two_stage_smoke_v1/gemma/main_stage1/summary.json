@@ -1,0 +1,70 @@
+{
+  "accuracy": 0.0,
+  "arm": "ALL",
+  "arm_order_policy": "balanced_by_opaque_incident_hash",
+  "avg_input_tokens": 2148.8888888888887,
+  "avg_output_tokens": 362.0,
+  "avg_wall_time_s": 12.195665068096584,
+  "completed_calls": 9,
+  "condition": "main",
+  "context_preflight": {
+    "excluded_incident_count": 0,
+    "excluded_incidents": [],
+    "exclusion_fraction": 0.0,
+    "max_model_len": 32768,
+    "max_tokens": 16384,
+    "maximum_exclusion_fraction": 0.05,
+    "model": "gemma-4-26b-a4b",
+    "overflowing_calls": [],
+    "policy": "one_overflow_excludes_complete_incident_without_replacement",
+    "requested_incidents": 3,
+    "schema_version": "RQ1ContextPreflightV1",
+    "status": "passed"
+  },
+  "elapsed_wall_time_s": 109.77874374389648,
+  "error_rate": 0.0,
+  "experiment_config_hash": "b0bc67f1078a19f5c201c6e6a03fed75f072e3d8cc649e20cd732c2cfbb7fa01",
+  "experiment_id": "rq1b3_two_stage_smoke_v1",
+  "infrastructure_errors": 0,
+  "model": "gemma-4-26b-a4b",
+  "parse_rate": 1.0,
+  "per_arm": {
+    "H": {
+      "accuracy": 0.0,
+      "avg_input_tokens": 3102.3333333333335,
+      "avg_output_tokens": 354.0,
+      "avg_wall_time_s": 11.318845431009928,
+      "completed_calls": 3,
+      "error_rate": 0.0,
+      "infrastructure_errors": 0,
+      "parse_rate": 1.0,
+      "requested_calls": 3
+    },
+    "T": {
+      "accuracy": 0.0,
+      "avg_input_tokens": 2825.3333333333335,
+      "avg_output_tokens": 346.3333333333333,
+      "avg_wall_time_s": 11.862996180852255,
+      "completed_calls": 3,
+      "error_rate": 0.0,
+      "infrastructure_errors": 0,
+      "parse_rate": 1.0,
+      "requested_calls": 3
+    },
+    "V": {
+      "accuracy": 0.0,
+      "avg_input_tokens": 519.0,
+      "avg_output_tokens": 385.6666666666667,
+      "avg_wall_time_s": 13.405153592427572,
+      "completed_calls": 3,
+      "error_rate": 0.0,
+      "infrastructure_errors": 0,
+      "parse_rate": 1.0,
+      "requested_calls": 3
+    }
+  },
+  "requested_calls": 9,
+  "roster_assignment_hash": "4957fed15daff7cca0dab72a32c67cc9d930a97769a6740afbdff07886f25b7d",
+  "roster_contract_hash": "04b0e54fd7408483ad49e0ec8eea9a736a3d8951b557f8405ba4f3b55c9babc9",
+  "schema_version": "RQ1VisOpsCellSummaryV1"
+}

@@ -1,0 +1,11 @@
+# RQ1 VisOps conversation — Q-40CCCBEC8E2010C3 — V
+
+- opaque incident: `INC-7ADB2E195002`
+- model: `gemma-4-26b-a4b`
+- prompt hash: `29ded72775e53cac9659864878dd1cc7b1dca63cfaa1d102e08010d07f428950`
+- visual hash: `d3cd5bd7ffc54126212ef4672502d32c368f571cf3c5df8f26cc65e682d26bb2`
+- text hash: `edc1008e471003b2b156014eb326ec8d0e158d0a46bd2be1f344dc66d55c722b`
+
+## Response
+
+{"answer": {"caller": "ts-ui-dashboard", "callee": "ts-contacts-service"}}

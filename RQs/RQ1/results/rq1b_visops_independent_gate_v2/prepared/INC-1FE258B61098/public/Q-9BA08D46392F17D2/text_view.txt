@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"6b84ebd5dd1448834d0ccebc170f45389a381ba9f316595ae60aff518d123f6b","query_hash":"cf02dd5d726180d4529739bb4b928d8b96170305e09d5ec39348763102a7c2d9","query_id":"Q-9BA08D46392F17D2","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-ticket-office-service","fact_id":"F9FD48FD54CB9","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.memory.node.utilization"}
+FACT {"domain":"metric","entity":"ts-ticket-office-service","fact_id":"FDF41859DF6EA","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"ts-ticket-office-service","fact_id":"FE420BA3963C5","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":64}
+FACT {"domain":"metric","entity":"ts-ticket-office-service","fact_id":"F5E15D619DC85","field":"service","relative_bin":null,"unit":null,"value":"ts-ticket-office-service"}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"F00BBF153F78B","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.filesystem.usage"}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"F25BB1DFCD62C","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"FC7D6505AACE8","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":31}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"F22001793E06F","field":"service","relative_bin":null,"unit":null,"value":"ts-preserve-service"}
+FACT {"domain":"metric","entity":"ts-ui-dashboard","fact_id":"FD8BD652FB9BF","field":"metric","relative_bin":null,"unit":null,"value":"hubble_http_request_duration_p50_seconds"}
+FACT {"domain":"metric","entity":"ts-ui-dashboard","fact_id":"FE53141712B27","field":"panel_id","relative_bin":null,"unit":null,"value":"M3"}
+FACT {"domain":"metric","entity":"ts-ui-dashboard","fact_id":"FD3AD018DD9C0","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"ts-ui-dashboard","fact_id":"FF3B5EA7B292B","field":"service","relative_bin":null,"unit":null,"value":"ts-ui-dashboard"}
+FACT {"domain":"metric","entity":"ts-security-service","fact_id":"FB0512D18309E","field":"metric","relative_bin":null,"unit":null,"value":"container.cpu.usage"}
+FACT {"domain":"metric","entity":"ts-security-service","fact_id":"F4DB931B37E3D","field":"panel_id","relative_bin":null,"unit":null,"value":"M4"}
+FACT {"domain":"metric","entity":"ts-security-service","fact_id":"F4FDB089074DA","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":31}
+FACT {"domain":"metric","entity":"ts-security-service","fact_id":"FD037ED333352","field":"service","relative_bin":null,"unit":null,"value":"ts-security-service"}

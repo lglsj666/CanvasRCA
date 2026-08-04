@@ -16,9 +16,16 @@ from typing import Any, Self
 
 from freeze_rq1_runtime import verify_runtime_manifest
 from rq1lib.contracts import ContractError, canonical_json, sha256_bytes, stable_hash
-from rq1lib.prompts import build_prompt_bundle_from_artifacts
+from rq1lib.prompts import (
+    build_prompt_bundle_from_artifacts,
+    panel_ids_from_public_facts,
+)
 from rq1lib.scoring import parse_visops_response, score_visops_answer
-from rq1lib.settings import assert_runner_may_execute, load_yaml_config
+from rq1lib.settings import (
+    assert_runner_may_execute,
+    configure_registered_vllm_environment,
+    load_yaml_config,
+)
 from vlmrca.vlm.client import call_vlm, count_vllm_prompt_tokens
 from vlmrca.vlm.configs import get_config
 
@@ -28,6 +35,7 @@ DEFAULT_CONFIG = RQ_ROOT / "configs/rq1_visops_v1.yaml"
 DEFAULT_ROSTER = RQ_ROOT / "configs/rosters/rq1b_visops_exposed_development_v1.json"
 ARM_TO_FRAGMENT = {"V": "visual_a", "T": "text_b", "H": "hybrid_a_plus_b"}
 ARM_PERMUTATIONS = ("TVH", "THV", "VTH", "VHT", "HTV", "HVT")
+TWO_STAGE_PROFILES = {"two_stage_onset_ledger_v1", "two_stage_onset_ledger_v2"}
 
 
 class _GPUAccounting:
@@ -233,6 +241,29 @@ def _verify_smoke_report(
         for key, value in required.items()
         if report.get(key) != value
     }
+    if config.get("contracts", {}).get("prompt_answer_contract") in {
+        "type_specific_json_v2",
+        "compact_task_specific_regex_v3",
+    }:
+        task_profile = config.get("visops", {}).get("task_profile")
+        answer_types = (
+            ["number", "ordered_path", "sorted_string_set"]
+            if task_profile == "answer_hidden_compositional_v1"
+            else ["panel_onset_ledger"]
+            if task_profile in TWO_STAGE_PROFILES
+            else ["directed_edge", "number", "ordered_path", "sorted_string_set"]
+        )
+        structured_required = {
+            "structured_output_contract_verified": True,
+            "answer_types_verified": answer_types,
+        }
+        mismatches.update(
+            {
+                key: (report.get(key), value)
+                for key, value in structured_required.items()
+                if report.get(key) != value
+            }
+        )
     if mismatches:
         raise ContractError(f"RQ1 smoke qualification differs: {mismatches}")
     return report
@@ -308,7 +339,25 @@ def _load_private_index(root: Path) -> dict[str, dict[str, Any]]:
     return out
 
 
-def _prepared_calls(prepared_roots: list[Path], arm: str) -> list[dict[str, Any]]:
+def _prepared_calls(
+    prepared_roots: list[Path],
+    arm: str,
+    *,
+    config: Mapping[str, Any],
+    condition: str = "main",
+) -> list[dict[str, Any]]:
+    task_profile = config.get("visops", {}).get("task_profile")
+    if condition not in {"main", "row_sham"}:
+        raise ContractError(f"unknown RQ1 visual condition {condition!r}")
+    if condition == "row_sham" and task_profile not in TWO_STAGE_PROFILES:
+        raise ContractError("row-sham execution is restricted to RQ1b3")
+    if condition == "row_sham" and arm == "T":
+        raise ContractError("row-sham is registered only for V and H")
+    answer_hidden = task_profile in {
+        "answer_hidden_compositional_v1",
+        "two_stage_onset_ledger_v1",
+        "two_stage_onset_ledger_v2",
+    }
     calls: list[dict[str, Any]] = []
     for root in prepared_roots:
         root = root.resolve()
@@ -350,26 +399,62 @@ def _prepared_calls(prepared_roots: list[Path], arm: str) -> list[dict[str, Any]
                 raise ContractError(
                     f"prepared parity/leakage audit failed for {query['query_id']}"
                 )
-            visual_manifest = _load_json(files["visual_manifest"])
+            visual_manifest_name = (
+                "visual_sham_manifest" if condition == "row_sham" else "visual_manifest"
+            )
+            visual_name = "visual_sham" if condition == "row_sham" else "visual"
+            prompt_contract_name = (
+                "prompt_contract_sham" if condition == "row_sham" else "prompt_contract"
+            )
+            if any(
+                name not in files
+                for name in (visual_manifest_name, visual_name, prompt_contract_name)
+            ):
+                raise ContractError(
+                    f"prepared task lacks registered {condition} visual artifacts"
+                )
+            visual_manifest = _load_json(files[visual_manifest_name])
+            answer_hidden_task = answer_hidden and str(query["family"]).startswith(
+                "answer_hidden_"
+            )
+            onset_ledger_task = (
+                task_profile in TWO_STAGE_PROFILES
+                and str(query["operation"])
+                in {"panel_onset_ledger_high", "panel_onset_ledger_high_compact"}
+            )
+            expected_visual_schema = (
+                "VisualViewV6OnsetLedger"
+                if onset_ledger_task
+                else "VisualViewV5AnswerHidden"
+                if answer_hidden_task
+                else "VisualViewV4"
+            )
+            expected_renderer = (
+                str(config["contracts"]["renderer"])
+                if answer_hidden_task
+                else "RQ1VisualViewV4"
+            )
             if (
-                visual_manifest.get("schema_version") != "VisualViewV4"
+                visual_manifest.get("schema_version") != expected_visual_schema
                 or visual_manifest.get("query_hash") != query.get("query_hash")
                 or visual_manifest.get("fact_inventory_hash")
                 != query.get("fact_inventory_hash")
                 or visual_manifest.get("primitive_manifest", {}).get("renderer")
-                != "RQ1VisualViewV4"
+                != expected_renderer
             ):
                 raise ContractError(
                     f"prepared visual contract failed for {query['query_id']}"
                 )
             text_bytes = files["text"].read_bytes()
-            png_bytes = files["visual"].read_bytes()
+            png_bytes = files[visual_name].read_bytes()
             prompts = build_prompt_bundle_from_artifacts(
+                operation=str(query["operation"]),
                 question=str(task["question"]),
                 text_bytes=text_bytes,
                 png_bytes=png_bytes,
+                panel_ids=panel_ids_from_public_facts(task["facts"]),
             )
-            frozen_prompt = _load_json(files["prompt_contract"])
+            frozen_prompt = _load_json(files[prompt_contract_name])
             if prompts.public_contract() != frozen_prompt:
                 raise ContractError(f"prompt contract drift for {query['query_id']}")
             answer_entry = private_index.get(str(query["query_id"]))
@@ -388,13 +473,28 @@ def _prepared_calls(prepared_roots: list[Path], arm: str) -> list[dict[str, Any]
                 "task": task,
                 "query": query,
                 "prompt_system": prompts.system,
+                "answer_contract": dict(prompts.answer_contract),
+                "response_format": prompts.answer_contract["response_format"],
+                "response_format_sha256": prompts.answer_contract[
+                    "response_format_sha256"
+                ],
+                "guided_regex": prompts.answer_contract.get("guided_regex"),
+                "guided_regex_sha256": prompts.answer_contract.get(
+                    "guided_regex_sha256"
+                ),
                 "answer_path": answer_entry["path"],
                 "answer_key_sha256": answer_entry["sha256"],
                 "visual_sha256": sha256_bytes(png_bytes),
                 "text_sha256": sha256_bytes(text_bytes),
+                "condition": condition,
             }
             order = _arm_order(str(manifest["opaque_incident_id"]))
-            selected_arms = order if arm == "ALL" else arm
+            eligible_order = (
+                "".join(value for value in order if value in {"V", "H"})
+                if condition == "row_sham"
+                else order
+            )
+            selected_arms = eligible_order if arm == "ALL" else arm
             for selected_arm in selected_arms:
                 fragment = getattr(prompts, ARM_TO_FRAGMENT[selected_arm])
                 calls.append(
@@ -408,7 +508,12 @@ def _prepared_calls(prepared_roots: list[Path], arm: str) -> list[dict[str, Any]
                     }
                 )
     keys = [
-        (row["opaque_incident_id"], row["query"]["query_id"], row["arm"])
+        (
+            row["opaque_incident_id"],
+            row["query"]["query_id"],
+            row["arm"],
+            row["condition"],
+        )
         for row in calls
     ]
     if len(keys) != len(set(keys)):
@@ -564,12 +669,19 @@ def _verify_server_attestation(
 
 def _preflight_context_budget(
     calls: list[dict[str, Any]], *, model: str, config: Mapping[str, Any]
-) -> None:
-    """Tokenize every frozen prompt before the first model-generation call."""
+) -> dict[str, Any]:
+    """Tokenize every prompt and freeze any paired whole-case exclusions.
+
+    A context overflow is an infrastructure incompatibility, not a model
+    answer.  To preserve pairing and information equality, one overflowing
+    arm/query excludes the incident's complete T/V/H query set.  The exclusion
+    remains admissible only within the experiment's preregistered whole-case
+    infrastructure ceiling; no replacement case is selected.
+    """
 
     max_model_len = int(config["inference"]["max_model_len"])
     max_tokens = int(config["inference"]["max_tokens"])
-    failures: list[str] = []
+    failures: list[dict[str, Any]] = []
     for index, row in enumerate(calls, start=1):
         input_tokens = count_vllm_prompt_tokens(
             row["prompt_parts"], model, system=row["prompt_system"]
@@ -581,15 +693,53 @@ def _preflight_context_budget(
         row["preflight_input_tokens"] = int(input_tokens)
         if input_tokens + max_tokens > max_model_len:
             failures.append(
-                f"{row['opaque_incident_id']}/{row['query']['query_id']}/{row['arm']}="
-                f"{input_tokens}+{max_tokens}>{max_model_len}"
+                {
+                    "opaque_incident_id": row["opaque_incident_id"],
+                    "query_id": row["query"]["query_id"],
+                    "arm": row["arm"],
+                    "input_tokens": int(input_tokens),
+                    "max_tokens": max_tokens,
+                    "max_model_len": max_model_len,
+                }
             )
         if index == len(calls) or index % max(1, len(calls) // 10) == 0:
             print(f"context preflight [{index}/{len(calls)}]", flush=True)
-    if failures:
+    requested_incidents = sorted({row["opaque_incident_id"] for row in calls})
+    excluded_incidents = sorted(
+        {str(failure["opaque_incident_id"]) for failure in failures}
+    )
+    exclusion_fraction = len(excluded_incidents) / len(requested_incidents)
+    maximum_exclusion = float(
+        config["integrity"][
+            "maximum_paired_whole_case_infrastructure_exclusion_fraction"
+        ]
+    )
+    if exclusion_fraction > maximum_exclusion:
+        compact = [
+            f"{failure['opaque_incident_id']}/{failure['query_id']}/"
+            f"{failure['arm']}={failure['input_tokens']}+{failure['max_tokens']}>"
+            f"{failure['max_model_len']}"
+            for failure in failures
+        ]
         raise ContractError(
-            "frozen prompt exceeds model context budget: " + "; ".join(failures)
+            "paired whole-case context exclusion exceeds registered ceiling: "
+            f"{len(excluded_incidents)}/{len(requested_incidents)}="
+            f"{exclusion_fraction:.6f}>{maximum_exclusion:.6f}; " + "; ".join(compact)
         )
+    return {
+        "schema_version": "RQ1ContextPreflightV1",
+        "status": "passed_with_paired_exclusions" if failures else "passed",
+        "model": model,
+        "max_model_len": max_model_len,
+        "max_tokens": max_tokens,
+        "requested_incidents": len(requested_incidents),
+        "excluded_incidents": excluded_incidents,
+        "excluded_incident_count": len(excluded_incidents),
+        "exclusion_fraction": exclusion_fraction,
+        "maximum_exclusion_fraction": maximum_exclusion,
+        "overflowing_calls": failures,
+        "policy": "one_overflow_excludes_complete_incident_without_replacement",
+    }
 
 
 def _call_contract(
@@ -606,7 +756,7 @@ def _call_contract(
     code_freeze: Mapping[str, Any],
 ) -> dict[str, Any]:
     payload = {
-        "schema_version": "RQ1VisOpsCallContractV1",
+        "schema_version": "RQ1VisOpsCallContractV2StructuredOutput",
         "experiment_id": config["experiment_id"],
         "opaque_incident_id": row["opaque_incident_id"],
         "query_id": row["query"]["query_id"],
@@ -618,6 +768,12 @@ def _call_contract(
         "arm_order": row["arm_order"],
         "arm_order_index": row["arm_order_index"],
         "prompt_sha256": row["prompt_sha256"],
+        "public_answer_type": row["answer_contract"]["answer_type"],
+        "structured_output_transport": row["answer_contract"].get(
+            "structured_output_transport", "openai_response_format_json_schema"
+        ),
+        "response_format_sha256": row["response_format_sha256"],
+        "guided_regex_sha256": row["guided_regex_sha256"],
         "visual_sha256": row["visual_sha256"],
         "text_sha256": row["text_sha256"],
         "answer_key_sha256": row["answer_key_sha256"],
@@ -635,6 +791,9 @@ def _call_contract(
         "runtime_tree_sha256": code_freeze["runtime_tree_sha256"],
         "roster_assignment_hash": roster["assignment_hash"],
     }
+    if config.get("visops", {}).get("task_profile") in TWO_STAGE_PROFILES:
+        payload["stage"] = "stage1_observe_compose"
+        payload["condition"] = row["condition"]
     payload["contract_hash"] = stable_hash(payload)
     payload["call_key"] = stable_hash(
         {
@@ -651,7 +810,9 @@ def _existing_call(path: Path, contract: Mapping[str, Any]) -> dict[str, Any] | 
     if not path.exists():
         return None
     existing = _load_json(path)
-    for field in ("call_key", "contract_hash", "query_hash", "model", "arm"):
+    fields = ["call_key", "contract_hash", "query_hash", "model", "arm"]
+    fields.extend(field for field in ("stage", "condition") if field in contract)
+    for field in fields:
         if existing.get(field) != contract.get(field):
             raise ContractError(f"resume artifact {path} differs at {field}")
     if existing.get("status") not in {"completed", "infrastructure_error"}:
@@ -667,6 +828,8 @@ def _write_call_artifacts(output: Path, record: Mapping[str, Any]) -> None:
         f"# RQ1 VisOps conversation — {record['query_id']} — {record['arm']}\n\n"
         f"- opaque incident: `{record['opaque_incident_id']}`\n"
         f"- model: `{record['model']}`\n"
+        f"- stage: `{record.get('stage', 'single_stage')}`\n"
+        f"- condition: `{record.get('condition', 'main')}`\n"
         f"- prompt hash: `{record['prompt_sha256']}`\n"
         f"- visual hash: `{record['visual_sha256']}`\n"
         f"- text hash: `{record['text_sha256']}`\n\n"
@@ -716,6 +879,7 @@ def main() -> int:
     parser.add_argument(
         "--arm", choices=[*sorted(ARM_TO_FRAGMENT), "ALL"], required=True
     )
+    parser.add_argument("--condition", choices=["main", "row_sham"], default="main")
     parser.add_argument("--output", type=Path)
     parser.add_argument("--server-attestation", type=Path)
     parser.add_argument("--qualification-report", type=Path)
@@ -728,6 +892,7 @@ def main() -> int:
         raise ContractError("choose exactly one of --execute or --dry-run")
 
     config = load_yaml_config(args.config)
+    configure_registered_vllm_environment(config)
     roster = _load_json(args.roster)
     if bool(args.prepared_root) == bool(args.prepared_index):
         raise ContractError("choose exactly one of --prepared-root or --prepared-index")
@@ -739,13 +904,16 @@ def main() -> int:
             config=config,
             roster=roster,
         )
-    calls = _prepared_calls(prepared_roots, args.arm)
+    calls = _prepared_calls(
+        prepared_roots, args.arm, config=config, condition=args.condition
+    )
     model_config = _verify_model_config(args.model, config)
 
     dry_report = {
         "status": "dry_run_passed",
         "model": args.model,
         "arm": args.arm,
+        "condition": args.condition,
         "prepared_roots": len(prepared_roots),
         "incidents": len({row["opaque_incident_id"] for row in calls}),
         "calls": len(calls),
@@ -784,7 +952,9 @@ def main() -> int:
         model=args.model,
         config=config,
     )
-    _preflight_context_budget(calls, model=args.model, config=config)
+    context_preflight = _preflight_context_budget(
+        calls, model=args.model, config=config
+    )
     allowed = _allowed_opaque_ids(roster)
     outside = sorted({row["opaque_incident_id"] for row in calls} - allowed)
     if outside:
@@ -798,9 +968,17 @@ def main() -> int:
     if results_root not in output.parents:
         raise ContractError("RQ1 experiment output must be below RQs/RQ1/results/")
     output.mkdir(parents=True, exist_ok=True)
+    _atomic_write(
+        output / "context_preflight.json",
+        (
+            json.dumps(context_preflight, ensure_ascii=False, sort_keys=True, indent=2)
+            + "\n"
+        ).encode("utf-8"),
+    )
 
     records: list[dict[str, Any]] = []
     pending: list[Future[None]] = []
+    excluded_context_incidents = set(context_preflight["excluded_incidents"])
     started = time.time()
     with ThreadPoolExecutor(max_workers=4, thread_name_prefix="rq1-writer") as writer:
         for index, row in enumerate(calls, start=1):
@@ -821,6 +999,36 @@ def main() -> int:
             if existing is not None:
                 records.append(existing)
                 continue
+            if row["opaque_incident_id"] in excluded_context_incidents:
+                record = {
+                    **contract,
+                    "status": "infrastructure_error",
+                    "operation": row["query"]["operation"],
+                    "family": row["query"]["family"],
+                    "response_text": "",
+                    "predicted_answer": None,
+                    "parse_ok": False,
+                    "correct": False,
+                    "score": None,
+                    "input_tokens": 0,
+                    "output_tokens": 0,
+                    "total_tokens": 0,
+                    "wall_time_s": 0.0,
+                    "model_latency_s": 0.0,
+                    "gpu_active_time_s": 0.0,
+                    "peak_gpu_memory_bytes": None,
+                    "gpu_accounting_samples": 0,
+                    "gpu_accounting_method": "not sampled: preflight exclusion",
+                    "finish_reason": None,
+                    "truncated": False,
+                    "error": (
+                        "ContextBudgetExceeded: incident excluded as a complete "
+                        "paired case before model execution"
+                    ),
+                }
+                records.append(record)
+                pending.append(writer.submit(_write_call_artifacts, output, record))
+                continue
             t0 = time.time()
             gpu_accounting = _GPUAccounting()
             try:
@@ -830,6 +1038,8 @@ def main() -> int:
                         model=args.model,
                         system=row["prompt_system"],
                         max_retries=int(config["inference"]["retry_attempts"]),
+                        response_format=row["response_format"],
+                        guided_regex=row["guided_regex"],
                     )
                 gpu_report = gpu_accounting.report()
                 predicted, parse_ok = parse_visops_response(response.text)
@@ -926,6 +1136,7 @@ def main() -> int:
         "experiment_id": config["experiment_id"],
         "model": args.model,
         "arm": args.arm,
+        "condition": args.condition,
         "arm_order_policy": "balanced_by_opaque_incident_hash",
         "per_arm": {
             arm: _summarize([record for record in records if record.get("arm") == arm])
@@ -935,6 +1146,7 @@ def main() -> int:
         "experiment_config_hash": stable_hash(config),
         "roster_contract_hash": stable_hash(roster),
         "roster_assignment_hash": roster["assignment_hash"],
+        "context_preflight": context_preflight,
         "elapsed_wall_time_s": time.time() - started,
         **_summarize(records),
     }

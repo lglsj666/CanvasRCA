@@ -1,0 +1,11 @@
+# RQ1 VisOps conversation — Q-846D813C012E60FA — H
+
+- opaque incident: `INC-91F347F60737`
+- model: `qwen3.6-27b`
+- prompt hash: `09c13ec5ff2764a775f7107520fee3b5da8fdac25900fea3fd09f05ebc007c6d`
+- visual hash: `4856d9e0fcd7fea3a0ef52e4203fa6ec3129a5a658dc3a7ef6c94b355c5c336d`
+- text hash: `1ca93a9e1c8adbe8dbf7e6bc753fafe87ba1873d96af0a68e71bf20c13ee48a9`
+
+## Response
+
+{"answer": "frontend2-0 -> recommendationservice2-0 -> productcatalogservice-0"}

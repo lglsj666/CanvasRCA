@@ -1,0 +1,11 @@
+# RQ1 VisOps conversation — Q-80A2BA45D8A70973 — V
+
+- opaque incident: `INC-5E253752F3E6`
+- model: `gemma-4-26b-a4b`
+- prompt hash: `adc1567761a5276cce1b7e610e91e7e8363207e65fbd5e135bd1a115df0c8e9a`
+- visual hash: `8eef212fccad2a9aa7b696d4c6be7c53033c719415185d6a67d19e55d58abc9c`
+- text hash: `2cfdb26b23669779ea07ec82e6e3e3011d70df25657058b136cc649c8de29133`
+
+## Response
+
+{"answer": ["adservice", "adservice2", "node-5"]}

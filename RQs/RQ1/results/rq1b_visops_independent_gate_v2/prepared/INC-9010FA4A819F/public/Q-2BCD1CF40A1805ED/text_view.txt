@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"cdfaf607d94682af3f13779ef17c5182140a3ee521698e39742f52e8c10ba718","query_hash":"ad72ba124239cd8d07f974e3e4d2694e0d714605feef0f2e38db81629a4c498d","query_id":"Q-2BCD1CF40A1805ED","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"log","entity":"checkoutservice-2","fact_id":"F13CE8A3E64F8","field":"bin_center_rel_s","relative_bin":33,"unit":"relative_seconds","value":1130.625}
+FACT {"domain":"log","entity":"checkoutservice-2","fact_id":"F99D30606E06C","field":"dominant_template","relative_bin":33,"unit":null,"value":"order confirmation email sent to \"someone@example.com\""}
+FACT {"domain":"log","entity":"checkoutservice-2","fact_id":"FC5ED91E8B969","field":"dominant_template_count","relative_bin":33,"unit":"events","value":2}
+FACT {"domain":"log","entity":"checkoutservice-2","fact_id":"FFF6D68A826B9","field":"dominant_template_id","relative_bin":33,"unit":null,"value":"LT-1720F6A12225"}
+FACT {"domain":"log","entity":"checkoutservice-2","fact_id":"F728D14BAEB67","field":"error_count","relative_bin":33,"unit":"events","value":0}
+FACT {"domain":"log","entity":"checkoutservice-2","fact_id":"FA32C87D367B5","field":"event_count","relative_bin":33,"unit":"events","value":6}
+FACT {"domain":"log","entity":"checkoutservice-2","fact_id":"FF461B29AC099","field":"service","relative_bin":33,"unit":null,"value":"checkoutservice-2"}

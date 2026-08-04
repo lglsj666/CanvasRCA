@@ -1,0 +1,11 @@
+# RQ1 VisOps conversation — Q-F1166B993B2D75A1 — V
+
+- opaque incident: `INC-E3309D46CD62`
+- model: `gemma-4-26b-a4b`
+- prompt hash: `630e41f6b7e139c3a99adf8bcebb630b0dbefc33ec02517e78628c03cf941b3d`
+- visual hash: `c1650b4e32dfd0f7d646aacfcbbdaaae52e8c4294f287be6576205cb88253be7`
+- text hash: `36d1028633e312621adc5026b2b71be5381ca4eb550258a25a17b2e09cef92a2`
+
+## Response
+
+{"answer": {"caller": "ts-cancel-service", "callee": "ts-order-service"}}

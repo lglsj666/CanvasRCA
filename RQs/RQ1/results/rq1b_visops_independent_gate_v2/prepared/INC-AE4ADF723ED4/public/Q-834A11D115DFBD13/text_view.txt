@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"931eb926e75570bcf6c34ceb3d3f857a4f7da48213815edc3367b204a159071e","query_hash":"6ad4fa0e42e3539cbd92160d5c36400a14c2daffbd91d7558d4878326730ac0e","query_id":"Q-834A11D115DFBD13","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"paymentservice-1","fact_id":"F0091F7E96DF7","field":"bin_center_rel_s","relative_bin":61,"unit":"relative_seconds","value":1672.031}
+FACT {"domain":"metric","entity":"paymentservice-1","fact_id":"F74FBD6208B65","field":"metric","relative_bin":null,"unit":null,"value":"pod_memory_working_set_bytes"}
+FACT {"domain":"missingness","entity":"paymentservice-1","fact_id":"F670D661503A0","field":"missing","relative_bin":61,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"paymentservice-1","fact_id":"F5D69D1147647","field":"observed_count","relative_bin":61,"unit":null,"value":1}
+FACT {"domain":"metric","entity":"paymentservice-1","fact_id":"FD0B58EEC0462","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"paymentservice-1","fact_id":"FC17B53439B21","field":"service","relative_bin":null,"unit":null,"value":"paymentservice-1"}
+FACT {"domain":"metric","entity":"paymentservice-1","fact_id":"F1C0AF06D2363","field":"value","relative_bin":61,"unit":"native","value":88.09}

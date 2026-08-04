@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"4592130ccccbb51b972a3128a4605959cc03356b27ddff7376908e8c9d40c391","query_hash":"1846a757c5e89c17a09f074b0f23a0f03336b02d0e57e6ae0ddf11256fe364a1","query_id":"Q-1B18D8A54B80E987","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"log","entity":"ts-verification-code-service","fact_id":"FB472B719D7A0","field":"bin_center_rel_s","relative_bin":27,"unit":"relative_seconds","value":204.447962}
+FACT {"domain":"log","entity":"ts-verification-code-service","fact_id":"FD56C6C05F7D3","field":"dominant_template","relative_bin":27,"unit":null,"value":"[verifycode][get image code warn][code not found][cookieid: <v>]"}
+FACT {"domain":"log","entity":"ts-verification-code-service","fact_id":"FC1EF83DC283C","field":"dominant_template_count","relative_bin":27,"unit":"events","value":58}
+FACT {"domain":"log","entity":"ts-verification-code-service","fact_id":"F16A4D946266E","field":"dominant_template_id","relative_bin":27,"unit":null,"value":"LT-DBDA3DB82696"}
+FACT {"domain":"log","entity":"ts-verification-code-service","fact_id":"FE8B4982569D0","field":"error_count","relative_bin":27,"unit":"events","value":0}
+FACT {"domain":"log","entity":"ts-verification-code-service","fact_id":"F81A4630EC49E","field":"event_count","relative_bin":27,"unit":"events","value":290}
+FACT {"domain":"log","entity":"ts-verification-code-service","fact_id":"F40ED515704E5","field":"service","relative_bin":27,"unit":null,"value":"ts-verification-code-service"}

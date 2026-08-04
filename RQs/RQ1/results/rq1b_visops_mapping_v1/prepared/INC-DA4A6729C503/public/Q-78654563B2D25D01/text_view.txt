@@ -1,0 +1,25 @@
+VIEW {"fact_inventory_hash":"049b0ff54e478ef864d1b1fe29a2884d27ef0dd9bf5214369d8df6f457d72438","query_hash":"bcfd3e2b7016b994af32fbe329a5f89b8113e4f81ef1705506b12afdc864b2a1","query_id":"Q-78654563B2D25D01","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"coverage","entity":"adservice-2","fact_id":"FF75530B783A5","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"adservice-2","fact_id":"FC7F8DC8612F3","field":"metric_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"adservice-2","fact_id":"FDC77EEA4B693","field":"trace_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"cartservice-0","fact_id":"F5C621A687489","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"cartservice-0","fact_id":"F0D13F626FF0E","field":"metric_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"cartservice-0","fact_id":"F3B0182019CC3","field":"trace_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"cartservice-1","fact_id":"FFD9D611A0AB1","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"cartservice-1","fact_id":"F9D9EF479C325","field":"metric_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"cartservice-1","fact_id":"F2C951543A468","field":"trace_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"cartservice","fact_id":"F90E82C06C2E6","field":"log_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"cartservice","fact_id":"F4D3F54EB908A","field":"metric_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"cartservice","fact_id":"F67DB13449CCB","field":"trace_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"checkoutservice-1","fact_id":"F0E4E4AA2B411","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"checkoutservice-1","fact_id":"F1D364AAB4FC2","field":"metric_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"checkoutservice-1","fact_id":"F95C0B14DF6E0","field":"trace_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"checkoutservice","fact_id":"F5D7EE7DC7A44","field":"log_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"checkoutservice","fact_id":"FC94BE002B358","field":"metric_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"checkoutservice","fact_id":"F48D13B33DCB9","field":"trace_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"productcatalogservice-0","fact_id":"F86A636524D23","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"productcatalogservice-0","fact_id":"FA394D56BC5B6","field":"metric_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"productcatalogservice-0","fact_id":"F9EAED3F8B7B3","field":"trace_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"productcatalogservice-1","fact_id":"FC62AB8883632","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"productcatalogservice-1","fact_id":"F5CFE26BA30E3","field":"metric_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"productcatalogservice-1","fact_id":"F2BCDF3ADEC87","field":"trace_available","relative_bin":null,"unit":null,"value":false}

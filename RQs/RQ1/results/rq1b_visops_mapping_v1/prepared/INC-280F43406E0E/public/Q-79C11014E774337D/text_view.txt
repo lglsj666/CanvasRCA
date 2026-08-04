@@ -1,0 +1,6 @@
+VIEW {"fact_inventory_hash":"fcdd32692b0d00b22147fa7e481e6d315a79a2a666fdf040078d85a26c7df670","query_hash":"fc7159b8e9f204c8016764a0aa0f3bc71b84d4693d0a5fd213cc7c96e051f996","query_id":"Q-79C11014E774337D","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"trace","entity":"ts-train-food-service","fact_id":"F8761041BCC31","field":"bin_center_rel_s","relative_bin":48,"unit":"relative_seconds","value":362.22075}
+FACT {"domain":"trace","entity":"ts-train-food-service","fact_id":"F0021677BCB25","field":"error_count","relative_bin":48,"unit":"spans","value":0}
+FACT {"domain":"trace","entity":"ts-train-food-service","fact_id":"F39E354DE0A2D","field":"latency_p95_ms","relative_bin":48,"unit":"milliseconds","value":44.139599}
+FACT {"domain":"trace","entity":"ts-train-food-service","fact_id":"FC06D15CC19BF","field":"service","relative_bin":48,"unit":null,"value":"ts-train-food-service"}
+FACT {"domain":"trace","entity":"ts-train-food-service","fact_id":"F8A2DCDC22927","field":"span_count","relative_bin":48,"unit":"spans","value":12}

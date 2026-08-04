@@ -19,7 +19,7 @@
     "query_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
     "answer": {},
     "answer_type": {
-      "enum": ["number", "sorted_string_set", "directed_edge", "ordered_path"]
+      "enum": ["number", "sorted_string_set", "directed_edge", "ordered_path", "panel_onset_ledger"]
     },
     "supporting_fact_ids": {
       "type": "array",

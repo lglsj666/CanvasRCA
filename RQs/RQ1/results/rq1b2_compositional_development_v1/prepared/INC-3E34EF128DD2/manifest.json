@@ -1,0 +1,109 @@
+{
+  "evidence_store": {
+    "fact_count": 53646,
+    "fact_inventory_hash": "45ff6796a61291cf912311633c786c46ba576e383f23f036a848737b1cf7d9fa",
+    "limitations": [],
+    "opaque_incident_id": "INC-3E34EF128DD2",
+    "schema_version": "CanonicalEvidenceStoreV2WithDenseLogAndTraceTimeSlices",
+    "source_artifact_hash": "0788e945a8c0fd3bc8976f2ae65900a75216041cdb08d64efaa1c51d99154a1b",
+    "source_schema_version": "CanonicalEvidenceBundleV1+DenseTelemetryTimeSlicesV2"
+  },
+  "opaque_incident_id": "INC-3E34EF128DD2",
+  "schema_version": "RQ1PreparedVisOpsManifestV1",
+  "status": "registered_experiment_inputs",
+  "task_count": 4,
+  "tasks": [
+    {
+      "fact_inventory_hash": "6cb5cb0e212e7e7fc588effe4d10894c1a2cbfefb23b0f6739cd8def4276cd93",
+      "family": "exact_lookup",
+      "operation": "metric_exact_lookup",
+      "public_files": {
+        "paired_audit": "public/Q-0CCF118C0D011991/paired_view_audit.json",
+        "prompt_contract": "public/Q-0CCF118C0D011991/prompt_contract.json",
+        "task": "public/Q-0CCF118C0D011991/task.json",
+        "text": "public/Q-0CCF118C0D011991/text_view.txt",
+        "visual": "public/Q-0CCF118C0D011991/visual_view.png",
+        "visual_manifest": "public/Q-0CCF118C0D011991/visual_view.manifest.json"
+      },
+      "public_hashes": {
+        "paired_audit": "a8f81679e63c18519f8770fddfa034f1187365849c398a7f7d8aea1f39c454e0",
+        "prompt_contract": "8ceb42701db2bf03865eae25ba28a0be74d2fa137151c80d7a33d9e3496be132",
+        "task": "168d7e94484fae61cb2c48c101062c54f4088bc506058dd2f12bf26792f55065",
+        "text": "07b8bee3ee57ef39a1b34e425ce6a1406e0c2fef1dff135e9185152a523910cf",
+        "visual": "19e376c9d3cc65f3737e0ba84a84ab26303b9b8aec5070a758d2fa5dcffd4aa7",
+        "visual_manifest": "4ad7640edda22f8b979408f8979b2b840a0e78457fe837164e0e535a076ec46d"
+      },
+      "query_hash": "35f794e35ee66ac368f78efc75aa4207c4ad36e45eb7f5a7cea25b02a7521aac",
+      "query_id": "Q-0CCF118C0D011991"
+    },
+    {
+      "fact_inventory_hash": "af857bb3508a460e8e87842deb152e132863ab4a1fa21c5e6a43188a0ca6f50b",
+      "family": "answer_hidden_temporal_composition",
+      "operation": "raw_temporal_onset_low",
+      "public_files": {
+        "paired_audit": "public/Q-8376E26B97DF946C/paired_view_audit.json",
+        "prompt_contract": "public/Q-8376E26B97DF946C/prompt_contract.json",
+        "task": "public/Q-8376E26B97DF946C/task.json",
+        "text": "public/Q-8376E26B97DF946C/text_view.txt",
+        "visual": "public/Q-8376E26B97DF946C/visual_view.png",
+        "visual_manifest": "public/Q-8376E26B97DF946C/visual_view.manifest.json"
+      },
+      "public_hashes": {
+        "paired_audit": "2dcf8834cc7acbf7ff187be1473ccac504f45c0e11b7cda0ce349887a6bbb76a",
+        "prompt_contract": "6ceee08f7e80921d10ff45de31590ba718e6c8ba425b315f06f8f33956b6b29b",
+        "task": "5e2f6cc9a48172bcdd6ab0368a99bb938e8e58f059c1cd77d13e32ec50492529",
+        "text": "2990bfb13fda5aef11dd21a01ee126870a22d2122d33ac3ed312107e55f3ccea",
+        "visual": "8e966caac7aa43f698d67e939d137e3868b4efe5d96fb217271255e0514729b3",
+        "visual_manifest": "81c8683eeecb09c06b498023302a82c7d7ea92f6db8940d9e75b9aae03cf580a"
+      },
+      "query_hash": "e57b196e45072d0c3ff8d3266e9b40ec11b5237afbdec83633f41e68ce25123d",
+      "query_id": "Q-8376E26B97DF946C"
+    },
+    {
+      "fact_inventory_hash": "e5a5dacd3a43b872846dcb1bee56b5af9a90f69b45df58d1e58f10a4401b2fb3",
+      "family": "answer_hidden_temporal_composition",
+      "operation": "raw_temporal_onset_high",
+      "public_files": {
+        "paired_audit": "public/Q-0BB95054125C6939/paired_view_audit.json",
+        "prompt_contract": "public/Q-0BB95054125C6939/prompt_contract.json",
+        "task": "public/Q-0BB95054125C6939/task.json",
+        "text": "public/Q-0BB95054125C6939/text_view.txt",
+        "visual": "public/Q-0BB95054125C6939/visual_view.png",
+        "visual_manifest": "public/Q-0BB95054125C6939/visual_view.manifest.json"
+      },
+      "public_hashes": {
+        "paired_audit": "6d142ae336be8af795081db7f35f9c875fe4f081cce95006a0477317ffb2effc",
+        "prompt_contract": "2b8ba62529ce40001e3324ddca8d48e5407cd9aba2cfd6b00554c3fcb32be007",
+        "task": "d9b739828324e34a3cfa0f89a96ca05f62b7379d371f6df205f23a46f0cfc25c",
+        "text": "2cc7fe32c3c8507dab4f2c19bd48104c629560bb62fbb69555e0f8a15e01fa8e",
+        "visual": "18f7f8b6834c36fa5ba9f03e7c94cd406cfdf0e53b95f3bd28d5f5bd9fb7b7af",
+        "visual_manifest": "32c9d7c550b9a682f34369d05c1c799a81ce2dfd032f07547783bea67d548a17"
+      },
+      "query_hash": "c9289cc69e9a23261eb4cef4b2549cf37050ed4df946bdab390245cbc55d72ab",
+      "query_id": "Q-0BB95054125C6939"
+    },
+    {
+      "fact_inventory_hash": "fffe3e81c0e2172512bce743f88506d01a6f5d7f97b8c10a4a4bfab8e800b63e",
+      "family": "answer_hidden_relational_composition",
+      "operation": "directed_shortest_path_low",
+      "public_files": {
+        "paired_audit": "public/Q-1043D80E1A0B0475/paired_view_audit.json",
+        "prompt_contract": "public/Q-1043D80E1A0B0475/prompt_contract.json",
+        "task": "public/Q-1043D80E1A0B0475/task.json",
+        "text": "public/Q-1043D80E1A0B0475/text_view.txt",
+        "visual": "public/Q-1043D80E1A0B0475/visual_view.png",
+        "visual_manifest": "public/Q-1043D80E1A0B0475/visual_view.manifest.json"
+      },
+      "public_hashes": {
+        "paired_audit": "a0a50b27ddbb66b6d21f826d36a71f310c336dcc52fd6e605357f0054858196a",
+        "prompt_contract": "31b7744371e091ee70a868d1635ac9870cc3dcda5ade4a5677646228ed2ea1bb",
+        "task": "2fc8c18c353f1efec1af9fd6613b094f9d65da715d9331194be650f4ad49601a",
+        "text": "433fdde9f1706448e6e8689d2645b88b97c56a23359493909d32d7659ee31892",
+        "visual": "e72eaeddb53001583843bb980171f85cb1f2a9db758fbc103007bb02a9ac183e",
+        "visual_manifest": "ed9fb55f459488ae88b7c25d84103a88f334fd6f9481ff06c42f5e5824216dff"
+      },
+      "query_hash": "cecfa66d13f7a3572e2a278e945877e1884c79db6f7816da7d627cac731807fa",
+      "query_id": "Q-1043D80E1A0B0475"
+    }
+  ]
+}

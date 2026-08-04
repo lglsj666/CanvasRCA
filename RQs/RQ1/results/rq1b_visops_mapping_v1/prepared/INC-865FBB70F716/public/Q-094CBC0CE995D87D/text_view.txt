@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"2ff771e41221aa898bb5993e0565f7f4ea723d913f0fe4a6bfd724f98ab93210","query_hash":"6c03365cb6379866ee47298b8ac3d6cdee9f68c7cd00d84766663565ec3f3677","query_id":"Q-094CBC0CE995D87D","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"checkoutservice-2","fact_id":"FCE6B0CEA9A0B","field":"bin_center_rel_s","relative_bin":44,"unit":"relative_seconds","value":1627.031}
+FACT {"domain":"metric","entity":"checkoutservice-2","fact_id":"F932D9D5846AD","field":"metric","relative_bin":null,"unit":null,"value":"container_network_receive_MB.eth0"}
+FACT {"domain":"missingness","entity":"checkoutservice-2","fact_id":"F1849A5325D6E","field":"missing","relative_bin":44,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"checkoutservice-2","fact_id":"F004553B0A07F","field":"observed_count","relative_bin":44,"unit":null,"value":1}
+FACT {"domain":"metric","entity":"checkoutservice-2","fact_id":"FE94954F0D78A","field":"panel_id","relative_bin":null,"unit":null,"value":"M12"}
+FACT {"domain":"metric","entity":"checkoutservice-2","fact_id":"F73DCF3B3BE72","field":"service","relative_bin":null,"unit":null,"value":"checkoutservice-2"}
+FACT {"domain":"metric","entity":"checkoutservice-2","fact_id":"F3B120022EA47","field":"value","relative_bin":44,"unit":"native","value":0.571939}

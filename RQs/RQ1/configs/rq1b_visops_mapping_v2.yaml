@@ -1,0 +1,16 @@
+extends: rq1b_visops_mapping_v1.yaml
+experiment_id: rq1b_visops_mapping_v2
+registered_description: RQs/RQ1/descriptions/rq1b_visops_mapping_v2_output_contract.md
+
+execution:
+  stage: rq1b_exposed_mapping_v2_structured_output_registered
+
+contracts:
+  prompt_answer_contract: type_specific_json_v2
+  structured_output_transport: openai_response_format_json_schema
+
+gates:
+  rq1b_visops_mapping:
+    status: registered_v2_output_contract_repair
+  rq1b_visops_independent_gate:
+    status: blocked_until_v2_mapping_rule_frozen

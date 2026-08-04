@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"2ac0c303715ad93bf08d4ef93dc143e20cd4260f335ef824b195b4b6485362ea","query_hash":"d761a29c3ca48703ee34af422b6066ffc1b8dcc1c3a106c5998d12d632dff28d","query_id":"Q-E27F5FBF216A2FCE","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"istio-ingressgateway-565bffd4d-rn678","fact_id":"F6E06615FB13C","field":"bin_center_rel_s","relative_bin":59,"unit":"relative_seconds","value":2175.469}
+FACT {"domain":"metric","entity":"istio-ingressgateway-565bffd4d-rn678","fact_id":"F28A0CCE64C47","field":"metric","relative_bin":null,"unit":null,"value":"istio_agent_pilot_xds_send_time"}
+FACT {"domain":"missingness","entity":"istio-ingressgateway-565bffd4d-rn678","fact_id":"FF7EC958778B2","field":"missing","relative_bin":59,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"istio-ingressgateway-565bffd4d-rn678","fact_id":"F29DE39F086DA","field":"observed_count","relative_bin":59,"unit":null,"value":1}
+FACT {"domain":"metric","entity":"istio-ingressgateway-565bffd4d-rn678","fact_id":"F0E9B59CA00C1","field":"panel_id","relative_bin":null,"unit":null,"value":"M12"}
+FACT {"domain":"metric","entity":"istio-ingressgateway-565bffd4d-rn678","fact_id":"F34E78B87779F","field":"service","relative_bin":null,"unit":null,"value":"istio-ingressgateway-565bffd4d-rn678"}
+FACT {"domain":"metric","entity":"istio-ingressgateway-565bffd4d-rn678","fact_id":"F35BE7E7D7E22","field":"value","relative_bin":59,"unit":"native","value":0.0}

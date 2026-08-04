@@ -1,0 +1,25 @@
+VIEW {"fact_inventory_hash":"1c216323366283a274553be44b476be898994bf096ff027ccecd726ea9f292f6","query_hash":"491db0299cee0abe3f448e59877c2a971f4d998b26df9e81fbb3c9ce0d18286d","query_id":"Q-CD59F33CD3A20E45","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"coverage","entity":"mysql","fact_id":"FF6737C5A968B","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"mysql","fact_id":"FE4C291EE6DF5","field":"metric_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"mysql","fact_id":"F63EB1116A20C","field":"trace_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"ts-assurance-service","fact_id":"F467167A909E9","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-assurance-service","fact_id":"F72AAB57344CC","field":"metric_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"ts-assurance-service","fact_id":"FA1E7968ACE18","field":"trace_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-auth-service","fact_id":"F24B18246599E","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-auth-service","fact_id":"FBDC65FF1B0C2","field":"metric_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"ts-auth-service","fact_id":"F98635004F59E","field":"trace_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-basic-service","fact_id":"F2B2E3B7AC0DE","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-basic-service","fact_id":"F01742B730AA2","field":"metric_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"ts-basic-service","fact_id":"F6A36A72B99F0","field":"trace_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-cancel-service","fact_id":"FA02D510BE8F9","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-cancel-service","fact_id":"FAC9F43BFC7E6","field":"metric_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"ts-cancel-service","fact_id":"F5823AA9EC890","field":"trace_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-config-service","fact_id":"F5A332790C964","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-config-service","fact_id":"FF4FCEC2FFE2A","field":"metric_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"ts-config-service","fact_id":"F06D274827943","field":"trace_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-consign-price-service","fact_id":"F54BCF7BAF833","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-consign-price-service","fact_id":"F34E17872E182","field":"metric_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"ts-consign-price-service","fact_id":"F431051ECAF24","field":"trace_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-security-service","fact_id":"F68CD1B8A1DAA","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-security-service","fact_id":"FC91626BB0A23","field":"metric_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-security-service","fact_id":"F073756A710AC","field":"trace_available","relative_bin":null,"unit":null,"value":true}

@@ -1,0 +1,11 @@
+# RQ1 VisOps conversation — Q-7DAD6F9A54ED6D7D — T
+
+- opaque incident: `INC-1B0CB04B4A10`
+- model: `qwen3.6-27b`
+- prompt hash: `e7856dd8b2c7c1519dce624b63dfcf5ce689ce002786f11283f2985a4a8765c2`
+- visual hash: `f1259658de733849cdd470da7a5bad5bb04233c1ec7a432208f770e93597f58f`
+- text hash: `62ab35cea613f47bf3e73f46fed99517ea23365879ce37135eeef757cbec1cce`
+
+## Response
+
+{"answer": ["adservice-1", "frontend-1"]}

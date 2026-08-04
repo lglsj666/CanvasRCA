@@ -1,0 +1,19 @@
+{
+  "schema_version": "RQ1VisualReviewV1",
+  "status": "passed",
+  "experiment_id": "rq1b_visops_mapping_v2",
+  "experiment_config_hash": "2ac662944cceb2beea7c7cc25c963b2d92f41a40a4622a86ec63265d1eb8f6f0",
+  "artifact_inventory_hash": "d31222693bdca43519802253ca33a35178180ca4846316dba2e8f77fbb8394ca",
+  "review_scope": "V2 changes only the answer-output contract. The frozen v1-to-v2 input-equivalence audit proves all 708 PNGs and visual manifests are byte-identical. The previously inspected, hash-identical representatives below cover every render kind; no new pixels require a second subjective review.",
+  "prior_visual_review": "RQs/RQ1/results/rq1b_visops_mapping_v1/qualification/visual_review.json",
+  "input_equivalence_audit": "RQs/RQ1/results/rq1b_visops_mapping_v2/qualification/v1_v2_input_equivalence.json",
+  "reviewed_images": [
+    {"opaque_incident_id":"INC-050F7C1DE11C","query_id":"Q-1546DAAF320E18CE","render_kind":"temporal_summary","image_sha256":"1d50ed05c1b6db49a5ac39d50c36a6dbadcf23a74701ae64c613ec0e1836d32c","status":"passed"},
+    {"opaque_incident_id":"INC-050F7C1DE11C","query_id":"Q-21B8252D8411D52B","render_kind":"entity_modality_matrix","image_sha256":"a9f53c0fc50b2788b320da6f6bbbea9a82ca928c89d137a0f32c782126fbd68c","status":"passed"},
+    {"opaque_incident_id":"INC-050F7C1DE11C","query_id":"Q-222D6CDA3D454180","render_kind":"topology","image_sha256":"5c063f1a41aa54139b1f6ca087d456db4c363d9a4d610208e0859165dd76eb99","status":"passed"},
+    {"opaque_incident_id":"INC-050F7C1DE11C","query_id":"Q-62DB012DEB395B66","render_kind":"metric_point","image_sha256":"c823ad97932b549f75e00231c642ca95a07dc0bd6f13daa5b5c4d578d7d59321","status":"passed"},
+    {"opaque_incident_id":"INC-050F7C1DE11C","query_id":"Q-83507DB30B95C0C0","render_kind":"log_summary","image_sha256":"5dca1b26d588d0bcced5a923a077e09ee37022c82b9ca59ba3905a3b8c36acec","status":"passed"},
+    {"opaque_incident_id":"INC-050F7C1DE11C","query_id":"Q-B02F8E4A9EF3D9B5","render_kind":"missingness_matrix","image_sha256":"1410753a68249f675cb9de1c5c1f6d80644111e2e4a7b0374b9ce5e8fde45d39","status":"passed"},
+    {"opaque_incident_id":"INC-050F7C1DE11C","query_id":"Q-BCE7AB1CEAA5CBDE","render_kind":"trace_summary","image_sha256":"c28dd8e70f8d9db24404252957b692cedfff281027a459d661823f2151f81262","status":"passed"}
+  ]
+}

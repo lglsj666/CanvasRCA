@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"52072c95780d505856342dda6df5075d08b8bd3a5a019d1413faeeed3ed44c83","query_hash":"f6bf9acda81f05cf96846397b468e46b551e08ba5105c2023561ea7615911261","query_id":"Q-F741C082BCF09350","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"node-4","fact_id":"F299972FB2603","field":"metric","relative_bin":null,"unit":null,"value":"system.io.avg_q_sz"}
+FACT {"domain":"metric","entity":"node-4","fact_id":"FF671AB8ED555","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1334.531}
+FACT {"domain":"metric","entity":"node-4","fact_id":"F9972181F0327","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"node-4","fact_id":"FBA967E0CD4F5","field":"service","relative_bin":null,"unit":null,"value":"node-4"}
+FACT {"domain":"metric","entity":"node-6","fact_id":"F465D5E488E6D","field":"metric","relative_bin":null,"unit":null,"value":"system.mem.pct_usage"}
+FACT {"domain":"metric","entity":"node-6","fact_id":"FB12C0465F4E4","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1627.031}
+FACT {"domain":"metric","entity":"node-6","fact_id":"FACCB29F78862","field":"panel_id","relative_bin":null,"unit":null,"value":"M5"}
+FACT {"domain":"metric","entity":"node-6","fact_id":"F3158A814F1D8","field":"service","relative_bin":null,"unit":null,"value":"node-6"}
+FACT {"domain":"metric","entity":"productcatalogservice-0","fact_id":"F548FD089D2B6","field":"metric","relative_bin":null,"unit":null,"value":"container_memory_usage_MB"}
+FACT {"domain":"metric","entity":"productcatalogservice-0","fact_id":"F3805A78B4ADC","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1627.031}
+FACT {"domain":"metric","entity":"productcatalogservice-0","fact_id":"F26EAD0DE5FC1","field":"panel_id","relative_bin":null,"unit":null,"value":"M8"}
+FACT {"domain":"metric","entity":"productcatalogservice-0","fact_id":"F5B46234D6650","field":"service","relative_bin":null,"unit":null,"value":"productcatalogservice-0"}
+FACT {"domain":"metric","entity":"productcatalogservice-1","fact_id":"FC1E3528769E4","field":"metric","relative_bin":null,"unit":null,"value":"container_memory_working_set_MB"}
+FACT {"domain":"metric","entity":"productcatalogservice-1","fact_id":"FEB1BBE51E003","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1627.031}
+FACT {"domain":"metric","entity":"productcatalogservice-1","fact_id":"FC21B5628584E","field":"panel_id","relative_bin":null,"unit":null,"value":"M10"}
+FACT {"domain":"metric","entity":"productcatalogservice-1","fact_id":"F4A544D8F0042","field":"service","relative_bin":null,"unit":null,"value":"productcatalogservice-1"}

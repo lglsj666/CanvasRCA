@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"0a9732afd744130810a40d87b9a9c566dc8e7cc51743b837e2fa5b24c1710d98","query_hash":"87a25d3fad3b724b1c5a6bc97e0e25a161bb66c7ab6fd6e69ec877f209d92b4b","query_id":"Q-11123B8298E38068","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"emailservice-0","fact_id":"F3D1CCED13693","field":"metric","relative_bin":null,"unit":null,"value":"container_fs_usage_MB./dev/vda1"}
+FACT {"domain":"metric","entity":"emailservice-0","fact_id":"F473A04926B4E","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1627.031}
+FACT {"domain":"metric","entity":"emailservice-0","fact_id":"F45EDCB89FE46","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"emailservice-0","fact_id":"FCF5A9CFDCDE1","field":"service","relative_bin":null,"unit":null,"value":"emailservice-0"}
+FACT {"domain":"metric","entity":"emailservice-1","fact_id":"F41F06A43CE63","field":"metric","relative_bin":null,"unit":null,"value":"container_fs_usage_MB./dev/vda1"}
+FACT {"domain":"metric","entity":"emailservice-1","fact_id":"F79150BF98C1F","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1809.844}
+FACT {"domain":"metric","entity":"emailservice-1","fact_id":"FF49A6DE41A83","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"emailservice-1","fact_id":"F3B0F5644219C","field":"service","relative_bin":null,"unit":null,"value":"emailservice-1"}
+FACT {"domain":"metric","entity":"emailservice-2","fact_id":"F80D7C6E7A1B0","field":"metric","relative_bin":null,"unit":null,"value":"container_fs_usage_MB./dev/vda1"}
+FACT {"domain":"metric","entity":"emailservice-2","fact_id":"F8A8991F989AC","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1809.844}
+FACT {"domain":"metric","entity":"emailservice-2","fact_id":"F36D1DC0CD3C5","field":"panel_id","relative_bin":null,"unit":null,"value":"M3"}
+FACT {"domain":"metric","entity":"emailservice-2","fact_id":"FAB820C2C5D2E","field":"service","relative_bin":null,"unit":null,"value":"emailservice-2"}
+FACT {"domain":"metric","entity":"adservice2","fact_id":"FEDCC40B1E9BE","field":"metric","relative_bin":null,"unit":null,"value":"java_lang_GarbageCollector_LastGcInfo_memoryUsageBeforeGc_used.Tenured_Gen.Copy"}
+FACT {"domain":"metric","entity":"adservice2","fact_id":"F45301DDF21E3","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1334.531}
+FACT {"domain":"metric","entity":"adservice2","fact_id":"FC9E53C2210B0","field":"panel_id","relative_bin":null,"unit":null,"value":"M4"}
+FACT {"domain":"metric","entity":"adservice2","fact_id":"F9992CC537CBA","field":"service","relative_bin":null,"unit":null,"value":"adservice2"}

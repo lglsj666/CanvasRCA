@@ -1,0 +1,29 @@
+extends: rq1b3_two_stage_development_v1.yaml
+experiment_id: rq1b3_two_stage_smoke_v1
+
+execution:
+  stage: rq1b3_validation_smoke_v1_two_stage_registered
+  requires_smoke_qualification: false
+  partial_result_policy: diagnostic_only_excluded_from_efficacy_and_model_selection
+
+data:
+  allowed_partition: validation_smoke_only
+  roster: RQs/RQ1/configs/rosters/rq1b_visops_smoke_public_v1.json
+  private_roster: RQs/RQ1/configs/rosters/rq1b_visops_smoke_private_v1.json
+  mapping_cases_per_dataset: null
+  mapping_case_total: 3
+  mapping_gate_overlap: null
+
+gates:
+  rq1b3_development:
+    status: blocked_until_rq1b3_smoke_passes
+    qualification_yield: 3
+  rq1b3_smoke:
+    status: registered_pending_execution
+    correctness_is_gate: false
+    infrastructure_failures_required: 0
+    stage1_parse_required: true
+    stage2_parse_required: true
+    oracle_stage2_exact_accuracy_minimum: 0.95
+    required_answer_types:
+      - panel_onset_ledger

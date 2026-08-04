@@ -1,0 +1,13 @@
+VIEW {"fact_inventory_hash":"b49a94a6d6244ddd1896485f4f3ead2cd84f87ef4dac57f20437fd77ee5f64d2","query_hash":"3ba9781897d72c5507ac778cf1c2a012b820c8eba9b072bb85fe51a664760291","query_id":"Q-7E0279BD05A1AC98","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"F406523A388B2","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.filesystem.usage"}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"F98FDE2C580AE","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":242.392}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"FB32E17F74BDC","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"F2C67551D153F","field":"service","relative_bin":null,"unit":null,"value":"ts-preserve-service"}
+FACT {"domain":"metric","entity":"ts-basic-service","fact_id":"FFF26482CFEBF","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.memory.rss"}
+FACT {"domain":"metric","entity":"ts-basic-service","fact_id":"FA4F596857C54","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":242.392}
+FACT {"domain":"metric","entity":"ts-basic-service","fact_id":"F2AB8966B4BF0","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"ts-basic-service","fact_id":"F9BB7C73944F9","field":"service","relative_bin":null,"unit":null,"value":"ts-basic-service"}
+FACT {"domain":"metric","entity":"ts-admin-user-service","fact_id":"FBE613F6BCDD6","field":"metric","relative_bin":null,"unit":null,"value":"container.cpu.usage"}
+FACT {"domain":"metric","entity":"ts-admin-user-service","fact_id":"F2A93DEF492D2","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":287.141}
+FACT {"domain":"metric","entity":"ts-admin-user-service","fact_id":"FE7F151D87634","field":"panel_id","relative_bin":null,"unit":null,"value":"M8"}
+FACT {"domain":"metric","entity":"ts-admin-user-service","fact_id":"FBD3035C02AA6","field":"service","relative_bin":null,"unit":null,"value":"ts-admin-user-service"}

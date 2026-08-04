@@ -1,0 +1,11 @@
+# RQ1 VisOps conversation — Q-9FFF9C66EA109881 — T
+
+- opaque incident: `INC-85D0FC0DE440`
+- model: `gemma-4-26b-a4b`
+- prompt hash: `1f5c44e2cb4e851317b475abc30775bb5fa97f83ad92e357afd1d12052ff0065`
+- visual hash: `fc9d311b265e43e89bb2b9c8b803f10118f37c3a0d8d974a4777107fe0f2c68b`
+- text hash: `56ccb171318c821d69a9aaf117925d84ce95e72b90e8614ee0905cff1cd2f413`
+
+## Response
+
+{"answer": ["ts-preserve-service", "ts-food-service", "ts-train-food-service"]}

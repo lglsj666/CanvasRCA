@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"28d35504316f5c0a17c661612f8680ad4c39ee7e928be39b5a6c3272124908a0","query_hash":"92ece39b97335f88d0311716bbc3951ba362cfd599bb3fa1a1d0e669e681b286","query_id":"Q-2E392D8A0225B7A8","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-basic-service","fact_id":"FA4A2B0A9EBBC","field":"metric","relative_bin":null,"unit":null,"value":"hubble_http_request_duration_p90_seconds"}
+FACT {"domain":"metric","entity":"ts-basic-service","fact_id":"FEA36D3AF2913","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"ts-basic-service","fact_id":"F110F09D3BD10","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"ts-basic-service","fact_id":"FEB8F888D021C","field":"service","relative_bin":null,"unit":null,"value":"ts-basic-service"}
+FACT {"domain":"metric","entity":"ts-station-service","fact_id":"F34F5FF748309","field":"metric","relative_bin":null,"unit":null,"value":"hubble_http_request_duration_p90_seconds"}
+FACT {"domain":"metric","entity":"ts-station-service","fact_id":"F41F57B7B1F65","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"ts-station-service","fact_id":"F1A75B8AB198B","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"ts-station-service","fact_id":"F45FA4CBA0667","field":"service","relative_bin":null,"unit":null,"value":"ts-station-service"}
+FACT {"domain":"metric","entity":"ts-travel-plan-service","fact_id":"F06C14FD3D9C4","field":"metric","relative_bin":null,"unit":null,"value":"hubble_http_request_duration_p50_seconds"}
+FACT {"domain":"metric","entity":"ts-travel-plan-service","fact_id":"F560F5E889476","field":"panel_id","relative_bin":null,"unit":null,"value":"M4"}
+FACT {"domain":"metric","entity":"ts-travel-plan-service","fact_id":"F37C7BB5002FB","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"ts-travel-plan-service","fact_id":"F00D103DD3BEF","field":"service","relative_bin":null,"unit":null,"value":"ts-travel-plan-service"}
+FACT {"domain":"metric","entity":"ts-travel-service","fact_id":"FF7EFEF3E67D1","field":"metric","relative_bin":null,"unit":null,"value":"hubble_http_request_duration_p90_seconds"}
+FACT {"domain":"metric","entity":"ts-travel-service","fact_id":"FE6216C07C879","field":"panel_id","relative_bin":null,"unit":null,"value":"M5"}
+FACT {"domain":"metric","entity":"ts-travel-service","fact_id":"FBEFD2FAFE3C0","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"ts-travel-service","fact_id":"F506A24C81633","field":"service","relative_bin":null,"unit":null,"value":"ts-travel-service"}

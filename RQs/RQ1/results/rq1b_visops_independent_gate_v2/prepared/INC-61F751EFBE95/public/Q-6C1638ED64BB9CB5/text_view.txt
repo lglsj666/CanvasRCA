@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"8677bd23121a3fa4d81398c51a3bfd771bb463fc7f4878e43bfefd88216b7e43","query_hash":"4e31bc96d654fe02786633bde7b0ee2241f88091a9dd157523a912bbe2a4eb2f","query_id":"Q-6C1638ED64BB9CB5","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-travel-service","fact_id":"F8170DCA3E531","field":"bin_center_rel_s","relative_bin":41,"unit":"relative_seconds","value":310.864}
+FACT {"domain":"metric","entity":"ts-travel-service","fact_id":"F2FE6347CB95A","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.filesystem.usage"}
+FACT {"domain":"missingness","entity":"ts-travel-service","fact_id":"F2AC9D9226531","field":"missing","relative_bin":41,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"ts-travel-service","fact_id":"F00A787030478","field":"observed_count","relative_bin":41,"unit":null,"value":2}
+FACT {"domain":"metric","entity":"ts-travel-service","fact_id":"F65DE8DEF5A42","field":"panel_id","relative_bin":null,"unit":null,"value":"M8"}
+FACT {"domain":"metric","entity":"ts-travel-service","fact_id":"F44C19D098B63","field":"service","relative_bin":null,"unit":null,"value":"ts-travel-service"}
+FACT {"domain":"metric","entity":"ts-travel-service","fact_id":"F3C77E6308F21","field":"value","relative_bin":41,"unit":"native","value":14684160.0}

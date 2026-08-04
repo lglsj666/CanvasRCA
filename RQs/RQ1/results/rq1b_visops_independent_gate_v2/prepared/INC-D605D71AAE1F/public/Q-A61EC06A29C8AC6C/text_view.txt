@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"187db734e3ce169e53247a511a00a1dbdde785094222c4be8265ce776ff04917","query_hash":"52179e7180eeb07caaeed3672b0b3c856330f641b8ad9731057fa654c5ecef03","query_id":"Q-A61EC06A29C8AC6C","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"emailservice-2","fact_id":"F10E5955C8090","field":"bin_center_rel_s","relative_bin":4,"unit":"relative_seconds","value":164.531}
+FACT {"domain":"metric","entity":"emailservice-2","fact_id":"F212E1D36FE87","field":"metric","relative_bin":null,"unit":null,"value":"container_fs_usage_MB./dev/vda1"}
+FACT {"domain":"missingness","entity":"emailservice-2","fact_id":"F541E029178A4","field":"missing","relative_bin":4,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"emailservice-2","fact_id":"F07491DDB8D26","field":"observed_count","relative_bin":4,"unit":null,"value":1}
+FACT {"domain":"metric","entity":"emailservice-2","fact_id":"F85E1D569F93F","field":"panel_id","relative_bin":null,"unit":null,"value":"M10"}
+FACT {"domain":"metric","entity":"emailservice-2","fact_id":"F8F732C1D68D5","field":"service","relative_bin":null,"unit":null,"value":"emailservice-2"}
+FACT {"domain":"metric","entity":"emailservice-2","fact_id":"FDDB4D8B06D15","field":"value","relative_bin":4,"unit":"native","value":32.75}

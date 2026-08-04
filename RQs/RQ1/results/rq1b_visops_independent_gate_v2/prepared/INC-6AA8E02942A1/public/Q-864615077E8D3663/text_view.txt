@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"d79878db3e296c4b7fdfafcb200a70c18d7d395484e69897507003471c33414a","query_hash":"f8a12c1d3bd14feb56db8c808d3d5bd8587d897d6b12c9ebdcd78781f5e9b825","query_id":"Q-864615077E8D3663","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"adservice-2","fact_id":"FB082BFE5C0B2","field":"metric","relative_bin":null,"unit":null,"value":"pod_memory_working_set_bytes"}
+FACT {"domain":"metric","entity":"adservice-2","fact_id":"F5B3E0566AB4E","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"adservice-2","fact_id":"F1864877802B4","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"adservice-2","fact_id":"F4208809F15AA","field":"service","relative_bin":null,"unit":null,"value":"adservice-2"}
+FACT {"domain":"metric","entity":"node-1","fact_id":"F1A7457B1EE78","field":"metric","relative_bin":null,"unit":null,"value":"node_disk_read_bytes_total"}
+FACT {"domain":"metric","entity":"node-1","fact_id":"FC12F79AD73A9","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"node-1","fact_id":"FBC028602C0A0","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"node-1","fact_id":"FA2A2990B0945","field":"service","relative_bin":null,"unit":null,"value":"node-1"}
+FACT {"domain":"metric","entity":"node-8","fact_id":"F7B180AE37645","field":"metric","relative_bin":null,"unit":null,"value":"node_disk_read_bytes_total"}
+FACT {"domain":"metric","entity":"node-8","fact_id":"FEC46289D25B9","field":"panel_id","relative_bin":null,"unit":null,"value":"M3"}
+FACT {"domain":"metric","entity":"node-8","fact_id":"FDA85D228D599","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"node-8","fact_id":"F6AA9E6DD53A8","field":"service","relative_bin":null,"unit":null,"value":"node-8"}
+FACT {"domain":"metric","entity":"currencyservice-2","fact_id":"F3B52686925CA","field":"metric","relative_bin":null,"unit":null,"value":"pod_memory_working_set_bytes"}
+FACT {"domain":"metric","entity":"currencyservice-2","fact_id":"FB62396D54F6A","field":"panel_id","relative_bin":null,"unit":null,"value":"M4"}
+FACT {"domain":"metric","entity":"currencyservice-2","fact_id":"FFE594487EEE2","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":2}
+FACT {"domain":"metric","entity":"currencyservice-2","fact_id":"F6D8E43E3D359","field":"service","relative_bin":null,"unit":null,"value":"currencyservice-2"}

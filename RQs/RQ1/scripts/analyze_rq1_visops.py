@@ -639,6 +639,28 @@ def _analyze_model(
             "query_level_descriptive": _query_scope_report(eligible, family_keys),
         }
 
+    operations = sorted(
+        {_required_string(eligible[key]["T"], "operation") for key in ordered_keys}
+    )
+    per_operation: dict[str, Any] = {}
+    for operation in operations:
+        operation_keys = [
+            key
+            for key in ordered_keys
+            if _required_string(eligible[key]["T"], "operation") == operation
+        ]
+        per_operation[operation] = {
+            "case_level": _case_scope_report(
+                eligible,
+                operation_keys,
+                analysis_role="stratified_case_level",
+                include_inference=True,
+            ),
+            "query_level_descriptive": _query_scope_report(
+                eligible, operation_keys
+            ),
+        }
+
     dataset_values = {
         _optional_analysis_metadata(eligible[key]["T"], "analysis_dataset")
         for key in ordered_keys
@@ -695,6 +717,7 @@ def _analyze_model(
         },
         "primary_case_level": primary_case_level,
         "query_level_descriptive": query_level,
+        "per_operation": per_operation,
         "per_family": per_family,
         "per_dataset": per_dataset,
     }
@@ -713,9 +736,22 @@ def analyze_records(
     if not 0.0 <= minimum_parse_rate <= 1.0:
         raise AnalysisError("minimum parse rate must lie in [0, 1]")
     indexed = _validate_and_index(records)
+    models = {
+        model: _analyze_model(
+            model,
+            units,
+            maximum_exclusion_fraction=maximum_exclusion_fraction,
+            minimum_parse_rate=minimum_parse_rate,
+        )
+        for model, units in sorted(indexed.items())
+    }
+    all_models_valid = all(
+        report["confirmatory_claim_allowed"] for report in models.values()
+    )
     return {
-        "schema_version": "RQ1VisOpsPairedAnalysisV2",
-        "status": "valid",
+        "schema_version": "RQ1VisOpsPairedAnalysisV3",
+        "status": "valid" if all_models_valid else "incomplete_model_gate",
+        "confirmatory_claim_allowed": all_models_valid,
         "expected_arms": list(EXPECTED_ARMS),
         "primary_inferential_unit": "opaque_incident_id",
         "query_level_statistics_role": "descriptive_only",
@@ -723,15 +759,7 @@ def analyze_records(
         "minimum_parse_rate": minimum_parse_rate,
         "parse_truncation_and_invalid_output_policy": "retained_as_model_outcomes",
         "confidence_intervals_reported": False,
-        "models": {
-            model: _analyze_model(
-                model,
-                units,
-                maximum_exclusion_fraction=maximum_exclusion_fraction,
-                minimum_parse_rate=minimum_parse_rate,
-            )
-            for model, units in sorted(indexed.items())
-        },
+        "models": models,
     }
 
 

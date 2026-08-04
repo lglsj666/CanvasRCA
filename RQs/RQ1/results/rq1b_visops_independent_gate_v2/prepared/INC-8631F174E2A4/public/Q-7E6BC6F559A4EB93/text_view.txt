@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"a979a561683b149dce5103ba7866b6c7f3f14a33d1aeee18edfe36794dec7661","query_hash":"21d9b7edde65b94d4b4d13f39ebf35798245190dc9b33e1b7e70b1ddb88acd45","query_id":"Q-7E6BC6F559A4EB93","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-ui-dashboard","fact_id":"FBEE06121882E","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.cpu.node.utilization"}
+FACT {"domain":"metric","entity":"ts-ui-dashboard","fact_id":"F42A57B819EE6","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":250.36}
+FACT {"domain":"metric","entity":"ts-ui-dashboard","fact_id":"FE7EFDF7A1A06","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"ts-ui-dashboard","fact_id":"F73BC683B69B6","field":"service","relative_bin":null,"unit":null,"value":"ts-ui-dashboard"}
+FACT {"domain":"metric","entity":"ts-avatar-service","fact_id":"FDE32D6C9E8D3","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.cpu.node.utilization"}
+FACT {"domain":"metric","entity":"ts-avatar-service","fact_id":"F6ED5DBB4640E","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":287.727}
+FACT {"domain":"metric","entity":"ts-avatar-service","fact_id":"F416C5FE7E5D3","field":"panel_id","relative_bin":null,"unit":null,"value":"M4"}
+FACT {"domain":"metric","entity":"ts-avatar-service","fact_id":"FD5C9738EE957","field":"service","relative_bin":null,"unit":null,"value":"ts-avatar-service"}
+FACT {"domain":"metric","entity":"ts-train-service","fact_id":"F0B4A2A9AD21A","field":"metric","relative_bin":null,"unit":null,"value":"container.cpu.usage"}
+FACT {"domain":"metric","entity":"ts-train-service","fact_id":"F7D02284E6795","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":452.142}
+FACT {"domain":"metric","entity":"ts-train-service","fact_id":"FABE712C58B60","field":"panel_id","relative_bin":null,"unit":null,"value":"M9"}
+FACT {"domain":"metric","entity":"ts-train-service","fact_id":"F6412095D160F","field":"service","relative_bin":null,"unit":null,"value":"ts-train-service"}
+FACT {"domain":"metric","entity":"ts-food-delivery-service","fact_id":"FD90F958D3396","field":"metric","relative_bin":null,"unit":null,"value":"container.cpu.usage"}
+FACT {"domain":"metric","entity":"ts-food-delivery-service","fact_id":"F1AC406A774D6","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":280.253}
+FACT {"domain":"metric","entity":"ts-food-delivery-service","fact_id":"F9CCC417E56F3","field":"panel_id","relative_bin":null,"unit":null,"value":"M10"}
+FACT {"domain":"metric","entity":"ts-food-delivery-service","fact_id":"F94D3B53BE07D","field":"service","relative_bin":null,"unit":null,"value":"ts-food-delivery-service"}

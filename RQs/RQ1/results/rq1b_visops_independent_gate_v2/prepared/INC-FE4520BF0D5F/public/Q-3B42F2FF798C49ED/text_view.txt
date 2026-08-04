@@ -1,0 +1,13 @@
+VIEW {"fact_inventory_hash":"f8591a6d63dd59727604e105d6ea3c16cf49d1eb543a203b659a31eb0cb69105","query_hash":"491d1f270b1e127ffe05d64bb1a7e06dc829e24e6cc15148170c38adfcf426de","query_id":"Q-3B42F2FF798C49ED","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"adservice","fact_id":"F3878C129BA35","field":"metric","relative_bin":null,"unit":null,"value":"java_lang_Memory_ObjectPendingFinalizationCount"}
+FACT {"domain":"metric","entity":"adservice","fact_id":"F3039B16C631E","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"adservice","fact_id":"FDCA023D8D17D","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"adservice","fact_id":"F2B0AACB685CF","field":"service","relative_bin":null,"unit":null,"value":"adservice"}
+FACT {"domain":"metric","entity":"cartservice-1","fact_id":"F96DD609500F2","field":"metric","relative_bin":null,"unit":null,"value":"container_fs_inodes./dev/vda1"}
+FACT {"domain":"metric","entity":"cartservice-1","fact_id":"FA460D9F6829C","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"cartservice-1","fact_id":"F1B16EC798238","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"cartservice-1","fact_id":"F6E2B87E40130","field":"service","relative_bin":null,"unit":null,"value":"cartservice-1"}
+FACT {"domain":"metric","entity":"currencyservice-2","fact_id":"FB35CFD27E2DC","field":"metric","relative_bin":null,"unit":null,"value":"container_cpu_cfs_throttled_seconds"}
+FACT {"domain":"metric","entity":"currencyservice-2","fact_id":"F04269A718B5B","field":"panel_id","relative_bin":null,"unit":null,"value":"M7"}
+FACT {"domain":"metric","entity":"currencyservice-2","fact_id":"F802F2E41631E","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"currencyservice-2","fact_id":"FC20A9D1ECBFF","field":"service","relative_bin":null,"unit":null,"value":"currencyservice-2"}

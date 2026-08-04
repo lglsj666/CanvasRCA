@@ -1,0 +1,13 @@
+VIEW {"fact_inventory_hash":"66cde25ad946af8d5d156325e1f009e819c7cf9ae615a21a8df6a5323b36f412","query_hash":"1396619ec8fa7f6b0b18582ad75fba734a0a280e9a52023da9b68f0133dbd141","query_id":"Q-4E91F9B4217E3566","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-order-service-56b9db98d8-zvkcc","fact_id":"F6923F55FCA2D","field":"metric","relative_bin":null,"unit":null,"value":"k8s.container.restarts"}
+FACT {"domain":"metric","entity":"ts-order-service-56b9db98d8-zvkcc","fact_id":"FA9D3524E1A46","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":272.821}
+FACT {"domain":"metric","entity":"ts-order-service-56b9db98d8-zvkcc","fact_id":"FB0527303F224","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"ts-order-service-56b9db98d8-zvkcc","fact_id":"FF08A3FFE7ED4","field":"service","relative_bin":null,"unit":null,"value":"ts-order-service-56b9db98d8-zvkcc"}
+FACT {"domain":"metric","entity":"ts-ticket-office-service","fact_id":"FFCBD4167D4CE","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.memory_limit_utilization"}
+FACT {"domain":"metric","entity":"ts-ticket-office-service","fact_id":"F7256A83686DE","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":3.737}
+FACT {"domain":"metric","entity":"ts-ticket-office-service","fact_id":"F213F27A840F3","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"ts-ticket-office-service","fact_id":"F99B26831DD0D","field":"service","relative_bin":null,"unit":null,"value":"ts-ticket-office-service"}
+FACT {"domain":"metric","entity":"ts-order-service","fact_id":"F8A4EA0BB7B24","field":"metric","relative_bin":null,"unit":null,"value":"container.filesystem.usage"}
+FACT {"domain":"metric","entity":"ts-order-service","fact_id":"FB4BBB4C9B66B","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":250.397}
+FACT {"domain":"metric","entity":"ts-order-service","fact_id":"F5B0DA11F70D6","field":"panel_id","relative_bin":null,"unit":null,"value":"M3"}
+FACT {"domain":"metric","entity":"ts-order-service","fact_id":"F5ADEA1153055","field":"service","relative_bin":null,"unit":null,"value":"ts-order-service"}

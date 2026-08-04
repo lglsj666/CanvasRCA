@@ -1,0 +1,11 @@
+# RQ1 VisOps conversation — Q-8AB0F51AD98E702C — H
+
+- opaque incident: `INC-C10337D69F1A`
+- model: `gemma-4-26b-a4b`
+- prompt hash: `619e21530b644898d6926ff772b49976736f7108699c40be95920cda7ad7a5fd`
+- visual hash: `8f301a2f23d57b32ca4b422ce1902ba59918a9bae352e19ffb461cb8468a264e`
+- text hash: `7299f8b9416a1c203772ec3ddb7466ed3ca8f68fb2de067fb59e99b8f2718ab8`
+
+## Response
+
+{"answer": ["ts-preserve-service"]}

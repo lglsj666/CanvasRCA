@@ -305,6 +305,8 @@ class QuerySpec:
             "topology_path",
             "cross_modal_alignment",
             "missingness_uncertainty",
+            "answer_hidden_temporal_composition",
+            "answer_hidden_relational_composition",
         }:
             raise ContractError(f"unknown operation family {self.family!r}")
         if not self.telemetry_domains:

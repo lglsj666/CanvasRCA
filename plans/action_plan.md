@@ -1,4 +1,4 @@
-# VLM-RCA action plan
+# CanvasRCA action plan
 
 Milestone sequence. Status as of 2026-07-26.
 

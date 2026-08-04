@@ -1,0 +1,9 @@
+VIEW {"fact_inventory_hash":"787faf5dc423adffda34f59e478f15e969a0805402752d67e23f9012c8501690","query_hash":"7d730234b6ab100b020b2b7b088546a93dea4522262fdd85c6f0f7293640af4d","query_id":"Q-6685CC9406E499AD","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-assurance-service","fact_id":"F3D53C70F4FB2","field":"metric","relative_bin":null,"unit":null,"value":"container.cpu.usage"}
+FACT {"domain":"metric","entity":"ts-assurance-service","fact_id":"F4F1F7752C391","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":340.233}
+FACT {"domain":"metric","entity":"ts-assurance-service","fact_id":"FC3380B82D915","field":"panel_id","relative_bin":null,"unit":null,"value":"M4"}
+FACT {"domain":"metric","entity":"ts-assurance-service","fact_id":"FBF7293BC7A8C","field":"service","relative_bin":null,"unit":null,"value":"ts-assurance-service"}
+FACT {"domain":"metric","entity":"loadgenerator","fact_id":"F9DDF30A687AE","field":"metric","relative_bin":null,"unit":null,"value":"container.cpu.usage"}
+FACT {"domain":"metric","entity":"loadgenerator","fact_id":"F7F08BBE6A94F","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":243.024}
+FACT {"domain":"metric","entity":"loadgenerator","fact_id":"F5260B8E8B217","field":"panel_id","relative_bin":null,"unit":null,"value":"M5"}
+FACT {"domain":"metric","entity":"loadgenerator","fact_id":"FC6638A637CDC","field":"service","relative_bin":null,"unit":null,"value":"loadgenerator"}

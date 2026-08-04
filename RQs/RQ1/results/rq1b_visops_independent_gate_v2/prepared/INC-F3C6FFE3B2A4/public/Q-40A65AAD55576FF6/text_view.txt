@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"9ab5f2915dd852ab845079cf2a32635c222680573cb89fff6e24a83c7e42e982","query_hash":"9a4a51208af884dc501a61320fc50e7f7bcd6fd39d7c6753ddc39ea5e9462942","query_id":"Q-40A65AAD55576FF6","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"log","entity":"checkoutservice-1","fact_id":"F93626A83F3B5","field":"bin_center_rel_s","relative_bin":8,"unit":"relative_seconds","value":310.78125}
+FACT {"domain":"log","entity":"checkoutservice-1","fact_id":"F3024D3832047","field":"dominant_template","relative_bin":8,"unit":null,"value":"\"post /api/traces http/<v>\" <v> - via_upstream - \"-\" <v> <v> <v> <v> \"-\" \"go-http-client/<v>\" \"<v>-2b0e-957f-9f49-<v>\" \"jaeger-collector:<v>\" \"<v>:<v>\" outbound|<v>||jaeger-collector.ts.svc.cluster.local <v>:<v> <v>:<v> <v>:<v> - default"}
+FACT {"domain":"log","entity":"checkoutservice-1","fact_id":"F03251294D5A5","field":"dominant_template_count","relative_bin":8,"unit":"events","value":1}
+FACT {"domain":"log","entity":"checkoutservice-1","fact_id":"F362F85B66E52","field":"dominant_template_id","relative_bin":8,"unit":null,"value":"LT-49611682877B"}
+FACT {"domain":"log","entity":"checkoutservice-1","fact_id":"FEE47CD02B220","field":"error_count","relative_bin":8,"unit":"events","value":0}
+FACT {"domain":"log","entity":"checkoutservice-1","fact_id":"FB39363DAE2A8","field":"event_count","relative_bin":8,"unit":"events","value":31}
+FACT {"domain":"log","entity":"checkoutservice-1","fact_id":"F859D5C7DC4B1","field":"service","relative_bin":8,"unit":null,"value":"checkoutservice-1"}

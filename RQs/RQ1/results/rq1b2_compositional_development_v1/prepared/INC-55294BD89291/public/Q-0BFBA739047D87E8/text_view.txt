@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"98ab0ea01150f0972ebb7c8aa97fe9bc1d0083be1a7e46cbb6b3aa6e8f91734b","query_hash":"c64cb9c26e61ff178c41c358518f5c7baf3d8ccd92fd973d9f2d66fa25995733","query_id":"Q-0BFBA739047D87E8","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"recommendationservice-1","fact_id":"F995A209FCEC7","field":"bin_center_rel_s","relative_bin":48,"unit":"relative_seconds","value":1318.594}
+FACT {"domain":"metric","entity":"recommendationservice-1","fact_id":"F0DAB107C855D","field":"metric","relative_bin":null,"unit":null,"value":"pod_processes"}
+FACT {"domain":"missingness","entity":"recommendationservice-1","fact_id":"FD61DD904E2C2","field":"missing","relative_bin":48,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"recommendationservice-1","fact_id":"FD34EFE3F61C7","field":"observed_count","relative_bin":48,"unit":null,"value":1}
+FACT {"domain":"metric","entity":"recommendationservice-1","fact_id":"F184496DE12C7","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"recommendationservice-1","fact_id":"FEE429A8016D6","field":"service","relative_bin":null,"unit":null,"value":"recommendationservice-1"}
+FACT {"domain":"metric","entity":"recommendationservice-1","fact_id":"FF66ED7E0FF50","field":"value","relative_bin":48,"unit":"native","value":1.0}

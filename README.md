@@ -1,4 +1,4 @@
-# VLM-RCA
+# CanvasRCA
 
 Vision-language models on **rendered telemetry dashboards** for microservice root
 cause analysis.
@@ -42,7 +42,7 @@ the dashboard result uses a cheaper model than the text baseline it beats. It is
 still n=20 with a single dashboard config; treat it as a reason to run the
 n=100 paired comparison, not as a result.
 
-See [CLAUDE.md](CLAUDE.md) for conventions and invariants,
+See [Codex.md](Codex.md) for conventions and invariants,
 [plans/action_plan.md](plans/action_plan.md) for the milestone plan, and
 [plans/design_decisions.md](plans/design_decisions.md) for why things are the way
 they are.

@@ -1,0 +1,11 @@
+# RQ1 VisOps conversation — Q-B86229E6B281E8E4 — T
+
+- opaque incident: `INC-E3309D46CD62`
+- model: `gemma-4-26b-a4b`
+- prompt hash: `69f7e35594b8539a648dfcf66814e2a5558b954bf3bf2b7b81c6b56686bf7ab5`
+- visual hash: `2ef5d61b419f9d9ad29abc26826cc7bc4de48c5d4357eaa8376f9747ea9c244a`
+- text hash: `b36ff3b37961c5004b64783bd8dcaa1c1b00f8bf38316906a5e7a3295055bb4f`
+
+## Response
+
+{"answer": 0.005571}

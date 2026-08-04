@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"b2fd3a8681e2439391020568a80b9ff7393aa9c944489db19fbc3348505652e3","query_hash":"14fca2860c07217ae397e8056640f943dec7ea9cad38fc7e47d4353c662a1e19","query_id":"Q-EDB113546B0FAB41","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"recommendationservice","fact_id":"FB3D18D3F2F5C","field":"metric","relative_bin":null,"unit":null,"value":"container-memory-rss"}
+FACT {"domain":"metric","entity":"recommendationservice","fact_id":"FBF401BA75F9E","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":663.75}
+FACT {"domain":"metric","entity":"recommendationservice","fact_id":"FAF1BCF7A3E05","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"recommendationservice","fact_id":"FF00D71ABB4BC","field":"service","relative_bin":null,"unit":null,"value":"recommendationservice"}
+FACT {"domain":"metric","entity":"frontend-external","fact_id":"F59AA5D7E64CB","field":"metric","relative_bin":null,"unit":null,"value":"istio-error-total"}
+FACT {"domain":"metric","entity":"frontend-external","fact_id":"F216F4D6176C2","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1091.25}
+FACT {"domain":"metric","entity":"frontend-external","fact_id":"F9563A8C80822","field":"panel_id","relative_bin":null,"unit":null,"value":"M5"}
+FACT {"domain":"metric","entity":"frontend-external","fact_id":"F749FCF696D2E","field":"service","relative_bin":null,"unit":null,"value":"frontend-external"}
+FACT {"domain":"metric","entity":"currencyservice","fact_id":"F6BFB768A00E6","field":"metric","relative_bin":null,"unit":null,"value":"istio-latency-50"}
+FACT {"domain":"metric","entity":"currencyservice","fact_id":"F6FEE1F4BC466","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":753.75}
+FACT {"domain":"metric","entity":"currencyservice","fact_id":"FD11C99577F38","field":"panel_id","relative_bin":null,"unit":null,"value":"M6"}
+FACT {"domain":"metric","entity":"currencyservice","fact_id":"FD45EB931266A","field":"service","relative_bin":null,"unit":null,"value":"currencyservice"}
+FACT {"domain":"metric","entity":"frontend","fact_id":"F0251AF446C75","field":"metric","relative_bin":null,"unit":null,"value":"istio-latency-50"}
+FACT {"domain":"metric","entity":"frontend","fact_id":"FE868B1A85A0B","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":753.75}
+FACT {"domain":"metric","entity":"frontend","fact_id":"FF9B3D764D645","field":"panel_id","relative_bin":null,"unit":null,"value":"M7"}
+FACT {"domain":"metric","entity":"frontend","fact_id":"F4AF00B10FA61","field":"service","relative_bin":null,"unit":null,"value":"frontend"}

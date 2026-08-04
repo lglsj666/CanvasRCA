@@ -1,0 +1,11 @@
+{
+  "schema_version": "CanvasRCAInvalidatedRunV1",
+  "status": "invalidated_infrastructure_only",
+  "experiment_id": "rq1b2_compositional_smoke_v1",
+  "model": "gemma-4-26b-a4b",
+  "reason": "Runner was launched with venvs/tools instead of the canonical venvs/infer interpreter; all 36 calls failed before model invocation because pynvml was unavailable.",
+  "model_responses_observed": 0,
+  "eligible_for_analysis": false,
+  "eligible_for_resume": false,
+  "replacement_policy": "rerun the same frozen smoke roster and contracts from an empty run directory using venvs/infer"
+}

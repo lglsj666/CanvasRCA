@@ -1,0 +1,7 @@
+VIEW {"fact_inventory_hash":"170d71f8290dad67bcc7c845ab79f3de50d2d6271c2fdb8c84a15d574e40d6c9","query_hash":"c606f20c51b7837b72005ad3113421b27f04dee1d17c0283895f55a08181c8a7","query_id":"Q-36F0162F2A2D9FE9","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"topology","entity":null,"fact_id":"F1097EE5EF297","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"redis","caller":"cartservice"}}
+FACT {"domain":"topology","entity":null,"fact_id":"F85F8D3B0065D","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"cartservice","caller":"checkoutservice"}}
+FACT {"domain":"topology","entity":null,"fact_id":"F9FD2D8244C39","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"shippingservice","caller":"checkoutservice"}}
+FACT {"domain":"topology","entity":null,"fact_id":"F354D58B3B513","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"checkoutservice","caller":"frontend"}}
+FACT {"domain":"topology","entity":null,"fact_id":"FB8A4DE176716","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"recommendationservice","caller":"frontend"}}
+FACT {"domain":"topology","entity":null,"fact_id":"F001E0A30FFFA","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"shippingservice","caller":"frontend"}}

@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"359930cea654086d4e05acc4092d103c6349dea4cc86bfbcea029ba2a80f1b1a","query_hash":"14f9463701e76916678c6e20dad6ef6a0795d48f9c48c291a8ef99698ee803e0","query_id":"Q-AD47D9C42F57CE87","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-voucher-service","fact_id":"F6B6251A248D6","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.cpu.node.utilization"}
+FACT {"domain":"metric","entity":"ts-voucher-service","fact_id":"F6460944459C8","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"ts-voucher-service","fact_id":"FAECBA5B959B9","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":29}
+FACT {"domain":"metric","entity":"ts-voucher-service","fact_id":"F620C960B7F19","field":"service","relative_bin":null,"unit":null,"value":"ts-voucher-service"}
+FACT {"domain":"metric","entity":"ts-train-service","fact_id":"F0CDD3D1413A2","field":"metric","relative_bin":null,"unit":null,"value":"container.cpu.usage"}
+FACT {"domain":"metric","entity":"ts-train-service","fact_id":"FE67C0DC46A4C","field":"panel_id","relative_bin":null,"unit":null,"value":"M5"}
+FACT {"domain":"metric","entity":"ts-train-service","fact_id":"F2348EE20E0E5","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":4}
+FACT {"domain":"metric","entity":"ts-train-service","fact_id":"F352E65B0B3B6","field":"service","relative_bin":null,"unit":null,"value":"ts-train-service"}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"F2B7D364FCA53","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.cpu_limit_utilization"}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"F435870F698F1","field":"panel_id","relative_bin":null,"unit":null,"value":"M6"}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"FCB406D1D3661","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":3}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"F7087D28BA2E7","field":"service","relative_bin":null,"unit":null,"value":"ts-preserve-service"}
+FACT {"domain":"metric","entity":"ts-route-plan-service","fact_id":"F7A9092C5F18A","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.filesystem.usage"}
+FACT {"domain":"metric","entity":"ts-route-plan-service","fact_id":"F64C5BF184E0B","field":"panel_id","relative_bin":null,"unit":null,"value":"M9"}
+FACT {"domain":"metric","entity":"ts-route-plan-service","fact_id":"FF3B2D53C11BD","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":32}
+FACT {"domain":"metric","entity":"ts-route-plan-service","fact_id":"FA94E9F0FD08B","field":"service","relative_bin":null,"unit":null,"value":"ts-route-plan-service"}

@@ -1,0 +1,11 @@
+# RQ1 VisOps conversation — Q-3632E97832B30BBD — T
+
+- opaque incident: `INC-E3309D46CD62`
+- model: `qwen3.6-27b`
+- prompt hash: `8026c57e865ee5666a9dbf8575308990856d55cb40351c1b855611ffdf5321b7`
+- visual hash: `fa89a756bff93b4c410b9e8ae402b6a7f0b1fa5bf94ecc97c0a8c535bfba2ded`
+- text hash: `354bdf9195bc107e7e7a98531eef71e5e1832596f4140de5844d2f451270a375`
+
+## Response
+
+{"answer": ["ts-basic-service", "ts-food-service", "ts-seat-service", "ts-station-service", "ts-train-service", "ts-travel-plan-service", "ts-travel-service", "ts-verification-code-service"]}

@@ -1,0 +1,32 @@
+extends: rq1b_visops_mapping_v2.yaml
+experiment_id: rq1b_visops_independent_gate_v2
+registered_description: RQs/RQ1/descriptions/rq1b_visops_independent_gate_v2.md
+power_and_gate: RQs/RQ1/descriptions/rq1b_visops_power_and_gate_v1.md
+
+execution:
+  stage: rq1b_disjoint_exposed_independent_gate_v2_registered
+  requires_smoke_qualification: true
+  partial_result_policy: operational_health_only_no_tuning_or_early_stop
+
+data:
+  roster: RQs/RQ1/configs/rosters/rq1b_visops_gate_public_v1.json
+  private_roster: RQs/RQ1/configs/rosters/rq1b_visops_gate_private_v1.json
+  mapping_cases_per_dataset: 30
+  mapping_case_total: 90
+  mapping_gate_overlap: 0
+
+contracts:
+  frozen_operation_router: RQs/RQ1/results/rq1b_visops_mapping_v2/contracts/frozen_operation_router_v1.json
+  frozen_operation_router_file_sha256: 59a0a25005f7bdc75d785f5a2a344f767e3b693eaa7633f861d3d9e6ba0f6121
+  frozen_operation_router_contract_sha256: 0dc7459e489c1f22446247566f5105c858c30c0f2eaf44b96db0c55fcbc2a427
+
+gates:
+  rq1b_visops_mapping:
+    status: passed_v2_router_frozen
+  rq1b_visops_independent_gate:
+    status: registered_disjoint_inference
+    router_source: gemma_mapping_v2_fixed_for_both_models
+  rq1c_matched_plan:
+    status: blocked_until_rq1b_independent_gate_passes
+  rq1d_causal_visual_utilization:
+    status: blocked_until_routed_observer_passes

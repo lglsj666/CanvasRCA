@@ -1,0 +1,13 @@
+VIEW {"fact_inventory_hash":"21e978f2f1ab6404fb8cb01be1dc964c4c0dcb785e6eef0c8125020816ee8c05","query_hash":"49a9a368e5208325379790cf169f38f03eff9abdcee360843b51e38ce039c096","query_id":"Q-F050E67E606AC6A8","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"loadgenerator","fact_id":"F9DDF30A687AE","field":"metric","relative_bin":null,"unit":null,"value":"container.memory.page_faults"}
+FACT {"domain":"metric","entity":"loadgenerator","fact_id":"F7F08BBE6A94F","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":332.534}
+FACT {"domain":"metric","entity":"loadgenerator","fact_id":"F5260B8E8B217","field":"panel_id","relative_bin":null,"unit":null,"value":"M5"}
+FACT {"domain":"metric","entity":"loadgenerator","fact_id":"FC6638A637CDC","field":"service","relative_bin":null,"unit":null,"value":"loadgenerator"}
+FACT {"domain":"metric","entity":"ts-price-service","fact_id":"FEEE40B5D5C8A","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.cpu_limit_utilization"}
+FACT {"domain":"metric","entity":"ts-price-service","fact_id":"F6E24442DC9C6","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":3.736}
+FACT {"domain":"metric","entity":"ts-price-service","fact_id":"FF39C93AF9FD8","field":"panel_id","relative_bin":null,"unit":null,"value":"M7"}
+FACT {"domain":"metric","entity":"ts-price-service","fact_id":"FBD60318C0CC0","field":"service","relative_bin":null,"unit":null,"value":"ts-price-service"}
+FACT {"domain":"metric","entity":"ts-security-service","fact_id":"FBC0A776B687C","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.cpu.node.utilization"}
+FACT {"domain":"metric","entity":"ts-security-service","fact_id":"FA7C7004A0B0A","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":317.588}
+FACT {"domain":"metric","entity":"ts-security-service","fact_id":"FCC76E000932C","field":"panel_id","relative_bin":null,"unit":null,"value":"M10"}
+FACT {"domain":"metric","entity":"ts-security-service","fact_id":"F3B9D2A77F4F9","field":"service","relative_bin":null,"unit":null,"value":"ts-security-service"}

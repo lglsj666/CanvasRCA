@@ -1,0 +1,88 @@
+{
+  "accuracy": 0.949667616334283,
+  "arm": "ALL",
+  "arm_order_policy": "balanced_by_opaque_incident_hash",
+  "avg_input_tokens": 1166.738841405508,
+  "avg_output_tokens": 17.12630579297246,
+  "avg_wall_time_s": 1.1886276459535416,
+  "completed_calls": 2106,
+  "context_preflight": {
+    "excluded_incident_count": 1,
+    "excluded_incidents": [
+      "INC-2B2A0F21FD18"
+    ],
+    "exclusion_fraction": 0.011111111111111112,
+    "max_model_len": 32768,
+    "max_tokens": 16384,
+    "maximum_exclusion_fraction": 0.05,
+    "model": "gemma-4-26b-a4b",
+    "overflowing_calls": [
+      {
+        "arm": "H",
+        "input_tokens": 16719,
+        "max_model_len": 32768,
+        "max_tokens": 16384,
+        "opaque_incident_id": "INC-2B2A0F21FD18",
+        "query_id": "Q-78610C4585C69AF7"
+      },
+      {
+        "arm": "T",
+        "input_tokens": 16443,
+        "max_model_len": 32768,
+        "max_tokens": 16384,
+        "opaque_incident_id": "INC-2B2A0F21FD18",
+        "query_id": "Q-78610C4585C69AF7"
+      }
+    ],
+    "policy": "one_overflow_excludes_complete_incident_without_replacement",
+    "requested_incidents": 90,
+    "schema_version": "RQ1ContextPreflightV1",
+    "status": "passed_with_paired_exclusions"
+  },
+  "elapsed_wall_time_s": 2505.663445711136,
+  "error_rate": 0.012658227848101266,
+  "experiment_config_hash": "490ad3aac62908c1ddd4abb4bbbe15f27845a61faf8a759fcbb7f9331b8d8803",
+  "experiment_id": "rq1b_visops_independent_gate_v2",
+  "infrastructure_errors": 27,
+  "model": "gemma-4-26b-a4b",
+  "parse_rate": 1.0,
+  "per_arm": {
+    "H": {
+      "accuracy": 0.9686609686609686,
+      "avg_input_tokens": 1677.2321937321938,
+      "avg_output_tokens": 16.645299145299145,
+      "avg_wall_time_s": 1.3727994756481248,
+      "completed_calls": 702,
+      "error_rate": 0.012658227848101266,
+      "infrastructure_errors": 9,
+      "parse_rate": 1.0,
+      "requested_calls": 711
+    },
+    "T": {
+      "accuracy": 0.9743589743589743,
+      "avg_input_tokens": 1400.9786324786326,
+      "avg_output_tokens": 16.656695156695157,
+      "avg_wall_time_s": 1.1177316724065363,
+      "completed_calls": 702,
+      "error_rate": 0.012658227848101266,
+      "infrastructure_errors": 9,
+      "parse_rate": 1.0,
+      "requested_calls": 711
+    },
+    "V": {
+      "accuracy": 0.905982905982906,
+      "avg_input_tokens": 422.005698005698,
+      "avg_output_tokens": 18.076923076923077,
+      "avg_wall_time_s": 1.075351789805964,
+      "completed_calls": 702,
+      "error_rate": 0.012658227848101266,
+      "infrastructure_errors": 9,
+      "parse_rate": 1.0,
+      "requested_calls": 711
+    }
+  },
+  "requested_calls": 2133,
+  "roster_assignment_hash": "e754ca3e991cd8de940c450ab0b22e3854950181deee51dc4f64f85c8bae77e5",
+  "roster_contract_hash": "7d905842e21376a8bb74617a35dc2555e519391f43f8cd35d2219046e3763a7b",
+  "schema_version": "RQ1VisOpsCellSummaryV1"
+}

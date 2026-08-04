@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"2122db49c6524da556b3794b3ad08f78d4e59963096eff949fd28cc538d5a0d3","query_hash":"c80f140ae0423431012535b4e4812cf38de71299b0f7c2e719e579b85083bed5","query_id":"Q-3BC34F595CEC320E","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"rabbitmq","fact_id":"F40DC8176CC16","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.memory.available"}
+FACT {"domain":"metric","entity":"rabbitmq","fact_id":"FFFC180E94EE0","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"rabbitmq","fact_id":"F66A9997AD37A","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":9}
+FACT {"domain":"metric","entity":"rabbitmq","fact_id":"FF5E263F7469C","field":"service","relative_bin":null,"unit":null,"value":"rabbitmq"}
+FACT {"domain":"metric","entity":"ts-assurance-service","fact_id":"F17576F29B705","field":"metric","relative_bin":null,"unit":null,"value":"container.filesystem.available"}
+FACT {"domain":"metric","entity":"ts-assurance-service","fact_id":"F9A667C049AB3","field":"panel_id","relative_bin":null,"unit":null,"value":"M11"}
+FACT {"domain":"metric","entity":"ts-assurance-service","fact_id":"F2E3C1DE4A33B","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":23}
+FACT {"domain":"metric","entity":"ts-assurance-service","fact_id":"FF56BDEE40601","field":"service","relative_bin":null,"unit":null,"value":"ts-assurance-service"}
+FACT {"domain":"metric","entity":"ts-admin-travel-service","fact_id":"F076361F217FA","field":"metric","relative_bin":null,"unit":null,"value":"container.memory.usage"}
+FACT {"domain":"metric","entity":"ts-admin-travel-service","fact_id":"F6DF1B39255E9","field":"panel_id","relative_bin":null,"unit":null,"value":"M6"}
+FACT {"domain":"metric","entity":"ts-admin-travel-service","fact_id":"FF0649C371F33","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":2}
+FACT {"domain":"metric","entity":"ts-admin-travel-service","fact_id":"F2A6595E635C3","field":"service","relative_bin":null,"unit":null,"value":"ts-admin-travel-service"}
+FACT {"domain":"metric","entity":"ts-avatar-service","fact_id":"FA32BAD769271","field":"metric","relative_bin":null,"unit":null,"value":"container.memory.page_faults"}
+FACT {"domain":"metric","entity":"ts-avatar-service","fact_id":"F2F4DE3080637","field":"panel_id","relative_bin":null,"unit":null,"value":"M9"}
+FACT {"domain":"metric","entity":"ts-avatar-service","fact_id":"FDB69DBC8BDBC","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":26}
+FACT {"domain":"metric","entity":"ts-avatar-service","fact_id":"FBD7DEF5AAA09","field":"service","relative_bin":null,"unit":null,"value":"ts-avatar-service"}

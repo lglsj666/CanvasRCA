@@ -1,0 +1,6 @@
+VIEW {"fact_inventory_hash":"caf9de04f0356f11ec670d9705b0d9f37657d4c27080af289d71f03329f3b857","query_hash":"526c7c062d5670eeb0157af2e998095824169c557a158d8c30600f67a46a920e","query_id":"Q-02035748DF4CC073","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"trace","entity":"emailservice","fact_id":"F86FCD79859AF","field":"bin_center_rel_s","relative_bin":25,"unit":"relative_seconds","value":788.90625}
+FACT {"domain":"trace","entity":"emailservice","fact_id":"FA91A7314A414","field":"error_count","relative_bin":25,"unit":"spans","value":0}
+FACT {"domain":"trace","entity":"emailservice","fact_id":"FF3E6641DAAEA","field":"latency_p95_ms","relative_bin":25,"unit":"milliseconds","value":1.3529}
+FACT {"domain":"trace","entity":"emailservice","fact_id":"F9CEF33EFB3DA","field":"service","relative_bin":25,"unit":null,"value":"emailservice"}
+FACT {"domain":"trace","entity":"emailservice","fact_id":"FAD7B6A4D5521","field":"span_count","relative_bin":25,"unit":"spans","value":7}

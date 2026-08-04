@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"58394a7097b3d905b5ca9f453b6975e1f66fff0f0fb2c9c743536fcba8616b39","query_hash":"03c0c862e8dd0fe5d142922fb98842fc37cc89846029f28f8d89dc860a26ac9e","query_id":"Q-7AE866EDDEBB6A54","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"paymentservice-2","fact_id":"F66173B48B2EB","field":"metric","relative_bin":null,"unit":null,"value":"container_network_receive_MB.eth0"}
+FACT {"domain":"metric","entity":"paymentservice-2","fact_id":"FE1B9AF483594","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"paymentservice-2","fact_id":"F06D5B8B6E867","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"paymentservice-2","fact_id":"F0853A35E1C1C","field":"service","relative_bin":null,"unit":null,"value":"paymentservice-2"}
+FACT {"domain":"metric","entity":"paymentservice2-0","fact_id":"FCC8BEC9E7F5B","field":"metric","relative_bin":null,"unit":null,"value":"container_network_receive_MB.eth0"}
+FACT {"domain":"metric","entity":"paymentservice2-0","fact_id":"F209696B40EA0","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"paymentservice2-0","fact_id":"F47E58B7D1646","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"paymentservice2-0","fact_id":"F45365D0743FA","field":"service","relative_bin":null,"unit":null,"value":"paymentservice2-0"}
+FACT {"domain":"metric","entity":"node-1","fact_id":"F6D34E659C45E","field":"metric","relative_bin":null,"unit":null,"value":"system.net.tcp.retrans_segs"}
+FACT {"domain":"metric","entity":"node-1","fact_id":"F73625C24C9DA","field":"panel_id","relative_bin":null,"unit":null,"value":"M3"}
+FACT {"domain":"metric","entity":"node-1","fact_id":"FB701FE82E081","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"node-1","fact_id":"F5F945C88C31B","field":"service","relative_bin":null,"unit":null,"value":"node-1"}
+FACT {"domain":"metric","entity":"istio-egressgateway-7bfdcc9d86-zpjpg","fact_id":"FFEE04DAE51BC","field":"metric","relative_bin":null,"unit":null,"value":"istio_agent_go_memstats_heap_released_bytes"}
+FACT {"domain":"metric","entity":"istio-egressgateway-7bfdcc9d86-zpjpg","fact_id":"FAF24BE132165","field":"panel_id","relative_bin":null,"unit":null,"value":"M4"}
+FACT {"domain":"metric","entity":"istio-egressgateway-7bfdcc9d86-zpjpg","fact_id":"F5C6F7916D7FE","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":10}
+FACT {"domain":"metric","entity":"istio-egressgateway-7bfdcc9d86-zpjpg","fact_id":"FD8B4358BD11F","field":"service","relative_bin":null,"unit":null,"value":"istio-egressgateway-7bfdcc9d86-zpjpg"}

@@ -1,46 +1,46 @@
 ---
 name: baseline
-description: Manage cross-method comparison tables — import the prior project's baseline numbers, append VLM rows, ensure token-fair accounting. Use when building or updating the headline results table, or comparing VLM results against text-based or classical RCA methods.
+description: Build and audit CanvasRCA comparison tables against text, structured, visual, and prior RCA baselines. Use when preparing headline results, checking comparability, or reporting accuracy, efficiency, and modality effects.
 ---
 
-# Baselines and the headline table
+# Baseline comparisons
 
-The prior text-based project already evaluated every comparator on the same
-datasets. Those numbers are **imported, not recomputed** — rerunning them would
-burn budget and risk producing figures that differ from the published ones.
+Read `Codex.md`, the target RQ protocol, and each artifact's status authority.
+Do not copy remembered numbers into a paper table.
 
-## Prior numbers (pooled MRR, from upstream `paper/tables/tab1_headline.md`)
+## Qualification
 
-| Method | Paradigm | Pooled MRR | tok/case |
-|---|---|---|---|
-| OpenRCA | multi-turn agent | 0.061 | 461,985 |
-| Flow-of-Action | multi-turn structured | 0.559 | 3,743 |
-| LocaleXpert | one-shot | 0.475 | 18,574 |
-| Qwen3.5-9B + M+T+L | one-shot text | 0.605 | 11,386 |
-| Claude-Opus-4.7 + B4 CoVe-lite | one-shot text | **0.706** | 12,670 |
+For every row, record the source artifact, commit, roster/split, scorer,
+checkpoint, prompt/evidence contract, decoding configuration, and status.
+Compare rows only when the registered claim permits it.
 
-Per-dataset MRR for the SOTA row: AegisLab 0.679 · AIOps-22 0.532 ·
-AIOps-25 0.390 · RE2-OB 0.994 · RE2-TT 0.994.
+- Require paired cases for arm comparisons.
+- Require the same incident-specific atomic facts for modality or
+  representation comparisons.
+- Preserve candidate order, temporal resolution, topology edges, missingness,
+  legends, and output schema across arms.
+- Treat pilot, smoke, diagnostic, invalid, superseded, and incomplete rows only
+  within their documented evidentiary scope.
+- Do not use a historical result merely because its summary file exists.
 
-**RE2-OB and RE2-TT are saturated.** Any VLM result there near 1.0 is not
-evidence of an improvement. The datasets that discriminate are AegisLab,
-AIOPS-2022 and AIOPS-2025.
+If a prior-project baseline cannot be traced to a frozen artifact and scorer,
+mark it unverified rather than presenting it as published ground truth.
 
-## Appending VLM rows
+## Reporting
 
-Write to `paper/tables/tab1_headline_vlm.md`, marking imported rows
-"prior project" and keeping identical columns: pooled MRR, Top@1/3/5,
-per-dataset MRR, tokens/case, wall-clock.
+Write RQ-specific tables and interpretation under `RQs/<rq>/findings/` after
+the RQ is complete. Keep intermediate analyses under that RQ's result root.
 
-## Token fairness
+Report at least:
 
-This is the one place a VLM comparison can quietly cheat.
+- MRR and AC@1/3/5, plus AVG@3/5 where registered;
+- per-dataset and per-fault results;
+- paired delta, registered Wilcoxon test, and paired effect size;
+- parse, truncation, model-error, and infrastructure-exclusion rates;
+- text, image, input, and output tokens according to the recorded backend
+  accounting definition;
+- wall time and GPU active time when available.
 
-- **Image tokens count.** A dashboard at 1568px is ~1.2k input tokens on
-  Anthropic; omitting that makes the method look cheaper than it is. The client
-  reports provider-counted `input_tokens`, which already include images — use
-  those, do not recount text separately.
-- **Multi-turn totals are summed across turns**, matching how upstream charged
-  OpenRCA its 462k tokens/case.
-- Report wall-clock as well; self-hosted models have no dollar cost but do have
-  GPU-hours.
+Do not assume a provider's aggregate input token field includes image tokens;
+verify the contract. Do not report confidence intervals under the current
+project convention. Keep accuracy and efficiency as separate result axes.

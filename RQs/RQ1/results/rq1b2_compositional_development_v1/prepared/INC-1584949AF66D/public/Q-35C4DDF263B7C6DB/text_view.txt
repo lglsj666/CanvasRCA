@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"190c43d56d4471d631aee8f6e10285ba78e2aa9eef43321434ef4d8de54cbd6f","query_hash":"1a72e9410ab9408eae5da48aa5620505d6cead91815b68095290990a05089cd1","query_id":"Q-35C4DDF263B7C6DB","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"currencyservice","fact_id":"F2FA7628D3672","field":"bin_center_rel_s","relative_bin":55,"unit":"relative_seconds","value":1925.156}
+FACT {"domain":"metric","entity":"currencyservice","fact_id":"F2EB82170675D","field":"metric","relative_bin":null,"unit":null,"value":"rrt_max"}
+FACT {"domain":"missingness","entity":"currencyservice","fact_id":"F21BCAB6A3D7A","field":"missing","relative_bin":55,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"currencyservice","fact_id":"F2D7AF222BFF9","field":"observed_count","relative_bin":55,"unit":null,"value":1}
+FACT {"domain":"metric","entity":"currencyservice","fact_id":"F74004E53CC6F","field":"panel_id","relative_bin":null,"unit":null,"value":"M10"}
+FACT {"domain":"metric","entity":"currencyservice","fact_id":"FF63F1D500557","field":"service","relative_bin":null,"unit":null,"value":"currencyservice"}
+FACT {"domain":"metric","entity":"currencyservice","fact_id":"F7CB30A3C6E86","field":"value","relative_bin":55,"unit":"native","value":21607.0}

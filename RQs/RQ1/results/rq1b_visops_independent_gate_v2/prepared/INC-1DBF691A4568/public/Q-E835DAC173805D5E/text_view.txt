@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"32f35e3a08208dfbd5effac98297e2ee69f0db107f6dd6e78451247f16f46119","query_hash":"ea91a52c7c82e579ac49587d409590849d23128e7695aa76e8ffe8625be8f332","query_id":"Q-E835DAC173805D5E","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"mysql","fact_id":"F8A61C39725AF","field":"bin_center_rel_s","relative_bin":28,"unit":"relative_seconds","value":213.689}
+FACT {"domain":"metric","entity":"mysql","fact_id":"F571CC8B2E408","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.memory.working_set"}
+FACT {"domain":"missingness","entity":"mysql","fact_id":"F816C3A4A78F6","field":"missing","relative_bin":28,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"mysql","fact_id":"F60853A27DAEC","field":"observed_count","relative_bin":28,"unit":null,"value":2}
+FACT {"domain":"metric","entity":"mysql","fact_id":"FB09D2CC19A4D","field":"panel_id","relative_bin":null,"unit":null,"value":"M7"}
+FACT {"domain":"metric","entity":"mysql","fact_id":"F88BF79925E0E","field":"service","relative_bin":null,"unit":null,"value":"mysql"}
+FACT {"domain":"metric","entity":"mysql","fact_id":"F750B8A832965","field":"value","relative_bin":28,"unit":"native","value":322637824.0}

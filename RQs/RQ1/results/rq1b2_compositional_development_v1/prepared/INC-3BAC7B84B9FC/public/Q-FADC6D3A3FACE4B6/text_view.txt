@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"3b9093b9db6d16f6f8b6d2f20b808e47854b439d2153fcd327e760327ae03d99","query_hash":"5cd9da237b567391ba7f7a675750f8e869f056f54db77a14c929106929cf54df","query_id":"Q-FADC6D3A3FACE4B6","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-seat-service","fact_id":"F83C6D6D4CFB9","field":"bin_center_rel_s","relative_bin":23,"unit":"relative_seconds","value":176.051}
+FACT {"domain":"metric","entity":"ts-seat-service","fact_id":"FB971AA99378E","field":"metric","relative_bin":null,"unit":null,"value":"hubble_http_request_duration_p95_seconds"}
+FACT {"domain":"missingness","entity":"ts-seat-service","fact_id":"F07AF3A84A5DF","field":"missing","relative_bin":23,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"ts-seat-service","fact_id":"FCB33800DFC64","field":"observed_count","relative_bin":23,"unit":null,"value":1}
+FACT {"domain":"metric","entity":"ts-seat-service","fact_id":"FE18F9D0060C2","field":"panel_id","relative_bin":null,"unit":null,"value":"M6"}
+FACT {"domain":"metric","entity":"ts-seat-service","fact_id":"F72CC97FB5E17","field":"service","relative_bin":null,"unit":null,"value":"ts-seat-service"}
+FACT {"domain":"metric","entity":"ts-seat-service","fact_id":"F38DB4D38C32C","field":"value","relative_bin":23,"unit":"native","value":0.016918}

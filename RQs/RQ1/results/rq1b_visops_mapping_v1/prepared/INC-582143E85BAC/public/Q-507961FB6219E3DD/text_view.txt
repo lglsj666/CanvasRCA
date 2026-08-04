@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"e5f8efbdd9df71b322cbaf4aa459276c6ff44630170466dcf6100cfbc9567255","query_hash":"72f30ef92559fa82151d388f40b8246b0284429c7d78ab3851322a29364117ef","query_id":"Q-507961FB6219E3DD","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-order-service","fact_id":"FDBC19D162450","field":"bin_center_rel_s","relative_bin":22,"unit":"relative_seconds","value":167.813}
+FACT {"domain":"metric","entity":"ts-order-service","fact_id":"F8A4EA0BB7B24","field":"metric","relative_bin":null,"unit":null,"value":"container.filesystem.usage"}
+FACT {"domain":"missingness","entity":"ts-order-service","fact_id":"FBB794B8B7ED6","field":"missing","relative_bin":22,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"ts-order-service","fact_id":"F87F1D183B2B5","field":"observed_count","relative_bin":22,"unit":null,"value":1}
+FACT {"domain":"metric","entity":"ts-order-service","fact_id":"F5B0DA11F70D6","field":"panel_id","relative_bin":null,"unit":null,"value":"M3"}
+FACT {"domain":"metric","entity":"ts-order-service","fact_id":"F5ADEA1153055","field":"service","relative_bin":null,"unit":null,"value":"ts-order-service"}
+FACT {"domain":"metric","entity":"ts-order-service","fact_id":"FE8F950FD1F51","field":"value","relative_bin":22,"unit":"native","value":466944.0}

@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"55dc25f4468a08b9a9551d640459f373ef5438140e724bbd1449897f8251c3e9","query_hash":"d54d742aeee37707db91d06c0b7861f530af08777453a4b10cd6dd2fbb9fc2d2","query_id":"Q-3F01F9F300BC9F94","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-basic-service-6968d4ccd5-bgg4g","fact_id":"F1DE641E0218C","field":"metric","relative_bin":null,"unit":null,"value":"k8s.container.restarts"}
+FACT {"domain":"metric","entity":"ts-basic-service-6968d4ccd5-bgg4g","fact_id":"F0AAF4922D71E","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"ts-basic-service-6968d4ccd5-bgg4g","fact_id":"FE34E57A8BBB6","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":22}
+FACT {"domain":"metric","entity":"ts-basic-service-6968d4ccd5-bgg4g","fact_id":"FA8A7762FD0DC","field":"service","relative_bin":null,"unit":null,"value":"ts-basic-service-6968d4ccd5-bgg4g"}
+FACT {"domain":"metric","entity":"ts-basic-service","fact_id":"FFF26482CFEBF","field":"metric","relative_bin":null,"unit":null,"value":"hubble_http_request_duration_p90_seconds"}
+FACT {"domain":"metric","entity":"ts-basic-service","fact_id":"F2AB8966B4BF0","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"ts-basic-service","fact_id":"F78BFDCBE8BD6","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"ts-basic-service","fact_id":"F9BB7C73944F9","field":"service","relative_bin":null,"unit":null,"value":"ts-basic-service"}
+FACT {"domain":"metric","entity":"ts-food-service","fact_id":"F00580BE7CEC8","field":"metric","relative_bin":null,"unit":null,"value":"hubble_http_request_duration_p90_seconds"}
+FACT {"domain":"metric","entity":"ts-food-service","fact_id":"F7CA34FD98BBA","field":"panel_id","relative_bin":null,"unit":null,"value":"M3"}
+FACT {"domain":"metric","entity":"ts-food-service","fact_id":"F891546D28901","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"ts-food-service","fact_id":"F5B0A0EAE9B55","field":"service","relative_bin":null,"unit":null,"value":"ts-food-service"}
+FACT {"domain":"metric","entity":"ts-train-service","fact_id":"F0CDD3D1413A2","field":"metric","relative_bin":null,"unit":null,"value":"hubble_http_request_duration_p90_seconds"}
+FACT {"domain":"metric","entity":"ts-train-service","fact_id":"FE67C0DC46A4C","field":"panel_id","relative_bin":null,"unit":null,"value":"M5"}
+FACT {"domain":"metric","entity":"ts-train-service","fact_id":"F2348EE20E0E5","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"ts-train-service","fact_id":"F352E65B0B3B6","field":"service","relative_bin":null,"unit":null,"value":"ts-train-service"}

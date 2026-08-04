@@ -1,40 +1,42 @@
 ---
 name: devlog
-description: Write a dated development log entry recording what happened in a work session — decisions, results, blockers, next steps. Use at the end of a session, after an experiment completes, or when handing off work.
+description: Write a dated CanvasRCA development or experiment log with outcomes, validity status, caveats, blockers, and next steps. Use after a work session, experiment transition, failure, or handoff.
 ---
 
-# Devlog
+# Development logging
 
-One file per session: `devlog/<YYYY-MM-DD>_<slug>.md`. Read the most recent
-entry first so the narrative is continuous.
+Read `Codex.md` and route the log by scope.
 
-## Template
+- Use `devlog/<YYYY-MM-DD>_<slug>.md` only for project-wide, non-RQ work.
+- Put an RQ experiment log under
+  `RQs/<rq>/results/<experiment>/logs/`.
+- Put settled RQ conclusions under `RQs/<rq>/findings/`.
+
+Use this structure:
 
 ```markdown
-# <YYYY-MM-DD> — <short title>
+# <date> — <title>
+
+## Scope and status
+RQ/experiment, evidentiary class, partition, contract hash, and completion state.
 
 ## What happened
-Concrete outcomes. Numbers, not adjectives: "MRR 1.000 on 20 RE2-OB cases with
-claude-opus-4-7, 4.4k tokens/case" rather than "smoke test went well".
+Concrete changes, calls completed, metrics, errors, and artifact paths.
 
-## Key decisions
-Each with its reason. If it settles a design question, also add it to
-`plans/design_decisions.md` and reference the DD number here.
+## Validity and caveats
+Leakage/equality audits, parse/truncation rates, infrastructure exclusions,
+resume state, and anything sampled or skipped.
+
+## Decisions
+What changed and the evidence supporting it.
 
 ## Blockers
-What is stopping progress and what would unblock it. Include things you worked
-around rather than fixed — those are the ones that get forgotten.
+What prevents the next registered step.
 
 ## Next steps
-Ordered, specific, each one startable without rereading this file.
+Ordered actions that can be started from the recorded artifacts.
 ```
 
-## Rules
-
-- State results honestly, including negative ones. A dashboard axis that made no
-  difference is a finding and belongs in the paper's ablation table.
-- Record caveats next to the numbers they qualify. "MRR 1.000" without "on the
-  easiest dataset, which text baselines already scored 0.994 on" is misleading
-  three weeks later.
-- Note anything skipped, capped, or sampled. Silent truncation reads as full
-  coverage when you come back to it.
+State negative results honestly. Never let a recent number overwrite its
+status: a smoke remains a smoke, an invalid run remains invalid, and a removed
+operational gate does not reclassify historical evidence.

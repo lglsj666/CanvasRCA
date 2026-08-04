@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"bc8fdeae243a2d1de0d1fabd53da6f0edf99a66b607f571e126ca3fc0fd64861","query_hash":"0e0fc74cba2852a71aae0562936abb68a7fa4436ed62a2cf90f345f3f1338088","query_id":"Q-1E5F7432CE9CFB28","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"log","entity":"paymentservice-2","fact_id":"FA0EB30511722","field":"bin_center_rel_s","relative_bin":28,"unit":"relative_seconds","value":855.0}
+FACT {"domain":"log","entity":"paymentservice-2","fact_id":"FB75D4BD34F3F","field":"dominant_template","relative_bin":28,"unit":null,"value":"paymentservice#charge invoked with request {\"amount\":{\"currency_code\":\"jpy\",\"units\":\"<v>\",\"nanos\":<v>},\"credit_card\":{\"credit_card_number\":\"<v>\",\"credit_card_cvv\":<v>,\"credit_card_expiration_year\":<v>,\"credit_card_expiration_month\":<v>}}"}
+FACT {"domain":"log","entity":"paymentservice-2","fact_id":"FB19EB8C86A43","field":"dominant_template_count","relative_bin":28,"unit":"events","value":1}
+FACT {"domain":"log","entity":"paymentservice-2","fact_id":"F5932BAADF60A","field":"dominant_template_id","relative_bin":28,"unit":null,"value":"LT-FF7281767B96"}
+FACT {"domain":"log","entity":"paymentservice-2","fact_id":"F5BFEE7892B2C","field":"error_count","relative_bin":28,"unit":"events","value":0}
+FACT {"domain":"log","entity":"paymentservice-2","fact_id":"FD0848FF2E91C","field":"event_count","relative_bin":28,"unit":"events","value":2}
+FACT {"domain":"log","entity":"paymentservice-2","fact_id":"F025F9986301D","field":"service","relative_bin":28,"unit":null,"value":"paymentservice-2"}

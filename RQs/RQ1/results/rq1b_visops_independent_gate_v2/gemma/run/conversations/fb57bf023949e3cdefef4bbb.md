@@ -1,0 +1,11 @@
+# RQ1 VisOps conversation — Q-943FF3F02DAA0C77 — H
+
+- opaque incident: `INC-D2B94F299DFF`
+- model: `gemma-4-26b-a4b`
+- prompt hash: `3abdefa6725ac97c9340fbcec67d823b77203a79e8f714c168f437fc139bf306`
+- visual hash: `6afb48c1e4cbf1a1594efe79d0354ecd804788635e4e42048cbb49c80b5a043c`
+- text hash: `432fb12a02665aa63b4f8e2790d8e5e34dd4966f2629190a29d49f1fbd9759b5`
+
+## Response
+
+{"answer": ["frontend", "checkoutservice", "emailservice"]}

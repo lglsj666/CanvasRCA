@@ -1,0 +1,6 @@
+VIEW {"fact_inventory_hash":"d049f990394de959fc8e5eb340defb7b4ecf27c9a1d75f3c27945224eb67fc64","query_hash":"f8d2dde1cefaccc5a7f20bff9b114c7077d475ca8f581678c9fe871af1c7cfe8","query_id":"Q-B3EF34166542B8B5","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"trace","entity":"ts-basic-service","fact_id":"F255001BBA94E","field":"bin_center_rel_s","relative_bin":54,"unit":"relative_seconds","value":408.616212}
+FACT {"domain":"trace","entity":"ts-basic-service","fact_id":"F2A0C35796D78","field":"error_count","relative_bin":54,"unit":"spans","value":0}
+FACT {"domain":"trace","entity":"ts-basic-service","fact_id":"F1E90984E9E3F","field":"latency_p95_ms","relative_bin":54,"unit":"milliseconds","value":33.964117}
+FACT {"domain":"trace","entity":"ts-basic-service","fact_id":"FE0BDFE8828A4","field":"service","relative_bin":54,"unit":null,"value":"ts-basic-service"}
+FACT {"domain":"trace","entity":"ts-basic-service","fact_id":"F0C00FA35B58A","field":"span_count","relative_bin":54,"unit":"spans","value":6}

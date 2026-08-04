@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"998bc5d7dd780a41f3ac00c32fb6e62088b867ee432ace590ba604436265314a","query_hash":"538721cfd030c6aaacb7f5daaae806d37c11f45178c14511ce1564e37efbdfb7","query_id":"Q-D123985596B646A9","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"tidb-tikv","fact_id":"F6D46764ABB6A","field":"bin_center_rel_s","relative_bin":41,"unit":"relative_seconds","value":1128.281}
+FACT {"domain":"metric","entity":"tidb-tikv","fact_id":"F5154814119B1","field":"metric","relative_bin":null,"unit":null,"value":"raft_apply_wait"}
+FACT {"domain":"missingness","entity":"tidb-tikv","fact_id":"F3986640BF5C5","field":"missing","relative_bin":41,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"tidb-tikv","fact_id":"FBAB7AD0DD656","field":"observed_count","relative_bin":41,"unit":null,"value":1}
+FACT {"domain":"metric","entity":"tidb-tikv","fact_id":"F707114204778","field":"panel_id","relative_bin":null,"unit":null,"value":"M5"}
+FACT {"domain":"metric","entity":"tidb-tikv","fact_id":"F8E87F8E9AD9D","field":"service","relative_bin":null,"unit":null,"value":"tidb-tikv"}
+FACT {"domain":"metric","entity":"tidb-tikv","fact_id":"FF3BE506A3583","field":"value","relative_bin":41,"unit":"native","value":0.0}

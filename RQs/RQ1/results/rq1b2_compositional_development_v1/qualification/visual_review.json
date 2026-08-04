@@ -1,0 +1,22 @@
+{
+  "schema_version": "RQ1VisualReviewV1",
+  "status": "passed",
+  "experiment_id": "rq1b2_compositional_development_v1",
+  "experiment_config_hash": "04855cad493477e761a11f5e87decd6063bf9f7fba3aab01a68d0ed230980b96",
+  "artifact_inventory_hash": "7e3b50973f3181b8d8a59f88d39a80fc93bf74ae41ed0ac59663c4295afeb3f7",
+  "review_scope": "Manually inspected four frozen images per dataset (12 total), covering metric-point lookup, low/high normalized temporal grids where supported, low/high directed topology, long labels, dense panels, and the post-winsorization zero-baseline cases. All inspected images are nonblank, readable, answer-hidden, and free of case IDs, datasets, labels, fault types, and absolute time.",
+  "reviewed_images": [
+    {"opaque_incident_id": "INC-046CBBA179DB", "query_id": "Q-6C8DF58B331FBC5E", "render_kind": "metric_point", "image_sha256": "f69765296a296b77c48a052ab1083b8e007419d10590b6976684efb7528ab957", "status": "passed"},
+    {"opaque_incident_id": "INC-046CBBA179DB", "query_id": "Q-D35070621A6087BA", "render_kind": "normalized_series_grid", "image_sha256": "1901508301a7537f6399c59938a6725ed63e5f883a9ac9910ad0368b68c6082c", "status": "passed"},
+    {"opaque_incident_id": "INC-046CBBA179DB", "query_id": "Q-44FFE4110BE53BD4", "render_kind": "topology", "image_sha256": "04d7165d5a88f804208b86be233d4b0b5b13d5de10a05db8daf7a8a4963e6e7d", "status": "passed"},
+    {"opaque_incident_id": "INC-046CBBA179DB", "query_id": "Q-57421E550217D668", "render_kind": "topology", "image_sha256": "7a6261aa6ddea0a722ef10f882e8a423acf6ea3bfda95c0efeacf1b3296db652", "status": "passed"},
+    {"opaque_incident_id": "INC-0682E7C0B265", "query_id": "Q-3A8E019E148407CB", "render_kind": "metric_point", "image_sha256": "09ed9130d8ecc05febe5dea8660d0d5c40621c72410d9be86ed6daef66ff2732", "status": "passed"},
+    {"opaque_incident_id": "INC-0682E7C0B265", "query_id": "Q-1A5BE9E48FE5006C", "render_kind": "normalized_series_grid", "image_sha256": "dbf45375edf0254a00aeebc9536beb3d5c3f7331c42011534cbf89bf813721b5", "status": "passed"},
+    {"opaque_incident_id": "INC-0682E7C0B265", "query_id": "Q-C8A449B33F7AF154", "render_kind": "normalized_series_grid", "image_sha256": "75e8433cb1e993da8cb6a7ea2973e97a286cdfc6f2bf7cf7100117df694b4dd6", "status": "passed"},
+    {"opaque_incident_id": "INC-0682E7C0B265", "query_id": "Q-540CBEA38BA477E5", "render_kind": "topology", "image_sha256": "774d3460556e29daaf61fa6b4a9a7f92134fe1a9c7e9ba40acb42593f9b26d92", "status": "passed"},
+    {"opaque_incident_id": "INC-A17911361FF7", "query_id": "Q-FEBAA94A390009B9", "render_kind": "metric_point", "image_sha256": "ac25f1cf00460f7856fcd83e7e22ed23e8ef1a0d7c8b33e71ab6f79669bc9a0c", "status": "passed"},
+    {"opaque_incident_id": "INC-A17911361FF7", "query_id": "Q-919DAA09D64E0796", "render_kind": "normalized_series_grid", "image_sha256": "3ea7c9f0e08ad9573f64151f8784e2aeb6fc9436bd6fa69c478c63b91a411f25", "status": "passed"},
+    {"opaque_incident_id": "INC-A17911361FF7", "query_id": "Q-2E3C2E28374509D7", "render_kind": "normalized_series_grid", "image_sha256": "b9e3c7ccc514045de3628eec16cece28c7809c7a31a044ae9fd5f22d49e77091", "status": "passed"},
+    {"opaque_incident_id": "INC-A17911361FF7", "query_id": "Q-439D8B7449C54CF2", "render_kind": "topology", "image_sha256": "d1150a0dc57b562e1fbf47fb55691d52f4ba8158c8e8578324d418328c9c7579", "status": "passed"}
+  ]
+}

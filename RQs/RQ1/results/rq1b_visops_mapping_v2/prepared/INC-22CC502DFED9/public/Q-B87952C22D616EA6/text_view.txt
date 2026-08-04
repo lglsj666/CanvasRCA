@@ -1,0 +1,6 @@
+VIEW {"fact_inventory_hash":"4b2f8e337f21b261e56b5be36aa87c534b18f8ddbc97ff8d0d827dc7fbd3bbf4","query_hash":"7b4daa4b1a0030041f5c8126664505bf4b79e6f81676e92d9a7e448cbac4d98d","query_id":"Q-B87952C22D616EA6","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"trace","entity":"ts-assurance-service","fact_id":"F3CF36D9E73B6","field":"bin_center_rel_s","relative_bin":24,"unit":"relative_seconds","value":183.351589}
+FACT {"domain":"trace","entity":"ts-assurance-service","fact_id":"F8E5C53DA4A6C","field":"error_count","relative_bin":24,"unit":"spans","value":0}
+FACT {"domain":"trace","entity":"ts-assurance-service","fact_id":"F5F8158FDC1C2","field":"latency_p95_ms","relative_bin":24,"unit":"milliseconds","value":26.846308}
+FACT {"domain":"trace","entity":"ts-assurance-service","fact_id":"FDC0C57859F4C","field":"service","relative_bin":24,"unit":null,"value":"ts-assurance-service"}
+FACT {"domain":"trace","entity":"ts-assurance-service","fact_id":"F9B3AACEE4D40","field":"span_count","relative_bin":24,"unit":"spans","value":14}

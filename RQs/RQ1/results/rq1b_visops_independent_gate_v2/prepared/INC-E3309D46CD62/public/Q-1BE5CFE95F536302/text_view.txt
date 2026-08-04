@@ -1,0 +1,9 @@
+VIEW {"fact_inventory_hash":"025779eaca34bce028a28f6eca7b8a6d005feb1f9551c81a92c94b6ea1ea1c07","query_hash":"d7f8c5fd7dc5c6fd3abd6728c33f6d31fb38153ce6a4a2907e1350d63368e015","query_id":"Q-1BE5CFE95F536302","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-basic-service-6968d4ccd5-bgg4g","fact_id":"F1DE641E0218C","field":"metric","relative_bin":null,"unit":null,"value":"k8s.container.restarts"}
+FACT {"domain":"metric","entity":"ts-basic-service-6968d4ccd5-bgg4g","fact_id":"FFD6341FA6341","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":265.445}
+FACT {"domain":"metric","entity":"ts-basic-service-6968d4ccd5-bgg4g","fact_id":"F0AAF4922D71E","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"ts-basic-service-6968d4ccd5-bgg4g","fact_id":"FA8A7762FD0DC","field":"service","relative_bin":null,"unit":null,"value":"ts-basic-service-6968d4ccd5-bgg4g"}
+FACT {"domain":"metric","entity":"ts-basic-service","fact_id":"F31B31370A561","field":"metric","relative_bin":null,"unit":null,"value":"container.filesystem.usage"}
+FACT {"domain":"metric","entity":"ts-basic-service","fact_id":"FADD9AB978F06","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":243.013}
+FACT {"domain":"metric","entity":"ts-basic-service","fact_id":"F384A95B0AE60","field":"panel_id","relative_bin":null,"unit":null,"value":"M9"}
+FACT {"domain":"metric","entity":"ts-basic-service","fact_id":"FF4395B925B30","field":"service","relative_bin":null,"unit":null,"value":"ts-basic-service"}

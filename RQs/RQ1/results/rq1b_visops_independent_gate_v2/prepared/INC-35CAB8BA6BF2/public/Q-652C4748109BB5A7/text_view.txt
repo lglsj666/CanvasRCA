@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"a4fa8759be466d6ce29244ffccb0675c0a4b1991cbd713dc57b480ba92118e60","query_hash":"3d0b8422fddb7ffd1c66f3261424e20b5ecd2b7fab03094f5754e6d14627302b","query_id":"Q-652C4748109BB5A7","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"hipstershop","fact_id":"F41C6CFB37A30","field":"bin_center_rel_s","relative_bin":39,"unit":"relative_seconds","value":1370.156}
+FACT {"domain":"metric","entity":"hipstershop","fact_id":"F4D4FF33D9136","field":"metric","relative_bin":null,"unit":null,"value":"error_ratio"}
+FACT {"domain":"missingness","entity":"hipstershop","fact_id":"F54472FB848C8","field":"missing","relative_bin":39,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"hipstershop","fact_id":"FA143621AC6B8","field":"observed_count","relative_bin":39,"unit":null,"value":1}
+FACT {"domain":"metric","entity":"hipstershop","fact_id":"FB27211939626","field":"panel_id","relative_bin":null,"unit":null,"value":"M12"}
+FACT {"domain":"metric","entity":"hipstershop","fact_id":"F02FA20664DF9","field":"service","relative_bin":null,"unit":null,"value":"hipstershop"}
+FACT {"domain":"metric","entity":"hipstershop","fact_id":"F37203A7B87D9","field":"value","relative_bin":39,"unit":"native","value":0.0}

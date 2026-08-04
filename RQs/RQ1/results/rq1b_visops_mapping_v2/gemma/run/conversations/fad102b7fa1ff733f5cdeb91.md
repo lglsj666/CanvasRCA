@@ -1,0 +1,11 @@
+# RQ1 VisOps conversation — Q-10811FA9ED18473C — V
+
+- opaque incident: `INC-582143E85BAC`
+- model: `gemma-4-26b-a4b`
+- prompt hash: `83a0fef9ebd8aadde6803e261dfac8bfc353d0aa82cc65697b4b93f99bdfa8b9`
+- visual hash: `ab707f962e40d03c03534c12df74d4e2764c5e568bea653e22b7cf929d63260c`
+- text hash: `21d9f4495f4eef01b138cd9f6246ef5c4806df6f6d4a11fb4aeffef20ea00c84`
+
+## Response
+
+{"answer": ["ts-order-service"]}

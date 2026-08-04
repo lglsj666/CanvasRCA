@@ -1,0 +1,6 @@
+VIEW {"fact_inventory_hash":"84ae8b75850d7915edc13027b8e3402513095ecee3323eb640c24e536d8709c1","query_hash":"a62ec189ac59147353227cda93994dabafc5d6e9b3dc9e45ce7f976e2c8419a6","query_id":"Q-A3C62F60341B10D0","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"trace","entity":"ts-verification-code-service","fact_id":"FB6EDD290EA9A","field":"bin_center_rel_s","relative_bin":16,"unit":"relative_seconds","value":123.446469}
+FACT {"domain":"trace","entity":"ts-verification-code-service","fact_id":"FC9CA521FB0CC","field":"error_count","relative_bin":16,"unit":"spans","value":0}
+FACT {"domain":"trace","entity":"ts-verification-code-service","fact_id":"F37AB7E8F0DFA","field":"latency_p95_ms","relative_bin":16,"unit":"milliseconds","value":3.184969}
+FACT {"domain":"trace","entity":"ts-verification-code-service","fact_id":"FF49C6A1BA2CE","field":"service","relative_bin":16,"unit":null,"value":"ts-verification-code-service"}
+FACT {"domain":"trace","entity":"ts-verification-code-service","fact_id":"F9B2C2DFE7484","field":"span_count","relative_bin":16,"unit":"spans","value":140}

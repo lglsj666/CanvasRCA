@@ -1,0 +1,11 @@
+# RQ1 VisOps conversation — Q-C7073A583F0F212B — V
+
+- opaque incident: `INC-7DCE6438B144`
+- model: `qwen3.6-27b`
+- prompt hash: `0ce04ab0ee1d51cb1aa975bd87af70af5e6f33495e3e03ffe22cf7cd473303a4`
+- visual hash: `66840b66d9831a612fe0770c6744b2212e2645015990e38f5d0020e93300ed38`
+- text hash: `ec6a2f0cca5a14a715da082b0ee4a302ffece711d1dbf861f8deea1423331772`
+
+## Response
+
+{"answer": "ts-ui-dashboard -> ts-assurance-service"}

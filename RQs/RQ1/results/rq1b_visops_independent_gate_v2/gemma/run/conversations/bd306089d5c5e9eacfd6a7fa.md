@@ -1,0 +1,11 @@
+# RQ1 VisOps conversation — Q-0663EC8C8292C59D — H
+
+- opaque incident: `INC-37080A723A1F`
+- model: `gemma-4-26b-a4b`
+- prompt hash: `54754581c7ae852d7cb6a933cc5c7d46bb9a99eccc0779a3202c044554670245`
+- visual hash: `36f872d67b58b14f6505bd1ac5fe153e0a883d66c6078bdbafa55ae16c6e3daa`
+- text hash: `89f7a4470fee5112c7fffe36967e696f8a2637d9511a5a5e3e2903a8e51a7a0b`
+
+## Response
+
+{"answer": {"caller": "frontend-0", "callee": "shippingservice-2"}}

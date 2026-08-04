@@ -1,65 +1,45 @@
 ---
 name: smoke
-description: Run or debug the end-to-end VLM-RCA pipeline (case → dashboard → VLM → parse → score) and check the M1 gates. Use when verifying the pipeline still works after a change, onboarding a new model or dataset, or diagnosing why an experiment returns zero/unparseable answers.
+description: Run or debug the CanvasRCA end-to-end pipeline and its partition-aware qualification. Use before a full inference or training run, after compiler/client/scorer changes, or when diagnosing infrastructure and artifact failures.
 ---
 
-# Smoke test
+# Smoke qualification
 
-The fastest way to prove the whole chain is intact. Run it after any change to
-the renderer, prompt, client, or scoring.
+Read `Codex.md` and the target RQ contract. A mock run is useful for local unit
+debugging but never replaces the registered real-case qualification.
 
-```bash
-source scripts/env.sh
-python scripts/smoke_e2e.py --model mock --n 5                 # no credentials, no cost
-python scripts/smoke_e2e.py --model claude-sonnet-5 --n 20     # real model
-```
+Do not reuse the current `scripts/smoke_e2e.py --rq0` route to qualify a new RQ;
+it is tied to the completed RQ0 contract. Likewise, the generic legacy M1 path
+with accuracy gates is not a Rule-16 qualification. Add and register the target
+RQ's smoke integration before opening its full run.
 
-`--model mock` is the debugging default: it exercises rendering, prompt
-assembly, parsing, scoring and trajectory writing with no network and no spend.
-Use it to isolate pipeline bugs from model behaviour.
+## Registered three-case smoke
 
-## M1 gates
+Select exactly one authorized real case from each dataset:
 
-| Gate | Threshold | Meaning |
-|---|---|---|
-| `parse_rate` | ≥ 0.95 | at most 1 unparseable answer in 20 |
-| `mrr` | ≥ 0.35 | random top-5 over 10 services is ≈ 0.21 |
-| render time | < 5 s/case | keeps the RQ1 grid affordable |
-| perception probe | ≥ 90% | model can transcribe panel titles (render-reviewer agent) |
+- `re2_ob`;
+- `aiops2022`;
+- `aiops2025`.
 
-Status: passed on 2026-07-22 with `claude-opus-4-7` on 20 RE2-OB cases —
-MRR 1.000, parse 1.000, 4.4k tokens/case, 6.9 s/case.
+Use `validation` for inference/evaluator smoke and `train` for optimizer/training
+smoke. Use the preregistered seed and record opaque IDs plus roster/split hashes.
+Do not use AegisLab, RE2-TT, synthetic cases, test, heldout, unused, or `.invalid`
+cases. RE2-TT remains embargoed for final OOD evaluation.
 
-**Read the RE2-OB result carefully.** It is the easiest dataset; the prior
-text-based project already scored 0.976–0.994 there, so 1.000 confirms the
-pipeline works and proves nothing about the method. Real signal comes from
-AegisLab (text SOTA 0.679) and AIOPS-2025 (0.390).
+Run through the same compiler, renderer, `RQs/vlmrca/vlm/client.py`, asynchronous
+writer, evaluator, artifact inventory, verifier, and full 32768/16384 limits as
+the planned run. Freeze code, model/tokenizer or adapter, configuration, prompt,
+evidence, renderer, scorer, and partition hashes before the first call or
+optimizer step.
 
-## Debug order
+## Passage criteria
 
-Work outward from the data; most failures are in the first two steps.
+Require protocol, numerical, artifact, and infrastructure integrity with zero
+infrastructure failures. Do not use root-cause accuracy, MRR, reward, parse
+acceptance, or the magnitude of finite loss to decide passage. Still record
+parse failures, truncations, invalid output, and finite metrics as diagnostics.
 
-1. **Render** — `python scripts/render_gallery.py --dataset <ds> --n 3` and look
-   at the PNG. Blank or garbled panels explain everything downstream.
-2. **Prompt** — check `prompt_chars` in the trajectory. Near-zero means the
-   evidence text failed to build; huge means something is dumping raw telemetry.
-3. **Model call** — a per-turn `error` field in the trajectory means the call
-   itself failed (credentials, model id, image size), not a wrong answer.
-   Credentials come from the upstream repo's `.env` via `vlm.configs.load_env`.
-4. **Parse** — `parse_ok=false` with non-empty `response` means the model
-   answered in prose. Check that `ANSWER_FORMAT` is still the last prompt part.
-5. **Score** — a correct-looking prediction scoring 0 usually means name
-   normalisation: `score_prediction` applies service-level leniency and
-   multi-root-cause acceptance, so check `extra.rank` and `accepted`.
-
-## Outputs
-
-```
-results/<experiment>/
-  trajectories/<experiment>__<model>.jsonl   # header line + one line per case
-  renders/<case_id>__<config>.png            # gitignored
-  summary.json                               # point-estimate metrics
-```
-
-Trajectory schema matches the upstream project's `configs/metrics_spec.yaml`
-plus an `images` field, so upstream analysis scripts read these unchanged.
+Store the smoke in an isolated registered root under
+`RQs/<rq>/results/<smoke-experiment>/` and exclude it from formal metrics and
+model selection. If it fails, preserve its artifacts and diagnose from data to
+render, prompt, backend, parser, scorer, writer, and verifier in that order.

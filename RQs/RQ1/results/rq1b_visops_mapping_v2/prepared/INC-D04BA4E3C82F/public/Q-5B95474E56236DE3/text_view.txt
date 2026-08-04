@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"1f0163f1b3183e576efbd5ad4d3035b0d0aa0a7e9a49b4d70c7a5e90bc617231","query_hash":"b8bbd0c18ef3d92e5b1430fc7559ff768a6560840ac47003d736c6e91537bf1f","query_id":"Q-5B95474E56236DE3","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"node-1","fact_id":"F72B511992FF5","field":"metric","relative_bin":null,"unit":null,"value":"system.io.avg_q_sz"}
+FACT {"domain":"metric","entity":"node-1","fact_id":"F34F28CE265A6","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"node-1","fact_id":"FD5217E28FE34","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"node-1","fact_id":"FD0F496AB155F","field":"service","relative_bin":null,"unit":null,"value":"node-1"}
+FACT {"domain":"metric","entity":"shippingservice-0","fact_id":"F463306C3E482","field":"metric","relative_bin":null,"unit":null,"value":"istio_request_duration_milliseconds.grpc.200.0.0"}
+FACT {"domain":"metric","entity":"shippingservice-0","fact_id":"FDF0D68F83B6B","field":"panel_id","relative_bin":null,"unit":null,"value":"M4"}
+FACT {"domain":"metric","entity":"shippingservice-0","fact_id":"FBD0F9A0966C8","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":18}
+FACT {"domain":"metric","entity":"shippingservice-0","fact_id":"F725FDB1ADEC2","field":"service","relative_bin":null,"unit":null,"value":"shippingservice-0"}
+FACT {"domain":"metric","entity":"emailservice-1","fact_id":"FF88F59D816CA","field":"metric","relative_bin":null,"unit":null,"value":"container_network_receive_MB.eth0"}
+FACT {"domain":"metric","entity":"emailservice-1","fact_id":"F51CB064C434E","field":"panel_id","relative_bin":null,"unit":null,"value":"M7"}
+FACT {"domain":"metric","entity":"emailservice-1","fact_id":"F9F1196832D37","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"emailservice-1","fact_id":"F95C0B9DBCE70","field":"service","relative_bin":null,"unit":null,"value":"emailservice-1"}
+FACT {"domain":"metric","entity":"paymentservice-0","fact_id":"FDB5A02CF1F67","field":"metric","relative_bin":null,"unit":null,"value":"container_network_receive_MB.eth0"}
+FACT {"domain":"metric","entity":"paymentservice-0","fact_id":"F8568AA54F3AC","field":"panel_id","relative_bin":null,"unit":null,"value":"M8"}
+FACT {"domain":"metric","entity":"paymentservice-0","fact_id":"FE163C6F16F31","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"paymentservice-0","fact_id":"FFA2736664734","field":"service","relative_bin":null,"unit":null,"value":"paymentservice-0"}

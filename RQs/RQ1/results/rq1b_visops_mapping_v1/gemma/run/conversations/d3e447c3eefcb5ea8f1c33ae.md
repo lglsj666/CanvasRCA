@@ -1,0 +1,13 @@
+# RQ1 VisOps conversation — Q-6EFCFBD8472D7765 — V
+
+- opaque incident: `INC-B93DB5AB1FCD`
+- model: `gemma-4-26b-a4b`
+- prompt hash: `d7d489869a85d77e64f395fecc9b8cdcee455cfbbd177a5044b3fbbe96bc0c3b`
+- visual hash: `fc5ca01484bc7634d1fc267895fc802ce94c6bdcf46d6613d7ca33fe690f23d2`
+- text hash: `b2a7138fa8b03d938c5f2cfe230e32228d9c7289c96ba33ca1fa559c064fc155`
+
+## Response
+
+```json
+{"answer": "ts-preserve-service -> ts-travel-service"}
+```

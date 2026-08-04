@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"1d7d70df2904f69f206e9fe4658b85c89ba5d3587acea66bf2ba2cd1159c3d7e","query_hash":"569366c1d5e4228f9db33418e4e83f6efa066aa61d9744046337debd2d561104","query_id":"Q-FBA09194B9868A1C","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"istio-egressgateway-7bfdcc9d86-zpjpg","fact_id":"FFEE04DAE51BC","field":"metric","relative_bin":null,"unit":null,"value":"istio_agent_go_memstats_heap_released_bytes"}
+FACT {"domain":"metric","entity":"istio-egressgateway-7bfdcc9d86-zpjpg","fact_id":"F0C769CB25884","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1809.844}
+FACT {"domain":"metric","entity":"istio-egressgateway-7bfdcc9d86-zpjpg","fact_id":"FAF24BE132165","field":"panel_id","relative_bin":null,"unit":null,"value":"M4"}
+FACT {"domain":"metric","entity":"istio-egressgateway-7bfdcc9d86-zpjpg","fact_id":"FD8B4358BD11F","field":"service","relative_bin":null,"unit":null,"value":"istio-egressgateway-7bfdcc9d86-zpjpg"}
+FACT {"domain":"metric","entity":"emailservice-2","fact_id":"FC493F2CF4012","field":"metric","relative_bin":null,"unit":null,"value":"container_network_receive_MB.eth0"}
+FACT {"domain":"metric","entity":"emailservice-2","fact_id":"F5A9D971D8966","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1517.344}
+FACT {"domain":"metric","entity":"emailservice-2","fact_id":"F2381A42C7FDE","field":"panel_id","relative_bin":null,"unit":null,"value":"M6"}
+FACT {"domain":"metric","entity":"emailservice-2","fact_id":"F183112942643","field":"service","relative_bin":null,"unit":null,"value":"emailservice-2"}
+FACT {"domain":"metric","entity":"node-4","fact_id":"FD25345A1CE76","field":"metric","relative_bin":null,"unit":null,"value":"system.mem.free"}
+FACT {"domain":"metric","entity":"node-4","fact_id":"FAAA206C9BA33","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1992.656}
+FACT {"domain":"metric","entity":"node-4","fact_id":"FB24ADB37CA00","field":"panel_id","relative_bin":null,"unit":null,"value":"M9"}
+FACT {"domain":"metric","entity":"node-4","fact_id":"FF591B941E4B5","field":"service","relative_bin":null,"unit":null,"value":"node-4"}
+FACT {"domain":"metric","entity":"productcatalogservice-0","fact_id":"F440C7620FF45","field":"metric","relative_bin":null,"unit":null,"value":"container_memory_working_set_MB"}
+FACT {"domain":"metric","entity":"productcatalogservice-0","fact_id":"FEAA0615CA081","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1334.531}
+FACT {"domain":"metric","entity":"productcatalogservice-0","fact_id":"F1E3B1EE390AF","field":"panel_id","relative_bin":null,"unit":null,"value":"M10"}
+FACT {"domain":"metric","entity":"productcatalogservice-0","fact_id":"FE07BFEDEBE47","field":"service","relative_bin":null,"unit":null,"value":"productcatalogservice-0"}

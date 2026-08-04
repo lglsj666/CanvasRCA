@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"5b191bde1430d3ac440c83be1eeeeb78f1c83641881fd6a3fcc97408ef068767","query_hash":"7de97bcbbc29f000a2b69697f40372d8e9e1f1b5d9e1466f4ba480868e5b521a","query_id":"Q-30ADEA691F0145AC","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"log","entity":"paymentservice-0","fact_id":"F2B0C4C7A9284","field":"bin_center_rel_s","relative_bin":32,"unit":"relative_seconds","value":1188.28125}
+FACT {"domain":"log","entity":"paymentservice-0","fact_id":"F62F3830AF205","field":"dominant_template","relative_bin":32,"unit":null,"value":"\"post /hipstershop.paymentservice/charge http/<v>\" <v> - via_upstream - \"-\" <v> <v> <v> <v> \"-\" \"grpc-go/<v>\" \"<v>-1cde-9d95-a741-<v>\" \"paymentservice:<v>\" \"<v>:<v>\" inbound|<v>|| <v>:<v> <v>:<v> <v>:<v> outbound_.50051_._.paymentservice.ts.svc.cluster.local default"}
+FACT {"domain":"log","entity":"paymentservice-0","fact_id":"FE4A75E92E50D","field":"dominant_template_count","relative_bin":32,"unit":"events","value":1}
+FACT {"domain":"log","entity":"paymentservice-0","fact_id":"FD558B5774802","field":"dominant_template_id","relative_bin":32,"unit":null,"value":"LT-AADCDACE6349"}
+FACT {"domain":"log","entity":"paymentservice-0","fact_id":"F45420E9DC90E","field":"error_count","relative_bin":32,"unit":"events","value":0}
+FACT {"domain":"log","entity":"paymentservice-0","fact_id":"F2188AC089EEB","field":"event_count","relative_bin":32,"unit":"events","value":4}
+FACT {"domain":"log","entity":"paymentservice-0","fact_id":"F2E42BC1FAF35","field":"service","relative_bin":32,"unit":null,"value":"paymentservice-0"}

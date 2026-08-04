@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"6497869f8f1844b5668e4e2d5e3501420095465be08baf4eb2d3ebde9cff1f45","query_hash":"bb13c9ce77b6a6a3f7fdbfdcdcce271a96c4f60608fb5d15b1f6f171d2fb05c4","query_id":"Q-6329332D229917C4","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-station-food-service","fact_id":"F007087B24245","field":"bin_center_rel_s","relative_bin":14,"unit":"relative_seconds","value":108.174}
+FACT {"domain":"metric","entity":"ts-station-food-service","fact_id":"F484BA6EFB836","field":"metric","relative_bin":null,"unit":null,"value":"hubble_http_request_duration_p90_seconds"}
+FACT {"domain":"missingness","entity":"ts-station-food-service","fact_id":"FBF004FA7BCAC","field":"missing","relative_bin":14,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"ts-station-food-service","fact_id":"F05E289C880E7","field":"observed_count","relative_bin":14,"unit":null,"value":1}
+FACT {"domain":"metric","entity":"ts-station-food-service","fact_id":"F47250B12B45F","field":"panel_id","relative_bin":null,"unit":null,"value":"M11"}
+FACT {"domain":"metric","entity":"ts-station-food-service","fact_id":"F526E0D427700","field":"service","relative_bin":null,"unit":null,"value":"ts-station-food-service"}
+FACT {"domain":"metric","entity":"ts-station-food-service","fact_id":"F7CBF88C3F4D3","field":"value","relative_bin":14,"unit":"native","value":0.0235}

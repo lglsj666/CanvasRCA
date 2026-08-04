@@ -1,4 +1,4 @@
-# VLM-RCA
+# CanvasRCA
 
 **Vision-language models on rendered telemetry dashboards for microservice root cause analysis.**
 
@@ -10,10 +10,31 @@ rendered dashboard as the perception layer. That is the gap this project fills.
 
 ## Research questions
 
-- **RQ1** — How should all key telemetry be compiled into a single dashboard image?
-- **RQ2** — What agentic loop (zoom, expand, traverse, re-render) improves accuracy from that initial view?
-- **RQ3** — Which VLM is best for this task?
-- **RQ4** — What does each component contribute?
+- **RQ0 (completed precursor)** — Under equal-information and equal-compute
+  conditions, does the current visual–text topology-aware representation
+  improve VLM-based RCA over text-only and flat structured representations?
+- **RQ1 — Representation value** — Under equal-information and equal-compute
+  conditions, does visual–text, topology-aware observability improve VLM-based
+  RCA over text-only and flat structured representations, and which operations
+  exhibit stable modality complementarity?
+- **RQ2 — Dashboard design effects** — How do dashboard content, visual
+  encoding, spatial arrangement, and their interactions affect RCA accuracy,
+  evidence grounding, robustness, and cost?
+- **RQ3 — Contribution identifiability** — Can conditional contributions of
+  content, encoding, arrangement, and component interactions be quantified by
+  controlled counterfactuals and anchor-state outcomes?
+- **RQ4 — Scorer contribution fidelity** — Can a credit-aware VLM scorer
+  predict dashboard utility, action-level marginal contributions, and
+  interactions on unseen cases, layouts, states, and Solver partners?
+- **RQ5 — Downstream scorer usefulness** — Does higher scorer fidelity
+  causally improve dashboard selection and downstream RCA under matched
+  candidate, search, and real-evaluation budgets?
+- **RQ6 — RL and credit assignment** — Does anchor-state group-relative
+  component credit produce better dashboard policies than non-RL search and
+  outcome-only RL?
+- **RQ7 — Adaptive co-evolution** — Does Builder–Scorer–Solver co-evolution
+  improve utility and generalization while preserving contribution fidelity
+  and cross-partner transfer?
 
 The canonical question text, protocol, and descriptive material for every RQ
 must live under that RQ's `RQs/<rq>/descriptions/` directory.
@@ -43,7 +64,7 @@ representations rather than of prompt wording.
 ```bash
 cd /home/lglsj/CanvasRCA
 source venvs/tools/bin/activate
-export VLMRCA_ROOT=/home/lglsj/CanvasRCA
+export CANVASRCA_ROOT=/home/lglsj/CanvasRCA
 export RL_SLM_RCA_ROOT=/home/lglsj/RL-SLM-RCA-rw_phase2
 ```
 
@@ -75,9 +96,12 @@ that the method is better. Claims must rest on AegisLab and the AIOPS sets.
    parsed and scored with upstream's functions. Do not "improve" it.
 2. **The renderer never sees a label.** `compile_dashboard` takes a
    `CaseRenderView`, which structurally has no `ground_truth` field.
-   `tests/test_no_leakage.py` enforces this. Note that the true service *name*
-   legitimately appears among the candidates — what must never appear is
-   anything distinguishing it as the answer.
+   `tests/test_no_leakage.py` enforces this structural boundary, but that check
+   is necessary rather than sufficient: every model-visible PNG, OCR string,
+   prompt, manifest and metadata field must also exclude raw case IDs, dataset
+   names, fault types, absolute times, file paths and label-derived metadata.
+   Note that the true service *name* legitimately appears among the candidates
+   — what must never appear is anything distinguishing it as the answer.
 3. **The renderer is pure and deterministic** in `(view, DashboardConfig)`.
    Seeded layout, sorted iteration. A/B comparisons depend on it.
 4. **Every rendering behaviour is a `DashboardConfig` field.** A behaviour without
@@ -107,14 +131,34 @@ docs/progress_report.md     shared full-project knowledge transfer
 
 ## Working conventions
 
-Skills in `.claude/skills/`: **dashboard** (renderer work), **smoke** (pipeline
-verification), **experiment** (new cells, configs, cost ladder), **vlm-serve**
-(self-hosted VLMs), **baseline** (comparison tables), **agent-trace** (failure
-analysis), plus **devlog**, **status**, **design-decision**.
+Project skills are authored once under `.claude/skills/` for Claude compatibility
+and exposed to Codex through the repository discovery alias
+`.agents/skills -> ../.claude/skills`. The available skills are **dashboard**
+(renderer work), **smoke** (pipeline qualification), **experiment** (registered
+cells and configs), **vlm-serve** (self-hosted VLMs), **baseline** (comparison
+tables), **agent-trace** (failure analysis), **literature-review** (primary-source
+search, verification, and synthesis), plus **devlog**, **status**, and
+**design-decision**. Keep the alias intact and edit only the canonical files
+under `.claude/skills/`, so the two agents cannot drift onto different rules.
 
-Agents in `.claude/agents/`: **render-reviewer** (vision QA + perception probe —
-use after every renderer change), **trajectory-analyst** (failure mode
-classification), **results-analyst** (statistics and paper tables).
+`AGENTS.md -> Codex.md` is the Codex project-guidance entry point. `Codex.md`
+remains the single authoritative rules file.
+
+Every material project, research, protocol, implementation, validity, or
+next-step decision must be recorded immediately after it is made, together
+with the evidence and reasons for choosing it. Do not leave a decision only in
+chat, terminal output, or an informal progress update. Record project-wide and
+cross-RQ decisions in `plans/design_decisions.md`; record RQ-specific protocol
+and preregistration decisions under `RQs/<rq>/descriptions/`; record final RQ
+conclusions under `RQs/<rq>/findings/`. When a decision changes or rejects an
+earlier decision, preserve history by explicitly superseding the earlier entry
+and documenting the consequences and revisit conditions.
+
+Claude-only profiles remain in `.claude/agents/`: **render-reviewer** (vision QA
++ perception probe), **trajectory-analyst** (failure-mode classification), and
+**results-analyst** (statistics and paper tables). Codex must use the equivalent
+workflow embedded in the project skills and, when useful, an ordinary read-only
+subagent; it must not assume that `.claude/agents/` is a Codex discovery path.
 
 Rendering is cheap CPU work; inference is not. Pre-render, then run inference as
 a separate resumable job. Iterate at 20 and 100 cases; run 480 only on frozen
@@ -544,6 +588,19 @@ all paths are relative to `/home/lglsj/CanvasRCA`.
    prompts, models, decoding, or scoring.
 
 ## Status
+
+**Current authority as of 2026-08-04:** RQ0 completed 4,320 formal calls and did
+not support a static visual-text advantage. RQ1 subsequently produced three
+valid negative mechanism results: its operation router failed on the disjoint
+Gemma/Qwen gate, RQ1b2 answer-hidden visual composition failed Gemma
+development, and RQ1b3's complete two-stage Gemma cell failed all six promotion
+requirements after 990/990 calls. DD-34 stops Qwen/gate follow-up for RQ1b3 and
+keeps RQ1c/RQ1d, training, reserve, and heldout inference blocked. DD-35 starts
+RQ2 static protocol implementation; its initial 16-cell factorial contract and
+feasibility checks pass, but **no RQ2 model inference is authorized yet**. See
+`docs/2026-08-03_progress_report.md` and `plans/design_decisions.md`. Historical
+status notes below are retained as an implementation chronology and must not
+override this paragraph.
 
 RQ0 confirmatory inference completed on 2026-07-31 with 4,320 formal calls and
 did not support a visual-text-topology accuracy advantage. The subsequent

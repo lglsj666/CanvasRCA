@@ -73,6 +73,106 @@ def _edge(value: Any) -> dict[str, str]:
     raise ContractError("directed-edge answer must contain exactly caller and callee")
 
 
+def _natural_panel_key(value: str) -> tuple[str, int, str]:
+    match = re.fullmatch(r"([^0-9]*)([0-9]+)(.*)", value)
+    if match is None:
+        return (value, -1, "")
+    return (match.group(1), int(match.group(2)), match.group(3))
+
+
+def normalize_panel_onset_ledger(value: Any) -> list[dict[str, Any]]:
+    """Validate and normalize one complete natural-order 12-panel ledger."""
+
+    if not isinstance(value, Mapping) or set(value) != {"panels"}:
+        raise ContractError("panel onset ledger must contain only panels")
+    panels = value["panels"]
+    if not isinstance(panels, list) or len(panels) != 12:
+        raise ContractError("panel onset ledger must contain exactly 12 panels")
+    if all(isinstance(row, str) for row in panels):
+        expanded: list[dict[str, Any]] = []
+        for entry in panels:
+            match = re.fullmatch(
+                r"([^:]+):(null|(positive|negative)@([0-9]|1[0-4]))", entry
+            )
+            if match is None:
+                raise ContractError("compact panel onset entry is malformed")
+            panel_id, encoded, sign, onset_text = match.groups()
+            if encoded == "null":
+                expanded.append(
+                    {
+                        "panel_id": panel_id,
+                        "onset": None,
+                        "support_bins": [],
+                        "sign": None,
+                    }
+                )
+            else:
+                onset = int(onset_text)
+                expanded.append(
+                    {
+                        "panel_id": panel_id,
+                        "onset": onset,
+                        "support_bins": [onset, onset + 1],
+                        "sign": sign,
+                    }
+                )
+        panels = expanded
+    elif any(isinstance(row, str) for row in panels):
+        raise ContractError("panel onset ledger mixes compact and expanded entries")
+    normalized: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for row in panels:
+        required = {"panel_id", "onset", "support_bins", "sign"}
+        if not isinstance(row, Mapping) or set(row) != required:
+            raise ContractError("panel onset entry has unexpected fields")
+        panel_id = str(row["panel_id"]).strip()
+        if not panel_id or panel_id in seen:
+            raise ContractError("panel onset ledger has blank or duplicate panel ID")
+        seen.add(panel_id)
+        onset = row["onset"]
+        support = row["support_bins"]
+        sign = row["sign"]
+        if onset is None:
+            if support != [] or sign is not None:
+                raise ContractError("null onset requires empty support and null sign")
+        else:
+            if isinstance(onset, bool) or not isinstance(onset, int):
+                raise ContractError("panel onset must be an integer or null")
+            if onset < 0 or onset > 14:
+                raise ContractError("panel onset is outside the 16-bin range")
+            if support != [onset, onset + 1]:
+                raise ContractError("support bins do not match the onset pair")
+            if sign not in {"positive", "negative"}:
+                raise ContractError("valid onset requires a positive/negative sign")
+        normalized.append(
+            {
+                "panel_id": panel_id,
+                "onset": onset,
+                "support_bins": list(support),
+                "sign": sign,
+            }
+        )
+    expected_order = sorted(
+        (row["panel_id"] for row in normalized), key=_natural_panel_key
+    )
+    if [row["panel_id"] for row in normalized] != expected_order:
+        raise ContractError("panel onset ledger is not in natural numeric order")
+    return normalized
+
+
+def select_earliest_panels(value: Any) -> list[str]:
+    """Select the complete lexical tie set at the minimum non-null onset."""
+
+    panels = normalize_panel_onset_ledger(value)
+    eligible = [row for row in panels if row["onset"] is not None]
+    if not eligible:
+        raise ContractError("panel onset ledger contains no valid onset")
+    earliest = min(int(row["onset"]) for row in eligible)
+    return sorted(
+        str(row["panel_id"]) for row in eligible if int(row["onset"]) == earliest
+    )
+
+
 def score_visops_answer(
     predicted: Any,
     private_answer_key: Mapping[str, Any],
@@ -95,6 +195,10 @@ def score_visops_answer(
             correct = _path(predicted) == _path(expected)
         elif answer_type == "directed_edge":
             correct = _edge(predicted) == _edge(expected)
+        elif answer_type == "panel_onset_ledger":
+            correct = normalize_panel_onset_ledger(
+                predicted
+            ) == normalize_panel_onset_ledger(expected)
         else:
             raise ContractError(f"unknown VisOps answer type {answer_type!r}")
     except (ContractError, TypeError, ValueError):

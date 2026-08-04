@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"960d4d0e89751beaec005fb87cee4bcb1b88652a9c1fb588dfbcbc6dba7ed850","query_hash":"947d50b3a517feee0a02a5de97c330002186edcc720371b7967bbd21c5e7594d","query_id":"Q-62D2C60AE14D1674","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"adservice2","fact_id":"FBDFEBD869391","field":"metric","relative_bin":null,"unit":null,"value":"jvm_classes_loaded"}
+FACT {"domain":"metric","entity":"adservice2","fact_id":"F35EE33C9047A","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":2175.469}
+FACT {"domain":"metric","entity":"adservice2","fact_id":"F9A07422040E9","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"adservice2","fact_id":"FDE120B7E372D","field":"service","relative_bin":null,"unit":null,"value":"adservice2"}
+FACT {"domain":"metric","entity":"adservice","fact_id":"F2743FA9C2E1F","field":"metric","relative_bin":null,"unit":null,"value":"jvm_classes_loaded"}
+FACT {"domain":"metric","entity":"adservice","fact_id":"F9EACEEBA1C59","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":2175.469}
+FACT {"domain":"metric","entity":"adservice","fact_id":"F14111376BF3A","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"adservice","fact_id":"F3583932E8641","field":"service","relative_bin":null,"unit":null,"value":"adservice"}
+FACT {"domain":"metric","entity":"istio-egressgateway-7bfdcc9d86-g2d4q","fact_id":"FCE53635EDF11","field":"metric","relative_bin":null,"unit":null,"value":"istio_agent_outgoing_latency.csr"}
+FACT {"domain":"metric","entity":"istio-egressgateway-7bfdcc9d86-g2d4q","fact_id":"F5D6DFDE24BEC","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1517.344}
+FACT {"domain":"metric","entity":"istio-egressgateway-7bfdcc9d86-g2d4q","fact_id":"F818F7A33FCBE","field":"panel_id","relative_bin":null,"unit":null,"value":"M3"}
+FACT {"domain":"metric","entity":"istio-egressgateway-7bfdcc9d86-g2d4q","fact_id":"F53C719A0EF0D","field":"service","relative_bin":null,"unit":null,"value":"istio-egressgateway-7bfdcc9d86-g2d4q"}
+FACT {"domain":"metric","entity":"istio-ingressgateway-565bffd4d-rn678","fact_id":"F8FD83C19A996","field":"metric","relative_bin":null,"unit":null,"value":"istio_agent_outgoing_latency.csr"}
+FACT {"domain":"metric","entity":"istio-ingressgateway-565bffd4d-rn678","fact_id":"F2A39FF67AFDE","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1517.344}
+FACT {"domain":"metric","entity":"istio-ingressgateway-565bffd4d-rn678","fact_id":"F86A1F269E51E","field":"panel_id","relative_bin":null,"unit":null,"value":"M8"}
+FACT {"domain":"metric","entity":"istio-ingressgateway-565bffd4d-rn678","fact_id":"F593D9D314A0F","field":"service","relative_bin":null,"unit":null,"value":"istio-ingressgateway-565bffd4d-rn678"}

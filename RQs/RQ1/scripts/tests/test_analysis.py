@@ -17,6 +17,7 @@ def _record(
     score: int,
     *,
     family: str = "temporal_scanning",
+    operation: str = "earliest_onset",
     status: str = "completed",
     parse_ok: bool = True,
     truncated: bool = False,
@@ -32,7 +33,7 @@ def _record(
         "query_hash": f"query-hash-{query}",
         "fact_inventory_hash": f"inventory-{query}",
         "family": family,
-        "operation": "earliest_onset",
+        "operation": operation,
         "parse_ok": parse_ok,
         "truncated": truncated,
         "correct": bool(score),
@@ -101,6 +102,8 @@ def test_paired_accuracy_repair_break_and_invalid_outputs_are_retained():
     assert query_level["arms"]["T"]["efficiency"]["gpu_active_time_s"]["mean"] is None
     assert model["status"] == "incomplete_parse_rate"
     assert model["confirmatory_claim_allowed"] is False
+    assert report["status"] == "incomplete_model_gate"
+    assert report["confirmatory_claim_allowed"] is False
     assert query_level["comparisons"]["V-T"]["delta_accuracy"] == 0.0
     assert query_level["comparisons"]["V-T"]["repairs"] == 1
     assert query_level["comparisons"]["V-T"]["breaks"] == 1
@@ -131,10 +134,44 @@ def test_valid_but_truncated_output_remains_scored_model_outcome():
 def test_parse_rate_gate_allows_a_complete_paired_cell():
     records = _three_arm_records("inc-01", "q1", {"T": 1, "V": 1, "H": 1})
 
-    model = analysis.analyze_records(records)["models"]["gemma-4-26b-a4b"]
+    report = analysis.analyze_records(records)
+    model = report["models"]["gemma-4-26b-a4b"]
 
     assert model["status"] == "valid"
     assert model["confirmatory_claim_allowed"] is True
+    assert report["status"] == "valid"
+    assert report["confirmatory_claim_allowed"] is True
+    assert report["schema_version"] == "RQ1VisOpsPairedAnalysisV3"
+
+
+def test_per_operation_reports_are_emitted_for_frozen_router_selection():
+    records = _three_arm_records(
+        "inc-01",
+        "q1",
+        {"T": 1, "V": 0, "H": 1},
+        family="exact_lookup",
+        operation="metric_exact_lookup",
+    )
+    records += _three_arm_records(
+        "inc-01",
+        "q2",
+        {"T": 0, "V": 1, "H": 1},
+        family="topology_path",
+        operation="multi_hop_path",
+    )
+
+    model = analysis.analyze_records(records)["models"]["gemma-4-26b-a4b"]
+
+    assert sorted(model["per_operation"]) == [
+        "metric_exact_lookup",
+        "multi_hop_path",
+    ]
+    metric = model["per_operation"]["metric_exact_lookup"]
+    path = model["per_operation"]["multi_hop_path"]
+    assert metric["query_level_descriptive"]["arms"]["T"]["accuracy"] == 1.0
+    assert metric["query_level_descriptive"]["arms"]["V"]["accuracy"] == 0.0
+    assert path["query_level_descriptive"]["arms"]["V"]["accuracy"] == 1.0
+    assert path["case_level"]["cases"] == 1
 
 
 def test_primary_and_per_family_inference_macro_average_within_case_first():

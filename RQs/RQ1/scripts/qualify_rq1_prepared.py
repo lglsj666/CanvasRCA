@@ -46,6 +46,31 @@ EXPECTED_RENDER_KINDS = {
     "entity_modality_matrix",
     "missingness_matrix",
 }
+TWO_STAGE_OPERATION_BY_PROFILE = {
+    "two_stage_onset_ledger_v1": "panel_onset_ledger_high",
+    "two_stage_onset_ledger_v2": "panel_onset_ledger_high_compact",
+}
+
+
+def _expected_inventory(config: dict[str, Any]) -> tuple[set[str], set[str]]:
+    profile = str(config["visops"].get("task_profile", "legacy_visops_v2"))
+    if profile == "answer_hidden_compositional_v1":
+        return (
+            {
+                "metric_exact_lookup",
+                "raw_temporal_onset_low",
+                "raw_temporal_onset_high",
+                "directed_shortest_path_low",
+                "directed_shortest_path_high",
+            },
+            {"metric_point", "normalized_series_grid", "topology"},
+        )
+    if profile in TWO_STAGE_OPERATION_BY_PROFILE:
+        return (
+            {TWO_STAGE_OPERATION_BY_PROFILE[profile]},
+            {"normalized_series_grid"},
+        )
+    return EXPECTED_OPERATIONS, EXPECTED_RENDER_KINDS
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -83,12 +108,14 @@ def _manifest_signature(root: Path) -> dict[str, Any]:
     }
 
 
-def _recompile_signature(row: dict[str, Any]) -> dict[str, Any]:
+def _recompile_signature(row: dict[str, Any], *, task_profile: str) -> dict[str, Any]:
     ceb, dense, private_markers = _real_case_ceb(
         str(row["analysis_dataset"]), str(row["private_case_id"])
     )
     store = build_evidence_store_v2(ceb, dense, private_markers=private_markers)
-    prepared = prepare_store(store, private_markers=private_markers)
+    prepared = prepare_store(
+        store, private_markers=private_markers, task_profile=task_profile
+    )
     with tempfile.TemporaryDirectory(prefix="canvasrca-rq1-determinism-") as raw:
         root = Path(raw)
         write_prepared_artifacts(
@@ -101,7 +128,12 @@ def _recompile_signature(row: dict[str, Any]) -> dict[str, Any]:
 
 
 def _review_attestation(
-    path: Path, *, experiment_id: str, config_hash: str, inventory_hash: str
+    path: Path,
+    *,
+    experiment_id: str,
+    config_hash: str,
+    inventory_hash: str,
+    expected_render_kinds: set[str],
 ) -> dict[str, Any]:
     review = _load(path)
     required = {
@@ -124,9 +156,9 @@ def _review_attestation(
     if any(row.get("status") != "passed" for row in images):
         raise ContractError("visual review attestation contains a failed image")
     kinds = {str(row.get("render_kind")) for row in images}
-    if not EXPECTED_RENDER_KINDS <= kinds:
+    if not expected_render_kinds <= kinds:
         raise ContractError(
-            f"visual review lacks render kinds {sorted(EXPECTED_RENDER_KINDS - kinds)}"
+            f"visual review lacks render kinds {sorted(expected_render_kinds - kinds)}"
         )
     return review
 
@@ -147,6 +179,9 @@ def main() -> int:
 
     config = load_yaml_config(args.config)
     assert_execution_config(config)
+    expected_operations, expected_render_kinds = _expected_inventory(config)
+    task_profile = str(config["visops"].get("task_profile", "legacy_visops_v2"))
+    is_smoke = "smoke" in str(config["execution"].get("stage") or "")
     private, public = validate_frozen_roster_files(
         public_path=args.public_roster,
         private_path=args.private_roster,
@@ -179,6 +214,7 @@ def main() -> int:
         if marker
     ]
     operations: Counter[str] = Counter()
+    operation_cases: dict[tuple[str, str], set[str]] = defaultdict(set)
     render_kinds: Counter[str] = Counter()
     datasets_by_opaque = {
         row["opaque_incident_id"]: row["analysis_dataset"] for row in private["cases"]
@@ -205,6 +241,9 @@ def main() -> int:
         for task_record in manifest["tasks"]:
             query_count += 1
             operations[str(task_record["operation"])] += 1
+            operation_cases[(dataset, str(task_record["operation"]))].add(
+                str(manifest["opaque_incident_id"])
+            )
             for name, relative in task_record["public_files"].items():
                 path = root / relative
                 actual = sha256_bytes(path.read_bytes())
@@ -223,6 +262,28 @@ def main() -> int:
             primitive_manifest = visual_meta["primitive_manifest"]
             render_kind = str(primitive_manifest["render_kind"])
             render_kinds[render_kind] += 1
+            if task_profile in {
+                "answer_hidden_compositional_v1",
+                "two_stage_onset_ledger_v1",
+                "two_stage_onset_ledger_v2",
+            } and str(task["query"]["family"]).startswith("answer_hidden_"):
+                banned_fields = {
+                    "multi_hop_path",
+                    "onset_bin",
+                    "onset_rel_s",
+                    "persistence_bins",
+                }
+                visible_fields = {str(fact["field"]) for fact in task["facts"]}
+                if visible_fields & banned_fields:
+                    raise ContractError(
+                        "answer-hidden task exposes a derived-answer field: "
+                        f"{sorted(visible_fields & banned_fields)}"
+                    )
+                plan = dict(task["render_plan"])
+                if plan.get("highlight_fact_id") or plan.get("path_fact_ids"):
+                    raise ContractError(
+                        "answer-hidden visual plan contains an answer highlight"
+                    )
             ocr_strings = [
                 str(value) for value in primitive_manifest["ocr_visible_strings"]
             ]
@@ -250,6 +311,78 @@ def main() -> int:
                 "text": (root / task_record["public_files"]["text"]).read_text(),
                 "prompt": _load(root / task_record["public_files"]["prompt_contract"]),
             }
+            if task_profile in TWO_STAGE_OPERATION_BY_PROFILE:
+                required_sham_files = {
+                    "visual_sham",
+                    "visual_sham_manifest",
+                    "prompt_contract_sham",
+                    "paired_audit_sham",
+                }
+                missing_sham_files = required_sham_files - set(
+                    task_record["public_files"]
+                )
+                if missing_sham_files:
+                    raise ContractError(
+                        f"onset-ledger task lacks row-sham files: "
+                        f"{sorted(missing_sham_files)}"
+                    )
+                sham_audit = _load(
+                    root / task_record["public_files"]["paired_audit_sham"]
+                )
+                if (
+                    sham_audit.get("parity_ok") is not True
+                    or sham_audit.get("leakage_ok") is not True
+                    or sham_audit.get("failures")
+                    or sham_audit.get("fact_inventory_hash")
+                    != audit.get("fact_inventory_hash")
+                ):
+                    raise ContractError(f"row-sham paired audit failed under {root}")
+                sham_visual_meta = _load(
+                    root / task_record["public_files"]["visual_sham_manifest"]
+                )
+                sham_primitive = sham_visual_meta["primitive_manifest"]
+                if (
+                    visual_meta.get("schema_version") != "VisualViewV6OnsetLedger"
+                    or sham_visual_meta.get("schema_version")
+                    != "VisualViewV6OnsetLedger"
+                    or primitive_manifest.get("renderer")
+                    != "RQ1VisualViewV6OnsetLedger"
+                    or sham_primitive.get("renderer") != "RQ1VisualViewV6OnsetLedger"
+                    or primitive_manifest.get("row_order_condition") != "main"
+                    or sham_primitive.get("row_order_condition") != "deterministic_sham"
+                    or sham_visual_meta.get("fact_inventory_hash")
+                    != visual_meta.get("fact_inventory_hash")
+                    or set(sham_visual_meta.get("fact_ids") or [])
+                    != set(visual_meta.get("fact_ids") or [])
+                ):
+                    raise ContractError(f"row-sham visual contract failed under {root}")
+                main_order = list(primitive_manifest.get("series_panel_order") or [])
+                sham_order = list(sham_primitive.get("series_panel_order") or [])
+                if (
+                    len(main_order) != 12
+                    or sorted(main_order) != sorted(sham_order)
+                    or main_order == sham_order
+                ):
+                    raise ContractError(
+                        f"row-sham is not a complete non-identity permutation under {root}"
+                    )
+                main_prompt = visible_payload["prompt"]
+                sham_prompt = _load(
+                    root / task_record["public_files"]["prompt_contract_sham"]
+                )
+                if (
+                    main_prompt.get("text_b") != sham_prompt.get("text_b")
+                    or main_prompt.get("composition") != "A_PLUS_B"
+                    or sham_prompt.get("composition") != "A_PLUS_B"
+                    or main_prompt.get("visual_a") == sham_prompt.get("visual_a")
+                ):
+                    raise ContractError(
+                        f"main/sham prompt-fragment contract failed under {root}"
+                    )
+                visible_payload["row_sham"] = {
+                    "visual_metadata": sham_visual_meta,
+                    "prompt": sham_prompt,
+                }
             assert_label_blind(
                 visible_payload,
                 private_markers=private_markers,
@@ -272,15 +405,80 @@ def main() -> int:
                     )
                 nonblank_min_std = min(nonblank_min_std, standard_deviation)
                 image_count += 1
+            if task_profile in TWO_STAGE_OPERATION_BY_PROFILE:
+                sham_image_path = root / task_record["public_files"]["visual_sham"]
+                with Image.open(sham_image_path) as image:
+                    if image.width < 1000 or image.height < 600:
+                        raise ContractError(
+                            f"row-sham resolution too small: {sham_image_path}"
+                        )
+                    if set(image.info) - {"Software", "dpi"}:
+                        raise ContractError(
+                            f"unexpected row-sham PNG metadata in {sham_image_path}"
+                        )
+                    standard_deviation = float(
+                        ImageStat.Stat(image.convert("L")).stddev[0]
+                    )
+                    if standard_deviation < 2.0:
+                        raise ContractError(
+                            f"row-sham is blank or near-blank: {sham_image_path}"
+                        )
+                    nonblank_min_std = min(nonblank_min_std, standard_deviation)
+                    image_count += 1
 
-    if not EXPECTED_OPERATIONS <= set(operations):
+    if not is_smoke and not expected_operations <= set(operations):
         raise ContractError(
-            f"prepared roster lacks operations {sorted(EXPECTED_OPERATIONS - set(operations))}"
+            f"prepared roster lacks operations {sorted(expected_operations - set(operations))}"
         )
-    if not EXPECTED_RENDER_KINDS <= set(render_kinds):
+    if not expected_render_kinds <= set(render_kinds):
         raise ContractError(
-            f"prepared roster lacks render kinds {sorted(EXPECTED_RENDER_KINDS - set(render_kinds))}"
+            f"prepared roster lacks render kinds {sorted(expected_render_kinds - set(render_kinds))}"
         )
+    if task_profile == "answer_hidden_compositional_v1" and not is_smoke:
+        yield_gate = config["gates"]["rq1b2_development"]["qualification_yield"]
+        per_dataset_minimum = int(
+            yield_gate["paired_low_high_temporal_per_dataset_minimum"]
+        )
+        paired_total: set[str] = set()
+        for dataset in sorted(cases_by_dataset):
+            paired = (
+                operation_cases[(dataset, "raw_temporal_onset_low")]
+                & operation_cases[(dataset, "raw_temporal_onset_high")]
+            )
+            if len(paired) < per_dataset_minimum:
+                raise ContractError(
+                    f"{dataset} has only {len(paired)} paired temporal cases; "
+                    f"need {per_dataset_minimum}"
+                )
+            paired_total.update(paired)
+        total_minimum = int(yield_gate["paired_low_high_temporal_total_minimum"])
+        if len(paired_total) < total_minimum:
+            raise ContractError(
+                f"only {len(paired_total)} paired temporal cases; need {total_minimum}"
+            )
+        exact_required = int(yield_gate["exact_lookup_total_required"])
+        if operations["metric_exact_lookup"] != exact_required:
+            raise ContractError(
+                f"exact lookup yield {operations['metric_exact_lookup']} differs "
+                f"from required {exact_required}"
+            )
+    if task_profile in TWO_STAGE_OPERATION_BY_PROFILE and not is_smoke:
+        operation = TWO_STAGE_OPERATION_BY_PROFILE[task_profile]
+        required = int(config["gates"]["rq1b3_development"]["qualification_yield"])
+        if operations[operation] != required:
+            raise ContractError(
+                "panel-onset ledger yield "
+                f"{operations[operation]} differs from required "
+                f"{required}"
+            )
+        for dataset in sorted(cases_by_dataset):
+            actual = len(operation_cases[(dataset, operation)])
+            expected = int(cases_by_dataset[dataset])
+            if actual != expected:
+                raise ContractError(
+                    f"{dataset} panel-onset ledger yield {actual} differs from "
+                    f"its {expected} roster cases"
+                )
 
     selected: list[dict[str, Any]] = []
     by_dataset: dict[str, list[dict[str, Any]]] = defaultdict(list)
@@ -300,7 +498,7 @@ def main() -> int:
     for position, row in enumerate(selected, start=1):
         opaque = str(row["opaque_incident_id"])
         expected = _manifest_signature(roots_by_opaque[opaque])
-        actual = _recompile_signature(row)
+        actual = _recompile_signature(row, task_profile=task_profile)
         if actual != expected:
             raise ContractError(f"deterministic recompilation differs for {opaque}")
         determinism_rows.append(
@@ -316,6 +514,7 @@ def main() -> int:
         experiment_id=str(config["experiment_id"]),
         config_hash=config_hash,
         inventory_hash=str(index["artifact_inventory_hash"]),
+        expected_render_kinds=expected_render_kinds,
     )
     report = {
         "schema_version": "RQ1VisOpsQualificationV1",

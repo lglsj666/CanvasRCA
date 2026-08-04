@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"3ce6019e9115d587df7d1963a51e031e0d7669e3a1de5b1e52fbff87654c8f4d","query_hash":"38ba796eba82b61f5993f1991fc8800a3f9f480d37b2f9001422eeb3af0bc716","query_id":"Q-E4AE95567470D548","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-auth-service","fact_id":"F175F9F88A9AE","field":"bin_center_rel_s","relative_bin":4,"unit":"relative_seconds","value":33.554}
+FACT {"domain":"metric","entity":"ts-auth-service","fact_id":"F5A6DFE457490","field":"metric","relative_bin":null,"unit":null,"value":"container.memory.page_faults"}
+FACT {"domain":"missingness","entity":"ts-auth-service","fact_id":"F4FECBCAAFEE6","field":"missing","relative_bin":4,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"ts-auth-service","fact_id":"F145E8E84BAC3","field":"observed_count","relative_bin":4,"unit":null,"value":2}
+FACT {"domain":"metric","entity":"ts-auth-service","fact_id":"FFC4E13322B51","field":"panel_id","relative_bin":null,"unit":null,"value":"M12"}
+FACT {"domain":"metric","entity":"ts-auth-service","fact_id":"FAB223D85E019","field":"service","relative_bin":null,"unit":null,"value":"ts-auth-service"}
+FACT {"domain":"metric","entity":"ts-auth-service","fact_id":"F9E3FA876AA15","field":"value","relative_bin":4,"unit":"native","value":165942.0}

@@ -81,7 +81,11 @@ def main() -> int:
     else:
         ceb, dense, private_markers = synthetic_ceb(), synthetic_dense_time_slices(), ()
     store = build_evidence_store_v2(ceb, dense, private_markers=private_markers)
-    prepared = prepare_store(store, private_markers=private_markers)
+    prepared = prepare_store(
+        store,
+        private_markers=private_markers,
+        task_profile=str(config["visops"].get("task_profile", "legacy_visops_v2")),
+    )
     manifest = write_prepared_artifacts(prepared, output_dir=args.output, store=store)
     print(
         f"prepared {manifest['task_count']} data-only qualification tasks for "

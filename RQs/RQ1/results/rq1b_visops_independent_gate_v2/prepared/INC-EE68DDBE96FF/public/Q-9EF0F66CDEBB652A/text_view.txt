@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"e7b6ae436b1ca59ef9e9c1ad9acf9436f6571953dde58481f3763f279f7d41d6","query_hash":"f727c061e4cf1a6b4cda22b2b6afb4cae037261af72a20cdd2a4e9d78c3002e0","query_id":"Q-9EF0F66CDEBB652A","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"redis-cart-0","fact_id":"F8B303C71838C","field":"bin_center_rel_s","relative_bin":61,"unit":"relative_seconds","value":1672.031}
+FACT {"domain":"metric","entity":"redis-cart-0","fact_id":"F3526F9120FC7","field":"metric","relative_bin":null,"unit":null,"value":"pod_fs_writes_bytes"}
+FACT {"domain":"missingness","entity":"redis-cart-0","fact_id":"FEAFFB7125B5D","field":"missing","relative_bin":61,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"redis-cart-0","fact_id":"F403B6C846EE3","field":"observed_count","relative_bin":61,"unit":null,"value":1}
+FACT {"domain":"metric","entity":"redis-cart-0","fact_id":"F3A4F34CAA206","field":"panel_id","relative_bin":null,"unit":null,"value":"M4"}
+FACT {"domain":"metric","entity":"redis-cart-0","fact_id":"FE905B2C9E926","field":"service","relative_bin":null,"unit":null,"value":"redis-cart-0"}
+FACT {"domain":"metric","entity":"redis-cart-0","fact_id":"FAB6D98727E69","field":"value","relative_bin":61,"unit":"native","value":0.0}

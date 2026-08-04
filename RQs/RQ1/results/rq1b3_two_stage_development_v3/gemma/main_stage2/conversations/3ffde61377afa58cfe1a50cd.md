@@ -1,0 +1,10 @@
+# RQ1b3 Stage 2 — Q-300FDB14595B3015 — O
+
+- opaque incident: `INC-F7831BD24698`
+- condition: `oracle`
+- ledger hash: `78ed14afedb512249ccd476af8239a09a865e630f0ace4e7edd254703980a4e5`
+- original image/text access: `false`
+
+## Response
+
+{"answer":["M1","M10","M2","M3","M4","M5","M6","M7","M8","M9"]}

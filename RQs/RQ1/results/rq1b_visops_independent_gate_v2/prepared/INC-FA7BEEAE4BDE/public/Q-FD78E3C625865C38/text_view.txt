@@ -1,0 +1,13 @@
+VIEW {"fact_inventory_hash":"84c4a1164a9f193b2de2f9b6677f8576c0d0e53b4149a8868ee9db03b307ce27","query_hash":"64509f79766583a0250e882f866a6e741bcc4f9acd88c1d02b251ff93692f361","query_id":"Q-FD78E3C625865C38","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"frontend-0","fact_id":"F9D16D5ED7C9C","field":"metric","relative_bin":null,"unit":null,"value":"container_memory_mapped_file"}
+FACT {"domain":"metric","entity":"frontend-0","fact_id":"F5031B6AC42C3","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1334.531}
+FACT {"domain":"metric","entity":"frontend-0","fact_id":"FF30312F963D6","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"frontend-0","fact_id":"F6868733E7A26","field":"service","relative_bin":null,"unit":null,"value":"frontend-0"}
+FACT {"domain":"metric","entity":"frontend-2","fact_id":"FCD2FBE9289FE","field":"metric","relative_bin":null,"unit":null,"value":"container_fs_usage_MB./dev/vda1"}
+FACT {"domain":"metric","entity":"frontend-2","fact_id":"FF343A39A2FCB","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1334.531}
+FACT {"domain":"metric","entity":"frontend-2","fact_id":"FC6E9C2DC7F79","field":"panel_id","relative_bin":null,"unit":null,"value":"M3"}
+FACT {"domain":"metric","entity":"frontend-2","fact_id":"FAD9CCA2CA2D4","field":"service","relative_bin":null,"unit":null,"value":"frontend-2"}
+FACT {"domain":"metric","entity":"frontend-1","fact_id":"FA1B8DA857C85","field":"metric","relative_bin":null,"unit":null,"value":"container_memory_mapped_file"}
+FACT {"domain":"metric","entity":"frontend-1","fact_id":"F474609BE0B7E","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1334.531}
+FACT {"domain":"metric","entity":"frontend-1","fact_id":"FF9B024306129","field":"panel_id","relative_bin":null,"unit":null,"value":"M8"}
+FACT {"domain":"metric","entity":"frontend-1","fact_id":"FAAD0AEB4DF45","field":"service","relative_bin":null,"unit":null,"value":"frontend-1"}

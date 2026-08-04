@@ -1,0 +1,6 @@
+VIEW {"fact_inventory_hash":"0d64797b1d52cea1c5957e313cb4249b9101295bce1668bc16c1a34f11c36e63","query_hash":"a9ae17f354aa6e794d1afbaab2a0a67a5c088e18612c926ca790213eba7dd04b","query_id":"Q-0119DA53592A8615","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"trace","entity":"frontend-0","fact_id":"F27D9B13E6E85","field":"bin_center_rel_s","relative_bin":57,"unit":"relative_seconds","value":2102.34375}
+FACT {"domain":"trace","entity":"frontend-0","fact_id":"F470A02C3C246","field":"error_count","relative_bin":57,"unit":"spans","value":0}
+FACT {"domain":"trace","entity":"frontend-0","fact_id":"FD22658F0A24E","field":"latency_p95_ms","relative_bin":57,"unit":"milliseconds","value":45.3166}
+FACT {"domain":"trace","entity":"frontend-0","fact_id":"F7AC8FB0A4E64","field":"service","relative_bin":57,"unit":null,"value":"frontend-0"}
+FACT {"domain":"trace","entity":"frontend-0","fact_id":"F7A722BE47655","field":"span_count","relative_bin":57,"unit":"spans","value":669}

@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"5f23890d649f1a98a19158b686733932ce886475318bcacf0faac4b2f0d9cdc0","query_hash":"cae01e399acb34cf9e5dc1a9879c20bf81482deab66dbf6da4d8ea86cebb5af1","query_id":"Q-53F1D057D8A486D9","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-admin-basic-info-service","fact_id":"FDFB990AB9B73","field":"metric","relative_bin":null,"unit":null,"value":"container.cpu.usage"}
+FACT {"domain":"metric","entity":"ts-admin-basic-info-service","fact_id":"FD026E9E849D5","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"ts-admin-basic-info-service","fact_id":"F758E1F6F3EFA","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":5}
+FACT {"domain":"metric","entity":"ts-admin-basic-info-service","fact_id":"FF82FF45FD247","field":"service","relative_bin":null,"unit":null,"value":"ts-admin-basic-info-service"}
+FACT {"domain":"metric","entity":"ts-wait-order-service","fact_id":"FFFEF8369D5CD","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.cpu.node.utilization"}
+FACT {"domain":"metric","entity":"ts-wait-order-service","fact_id":"FDCC9A3118FB2","field":"panel_id","relative_bin":null,"unit":null,"value":"M5"}
+FACT {"domain":"metric","entity":"ts-wait-order-service","fact_id":"FED9600AD61F5","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":10}
+FACT {"domain":"metric","entity":"ts-wait-order-service","fact_id":"F885E689E2913","field":"service","relative_bin":null,"unit":null,"value":"ts-wait-order-service"}
+FACT {"domain":"metric","entity":"ts-avatar-service","fact_id":"FA32BAD769271","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.memory.page_faults"}
+FACT {"domain":"metric","entity":"ts-avatar-service","fact_id":"F2F4DE3080637","field":"panel_id","relative_bin":null,"unit":null,"value":"M9"}
+FACT {"domain":"metric","entity":"ts-avatar-service","fact_id":"FDB69DBC8BDBC","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":18}
+FACT {"domain":"metric","entity":"ts-avatar-service","fact_id":"FBD7DEF5AAA09","field":"service","relative_bin":null,"unit":null,"value":"ts-avatar-service"}
+FACT {"domain":"metric","entity":"ts-station-food-service","fact_id":"F063B1DC199A4","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.cpu_limit_utilization"}
+FACT {"domain":"metric","entity":"ts-station-food-service","fact_id":"FF00C8E2F1247","field":"panel_id","relative_bin":null,"unit":null,"value":"M10"}
+FACT {"domain":"metric","entity":"ts-station-food-service","fact_id":"FA8703CA05E23","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":8}
+FACT {"domain":"metric","entity":"ts-station-food-service","fact_id":"F5C11653D281E","field":"service","relative_bin":null,"unit":null,"value":"ts-station-food-service"}

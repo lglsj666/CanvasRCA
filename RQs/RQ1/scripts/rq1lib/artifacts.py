@@ -14,7 +14,13 @@ from .contracts import ContractError, canonical_json, sha256_bytes
 from .evidence import CanonicalEvidenceStore
 from .prompts import PromptBundle, audit_paired_views, build_prompt_bundle
 from .views import ViewArtifact, compile_text_view, compile_visual_view
-from .visops import VisOpsTask, build_visops_tasks
+from .visops import (
+    VisOpsTask,
+    build_compositional_visops_tasks,
+    build_two_stage_onset_tasks,
+    build_two_stage_onset_tasks_v2,
+    build_visops_tasks,
+)
 
 
 @dataclass(frozen=True)
@@ -24,6 +30,9 @@ class PreparedVisOpsTask:
     visual_view: ViewArtifact
     prompts: PromptBundle
     paired_audit: dict[str, Any]
+    visual_sham_view: ViewArtifact | None = None
+    sham_prompts: PromptBundle | None = None
+    sham_paired_audit: dict[str, Any] | None = None
 
     @property
     def artifact_id(self) -> str:
@@ -34,9 +43,20 @@ def prepare_store(
     store: CanonicalEvidenceStore,
     *,
     private_markers: Iterable[Any] = (),
+    task_profile: str = "legacy_visops_v2",
 ) -> tuple[PreparedVisOpsTask, ...]:
     prepared: list[PreparedVisOpsTask] = []
-    for task in build_visops_tasks(store):
+    builders = {
+        "legacy_visops_v2": build_visops_tasks,
+        "answer_hidden_compositional_v1": build_compositional_visops_tasks,
+        "two_stage_onset_ledger_v1": build_two_stage_onset_tasks,
+        "two_stage_onset_ledger_v2": build_two_stage_onset_tasks_v2,
+    }
+    try:
+        tasks = builders[task_profile](store)
+    except KeyError as exc:
+        raise ContractError(f"unknown VisOps task profile {task_profile!r}") from exc
+    for task in tasks:
         text_view = compile_text_view(task)
         visual_view = compile_visual_view(task)
         prompts = build_prompt_bundle(
@@ -51,6 +71,25 @@ def prepare_store(
             prompts=prompts,
             private_markers=private_markers,
         )
+        visual_sham_view = None
+        sham_prompts = None
+        sham_audit = None
+        if task_profile in {"two_stage_onset_ledger_v1", "two_stage_onset_ledger_v2"}:
+            visual_sham_view = compile_visual_view(
+                task, row_order_condition="deterministic_sham"
+            )
+            sham_prompts = build_prompt_bundle(
+                task,
+                text_view=text_view,
+                visual_view=visual_sham_view,
+            )
+            sham_audit = audit_paired_views(
+                task,
+                text_view=text_view,
+                visual_view=visual_sham_view,
+                prompts=sham_prompts,
+                private_markers=private_markers,
+            )
         prepared.append(
             PreparedVisOpsTask(
                 task=task,
@@ -58,6 +97,9 @@ def prepare_store(
                 visual_view=visual_view,
                 prompts=prompts,
                 paired_audit=audit,
+                visual_sham_view=visual_sham_view,
+                sham_prompts=sham_prompts,
+                sham_paired_audit=sham_audit,
             )
         )
     if not prepared:
@@ -108,6 +150,19 @@ def write_prepared_artifacts(
             "prompt_contract": public_dir / "prompt_contract.json",
             "paired_audit": public_dir / "paired_view_audit.json",
         }
+        if item.visual_sham_view is not None:
+            if item.sham_prompts is None or item.sham_paired_audit is None:
+                raise ContractError("row-sham view lacks prompt or parity audit")
+            public_files.update(
+                {
+                    "visual_sham": public_dir / "visual_view.row_sham.png",
+                    "visual_sham_manifest": public_dir
+                    / "visual_view.row_sham.manifest.json",
+                    "prompt_contract_sham": public_dir
+                    / "prompt_contract.row_sham.json",
+                    "paired_audit_sham": public_dir / "paired_view_audit.row_sham.json",
+                }
+            )
         _atomic_write(
             public_files["task"],
             (canonical_json(item.task.public_contract()) + "\n").encode("utf-8"),
@@ -126,6 +181,26 @@ def write_prepared_artifacts(
             public_files["paired_audit"],
             (canonical_json(item.paired_audit) + "\n").encode("utf-8"),
         )
+        if item.visual_sham_view is not None:
+            _atomic_write(
+                public_files["visual_sham"], item.visual_sham_view.artifact_bytes
+            )
+            _atomic_write(
+                public_files["visual_sham_manifest"],
+                (canonical_json(item.visual_sham_view.public_metadata()) + "\n").encode(
+                    "utf-8"
+                ),
+            )
+            _atomic_write(
+                public_files["prompt_contract_sham"],
+                (canonical_json(item.sham_prompts.public_contract()) + "\n").encode(
+                    "utf-8"
+                ),
+            )
+            _atomic_write(
+                public_files["paired_audit_sham"],
+                (canonical_json(item.sham_paired_audit) + "\n").encode("utf-8"),
+            )
         answer_path = private_dir / "answer_key.json"
         _atomic_write(
             answer_path,

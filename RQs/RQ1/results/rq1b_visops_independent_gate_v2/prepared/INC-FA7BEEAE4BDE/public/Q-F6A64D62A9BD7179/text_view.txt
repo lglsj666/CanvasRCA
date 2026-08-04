@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"92f4934faaa480d4c1ff8f89e69beed54ae037b5d4e7c67522b902b63fa44edc","query_hash":"e214ca2ea2cc2b0d3a87214a4f2eda974d3aa20ec8101ebe1018c2075ce951a6","query_id":"Q-F6A64D62A9BD7179","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"frontend-2","fact_id":"F048483379525","field":"bin_center_rel_s","relative_bin":55,"unit":"relative_seconds","value":2029.219}
+FACT {"domain":"metric","entity":"frontend-2","fact_id":"F25CA4325919C","field":"metric","relative_bin":null,"unit":null,"value":"container_fs_inodes./dev/vda1"}
+FACT {"domain":"missingness","entity":"frontend-2","fact_id":"F4871A0970AF3","field":"missing","relative_bin":55,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"frontend-2","fact_id":"FBD2E426247C4","field":"observed_count","relative_bin":55,"unit":null,"value":1}
+FACT {"domain":"metric","entity":"frontend-2","fact_id":"FA3D248857010","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"frontend-2","fact_id":"F2C99A4BCE8F7","field":"service","relative_bin":null,"unit":null,"value":"frontend-2"}
+FACT {"domain":"metric","entity":"frontend-2","fact_id":"F2108B14A48F0","field":"value","relative_bin":55,"unit":"native","value":0.0}

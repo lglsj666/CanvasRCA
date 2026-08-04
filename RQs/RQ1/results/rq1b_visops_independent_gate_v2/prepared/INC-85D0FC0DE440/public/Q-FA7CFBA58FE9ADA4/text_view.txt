@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"ea6b13f97b6727ff7c298a8dec3116e77aea147737eda607f57ccd888eda86d0","query_hash":"fb52ebd8d9c502d387a6d0132ade865f8d0490e8eb792d0c3688eb3c6b6f95fe","query_id":"Q-FA7CFBA58FE9ADA4","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"log","entity":"ts-security-service","fact_id":"F05C61A77692A","field":"bin_center_rel_s","relative_bin":40,"unit":"relative_seconds","value":303.65058}
+FACT {"domain":"log","entity":"ts-security-service","fact_id":"FB190ACA51D63","field":"dominant_template","relative_bin":40,"unit":null,"value":"[check][check security][check account id: <v>-71cb-4cf1-b5bb-<v>]"}
+FACT {"domain":"log","entity":"ts-security-service","fact_id":"F3B00EE24278B","field":"dominant_template_count","relative_bin":40,"unit":"events","value":1}
+FACT {"domain":"log","entity":"ts-security-service","fact_id":"F10A25AE65EBD","field":"dominant_template_id","relative_bin":40,"unit":null,"value":"LT-A7BACD870C54"}
+FACT {"domain":"log","entity":"ts-security-service","fact_id":"F89E5E892987E","field":"error_count","relative_bin":40,"unit":"events","value":0}
+FACT {"domain":"log","entity":"ts-security-service","fact_id":"F0605C482F5C8","field":"event_count","relative_bin":40,"unit":"events","value":4}
+FACT {"domain":"log","entity":"ts-security-service","fact_id":"FCAAC721067A4","field":"service","relative_bin":40,"unit":null,"value":"ts-security-service"}

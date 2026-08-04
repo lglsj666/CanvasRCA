@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
@@ -10,7 +11,9 @@ from typing import Any
 import jsonschema
 import yaml
 
-from .contracts import ContractError
+from .contracts import ContractError, sha256_bytes, stable_hash
+
+ROOT = Path(__file__).resolve().parents[4]
 
 
 def _deep_merge(base: Mapping[str, Any], override: Mapping[str, Any]) -> dict[str, Any]:
@@ -53,21 +56,115 @@ def _assert_common_config(config: Mapping[str, Any]) -> None:
         raise ContractError("RQ1 hybrid prompt must be frozen as A_PLUS_B")
     if contracts.get("exact_fact_inventory_equality") != "required":
         raise ContractError("RQ1 exact fact parity must be required")
+    task_profile = str(config.get("visops", {}).get("task_profile", "legacy_visops_v2"))
+    if task_profile == "two_stage_onset_ledger_v2":
+        structured_required = {
+            "prompt_answer_contract": "compact_task_specific_regex_v3",
+            "structured_output_transport": (
+                "vllm_structured_outputs_regex_no_whitespace"
+            ),
+        }
+    elif str(config.get("experiment_id", "")).endswith("_v2") or task_profile in {
+        "answer_hidden_compositional_v1",
+        "two_stage_onset_ledger_v1",
+    }:
+        structured_required = {
+            "prompt_answer_contract": "type_specific_json_v2",
+            "structured_output_transport": "openai_response_format_json_schema",
+        }
+    else:
+        structured_required = {}
+    if structured_required:
+        structured_mismatches = {
+            key: (contracts.get(key), value)
+            for key, value in structured_required.items()
+            if contracts.get(key) != value
+        }
+        if structured_mismatches:
+            raise ContractError(
+                f"RQ1 v2 structured-output contract differs: {structured_mismatches}"
+            )
     if contracts.get("canonical_source_required_for_execution") != (
         "CanonicalEvidenceStoreV2WithDenseLogAndTraceTimeSlices"
     ):
         raise ContractError("RQ1 execution must require the dense V2 evidence store")
-    expected_operations = {
-        "exact_lookup": {
-            "metric_exact_lookup",
-            "log_exact_lookup",
-            "trace_exact_lookup",
-        },
-        "temporal_scanning": {"earliest_onset", "longest_persistence"},
-        "topology_path": {"directed_edge", "multi_hop_path"},
-        "cross_modal_alignment": {"entity_modality_alignment"},
-        "missingness_uncertainty": {"metric_missingness"},
-    }
+    router_relative = contracts.get("frozen_operation_router")
+    if router_relative is not None:
+        router_path = (ROOT / str(router_relative)).resolve()
+        if ROOT not in router_path.parents or not router_path.is_file():
+            raise ContractError("RQ1 frozen operation router is absent or unsafe")
+        router_bytes = router_path.read_bytes()
+        expected_file_hash = contracts.get("frozen_operation_router_file_sha256")
+        if sha256_bytes(router_bytes) != expected_file_hash:
+            raise ContractError("RQ1 frozen operation router file hash differs")
+        router = json.loads(router_bytes)
+        if (
+            router.get("schema_version") != "RQ1VisOpsRouterV1"
+            or router.get("status") != "frozen"
+            or router.get("mapping_model") != "gemma-4-26b-a4b"
+            or router.get("architecture_control_policy")
+            != "qwen_uses_identical_gemma_router"
+        ):
+            raise ContractError("RQ1 frozen operation router contract differs")
+        expected_contract_hash = contracts.get(
+            "frozen_operation_router_contract_sha256"
+        )
+        if router.get("router_contract_sha256") != expected_contract_hash:
+            raise ContractError("RQ1 frozen router contract hash differs from config")
+        unhashed = dict(router)
+        unhashed.pop("router_contract_sha256", None)
+        if stable_hash(unhashed) != expected_contract_hash:
+            raise ContractError("RQ1 frozen router self-hash is invalid")
+    if task_profile == "answer_hidden_compositional_v1":
+        expected_operations = {
+            "exact_lookup": {"metric_exact_lookup"},
+            "temporal_scanning": set(),
+            "topology_path": set(),
+            "cross_modal_alignment": set(),
+            "missingness_uncertainty": set(),
+            "answer_hidden_temporal_composition": {
+                "raw_temporal_onset_low",
+                "raw_temporal_onset_high",
+            },
+            "answer_hidden_relational_composition": {
+                "directed_shortest_path_low",
+                "directed_shortest_path_high",
+            },
+        }
+    elif task_profile == "two_stage_onset_ledger_v1":
+        expected_operations = {
+            "exact_lookup": set(),
+            "temporal_scanning": set(),
+            "topology_path": set(),
+            "cross_modal_alignment": set(),
+            "missingness_uncertainty": set(),
+            "answer_hidden_temporal_composition": {"panel_onset_ledger_high"},
+            "answer_hidden_relational_composition": set(),
+        }
+    elif task_profile == "two_stage_onset_ledger_v2":
+        expected_operations = {
+            "exact_lookup": set(),
+            "temporal_scanning": set(),
+            "topology_path": set(),
+            "cross_modal_alignment": set(),
+            "missingness_uncertainty": set(),
+            "answer_hidden_temporal_composition": {
+                "panel_onset_ledger_high_compact"
+            },
+            "answer_hidden_relational_composition": set(),
+        }
+    else:
+        expected_operations = {
+            "exact_lookup": {
+                "metric_exact_lookup",
+                "log_exact_lookup",
+                "trace_exact_lookup",
+            },
+            "temporal_scanning": {"earliest_onset", "longest_persistence"},
+            "topology_path": {"directed_edge", "multi_hop_path"},
+            "cross_modal_alignment": {"entity_modality_alignment"},
+            "missingness_uncertainty": {"metric_missingness"},
+        }
     actual_operations = {
         family: set(operations)
         for family, operations in dict(
@@ -185,6 +282,17 @@ def assert_execution_config(config: Mapping[str, Any]) -> None:
         raise ContractError(
             "RQ1b execution partition/stage combination is not authorized"
         )
+
+
+def configure_registered_vllm_environment(config: Mapping[str, Any]) -> None:
+    """Bind the unified client to the already-validated local RQ1 endpoint."""
+
+    _assert_common_config(config)
+    base_url = str(config["inference"]["base_url"])
+    if base_url != "http://127.0.0.1:8000/v1":
+        raise ContractError("RQ1 local vLLM endpoint differs from the registered URL")
+    os.environ["VLLM_BASE_URL"] = base_url
+    os.environ.setdefault("VLLM_API_KEY", "EMPTY")
 
 
 def validate_schema_files(config: Mapping[str, Any], root: Path) -> dict[str, Any]:

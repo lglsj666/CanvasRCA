@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"dcd08123a41e751e41790423c010673ff1a70afc1d15a930e781ff7f7bbdc7c3","query_hash":"b0e947f8ff4950529d54bc4293e202d211c0dd928081e1cf88a39d415a081be5","query_id":"Q-2E9938773A1169AC","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-contacts-service","fact_id":"F7937DAE8E28A","field":"metric","relative_bin":null,"unit":null,"value":"hubble_http_request_duration_p99_seconds"}
+FACT {"domain":"metric","entity":"ts-contacts-service","fact_id":"F908EA3959BF8","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"ts-contacts-service","fact_id":"F6E7E41DE3D1A","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"ts-contacts-service","fact_id":"FD5FD7D513480","field":"service","relative_bin":null,"unit":null,"value":"ts-contacts-service"}
+FACT {"domain":"metric","entity":"ts-ui-dashboard","fact_id":"F624CF59F1579","field":"metric","relative_bin":null,"unit":null,"value":"hubble_http_request_duration_p50_seconds"}
+FACT {"domain":"metric","entity":"ts-ui-dashboard","fact_id":"FF280F3DC003A","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"ts-ui-dashboard","fact_id":"F848777963352","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"ts-ui-dashboard","fact_id":"FF2A50B3DCDF5","field":"service","relative_bin":null,"unit":null,"value":"ts-ui-dashboard"}
+FACT {"domain":"metric","entity":"ts-voucher-service","fact_id":"FB4ECFA10B636","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.memory.node.utilization"}
+FACT {"domain":"metric","entity":"ts-voucher-service","fact_id":"F96F0EBCC5A0C","field":"panel_id","relative_bin":null,"unit":null,"value":"M4"}
+FACT {"domain":"metric","entity":"ts-voucher-service","fact_id":"F09D93E935033","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":64}
+FACT {"domain":"metric","entity":"ts-voucher-service","fact_id":"F0F4664B6EB1E","field":"service","relative_bin":null,"unit":null,"value":"ts-voucher-service"}
+FACT {"domain":"metric","entity":"ts-basic-service","fact_id":"FAFDB7E0EFEA7","field":"metric","relative_bin":null,"unit":null,"value":"hubble_http_request_duration_p95_seconds"}
+FACT {"domain":"metric","entity":"ts-basic-service","fact_id":"FC1AC00A3A598","field":"panel_id","relative_bin":null,"unit":null,"value":"M5"}
+FACT {"domain":"metric","entity":"ts-basic-service","fact_id":"F268AD37B0E16","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"ts-basic-service","fact_id":"FB9D289389896","field":"service","relative_bin":null,"unit":null,"value":"ts-basic-service"}

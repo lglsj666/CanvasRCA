@@ -1,0 +1,13 @@
+VIEW {"fact_inventory_hash":"99c2d696681b7c470d6918691083079e3db0f5203455a3da1231ed02ab4233bc","query_hash":"dbfdb431a6187b16fbcbfece647f834df2ed56e82a78a9374c8a42ada188e428","query_id":"Q-3448A0929C0140EA","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"adservice2-0","fact_id":"F26C3962A684B","field":"metric","relative_bin":null,"unit":null,"value":"istio_request_duration_milliseconds.http.202."}
+FACT {"domain":"metric","entity":"adservice2-0","fact_id":"F5BD4BC410613","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1334.531}
+FACT {"domain":"metric","entity":"adservice2-0","fact_id":"FCD7501B90879","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"adservice2-0","fact_id":"FDB162644ED95","field":"service","relative_bin":null,"unit":null,"value":"adservice2-0"}
+FACT {"domain":"metric","entity":"node-6","fact_id":"F932C8A12385E","field":"metric","relative_bin":null,"unit":null,"value":"system.disk.total"}
+FACT {"domain":"metric","entity":"node-6","fact_id":"F24B885BC9785","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1992.656}
+FACT {"domain":"metric","entity":"node-6","fact_id":"F68551DC7CFAE","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"node-6","fact_id":"FC458160E3A23","field":"service","relative_bin":null,"unit":null,"value":"node-6"}
+FACT {"domain":"metric","entity":"recommendationservice2-0","fact_id":"F7359E6381110","field":"metric","relative_bin":null,"unit":null,"value":"container_memory_working_set_MB"}
+FACT {"domain":"metric","entity":"recommendationservice2-0","fact_id":"F9760D9158122","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1992.656}
+FACT {"domain":"metric","entity":"recommendationservice2-0","fact_id":"F556342F65807","field":"panel_id","relative_bin":null,"unit":null,"value":"M11"}
+FACT {"domain":"metric","entity":"recommendationservice2-0","fact_id":"F97C3D9F983FA","field":"service","relative_bin":null,"unit":null,"value":"recommendationservice2-0"}

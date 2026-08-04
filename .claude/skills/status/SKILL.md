@@ -1,33 +1,37 @@
 ---
 name: status
-description: Report current project status — phase, progress, open questions, blockers, next action. Use when asked "where are we", when resuming after a break, or before planning the next work session.
+description: Report the current CanvasRCA project or RQ status from authoritative artifacts. Use when resuming work, asking what has been completed, checking blockers, or selecting the next valid action.
 ---
 
-# Project status
+# Status reporting
 
-Read, in order: `plans/action_plan.md`, the newest file in `devlog/`,
-`plans/design_decisions.md`, then `results/*/summary.json` and `git log --oneline -10`.
+Read sources in this order:
 
-## Output format
+1. `Codex.md` and `git status --short --branch`;
+2. the newest applicable project-wide `devlog/`, plan, and progress report;
+3. the target `RQs/<rq>/descriptions/` and `RQs/<rq>/findings/`;
+4. result contracts, verifier/status files, summaries, and trajectories under
+   `RQs/<rq>/results/`;
+5. `git log --oneline -10`.
 
+Do not infer validity from recency, directory names, or a summary alone. Preserve
+the recorded class: confirmatory, development, pilot, smoke, diagnostic,
+invalid, superseded, incomplete, or excluded. A newer verifier that cannot read
+an older schema does not automatically invalidate it.
+
+Report concisely:
+
+```text
+Scope:          <project or RQ>
+Phase:          <artifact-supported phase>
+Progress:       <completed / required work>
+Evidence status:<strongest valid artifact and its class>
+Last result:    <number or finding with dataset, n, and caveat>
+Open question:  <decision not yet settled>
+Blocker:        <concrete blocker or none>
+Next action:    <one registered, startable action>
+Timeline risk:  <low | medium | high, with reason>
 ```
-Phase:        <M0 scaffold | M1 smoke | M2 RQ1 grid | M3 RQ2 loop | M4 RQ3 panel | M5 ablations>
-Progress:     <X/Y milestones>
-Last result:  <the most recent number that matters, with its caveat>
-Open question:<the decision blocking the next step>
-Blocker:      <what is stopping work, or "none">
-Next action:  <one concrete startable task>
-Timeline risk:<low | medium | high, and why>
-```
 
-Keep it to that. If a section has nothing real in it, write "none" rather than
-padding it.
-
-## Milestones
-
-- **M0** scaffold, shim, frozen manifest, venv, skills — done 2026-07-22
-- **M1** dashboard v0 + smoke passing gates — done 2026-07-22 (API path; vLLM path outstanding)
-- **M2** RQ1 dashboard design grid → freeze v3
-- **M3** RQ2 agentic controllers → freeze best
-- **M4** RQ3 model panel on 480
-- **M5** RQ4 ablations + paper tables
+Never recycle stale hardcoded milestones or promote invalid/pilot results into
+the current project conclusion.

@@ -1,0 +1,33 @@
+{
+  "schema_version": "RQ1B3AnalysisRuntimeRecordV1",
+  "experiment_id": "rq1b3_two_stage_development_v3",
+  "inference_status": "complete_and_immutable",
+  "inference_runtime_tree_sha256": "a951f5215bbeb170854bde7a725e161b0b50c1d55d9f3ddf0c1f8fac65c3c344",
+  "inference_code_freeze_file_sha256": "952aa393ad0e404fab4bca8264bd30a48b72ad60f0f91a64012c5e5509887990",
+  "analysis_status": "complete_after_analysis_only_key_repair",
+  "analysis_contract_sha256": "a5dc3113cccca1baff5efaf0bc6e0e7e8e7d8e72169bbb7a99b26949fdb88165",
+  "authoritative_analysis_sha256": "de0e304616cce1dcd09fa2440ee471adfc9b9c83fec0da38f452c0f04e92216a",
+  "authoritative_analysis_markdown_sha256": "2400cb3ae334264a13304e8e7ffb5695492fe16cfbea34e412f57b72688848d0",
+  "posthoc_failure_analysis_sha256": "85d7b497afa4614c9a356a0a2caf90f2493ce9a471aef54dabb76ca880ed6a07",
+  "analysis_repair": {
+    "scope": "analysis_only",
+    "reason": "The analyzer referenced oracle_stage2_accuracy_minimum while the frozen config and protocol use oracle_stage_2_accuracy_minimum.",
+    "frozen_analyzer_sha256": "ed3fa332cf53fa011a890707bafca1018a4b9971679a43f6435d78c8b652060d",
+    "repaired_analyzer_sha256": "46027346ca41636356726680c0f3b4b946cef124e1bd07bf2056ccbb56bfc2ff",
+    "model_calls_changed": false,
+    "stored_call_records_changed": false,
+    "threshold_changed": false
+  },
+  "forward_only_interface_repair": {
+    "reason": "A set-valued Stage-2 answer must not fail parsing solely because natural numeric panel order differs from Python lexicographic order.",
+    "frozen_stage2_runner_sha256": "4ae9c300fbb94c225e1c560a255b3f886cdf01208de9e96113a8b5defab27be8",
+    "current_stage2_runner_sha256": "4d76ced53b86166f9eb8974c00c19d4cb543288dc91a3f53dad44283d356f478",
+    "historical_parse_flags_changed": false,
+    "historical_scores_changed": false,
+    "current_cell_rerun_authorized": false
+  },
+  "verification": {
+    "rq1_tests_passed": 105,
+    "targeted_ruff": "passed"
+  }
+}

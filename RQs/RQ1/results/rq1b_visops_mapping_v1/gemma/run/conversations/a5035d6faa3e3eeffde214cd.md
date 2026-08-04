@@ -1,0 +1,13 @@
+# RQ1 VisOps conversation — Q-7C5438AB3A324109 — T
+
+- opaque incident: `INC-7A17257ED8FC`
+- model: `gemma-4-26b-a4b`
+- prompt hash: `3c763d05f5e6399ce12aae80b9dcb199d0602ae66ba4fcb54bf39c311763cfc6`
+- visual hash: `ab4ed2deef94f0048b39a22018f602714e254ddfb721628144e3b1aac5e42363`
+- text hash: `6f6d571d8e2519ae47b30e59d26cf5299732f01720f49f216a24511981564498`
+
+## Response
+
+```json
+{"answer": 28}
+```

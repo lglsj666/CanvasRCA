@@ -1,0 +1,11 @@
+# RQ1 VisOps conversation — Q-394074D8A01B6019 — T
+
+- opaque incident: `INC-3D9257EE2955`
+- model: `gemma-4-26b-a4b`
+- prompt hash: `e49e55be9b0292f95dec41433c52a0815bf03d2460366a712b08d7a5a4e3ef12`
+- visual hash: `74cd7f1d42a21e08f33ba727dfe045ab07906e913321e3fc120717388bc3c23f`
+- text hash: `2dc971324d2e0acf6d4128f7fc04ee2eff4fcacafdab4907c7978ba61e36dc6c`
+
+## Response
+
+{"answer": ["ts-auth-service", "ts-route-plan-service", "ts-route-service", "ts-travel-plan-service", "ts-verification-code-service"]}

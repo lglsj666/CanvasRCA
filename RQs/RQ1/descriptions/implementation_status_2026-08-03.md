@@ -1,5 +1,12 @@
 # RQ1 implementation status — 2026-08-03
 
+> **Historical implementation snapshot.** This file records the pre-inference
+> state on 2026-08-03 and is not the current experiment status. RQ1 inference,
+> gates, and DD-34 have since completed. Current authoritative status is in
+> `docs/2026-08-03_progress_report.md`,
+> `RQs/RQ1/findings/rq1b3_two_stage_development_finding.md`, and
+> `plans/design_decisions.md`.
+
 ## Implemented in the provisional scripts tree
 
 - six-directory RQ layout, with `src/`, `results/`, and `findings/` empty;
@@ -76,3 +83,12 @@ Before any model call, RQ1 still needs:
   produced.
 
 No result or finding is established by this implementation milestone.
+
+## 2026-08-04 closure update
+
+The blocks above were subsequently satisfied for the registered RQ1b mapping,
+independent gate, RQ1b2, and RQ1b3 cells. RQ1b3 completed 990/990 Gemma calls
+and is `valid_failed`: final H−T=−0.0333, Stage-1 ledger H−T=−0.0028, repairs
+and breaks=10/13, and oracle Stage-2 accuracy=0.8000. DD-34 stops Qwen and the
+unopened 150-case gate and closes the current RQ1 route. No RQ1c, RQ1d,
+training, reserve, or heldout inference is authorized.

@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"7af89c00c5720a680a4e9f225d554f73c45ee2376a9107432751c124e76c7d88","query_hash":"de65922097b1c775b86d1980775b5e3e7ef8041cc7740ebef6e7b7a50559c416","query_id":"Q-A2F5289CD7028217","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"log","entity":"ts-train-food-service","fact_id":"FBD32E67B8172","field":"bin_center_rel_s","relative_bin":7,"unit":"relative_seconds","value":55.937632}
+FACT {"domain":"log","entity":"ts-train-food-service","fact_id":"F88055EB1BDF2","field":"dominant_template","relative_bin":7,"unit":null,"value":"[food map service][get trainfoods by tripid]"}
+FACT {"domain":"log","entity":"ts-train-food-service","fact_id":"FF5EC0D11DA55","field":"dominant_template_count","relative_bin":7,"unit":"events","value":11}
+FACT {"domain":"log","entity":"ts-train-food-service","fact_id":"FC79F88A3C39E","field":"dominant_template_id","relative_bin":7,"unit":null,"value":"LT-8DE33228E8E6"}
+FACT {"domain":"log","entity":"ts-train-food-service","fact_id":"F19352E939557","field":"error_count","relative_bin":7,"unit":"events","value":0}
+FACT {"domain":"log","entity":"ts-train-food-service","fact_id":"F0BB9C81D22C3","field":"event_count","relative_bin":7,"unit":"events","value":11}
+FACT {"domain":"log","entity":"ts-train-food-service","fact_id":"F6B4BC0415748","field":"service","relative_bin":7,"unit":null,"value":"ts-train-food-service"}

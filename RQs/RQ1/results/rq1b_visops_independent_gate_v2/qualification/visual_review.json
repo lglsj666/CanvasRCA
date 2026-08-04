@@ -1,0 +1,22 @@
+{
+  "schema_version": "RQ1VisualReviewV1",
+  "status": "passed",
+  "experiment_id": "rq1b_visops_independent_gate_v2",
+  "experiment_config_hash": "490ad3aac62908c1ddd4abb4bbbe15f27845a61faf8a759fcbb7f9331b8d8803",
+  "artifact_inventory_hash": "be7726baed89def14386ab58c811f8a936da9007dfdcad605c5a98604d8778bd",
+  "review_scope": "Manual review of four disjoint gate images per dataset. The 12 representatives cover all seven render kinds and were checked for nonblank content, readable labels and values, explicit direction/time/missingness semantics, and absence of raw case IDs, dataset names, fault labels, ground truth, and absolute timestamps.",
+  "reviewed_images": [
+    {"opaque_incident_id":"INC-0A65839CE0AC","query_id":"Q-059AB8506C8E2ED3","render_kind":"temporal_summary","image_sha256":"b96a7868d8d6830f197ccf292a77a53cd0eb09161d078437a0093cddaf21fc4f","status":"passed"},
+    {"opaque_incident_id":"INC-0A65839CE0AC","query_id":"Q-1981B39704002A14","render_kind":"topology","image_sha256":"8b278192ac41a3c9c2ba1e4b3c29241c5eb9773bebd5a580e4eba02e3c8f8123","status":"passed"},
+    {"opaque_incident_id":"INC-0A65839CE0AC","query_id":"Q-538563F6C3731F61","render_kind":"entity_modality_matrix","image_sha256":"fa1fbbb07e7ec244e78a50d5b3850c3544426e3f65363818dc75a8812848f410","status":"passed"},
+    {"opaque_incident_id":"INC-0A65839CE0AC","query_id":"Q-3B43B7477E20AE19","render_kind":"metric_point","image_sha256":"b165b7c4843c860651c42c99d9fd735e25dcad9fe429cd9504e44de3e7c41006","status":"passed"},
+    {"opaque_incident_id":"INC-0A01835FE9D4","query_id":"Q-29EBD07560DA4C9C","render_kind":"log_summary","image_sha256":"2b183046e9d7dc9a6c597466ee70056bb20adfe9fc70200ec5842e64b1e68ef0","status":"passed"},
+    {"opaque_incident_id":"INC-0A01835FE9D4","query_id":"Q-D3C4EEC202AFF8C4","render_kind":"trace_summary","image_sha256":"3217ea8b6e4024642970d3183b3990e65a62840b5250d2d878dd2bb75f07d4a0","status":"passed"},
+    {"opaque_incident_id":"INC-6396CF03B68A","query_id":"Q-3B9BD65AFCB9E463","render_kind":"missingness_matrix","image_sha256":"d412616b341c659d93bd18ed08f63df8311fe86dc460e724e052ef6eb872fd2a","status":"passed"},
+    {"opaque_incident_id":"INC-0A01835FE9D4","query_id":"Q-80F1A7DB54F3AF55","render_kind":"topology","image_sha256":"2d6a545636203f4377b32bcb78d5f423e837fe2297b87a2b4f374d6e9c3f84d1","status":"passed"},
+    {"opaque_incident_id":"INC-096051EB5A5F","query_id":"Q-0C520722038765DC","render_kind":"temporal_summary","image_sha256":"ce2cedf32ab5aee29e807465fa52522c94b4796b9f44bc0c6a55ade7988c3bd4","status":"passed"},
+    {"opaque_incident_id":"INC-096051EB5A5F","query_id":"Q-81633319988ECBB0","render_kind":"entity_modality_matrix","image_sha256":"be625fa266cf1f09ae408323661e33f325558ac4bae2e6888dd1f6619e724676","status":"passed"},
+    {"opaque_incident_id":"INC-096051EB5A5F","query_id":"Q-2FE9FAF464C3370B","render_kind":"metric_point","image_sha256":"a08aa3f0229c7dc9e0f75e6483896dcbe9033a4fe3919f9872047dbb7ae17d12","status":"passed"},
+    {"opaque_incident_id":"INC-096051EB5A5F","query_id":"Q-6E50449B02E5E4D0","render_kind":"missingness_matrix","image_sha256":"2d1f631fdc4ab559e0ecb3dc6f199b637b4a9c62c23b30c5e217a5921a9c4079","status":"passed"}
+  ]
+}

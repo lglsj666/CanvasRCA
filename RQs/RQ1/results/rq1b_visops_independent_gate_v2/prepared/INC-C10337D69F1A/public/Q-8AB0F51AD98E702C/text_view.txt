@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"3069a9fea4eae09784c3a49b0dc5e89a82cc8fe752c2ad78a27823f69e60441a","query_hash":"caf053a1f6bec83d343f88ad4a250852fca1745d3f69015150f33f6918dad462","query_id":"Q-8AB0F51AD98E702C","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-consign-price-service","fact_id":"F0A6FAC048C87","field":"metric","relative_bin":null,"unit":null,"value":"container.cpu.usage"}
+FACT {"domain":"metric","entity":"ts-consign-price-service","fact_id":"FBC142F115169","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"ts-consign-price-service","fact_id":"F3A0CF9F5A32A","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":2}
+FACT {"domain":"metric","entity":"ts-consign-price-service","fact_id":"F75627A7335FC","field":"service","relative_bin":null,"unit":null,"value":"ts-consign-price-service"}
+FACT {"domain":"metric","entity":"ts-food-delivery-service","fact_id":"F3C125C6E1398","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.cpu.node.utilization"}
+FACT {"domain":"metric","entity":"ts-food-delivery-service","fact_id":"F8A4D48BEF65C","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"ts-food-delivery-service","fact_id":"FC6E337B5963A","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":2}
+FACT {"domain":"metric","entity":"ts-food-delivery-service","fact_id":"F4E7BFCFFA641","field":"service","relative_bin":null,"unit":null,"value":"ts-food-delivery-service"}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"F8248A5FCD8C3","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.filesystem.usage"}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"F459F6CCDAC21","field":"panel_id","relative_bin":null,"unit":null,"value":"M12"}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"FE35FA532BE24","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":30}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"F290AABBE857D","field":"service","relative_bin":null,"unit":null,"value":"ts-preserve-service"}
+FACT {"domain":"metric","entity":"ts-train-food-service","fact_id":"F02E9F6A8D940","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.cpu.node.utilization"}
+FACT {"domain":"metric","entity":"ts-train-food-service","fact_id":"FC792A372F9B2","field":"panel_id","relative_bin":null,"unit":null,"value":"M9"}
+FACT {"domain":"metric","entity":"ts-train-food-service","fact_id":"F47791AFC31A5","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":2}
+FACT {"domain":"metric","entity":"ts-train-food-service","fact_id":"F8F6142FF06CF","field":"service","relative_bin":null,"unit":null,"value":"ts-train-food-service"}

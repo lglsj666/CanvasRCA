@@ -1,0 +1,13 @@
+VIEW {"fact_inventory_hash":"213f82c8a576235428c28ac0a4dcf7e5a8a6322d5d18dc1a5b2fdef86c5e2e5e","query_hash":"4b73af1d7a0c40fac5784cf86689005fda44dac7d55e524d5a135590bf9c191a","query_id":"Q-4B84020AA3B2F2B0","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-delivery-service","fact_id":"FD2DE0B4F0106","field":"metric","relative_bin":null,"unit":null,"value":"container.cpu.usage"}
+FACT {"domain":"metric","entity":"ts-delivery-service","fact_id":"F150A13BBBED1","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":333.173}
+FACT {"domain":"metric","entity":"ts-delivery-service","fact_id":"F2AE30FA1BB7F","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"ts-delivery-service","fact_id":"F8239FDEE59EB","field":"service","relative_bin":null,"unit":null,"value":"ts-delivery-service"}
+FACT {"domain":"metric","entity":"mysql","fact_id":"F7C934495949D","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.memory.rss"}
+FACT {"domain":"metric","entity":"mysql","fact_id":"FA387D6685AF5","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":280.763}
+FACT {"domain":"metric","entity":"mysql","fact_id":"FB300F0D99BFD","field":"panel_id","relative_bin":null,"unit":null,"value":"M8"}
+FACT {"domain":"metric","entity":"mysql","fact_id":"F35EAF60080B7","field":"service","relative_bin":null,"unit":null,"value":"mysql"}
+FACT {"domain":"metric","entity":"ts-gateway-service","fact_id":"FF66033800358","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.memory_limit_utilization"}
+FACT {"domain":"metric","entity":"ts-gateway-service","fact_id":"F62E496F5984B","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":415.53}
+FACT {"domain":"metric","entity":"ts-gateway-service","fact_id":"FC5199CD7FC4A","field":"panel_id","relative_bin":null,"unit":null,"value":"M9"}
+FACT {"domain":"metric","entity":"ts-gateway-service","fact_id":"F1FD33C8CE3D9","field":"service","relative_bin":null,"unit":null,"value":"ts-gateway-service"}

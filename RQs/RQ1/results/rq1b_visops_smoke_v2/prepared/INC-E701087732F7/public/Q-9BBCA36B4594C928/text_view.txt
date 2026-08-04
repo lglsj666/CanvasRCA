@@ -1,0 +1,6 @@
+VIEW {"fact_inventory_hash":"6becc43dcd34a285fbfe03b26fafa5e20df07d7c575154a3043b52bebe0ad174","query_hash":"f35ef4fdc23c473dbfea9234a4f770d93e31d5d5e74ab5bf28affd6598a2fc45","query_id":"Q-9BBCA36B4594C928","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"trace","entity":"paymentservice-1","fact_id":"F2C1D3A967EFB","field":"bin_center_rel_s","relative_bin":62,"unit":"relative_seconds","value":2285.15625}
+FACT {"domain":"trace","entity":"paymentservice-1","fact_id":"FACAC9A2D0119","field":"error_count","relative_bin":62,"unit":"spans","value":0}
+FACT {"domain":"trace","entity":"paymentservice-1","fact_id":"F5E6673F24558","field":"latency_p95_ms","relative_bin":62,"unit":"milliseconds","value":0.12285}
+FACT {"domain":"trace","entity":"paymentservice-1","fact_id":"F4C0F294B11EC","field":"service","relative_bin":62,"unit":null,"value":"paymentservice-1"}
+FACT {"domain":"trace","entity":"paymentservice-1","fact_id":"F5945A0495AF6","field":"span_count","relative_bin":62,"unit":"spans","value":2}

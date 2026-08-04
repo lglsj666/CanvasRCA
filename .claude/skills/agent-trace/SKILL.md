@@ -1,49 +1,62 @@
 ---
 name: agent-trace
-description: Inspect and classify VLM-RCA trajectories — replay a case's turns and images, diagnose why the model got a case wrong, quantify failure modes. Use when analysing experiment results, iterating on the agentic controller, or writing failure analysis for the paper.
+description: Inspect and classify CanvasRCA trajectories, model-visible evidence, rankings, and failure modes. Use when diagnosing an experiment, comparing paired cases, auditing visual reliance, or preparing an evidence-backed failure analysis.
 ---
 
 # Trajectory analysis
 
-Aggregate metrics say a config lost; trajectories say why. Failure analysis is
-what turns an RQ2 iteration into a design improvement rather than a guess.
+Read `Codex.md` and the target RQ's description and status authority before
+interpreting any score. Locate artifacts under
+`RQs/<rq>/results/<experiment>/`; never assume a project-root `results/` path.
 
-## Reading a trajectory
+## Qualify the artifact first
 
-`results/<exp>/trajectories/<exp>__<model>.jsonl` — first line is a header
-(experiment, model, dashboard config, upstream commit), then one line per case.
+1. Read the frozen run contract, roster, summary, verifier output, and hashes.
+2. Establish the artifact status: confirmatory, development, pilot, smoke,
+   diagnostic, invalid, superseded, incomplete, or excluded.
+3. Audit the actual model-visible prompt and image payload. A trajectory's
+   `turns[*].images` path is not proof that the backend received the image.
+   Use the arm/stage record, request artifact, image hash, and inventory.
+4. Check label blindness, opaque IDs, relative time, and atomic-fact equality.
+   If leakage or unequal information affected the comparison, classify it as
+   invalid for efficacy/modality claims and stop performance interpretation.
+5. Separate infrastructure exclusions from model outcomes. Parse failures,
+   truncations, and invalid model output remain model outcomes.
+
+Read episodes with the shared library when the schema supports it:
 
 ```python
 from vlmrca.agent.trajectory import read_episodes
-eps = read_episodes("RQs/RQ1/results/smoke_re2ob_opus/trajectories/smoke_re2ob_opus__claude-opus-4-7.jsonl")
-wrong = [e for e in eps if e["mrr"] < 1.0]
+episodes = read_episodes("RQs/<rq>/results/<experiment>/trajectories/episodes.jsonl")
 ```
 
-Each turn carries `images` — the PNG paths the model actually saw. **Open them.**
-A wrong answer whose dashboard never showed the true cause's metric is a
-selection failure, not a reasoning failure, and the fix is in `kpi_select`, not
-the prompt.
+Do not invalidate an older artifact merely because a newer reader cannot parse
+its schema; consult its original status authority.
 
-## Failure taxonomy
+## Diagnose paired cases
 
-Label every wrong case with exactly one primary mode:
+- Match cases by opaque incident ID and registered arm/condition.
+- Open the exact image artifact the model received and inspect the prompt span
+  or JSON pointer for every cited `fact_id`.
+- Read ground truth only in the offline evaluator/audit step; never feed a
+  label-bearing index or analysis file back to the evaluated model.
+- Verify scoring granularity before calling a prediction correct or wrong.
 
-| Mode | Signature | Fix lives in |
-|---|---|---|
-| `parse` | `parse_ok=false`, prose instead of JSON | prompt / answer format |
-| `selection` | true cause has no panel on the dashboard | `kpi_select`, panel budget |
-| `perception` | evidence visible, model misread the chart or legend | `render/style`, resolution, labelling |
-| `reasoning` | evidence read correctly, wrong causal conclusion | scaffold, topology framing |
-| `victim-confusion` | named a downstream symptom-bearing service | topology emphasis, prompt guidance |
-| `tool-misuse` | (agentic) wasted turns, never zoomed the right panel | controller, tool descriptions |
-| `context-loss` | (agentic) dropped an image it needed | retention policy |
+Assign one primary mode to each failure:
 
-Report counts per mode, not anecdotes. The mode with the largest count is the
-next thing to fix; everything else is a distraction.
+| Mode | Signature |
+|---|---|
+| `invalid-input` | leakage, unequal fact inventory, wrong prompt, or stale contract |
+| `infrastructure` | backend/process/tool failure covered by paired exclusion |
+| `parse` | response exists but violates the registered output schema |
+| `truncation` | output reaches the registered ceiling before a valid answer |
+| `selection` | required evidence never entered the canonical evidence bundle |
+| `perception` | visible fact is read incorrectly |
+| `reasoning` | facts are read correctly but causal conclusion is wrong |
+| `victim-confusion` | downstream symptom is ranked above the origin |
+| `tool-misuse` | an agent stage wastes or misroutes actions |
+| `context-loss` | a needed fact disappears between stages |
 
-## Cross-checking against the text baseline
-
-The upstream project has per-case results for the same cases. A case the text
-method solves and the dashboard method misses is the most informative object in
-the project — it isolates what rasterisation destroyed. `victim-confusion` and
-`selection` failures are where the two representations genuinely differ.
+Report counts by dataset, fault type, arm, and status. Cite representative
+artifact paths, distinguish visual benefit from visual harm, and never promote
+an anecdote or invalid run into an efficacy conclusion.

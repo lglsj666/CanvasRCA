@@ -1,0 +1,11 @@
+# RQ1 VisOps conversation — Q-CA9E7BC4B5239D14 — H
+
+- opaque incident: `INC-76163B1B7648`
+- model: `qwen3.6-27b`
+- prompt hash: `b5e61fc8b9160afefbb0799063c945955f94bfe292758d5d2a605f07fcaceab9`
+- visual hash: `26d1674a9a40d4937f78600b9ad40482d506b7499fdb83ffe9051ddef8381075`
+- text hash: `56f4bf2e0090881f4d7cdc80e6cb625e751599578bfbc66715a61e8b80bc0171`
+
+## Response
+
+{"answer": ["ts-voucher-service"]}

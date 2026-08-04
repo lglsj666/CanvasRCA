@@ -1,0 +1,9 @@
+VIEW {"fact_inventory_hash":"9b11de7c3dbd0f5e8789d3a234ffa24e0e7c7565d81ca2cdb776612436190507","query_hash":"6e05248ad1547c4e439cefa46a4fe448546d04acc5c817cf2bcb6780293e63a5","query_id":"Q-BC8834247B37ADD4","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-admin-order-service","fact_id":"FA34F35C5F39B","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.cpu.node.utilization"}
+FACT {"domain":"metric","entity":"ts-admin-order-service","fact_id":"FC596FB84D30C","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"ts-admin-order-service","fact_id":"FB8BF50941A8B","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":2}
+FACT {"domain":"metric","entity":"ts-admin-order-service","fact_id":"F35622F76A163","field":"service","relative_bin":null,"unit":null,"value":"ts-admin-order-service"}
+FACT {"domain":"metric","entity":"ts-admin-user-service","fact_id":"F03D6B7FD8BBB","field":"metric","relative_bin":null,"unit":null,"value":"container.cpu.usage"}
+FACT {"domain":"metric","entity":"ts-admin-user-service","fact_id":"FBF50500A726F","field":"panel_id","relative_bin":null,"unit":null,"value":"M5"}
+FACT {"domain":"metric","entity":"ts-admin-user-service","fact_id":"F3E9F35D3CA58","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":3}
+FACT {"domain":"metric","entity":"ts-admin-user-service","fact_id":"F7EB5E083AE48","field":"service","relative_bin":null,"unit":null,"value":"ts-admin-user-service"}

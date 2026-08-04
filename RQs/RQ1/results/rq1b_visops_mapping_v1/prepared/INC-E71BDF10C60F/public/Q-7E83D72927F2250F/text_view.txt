@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"847c6c9954615c722eca631756bc20ff59e5d015efce36be56307c58c79f0cc3","query_hash":"79466dae52d903b6405ad3f84468ff9c5abb8f2c4fc4ca93e594c992702610ac","query_id":"Q-7E83D72927F2250F","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-voucher-service","fact_id":"F6DCE3E6D7BFB","field":"bin_center_rel_s","relative_bin":62,"unit":"relative_seconds","value":467.655}
+FACT {"domain":"metric","entity":"ts-voucher-service","fact_id":"F4FE6B6BB939A","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.cpu.usage"}
+FACT {"domain":"missingness","entity":"ts-voucher-service","fact_id":"F362458C57A13","field":"missing","relative_bin":62,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"ts-voucher-service","fact_id":"FAF57C2BAFEDB","field":"observed_count","relative_bin":62,"unit":null,"value":2}
+FACT {"domain":"metric","entity":"ts-voucher-service","fact_id":"F1958F36F2CD9","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"ts-voucher-service","fact_id":"F003A9E503987","field":"service","relative_bin":null,"unit":null,"value":"ts-voucher-service"}
+FACT {"domain":"metric","entity":"ts-voucher-service","fact_id":"FEDFCF88DD359","field":"value","relative_bin":62,"unit":"native","value":0.000537}

@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"aedbf518752fee0dab9cf1d863c3370fb8f1943c0b934cf6f0f059a71bd5c8f0","query_hash":"5a03719ee90cd7a2609fa93720665e57d1f2e66832cd3fd3171cee336f7f6f22","query_id":"Q-C650D25C1D48C311","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"adservice-1","fact_id":"FABF07CE43A9A","field":"metric","relative_bin":null,"unit":null,"value":"container_memory_failures.container.pgfault"}
+FACT {"domain":"metric","entity":"adservice-1","fact_id":"FCD6510B3E09F","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"adservice-1","fact_id":"FE5D362C801EE","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":4}
+FACT {"domain":"metric","entity":"adservice-1","fact_id":"F94E15B67B268","field":"service","relative_bin":null,"unit":null,"value":"adservice-1"}
+FACT {"domain":"metric","entity":"adservice2","fact_id":"F95264A052952","field":"metric","relative_bin":null,"unit":null,"value":"jvm_classes_loaded"}
+FACT {"domain":"metric","entity":"adservice2","fact_id":"FCCFD38ED9AF3","field":"panel_id","relative_bin":null,"unit":null,"value":"M3"}
+FACT {"domain":"metric","entity":"adservice2","fact_id":"F437147CE0615","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":4}
+FACT {"domain":"metric","entity":"adservice2","fact_id":"F20AEE5EC1EE5","field":"service","relative_bin":null,"unit":null,"value":"adservice2"}
+FACT {"domain":"metric","entity":"adservice","fact_id":"F66937405B85F","field":"metric","relative_bin":null,"unit":null,"value":"java_lang_Memory_ObjectPendingFinalizationCount"}
+FACT {"domain":"metric","entity":"adservice","fact_id":"F692CEF0B8E8A","field":"panel_id","relative_bin":null,"unit":null,"value":"M4"}
+FACT {"domain":"metric","entity":"adservice","fact_id":"FE722CEC83CD3","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"adservice","fact_id":"F7B8A3B405554","field":"service","relative_bin":null,"unit":null,"value":"adservice"}
+FACT {"domain":"metric","entity":"frontend-0","fact_id":"FFE91E228E272","field":"metric","relative_bin":null,"unit":null,"value":"container_cpu_user_seconds"}
+FACT {"domain":"metric","entity":"frontend-0","fact_id":"F7EB499ACA019","field":"panel_id","relative_bin":null,"unit":null,"value":"M6"}
+FACT {"domain":"metric","entity":"frontend-0","fact_id":"F6B0EB5A9B0F6","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":8}
+FACT {"domain":"metric","entity":"frontend-0","fact_id":"FDABAEE16C7BA","field":"service","relative_bin":null,"unit":null,"value":"frontend-0"}

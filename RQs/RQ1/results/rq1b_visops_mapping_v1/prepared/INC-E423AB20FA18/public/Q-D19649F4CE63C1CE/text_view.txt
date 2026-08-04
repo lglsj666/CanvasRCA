@@ -1,0 +1,6 @@
+VIEW {"fact_inventory_hash":"f0366a44ec190a8565f1ef06da9caaac77e2eefb993f8b53efd2e665e1cf36fc","query_hash":"6003f8c80a958467af2459604fbddd9d339bfae7578c2a01060cea6a3b745e40","query_id":"Q-D19649F4CE63C1CE","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"trace","entity":"currencyservice-1","fact_id":"F24C581FE967B","field":"bin_center_rel_s","relative_bin":30,"unit":"relative_seconds","value":1115.15625}
+FACT {"domain":"trace","entity":"currencyservice-1","fact_id":"F4E89F6F1D2DA","field":"error_count","relative_bin":30,"unit":"spans","value":0}
+FACT {"domain":"trace","entity":"currencyservice-1","fact_id":"F023013E01272","field":"latency_p95_ms","relative_bin":30,"unit":"milliseconds","value":0.1505}
+FACT {"domain":"trace","entity":"currencyservice-1","fact_id":"FFF0FF41F1682","field":"service","relative_bin":30,"unit":null,"value":"currencyservice-1"}
+FACT {"domain":"trace","entity":"currencyservice-1","fact_id":"F5EF19FDF50E2","field":"span_count","relative_bin":30,"unit":"spans","value":119}

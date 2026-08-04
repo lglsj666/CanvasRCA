@@ -26,7 +26,7 @@ set -euo pipefail
 # loaded before running the server.
 module load gcc arrow opencv/4.14.0 cuda/12.9 python/3.12.4
 
-VLLM_VENV="${VLLM_VENV:-$SCRATCH/venv/vlm-rca-vllm}"
+VLLM_VENV="${VLLM_VENV:-/home/lglsj/CanvasRCA/venvs/infer}"
 source "$VLLM_VENV/bin/activate"
 
 export HF_HOME="${HF_HOME:-$SCRATCH/hf_cache}"

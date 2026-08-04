@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"1a829c061d39b3f94e48968b4426bb798a6e0fdb78eaa101a08e67cbe5639487","query_hash":"fcc95cfcb85784893b2a523932ec13801d532a957399c82be7c0345046e8b73e","query_id":"Q-BE1796A693902278","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"emailservice2-0","fact_id":"FC48147A04E44","field":"metric","relative_bin":null,"unit":null,"value":"container_network_receive_MB.eth0"}
+FACT {"domain":"metric","entity":"emailservice2-0","fact_id":"F4C5BDDE0EE2A","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"emailservice2-0","fact_id":"F555E76987000","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"emailservice2-0","fact_id":"FDC0404084AD3","field":"service","relative_bin":null,"unit":null,"value":"emailservice2-0"}
+FACT {"domain":"metric","entity":"paymentservice-2","fact_id":"F9AAB1995C627","field":"metric","relative_bin":null,"unit":null,"value":"container_network_receive_MB.eth0"}
+FACT {"domain":"metric","entity":"paymentservice-2","fact_id":"F1CBB2B786547","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"paymentservice-2","fact_id":"F8786433CB2B1","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":2}
+FACT {"domain":"metric","entity":"paymentservice-2","fact_id":"FD9C579D6EAB9","field":"service","relative_bin":null,"unit":null,"value":"paymentservice-2"}
+FACT {"domain":"metric","entity":"redis-cart2-0","fact_id":"F8669E5DBD280","field":"metric","relative_bin":null,"unit":null,"value":"container_network_receive_MB.eth0"}
+FACT {"domain":"metric","entity":"redis-cart2-0","fact_id":"F00100BF43DAF","field":"panel_id","relative_bin":null,"unit":null,"value":"M3"}
+FACT {"domain":"metric","entity":"redis-cart2-0","fact_id":"F5E998DBB3AE4","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"redis-cart2-0","fact_id":"F109C0C103BB8","field":"service","relative_bin":null,"unit":null,"value":"redis-cart2-0"}
+FACT {"domain":"metric","entity":"checkoutservice-0","fact_id":"FA99501C3DD63","field":"metric","relative_bin":null,"unit":null,"value":"container_network_receive_MB.eth0"}
+FACT {"domain":"metric","entity":"checkoutservice-0","fact_id":"FB876DCDD1C8F","field":"panel_id","relative_bin":null,"unit":null,"value":"M4"}
+FACT {"domain":"metric","entity":"checkoutservice-0","fact_id":"F8FA7C7AE222D","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"checkoutservice-0","fact_id":"FE888D2817914","field":"service","relative_bin":null,"unit":null,"value":"checkoutservice-0"}

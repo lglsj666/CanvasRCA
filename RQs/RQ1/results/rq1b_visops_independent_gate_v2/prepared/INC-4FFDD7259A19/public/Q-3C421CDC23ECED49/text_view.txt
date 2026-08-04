@@ -1,0 +1,13 @@
+VIEW {"fact_inventory_hash":"65deae84f923739fea2d36ef0727282daa4d141574db0651c74e7fc896b38647","query_hash":"5ea9525b25211fa8fa5c634f66cb5b04430e7a034736f84e119ca2ea8d3a600a","query_id":"Q-3C421CDC23ECED49","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"checkoutservice-0","fact_id":"F35E05F4BF482","field":"metric","relative_bin":null,"unit":null,"value":"container_fs_usage_MB./dev/vda1"}
+FACT {"domain":"metric","entity":"checkoutservice-0","fact_id":"F446FE1D80F5F","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1334.531}
+FACT {"domain":"metric","entity":"checkoutservice-0","fact_id":"FCFA8ECB3F131","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"checkoutservice-0","fact_id":"F4D303E9C21F3","field":"service","relative_bin":null,"unit":null,"value":"checkoutservice-0"}
+FACT {"domain":"metric","entity":"checkoutservice-2","fact_id":"FB8BF05295F69","field":"metric","relative_bin":null,"unit":null,"value":"container_fs_usage_MB./dev/vda1"}
+FACT {"domain":"metric","entity":"checkoutservice-2","fact_id":"F7AA4AF66CE74","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1334.531}
+FACT {"domain":"metric","entity":"checkoutservice-2","fact_id":"F4A59BFA2DBCB","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"checkoutservice-2","fact_id":"FE6B0AC9BDA94","field":"service","relative_bin":null,"unit":null,"value":"checkoutservice-2"}
+FACT {"domain":"metric","entity":"checkoutservice2-0","fact_id":"FE6959C8BAD17","field":"metric","relative_bin":null,"unit":null,"value":"container_fs_usage_MB./dev/vda1"}
+FACT {"domain":"metric","entity":"checkoutservice2-0","fact_id":"F1CDCD4A66FA9","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1334.531}
+FACT {"domain":"metric","entity":"checkoutservice2-0","fact_id":"FCDEE1AD2AA45","field":"panel_id","relative_bin":null,"unit":null,"value":"M3"}
+FACT {"domain":"metric","entity":"checkoutservice2-0","fact_id":"F2A5A66E1CA19","field":"service","relative_bin":null,"unit":null,"value":"checkoutservice2-0"}

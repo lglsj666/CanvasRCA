@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"d7bdc653aba6994bb9ef09f9a33c29b598db4c1cb2711ff930b46d3f059520e1","query_hash":"2248da8069e6fe1119cda3935a02859771e00f983383b8f5bf9795a12008dd1b","query_id":"Q-94FFB5E9DAD1F060","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-route-plan-service","fact_id":"FD93227E1BFCA","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.filesystem.usage"}
+FACT {"domain":"metric","entity":"ts-route-plan-service","fact_id":"F8B111384EADF","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"ts-route-plan-service","fact_id":"F3A6A089C0DDF","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":31}
+FACT {"domain":"metric","entity":"ts-route-plan-service","fact_id":"F55EAEDA3BB24","field":"service","relative_bin":null,"unit":null,"value":"ts-route-plan-service"}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"F00BBF153F78B","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.filesystem.usage"}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"F25BB1DFCD62C","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"FC7D6505AACE8","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":30}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"F22001793E06F","field":"service","relative_bin":null,"unit":null,"value":"ts-preserve-service"}
+FACT {"domain":"metric","entity":"ts-admin-order-service","fact_id":"F12E66473CD02","field":"metric","relative_bin":null,"unit":null,"value":"container.filesystem.available"}
+FACT {"domain":"metric","entity":"ts-admin-order-service","fact_id":"F952489C32372","field":"panel_id","relative_bin":null,"unit":null,"value":"M3"}
+FACT {"domain":"metric","entity":"ts-admin-order-service","fact_id":"FA9FB9CCC1239","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":31}
+FACT {"domain":"metric","entity":"ts-admin-order-service","fact_id":"FF52B3D206CB4","field":"service","relative_bin":null,"unit":null,"value":"ts-admin-order-service"}
+FACT {"domain":"metric","entity":"ts-cancel-service","fact_id":"FDC2100E22D7F","field":"metric","relative_bin":null,"unit":null,"value":"container.filesystem.available"}
+FACT {"domain":"metric","entity":"ts-cancel-service","fact_id":"F94F1AD74E453","field":"panel_id","relative_bin":null,"unit":null,"value":"M5"}
+FACT {"domain":"metric","entity":"ts-cancel-service","fact_id":"FD21DFAF2D9FF","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":31}
+FACT {"domain":"metric","entity":"ts-cancel-service","fact_id":"F0E768D01D30B","field":"service","relative_bin":null,"unit":null,"value":"ts-cancel-service"}

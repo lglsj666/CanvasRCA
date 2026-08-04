@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"21fae1f18913af5e9ed408011b0b67560f1cb7f46075fb671f72c8072ec5d988","query_hash":"f1049fe5e01b05c7f8bba4339a612832d820cf6189b665eecee0fd1211872bd9","query_id":"Q-983B7BA1F0137B01","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-route-plan-service","fact_id":"FBE7625FE437C","field":"bin_center_rel_s","relative_bin":20,"unit":"relative_seconds","value":153.118}
+FACT {"domain":"metric","entity":"ts-route-plan-service","fact_id":"F6A43A11EC5EE","field":"metric","relative_bin":null,"unit":null,"value":"container.memory.usage"}
+FACT {"domain":"missingness","entity":"ts-route-plan-service","fact_id":"FD48F0EA24F43","field":"missing","relative_bin":20,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"ts-route-plan-service","fact_id":"FF3F864C9F707","field":"observed_count","relative_bin":20,"unit":null,"value":1}
+FACT {"domain":"metric","entity":"ts-route-plan-service","fact_id":"F4A8664A36C90","field":"panel_id","relative_bin":null,"unit":null,"value":"M12"}
+FACT {"domain":"metric","entity":"ts-route-plan-service","fact_id":"F80E6586E69A4","field":"service","relative_bin":null,"unit":null,"value":"ts-route-plan-service"}
+FACT {"domain":"metric","entity":"ts-route-plan-service","fact_id":"F62A8CB7A934A","field":"value","relative_bin":20,"unit":"native","value":703164416.0}

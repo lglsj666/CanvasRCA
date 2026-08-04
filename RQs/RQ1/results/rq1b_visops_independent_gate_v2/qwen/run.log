@@ -1,0 +1,121 @@
+context preflight [213/2133]
+context preflight [426/2133]
+context preflight [639/2133]
+context preflight [852/2133]
+context preflight [1065/2133]
+context preflight [1278/2133]
+context preflight [1491/2133]
+context preflight [1704/2133]
+context preflight [1917/2133]
+context preflight [2130/2133]
+context preflight [2133/2133]
+[106/2133] parse=1.000 accuracy=0.953 errors=0.000
+[212/2133] parse=1.000 accuracy=0.972 errors=0.000
+[318/2133] parse=1.000 accuracy=0.962 errors=0.000
+[424/2133] parse=1.000 accuracy=0.953 errors=0.000
+[530/2133] parse=1.000 accuracy=0.950 errors=0.051
+[636/2133] parse=1.000 accuracy=0.943 errors=0.042
+[742/2133] parse=1.000 accuracy=0.945 errors=0.036
+[848/2133] parse=1.000 accuracy=0.952 errors=0.032
+[954/2133] parse=1.000 accuracy=0.950 errors=0.028
+[1060/2133] parse=1.000 accuracy=0.947 errors=0.051
+[1166/2133] parse=1.000 accuracy=0.951 errors=0.046
+[1272/2133] parse=1.000 accuracy=0.949 errors=0.042
+[1378/2133] parse=1.000 accuracy=0.950 errors=0.039
+[1484/2133] parse=1.000 accuracy=0.949 errors=0.036
+[1590/2133] parse=1.000 accuracy=0.950 errors=0.034
+[1696/2133] parse=1.000 accuracy=0.952 errors=0.032
+[1802/2133] parse=1.000 accuracy=0.955 errors=0.030
+[1908/2133] parse=1.000 accuracy=0.955 errors=0.028
+[2014/2133] parse=1.000 accuracy=0.955 errors=0.027
+[2120/2133] parse=1.000 accuracy=0.954 errors=0.025
+[2133/2133] parse=1.000 accuracy=0.954 errors=0.025
+{
+  "accuracy": 0.9543049543049543,
+  "arm": "ALL",
+  "arm_order_policy": "balanced_by_opaque_incident_hash",
+  "avg_input_tokens": 1728.993746993747,
+  "avg_output_tokens": 16.1000481000481,
+  "avg_wall_time_s": 2.399595076330239,
+  "completed_calls": 2079,
+  "context_preflight": {
+    "excluded_incident_count": 2,
+    "excluded_incidents": [
+      "INC-2B2A0F21FD18",
+      "INC-6396CF03B68A"
+    ],
+    "exclusion_fraction": 0.022222222222222223,
+    "max_model_len": 32768,
+    "max_tokens": 16384,
+    "maximum_exclusion_fraction": 0.05,
+    "model": "qwen3.6-27b",
+    "overflowing_calls": [
+      {
+        "arm": "H",
+        "input_tokens": 16528,
+        "max_model_len": 32768,
+        "max_tokens": 16384,
+        "opaque_incident_id": "INC-2B2A0F21FD18",
+        "query_id": "Q-78610C4585C69AF7"
+      },
+      {
+        "arm": "H",
+        "input_tokens": 16385,
+        "max_model_len": 32768,
+        "max_tokens": 16384,
+        "opaque_incident_id": "INC-6396CF03B68A",
+        "query_id": "Q-3B9BD65AFCB9E463"
+      }
+    ],
+    "policy": "one_overflow_excludes_complete_incident_without_replacement",
+    "requested_incidents": 90,
+    "schema_version": "RQ1ContextPreflightV1",
+    "status": "passed_with_paired_exclusions"
+  },
+  "elapsed_wall_time_s": 4991.190453529358,
+  "error_rate": 0.02531645569620253,
+  "experiment_config_hash": "490ad3aac62908c1ddd4abb4bbbe15f27845a61faf8a759fcbb7f9331b8d8803",
+  "experiment_id": "rq1b_visops_independent_gate_v2",
+  "infrastructure_errors": 54,
+  "model": "qwen3.6-27b",
+  "parse_rate": 1.0,
+  "per_arm": {
+    "H": {
+      "accuracy": 0.961038961038961,
+      "avg_input_tokens": 2524.1443001443004,
+      "avg_output_tokens": 16.041847041847042,
+      "avg_wall_time_s": 2.626137007194508,
+      "completed_calls": 693,
+      "error_rate": 0.02531645569620253,
+      "infrastructure_errors": 18,
+      "parse_rate": 1.0,
+      "requested_calls": 711
+    },
+    "T": {
+      "accuracy": 0.9653679653679653,
+      "avg_input_tokens": 1303.3189033189033,
+      "avg_output_tokens": 16.082251082251084,
+      "avg_wall_time_s": 2.2930175535606616,
+      "completed_calls": 693,
+      "error_rate": 0.02531645569620253,
+      "infrastructure_errors": 18,
+      "parse_rate": 1.0,
+      "requested_calls": 711
+    },
+    "V": {
+      "accuracy": 0.9365079365079365,
+      "avg_input_tokens": 1359.5180375180375,
+      "avg_output_tokens": 16.176046176046174,
+      "avg_wall_time_s": 2.279630668235548,
+      "completed_calls": 693,
+      "error_rate": 0.02531645569620253,
+      "infrastructure_errors": 18,
+      "parse_rate": 1.0,
+      "requested_calls": 711
+    }
+  },
+  "requested_calls": 2133,
+  "roster_assignment_hash": "e754ca3e991cd8de940c450ab0b22e3854950181deee51dc4f64f85c8bae77e5",
+  "roster_contract_hash": "7d905842e21376a8bb74617a35dc2555e519391f43f8cd35d2219046e3763a7b",
+  "schema_version": "RQ1VisOpsCellSummaryV1"
+}

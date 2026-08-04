@@ -1,0 +1,70 @@
+{
+  "accuracy": 0.337037037037037,
+  "arm": "ALL",
+  "arm_order_policy": "balanced_by_opaque_incident_hash",
+  "avg_input_tokens": 2170.9777777777776,
+  "avg_output_tokens": 86.64444444444445,
+  "avg_wall_time_s": 3.7823518947318746,
+  "completed_calls": 270,
+  "condition": "main",
+  "context_preflight": {
+    "excluded_incident_count": 0,
+    "excluded_incidents": [],
+    "exclusion_fraction": 0.0,
+    "max_model_len": 32768,
+    "max_tokens": 16384,
+    "maximum_exclusion_fraction": 0.05,
+    "model": "gemma-4-26b-a4b",
+    "overflowing_calls": [],
+    "policy": "one_overflow_excludes_complete_incident_without_replacement",
+    "requested_incidents": 90,
+    "schema_version": "RQ1ContextPreflightV1",
+    "status": "passed"
+  },
+  "elapsed_wall_time_s": 1021.5485739707947,
+  "error_rate": 0.0,
+  "experiment_config_hash": "aa34a84fad7f51079d3531b577e59009d586cfcd2bcf6aa216cf81449e8094e0",
+  "experiment_id": "rq1b3_two_stage_development_v3",
+  "infrastructure_errors": 0,
+  "model": "gemma-4-26b-a4b",
+  "parse_rate": 1.0,
+  "per_arm": {
+    "H": {
+      "accuracy": 0.4444444444444444,
+      "avg_input_tokens": 3134.4666666666667,
+      "avg_output_tokens": 83.85555555555555,
+      "avg_wall_time_s": 3.5363421069251166,
+      "completed_calls": 90,
+      "error_rate": 0.0,
+      "infrastructure_errors": 0,
+      "parse_rate": 1.0,
+      "requested_calls": 90
+    },
+    "T": {
+      "accuracy": 0.5222222222222223,
+      "avg_input_tokens": 2857.4666666666667,
+      "avg_output_tokens": 83.3,
+      "avg_wall_time_s": 3.8094254228803845,
+      "completed_calls": 90,
+      "error_rate": 0.0,
+      "infrastructure_errors": 0,
+      "parse_rate": 1.0,
+      "requested_calls": 90
+    },
+    "V": {
+      "accuracy": 0.044444444444444446,
+      "avg_input_tokens": 521.0,
+      "avg_output_tokens": 92.77777777777777,
+      "avg_wall_time_s": 4.0012881543901235,
+      "completed_calls": 90,
+      "error_rate": 0.0,
+      "infrastructure_errors": 0,
+      "parse_rate": 1.0,
+      "requested_calls": 90
+    }
+  },
+  "requested_calls": 270,
+  "roster_assignment_hash": "faf3d4ccbea649e8be947a048fe2aab5e93e5c3fa595cd171dd00745df2d306e",
+  "roster_contract_hash": "482da7c973da6b928c4695085980cf81e7afa0ef0898301d0fefd5407c449957",
+  "schema_version": "RQ1VisOpsCellSummaryV1"
+}

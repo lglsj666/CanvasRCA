@@ -1,0 +1,87 @@
+extends: rq1b_visops_mapping_v2.yaml
+experiment_id: rq1b3_two_stage_development_v1
+registered_description: RQs/RQ1/descriptions/rq1b3_two_stage_onset_ledger_protocol_v1.md
+power_and_gate: RQs/RQ1/descriptions/rq1b3_two_stage_onset_ledger_protocol_v1.md
+
+execution:
+  stage: rq1b3_exposed_two_stage_development_registered
+  requires_smoke_qualification: true
+  partial_result_policy: operational_health_only_no_tuning_or_early_stop
+
+data:
+  roster: RQs/RQ1/configs/rosters/rq1b3_development_public_v1.json
+  private_roster: RQs/RQ1/configs/rosters/rq1b3_development_private_v1.json
+  locked_gate_roster: RQs/RQ1/configs/rosters/rq1b3_gate_public_v1.json
+  mapping_cases_per_dataset: 30
+  mapping_case_total: 90
+  mapping_gate_overlap: 0
+
+contracts:
+  renderer: RQ1VisualViewV6OnsetLedger
+  answer_separation: required_no_derived_onset_or_winner_fact_or_highlight
+  stage_1_schema: PanelOnsetLedgerV1
+  stage_2_input: persisted_same_arm_stage_1_ledger_only
+  stage_2_original_evidence_access: forbidden
+  oracle_stage_2_is_diagnostic_only: true
+  temporal_normalization:
+    method: baseline_median_and_mad_robust_z
+    block_count: 16
+    display_precision_decimals: 1
+    winsorized_abs_z_max: 99.9
+    answer_preservation: cap_exceeds_abs_z_threshold_3_and_preserves_sign
+  row_order:
+    main: natural_numeric_panel_id
+    development_sham: deterministic_complete_row_permutation
+    independent_gate: natural_numeric_panel_id_fixed_before_development
+
+visops:
+  task_profile: two_stage_onset_ledger_v1
+  operation_families:
+    exact_lookup: []
+    temporal_scanning: []
+    topology_path: []
+    cross_modal_alignment: []
+    missingness_uncertainty: []
+    answer_hidden_temporal_composition:
+      - panel_onset_ledger_high
+    answer_hidden_relational_composition: []
+
+two_stage:
+  calls_per_arm: 2
+  stage_1: complete_panel_onset_ledger
+  stage_2: select_minimum_non_null_onset_with_complete_ties
+  arms: [T, V, H]
+  stage_2_uses_only_same_arm_stage_1_ledger: true
+  oracle_ledger_stage_2_diagnostic: true
+  oracle_stage_2_accuracy_minimum: 0.95
+  development_sham_arms: [V, H]
+  development_sham_fact_inventory_change: forbidden
+
+gates:
+  rq1b_visops_mapping:
+    status: failed_preserved_by_DD_27
+  rq1b_visops_independent_gate:
+    status: failed_preserved_by_DD_27
+  rq1b2_development:
+    status: valid_failed_preserved_by_DD_29
+  rq1b3_development:
+    status: registered_pending_implementation_and_qualification
+    qualification_yield: 90
+    requirements:
+      - final_hybrid_minus_text_at_least_0.05
+      - stage1_incident_macro_panel_accuracy_hybrid_minus_text_at_least_0.05
+      - hybrid_repairs_exceed_breaks
+      - hybrid_mean_ledger_error_below_text
+      - oracle_stage2_exact_accuracy_at_least_0.95
+      - all_main_and_sham_integrity_gates_pass
+    p_value_threshold: none_development_screen_is_below_powered_resolution
+  rq1b3_independent_gate:
+    status: blocked_until_rq1b3_development_passes
+    final_hybrid_minus_text_minimum: 0.10
+    ledger_hybrid_minus_text_minimum: 0.05
+    paired_two_sided_pratt_wilcoxon_p_maximum: 0.05
+    mediation_consistency_minimum: 0.75
+  rq1c_matched_plan:
+    status: blocked_until_rq1b3_independent_gate_passes
+  rq1d_causal_visual_utilization:
+    status: blocked_until_rq1b3_independent_gate_passes

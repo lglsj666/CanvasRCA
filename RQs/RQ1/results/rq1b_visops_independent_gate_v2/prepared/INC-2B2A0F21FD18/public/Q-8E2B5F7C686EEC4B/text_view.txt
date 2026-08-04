@@ -1,0 +1,6 @@
+VIEW {"fact_inventory_hash":"332fd7bd8089a018b73d087bafa39da597a97f69f2699e63bb0133e8f25504f2","query_hash":"a70e2d68062bc3ddbf0c449bdb9b7c24015a78bd9fc101d43a51971afb063f4b","query_id":"Q-8E2B5F7C686EEC4B","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"trace","entity":"ts-route-service","fact_id":"FD17EF4D2E6B9","field":"bin_center_rel_s","relative_bin":8,"unit":"relative_seconds","value":63.543339}
+FACT {"domain":"trace","entity":"ts-route-service","fact_id":"F6625C704EAFE","field":"error_count","relative_bin":8,"unit":"spans","value":0}
+FACT {"domain":"trace","entity":"ts-route-service","fact_id":"F792F1B957A84","field":"latency_p95_ms","relative_bin":8,"unit":"milliseconds","value":8.191737}
+FACT {"domain":"trace","entity":"ts-route-service","fact_id":"F6487A1ADFEBE","field":"service","relative_bin":8,"unit":null,"value":"ts-route-service"}
+FACT {"domain":"trace","entity":"ts-route-service","fact_id":"F8203327D6809","field":"span_count","relative_bin":8,"unit":"spans","value":832}

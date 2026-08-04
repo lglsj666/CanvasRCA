@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"e318fa6612f1f910c9d3b4be6e2fcf9172b4df653b4b08ccd8927c88683227a9","query_hash":"dbc9cf2767b52223a27131fae077ea1a34f3c23ec7b354f1082001ebcc432be2","query_id":"Q-EDDDFFF5934E2A52","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"k8s-master2","fact_id":"F6D653453A695","field":"bin_center_rel_s","relative_bin":61,"unit":"relative_seconds","value":1672.031}
+FACT {"domain":"metric","entity":"k8s-master2","fact_id":"FFBCC5FF22E18","field":"metric","relative_bin":null,"unit":null,"value":"node_filesystem_free_bytes"}
+FACT {"domain":"missingness","entity":"k8s-master2","fact_id":"FF76E52D47064","field":"missing","relative_bin":61,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"k8s-master2","fact_id":"F59DF1D2817C4","field":"observed_count","relative_bin":61,"unit":null,"value":1}
+FACT {"domain":"metric","entity":"k8s-master2","fact_id":"F21BA90B90A73","field":"panel_id","relative_bin":null,"unit":null,"value":"M7"}
+FACT {"domain":"metric","entity":"k8s-master2","fact_id":"FEF109FE185E9","field":"service","relative_bin":null,"unit":null,"value":"k8s-master2"}
+FACT {"domain":"metric","entity":"k8s-master2","fact_id":"FAC913E2C0CD6","field":"value","relative_bin":61,"unit":"native","value":9201242112.0}

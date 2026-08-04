@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"395be687fb5401dd6b7d801e5464d71713a726e846a7fe986d21deec4424b9cb","query_hash":"a9e22df9d4b00eeff1ab48fd77fe6b0ff08500a52cd0bf0ca32ca40ecfb4414e","query_id":"Q-B808DF9901566605","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"adservice-2","fact_id":"FC3C0E0854DE3","field":"bin_center_rel_s","relative_bin":13,"unit":"relative_seconds","value":367.031}
+FACT {"domain":"metric","entity":"adservice-2","fact_id":"F7FE684C79ECB","field":"metric","relative_bin":null,"unit":null,"value":"client_error_ratio"}
+FACT {"domain":"missingness","entity":"adservice-2","fact_id":"F454BC3712269","field":"missing","relative_bin":13,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"adservice-2","fact_id":"F4DC3E41C6EA7","field":"observed_count","relative_bin":13,"unit":null,"value":1}
+FACT {"domain":"metric","entity":"adservice-2","fact_id":"FA5B651690F7C","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"adservice-2","fact_id":"FB99CFE2196D6","field":"service","relative_bin":null,"unit":null,"value":"adservice-2"}
+FACT {"domain":"metric","entity":"adservice-2","fact_id":"F8D319C5D7A4A","field":"value","relative_bin":13,"unit":"native","value":0.0}

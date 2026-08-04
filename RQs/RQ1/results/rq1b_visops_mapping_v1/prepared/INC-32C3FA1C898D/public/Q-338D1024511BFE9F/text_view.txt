@@ -1,0 +1,13 @@
+VIEW {"fact_inventory_hash":"e18eadf91f40a7d76c70516071897fbc8cfe5a0317acfb1bf974021a53dc059a","query_hash":"837a3c65309ad3114d2fb6ea718f1669306082e78982618dfdac3acdb9cfe4c6","query_id":"Q-338D1024511BFE9F","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"k8s-master1","fact_id":"F0922B529E843","field":"metric","relative_bin":null,"unit":null,"value":"node_filesystem_usage_rate"}
+FACT {"domain":"metric","entity":"k8s-master1","fact_id":"F4F6C66C428BC","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1751.719}
+FACT {"domain":"metric","entity":"k8s-master1","fact_id":"FAE231FDFE81E","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"k8s-master1","fact_id":"FD37232D0A74B","field":"service","relative_bin":null,"unit":null,"value":"k8s-master1"}
+FACT {"domain":"metric","entity":"node-2","fact_id":"FFB47FFD629F7","field":"metric","relative_bin":null,"unit":null,"value":"node_disk_written_bytes_total"}
+FACT {"domain":"metric","entity":"node-2","fact_id":"F520CC4C791FB","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1751.719}
+FACT {"domain":"metric","entity":"node-2","fact_id":"F71278C10F37C","field":"panel_id","relative_bin":null,"unit":null,"value":"M11"}
+FACT {"domain":"metric","entity":"node-2","fact_id":"FB40D1DFDE3F4","field":"service","relative_bin":null,"unit":null,"value":"node-2"}
+FACT {"domain":"metric","entity":"productcatalogservice-1","fact_id":"F2128FEE5188F","field":"metric","relative_bin":null,"unit":null,"value":"rrt"}
+FACT {"domain":"metric","entity":"productcatalogservice-1","fact_id":"F9A81A56FC709","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1751.719}
+FACT {"domain":"metric","entity":"productcatalogservice-1","fact_id":"FCE1501216619","field":"panel_id","relative_bin":null,"unit":null,"value":"M6"}
+FACT {"domain":"metric","entity":"productcatalogservice-1","fact_id":"F41AB400D6944","field":"service","relative_bin":null,"unit":null,"value":"productcatalogservice-1"}

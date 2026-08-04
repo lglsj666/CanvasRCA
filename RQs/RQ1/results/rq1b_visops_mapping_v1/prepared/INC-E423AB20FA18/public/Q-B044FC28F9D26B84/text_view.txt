@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"9c57fc36764cee607ecbc4bd1883833458b4f5c89719a80f9e260bd52ce111b4","query_hash":"1dc5340e47ccfa65983291cb57a918f22a4c5951f6adc86d8a7194d5f623b733","query_id":"Q-B044FC28F9D26B84","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"paymentservice-0","fact_id":"F82E4C78E9C6E","field":"metric","relative_bin":null,"unit":null,"value":"container_cpu_usage_seconds"}
+FACT {"domain":"metric","entity":"paymentservice-0","fact_id":"F1EA4B1F5994D","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"paymentservice-0","fact_id":"F3732E45CC494","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":2}
+FACT {"domain":"metric","entity":"paymentservice-0","fact_id":"F35C7AF02B789","field":"service","relative_bin":null,"unit":null,"value":"paymentservice-0"}
+FACT {"domain":"metric","entity":"paymentservice2-0","fact_id":"FC6F093CA9EA8","field":"metric","relative_bin":null,"unit":null,"value":"container_cpu_usage_seconds"}
+FACT {"domain":"metric","entity":"paymentservice2-0","fact_id":"F4AD00C9A12AB","field":"panel_id","relative_bin":null,"unit":null,"value":"M11"}
+FACT {"domain":"metric","entity":"paymentservice2-0","fact_id":"FB6FD5B03846C","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":2}
+FACT {"domain":"metric","entity":"paymentservice2-0","fact_id":"F65E6370C4EC2","field":"service","relative_bin":null,"unit":null,"value":"paymentservice2-0"}
+FACT {"domain":"metric","entity":"paymentservice-1","fact_id":"FBAC58189E8EF","field":"metric","relative_bin":null,"unit":null,"value":"container_cpu_usage_seconds"}
+FACT {"domain":"metric","entity":"paymentservice-1","fact_id":"F195B36A95EF9","field":"panel_id","relative_bin":null,"unit":null,"value":"M4"}
+FACT {"domain":"metric","entity":"paymentservice-1","fact_id":"F21A3B3C562EA","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":2}
+FACT {"domain":"metric","entity":"paymentservice-1","fact_id":"F4B6017B69B76","field":"service","relative_bin":null,"unit":null,"value":"paymentservice-1"}
+FACT {"domain":"metric","entity":"paymentservice-2","fact_id":"F70242752DF4E","field":"metric","relative_bin":null,"unit":null,"value":"container_cpu_usage_seconds"}
+FACT {"domain":"metric","entity":"paymentservice-2","fact_id":"F7A712F6D243A","field":"panel_id","relative_bin":null,"unit":null,"value":"M8"}
+FACT {"domain":"metric","entity":"paymentservice-2","fact_id":"FAFA755D1406B","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":2}
+FACT {"domain":"metric","entity":"paymentservice-2","fact_id":"FE34F5868261F","field":"service","relative_bin":null,"unit":null,"value":"paymentservice-2"}

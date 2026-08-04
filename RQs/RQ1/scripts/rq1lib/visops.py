@@ -3,9 +3,14 @@
 from __future__ import annotations
 
 import hashlib
+import re
+import statistics
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
+from itertools import islice, pairwise
 from typing import Any
+
+import networkx as nx
 
 from .contracts import (
     AtomicFact,
@@ -17,6 +22,17 @@ from .contracts import (
 from .evidence import CanonicalEvidenceStore
 
 TASK_SCHEMA = "RCAVisOpsTaskV1"
+NORMALIZED_Z_ABS_CAP = 99.9
+
+
+def natural_panel_key(value: str) -> tuple[str, int, str]:
+    """Sort opaque display-panel IDs by prefix and numeric suffix."""
+
+    text = str(value)
+    match = re.fullmatch(r"([^0-9]*)([0-9]+)(.*)", text)
+    if match is None:
+        return (text, -1, "")
+    return (match.group(1), int(match.group(2)), match.group(3))
 
 
 def _hash_index(selection_seed: str, salt: str, length: int) -> int:
@@ -713,6 +729,443 @@ def metric_missingness_task(store: CanonicalEvidenceStore) -> VisOpsTask | None:
         ),
         derivation="maximum count over supplied per-bin missingness facts with ties retained",
     )
+
+
+def _normalized_series_fact(
+    store: CanonicalEvidenceStore, series_index: int
+) -> AtomicFact | None:
+    """Compress one metric series without exposing its derived onset answer."""
+
+    facts = _facts_for_series(store, series_index)
+    values = sorted(
+        (fact for fact in facts if fact.field == "value"),
+        key=lambda fact: int(fact.relative_bin or 0),
+    )
+    missing = sorted(
+        (fact for fact in facts if fact.field == "missing"),
+        key=lambda fact: int(fact.relative_bin or 0),
+    )
+    if len(values) < 16 or len(values) != len(missing):
+        return None
+    observed_baseline = [
+        float(fact.value)
+        for fact, mask in zip(values[:16], missing[:16])
+        if fact.value is not None and not bool(mask.value)
+    ]
+    if len(observed_baseline) < 4:
+        return None
+    baseline = statistics.median(observed_baseline)
+    mad = statistics.median(abs(value - baseline) for value in observed_baseline)
+    scale = max(1.4826 * mad, abs(baseline) * 0.01, 1e-9)
+
+    # Sixteen deterministic blocks retain the temporal pattern while keeping
+    # the complete T prompt inside the fixed 32k/16k context contract.
+    block_edges = [round(position * len(values) / 16) for position in range(17)]
+    z_values: list[float | None] = []
+    missing_blocks: list[bool] = []
+    parents: list[str] = []
+    for start, end in pairwise(block_edges):
+        block = [
+            float(values[index].value)
+            for index in range(start, end)
+            if values[index].value is not None and not bool(missing[index].value)
+        ]
+        parents.extend(
+            fact.fact_id
+            for index in range(start, end)
+            for fact in (values[index], missing[index])
+        )
+        missing_blocks.append(not block)
+        if not block:
+            z_values.append(None)
+        else:
+            raw_z = (statistics.median(block) - baseline) / scale
+            # Near-constant zero baselines can make a finite telemetry change
+            # explode to hundreds of millions of robust-z units.  The onset
+            # task uses only sign and the public |z| >= 3 threshold, so a
+            # symmetric cap preserves every task answer while keeping the
+            # identical T/V/H fact legible and numerically stable.
+            z_values.append(
+                round(
+                    max(-NORMALIZED_Z_ABS_CAP, min(NORMALIZED_Z_ABS_CAP, raw_z)),
+                    1,
+                )
+            )
+
+    panel = str(_field(facts, "panel_id").value)
+    service = str(_field(facts, "service").value)
+    metric = str(_field(facts, "metric").value)
+    identity = (
+        _field(facts, "panel_id"),
+        _field(facts, "service"),
+        _field(facts, "metric"),
+    )
+    return AtomicFact.from_source(
+        domain="metric",
+        field="normalized_series_16",
+        value={
+            "panel_id": panel,
+            "service": service,
+            "metric": metric,
+            "z_values": z_values,
+            "missing": missing_blocks,
+        },
+        source_pointer=f"/derived/rq1b2/normalized_series/{series_index}",
+        source_artifact_hash=store.source_artifact_hash,
+        entity=service,
+        unit="robust_z_one_decimal_winsorized_abs_99_9",
+        derived_from=(*[fact.fact_id for fact in identity], *parents),
+    )
+
+
+def _sustained_onset(fact: AtomicFact) -> int | None:
+    value = dict(fact.value)
+    z_values = list(value["z_values"])
+    missing = list(value["missing"])
+    for index in range(len(z_values) - 1):
+        left = z_values[index]
+        right = z_values[index + 1]
+        if (
+            not missing[index]
+            and not missing[index + 1]
+            and left is not None
+            and right is not None
+            and abs(float(left)) >= 3.0
+            and abs(float(right)) >= 3.0
+            and float(left) * float(right) > 0.0
+        ):
+            return index
+    return None
+
+
+def _temporal_composition_task(
+    store: CanonicalEvidenceStore,
+    *,
+    complexity: str,
+    series_count: int,
+) -> VisOpsTask | None:
+    series = [
+        fact
+        for index in _series_indices(store)
+        if (fact := _normalized_series_fact(store, index)) is not None
+    ]
+    series.sort(key=lambda fact: str(dict(fact.value)["panel_id"]))
+    if len(series) < series_count:
+        return None
+    if complexity == "high":
+        selected = series[:series_count]
+    else:
+        offset = _hash_index(
+            store.source_artifact_hash, "rq1b2_temporal_low_offset", len(series)
+        )
+        rotated = series[offset:] + series[:offset]
+        windows = [
+            rotated[index : index + series_count]
+            for index in range(len(rotated) - series_count + 1)
+        ]
+        selected = next(
+            (
+                window
+                for window in windows
+                if any(_sustained_onset(fact) is not None for fact in window)
+            ),
+            [],
+        )
+        if not selected:
+            return None
+
+    onsets = [(fact, _sustained_onset(fact)) for fact in selected]
+    eligible = [(fact, onset) for fact, onset in onsets if onset is not None]
+    if not eligible:
+        return None
+    earliest = min(int(onset) for _fact, onset in eligible if onset is not None)
+    answer = sorted(
+        str(dict(fact.value)["panel_id"])
+        for fact, onset in eligible
+        if onset == earliest
+    )
+    plan = {
+        "kind": "normalized_series_grid",
+        "complexity": complexity,
+        "threshold_abs_z": 3.0,
+        "winsorized_abs_z_max": NORMALIZED_Z_ABS_CAP,
+        "consecutive_bins": 2,
+        "series_fact_ids": [fact.fact_id for fact in selected],
+    }
+    return _make_task(
+        store=store,
+        operation=f"raw_temporal_onset_{complexity}",
+        family="answer_hidden_temporal_composition",
+        domains=("metric", "missingness"),
+        entities=sorted({str(fact.entity) for fact in selected}),
+        relative_bin_range=(0, 15),
+        aggregation="sixteen_robust_z_blocks_from_supplied_metric_bins",
+        facts=selected,
+        parameters={
+            "complexity": complexity,
+            "series_count": series_count,
+            "threshold_abs_z": 3.0,
+            "winsorized_abs_z_max": NORMALIZED_Z_ABS_CAP,
+            "consecutive_bins": 2,
+            "same_sign_required": True,
+            "tie_policy": "return_all_panel_ids_sorted",
+        },
+        question=(
+            "Using only the supplied normalized 16-bin series, define sustained "
+            "onset as the first of two consecutive observed bins whose absolute "
+            "z is at least 3.0 and whose signs agree. Which panel ID or tied panel "
+            "IDs have the earliest sustained onset?"
+        ),
+        render_plan=plan,
+        answer=answer,
+        answer_type="sorted_string_set",
+        supporting_fact_ids=tuple(fact.fact_id for fact in selected),
+        derivation=(
+            "derive each panel onset from the supplied normalized bins, then take "
+            "the minimum with complete ties; no onset fact is model-visible"
+        ),
+    )
+
+
+def _temporal_onset_ledger_task(
+    store: CanonicalEvidenceStore,
+    *,
+    series_count: int = 12,
+    operation: str = "panel_onset_ledger_high",
+) -> VisOpsTask | None:
+    """Build the RQ1b3 Stage-1 task without exposing derived onsets."""
+
+    series = [
+        fact
+        for index in _series_indices(store)
+        if (fact := _normalized_series_fact(store, index)) is not None
+    ]
+    series.sort(key=lambda fact: natural_panel_key(str(dict(fact.value)["panel_id"])))
+    if len(series) < series_count:
+        return None
+    selected = series[:series_count]
+    if not any(_sustained_onset(fact) is not None for fact in selected):
+        return None
+
+    ledger: list[dict[str, Any]] = []
+    for fact in selected:
+        value = dict(fact.value)
+        panel_id = str(value["panel_id"])
+        onset = _sustained_onset(fact)
+        if onset is None:
+            ledger.append(
+                {
+                    "panel_id": panel_id,
+                    "onset": None,
+                    "support_bins": [],
+                    "sign": None,
+                }
+            )
+            continue
+        left = float(value["z_values"][onset])
+        ledger.append(
+            {
+                "panel_id": panel_id,
+                "onset": onset,
+                "support_bins": [onset, onset + 1],
+                "sign": "positive" if left > 0 else "negative",
+            }
+        )
+
+    plan = {
+        "kind": "normalized_series_grid",
+        "complexity": "high",
+        "threshold_abs_z": 3.0,
+        "winsorized_abs_z_max": NORMALIZED_Z_ABS_CAP,
+        "consecutive_bins": 2,
+        "same_sign_required": True,
+        "series_fact_ids": [fact.fact_id for fact in selected],
+        "ledger_stage": 1,
+        "row_order": "natural_numeric",
+    }
+    return _make_task(
+        store=store,
+        operation=operation,
+        family="answer_hidden_temporal_composition",
+        domains=("metric", "missingness"),
+        entities=sorted({str(fact.entity) for fact in selected}),
+        relative_bin_range=(0, 15),
+        aggregation="sixteen_robust_z_blocks_from_supplied_metric_bins",
+        facts=selected,
+        parameters={
+            "complexity": "high",
+            "series_count": series_count,
+            "threshold_abs_z": 3.0,
+            "winsorized_abs_z_max": NORMALIZED_Z_ABS_CAP,
+            "consecutive_bins": 2,
+            "same_sign_required": True,
+            "ledger_order": "natural_numeric_panel_id",
+        },
+        question=(
+            "Using only the supplied normalized 16-bin series, derive every "
+            "panel's sustained onset. An onset is the first of two consecutive "
+            "observed bins whose absolute z is at least 3.0 and whose signs "
+            "agree. Return a complete per-panel onset ledger; use null when no "
+            "such pair exists."
+        ),
+        render_plan=plan,
+        answer={"panels": ledger},
+        answer_type="panel_onset_ledger",
+        supporting_fact_ids=tuple(fact.fact_id for fact in selected),
+        derivation=(
+            "derive every panel onset and supporting pair privately from the "
+            "supplied normalized bins; no onset or winner is model-visible"
+        ),
+    )
+
+
+def _unique_shortest_path(
+    graph: nx.DiGraph, source: str, target: str
+) -> list[str] | None:
+    try:
+        paths = list(islice(nx.all_shortest_paths(graph, source, target), 2))
+    except (nx.NetworkXNoPath, nx.NodeNotFound):
+        return None
+    return list(paths[0]) if len(paths) == 1 else None
+
+
+def _topology_composition_task(
+    store: CanonicalEvidenceStore,
+    *,
+    complexity: str,
+    minimum_hops: int,
+    maximum_hops: int,
+    target_edge_count: int,
+) -> VisOpsTask | None:
+    edge_facts = list(store.select(domain="topology", field="directed_call_edge"))
+    graph = nx.DiGraph()
+    fact_by_edge: dict[tuple[str, str], AtomicFact] = {}
+    for fact in edge_facts:
+        caller = str(fact.value["caller"])
+        callee = str(fact.value["callee"])
+        graph.add_edge(caller, callee)
+        fact_by_edge.setdefault((caller, callee), fact)
+    candidates: list[tuple[str, str, list[str]]] = []
+    for source in sorted(graph.nodes):
+        for target in sorted(graph.nodes):
+            if source == target:
+                continue
+            path = _unique_shortest_path(graph, source, target)
+            hops = len(path) - 1 if path else 0
+            if path and minimum_hops <= hops <= maximum_hops:
+                candidates.append((source, target, path))
+    if not candidates:
+        return None
+    selected_index = _hash_index(
+        store.source_artifact_hash,
+        f"rq1b2_topology_{complexity}_pair",
+        len(candidates),
+    )
+    source, target, path = candidates[selected_index]
+    path_edges = list(pairwise(path))
+    selected_edges = list(path_edges)
+    distractors = sorted(
+        (edge for edge in fact_by_edge if edge not in set(path_edges)),
+        key=lambda edge: hashlib.sha256(
+            f"{store.source_artifact_hash}:rq1b2:{complexity}:{edge[0]}:{edge[1]}".encode()
+        ).hexdigest(),
+    )
+    for edge in distractors:
+        if len(selected_edges) >= target_edge_count:
+            break
+        trial = nx.DiGraph()
+        trial.add_edges_from([*selected_edges, edge])
+        if _unique_shortest_path(trial, source, target) == path:
+            selected_edges.append(edge)
+    minimum_edges = len(path_edges) + (1 if complexity == "low" else 6)
+    if len(selected_edges) < minimum_edges:
+        return None
+    selected_facts = [fact_by_edge[edge] for edge in selected_edges]
+    plan = {
+        "kind": "topology",
+        "legend": "caller_to_callee",
+        "complexity": complexity,
+        "edge_fact_ids": [fact.fact_id for fact in selected_facts],
+        "path_fact_ids": [],
+    }
+    return _make_task(
+        store=store,
+        operation=f"directed_shortest_path_{complexity}",
+        family="answer_hidden_relational_composition",
+        domains=("topology",),
+        entities=sorted({node for edge in selected_edges for node in edge}),
+        relative_bin_range=None,
+        aggregation="derive_unique_shortest_path_from_supplied_directed_edges",
+        facts=selected_facts,
+        parameters={
+            "source": source,
+            "target": target,
+            "direction": "caller_to_callee",
+            "complexity": complexity,
+            "edge_count": len(selected_edges),
+            "minimum_hops": minimum_hops,
+            "maximum_hops": maximum_hops,
+        },
+        question=(
+            f"Using only the supplied caller -> callee edges, what unique shortest "
+            f"directed path connects {source} to {target}?"
+        ),
+        render_plan=plan,
+        answer=path,
+        answer_type="ordered_path",
+        supporting_fact_ids=tuple(fact_by_edge[edge].fact_id for edge in path_edges),
+        derivation=(
+            "unique unweighted shortest path derived privately from the supplied "
+            "directed edges; no path fact is model-visible"
+        ),
+    )
+
+
+def build_compositional_visops_tasks(
+    store: CanonicalEvidenceStore,
+) -> tuple[VisOpsTask, ...]:
+    """Build answer-hidden low/high tasks plus one exact-lookup control."""
+
+    tasks = (
+        metric_exact_lookup_task(store),
+        _temporal_composition_task(store, complexity="low", series_count=4),
+        _temporal_composition_task(store, complexity="high", series_count=12),
+        _topology_composition_task(
+            store,
+            complexity="low",
+            minimum_hops=2,
+            maximum_hops=2,
+            target_edge_count=6,
+        ),
+        _topology_composition_task(
+            store,
+            complexity="high",
+            minimum_hops=3,
+            maximum_hops=5,
+            target_edge_count=16,
+        ),
+    )
+    return tuple(task for task in tasks if task is not None)
+
+
+def build_two_stage_onset_tasks(
+    store: CanonicalEvidenceStore,
+) -> tuple[VisOpsTask, ...]:
+    """Build the RQ1b3 Stage-1 onset-ledger task."""
+
+    task = _temporal_onset_ledger_task(store)
+    return (task,) if task is not None else ()
+
+
+def build_two_stage_onset_tasks_v2(
+    store: CanonicalEvidenceStore,
+) -> tuple[VisOpsTask, ...]:
+    """Build the DD-31 compact-transport RQ1b3 Stage-1 task."""
+
+    task = _temporal_onset_ledger_task(
+        store, operation="panel_onset_ledger_high_compact"
+    )
+    return (task,) if task is not None else ()
 
 
 def build_visops_tasks(store: CanonicalEvidenceStore) -> tuple[VisOpsTask, ...]:

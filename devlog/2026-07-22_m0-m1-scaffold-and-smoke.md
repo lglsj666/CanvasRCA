@@ -2,7 +2,7 @@
 
 ## What happened
 
-Initiated the VLM-RCA project from an empty git scaffold. Both M0 and M1 are
+Initiated the CanvasRCA project from an empty git scaffold. Both M0 and M1 are
 complete and the end-to-end pipeline runs against a real model.
 
 **Pipeline built.** `case → dashboard PNG → VLM → parse → score → JSONL + summary`,

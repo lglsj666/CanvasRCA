@@ -1,0 +1,13 @@
+VIEW {"fact_inventory_hash":"b642ff83b96fd91458687fb04ca1495cc54ec979c30abbb9efcafa8ab14df87a","query_hash":"cabcf380ad6d0e0576919a470e4748c0a756ec913aa07a3deb50176be91c7f87","query_id":"Q-91C5E84C97E9C2A9","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-preserve-service-6fcc4f849f-px87b","fact_id":"FD729D7778C61","field":"metric","relative_bin":null,"unit":null,"value":"k8s.container.restarts"}
+FACT {"domain":"metric","entity":"ts-preserve-service-6fcc4f849f-px87b","fact_id":"FADDCDB9EB1FE","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"ts-preserve-service-6fcc4f849f-px87b","fact_id":"FBA952EE7D1E4","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":23}
+FACT {"domain":"metric","entity":"ts-preserve-service-6fcc4f849f-px87b","fact_id":"F2F7072F55F29","field":"service","relative_bin":null,"unit":null,"value":"ts-preserve-service-6fcc4f849f-px87b"}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"F00BBF153F78B","field":"metric","relative_bin":null,"unit":null,"value":"container.filesystem.usage"}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"F25BB1DFCD62C","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"FC7D6505AACE8","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":32}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"F22001793E06F","field":"service","relative_bin":null,"unit":null,"value":"ts-preserve-service"}
+FACT {"domain":"metric","entity":"ts-inside-payment-service","fact_id":"F0BBFC26ECC55","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.cpu.node.utilization"}
+FACT {"domain":"metric","entity":"ts-inside-payment-service","fact_id":"FBA1A912CAFAF","field":"panel_id","relative_bin":null,"unit":null,"value":"M3"}
+FACT {"domain":"metric","entity":"ts-inside-payment-service","fact_id":"F3DD04A007210","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":2}
+FACT {"domain":"metric","entity":"ts-inside-payment-service","fact_id":"FA93D15BC8A9C","field":"service","relative_bin":null,"unit":null,"value":"ts-inside-payment-service"}

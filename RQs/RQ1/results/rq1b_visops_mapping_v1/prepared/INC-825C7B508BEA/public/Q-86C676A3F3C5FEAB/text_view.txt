@@ -1,0 +1,9 @@
+VIEW {"fact_inventory_hash":"7c4ea2195a6ad25477c360b16b982f3f16be44710937c0d20b973e25ca19a5d1","query_hash":"cea557279c4ae867a290d4f6f2e30107380c9705cf1207dd72fc1b5353b4c5d6","query_id":"Q-86C676A3F3C5FEAB","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"adservice-0","fact_id":"FE0E82F5AC4B7","field":"metric","relative_bin":null,"unit":null,"value":"container_cpu_system_seconds"}
+FACT {"domain":"metric","entity":"adservice-0","fact_id":"F03597DCCDBB1","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"adservice-0","fact_id":"F50DF9D23ACBE","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":5}
+FACT {"domain":"metric","entity":"adservice-0","fact_id":"FA6AEEFF340FB","field":"service","relative_bin":null,"unit":null,"value":"adservice-0"}
+FACT {"domain":"metric","entity":"adservice-1","fact_id":"F7863C018891B","field":"metric","relative_bin":null,"unit":null,"value":"container_cpu_system_seconds"}
+FACT {"domain":"metric","entity":"adservice-1","fact_id":"F9645892955D5","field":"panel_id","relative_bin":null,"unit":null,"value":"M9"}
+FACT {"domain":"metric","entity":"adservice-1","fact_id":"FF6F382FD007B","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":3}
+FACT {"domain":"metric","entity":"adservice-1","fact_id":"F06FF7F8497BA","field":"service","relative_bin":null,"unit":null,"value":"adservice-1"}

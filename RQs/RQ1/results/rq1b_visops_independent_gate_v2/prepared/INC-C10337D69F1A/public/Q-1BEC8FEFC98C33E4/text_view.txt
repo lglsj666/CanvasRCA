@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"b6174cc4122189180c8525960faaf245e9ff5deb3abbdd582611d92586c8fdf6","query_hash":"1fd52282404ac1ccc41b41b3aabb27181c55e8e41d40af24bd2751e1f43d7c88","query_id":"Q-1BEC8FEFC98C33E4","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"log","entity":"ts-seat-service","fact_id":"F30CDB6D7347C","field":"bin_center_rel_s","relative_bin":14,"unit":"relative_seconds","value":107.989108}
+FACT {"domain":"log","entity":"ts-seat-service","fact_id":"F1CC722764422","field":"dominant_template","relative_bin":14,"unit":null,"value":"[getdirectproportion][configs is : config(name=directticketallocationproportion, value=<v>, description=allocation proportion of the direct ticket - from start to end)]"}
+FACT {"domain":"log","entity":"ts-seat-service","fact_id":"F40F382C2C9D3","field":"dominant_template_count","relative_bin":14,"unit":"events","value":71}
+FACT {"domain":"log","entity":"ts-seat-service","fact_id":"F3787F166BFB8","field":"dominant_template_id","relative_bin":14,"unit":null,"value":"LT-5E625DBB49F4"}
+FACT {"domain":"log","entity":"ts-seat-service","fact_id":"F2AC6817D0100","field":"error_count","relative_bin":14,"unit":"events","value":0}
+FACT {"domain":"log","entity":"ts-seat-service","fact_id":"F380F8F279D3F","field":"event_count","relative_bin":14,"unit":"events","value":360}
+FACT {"domain":"log","entity":"ts-seat-service","fact_id":"F13C2C1B7E4F2","field":"service","relative_bin":14,"unit":null,"value":"ts-seat-service"}

@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"a1064a87720db5cdf071d803824a633e4a999a50915c3ce0f47918b8dd081ba0","query_hash":"17b587c6d8f87526a3919a21f193345e24a036a64f9adbeedb279e0fc87db1a3","query_id":"Q-B61E2CE3607F70A2","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-travel-plan-service","fact_id":"F87D9117AFA0E","field":"bin_center_rel_s","relative_bin":7,"unit":"relative_seconds","value":56.194}
+FACT {"domain":"metric","entity":"ts-travel-plan-service","fact_id":"FC78ECBD897D8","field":"metric","relative_bin":null,"unit":null,"value":"hubble_http_request_duration_p90_seconds"}
+FACT {"domain":"missingness","entity":"ts-travel-plan-service","fact_id":"FD3933B375D71","field":"missing","relative_bin":7,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"ts-travel-plan-service","fact_id":"FC19477D84E57","field":"observed_count","relative_bin":7,"unit":null,"value":1}
+FACT {"domain":"metric","entity":"ts-travel-plan-service","fact_id":"F2ED8BE643F85","field":"panel_id","relative_bin":null,"unit":null,"value":"M10"}
+FACT {"domain":"metric","entity":"ts-travel-plan-service","fact_id":"F985B593418C7","field":"service","relative_bin":null,"unit":null,"value":"ts-travel-plan-service"}
+FACT {"domain":"metric","entity":"ts-travel-plan-service","fact_id":"FA3EF56E805E3","field":"value","relative_bin":7,"unit":"native","value":0.433333}

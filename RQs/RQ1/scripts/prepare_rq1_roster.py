@@ -43,6 +43,7 @@ def _prepare_one(
     private_case_id: str,
     opaque_incident_id: str,
     output_root: str,
+    task_profile: str,
 ) -> dict[str, Any]:
     output = Path(output_root) / opaque_incident_id
     existing = output / "manifest.json"
@@ -66,7 +67,9 @@ def _prepare_one(
     if ceb["opaque_incident_id"] != opaque_incident_id:
         raise ContractError("private/public roster identity differs from prepared case")
     store = build_evidence_store_v2(ceb, dense, private_markers=private_markers)
-    prepared = prepare_store(store, private_markers=private_markers)
+    prepared = prepare_store(
+        store, private_markers=private_markers, task_profile=task_profile
+    )
     manifest = write_prepared_artifacts(
         prepared,
         output_dir=output,
@@ -115,6 +118,7 @@ def main() -> int:
             str(row["private_case_id"]),
             str(row["opaque_incident_id"]),
             str(output),
+            str(config["visops"].get("task_profile", "legacy_visops_v2")),
         )
         for row in private["cases"]
     ]

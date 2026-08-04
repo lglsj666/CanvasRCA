@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"ebe276d8df6f96d12f4c7325cc049837e53a12c3e8f703c4180ef1e640d5a1c7","query_hash":"6249a59256309d691564d92f29e5f54abb61e22c98e395f8147fb3e25a546968","query_id":"Q-72D19ABA3C0E8EE3","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-train-service","fact_id":"F8B0FCB0BAD51","field":"bin_center_rel_s","relative_bin":40,"unit":"relative_seconds","value":303.372}
+FACT {"domain":"metric","entity":"ts-train-service","fact_id":"FA01598727A32","field":"metric","relative_bin":null,"unit":null,"value":"hubble_http_request_duration_p99_seconds"}
+FACT {"domain":"missingness","entity":"ts-train-service","fact_id":"FFADCE316CA4F","field":"missing","relative_bin":40,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"ts-train-service","fact_id":"F9729F0667A85","field":"observed_count","relative_bin":40,"unit":null,"value":1}
+FACT {"domain":"metric","entity":"ts-train-service","fact_id":"F1CD8C0D95C49","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"ts-train-service","fact_id":"FB2608E6BADC9","field":"service","relative_bin":null,"unit":null,"value":"ts-train-service"}
+FACT {"domain":"metric","entity":"ts-train-service","fact_id":"FEACE22BDDA38","field":"value","relative_bin":40,"unit":"native","value":0.009767}

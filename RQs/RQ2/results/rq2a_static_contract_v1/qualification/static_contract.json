@@ -1,0 +1,77 @@
+{
+  "schema_version": "RQ2AStaticQualificationV1",
+  "status": "passed_static_contract_only",
+  "inference_authorized": false,
+  "contracts": {
+    "protocol_sha256": "407debbb68f7203a30aca8e66718cbeab1d8b55d46141fcf3a1cfedfd7185844",
+    "config_sha256": "514a611ecdec7da637d7d21b8ded37640ad2a6cb75f4c15c99d2890c5b7d8599",
+    "factorial_library_sha256": "fcb8856e647e052baf52edc1e7560bb8eac1f4e044066714b88dffee3701ded2",
+    "render_plan_contract_sha256": "620cd3d1aafb016bc8c65470ce287e535c32fe6a85ca648e888b9766a8bcc749",
+    "static_checker_sha256": "f269a01afdc2e7fd452ba0a6c11352374c48cbcfac70be32a86045485e07cddc"
+  },
+  "layout": {
+    "required_dirs": [
+      "configs",
+      "descriptions",
+      "findings",
+      "results",
+      "scripts",
+      "src"
+    ],
+    "src_empty": true
+  },
+  "factorial": {
+    "cell_count": 16,
+    "main_effect_anchor_pairs": {
+      "A": 8,
+      "G": 8,
+      "M": 8,
+      "O": 8
+    },
+    "two_factor_anchor_groups": {
+      "AO": 4,
+      "GA": 4,
+      "GO": 4,
+      "MA": 4,
+      "MG": 4,
+      "MO": 4
+    }
+  },
+  "data_feasibility": {
+    "eligible_exposed_total": 991,
+    "reusable_executed_by_dataset": {
+      "aegislab": 124,
+      "aiops2022": 125,
+      "aiops2025": 124
+    },
+    "unused_outside_every_frozen_roster_by_dataset": {
+      "aegislab": 94,
+      "aiops2022": 115,
+      "aiops2025": 109
+    },
+    "unused_total": 318,
+    "locked_gate_rosters_preserved": [
+      "rq1b2_gate_private_v1.json",
+      "rq1b3_gate_private_v1.json"
+    ]
+  },
+  "power": {
+    "development_mde": 0.130132,
+    "independent_mde_sd_0.36": 0.082303,
+    "independent_mde_sd_0.50": 0.11431
+  },
+  "verification": {
+    "rq2_tests_passed": 9,
+    "ruff": "passed"
+  },
+  "remaining_blocks": [
+    "frozen RQ2 exposure ledger and qualified rosters",
+    "all sixteen deterministic renderer cells",
+    "answer-hidden operation compiler",
+    "fact parity and leakage audit",
+    "manual visual review",
+    "partition-aware smoke",
+    "analysis freeze",
+    "runtime freeze and separate inference authorization"
+  ]
+}

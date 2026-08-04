@@ -1,0 +1,10 @@
+# RQ1b3 Stage 2 — Q-9C7214E113CF4FB8 — T
+
+- opaque incident: `INC-5D0E7886DB70`
+- condition: `main`
+- ledger hash: `c9df4cb0a4d5ff59e15ffe00d559e0dd5fd9151402a0842110e4e0bf3133e75f`
+- original image/text access: `false`
+
+## Response
+
+{"answer":["M5","M6","M7"]}

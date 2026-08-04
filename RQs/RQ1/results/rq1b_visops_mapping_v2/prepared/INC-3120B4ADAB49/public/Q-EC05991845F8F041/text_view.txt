@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"862e6ae2520aa23ecd324ea6a51155ba7b10459334cc2e895cfadbe0c81557de","query_hash":"163c642e81c81ae6e538d731c6b3da7614fa08166e8269692f9ad7d05f8a8541","query_id":"Q-EC05991845F8F041","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"log","entity":"shippingservice-2","fact_id":"F93183C4AF627","field":"bin_center_rel_s","relative_bin":53,"unit":"relative_seconds","value":1956.09375}
+FACT {"domain":"log","entity":"shippingservice-2","fact_id":"F38A1169DFC1F","field":"dominant_template","relative_bin":53,"unit":null,"value":"severity: info, message: [getquote] completed request"}
+FACT {"domain":"log","entity":"shippingservice-2","fact_id":"FF299871B9800","field":"dominant_template_count","relative_bin":53,"unit":"events","value":19}
+FACT {"domain":"log","entity":"shippingservice-2","fact_id":"F58180664A123","field":"dominant_template_id","relative_bin":53,"unit":null,"value":"LT-1E12D5B7E9B1"}
+FACT {"domain":"log","entity":"shippingservice-2","fact_id":"F4EB3E4E8BDD0","field":"error_count","relative_bin":53,"unit":"events","value":0}
+FACT {"domain":"log","entity":"shippingservice-2","fact_id":"F8A0874BF17B2","field":"event_count","relative_bin":53,"unit":"events","value":79}
+FACT {"domain":"log","entity":"shippingservice-2","fact_id":"F699BDDB78DF6","field":"service","relative_bin":53,"unit":null,"value":"shippingservice-2"}

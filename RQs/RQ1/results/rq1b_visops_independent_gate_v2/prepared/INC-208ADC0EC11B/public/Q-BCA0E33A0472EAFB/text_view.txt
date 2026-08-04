@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"6d5141b6efe406dce7fa89f3404fc9439d769ef6ac985b0713c8f4ae1177937f","query_hash":"1b610269442a427e6d80665ff989eaa8a4e8bc2bdddf07dc999e7b10efed9af7","query_id":"Q-BCA0E33A0472EAFB","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-food-service","fact_id":"FBC9F0F2030DD","field":"metric","relative_bin":null,"unit":null,"value":"hubble_http_request_duration_p95_seconds"}
+FACT {"domain":"metric","entity":"ts-food-service","fact_id":"F30A3BB23A0AE","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"ts-food-service","fact_id":"F50D160DB0B0E","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"ts-food-service","fact_id":"FB2F401D1DAEC","field":"service","relative_bin":null,"unit":null,"value":"ts-food-service"}
+FACT {"domain":"metric","entity":"ts-user-service","fact_id":"F7F884BE709EB","field":"metric","relative_bin":null,"unit":null,"value":"hubble_http_request_duration_p90_seconds"}
+FACT {"domain":"metric","entity":"ts-user-service","fact_id":"F17166485A945","field":"panel_id","relative_bin":null,"unit":null,"value":"M3"}
+FACT {"domain":"metric","entity":"ts-user-service","fact_id":"FD336E238462C","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"ts-user-service","fact_id":"F83F2DC54751B","field":"service","relative_bin":null,"unit":null,"value":"ts-user-service"}
+FACT {"domain":"metric","entity":"ts-assurance-service","fact_id":"F3D53C70F4FB2","field":"metric","relative_bin":null,"unit":null,"value":"container.cpu.usage"}
+FACT {"domain":"metric","entity":"ts-assurance-service","fact_id":"FC3380B82D915","field":"panel_id","relative_bin":null,"unit":null,"value":"M4"}
+FACT {"domain":"metric","entity":"ts-assurance-service","fact_id":"F9D6E99B61259","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":2}
+FACT {"domain":"metric","entity":"ts-assurance-service","fact_id":"FBF7293BC7A8C","field":"service","relative_bin":null,"unit":null,"value":"ts-assurance-service"}
+FACT {"domain":"metric","entity":"loadgenerator","fact_id":"F9DDF30A687AE","field":"metric","relative_bin":null,"unit":null,"value":"container.cpu.usage"}
+FACT {"domain":"metric","entity":"loadgenerator","fact_id":"F5260B8E8B217","field":"panel_id","relative_bin":null,"unit":null,"value":"M5"}
+FACT {"domain":"metric","entity":"loadgenerator","fact_id":"FDB75326923BB","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":2}
+FACT {"domain":"metric","entity":"loadgenerator","fact_id":"FC6638A637CDC","field":"service","relative_bin":null,"unit":null,"value":"loadgenerator"}

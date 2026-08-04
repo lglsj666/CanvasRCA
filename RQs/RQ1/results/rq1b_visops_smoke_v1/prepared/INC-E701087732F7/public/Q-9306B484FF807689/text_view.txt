@@ -1,0 +1,13 @@
+VIEW {"fact_inventory_hash":"8bd3a60554405ad7d8e4fb4fea0dc4d5fe130b1722b99c223644e241727915fa","query_hash":"e6dffe04f1c6db5919d52034c4cbb579b54391e09b19273a5af978092e4189ba","query_id":"Q-9306B484FF807689","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"adservice2-0","fact_id":"F26C3962A684B","field":"metric","relative_bin":null,"unit":null,"value":"istio_request_duration_milliseconds.http.202."}
+FACT {"domain":"metric","entity":"adservice2-0","fact_id":"FCD7501B90879","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"adservice2-0","fact_id":"F0DB1D8773647","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":5}
+FACT {"domain":"metric","entity":"adservice2-0","fact_id":"FDB162644ED95","field":"service","relative_bin":null,"unit":null,"value":"adservice2-0"}
+FACT {"domain":"metric","entity":"node-6","fact_id":"F932C8A12385E","field":"metric","relative_bin":null,"unit":null,"value":"system.disk.total"}
+FACT {"domain":"metric","entity":"node-6","fact_id":"F68551DC7CFAE","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"node-6","fact_id":"F92134C2C5BDA","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":2}
+FACT {"domain":"metric","entity":"node-6","fact_id":"FC458160E3A23","field":"service","relative_bin":null,"unit":null,"value":"node-6"}
+FACT {"domain":"metric","entity":"recommendationservice2-0","fact_id":"F7359E6381110","field":"metric","relative_bin":null,"unit":null,"value":"container_memory_working_set_MB"}
+FACT {"domain":"metric","entity":"recommendationservice2-0","fact_id":"F556342F65807","field":"panel_id","relative_bin":null,"unit":null,"value":"M11"}
+FACT {"domain":"metric","entity":"recommendationservice2-0","fact_id":"FEBC17778142D","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":7}
+FACT {"domain":"metric","entity":"recommendationservice2-0","fact_id":"F97C3D9F983FA","field":"service","relative_bin":null,"unit":null,"value":"recommendationservice2-0"}

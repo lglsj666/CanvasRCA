@@ -9,40 +9,42 @@ the evaluation harness never branches on provider.
 from __future__ import annotations
 
 import base64
+import json
 import os
 import time
-import json
 import urllib.request
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from vlmrca.vlm.configs import VLMConfig, get_config, load_env
-
 
 # --------------------------------------------------------------------------- #
 # Backend-neutral message parts                                               #
 # --------------------------------------------------------------------------- #
 
 
-def text_part(s: str) -> Dict[str, Any]:
+def text_part(s: str) -> dict[str, Any]:
     return {"type": "text", "text": s}
 
 
-def image_part(png_bytes: bytes) -> Dict[str, Any]:
+def image_part(png_bytes: bytes) -> dict[str, Any]:
     return {"type": "image", "png": png_bytes}
 
 
 def _openai_messages(parts, system):
-    content: List[Dict[str, Any]] = []
+    content: list[dict[str, Any]] = []
     for p in parts:
         if p["type"] == "text":
             content.append({"type": "text", "text": p["text"]})
         else:
             b64 = base64.b64encode(p["png"]).decode()
             content.append(
-                {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64}"}}
+                {
+                    "type": "image_url",
+                    "image_url": {"url": f"data:image/png;base64,{b64}"},
+                }
             )
-    messages: List[Dict[str, Any]] = []
+    messages: list[dict[str, Any]] = []
     if system:
         messages.append({"role": "system", "content": system})
     messages.append({"role": "user", "content": content})
@@ -50,11 +52,11 @@ def _openai_messages(parts, system):
 
 
 def count_vllm_prompt_tokens(
-    parts: List[Dict[str, Any]],
+    parts: list[dict[str, Any]],
     model: str | VLMConfig,
-    system: Optional[str] = None,
+    system: str | None = None,
     text_only: bool = False,
-) -> Optional[int]:
+) -> int | None:
     """Count a prompt with vLLM's live multimodal chat tokenizer.
 
     With ``text_only=True``, image parts are removed. RQ0 reports image tokens
@@ -62,6 +64,11 @@ def count_vllm_prompt_tokens(
     server-side chat template, including Qwen's thinking switch.
     """
     cfg = model if isinstance(model, VLMConfig) else get_config(model)
+    # Match ``call_vlm``: local vLLM endpoint settings live in the shared .env
+    # and must be loaded before reading ``base_url_env``.  Without this, a
+    # direct registered-run invocation can fail token preflight without ever
+    # contacting the healthy server.
+    load_env()
     if cfg.backend != "openai" or not cfg.base_url_env:
         return None
     base_url = os.environ.get(cfg.base_url_env)
@@ -71,12 +78,11 @@ def count_vllm_prompt_tokens(
         [part for part in parts if part["type"] == "text"] if text_only else parts
     )
     messages = _openai_messages(counted_parts, system)
-    payload: Dict[str, Any] = {"model": cfg.model_id, "messages": messages}
+    payload: dict[str, Any] = {"model": cfg.model_id, "messages": messages}
     if cfg.thinking_via_template:
         payload["chat_template_kwargs"] = {"enable_thinking": cfg.thinking}
     endpoint = base_url.rstrip("/")
-    if endpoint.endswith("/v1"):
-        endpoint = endpoint[:-3]
+    endpoint = endpoint.removesuffix("/v1")
     request = urllib.request.Request(
         endpoint.rstrip("/") + "/tokenize",
         data=json.dumps(payload).encode("utf-8"),
@@ -91,7 +97,7 @@ def count_vllm_prompt_tokens(
             request, timeout=cfg.request_timeout_s or 1800.0
         ) as response:
             return int(json.loads(response.read()).get("count", 0))
-    except Exception:
+    except Exception:  # noqa: BLE001 - tokenizer preflight reports failure as None
         return None
 
 
@@ -102,7 +108,7 @@ class VLMResponse:
     output_tokens: int = 0
     latency_s: float = 0.0
     model_tag: str = ""
-    raw: Optional[Dict[str, Any]] = field(default=None, repr=False)
+    raw: dict[str, Any] | None = field(default=None, repr=False)
 
     @property
     def total_tokens(self) -> int:
@@ -119,10 +125,12 @@ class VLMError(RuntimeError):
 
 
 def call_vlm(
-    parts: List[Dict[str, Any]],
+    parts: list[dict[str, Any]],
     model: str | VLMConfig = "mock",
-    system: Optional[str] = None,
+    system: str | None = None,
     max_retries: int = 3,
+    response_format: dict[str, Any] | None = None,
+    guided_regex: str | None = None,
 ) -> VLMResponse:
     """
     Send one user turn made of text and image parts, return the reply.
@@ -133,8 +141,14 @@ def call_vlm(
     """
     cfg = model if isinstance(model, VLMConfig) else get_config(model)
     load_env()
+    if response_format is not None and guided_regex is not None:
+        raise VLMError("response_format and guided_regex are mutually exclusive")
+    if (response_format is not None or guided_regex is not None) and cfg.backend != "openai":
+        raise VLMError(
+            "structured output is supported only by the OpenAI-compatible backend"
+        )
 
-    last: Optional[Exception] = None
+    last: Exception | None = None
     for attempt in range(max_retries):
         try:
             t0 = time.time()
@@ -143,7 +157,13 @@ def call_vlm(
             elif cfg.backend == "bedrock":
                 resp = _call_bedrock(parts, cfg, system)
             elif cfg.backend == "openai":
-                resp = _call_openai(parts, cfg, system)
+                resp = _call_openai(
+                    parts,
+                    cfg,
+                    system,
+                    response_format=response_format,
+                    guided_regex=guided_regex,
+                )
             elif cfg.backend == "gemini":
                 resp = _call_gemini(parts, cfg, system)
             elif cfg.backend == "anthropic":
@@ -166,7 +186,7 @@ def call_vlm(
             last = exc
             if attempt == max_retries - 1:
                 break
-            time.sleep(2 ** attempt)
+            time.sleep(2**attempt)
     raise VLMError(f"{cfg.tag} failed after {max_retries} attempts: {last}") from last
 
 
@@ -187,7 +207,7 @@ def _call_mock(parts, cfg, system) -> VLMResponse:
     import re
 
     blob = "\n".join(p["text"] for p in parts if p["type"] == "text")
-    services = re.findall(r"^\s*\d+\.\s+([A-Za-z0-9_.\-]+)", blob, flags=re.M)
+    services = re.findall(r"^\s*\d+\.\s+([A-Za-z0-9_.\-]+)", blob, flags=re.MULTILINE)
     if not services:
         services = re.findall(r"\b([a-z][a-z0-9\-]*service)\b", blob)
     ranked, seen = [], set()
@@ -214,7 +234,7 @@ def _call_bedrock(parts, cfg, system) -> VLMResponse:
     region = os.environ.get("AWS_REGION_NAME", "us-east-1")
     client = boto3.client("bedrock-runtime", region_name=region)
 
-    content: List[Dict[str, Any]] = []
+    content: list[dict[str, Any]] = []
     for p in parts:
         if p["type"] == "text":
             content.append({"text": p["text"]})
@@ -224,13 +244,13 @@ def _call_bedrock(parts, cfg, system) -> VLMResponse:
     # Send temperature/topP only when the config asks for them. The Claude 5
     # models on Bedrock reject both outright, so passing a "harmless" 0.0 fails
     # every case with a ValidationException rather than degrading gracefully.
-    inference: Dict[str, Any] = {"maxTokens": cfg.max_tokens}
+    inference: dict[str, Any] = {"maxTokens": cfg.max_tokens}
     if cfg.temperature is not None:
         inference["temperature"] = cfg.temperature
     if cfg.top_p is not None:
         inference["topP"] = cfg.top_p
 
-    kwargs: Dict[str, Any] = {
+    kwargs: dict[str, Any] = {
         "modelId": cfg.model_id,
         "messages": [{"role": "user", "content": content}],
         "inferenceConfig": inference,
@@ -240,7 +260,8 @@ def _call_bedrock(parts, cfg, system) -> VLMResponse:
 
     out = client.converse(**kwargs)
     text = "".join(
-        b.get("text", "") for b in out.get("output", {}).get("message", {}).get("content", [])
+        b.get("text", "")
+        for b in out.get("output", {}).get("message", {}).get("content", [])
     )
     usage = out.get("usage", {})
     return VLMResponse(
@@ -251,14 +272,16 @@ def _call_bedrock(parts, cfg, system) -> VLMResponse:
     )
 
 
-def _call_openai(parts, cfg, system) -> VLMResponse:
+def _call_openai(
+    parts, cfg, system, response_format=None, guided_regex: str | None = None
+) -> VLMResponse:
     from openai import OpenAI
 
     base_url = os.environ.get(cfg.base_url_env) if cfg.base_url_env else None
     api_key = os.environ.get(cfg.api_key_env or "OPENAI_API_KEY")
     if base_url and not api_key:
         api_key = "EMPTY"  # vLLM ignores the key but the SDK requires one
-    client_kwargs: Dict[str, Any] = {"api_key": api_key}
+    client_kwargs: dict[str, Any] = {"api_key": api_key}
     if base_url:
         client_kwargs["base_url"] = base_url
     if cfg.request_timeout_s is not None:
@@ -272,7 +295,7 @@ def _call_openai(parts, cfg, system) -> VLMResponse:
     # Gemma bake-off cells silently ran at temperature 1.0 / top_k 64 / top_p
     # 0.95 while the Qwens ran greedy. `cfg.extra` is splatted last so a model
     # can still override, but the registry keeps it empty.
-    kwargs: Dict[str, Any] = {
+    kwargs: dict[str, Any] = {
         "model": cfg.model_id,
         "messages": messages,
         "max_completion_tokens": cfg.max_tokens,
@@ -283,6 +306,12 @@ def _call_openai(parts, cfg, system) -> VLMResponse:
         kwargs["top_p"] = cfg.top_p
     if cfg.seed is not None:
         kwargs["seed"] = cfg.seed
+    if response_format is not None:
+        kwargs["response_format"] = response_format
+    if guided_regex is not None:
+        kwargs.setdefault("extra_body", {})["structured_outputs"] = {
+            "regex": guided_regex
+        }
     if cfg.thinking_via_template:
         # Qwen3.5/3.6 pre-fill an open <think> unless told otherwise; with
         # enable_thinking=False the template emits a closed empty block instead.
@@ -315,7 +344,7 @@ def _call_gemini(parts, cfg, system) -> VLMResponse:
     from google.genai import types
 
     client = genai.Client(api_key=os.environ.get(cfg.api_key_env or "GEMINI_API_KEY"))
-    contents: List[Any] = []
+    contents: list[Any] = []
     for p in parts:
         if p["type"] == "text":
             contents.append(p["text"])
@@ -324,7 +353,7 @@ def _call_gemini(parts, cfg, system) -> VLMResponse:
 
     # None is already "unset" to this SDK, but build it the same way as the other
     # backends so the "None means do not send" rule holds everywhere.
-    gen_kwargs: Dict[str, Any] = {
+    gen_kwargs: dict[str, Any] = {
         "max_output_tokens": cfg.max_tokens,
         "system_instruction": system or None,
     }
@@ -335,7 +364,9 @@ def _call_gemini(parts, cfg, system) -> VLMResponse:
     if cfg.seed is not None:
         gen_kwargs["seed"] = cfg.seed
     gen_cfg = types.GenerateContentConfig(**gen_kwargs)
-    out = client.models.generate_content(model=cfg.model_id, contents=contents, config=gen_cfg)
+    out = client.models.generate_content(
+        model=cfg.model_id, contents=contents, config=gen_cfg
+    )
     usage = getattr(out, "usage_metadata", None)
     return VLMResponse(
         text=out.text or "",
@@ -347,8 +378,10 @@ def _call_gemini(parts, cfg, system) -> VLMResponse:
 def _call_anthropic(parts, cfg, system) -> VLMResponse:
     import anthropic
 
-    client = anthropic.Anthropic(api_key=os.environ.get(cfg.api_key_env or "ANTHROPIC_API_KEY"))
-    content: List[Dict[str, Any]] = []
+    client = anthropic.Anthropic(
+        api_key=os.environ.get(cfg.api_key_env or "ANTHROPIC_API_KEY")
+    )
+    content: list[dict[str, Any]] = []
     for p in parts:
         if p["type"] == "text":
             content.append({"type": "text", "text": p["text"]})
@@ -363,7 +396,7 @@ def _call_anthropic(parts, cfg, system) -> VLMResponse:
                     },
                 }
             )
-    kwargs: Dict[str, Any] = {
+    kwargs: dict[str, Any] = {
         "model": cfg.model_id,
         "max_tokens": cfg.max_tokens,
         "messages": [{"role": "user", "content": content}],

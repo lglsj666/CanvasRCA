@@ -1,45 +1,34 @@
 ---
 name: design-decision
-description: Record an irreversible or load-bearing design decision with its evidence and alternatives. Use when choosing between approaches that later work will depend on, or when a result settles a question that was previously open.
+description: Record an evidence-backed CanvasRCA design decision and its consequences. Use when choosing a load-bearing project approach, freezing a protocol, or documenting why a result changes future work.
 ---
 
 # Design decisions
 
-`plans/design_decisions.md` is the project's record of *why*. It exists so a
-decision is not silently re-litigated, and so the paper's methodology section
-can be written from evidence rather than memory.
+Read `Codex.md` and route the decision correctly:
 
-## When to add one
+- put project-wide, non-RQ decisions in `plans/design_decisions.md`;
+- put RQ protocol and preregistration decisions in
+  `RQs/<rq>/descriptions/`;
+- put final RQ conclusions in `RQs/<rq>/findings/`.
 
-- A choice that later work depends on (reuse strategy, scoring convention, frozen config).
-- A result that closes an open question (an RQ1 axis that did or did not help).
-- A workaround that constrains future options (a cluster limitation, a dataset quirk).
-
-Not for reversible implementation details.
-
-## Format
+Use this structure:
 
 ```markdown
-## DD-<n>: <decision in one line>
+## DD-<n>: <decision>
 **Date:** YYYY-MM-DD
-**Status:** adopted | superseded by DD-<m> | provisional
+**Status:** adopted | provisional | superseded by DD-<m>
 
-**Context.** What question came up and why it needed settling.
-
-**Decision.** What was chosen.
-
-**Rationale.** Why, with evidence — numbers, CIs, or the concrete failure that
-ruled out the alternative.
-
-**Alternatives rejected.** Each with the reason it lost.
-
-**Consequences.** What this now constrains, and what would justify revisiting it.
+**Context.** The question and why it mattered.
+**Decision.** The selected approach.
+**Evidence.** Artifact status, run/contract hashes, registered statistics,
+point delta, p-value, effect size, data scope, and caveats.
+**Alternatives rejected.** Each alternative and why it lost.
+**Consequences.** Constraints, follow-up work, and revisit conditions.
 ```
 
-## Rules
-
-- Never delete a decision; supersede it and link forward. The history of what
-  was tried is what stops the same dead end being explored twice.
-- Cite the experiment or file that produced the evidence.
-- If a decision was made on judgement rather than data, say so — a provisional
-  decision flagged as such is honest; one dressed as evidence-based is not.
+Do not cite a smoke, pilot, invalid, superseded, or incomplete artifact beyond
+its evidentiary scope. Do not report confidence intervals under current project
+rules. Preserve decisions by superseding them rather than rewriting history,
+except when the user explicitly authorizes removal of unsafe or misleading
+material.

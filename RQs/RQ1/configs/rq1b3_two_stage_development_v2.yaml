@@ -1,0 +1,30 @@
+extends: rq1b3_two_stage_development_v1.yaml
+experiment_id: rq1b3_two_stage_development_v2
+registered_description: RQs/RQ1/descriptions/rq1b3_two_stage_onset_ledger_protocol_v2.md
+power_and_gate: RQs/RQ1/descriptions/rq1b3_two_stage_onset_ledger_protocol_v1.md
+
+execution:
+  stage: rq1b3_exposed_two_stage_development_v2_compact_regex_registered
+
+contracts:
+  prompt_answer_contract: compact_task_specific_regex_v3
+  structured_output_transport: vllm_structured_outputs_regex_no_whitespace
+  stage_1_transport_schema: CompactPanelOnsetLedgerTransportV1
+  stage_1_persisted_schema: PanelOnsetLedgerV1
+  v1_smoke_status: preserved_failed_interface_smoke_DD_31
+
+visops:
+  task_profile: two_stage_onset_ledger_v2
+  operation_families:
+    exact_lookup: []
+    temporal_scanning: []
+    topology_path: []
+    cross_modal_alignment: []
+    missingness_uncertainty: []
+    answer_hidden_temporal_composition:
+      - panel_onset_ledger_high_compact
+    answer_hidden_relational_composition: []
+
+gates:
+  rq1b3_development:
+    status: blocked_until_rq1b3_v2_smoke_passes

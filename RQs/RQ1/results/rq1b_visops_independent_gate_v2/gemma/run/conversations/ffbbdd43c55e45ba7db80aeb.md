@@ -1,0 +1,11 @@
+# RQ1 VisOps conversation — Q-E77700DE60B6E46E — H
+
+- opaque incident: `INC-187FD47AF170`
+- model: `gemma-4-26b-a4b`
+- prompt hash: `403071ad7c1d43370d1dc3d60a4beb9e2fe365a4c218af7e79bcf821b603e893`
+- visual hash: `bb110a3da28c5d21d226728df05a7c82659956b8505b8c36155697eb0049fc2c`
+- text hash: `06557b9619a63ffb28d7a50a845060585e98e9bbf703f50cd0f65a983c2a0987`
+
+## Response
+
+{"answer": ["currencyservice-1", "shippingservice-1", "shippingservice-2"]}

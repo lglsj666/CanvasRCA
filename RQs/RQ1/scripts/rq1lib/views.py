@@ -288,13 +288,23 @@ def _render_topology(
         graph.add_edge(caller, callee)
         edge_lines.append(f"{caller} -> {callee}")
         _register(locations, f"edge-{caller}-{callee}", [fact.fact_id])
-    positions = nx.spring_layout(graph, seed=42) if graph else {}
+    # The answer-hidden composition profile can contain sixteen distractor
+    # edges. A fixed circular layout keeps every node separated and every edge
+    # endpoint auditable; preserve the legacy spring layout for frozen v1/v2
+    # artifacts.
+    positions = (
+        nx.circular_layout(graph)
+        if graph and "complexity" in plan
+        else nx.spring_layout(graph, seed=42)
+        if graph
+        else {}
+    )
     nx.draw_networkx_nodes(
         graph,
         pos=positions,
         ax=ax,
         node_color="#d9e8f5",
-        node_size=1300,
+        node_size=1050 if "complexity" in plan else 1300,
         edgecolors="#557087",
     )
     nx.draw_networkx_edges(
@@ -304,6 +314,9 @@ def _render_topology(
         edge_color="#555555",
         arrows=True,
         arrowsize=18,
+        arrowstyle="-|>",
+        min_source_margin=15,
+        min_target_margin=17,
         width=1.4,
     )
     # Node identities must remain legible at the edge of the graph.  Wrapping
@@ -318,7 +331,7 @@ def _render_topology(
         pos=positions,
         ax=ax,
         labels=node_labels,
-        font_size=7,
+        font_size=6.5 if "complexity" in plan else 7,
         bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.72, "pad": 0.5},
     )
     path_lines: list[str] = []
@@ -432,15 +445,118 @@ def _render_missingness(
     )
 
 
-def compile_visual_view(task: VisOpsTask) -> ViewArtifact:
+def _render_normalized_series_grid(
+    ax: Any,
+    plan: Mapping[str, Any],
+    facts: Mapping[str, AtomicFact],
+    visible: list[str],
+    locations: dict[str, Any],
+) -> None:
+    rows = [facts[fact_id] for fact_id in plan["series_fact_ids"]]
+    labels: list[str] = []
+    matrix: list[list[float]] = []
+    masks: list[list[bool]] = []
+    for row_index, fact in enumerate(rows):
+        value = dict(fact.value)
+        label = f"[{value['panel_id']}] {value['service']} · {value['metric']}"
+        z_values = list(value["z_values"])
+        missing = [bool(item) for item in value["missing"]]
+        labels.append(label)
+        matrix.append(
+            [
+                float("nan") if item is None or missing[index] else float(item)
+                for index, item in enumerate(z_values)
+            ]
+        )
+        masks.append(missing)
+        visible.append(label)
+        visible.extend(
+            "NA" if item is None else f"{float(item):.1f}" for item in z_values
+        )
+        _register(locations, f"normalized-series-{row_index}", [fact.fact_id])
+
+    data = np.asarray(matrix, dtype=float)
+    color_data = np.ma.masked_invalid(np.clip(data, -6.0, 6.0))
+    cmap = plt.get_cmap("coolwarm").copy()
+    cmap.set_bad("#404040")
+    ax.imshow(color_data, cmap=cmap, vmin=-6.0, vmax=6.0, aspect="auto")
+    ax.set_yticks(range(len(labels)), labels=labels)
+    ax.set_xticks(
+        range(data.shape[1]), labels=[str(index) for index in range(data.shape[1])]
+    )
+    ax.set_xlabel("normalized relative bin (NA=missing)")
+    for row in range(data.shape[0]):
+        for column in range(data.shape[1]):
+            text = (
+                "NA"
+                if masks[row][column] or np.isnan(data[row, column])
+                else f"{data[row, column]:.1f}"
+            )
+            color = (
+                "white"
+                if masks[row][column] or abs(data[row, column]) >= 4.0
+                else "black"
+            )
+            ax.text(
+                column, row, text, ha="center", va="center", fontsize=5.5, color=color
+            )
+    if plan.get("ledger_stage") == 1:
+        title = (
+            "Normalized metric series · sustained onset is the first of two "
+            f"consecutive observed bins |z|≥{float(plan['threshold_abs_z']):g} "
+            "with the same sign"
+        )
+    else:
+        title = (
+            f"Normalized metric series · {plan['complexity']} complexity · "
+            f"sustained threshold |z|≥{float(plan['threshold_abs_z']):g}"
+        )
+    ax.set_title(title)
+    visible.extend(("normalized relative bin (NA=missing)", title))
+
+
+def compile_visual_view(
+    task: VisOpsTask, *, row_order_condition: str = "main"
+) -> ViewArtifact:
     """Render a deterministic PNG and a complete fact-to-primitive manifest."""
 
     fact_index = _fact_map(task)
     plan = dict(task.render_plan)
+    if row_order_condition not in {"main", "deterministic_sham"}:
+        raise ContractError(f"unknown row-order condition {row_order_condition!r}")
+    if row_order_condition == "deterministic_sham":
+        if plan.get("ledger_stage") != 1:
+            raise ContractError("row-order sham is restricted to the onset-ledger view")
+        original = list(plan["series_fact_ids"])
+        plan["series_fact_ids"] = sorted(
+            original,
+            key=lambda fact_id: sha256_bytes(
+                (
+                    "42:rq1b3:row-sham:"
+                    f"{task.query.opaque_incident_id}:"
+                    f"{dict(fact_index[fact_id].value)['panel_id']}"
+                ).encode()
+            ),
+        )
     visible: list[str] = []
     locations: dict[str, Any] = {}
-    width = 12 if plan["kind"] == "topology" else 10
-    fig, ax = plt.subplots(figsize=(width, 6), dpi=140)
+    width = (
+        14
+        if plan["kind"] == "normalized_series_grid"
+        else 15
+        if plan["kind"] == "topology" and "complexity" in plan
+        else 12
+        if plan["kind"] == "topology"
+        else 10
+    )
+    height = (
+        8
+        if plan["kind"] == "topology" and "complexity" in plan
+        else 7
+        if plan["kind"] == "normalized_series_grid"
+        else 6
+    )
+    fig, ax = plt.subplots(figsize=(width, height), dpi=140)
     try:
         kind = str(plan["kind"])
         if kind == "metric_point":
@@ -455,6 +571,8 @@ def compile_visual_view(task: VisOpsTask) -> ViewArtifact:
             _render_modality_matrix(ax, plan, fact_index, visible, locations)
         elif kind == "missingness_matrix":
             _render_missingness(ax, plan, fact_index, visible, locations)
+        elif kind == "normalized_series_grid":
+            _render_normalized_series_grid(ax, plan, fact_index, visible, locations)
         else:
             raise ContractError(f"unknown visual render kind {kind!r}")
         # ``tight_layout`` can move an axis with long monospace text to a
@@ -466,11 +584,18 @@ def compile_visual_view(task: VisOpsTask) -> ViewArtifact:
         else:
             fig.tight_layout()
         buffer = io.BytesIO()
+        renderer = (
+            "RQ1VisualViewV6OnsetLedger"
+            if plan.get("ledger_stage") == 1
+            else "RQ1VisualViewV5AnswerHidden"
+            if "complexity" in plan
+            else "RQ1VisualViewV4"
+        )
         fig.savefig(
             buffer,
             format="png",
             dpi=140,
-            metadata={"Software": "CanvasRCA-RQ1-VisualViewV4"},
+            metadata={"Software": f"CanvasRCA-{renderer}"},
         )
         png = buffer.getvalue()
     finally:
@@ -483,8 +608,15 @@ def compile_visual_view(task: VisOpsTask) -> ViewArtifact:
         raise ContractError(
             f"visual location map differs: missing={missing} extra={extra}"
         )
+    renderer = (
+        "RQ1VisualViewV6OnsetLedger"
+        if plan.get("ledger_stage") == 1
+        else "RQ1VisualViewV5AnswerHidden"
+        if "complexity" in plan
+        else "RQ1VisualViewV4"
+    )
     primitive_manifest = {
-        "renderer": "RQ1VisualViewV4",
+        "renderer": renderer,
         "render_kind": plan["kind"],
         "fact_ids": sorted(locations),
         "public_fact_hashes": {
@@ -497,11 +629,23 @@ def compile_visual_view(task: VisOpsTask) -> ViewArtifact:
         "ocr_visible_strings": visible,
         "edge_semantics": "caller_to_callee" if plan["kind"] == "topology" else None,
     }
+    if plan.get("ledger_stage") == 1:
+        primitive_manifest["row_order_condition"] = row_order_condition
+        primitive_manifest["series_panel_order"] = [
+            str(dict(fact_index[fact_id].value)["panel_id"])
+            for fact_id in plan["series_fact_ids"]
+        ]
     assert_label_blind(
         primitive_manifest, context=f"visual manifest {task.query.query_id}"
     )
     artifact = ViewArtifact(
-        schema_version=VISUAL_VIEW_SCHEMA,
+        schema_version=(
+            "VisualViewV6OnsetLedger"
+            if plan.get("ledger_stage") == 1
+            else "VisualViewV5AnswerHidden"
+            if "complexity" in plan
+            else VISUAL_VIEW_SCHEMA
+        ),
         representation="visual",
         query_id=task.query.query_id,
         query_hash=task.query.query_hash,

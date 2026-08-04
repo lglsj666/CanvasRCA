@@ -33,6 +33,18 @@ def main() -> int:
 
     config = load_yaml_config(args.config)
     assert_execution_config(config)
+    structured_output = config["contracts"].get("prompt_answer_contract") in {
+        "type_specific_json_v2",
+        "compact_task_specific_regex_v3",
+    }
+    task_profile = config.get("visops", {}).get("task_profile")
+    expected_answer_types = (
+        {"number", "ordered_path", "sorted_string_set"}
+        if task_profile == "answer_hidden_compositional_v1"
+        else {"panel_onset_ledger"}
+        if task_profile in {"two_stage_onset_ledger_v1", "two_stage_onset_ledger_v2"}
+        else {"number", "sorted_string_set", "ordered_path", "directed_edge"}
+    )
     roster = _load(args.roster)
     index = _load(args.prepared_index)
     call_paths = sorted((args.run_root / "calls").glob("*.json"))
@@ -48,6 +60,7 @@ def main() -> int:
     infra = 0
     parse = 0
     truncation = 0
+    answer_types: set[str] = set()
     for call in calls:
         if (
             call.get("model") != args.model
@@ -67,6 +80,23 @@ def main() -> int:
             continue
         if call.get("status") != "completed":
             raise ContractError("smoke call has unknown status")
+        if structured_output:
+            if call.get("schema_version") != (
+                "RQ1VisOpsCallContractV2StructuredOutput"
+            ):
+                raise ContractError("v2 smoke lacks the structured call contract")
+            if call.get("structured_output_transport") != config["contracts"].get(
+                "structured_output_transport"
+            ):
+                raise ContractError("v2 smoke lacks the registered output transport")
+            if task_profile == "two_stage_onset_ledger_v2":
+                if not call.get("guided_regex_sha256"):
+                    raise ContractError("v2 smoke lacks its guided-regex hash")
+            elif not call.get("response_format_sha256"):
+                raise ContractError("v2 smoke lacks its response-format hash")
+            answer_types.add(str(call.get("public_answer_type") or ""))
+            if call.get("parse_ok") is not True:
+                raise ContractError("v2 structured-output smoke produced invalid JSON")
         for field in (
             "input_tokens",
             "output_tokens",
@@ -84,6 +114,10 @@ def main() -> int:
         raise ContractError("smoke does not contain complete paired T/V/H units")
     if infra:
         raise ContractError(f"smoke has {infra} infrastructure failures")
+    if structured_output and answer_types != expected_answer_types:
+        raise ContractError(
+            f"v2 smoke did not exercise every answer schema: {sorted(answer_types)}"
+        )
 
     inventory = {
         str(path.relative_to(args.run_root)): sha256_bytes(path.read_bytes())
@@ -103,6 +137,11 @@ def main() -> int:
         "paired_units": len(units),
         "infrastructure_failures": infra,
         "parse_rate_diagnostic_only": parse / len(calls),
+        "structured_output_contract_verified": str(
+            config["contracts"].get("prompt_answer_contract")
+        )
+        == "type_specific_json_v2",
+        "answer_types_verified": sorted(answer_types),
         "truncations_diagnostic_only": truncation,
         "correctness_is_gate": False,
         "parse_acceptance_is_gate": False,

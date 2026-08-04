@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"19414003160a64c25a56afc7c08b314fbcb09a099a0dea99e227a2c836d33d6d","query_hash":"9ea0ca94f642e5bf6a4a4333b8175b563e30c130f24224fc4f3fa423d3958383","query_id":"Q-F4C8C2F5140E8AEB","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-seat-service","fact_id":"F7FB7E085BF75","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.memory.page_faults"}
+FACT {"domain":"metric","entity":"ts-seat-service","fact_id":"F604F61EF741D","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"ts-seat-service","fact_id":"F76A8CF329439","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":30}
+FACT {"domain":"metric","entity":"ts-seat-service","fact_id":"F252CD2A95C97","field":"service","relative_bin":null,"unit":null,"value":"ts-seat-service"}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"FF18BA9E43565","field":"metric","relative_bin":null,"unit":null,"value":"container.memory.page_faults"}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"F1832A21EB4B1","field":"panel_id","relative_bin":null,"unit":null,"value":"M3"}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"FD2E1D6032C1B","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":25}
+FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"F6EDD886FB285","field":"service","relative_bin":null,"unit":null,"value":"ts-preserve-service"}
+FACT {"domain":"metric","entity":"ts-consign-service","fact_id":"F30F595EF1E0E","field":"metric","relative_bin":null,"unit":null,"value":"container.memory.rss"}
+FACT {"domain":"metric","entity":"ts-consign-service","fact_id":"F30A6A7EFBFEF","field":"panel_id","relative_bin":null,"unit":null,"value":"M4"}
+FACT {"domain":"metric","entity":"ts-consign-service","fact_id":"F3D0688D54D90","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":29}
+FACT {"domain":"metric","entity":"ts-consign-service","fact_id":"F48DE324D5BB5","field":"service","relative_bin":null,"unit":null,"value":"ts-consign-service"}
+FACT {"domain":"metric","entity":"ts-avatar-service","fact_id":"F7110EDFE19E8","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.memory.page_faults"}
+FACT {"domain":"metric","entity":"ts-avatar-service","fact_id":"FAB374B48E231","field":"panel_id","relative_bin":null,"unit":null,"value":"M5"}
+FACT {"domain":"metric","entity":"ts-avatar-service","fact_id":"F1213B150D2A2","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":22}
+FACT {"domain":"metric","entity":"ts-avatar-service","fact_id":"F29E5B6501FB9","field":"service","relative_bin":null,"unit":null,"value":"ts-avatar-service"}

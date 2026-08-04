@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"802b890cee9b517505b15a6033b11630ea8e160c1472620b5ac474fe4cf3ed87","query_hash":"ae216b41d249c822dac58af71783a30818001625ff884920f3ae8b14827d3bbe","query_id":"Q-D0008A52666A80DC","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-contacts-service","fact_id":"F7937DAE8E28A","field":"metric","relative_bin":null,"unit":null,"value":"hubble_http_request_duration_p99_seconds"}
+FACT {"domain":"metric","entity":"ts-contacts-service","fact_id":"F908EA3959BF8","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"ts-contacts-service","fact_id":"F6E7E41DE3D1A","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"ts-contacts-service","fact_id":"FD5FD7D513480","field":"service","relative_bin":null,"unit":null,"value":"ts-contacts-service"}
+FACT {"domain":"metric","entity":"ts-price-service","fact_id":"FACAF99D3D314","field":"metric","relative_bin":null,"unit":null,"value":"hubble_http_request_duration_p90_seconds"}
+FACT {"domain":"metric","entity":"ts-price-service","fact_id":"F597769D06BD8","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"ts-price-service","fact_id":"FBDB67C51D6CB","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"ts-price-service","fact_id":"F7F761179C4C2","field":"service","relative_bin":null,"unit":null,"value":"ts-price-service"}
+FACT {"domain":"metric","entity":"ts-route-service","fact_id":"F121DB6E0F75F","field":"metric","relative_bin":null,"unit":null,"value":"hubble_http_request_duration_p95_seconds"}
+FACT {"domain":"metric","entity":"ts-route-service","fact_id":"F0E35DCC718D5","field":"panel_id","relative_bin":null,"unit":null,"value":"M4"}
+FACT {"domain":"metric","entity":"ts-route-service","fact_id":"F4E6F98F5BAFC","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"ts-route-service","fact_id":"F6E3E2F739A1A","field":"service","relative_bin":null,"unit":null,"value":"ts-route-service"}
+FACT {"domain":"metric","entity":"ts-travel-plan-service","fact_id":"FA09398BC9E1E","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.filesystem.usage"}
+FACT {"domain":"metric","entity":"ts-travel-plan-service","fact_id":"F3237651061F5","field":"panel_id","relative_bin":null,"unit":null,"value":"M8"}
+FACT {"domain":"metric","entity":"ts-travel-plan-service","fact_id":"F961C3DE988C3","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":26}
+FACT {"domain":"metric","entity":"ts-travel-plan-service","fact_id":"F1E7462382EC1","field":"service","relative_bin":null,"unit":null,"value":"ts-travel-plan-service"}

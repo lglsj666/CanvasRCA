@@ -1,0 +1,9 @@
+VIEW {"fact_inventory_hash":"647d931524c732f71f1dcd03b098076cfa61bbf5839115ad53425ed2d184d1bf","query_hash":"a744276173e8dd8b768bbf54097b02c1ac5298ba0ffff1a49c6181f84cf76fea","query_id":"Q-45E3735141196497","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"topology","entity":null,"fact_id":"FD776D571291A","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"shippingservice-1","caller":"frontend-1"}}
+FACT {"domain":"topology","entity":null,"fact_id":"F5B73CD86EC81","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"shippingservice-2","caller":"frontend-1"}}
+FACT {"domain":"topology","entity":null,"fact_id":"FFF5897FC5A38","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"currencyservice-2","caller":"frontend-2"}}
+FACT {"domain":"topology","entity":null,"fact_id":"F528CA4552D19","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"currencyservice-2","caller":"checkoutservice-1"}}
+FACT {"domain":"topology","entity":null,"fact_id":"F4E8CFA6409B4","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"currencyservice-2","caller":"checkoutservice-2"}}
+FACT {"domain":"topology","entity":null,"fact_id":"F92100A1BD165","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"currencyservice-2","caller":"checkoutservice-0"}}
+FACT {"domain":"topology","entity":null,"fact_id":"FB3DE9F71A45C","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"currencyservice-2","caller":"frontend-0"}}
+FACT {"domain":"topology","entity":null,"fact_id":"FBAD7E87DBA79","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"currencyservice-2","caller":"frontend-1"}}

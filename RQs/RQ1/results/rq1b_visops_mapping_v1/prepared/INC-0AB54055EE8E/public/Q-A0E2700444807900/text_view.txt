@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"f72f491d344c7b879a8e22ea220e97c02751b77061df4800c1a609ca4e415c4b","query_hash":"fe872b7c9a579aedbe3f3c75a15f87aa7b4e1b7a2804db556c63030b20304558","query_id":"Q-A0E2700444807900","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"shippingservice-1","fact_id":"F615D48F043E6","field":"metric","relative_bin":null,"unit":null,"value":"pod_memory_working_set_bytes"}
+FACT {"domain":"metric","entity":"shippingservice-1","fact_id":"F0F2E4B54D1C2","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"shippingservice-1","fact_id":"F9C4D22F49C46","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"shippingservice-1","fact_id":"FF216F7A74B63","field":"service","relative_bin":null,"unit":null,"value":"shippingservice-1"}
+FACT {"domain":"metric","entity":"tidb-tidb","fact_id":"F4EE34B43B638","field":"metric","relative_bin":null,"unit":null,"value":"qps"}
+FACT {"domain":"metric","entity":"tidb-tidb","fact_id":"F44B964B18B0A","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"tidb-tidb","fact_id":"F3C0247A70F22","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"tidb-tidb","fact_id":"F88D53FEE5A4C","field":"service","relative_bin":null,"unit":null,"value":"tidb-tidb"}
+FACT {"domain":"metric","entity":"currencyservice-2","fact_id":"F3BB34DFCCA8D","field":"metric","relative_bin":null,"unit":null,"value":"pod_memory_working_set_bytes"}
+FACT {"domain":"metric","entity":"currencyservice-2","fact_id":"FEBFADC99445E","field":"panel_id","relative_bin":null,"unit":null,"value":"M3"}
+FACT {"domain":"metric","entity":"currencyservice-2","fact_id":"F21126D32C492","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"currencyservice-2","fact_id":"F8C81FD79280E","field":"service","relative_bin":null,"unit":null,"value":"currencyservice-2"}
+FACT {"domain":"metric","entity":"redis-cart-0","fact_id":"F3526F9120FC7","field":"metric","relative_bin":null,"unit":null,"value":"pod_processes"}
+FACT {"domain":"metric","entity":"redis-cart-0","fact_id":"F3A4F34CAA206","field":"panel_id","relative_bin":null,"unit":null,"value":"M4"}
+FACT {"domain":"metric","entity":"redis-cart-0","fact_id":"F3636F35DD4C9","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"redis-cart-0","fact_id":"FE905B2C9E926","field":"service","relative_bin":null,"unit":null,"value":"redis-cart-0"}

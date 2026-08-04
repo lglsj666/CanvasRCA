@@ -1,0 +1,55 @@
+{
+  "accuracy": 0.9333333333333333,
+  "arm": "ALL",
+  "arm_order_policy": "balanced_by_opaque_incident_hash",
+  "avg_input_tokens": 1188.8933333333334,
+  "avg_output_tokens": 16.52,
+  "avg_wall_time_s": 1.0858630561828613,
+  "completed_calls": 75,
+  "elapsed_wall_time_s": 81.51390957832336,
+  "error_rate": 0.0,
+  "experiment_config_hash": "105b80a94af0ed83c0b134a2d8bf9a1806c168b11b29466eef40d54c3c467ae8",
+  "experiment_id": "rq1b_visops_smoke_v2",
+  "infrastructure_errors": 0,
+  "model": "gemma-4-26b-a4b",
+  "parse_rate": 1.0,
+  "per_arm": {
+    "H": {
+      "accuracy": 0.96,
+      "avg_input_tokens": 1711.4,
+      "avg_output_tokens": 16.04,
+      "avg_wall_time_s": 1.2946218013763429,
+      "completed_calls": 25,
+      "error_rate": 0.0,
+      "infrastructure_errors": 0,
+      "parse_rate": 1.0,
+      "requested_calls": 25
+    },
+    "T": {
+      "accuracy": 0.96,
+      "avg_input_tokens": 1435.16,
+      "avg_output_tokens": 15.16,
+      "avg_wall_time_s": 1.063473606109619,
+      "completed_calls": 25,
+      "error_rate": 0.0,
+      "infrastructure_errors": 0,
+      "parse_rate": 1.0,
+      "requested_calls": 25
+    },
+    "V": {
+      "accuracy": 0.88,
+      "avg_input_tokens": 420.12,
+      "avg_output_tokens": 18.36,
+      "avg_wall_time_s": 0.899493761062622,
+      "completed_calls": 25,
+      "error_rate": 0.0,
+      "infrastructure_errors": 0,
+      "parse_rate": 1.0,
+      "requested_calls": 25
+    }
+  },
+  "requested_calls": 75,
+  "roster_assignment_hash": "4957fed15daff7cca0dab72a32c67cc9d930a97769a6740afbdff07886f25b7d",
+  "roster_contract_hash": "04b0e54fd7408483ad49e0ec8eea9a736a3d8951b557f8405ba4f3b55c9babc9",
+  "schema_version": "RQ1VisOpsCellSummaryV1"
+}

@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"1f789ca1489bd5a7607ec1561d10faa4eebd31fa192ff6395b32ccffb8563fc8","query_hash":"86dfcbb52b6db7129924a9cb802b3087ace236b4bd8702f2d5053687565c6755","query_id":"Q-BFE4533218065581","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"log","entity":"paymentservice-0","fact_id":"FCE402CDA5B62","field":"bin_center_rel_s","relative_bin":60,"unit":"relative_seconds","value":1644.84375}
+FACT {"domain":"log","entity":"paymentservice-0","fact_id":"F00334CC26656","field":"dominant_template","relative_bin":60,"unit":null,"value":"paymentservice#charge invoked with request {\"amount\":{\"currency_code\":\"eur\",\"units\":\"<v>\",\"nanos\":<v>},\"credit_card\":{\"credit_card_number\":\"<v>\",\"credit_card_cvv\":<v>,\"credit_card_expiration_year\":<v>,\"credit_card_expiration_month\":<v>}}"}
+FACT {"domain":"log","entity":"paymentservice-0","fact_id":"FBD1632BE5136","field":"dominant_template_count","relative_bin":60,"unit":"events","value":2}
+FACT {"domain":"log","entity":"paymentservice-0","fact_id":"FD436FAA39C2E","field":"dominant_template_id","relative_bin":60,"unit":null,"value":"LT-B739D9FFB03A"}
+FACT {"domain":"log","entity":"paymentservice-0","fact_id":"F0C4D16675649","field":"error_count","relative_bin":60,"unit":"events","value":0}
+FACT {"domain":"log","entity":"paymentservice-0","fact_id":"FDBD5B36F68EB","field":"event_count","relative_bin":60,"unit":"events","value":6}
+FACT {"domain":"log","entity":"paymentservice-0","fact_id":"F986B24DF5EC5","field":"service","relative_bin":60,"unit":null,"value":"paymentservice-0"}

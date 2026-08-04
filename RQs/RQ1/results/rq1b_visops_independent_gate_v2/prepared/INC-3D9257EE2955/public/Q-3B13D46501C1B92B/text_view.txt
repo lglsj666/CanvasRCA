@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"8e6551288be36efcef8436046f4dcf38be54c410021711d3de31f81447bab88d","query_hash":"62c4cc324b9d10372bb7c0d8a84b4a9788110e4f5c0ab5dfff76b975d36bc34e","query_id":"Q-3B13D46501C1B92B","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"log","entity":"ts-user-service","fact_id":"F995161BB4850","field":"bin_center_rel_s","relative_bin":40,"unit":"relative_seconds","value":303.326914}
+FACT {"domain":"log","entity":"ts-user-service","fact_id":"F9039AB0B0B6F","field":"dominant_template","relative_bin":40,"unit":null,"value":"[getuserbyuserid][get user by user id][userid: <v>-71cb-4cf1-b5bb-<v>]"}
+FACT {"domain":"log","entity":"ts-user-service","fact_id":"F3D9679C51CD5","field":"dominant_template_count","relative_bin":40,"unit":"events","value":5}
+FACT {"domain":"log","entity":"ts-user-service","fact_id":"FE0956021D5CF","field":"dominant_template_id","relative_bin":40,"unit":null,"value":"LT-AA89089F6ECE"}
+FACT {"domain":"log","entity":"ts-user-service","fact_id":"FBA467B94B2E5","field":"error_count","relative_bin":40,"unit":"events","value":0}
+FACT {"domain":"log","entity":"ts-user-service","fact_id":"F68A44DACC3CB","field":"event_count","relative_bin":40,"unit":"events","value":5}
+FACT {"domain":"log","entity":"ts-user-service","fact_id":"FCE4547149617","field":"service","relative_bin":40,"unit":null,"value":"ts-user-service"}

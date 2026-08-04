@@ -1178,3 +1178,722 @@ numbers post-hoc sensitivity. Future CanvasRCA experiments must use and record
 the project-owned granularity-aware matcher in `RQs/vlmrca/eval/scoring.py`, whose
 tests require hashed pods to match service labels while pod and node labels
 remain exact. Do not modify the read-only upstream repository.
+
+---
+
+## DD-25: Rerun RQ1b mapping with a type-specific structured-output contract
+**Date:** 2026-08-04
+**Status:** adopted
+
+**Context.** RQ1b mapping v1 completed all 2,124 registered T/V/H calls for
+each of Gemma-4-26B-A4B-it and Qwen3.6-27B, but the frozen analysis cannot
+authorize the independent gate. Gemma's H/T/V parse rates were
+0.9350/0.8941/0.9364, all below the registered 0.95 minimum. The problem is
+concentrated in set-valued operations: 166 Gemma outputs violated the single
+`{"answer": ...}` object contract; 99 began with a fenced object and then
+self-corrected, while 67 began with prose. Of the 166, 158 contained two or
+more answer objects, six contained one object embedded in extra output, and
+two contained none. Three Gemma outputs were truncated. The existing generic
+`<value>` prompt did not state whether a tied-service answer must be a JSON
+array, and prompt-only compliance was insufficient to prevent multiple answer
+objects.
+
+The strict V3 analysis is
+`RQs/RQ1/results/rq1b_visops_mapping_v1/analysis/paired_analysis_v3.json`
+(SHA256 `ee8ef2452952e43959b99c4d5af7e5a7b231b4a6af25aac1db6d0e4828e166cb`).
+It correctly marks the overall cell `incomplete_model_gate`. Qwen alone passed
+its parse gate and retained 86 incidents after four whole-incident
+infrastructure exclusions (4.44%, below the frozen 5% ceiling). Its diagnostic
+case-macro H−T result was +0.0503, Wilcoxon Pratt p=9.79e-7, Cohen's dz=0.586;
+the largest operation-specific signal was entity/modality alignment
+(H=0.9767, T=0.6163). These results justify repairing the output contract but
+cannot substitute for the primary Gemma gate.
+
+**Decision.** Preserve mapping v1 as an incomplete diagnostic artifact and do
+not freeze its operation router or open the disjoint gate. Register RQ1b
+mapping v2 on the identical already-exposed 90-case mapping roster and the
+same atomic facts, T/V/H arms, A+B composition, renderer, checkpoints,
+decoding parameters, 32k context, and 16k output ceiling. Change only the
+answer transport contract: state the exact answer shape for each operation
+(`number`, sorted string array, ordered string path array, or caller/callee
+object) and enforce that single-object schema through vLLM structured output.
+Run partition-aware smoke and then rerun the complete Gemma and Qwen cells;
+only a v2 analysis that passes every registered parse, pairing, leakage, and
+infrastructure gate may freeze a router.
+
+**Evidence.** Mapping config hash
+`bfe7632648473a1ddd1a9798de1cb20bf889f09f325e7a79ea5189dd1899e9fc`;
+roster assignment hash
+`8b1557ac619f33c13546b94f29a4332747ca1ad52e01d581c0114381300e3b7b`;
+Gemma 2,124/2,124 calls with zero infrastructure exclusions and 166 parse
+failures; Qwen 2,124/2,124 persisted records, five failed calls across four
+incidents, three parse failures among included outputs, and one truncation.
+The V3 analyzer added the previously missing per-operation report and passed
+18 focused analysis tests before regenerating the preserved analysis artifact.
+
+**Alternatives rejected.** Lowering the 0.95 parse threshold would alter a
+frozen gate after seeing results. Leniently selecting the first or last object
+would rehabilitate outputs that explicitly violated the registered one-object
+schema and introduce a post-hoc choice. Freezing a router from the valid Qwen
+cell would replace the preregistered primary architecture and optimize the
+architecture control. Opening the independent gate anyway would spend its
+disjoint cases on a rule whose prerequisite is not satisfied. Rerunning only
+Gemma would leave the two architectures under different output contracts.
+
+**Consequences.** Mapping v1 remains auditable and its results may be reported
+only as incomplete/diagnostic. V2 reuses exposed development cases and opens
+no heldout or gate incident. Both architectures incur another full mapping
+run, but server-enforced termination should remove the long self-correction
+tails and reduce runtime. If structured-output smoke is unsupported by either
+checkpoint/vLLM path, or if v2 still misses the parse gate, stop before gate
+inference and reconsider the task/output interface rather than weakening the
+acceptance rules.
+
+---
+
+## DD-26: Freeze the Gemma RQ1b operation router and open the disjoint gate
+**Date:** 2026-08-04
+**Status:** adopted
+
+**Context.** DD-25 required an otherwise identical RQ1b mapping rerun with a
+type-specific, server-enforced JSON output contract before any operation
+router or independent gate could be authorized. Mapping v2 completed all
+2,124 registered calls for each architecture. Both Gemma-4-26B-A4B-it and
+Qwen3.6-27B retained all 90 incidents and 708 eligible queries, with 1.000
+parse rate in every T/V/H arm, zero infrastructure failures, and zero
+truncations. The v1/v2 equivalence audit proves that all 708 CEBs, questions,
+fact inventories, private answers, text views, image views, A+B fragments, and
+3,540 evidence artifacts are unchanged; only the public answer contract and
+its prompt/schema hashes changed.
+
+Mapping v2 is a rule-discovery cell, not the independent test of the rule.
+Gemma's case-macro H/T/V accuracies were 0.9588/0.9558/0.9091; H−T was
++0.0030, Wilcoxon Pratt p=0.5801, Cohen's dz=0.060. Qwen's corresponding
+accuracies were 0.9738/0.9712/0.9273; H−T was +0.0027, p=0.6045,
+dz=0.054. These pooled differences do not establish a general hybrid benefit.
+The preregistered operation rule nevertheless identifies two non-text Gemma
+choices: `earliest_onset -> H` (T/V/H=0.9815/0.6481/1.0000) and
+`entity_modality_alignment -> V` (0.8000/0.8444/0.8222). Every other operation
+selects T, either because T is best or because an exact tie is resolved by the
+frozen cost order `T > V > H`.
+
+**Decision.** Accept mapping v2 as the valid replacement for the incomplete v1
+mapping, deterministically freeze the complete Gemma operation-to-arm rule,
+and authorize preparation and execution of the already locked, disjoint
+90-case RQ1b independent gate. Qwen must use the same Gemma-derived router and
+must not receive an architecture-specific mapping. The gate keeps the frozen
++0.10 routed-versus-text structural threshold, +0.05 routed-versus-best-fixed
+threshold, paired Pratt-Wilcoxon p<0.05 requirements, dataset-direction and
+exact-lookup controls, 0.95 parse floor, and 5% whole-incident infrastructure
+ceiling. No heldout or reserve data is opened.
+
+**Evidence.** The authoritative v2 paired analysis is
+`RQs/RQ1/results/rq1b_visops_mapping_v2/analysis/paired_analysis_v3.json`
+(SHA256 `ac14861f85c4be16606e402e611e44babe1cacf5dd54d027fd98038c2b259f2e`).
+The v1/v2 input-equivalence artifact has SHA256
+`35ad2584ab3e3270ccd8b27d75895a28be0ab01ac6c7a72dfa8b582d20a871f9`;
+the v2 qualification report has SHA256
+`b6335b1ab0f478a8c9d3bdf62a5720231642065a1e98a24921aceda63074c997`.
+The mapping config hash is
+`2ac662944cceb2beea7c7cc25c963b2d92f41a40a4622a86ec63265d1eb8f6f0`,
+and the unchanged roster assignment hash is
+`8b1557ac619f33c13546b94f29a4332747ca1ad52e01d581c0114381300e3b7b`.
+
+**Alternatives rejected.** Stopping because the pooled H−T mapping effect is
+small would use the rule-discovery set as an unregistered efficacy gate and
+would leave the preregistered operation-dependent hypothesis untested.
+Selecting H globally would ignore the near-zero pooled increment and the
+operation mapping. Optimizing a separate Qwen router would turn the
+architecture control into another discovery analysis. Lowering the independent
+gate thresholds after observing mapping v2 would be outcome-dependent protocol
+drift. Opening heldout RCA data at this point would skip the disjoint
+development gate that was designed to protect it.
+
+**Consequences.** The next work item is a fail-closed router-freeze artifact,
+followed by gate-roster preparation, parity/leakage/determinism qualification,
+Gemma and Qwen T/V/H inference, and a router-aware case-level analysis. If the
+independent gate fails, RQ1b does not authorize the modality factorial or RQ1c;
+the negative result must be recorded without retuning the router on gate cases.
+If it passes for Gemma, the registered RQ1b factorial may proceed, with Qwen
+determining whether the finding is architecture-specific or replicated.
+
+---
+
+## DD-27: Reject the frozen RQ1b router after its disjoint independent gate
+**Date:** 2026-08-04
+**Status:** adopted
+
+**Context.** DD-26 froze the Gemma-derived operation router on the 90-case
+mapping roster and authorized one test on a disjoint, already-exposed 90-case
+gate roster. Both model cells completed under the same frozen CEB, T/V/H prompt
+composition, renderer, scorer, router, BF16 checkpoints, and vLLM contract.
+Live-tokenizer preflight found one Gemma incident and two Qwen incidents whose
+complete 16,384-token output allowance would exceed the fixed 32,768-token
+context. Each affected incident's entire T/V/H query set was recorded as a
+paired infrastructure exclusion without replacement. The resulting 1.11% and
+2.22% whole-incident fractions are below the preregistered 5% ceiling. Every
+actually executed request parsed, no output truncated, and the parity, leakage,
+pairing, runtime, and exact-lookup controls passed.
+
+The frozen rule failed on its primary Gemma architecture. On the selected
+structural operations, routed minus T case-macro accuracy was **−0.0562**, not
+the required +0.10; the two-sided Pratt-Wilcoxon p-value was 0.0112, so the
+detected effect was significantly harmful rather than beneficial. Dataset
+effects were AegisLab −0.0690, AIOPS-2022 +0.0167, and AIOPS-2025 −0.1167; the
+last also violated the frozen −0.10 material-reversal boundary. Routed minus
+the best fixed arm T was −0.0118 (p=0.0104), not the required +0.05. The
+architecture control also failed: Qwen structural routed-minus-T was −0.0227
+(p=0.3698), and routed-minus-best-fixed-T was −0.0046 (p=0.3622).
+
+The failure is localized and interpretable. On the independent gate,
+`earliest_onset -> H` tied T for Gemma (both 1.0000) and improved Qwen only from
+0.9636 to 1.0000. In contrast, the mapping-selected
+`entity_modality_alignment -> V` reversed: Gemma T/V was 0.9326/0.8427 and
+Qwen T/V was 0.9205/0.8636. Thus the non-text mapping choice did not generalize;
+the best fixed representation for both tested architectures was T.
+
+**Decision.** Reject the frozen router and mark the registered RQ1b independent
+gate failed. Do not refit the router on gate outcomes, do not open heldout or
+reserve data, and do not advance the blocked RQ1b factorial, RQ1c routed agent,
+RQ1d causal intervention, SFT, LoRA, or GRPO branches under this protocol.
+Preserve mapping v2 as valid rule-discovery evidence and the gate as valid
+negative validation evidence. The next authorized work is descriptive failure
+analysis on now-exposed mapping/gate trajectories, followed by a separately
+registered development hypothesis if the analysis identifies a new mechanism;
+the independent gate cannot be reused as confirmation for that successor.
+
+**Evidence.** The authoritative independent-gate analysis is
+`RQs/RQ1/results/rq1b_visops_independent_gate_v2/analysis/gate_analysis_v1.json`
+(SHA256 `4a8ba8d40af584ac2dbb60d7ed17846ed64a2c935d20d18083b6dba6764a7552`;
+internal analysis-contract SHA256
+`aa037f5140e24130db4b71b2f1f69dee4f692779cf07d70164794d0d00a33365`).
+It includes 89 paired Gemma incidents and 88 paired Qwen incidents from the 90
+requested cases. The frozen router contract SHA256 is
+`0dc7459e489c1f22446247566f5105c858c30c0f2eaf44b96db0c55fcbc2a427`,
+and the source call-inventory SHA256 is
+`8584a573ccc0bb98e914397b0542146d3d3dd92641a1f346b621ec51affe53f2`.
+
+**Alternatives rejected.** Replacing the failed V choice with T or H after
+seeing gate outcomes would fit the validation set. Treating p<0.05 as success
+would ignore that the significant effect has the wrong sign and misses both
+practical thresholds. Pooling query rows as independent observations would
+inflate precision and violate the incident-level analysis contract. Dropping
+AIOPS-2025 would hide the preregistered material reversal. Proceeding to RQ1c
+because H remains strong in absolute accuracy would confuse a high-performing
+baseline with evidence that visual routing adds value.
+
+**Consequences.** RQ1b now provides a strong negative generalization result:
+the current image representation changes operation behavior, but the
+mapping-derived visual policy is unstable and inferior to text on new exposed
+cases. Future work must improve or reformulate the visual mechanism on separate
+development data and earn a new independent gate before any RCA efficacy or
+causal-agent claim is attempted.
+
+---
+
+## DD-28: Replace answer-visible lookup tasks with an answer-hidden complexity mechanism study
+**Date:** 2026-08-04
+**Status:** adopted
+
+**Context.** The DD-27 failure analysis showed that the visual choice for
+`entity_modality_alignment` was selected from a mapping-set text deficit and
+reversed on the independent gate. A code-and-artifact audit also identified a
+more general measurement limitation: the old `multi_hop_path` query supplied an
+explicit derived path as a model-visible fact, while `earliest_onset` and
+`longest_persistence` supplied the already-derived scalar for every row. Their
+near-perfect scores therefore establish lookup/readability, not multi-step
+visual graph or time-series reasoning. This does not invalidate the completed
+gate—the frozen benchmark measured what its contract specified—but it makes
+rerouting those same operations scientifically uninformative.
+
+**Decision.** Keep the old mapping and gate frozen as valid negative evidence,
+and register a separate exposed-development successor, RQ1b2. RQ1b2 hides the
+derived answer from all arms, supplies only identical raw atomic facts, and asks
+the model to compose a temporal or relational answer. It pairs low- and
+high-complexity variants so the primary mechanism is not merely `V > T`, but
+whether `V-T` increases with entity/edge/distractor complexity. T, V, and exact
+`A+B` H remain mandatory. The development roster contains 90 new exposed cases;
+a disjoint 150-case gate is locked in advance. The old 180 mapping/gate cases,
+heldout, reserve, RE2, and unknown cases are excluded.
+
+The complete protocol and thresholds are frozen in
+`RQs/RQ1/descriptions/rq1b2_compositional_complexity_protocol_v1.md`. Gemma is
+the development architecture. Only a positive development gate authorizes the
+complete Gemma-plus-Qwen independent gate. The confirmatory thresholds are
+temporal high-complexity `V-T >= +0.10`, temporal complexity interaction at
+least `+0.10`, and a fixed temporal `low -> T, high -> V` policy at least `+0.05` above the best fixed arm,
+each with the registered paired test. Failure of any mechanism condition leaves
+RQ1c/RQ1d blocked.
+
+Label-blind preparation subsequently confirmed 80 paired temporal incidents
+(AegisLab 28, AIOPS-2022 25, AIOPS-2025 27), but high-complexity unique
+three-to-five-hop topology tasks only in 30 AegisLab incidents. Before any
+model call, the protocol therefore fixed temporal composition as P1-P3 and
+kept topology as a secondary dataset-specific result. This avoids pooling a
+task-family change with a dataset comparison; it is a qualification decision,
+not an outcome-dependent amendment.
+
+The pre-inference perception review then found robust-z display magnitudes near
+`5e8` when both the baseline and MAD were effectively zero. Before any model
+call, the public transformation was amended to symmetrically winsorize robust-z
+at `+/-99.9` in every T/V/H arm. The task threshold is `|z|>=3` and the cap
+preserves sign, so this transformation cannot change any sustained-onset answer.
+All 90 development artifacts must be regenerated under the amended hash; the
+pre-amendment artifacts are qualification failures and cannot be mixed into a
+run. This is a perception/numerical-stability correction made without model
+outcomes, not an empirical threshold change.
+
+**Alternatives rejected.** Replacing the failed V choice with T after seeing
+the independent gate would overfit validation. Repeating more answer-visible
+lookup tasks would increase sample size without measuring the desired visual
+reasoning mechanism. Advancing directly to RQ1c would violate its prerequisite.
+Opening heldout data would spend confirmatory evidence before a development
+mechanism exists. Treating H as the only visual comparison would confound
+visual encoding with redundant context, so V-T remains primary and H is
+reported as a mandatory secondary arm.
+
+**Consequences.** RQ1 work returns to a bounded, exposed-only development stage.
+The next implementation must preserve old code paths and historical validity,
+add answer-separation tests, freeze new disjoint rosters outcome-blind, qualify
+the renderer without RCA labels, and run Gemma development before any new gate
+or downstream agent experiment. A positive result would justify a
+complexity-aware access policy; a negative result would close this mechanism
+rather than trigger another router rescue.
+
+---
+
+## DD-29: Close the RQ1b2 image-only complexity mechanism after the registered development gate
+**Date:** 2026-08-04
+**Status:** adopted
+
+**Context.** DD-28 registered a fresh, answer-hidden and fact-equal mechanism
+study on 90 exposed Gemma development incidents. Before inference, the compiler,
+renderer, prompt fragments, answer-separation checks, leakage/parity audits,
+12-case manual review, 12 deterministic recompilations, live-tokenizer context
+preflight, model smoke, and runtime tree freeze all passed. The qualified
+inventory contained 366 queries and generated exactly 1,098 T/V/H calls. All
+1,098 calls completed, all outputs parsed, no request truncated, no incident
+was excluded, and no infrastructure or accounting failure occurred.
+
+On the 80 incidents with paired low/high temporal tasks, the primary
+high-complexity image-only effect was `V-T = -0.3250`, rather than the required
+`+0.05`; V accuracy was 0.1625 and T accuracy 0.4875. Vision repaired four T
+errors but broke 30 T-correct answers. Low-complexity `V-T` was also `-0.3250`,
+so the paired complexity interaction was exactly 0.0000, not positive. The
+frozen `low -> T, high -> V` policy scored 0.4188 and was 0.1812 below the best
+fixed arm H at 0.6000. All three development promotion conditions therefore
+failed. The high-complexity direction was negative in every dataset: AegisLab
+`-0.4286`, AIOPS-2022 `-0.2800`, and AIOPS-2025 `-0.2593`.
+
+The controls make the result more specific than a general inability to parse
+the visual interface. On the 90 exact metric lookups, T/H were 1.0000 and V was
+0.9889. For low-complexity topology, T/H were 1.0000 and V was 0.9884; for the
+30 AegisLab high-complexity paths, T/H remained 1.0000 while V fell to 0.4333.
+For temporal composition, H-T was +0.0500 at low complexity but -0.0125 at high
+complexity. Thus adding the same image to text does not rescue the registered
+high-complexity endpoint, and image-only performance degrades as composition
+becomes harder even though simple visual lookup is nearly perfect.
+
+**Decision.** Mark the RQ1b2 Gemma development gate valid and failed. Close the
+registered image-only complexity/access-policy mechanism. Do not run the Qwen
+development cell, do not prepare or open the locked 150-case independent gate,
+and do not advance RQ1c, RQ1d, SFT/LoRA/GRPO, reserve, or heldout RCA under
+DD-28. Preserve the unused gate roster as unopened. Subsequent work may inspect
+the now-exposed Gemma trajectories descriptively, but any new visual mechanism
+must be separately registered on disjoint exposed development data and may not
+reinterpret this failed gate as confirmation.
+
+**Evidence.** The authoritative analysis is
+`RQs/RQ1/results/rq1b2_compositional_development_v1/analysis/development_analysis_v1.json`
+(SHA256 `bab07f7e721af803642a913ddae48fb25aae96c372091659679b67f1ae67a8ee`).
+Its meeting summary has SHA256
+`7d9f63f82449ef693650d65aa69f814d6ebd494f05e3a26364a2584047dce608`,
+and the complete run summary has SHA256
+`4891706c211437193891e0c6c74234bf0ca7e1296d661c17cfbe1bb1084ef463`.
+The qualified prepared inventory is
+`7e3b50973f3181b8d8a59f88d39a80fc93bf74ae41ed0ac59663c4295afeb3f7`;
+the frozen runtime tree is
+`8705cf227cfc0a18ac33a8b3754e281b3d60197d2ac7bc64e6018580acf576e3`.
+
+**Alternatives rejected.** Running Qwen despite the failed Gemma promotion
+gate would convert a preregistered conditional control into outcome-driven
+model shopping. Opening the 150-case roster would spend independent evidence
+after all development mechanism conditions failed. Promoting H because its
+pooled raw accuracy is highest would change the registered V-T complexity
+hypothesis and ignore that high-complexity H-T is negative. Retuning the
+renderer or onset threshold on these outcomes would fit the development
+answers; any such successor needs a new hypothesis, artifacts, and roster.
+
+**Consequences.** DD-28 is resolved as a valid negative development result, not
+an incomplete infrastructure attempt. The immediate authorized work is bounded
+failure analysis and planning on already exposed artifacts. Further long-form
+inference remains blocked until a distinct mechanism earns a new registered
+development path.
+
+---
+
+## DD-30: Test a complete two-stage onset ledger before abandoning visual evidence acquisition
+**Date:** 2026-08-04
+**Status:** adopted
+
+**Context.** The bounded DD-29 failure analysis explains why another direct
+H/T/V rerun is not justified. On the 80 high-complexity tasks, V selected a
+panel without any valid sustained onset 25 times, returned a singleton in 58
+cases although only 45 gold answers were singleton, and included the top
+rendered row 30 times although gold did so only 15 times. A representative
+break chose one isolated `99.9` cell instead of a true two-bin same-sign run.
+At the same time, a representative repair used a clear connected early color
+block to correct T's later choice. H repaired eight T errors and broke nine;
+direct fusion is not positive, but the errors show that value reading,
+per-panel composition, tie aggregation, and final selection are currently
+collapsed into one opaque answer.
+
+No trustworthy post-hoc router emerged. Seven of eight H repairs were in
+AIOPS-2022, and exploratory clutter/service-count bins were small and selected
+after outcomes. They cannot authorize a subgroup claim. The remaining exposed
+pool is nevertheless sufficient for an independent successor: after excluding
+all old private rosters and the unopened RQ1b2 gate, 571 eligible cases remain
+(178/200/193 across AegisLab/AIOPS-2022/AIOPS-2025).
+
+**Decision.** Register RQ1b3 as a new exposed-only mechanism study under
+`RQs/RQ1/descriptions/rq1b3_two_stage_onset_ledger_protocol_v1.md`. Keep the
+same raw 12×16 facts and mandatory T/V/H arms, but require one Stage-1 call to
+externalize every panel's onset/null ledger and one Stage-2 call that sees only
+that persisted ledger and selects the minimum plus all ties. H remains exact
+image-first `A+B`; H−T final accuracy and ledger quality are primary, while V
+remains a complete secondary arm. Use numeric panel order and a separately
+registered deterministic row-shuffle sham to test the position-bias mechanism
+without selecting the better order by outcome.
+
+Freeze a new 90-case development roster and a disjoint 150-case gate, excluding
+every old RQ1 case and the RQ1b2 gate roster. Gemma development promotes only if
+H−T final accuracy and Stage-1 panel accuracy are each at least +0.05, H repairs
+exceed breaks, H ledger error is lower, oracle-ledger Stage-2 accuracy is at
+least 0.95, and all integrity gates pass. Otherwise stop without Qwen or gate
+inference. The confirmatory gate retains incident-level Pratt-Wilcoxon tests,
+practical thresholds, dataset safeguards, parse floor, and 5% paired
+infrastructure ceiling specified in the protocol.
+
+**Evidence.** The post-hoc diagnostic is
+`RQs/RQ1/results/rq1b2_compositional_development_v1/analysis/failure_analysis_v1.md`
+(SHA256 `6530012a568da3926b3b1c817d83466e925bab83f56bec87a986896ab570e43b`).
+The authoritative failed RQ1b2 analysis remains SHA256
+`bab07f7e721af803642a913ddae48fb25aae96c372091659679b67f1ae67a8ee`.
+
+**Alternatives rejected.** A dataset-specific H router would overfit the seven
+AIOPS-2022 repairs. Reordering rows and keeping whichever version scores higher
+would tune on development outcomes, so numeric order is fixed and the shuffle
+is a sham diagnostic only. Highlighting the derived winning run would turn the
+task back into answer-visible lookup. Reusing the locked RQ1b2 gate would spend
+or repurpose independent evidence after its parent mechanism failed. Advancing
+directly to RQ1c/RQ1d or RCA would violate the roadmap's complementarity gate.
+
+**Consequences.** RQ1b3 may proceed through roster freeze, implementation,
+static qualification, and smoke. No model inference is authorized before those
+contracts pass. RQ1c, RQ1d, training, reserve, and heldout remain blocked. A
+failed Gemma development cell closes this two-stage mechanism; a pass only
+authorizes the new disjoint Gemma-plus-Qwen gate, not a paper-level RCA claim.
+
+---
+
+## DD-31: Replace RQ1b3's whitespace-permissive JSON transport before development
+**Date:** 2026-08-04
+**Status:** adopted
+
+**Context.** RQ1b3 v1 passed static parity, leakage, deterministic-render, and
+manual visual qualification. Gemma then completed all nine registered main
+Stage-1 smoke calls, but one of six row-sham calls stopped at the 16,384-token
+ceiling. The response had already emitted a valid ledger prefix through
+`"sign":` and then generated only grammar-legal whitespace. A separate
+non-experimental minimal probe reproduced the same failure immediately after
+`"answer":`. Thus the issue is not insufficient output budget, missing visual
+evidence, or an infrastructure interruption: the JSON-schema grammar leaves an
+unbounded whitespace path that Gemma can follow forever. The v1 sham parse rate
+is 5/6, below its frozen requirement that every Stage-1 smoke output parse.
+
+**Decision.** Preserve RQ1b3 v1 as a technically valid failed interface smoke;
+it is not an efficacy experiment and authorizes no development inference.
+Register RQ1b3 v2 with unchanged incidents, facts, T/V/H arms, images, text,
+questions, onset definition, two stages, scores, and decision thresholds. Only
+the output transport changes. Stage 1 emits the same semantic ledger in compact
+natural-order entries such as `M7:positive@4` or `M7:null`; a task-specific
+vLLM guided regex admits no whitespace and the evaluator deterministically
+expands every valid entry to the full persisted `PanelOnsetLedgerV1`, including
+support bins `[onset,onset+1]`. Stage 2 also uses a no-whitespace guided regex
+while reading only that expanded same-arm persisted ledger.
+
+The unified vLLM model and sampling configuration remains unchanged. The
+transport and regex hashes must be stamped in every new prompt/run contract.
+V1 artifacts and hashes are immutable and may not be relabelled as v2. The
+unopened 90-case development and 150-case gate rosters may be reused because no
+development or gate model request has yet been sent.
+
+**Evidence.** The failed v1 sham call is
+`RQs/RQ1/results/rq1b3_two_stage_smoke_v1/gemma/sham_stage1/calls/4b0b177b78f13600b42de6bb.json`.
+It records `finish_reason=length`, 16,384 output tokens, and the incomplete
+ledger prefix. Main Stage 1 completed 9/9 with parse 1.000; sham Stage 1
+completed 6/6 requests but parsed 5/6. A request-level
+`disable_any_whitespace=true` probe was rejected when supplied without a
+constraint, and was accepted but ineffective when combined with a JSON
+constraint under the server's automatic structured-output backend. A strict
+regex probe returned compact valid JSON in 11 tokens.
+
+**Alternatives rejected.** Raising the output ceiling cannot remove an
+unbounded grammar path and would violate the 32k contract. Counting the
+truncated result as infrastructure failure would misclassify a model/output
+interface outcome. Lowering the parse gate would admit a known avoidable
+failure before a 90-case run. Changing the global structured-output backend or
+canonical vLLM flags is broader than necessary. Dropping the sham after it
+found the bug would be outcome-dependent protocol weakening.
+
+**Consequences.** RQ1b3 development remains blocked until v2 passes the same
+static, perception, main/sham Stage-1, main/sham Stage-2, oracle, accounting,
+and determinism smoke gates. This repair changes no status of RQ0, RQ1b,
+RQ1b2, or any other completed experiment.
+
+---
+
+## DD-32: Accept the complete RQ1b3 v2 smoke and authorize Gemma development
+**Date:** 2026-08-04
+**Status:** adopted
+
+**Context.** The DD-31 v2 repair passed 102 automated tests, static preparation
+qualification, real-telemetry deterministic recompilation, exact parity and
+leakage checks, and byte-identical reuse of the six manually reviewed v1 PNGs.
+The complete Gemma validation smoke then executed 33/33 calls: main Stage 1
+9/9, row-sham Stage 1 6/6, main Stage 2 12/12 including three oracle calls, and
+row-sham Stage 2 6/6. Every call completed and parsed; there were zero
+truncations and zero infrastructure failures, all token/GPU accounting fields
+were present, Stage 2 had no original image/text access, and oracle Stage-2
+exact accuracy was 1.000.
+
+**Decision.** Accept RQ1b3 v2 as interface-qualified and authorize preparation,
+qualification, runtime freeze, and execution of the preregistered 90-case
+Gemma development cell. Smoke accuracy is diagnostic only and must not be used
+to select an arm, alter a threshold, or claim efficacy. Qwen and the disjoint
+150-case gate remain blocked until the Gemma development promotion rule passes
+in full.
+
+**Evidence.** The authoritative smoke qualification is
+`RQs/RQ1/results/rq1b3_two_stage_smoke_v2/qualification/smoke_qualification.json`
+(file SHA256 `0d024dab2720f4765ce7574785d3cc12bda92e81402dd0e6830a54948b12f60a`,
+internal qualification SHA256
+`b001a019fc77488a23fabd6fd93a2a4e4c494501d3c8a2e74c95a832833ea029`).
+The prepared inventory is
+`f57a009f6b484f610d6bcd386703c54e7eb698327962c6eb2acc3e5db7128cfc`.
+
+**Consequences.** The next valid action is the 90-case Gemma development run
+under the unchanged v2 protocol. Its promotion decision requires final H−T
+and incident-macro ledger H−T each at least +0.05, H repairs greater than
+breaks, lower H ledger error, oracle Stage-2 accuracy at least 0.95, and all
+integrity gates. There is no development p-value gate because n=90 has an
+approximate 80%-power MDE near 0.106 for paired SD 0.36.
+
+---
+
+## DD-33: Repair the RQ1b3 development roster by label-blind task eligibility
+**Date:** 2026-08-04
+**Status:** adopted
+
+**Context.** The first full preparation attempt for the frozen 90-case RQ1b3
+development roster stopped before any model request. Seventy-seven incidents
+compiled into the registered 12-panel onset-ledger task, while thirteen did
+not support that task: four AegisLab, five AIOPS-2022, and four AIOPS-2025.
+The exposure ledger's generic `eligibility_status=eligible` means that an
+incident is authorized for RQ1 development; it does not guarantee the
+RQ1b3-specific requirement of exactly twelve qualified normalized metric
+series. Treating the thirteen incidents as model errors, silently reducing
+the denominator to 77, or borrowing cases from the independent gate would
+violate the registered design.
+
+**Decision.** Preserve the original 90-case v1 roster and its failed
+pre-inference qualification record. Register a repaired development roster
+that retains all 77 task-eligible original incidents and replaces only the
+thirteen unsupported incidents. Replacement is dataset-stratified (4/5/4),
+uses no model output and no private RCA answer, and is selected by the already
+frozen development ordering
+`SHA256(42:rq1b3:development:dataset:private_case_id)`. Starting after the
+original selections, scan the remaining exposed, development-authorized
+incidents in that order and accept the first incidents for which the frozen
+v2 compiler deterministically yields exactly one 12-panel task. Exclude every
+prior RQ1 private roster, all original RQ1b3 development cases, and the entire
+unopened 150-case RQ1b3 gate. Record every accepted or rejected candidate in a
+private qualification audit and publish only opaque identifiers and counts.
+
+The scientific protocol, H/T/V facts and prompts, output transport, model,
+thresholds, dataset balance, and n=90 do not change. The v2 smoke and its
+hashes remain valid because its validation roster and runtime are immutable;
+the repaired development receives a new config, roster, preparation inventory,
+qualification, and runtime freeze before inference.
+
+**Alternatives rejected.** Reducing n weakens the planned screen and makes
+dataset weights unequal. Lowering the twelve-panel requirement changes the
+task after registration. Using gate incidents spends independent evidence.
+Selecting replacements by root cause, observed answer, renderer quality, or
+model accuracy would be outcome-dependent. Rebuilding all 90 cases would
+discard valid frozen selections without necessity.
+
+**Consequences.** No RQ1b3 development inference is authorized until the
+repaired roster has 30 task-eligible incidents per dataset and passes the same
+parity, leakage, determinism, manual-review, and runtime-freeze gates. This
+qualification repair changes no completed experiment status and does not
+authorize Qwen or gate inference.
+
+**Execution evidence.** The frozen repair retained 77 original incidents and
+needed only 5/8/4 ordered candidate checks to accept 4/5/4 replacements. The
+result contains 30 incidents per dataset and has zero overlap with the unopened
+RQ1b3 gate. The public audit SHA256 is
+`e8bd389352e53a503399c4f935acdf4f27739649ac85dddf5f13faf0173476fb`;
+the public roster SHA256 is
+`0e197ef5139d3e3ebc3dd3a5a7590af3ecbf678c24dff78c1a97a24207203e8e`.
+The repaired roster assignment hash is
+`faf3d4ccbea649e8be947a048fe2aab5e93e5c3fa595cd171dd00745df2d306e`.
+
+---
+
+## DD-34: Close RQ1b3 and the current visual-complementarity route after the complete development gate
+**Date:** 2026-08-04
+**Status:** adopted
+
+**Context.** The repaired and fully qualified RQ1b3 Gemma development cell
+completed every registered request: 270 main Stage-1, 360 main Stage-2
+including oracle, 180 row-sham Stage-1, and 180 row-sham Stage-2 calls. There
+were zero infrastructure failures, truncations, or paired exclusions. The
+registered result is `valid_failed`. Final accuracy was T=0.6222, H=0.5889,
+and V=0.1667, so final H−T was −0.0333 rather than at least +0.05. Stage-1
+panel-macro accuracy was T=0.8944, H=0.8917, and V=0.5083, so ledger H−T was
+−0.0028 rather than at least +0.05. H repaired 10 T errors but broke 13; its
+normalized ledger error was 0.0774 versus T's lower 0.0668. Oracle Stage-2
+accuracy was 0.8000 rather than at least 0.95. All six promotion requirements
+failed.
+
+Stage-2 integrity also failed because the registered strict parser required
+Python lexicographic list order, whereas Gemma sometimes returned a correct
+set in natural numeric panel order. This was an avoidable output-interface
+convention: 21/360 main and 13/180 sham responses were rejected without being
+malformed, truncated, or interrupted. A post-hoc order-insensitive sensitivity
+analysis is deliberately not substituted for the registered result. It raises
+T/H/V/oracle correct counts only to 58/56/17/74 out of 90; H−T remains −0.0222,
+repairs still do not exceed breaks (10/12), and oracle remains only 0.8222.
+The interface issue therefore does not explain or rescue the failed mechanism.
+
+**Decision.** Close RQ1b3 as a valid negative exposed-development result. Do
+not run Qwen, do not open the locked 150-case RQ1b3 gate, and do not advance
+RQ1c, RQ1d, Observer SFT, LoRA, GRPO, reserve, or heldout RCA under this
+mechanism. Together with the valid failed independent router and RQ1b2
+complexity study, this fails the roadmap's visual-operation complementarity
+gate for the current renderer and frozen-model interface. Stop further
+outcome-driven RQ1 rescue experiments.
+
+The set-order parser is repaired forward-only: future set-valued interfaces
+accept any complete duplicate-free allowed-ID array and canonicalize it
+numerically. Historical call records, parse flags, scores, runtime freeze, and
+the `valid_failed` decision remain unchanged. The analysis script's config-key
+typo was likewise repaired only after inference; it changed no call, threshold,
+or stored outcome. The next authorized research action is to preregister RQ2's
+controlled content/encoding/arrangement study on exposed data, because that
+question can identify which dashboard design choices help or hurt without
+claiming that the current dashboard already improves RCA. No RQ2 model run is
+authorized until its own fact-equality, leakage, budget, solver, statistical,
+and stopping contracts are frozen.
+
+**Evidence.** The authoritative registered analysis is
+`RQs/RQ1/results/rq1b3_two_stage_development_v3/analysis/analysis_v1.json`
+(SHA256 `de0e304616cce1dcd09fa2440ee471adfc9b9c83fec0da38f452c0f04e92216a`).
+The bounded post-hoc diagnosis is
+`RQs/RQ1/results/rq1b3_two_stage_development_v3/analysis/failure_analysis_v1.md`
+(SHA256 `85d7b497afa4614c9a356a0a2caf90f2493ce9a471aef54dabb76ca880ed6a07`).
+The analysis/runtime provenance record has SHA256
+`0fc854011d41204c2c5c789ba0e128b914d80adc5e670e2ffc93a25f08162df7`.
+The frozen inference tree remains
+`a951f5215bbeb170854bde7a725e161b0b50c1d55d9f3ddf0c1f8fac65c3c344`.
+
+**Alternatives rejected.** Re-running after relaxing array order would be a
+post-outcome rescue and still would not meet a single efficacy gate under the
+order-insensitive sensitivity result. Running Qwen after the registered Gemma
+stop would turn a mandatory conditional control into model shopping. Opening
+the 150-case gate would spend independent evidence on a mechanism that failed
+all development conditions. Choosing AIOPS-2025 because its H−T was +0.0667
+would be a post-hoc dataset subgroup and ignores AegisLab's −0.1333 result.
+Proceeding to training would use supervision to conceal an unproven visual
+complementarity premise.
+
+**Consequences.** RQ1 now has a coherent negative evidence chain: redundant
+static augmentation failed, the learned operation router failed on a disjoint
+gate, answer-hidden image-only composition failed, and explicit two-stage
+hybrid evidence acquisition failed. This is informative evidence about the
+current representation, not proof that every possible visualization is
+useless. Future work moves one level earlier—to controlled dashboard design
+effects in RQ2—rather than changing the RQ1 outcome or consuming heldout data.
+
+---
+
+## DD-35: Start RQ2 with a staged factorial design study, not another RQ1 rescue
+**Date:** 2026-08-04
+**Status:** adopted for static implementation; inference locked
+
+**Context.** DD-34 closes the current RQ1 visual-complementarity path but does
+not establish that every dashboard design is useless. RQ1b3's row-order sham
+shows that arrangement substantially changes the model's ledger and final
+selection, while the negative accuracy result shows that influence alone is
+not benefit. The project roadmap separately defines RQ2 as the causal study of
+dashboard content, encoding, arrangement, and interactions. The exposure audit
+contains 318 eligible exposed incidents outside every frozen private roster and
+locked RQ1 gate (94 AegisLab, 115 AIOPS-2022, 109 AIOPS-2025), enough for a
+150-case independent RQ2a gate and a later disjoint 90-case downstream
+development cell. RQ2 development can reuse already executed exposed RQ1 cases
+without consuming new evidence.
+
+**Decision.** Adopt
+`RQs/RQ2/descriptions/rq2_master_protocol_v1.md` as the RQ2 research structure.
+Begin with RQ2a: a full `2^4` equal-fact factorial over metric encoding, graph
+encoding, cross-source arrangement, and entity ordering. Use answer-hidden,
+machine-scored temporal, relational, alignment, missingness, and exact-lookup
+operations. Estimate each design action through within-incident anchor-state
+relative credit, averaging over the other factor contexts. Keep content
+presence/absence in a separate RQ2b unequal-content study and downstream RCA in
+RQ2c, so new facts, visual encoding, and layout are never collapsed into one
+ambiguous effect.
+
+RQ2a development reuses 60 already executed exposed incidents and Gemma only.
+It is a spending screen, not evidence. A disjoint 150-case gate runs both Gemma
+and Qwen only if the complete development rule passes. The screen requires at
+least one target-family main effect of +0.10, repairs over breaks, lookup
+degradation above −0.05, no dataset at or below −0.10, parse at least 0.95,
+infrastructure exclusion at most 5%, and complete integrity. At n=60 and paired
+SD 0.36, the approximate 80%-power MDE is 0.130, so no development p-value is
+used. The n=150 gate requires +0.10 and Holm-adjusted paired Pratt-Wilcoxon
+p<0.05 plus the registered safeguards; its planning MDE is 0.082–0.114 for SD
+0.36–0.50.
+
+This decision authorizes directories, contracts, renderer variants, compilers,
+tests, read-only feasibility checks, and static qualification only. No RQ2
+model request is authorized until a later decision attests the frozen roster,
+facts, renderers, salience formula, prompt, answers, leakage/parity audit,
+manual review, smoke, analysis code, and runtime tree.
+
+**Alternatives rejected.** Re-running RQ1b3 with a relaxed parser would be
+outcome-driven and remains negative under sensitivity analysis. Moving directly
+to RQ1c/RL/training violates three failed complementarity mechanisms. Testing
+all dashboard changes in one end-to-end RCA comparison would confound content,
+encoding, and arrangement. Treating the row sham as proof of benefit confuses
+causal influence with correct influence. Opening heldout data before design
+qualification would spend confirmatory evidence on an unproven renderer.
+
+**Consequences.** RQ2 now owns six project-standard directories and a frozen
+master protocol. `RQs/RQ2/src/` remains untouched. The immediate task is static
+RQ2a implementation and qualification; GPU inference remains locked. RQ0/RQ1
+results, locked RQ1 gate rosters, reserve, and heldout partitions are unchanged.
+
+**Initial execution evidence.** The six-directory layout, frozen YAML contract,
+16-cell factorial enumerator, eight matched anchor pairs per main effect, four
+anchor quadruples per two-factor interaction, label-blind salience function,
+and order-insensitive set canonicalizer are implemented under RQ2's mutable
+`scripts/` tree. Nine RQ2 tests and targeted Ruff checks pass. The read-only
+feasibility audit confirms 991 eligible exposed incidents, 373 cases reusable
+from executed rosters, and 318 cases outside every frozen roster (94/115/109),
+while preserving both locked RQ1 gates. The static qualification artifact is
+SHA256 `9bf784b2ffa8135c017e45481c0d89ef97283e07c32422543c41c172cc43f7db`.
+Its status is explicitly `passed_static_contract_only`; the listed renderer,
+compiler, roster, audit, review, smoke, analysis, and runtime blocks still
+prevent inference.

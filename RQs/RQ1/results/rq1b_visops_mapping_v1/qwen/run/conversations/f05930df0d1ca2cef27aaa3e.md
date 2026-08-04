@@ -1,0 +1,11 @@
+# RQ1 VisOps conversation — Q-87FF13E02501CFC4 — H
+
+- opaque incident: `INC-41B366C12134`
+- model: `qwen3.6-27b`
+- prompt hash: `846414d5c3f3631b53704c0bb218f8f4ba4cb03ab31a8aeac198b141cc93abb1`
+- visual hash: `5f20e5b3c2b238b02d8f3cc1f90387fb782a0e3e9039602a67bf4435fb8821af`
+- text hash: `bac8a640b693dd45918aac30b9875cba5bcf80cad693d67e0978568ca225e63c`
+
+## Response
+
+{"answer": "ts-travel-service -> ts-seat-service -> ts-config-service"}

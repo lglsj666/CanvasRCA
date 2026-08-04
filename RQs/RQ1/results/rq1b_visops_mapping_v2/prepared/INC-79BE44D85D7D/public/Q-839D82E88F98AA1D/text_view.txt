@@ -1,0 +1,13 @@
+VIEW {"fact_inventory_hash":"93393f06f0978dfce41a3ed8454a0cb0cc339bded7c93367847eea893f89da32","query_hash":"e48cc357d166d461c3a165638ec0fddcc195e07702c0add559511449a76971ec","query_id":"Q-839D82E88F98AA1D","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"frontend-0","fact_id":"F9D16D5ED7C9C","field":"metric","relative_bin":null,"unit":null,"value":"container_fs_writes./dev/vda"}
+FACT {"domain":"metric","entity":"frontend-0","fact_id":"FF30312F963D6","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"frontend-0","fact_id":"FA1A5CE6739DF","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"frontend-0","fact_id":"F6868733E7A26","field":"service","relative_bin":null,"unit":null,"value":"frontend-0"}
+FACT {"domain":"metric","entity":"frontend-2","fact_id":"F54B066C6734C","field":"metric","relative_bin":null,"unit":null,"value":"container_fs_writes./dev/vda"}
+FACT {"domain":"metric","entity":"frontend-2","fact_id":"F7C51D4777562","field":"panel_id","relative_bin":null,"unit":null,"value":"M11"}
+FACT {"domain":"metric","entity":"frontend-2","fact_id":"F2EF0B771BF3B","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"frontend-2","fact_id":"F348C20695655","field":"service","relative_bin":null,"unit":null,"value":"frontend-2"}
+FACT {"domain":"metric","entity":"frontend-1","fact_id":"FD78738BDF895","field":"metric","relative_bin":null,"unit":null,"value":"container_fs_writes./dev/vda"}
+FACT {"domain":"metric","entity":"frontend-1","fact_id":"F3DC63946B552","field":"panel_id","relative_bin":null,"unit":null,"value":"M6"}
+FACT {"domain":"metric","entity":"frontend-1","fact_id":"FD5056EF7F543","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"frontend-1","fact_id":"F8DFBA832366E","field":"service","relative_bin":null,"unit":null,"value":"frontend-1"}

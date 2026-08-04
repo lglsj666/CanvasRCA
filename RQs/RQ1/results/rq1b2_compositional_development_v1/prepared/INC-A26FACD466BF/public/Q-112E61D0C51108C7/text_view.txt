@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"1c7f694515ccfcc268c619d6196a587ecfd5a1c1dbc137602f7a00df7e195562","query_hash":"81348e53ed60b69411edd382ebfeec17ba50e24bfd3d5ea88114129fc6d119a8","query_id":"Q-112E61D0C51108C7","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"shippingservice-0","fact_id":"F2596B73B4100","field":"bin_center_rel_s","relative_bin":29,"unit":"relative_seconds","value":1078.594}
+FACT {"domain":"metric","entity":"shippingservice-0","fact_id":"F874569A5178F","field":"metric","relative_bin":null,"unit":null,"value":"container_memory_failures.hierarchy.pgfault"}
+FACT {"domain":"missingness","entity":"shippingservice-0","fact_id":"FA9362E5642F4","field":"missing","relative_bin":29,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"shippingservice-0","fact_id":"F5BB01A98AA41","field":"observed_count","relative_bin":29,"unit":null,"value":1}
+FACT {"domain":"metric","entity":"shippingservice-0","fact_id":"F3404BB9AD469","field":"panel_id","relative_bin":null,"unit":null,"value":"M11"}
+FACT {"domain":"metric","entity":"shippingservice-0","fact_id":"FFD1CA94DFA67","field":"service","relative_bin":null,"unit":null,"value":"shippingservice-0"}
+FACT {"domain":"metric","entity":"shippingservice-0","fact_id":"F1BD90E654BF9","field":"value","relative_bin":29,"unit":"native","value":7.333333}

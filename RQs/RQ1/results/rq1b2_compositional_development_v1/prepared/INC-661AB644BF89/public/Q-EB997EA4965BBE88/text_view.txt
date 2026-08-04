@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"ee50bb345253e66da089ef5bc97f0db3055bac73ad2e71e7ea582d03c17a13f5","query_hash":"8567bfb4ca51bb05949999678d1d7b1eabb7b001e71116f0c5ae34e4ab36db5d","query_id":"Q-EB997EA4965BBE88","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"topology","entity":null,"fact_id":"F1097EE5EF297","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"ts-ui-dashboard","caller":"loadgenerator"}}
+FACT {"domain":"topology","entity":null,"fact_id":"F0643FA301D1E","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"ts-train-food-service","caller":"ts-food-service"}}
+FACT {"domain":"topology","entity":null,"fact_id":"FEBBFA88D3FD4","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"ts-order-service","caller":"ts-inside-payment-service"}}
+FACT {"domain":"topology","entity":null,"fact_id":"F05ECA75DB37C","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"ts-basic-service","caller":"ts-preserve-service"}}
+FACT {"domain":"topology","entity":null,"fact_id":"F21BC150284A4","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"ts-contacts-service","caller":"ts-preserve-service"}}
+FACT {"domain":"topology","entity":null,"fact_id":"FCD1612ECAB68","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"ts-price-service","caller":"ts-basic-service"}}
+FACT {"domain":"topology","entity":null,"fact_id":"F528CA4552D19","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"ts-user-service","caller":"ts-preserve-service"}}
+FACT {"domain":"topology","entity":null,"fact_id":"F44247C261658","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"ts-route-service","caller":"ts-basic-service"}}
+FACT {"domain":"topology","entity":null,"fact_id":"FAACBAF592DE0","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"ts-seat-service","caller":"ts-travel2-service"}}
+FACT {"domain":"topology","entity":null,"fact_id":"FD9C68BC98D26","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"ts-consign-service","caller":"ts-ui-dashboard"}}
+FACT {"domain":"topology","entity":null,"fact_id":"FC073817ECCAE","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"ts-contacts-service","caller":"ts-ui-dashboard"}}
+FACT {"domain":"topology","entity":null,"fact_id":"F738A92B3B758","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"ts-route-service","caller":"ts-ui-dashboard"}}
+FACT {"domain":"topology","entity":null,"fact_id":"F9BB032F1DB9E","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"ts-travel2-service","caller":"ts-ui-dashboard"}}
+FACT {"domain":"topology","entity":null,"fact_id":"FD2BF955BDD90","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"ts-user-service","caller":"ts-ui-dashboard"}}
+FACT {"domain":"topology","entity":null,"fact_id":"FB8A4DE176716","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"ts-user-service","caller":"ts-cancel-service"}}
+FACT {"domain":"topology","entity":null,"fact_id":"F001E0A30FFFA","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"ts-consign-price-service","caller":"ts-consign-service"}}

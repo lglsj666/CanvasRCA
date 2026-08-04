@@ -1,0 +1,13 @@
+VIEW {"fact_inventory_hash":"8fd316ff9316ff7b7c2ccdee42a1e19757009f134c02245b2a7016cb696385b8","query_hash":"6e626030fc1adbf0a691b276af0b2c6dab2c067add500bd4ec8f6f071d00ab0b","query_id":"Q-9CF8624E748AEAC0","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"ts-price-service","fact_id":"F7B65A666A9C1","field":"metric","relative_bin":null,"unit":null,"value":"container.cpu.usage"}
+FACT {"domain":"metric","entity":"ts-price-service","fact_id":"F3838108B2F7E","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":294.652}
+FACT {"domain":"metric","entity":"ts-price-service","fact_id":"F02CC95C1C30D","field":"panel_id","relative_bin":null,"unit":null,"value":"M3"}
+FACT {"domain":"metric","entity":"ts-price-service","fact_id":"FBD447FFE8872","field":"service","relative_bin":null,"unit":null,"value":"ts-price-service"}
+FACT {"domain":"metric","entity":"ts-contacts-service","fact_id":"F96FEF36F0D44","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.cpu_limit_utilization"}
+FACT {"domain":"metric","entity":"ts-contacts-service","fact_id":"F42B03160C9C9","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":279.733}
+FACT {"domain":"metric","entity":"ts-contacts-service","fact_id":"F4C57D87C08D6","field":"panel_id","relative_bin":null,"unit":null,"value":"M5"}
+FACT {"domain":"metric","entity":"ts-contacts-service","fact_id":"F84F140555EBC","field":"service","relative_bin":null,"unit":null,"value":"ts-contacts-service"}
+FACT {"domain":"metric","entity":"ts-travel-plan-service","fact_id":"FA09398BC9E1E","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.filesystem.usage"}
+FACT {"domain":"metric","entity":"ts-travel-plan-service","fact_id":"F2010468751BD","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":287.192}
+FACT {"domain":"metric","entity":"ts-travel-plan-service","fact_id":"F3237651061F5","field":"panel_id","relative_bin":null,"unit":null,"value":"M8"}
+FACT {"domain":"metric","entity":"ts-travel-plan-service","fact_id":"F1E7462382EC1","field":"service","relative_bin":null,"unit":null,"value":"ts-travel-plan-service"}

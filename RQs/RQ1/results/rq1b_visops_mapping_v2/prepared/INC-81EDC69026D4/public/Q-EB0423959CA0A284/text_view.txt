@@ -1,0 +1,13 @@
+VIEW {"fact_inventory_hash":"40cf093ff95c41d0ada04843902735e03f028d62542b537a02e3548e55fa2647","query_hash":"5cc49aa0178efa855b37ac2813720f3ad83f2df46d9de83d74ee1e44adf27329","query_id":"Q-EB0423959CA0A284","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"loadgenerator","fact_id":"F8E505D5E17FE","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.memory.page_faults"}
+FACT {"domain":"metric","entity":"loadgenerator","fact_id":"FD8FCDF1D3186","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":243.029}
+FACT {"domain":"metric","entity":"loadgenerator","fact_id":"F4E69A0692688","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"loadgenerator","fact_id":"FCD114A603CCE","field":"service","relative_bin":null,"unit":null,"value":"loadgenerator"}
+FACT {"domain":"metric","entity":"ts-verification-code-service","fact_id":"F97096D50D6A9","field":"metric","relative_bin":null,"unit":null,"value":"container.memory.page_faults"}
+FACT {"domain":"metric","entity":"ts-verification-code-service","fact_id":"F0A1B09A68FDA","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":257.984}
+FACT {"domain":"metric","entity":"ts-verification-code-service","fact_id":"F01B651DE9978","field":"panel_id","relative_bin":null,"unit":null,"value":"M3"}
+FACT {"domain":"metric","entity":"ts-verification-code-service","fact_id":"FB2D14F229E93","field":"service","relative_bin":null,"unit":null,"value":"ts-verification-code-service"}
+FACT {"domain":"metric","entity":"ts-avatar-service","fact_id":"F7110EDFE19E8","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.memory.page_faults"}
+FACT {"domain":"metric","entity":"ts-avatar-service","fact_id":"FFEC376682393","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":325.285}
+FACT {"domain":"metric","entity":"ts-avatar-service","fact_id":"FAB374B48E231","field":"panel_id","relative_bin":null,"unit":null,"value":"M5"}
+FACT {"domain":"metric","entity":"ts-avatar-service","fact_id":"F29E5B6501FB9","field":"service","relative_bin":null,"unit":null,"value":"ts-avatar-service"}

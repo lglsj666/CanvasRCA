@@ -1,4 +1,4 @@
-# VLM-RCA — progress report and knowledge transfer
+# CanvasRCA — progress report and knowledge transfer
 
 > **2026-07-31 RQ0 update.** The equal-information/equal-inference-opportunity
 > confirmatory experiment is complete: 720 incidents × 3 arms × 2 VLMs

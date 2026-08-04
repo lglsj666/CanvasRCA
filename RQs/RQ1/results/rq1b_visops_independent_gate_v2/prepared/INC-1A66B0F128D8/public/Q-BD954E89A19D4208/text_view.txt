@@ -1,0 +1,13 @@
+VIEW {"fact_inventory_hash":"300579fdde385e55f012909e7155e8c9af573cd9f39af85080bdaa62b33b82a9","query_hash":"15a8db4dab8fbc1d97fb9341365b462a471a38158b52e0412208ed6134b25aaf","query_id":"Q-BD954E89A19D4208","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"k8s-master2","fact_id":"FF081AC20B30E","field":"metric","relative_bin":null,"unit":null,"value":"node_filesystem_free_bytes"}
+FACT {"domain":"metric","entity":"k8s-master2","fact_id":"F7E8E433D2EBD","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1394.531}
+FACT {"domain":"metric","entity":"k8s-master2","fact_id":"FB761E9022EA4","field":"panel_id","relative_bin":null,"unit":null,"value":"M12"}
+FACT {"domain":"metric","entity":"k8s-master2","fact_id":"FB596E121C092","field":"service","relative_bin":null,"unit":null,"value":"k8s-master2"}
+FACT {"domain":"metric","entity":"k8s-master1","fact_id":"FE453378ABE2A","field":"metric","relative_bin":null,"unit":null,"value":"node_disk_write_time_seconds_total"}
+FACT {"domain":"metric","entity":"k8s-master1","fact_id":"F947563E3C955","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1394.531}
+FACT {"domain":"metric","entity":"k8s-master1","fact_id":"F7403D6C8CD79","field":"panel_id","relative_bin":null,"unit":null,"value":"M8"}
+FACT {"domain":"metric","entity":"k8s-master1","fact_id":"F5C2FE3031855","field":"service","relative_bin":null,"unit":null,"value":"k8s-master1"}
+FACT {"domain":"metric","entity":"tidb-pd","fact_id":"F09B94538300F","field":"metric","relative_bin":null,"unit":null,"value":"memory_usage"}
+FACT {"domain":"metric","entity":"tidb-pd","fact_id":"FDA8FAACE7EE2","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":1394.531}
+FACT {"domain":"metric","entity":"tidb-pd","fact_id":"F77E48829B850","field":"panel_id","relative_bin":null,"unit":null,"value":"M9"}
+FACT {"domain":"metric","entity":"tidb-pd","fact_id":"F98D729E3EB3E","field":"service","relative_bin":null,"unit":null,"value":"tidb-pd"}

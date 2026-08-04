@@ -1,0 +1,25 @@
+VIEW {"fact_inventory_hash":"74faa67daef04073f5350e8f9e91deaed9f9c6641780f7b1ddb909a90daa06a4","query_hash":"367d2f00b48efa7cecd17828783ea79957c09994d46c3e4b07bd05d33b264872","query_id":"Q-53761E7AA0996BDF","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"coverage","entity":"ts-assurance-service","fact_id":"FF2FB2B486330","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-assurance-service","fact_id":"F72AAB57344CC","field":"metric_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"ts-assurance-service","fact_id":"F0715B44DB063","field":"trace_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-auth-service","fact_id":"F7AF4898E5290","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-auth-service","fact_id":"FBDC65FF1B0C2","field":"metric_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"ts-auth-service","fact_id":"F7CB9B24B1856","field":"trace_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-basic-service","fact_id":"F3E6A45E8D35B","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-basic-service","fact_id":"F01742B730AA2","field":"metric_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"ts-basic-service","fact_id":"FF9D59B2B5EC9","field":"trace_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-cancel-service","fact_id":"F1809A7D751BC","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-cancel-service","fact_id":"FAC9F43BFC7E6","field":"metric_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"ts-cancel-service","fact_id":"FFAC4486BDDD0","field":"trace_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-config-service","fact_id":"F213701751194","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-config-service","fact_id":"FF4FCEC2FFE2A","field":"metric_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"ts-config-service","fact_id":"F89307BEF3D32","field":"trace_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-consign-price-service","fact_id":"F6E253B03E983","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-consign-price-service","fact_id":"F34E17872E182","field":"metric_available","relative_bin":null,"unit":null,"value":false}
+FACT {"domain":"coverage","entity":"ts-consign-price-service","fact_id":"F0EDC61C0008C","field":"trace_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-inside-payment-service","fact_id":"F668BBF5EED87","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-inside-payment-service","fact_id":"FD73D969A9726","field":"metric_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-inside-payment-service","fact_id":"FC4B60D540FB7","field":"trace_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-preserve-service","fact_id":"F26F532E1F768","field":"log_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-preserve-service","fact_id":"FE40D16F6D2FA","field":"metric_available","relative_bin":null,"unit":null,"value":true}
+FACT {"domain":"coverage","entity":"ts-preserve-service","fact_id":"FEBDADDE278AA","field":"trace_available","relative_bin":null,"unit":null,"value":true}

@@ -1,0 +1,8 @@
+VIEW {"fact_inventory_hash":"c1c1f5ea528db2bc431a04e509f950e286d42e10f6acd524a8149f7a38f68b58","query_hash":"ec96171d19e1d51a380ee646c836b325bedd2fe4a672272ee22f48321b04c6a9","query_id":"Q-4DE56C4A538F10F2","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"log","entity":"adservice-0","fact_id":"FACB195493BBB","field":"bin_center_rel_s","relative_bin":59,"unit":"relative_seconds","value":2063.90625}
+FACT {"domain":"log","entity":"adservice-0","fact_id":"F6A58A9768F29","field":"dominant_template","relative_bin":59,"unit":null,"value":"{\"logevent\":\"received ad request (context_words=[[\\\"cookware\\\"]])\",\"logging.googleapis.com/trace\":\"${ctx:traceid}\",\"logging.googleapis.com/spanid\":\"${ctx:spanid}\",\"logging.googleapis.com/tracesampled\":\"${ctx:tracesampled}\",\"time\":\"<v>-13t20:<v>.748z\"}"}
+FACT {"domain":"log","entity":"adservice-0","fact_id":"F52E146050323","field":"dominant_template_count","relative_bin":59,"unit":"events","value":1}
+FACT {"domain":"log","entity":"adservice-0","fact_id":"F899CB16374E7","field":"dominant_template_id","relative_bin":59,"unit":null,"value":"LT-5CC7597396E6"}
+FACT {"domain":"log","entity":"adservice-0","fact_id":"F7F5359629523","field":"error_count","relative_bin":59,"unit":"events","value":0}
+FACT {"domain":"log","entity":"adservice-0","fact_id":"F7EA95A38346D","field":"event_count","relative_bin":59,"unit":"events","value":34}
+FACT {"domain":"log","entity":"adservice-0","fact_id":"F2D02F121787F","field":"service","relative_bin":59,"unit":null,"value":"adservice-0"}

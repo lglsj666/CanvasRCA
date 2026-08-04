@@ -1,0 +1,17 @@
+VIEW {"fact_inventory_hash":"837ba1deca1beff74830d091ec61a8f49c0ebfc85f20eb0c460d0f11c077bc7c","query_hash":"063c97c580987da1059a1fb5a2afd94a57f7c2fef3f2195de8b12aa2848dcb3f","query_id":"Q-B51E5749916B5DCC","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
+FACT {"domain":"metric","entity":"paymentservice-1","fact_id":"F74FBD6208B65","field":"metric","relative_bin":null,"unit":null,"value":"pod_memory_working_set_bytes"}
+FACT {"domain":"metric","entity":"paymentservice-1","fact_id":"FD0B58EEC0462","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
+FACT {"domain":"metric","entity":"paymentservice-1","fact_id":"F3EE8A51F8EEF","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"paymentservice-1","fact_id":"FC17B53439B21","field":"service","relative_bin":null,"unit":null,"value":"paymentservice-1"}
+FACT {"domain":"metric","entity":"paymentservice-2","fact_id":"F9AAB1995C627","field":"metric","relative_bin":null,"unit":null,"value":"pod_memory_working_set_bytes"}
+FACT {"domain":"metric","entity":"paymentservice-2","fact_id":"F1CBB2B786547","field":"panel_id","relative_bin":null,"unit":null,"value":"M2"}
+FACT {"domain":"metric","entity":"paymentservice-2","fact_id":"F8786433CB2B1","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"paymentservice-2","fact_id":"FD9C579D6EAB9","field":"service","relative_bin":null,"unit":null,"value":"paymentservice-2"}
+FACT {"domain":"metric","entity":"shippingservice-2","fact_id":"F7B9EEF79AFEB","field":"metric","relative_bin":null,"unit":null,"value":"pod_memory_working_set_bytes"}
+FACT {"domain":"metric","entity":"shippingservice-2","fact_id":"F4B47D38FE405","field":"panel_id","relative_bin":null,"unit":null,"value":"M3"}
+FACT {"domain":"metric","entity":"shippingservice-2","fact_id":"FC19A7772B568","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"shippingservice-2","fact_id":"F5188EF824260","field":"service","relative_bin":null,"unit":null,"value":"shippingservice-2"}
+FACT {"domain":"metric","entity":"tidb-tidb","fact_id":"FA30AC05EF78B","field":"metric","relative_bin":null,"unit":null,"value":"qps"}
+FACT {"domain":"metric","entity":"tidb-tidb","fact_id":"FC3F9CADAC459","field":"panel_id","relative_bin":null,"unit":null,"value":"M4"}
+FACT {"domain":"metric","entity":"tidb-tidb","fact_id":"F622CD419CB7A","field":"persistence_bins","relative_bin":null,"unit":"relative_bins","value":0}
+FACT {"domain":"metric","entity":"tidb-tidb","fact_id":"F68F356A5E81B","field":"service","relative_bin":null,"unit":null,"value":"tidb-tidb"}
