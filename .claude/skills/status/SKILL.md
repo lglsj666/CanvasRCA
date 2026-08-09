@@ -14,6 +14,10 @@ Read sources in this order:
    `RQs/<rq>/results/`;
 5. `git log --oneline -10`.
 
+Before accepting a Qwen/Gemma result, verify its generated contract against all
+three global configs, the effective adapter, model checkpoint, prompt, evidence,
+renderer, and scorer hashes. An archive directory is never resume-eligible.
+
 Do not infer validity from recency, directory names, or a summary alone. Preserve
 the recorded class: confirmatory, development, pilot, smoke, diagnostic,
 invalid, superseded, incomplete, or excluded. A newer verifier that cannot read

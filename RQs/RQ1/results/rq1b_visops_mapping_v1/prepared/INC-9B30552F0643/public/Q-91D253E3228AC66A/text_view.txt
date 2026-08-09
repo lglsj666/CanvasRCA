@@ -1,8 +1,0 @@
-VIEW {"fact_inventory_hash":"303d7944e365d204c140b917e4c1d4eb35be22cbba446e6074f565469329fbfe","query_hash":"bf1faa1aba9b1c5b9cf9d015f3d962625f4868a5ab4a4bd5681c889ec62e12d5","query_id":"Q-91D253E3228AC66A","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
-FACT {"domain":"metric","entity":"ts-rebook-service","fact_id":"F0B2E9CB76730","field":"bin_center_rel_s","relative_bin":56,"unit":"relative_seconds","value":423.516}
-FACT {"domain":"metric","entity":"ts-rebook-service","fact_id":"FC54003D7C6F8","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.memory.node.utilization"}
-FACT {"domain":"missingness","entity":"ts-rebook-service","fact_id":"F3923358E9161","field":"missing","relative_bin":56,"unit":null,"value":false}
-FACT {"domain":"coverage","entity":"ts-rebook-service","fact_id":"F89034BDE38BF","field":"observed_count","relative_bin":56,"unit":null,"value":1}
-FACT {"domain":"metric","entity":"ts-rebook-service","fact_id":"F97E6AF201100","field":"panel_id","relative_bin":null,"unit":null,"value":"M12"}
-FACT {"domain":"metric","entity":"ts-rebook-service","fact_id":"FBAD05E881AEB","field":"service","relative_bin":null,"unit":null,"value":"ts-rebook-service"}
-FACT {"domain":"metric","entity":"ts-rebook-service","fact_id":"FB004D038C720","field":"value","relative_bin":56,"unit":"native","value":0.00506}

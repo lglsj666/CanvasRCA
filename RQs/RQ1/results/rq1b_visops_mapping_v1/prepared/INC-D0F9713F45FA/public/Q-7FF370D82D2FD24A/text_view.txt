@@ -1,6 +1,0 @@
-VIEW {"fact_inventory_hash":"f2aa50cf72115955c411fbb414068c87626f7a403bed49bfeae94a6791973621","query_hash":"cbd96148ab0e81d48a7384285c277fa9bec70618bd9607fc080a3fcef26f7ea6","query_id":"Q-7FF370D82D2FD24A","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
-FACT {"domain":"trace","entity":"cartservice","fact_id":"F5413C3FC4753","field":"bin_center_rel_s","relative_bin":55,"unit":"relative_seconds","value":1665.0}
-FACT {"domain":"trace","entity":"cartservice","fact_id":"FE21FF6C92C5A","field":"error_count","relative_bin":55,"unit":"spans","value":0}
-FACT {"domain":"trace","entity":"cartservice","fact_id":"F79BDD67E0316","field":"latency_p95_ms","relative_bin":55,"unit":"milliseconds","value":3.9887}
-FACT {"domain":"trace","entity":"cartservice","fact_id":"FF5635D9AA560","field":"service","relative_bin":55,"unit":null,"value":"cartservice"}
-FACT {"domain":"trace","entity":"cartservice","fact_id":"F5676BC9AB5F4","field":"span_count","relative_bin":55,"unit":"spans","value":234}

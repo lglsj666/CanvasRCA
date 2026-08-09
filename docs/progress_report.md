@@ -1,5 +1,13 @@
 # CanvasRCA — progress report and knowledge transfer
 
+> **Historical-report validity notice (2026-08-05).** All project-local
+> Qwen/Gemma model results described in this report used the now-superseded
+> vLLM-inference-v1 recipe. Under DD-53 they are archived invalid for
+> scientific, qualification, promotion, routing, or efficacy claims and must
+> not be used as current RQ evidence. The original report remains below for
+> audit history; CPU/static renderer facts and external-API runs keep their
+> separately stated scope. See `configs/vllm_inference_v2_migration.json`.
+
 > **2026-07-31 RQ0 update.** The equal-information/equal-inference-opportunity
 > confirmatory experiment is complete: 720 incidents × 3 arms × 2 VLMs
 > (4,320 formal calls). Visual+text+topology did not beat byte-identical text on

@@ -1,13 +1,13 @@
 ---
 name: dashboard
-description: Develop and qualify the CanvasRCA telemetry dashboard renderer. Use when editing RQs/vlmrca/render, changing a renderer preset, reviewing visual evidence, auditing leakage, or verifying cross-arm fact equality.
+description: Develop and qualify the CanvasRCA telemetry dashboard renderer. Use when editing src/vlmrca/render, changing a renderer preset, reviewing visual evidence, auditing leakage, or verifying cross-arm fact equality.
 ---
 
 # Dashboard renderer
 
 Read `Codex.md` before changing the renderer. The shared implementation lives
-under `RQs/vlmrca/render/`; provisional RQ-specific tooling belongs in
-`RQs/<rq>/scripts/`, never in frozen `src/`.
+under `src/vlmrca/render/`; RQ-specific Python adapters belong in that RQ's
+five functional source modules and shell triggers belong in `RQs/<rq>/scripts/`.
 
 ## Contract
 

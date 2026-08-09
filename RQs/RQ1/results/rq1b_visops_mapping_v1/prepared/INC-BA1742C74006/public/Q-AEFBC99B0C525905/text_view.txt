@@ -1,4 +1,0 @@
-VIEW {"fact_inventory_hash":"a787f5eca906ae2b9f8c8846a99fdf2af613be481af2fa0f8092a7b3d6b749d4","query_hash":"0dac9bad72dcf4b67971100588fb15133775f2c982ab0198df708be31a103fed","query_id":"Q-AEFBC99B0C525905","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
-FACT {"domain":"topology","entity":null,"fact_id":"F1097EE5EF297","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"redis","caller":"cartservice"}}
-FACT {"domain":"topology","entity":null,"fact_id":"F85F8D3B0065D","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"cartservice","caller":"checkoutservice"}}
-FACT {"domain":"topology","entity":null,"fact_id":"F92100A1BD165","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"cartservice","caller":"frontend"}}

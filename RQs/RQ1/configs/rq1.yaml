@@ -1,0 +1,88 @@
+schema_version: CanvasRCARQ1ConfigV1
+status: static_nibi_preparation
+execution_enabled: false
+seed: 42
+
+unified:
+  vllm: configs/vllm_inference.yaml
+  segmentation: configs/dataset_segmentation.yaml
+  scorer: configs/rca_scorer.yaml
+
+renderer:
+  preset: rq0_v6
+  required_version: 12
+  overrides:
+    topology_edge_key: identity_horizontal
+    topology_edge_columns: 2
+    uniform_detail_font_pt: 9.5
+    canvas_aspect: 0.76
+    entity_label_mode: case_local_ids
+    show_entity_id_explanation: true
+
+experiments:
+  legacy_q9:
+    task: direct_visops
+    stages: 1
+    arms: [T, V, H]
+    question_count: 9
+  cross_region:
+    task: cross_region_reasoning
+    stages: 1
+    arms: factorial_16_plus_H
+    reasoning_levels: [1, 2, 3]
+  typed_two_stage:
+    task: cross_region_reasoning
+    stages: 2
+    arms: factorial_16_plus_H
+    reasoning_levels: [1, 2, 3]
+  matched_rca:
+    task: root_cause_ranking
+    stages: 2
+    arms: [T, F, V, H, R]
+    primary_metric: mrr
+    primary_comparisons: [[R, T], [R, F]]
+  visual_counterfactual_rca:
+    task: root_cause_counterfactual
+    stages: 2
+    arms: [H_factual, H_targeted, H_placebo, H_neutral]
+    primary_metric: cvi
+  ledger_handoff_rca:
+    task: root_cause_handoff
+    stages: 2
+    arms: [L_txt, L_vis, L_hyb]
+    observer_arm: R
+    primary_metric: mrr
+
+data:
+  allowed_datasets: [aegislab, aiops2022, aiops2025, re2_ob, re2_tt]
+  smoke_datasets: [re2_ob, aiops2022, aiops2025]
+  frozen_source_manifest: RQs/RQ1/configs/rosters/case_manifest_480_frozen_v1.json
+  frozen_eval_adapter: RQs/RQ1/configs/rosters/rq1_frozen_eval_469_adapter_v1.json
+  private_roster: RQs/RQ1/configs/rosters/rq1_frozen_eval_469_private_v1.json
+  public_roster: RQs/RQ1/configs/rosters/rq1_frozen_eval_469_public_v1.json
+  exact_counts: {aegislab: 96, aiops2022: 100, aiops2025: 93, re2_ob: 90, re2_tt: 90}
+  headline_datasets: [aegislab, aiops2022, aiops2025]
+  saturated_diagnostic_datasets: [re2_ob]
+  final_ood_datasets: [re2_tt]
+  invalid_cases_are_replaced: false
+
+runtime:
+  models: [gemma-4-26b-a4b, qwen3.6-27b]
+  max_workers: 4
+  request_concurrency: 8
+  default_shard_count: 8
+  result_root: RQs/RQ1/results
+  smoke_call_cap: 18
+  smoke_timeout_seconds: 600
+  gate_call_cap: 36
+  gate_timeout_seconds: 1200
+  whole_case_infrastructure_exclusion_maximum: 0.05
+  parse_rate_minimum: 0.95
+
+analysis:
+  no_confidence_intervals: true
+  paired_test: wilcoxon_pratt
+  effect_size: paired_cohens_dz
+  rca_minimum_effect: 0.05
+  reasoning_effects_are_accuracy_not_rca: true
+  counterfactual_cvi_minimum: 0.05

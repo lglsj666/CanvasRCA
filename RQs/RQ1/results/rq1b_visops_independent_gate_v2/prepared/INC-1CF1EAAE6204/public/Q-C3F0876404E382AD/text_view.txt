@@ -1,8 +1,0 @@
-VIEW {"fact_inventory_hash":"a0c5b2bc65c39a781633b8bf4445507d61e3d343778392d77e3602ae71b83ab4","query_hash":"7a96649a19ca38405302d8809c98c854f1a636272eaf3097a23025f49aa0810f","query_id":"Q-C3F0876404E382AD","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
-FACT {"domain":"metric","entity":"istio-egressgateway-7bfdcc9d86-g2d4q","fact_id":"FF875BDA00239","field":"bin_center_rel_s","relative_bin":39,"unit":"relative_seconds","value":1444.219}
-FACT {"domain":"metric","entity":"istio-egressgateway-7bfdcc9d86-g2d4q","fact_id":"FCE53635EDF11","field":"metric","relative_bin":null,"unit":null,"value":"istio_agent_outgoing_latency.csr"}
-FACT {"domain":"missingness","entity":"istio-egressgateway-7bfdcc9d86-g2d4q","fact_id":"F917587B657CB","field":"missing","relative_bin":39,"unit":null,"value":false}
-FACT {"domain":"coverage","entity":"istio-egressgateway-7bfdcc9d86-g2d4q","fact_id":"FFE2315F4F8D7","field":"observed_count","relative_bin":39,"unit":null,"value":1}
-FACT {"domain":"metric","entity":"istio-egressgateway-7bfdcc9d86-g2d4q","fact_id":"F818F7A33FCBE","field":"panel_id","relative_bin":null,"unit":null,"value":"M3"}
-FACT {"domain":"metric","entity":"istio-egressgateway-7bfdcc9d86-g2d4q","fact_id":"F53C719A0EF0D","field":"service","relative_bin":null,"unit":null,"value":"istio-egressgateway-7bfdcc9d86-g2d4q"}
-FACT {"domain":"metric","entity":"istio-egressgateway-7bfdcc9d86-g2d4q","fact_id":"FB926B8142772","field":"value","relative_bin":39,"unit":"native","value":550.970157}

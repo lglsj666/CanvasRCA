@@ -1,0 +1,42 @@
+schema_version: CanvasRCARQ2ConfigV1
+status: static_nibi_preparation
+execution_enabled: false
+seed: 42
+
+unified:
+  vllm: configs/vllm_inference.yaml
+  segmentation: configs/dataset_segmentation.yaml
+  scorer: configs/rca_scorer.yaml
+
+experiment:
+  name: encoding_arrangement_factorial
+  design: full_2_power_4
+  factors:
+    M: [metric_binned_heatmap, metric_small_multiple_lines]
+    G: [topology_node_link_directed, topology_edge_time_adjacency_matrix]
+    A: [cross_source_modality_blocked, cross_source_entity_aligned]
+    O: [entity_order_natural_public_id, entity_order_label_blind_salience]
+  exact_fact_inventory_equality: true
+  inferential_unit: opaque_incident
+
+data:
+  allowed_partitions: [development, independent]
+  forbidden_partitions: [heldout, reserve, re2_tt]
+  development_per_dataset: 20
+  independent_per_dataset: 50
+
+runtime:
+  models: [gemma-4-26b-a4b, qwen3.6-27b]
+  result_root: RQs/RQ2/results
+  smoke_call_cap: 18
+  smoke_timeout_seconds: 600
+  gate_call_cap: 36
+  gate_timeout_seconds: 1200
+  parse_rate_minimum: 0.95
+  whole_case_infrastructure_exclusion_maximum: 0.05
+
+analysis:
+  paired_test: wilcoxon_pratt
+  effect_size: paired_cohens_dz
+  no_confidence_intervals: true
+

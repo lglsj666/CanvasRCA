@@ -3,16 +3,16 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "vlmrca"
-version = "0.1.0"
+name = "canvasrca"
+version = "0.2.0"
 description = "Vision-language models on rendered telemetry dashboards for microservice root cause analysis"
 requires-python = ">=3.11"
 
 [tool.setuptools.packages.find]
-where = ["RQs"]
-include = ["vlmrca*"]
+where = ["src"]
+include = ["vlmrca*", "unified_scripts*", "cli*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["RQs"]
+pythonpath = ["src", "."]
 filterwarnings = ["ignore::DeprecationWarning"]

@@ -1,8 +1,0 @@
-VIEW {"fact_inventory_hash":"f42c81bde3d826fd815252beb8862eb72f97df72fc3a768642ba64e0bfda20a4","query_hash":"b7a8107cf2ee5e9254dbd2b124e2ceaa2a831a6937da8afa7a1d2d4f29ac16b2","query_id":"Q-A6C8A52B8F5F9424","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
-FACT {"domain":"metric","entity":"ts-train-food-service","fact_id":"FCFB1F3FB926F","field":"bin_center_rel_s","relative_bin":16,"unit":"relative_seconds","value":123.053}
-FACT {"domain":"metric","entity":"ts-train-food-service","fact_id":"F5AFC52184883","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.cpu_limit_utilization"}
-FACT {"domain":"missingness","entity":"ts-train-food-service","fact_id":"FC5CD61379272","field":"missing","relative_bin":16,"unit":null,"value":false}
-FACT {"domain":"coverage","entity":"ts-train-food-service","fact_id":"F0E5CFCEBAB38","field":"observed_count","relative_bin":16,"unit":null,"value":1}
-FACT {"domain":"metric","entity":"ts-train-food-service","fact_id":"F88BE21082EC1","field":"panel_id","relative_bin":null,"unit":null,"value":"M8"}
-FACT {"domain":"metric","entity":"ts-train-food-service","fact_id":"F4D96606EE979","field":"service","relative_bin":null,"unit":null,"value":"ts-train-food-service"}
-FACT {"domain":"metric","entity":"ts-train-food-service","fact_id":"F7AB3C46029C1","field":"value","relative_bin":16,"unit":"native","value":0.004729}

@@ -1,8 +1,0 @@
-VIEW {"fact_inventory_hash":"aae6bd8b281ed1a4724bb6913e64a808474e445079bcda14e93df301a0558c2b","query_hash":"87de2c668e323994a2bf28d78d8ec079ff5d9c199028dc00b15b21c6fe25d982","query_id":"Q-112AC20E05E4860C","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
-FACT {"domain":"metric","entity":"ts-contacts-service","fact_id":"F60B5B08BF03B","field":"bin_center_rel_s","relative_bin":8,"unit":"relative_seconds","value":63.406}
-FACT {"domain":"metric","entity":"ts-contacts-service","fact_id":"F96FEF36F0D44","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.cpu_limit_utilization"}
-FACT {"domain":"missingness","entity":"ts-contacts-service","fact_id":"F7557A41036F2","field":"missing","relative_bin":8,"unit":null,"value":false}
-FACT {"domain":"coverage","entity":"ts-contacts-service","fact_id":"F81E64533E3EA","field":"observed_count","relative_bin":8,"unit":null,"value":1}
-FACT {"domain":"metric","entity":"ts-contacts-service","fact_id":"F4C57D87C08D6","field":"panel_id","relative_bin":null,"unit":null,"value":"M5"}
-FACT {"domain":"metric","entity":"ts-contacts-service","fact_id":"F84F140555EBC","field":"service","relative_bin":null,"unit":null,"value":"ts-contacts-service"}
-FACT {"domain":"metric","entity":"ts-contacts-service","fact_id":"FEF593F6FEF3E","field":"value","relative_bin":8,"unit":"native","value":0.002815}

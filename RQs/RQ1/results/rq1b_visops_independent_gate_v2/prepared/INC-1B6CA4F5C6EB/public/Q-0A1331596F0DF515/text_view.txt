@@ -1,9 +1,0 @@
-VIEW {"fact_inventory_hash":"1aaa2a5865a3c439065c4422221cfca9c4f89aea7e5a82f6b99f97b0fdf0644d","query_hash":"0676cf10b6b0fa988f51990c097477e6d7aa5966d9915b8e8b595cb882be9aeb","query_id":"Q-0A1331596F0DF515","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
-FACT {"domain":"metric","entity":"rabbitmq","fact_id":"F5589CB9B5F71","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.memory.rss"}
-FACT {"domain":"metric","entity":"rabbitmq","fact_id":"F88E933B56B47","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":332.661}
-FACT {"domain":"metric","entity":"rabbitmq","fact_id":"F9DC7F831A55C","field":"panel_id","relative_bin":null,"unit":null,"value":"M12"}
-FACT {"domain":"metric","entity":"rabbitmq","fact_id":"FB6BFA34D91F0","field":"service","relative_bin":null,"unit":null,"value":"rabbitmq"}
-FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"FF868F489CB09","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.filesystem.usage"}
-FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"FC59CAAAB1116","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":242.955}
-FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"F4DB385447C47","field":"panel_id","relative_bin":null,"unit":null,"value":"M4"}
-FACT {"domain":"metric","entity":"ts-preserve-service","fact_id":"F99B099026572","field":"service","relative_bin":null,"unit":null,"value":"ts-preserve-service"}

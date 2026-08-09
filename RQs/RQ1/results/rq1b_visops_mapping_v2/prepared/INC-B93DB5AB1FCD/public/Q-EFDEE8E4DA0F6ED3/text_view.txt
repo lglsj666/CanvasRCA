@@ -1,8 +1,0 @@
-VIEW {"fact_inventory_hash":"733be2c1a6d76c2b13e10a08a919932ac73d8b97e5bc66860f38faf2ab7e606f","query_hash":"357e8954799f42151e58916ff95b5cb6ef461b4334b8fc61fadb2efa2dc5c704","query_id":"Q-EFDEE8E4DA0F6ED3","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
-FACT {"domain":"metric","entity":"ts-consign-service","fact_id":"F64C94722BEA2","field":"bin_center_rel_s","relative_bin":17,"unit":"relative_seconds","value":130.689}
-FACT {"domain":"metric","entity":"ts-consign-service","fact_id":"FDAF367D16C69","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.filesystem.available"}
-FACT {"domain":"missingness","entity":"ts-consign-service","fact_id":"FDA3A3B76F156","field":"missing","relative_bin":17,"unit":null,"value":false}
-FACT {"domain":"coverage","entity":"ts-consign-service","fact_id":"F59B53F689326","field":"observed_count","relative_bin":17,"unit":null,"value":2}
-FACT {"domain":"metric","entity":"ts-consign-service","fact_id":"F5F66E4AD4C55","field":"panel_id","relative_bin":null,"unit":null,"value":"M8"}
-FACT {"domain":"metric","entity":"ts-consign-service","fact_id":"F030DF0711DCA","field":"service","relative_bin":null,"unit":null,"value":"ts-consign-service"}
-FACT {"domain":"metric","entity":"ts-consign-service","fact_id":"FBBC88088508E","field":"value","relative_bin":17,"unit":"native","value":17260007424.0}

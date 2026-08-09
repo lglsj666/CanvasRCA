@@ -1,8 +1,0 @@
-VIEW {"fact_inventory_hash":"1195eee38b00a27ab09ae7ef7f19ba2f363ad77c40dd3c29ccf0a93fd48e8df6","query_hash":"2142c3b3bde54325a3033cfaee126bf2f23bbf980482557987e7a19d4663421c","query_id":"Q-2E0BE972577B1959","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
-FACT {"domain":"metric","entity":"ts-payment-service","fact_id":"FD115AC818948","field":"bin_center_rel_s","relative_bin":60,"unit":"relative_seconds","value":450.281}
-FACT {"domain":"metric","entity":"ts-payment-service","fact_id":"FC89E90A57D75","field":"metric","relative_bin":null,"unit":null,"value":"k8s.pod.cpu.node.utilization"}
-FACT {"domain":"missingness","entity":"ts-payment-service","fact_id":"F7B275DF5F7D8","field":"missing","relative_bin":60,"unit":null,"value":false}
-FACT {"domain":"coverage","entity":"ts-payment-service","fact_id":"F4024D5C042B4","field":"observed_count","relative_bin":60,"unit":null,"value":2}
-FACT {"domain":"metric","entity":"ts-payment-service","fact_id":"F93D99805974B","field":"panel_id","relative_bin":null,"unit":null,"value":"M1"}
-FACT {"domain":"metric","entity":"ts-payment-service","fact_id":"F9BE2B6AA8B81","field":"service","relative_bin":null,"unit":null,"value":"ts-payment-service"}
-FACT {"domain":"metric","entity":"ts-payment-service","fact_id":"FCD5F20D392CB","field":"value","relative_bin":60,"unit":"native","value":4e-05}

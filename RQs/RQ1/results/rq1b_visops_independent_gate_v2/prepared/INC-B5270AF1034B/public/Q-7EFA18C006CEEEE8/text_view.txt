@@ -1,9 +1,0 @@
-VIEW {"fact_inventory_hash":"ac9c36216dde161b7e0c58c4dfeb5969804775eecc9df768299eb4a707ef3b9b","query_hash":"8f4ff7d8e45b7ff87a866d83e838ff9ca51179e134b9422a24e063d4433570da","query_id":"Q-7EFA18C006CEEEE8","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
-FACT {"domain":"topology","entity":null,"fact_id":"F3E1A18E83274","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"cartservice-2","caller":"frontend-2"}}
-FACT {"domain":"topology","entity":null,"fact_id":"F6D39DF8F410C","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"checkoutservice-1","caller":"frontend-2"}}
-FACT {"domain":"topology","entity":null,"fact_id":"F992D98A8779E","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"cartservice-0","caller":"checkoutservice-1"}}
-FACT {"domain":"topology","entity":null,"fact_id":"F904612B9ECDB","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"cartservice-1","caller":"checkoutservice-1"}}
-FACT {"domain":"topology","entity":null,"fact_id":"FCD1612ECAB68","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"cartservice-2","caller":"checkoutservice-0"}}
-FACT {"domain":"topology","entity":null,"fact_id":"F9858193C3D7B","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"cartservice-2","caller":"checkoutservice-1"}}
-FACT {"domain":"topology","entity":null,"fact_id":"F6B872F19DF9A","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"currencyservice-0","caller":"checkoutservice-1"}}
-FACT {"domain":"topology","entity":null,"fact_id":"F26FFE1E72E73","field":"directed_call_edge","relative_bin":null,"unit":null,"value":{"callee":"currencyservice-1","caller":"checkoutservice-1"}}

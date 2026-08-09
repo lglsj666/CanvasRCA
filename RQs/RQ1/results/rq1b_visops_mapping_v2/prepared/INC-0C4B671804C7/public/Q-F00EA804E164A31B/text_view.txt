@@ -1,9 +1,0 @@
-VIEW {"fact_inventory_hash":"fd84b22cdfef3bc0e281a6262f8102f296f2029cf852ee60c039cb25aea7d4be","query_hash":"86a3848bb5ab3b4feabbebd89b1404ab613eb162b9385f9125359c8aa8a30a9f","query_id":"Q-F00EA804E164A31B","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
-FACT {"domain":"metric","entity":"frontend2-0","fact_id":"FAF9AED8F0132","field":"metric","relative_bin":null,"unit":null,"value":"istio_request_bytes.http.0."}
-FACT {"domain":"metric","entity":"frontend2-0","fact_id":"FAE36A54DA326","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":2285.156}
-FACT {"domain":"metric","entity":"frontend2-0","fact_id":"FE24A5806AFD4","field":"panel_id","relative_bin":null,"unit":null,"value":"M12"}
-FACT {"domain":"metric","entity":"frontend2-0","fact_id":"F66EAB9509462","field":"service","relative_bin":null,"unit":null,"value":"frontend2-0"}
-FACT {"domain":"metric","entity":"frontend-2","fact_id":"F7560F09BB75A","field":"metric","relative_bin":null,"unit":null,"value":"container_memory_failures.container.pgmajfault"}
-FACT {"domain":"metric","entity":"frontend-2","fact_id":"F7BB8FB66635C","field":"onset_rel_s","relative_bin":null,"unit":"relative_seconds","value":2285.156}
-FACT {"domain":"metric","entity":"frontend-2","fact_id":"F24B9B3E8A668","field":"panel_id","relative_bin":null,"unit":null,"value":"M7"}
-FACT {"domain":"metric","entity":"frontend-2","fact_id":"F20ED9DB8E230","field":"service","relative_bin":null,"unit":null,"value":"frontend-2"}

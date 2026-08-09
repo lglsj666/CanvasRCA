@@ -1,6 +1,0 @@
-VIEW {"fact_inventory_hash":"80ae85282c86d7c1fc2c4fa56cc72f56f98490fccc2a110777b29151094bc2d2","query_hash":"20e149ee7338c8855fc460e9e006c47d98b5a8ed55c61a9b4d057a1b7abce82c","query_id":"Q-ABF16573AE8720FE","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
-FACT {"domain":"trace","entity":"ts-preserve-service","fact_id":"F8AB1BCB86097","field":"bin_center_rel_s","relative_bin":16,"unit":"relative_seconds","value":123.053008}
-FACT {"domain":"trace","entity":"ts-preserve-service","fact_id":"FAE1777CBF517","field":"error_count","relative_bin":16,"unit":"spans","value":0}
-FACT {"domain":"trace","entity":"ts-preserve-service","fact_id":"F11829445825A","field":"latency_p95_ms","relative_bin":16,"unit":"milliseconds","value":420.805495}
-FACT {"domain":"trace","entity":"ts-preserve-service","fact_id":"F022EF1C43716","field":"service","relative_bin":16,"unit":null,"value":"ts-preserve-service"}
-FACT {"domain":"trace","entity":"ts-preserve-service","fact_id":"FC23B0455FE5A","field":"span_count","relative_bin":16,"unit":"spans","value":11}

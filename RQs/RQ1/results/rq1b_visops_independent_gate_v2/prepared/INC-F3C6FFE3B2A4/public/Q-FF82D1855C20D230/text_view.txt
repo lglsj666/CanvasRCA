@@ -1,6 +1,0 @@
-VIEW {"fact_inventory_hash":"2a1c3bb308e2ad199362730d3bf3181515d1783243f532374e951c5a8f763f49","query_hash":"a1c67cfcc499ad0aaa04704c938cf5f153ce057de0b200efdc1a68f97cf9938b","query_id":"Q-FF82D1855C20D230","schema_version":"TextViewV1","semantics":{"edge":"caller -> callee means caller invokes callee","missing":"missing=true means no observation, not a normal value","time":"all time values are relative to window start t=0"}}
-FACT {"domain":"trace","entity":"shippingservice-2","fact_id":"F231244DE97BC","field":"bin_center_rel_s","relative_bin":51,"unit":"relative_seconds","value":1882.96875}
-FACT {"domain":"trace","entity":"shippingservice-2","fact_id":"F0B02E04D4549","field":"error_count","relative_bin":51,"unit":"spans","value":0}
-FACT {"domain":"trace","entity":"shippingservice-2","fact_id":"FFFFE504C0F2B","field":"latency_p95_ms","relative_bin":51,"unit":"milliseconds","value":0.0915}
-FACT {"domain":"trace","entity":"shippingservice-2","fact_id":"F0CF42455A930","field":"service","relative_bin":51,"unit":null,"value":"shippingservice-2"}
-FACT {"domain":"trace","entity":"shippingservice-2","fact_id":"FED9705F12D2B","field":"span_count","relative_bin":51,"unit":"spans","value":11}

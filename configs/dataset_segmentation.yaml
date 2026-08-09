@@ -1,0 +1,40 @@
+schema_version: CanvasRCADatasetSegmentationConfigV1
+status: frozen_global_base
+effective_date: 2026-08-09
+seed: 42
+
+paths:
+  processed: dataset/processed
+
+datasets:
+  aegislab: {role: primary}
+  aiops2022: {role: primary, leakage_group_sensitive: true}
+  aiops2025: {role: primary}
+  re2_ob: {role: smoke_only}
+  re2_tt: {role: final_ood_embargo}
+
+# Global split vocabulary. RQ configs select from these partitions but do not
+# redefine how a case is assigned. Fractions are intentionally broad defaults;
+# frozen RQ rosters may apply smaller label-blind quotas within a partition.
+partitions:
+  development: 0.50
+  independent: 0.20
+  heldout: 0.20
+  reserve: 0.10
+
+eligibility:
+  require_success_marker: true
+  reject_invalid_marker: true
+  processed_data_only: true
+  ground_truth_used_for_assignment: false
+  absolute_injection_time_used_for_assignment: false
+
+identity:
+  opaque_prefix: INC
+  source_case_id_private: true
+  public_manifest_contains_dataset: true
+
+adapters:
+  policy: explicit_hash_recorded_subclass_or_mapping
+  allowed_examples: [dataset_subset, partition_subset, label_blind_strata, per_partition_quota]
+

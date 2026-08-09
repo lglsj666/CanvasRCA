@@ -1,5 +1,13 @@
 # CanvasRCA incremental progress report — 2026-08-03
 
+> **Historical-report validity notice (2026-08-05).** All project-local
+> Qwen/Gemma model results described in this report used the now-superseded
+> vLLM-inference-v1 recipe. Under DD-53 they are archived invalid for
+> scientific, qualification, promotion, routing, or efficacy claims and must
+> not be used as current RQ evidence. The original report remains below for
+> audit history; CPU/static renderer facts and external-API runs keep their
+> separately stated scope. See `configs/vllm_inference_v2_migration.json`.
+
 **Reporting boundary:** this document primarily records work completed after
 [`progress_report.md`](progress_report.md). Section 3 also includes a concise
 recap of the completed equal-information RQ0 because it is needed as meeting

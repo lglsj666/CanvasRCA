@@ -1897,3 +1897,1822 @@ SHA256 `9bf784b2ffa8135c017e45481c0d89ef97283e07c32422543c41c172cc43f7db`.
 Its status is explicitly `passed_static_contract_only`; the listed renderer,
 compiler, roster, audit, review, smoke, analysis, and runtime blocks still
 prevent inference.
+
+---
+
+## DD-36: Fail the numeric service-ID interface before the missing RQ1 modality factorial
+**Date:** 2026-08-04
+**Status:** adopted; stop pending user review
+
+**Context.** The RQ1 RoadMap includes a still-unrun `2x2x2` factorial over
+whether metrics, logs, and traces/topology are represented visually or as
+text. Before authorizing that experiment, the user asked for a direct test of
+whether a VLM can combine renderer-v7's numbered propagation rows with its
+numeric `CALLER RANK -> CALLEE RANK` key. Earlier RQ0 perception work showed
+that the enlarged key made the numeric pair itself legible, but did not test
+the necessary composition from each number to an exact service name. The user
+explicitly required work to stop after this test if a model showed clear
+mapping difficulty.
+
+**Decision.** Treat RQ1b4 as a prerequisite perception qualification rather
+than an efficacy experiment. Use 12 already-exposed incidents balanced across
+the three primary datasets, actual/swapped/no-image conditions, and two exact
+tasks: display-ID to service name and numeric edge to service-name edge. Stop
+the sequence as soon as a completed required-model cell fails the frozen 0.80
+macro, 0.75 per-task, and +0.40 visual-control-lift criteria.
+
+The complete Gemma cell scored 0.4167 on actual-image macro accuracy, 0.4167 on
+ID lookup, and 0.4167 on composed edge mapping. Both controls scored 0.0. All
+36 calls succeeded and parsed without truncation, exact token and image hashes
+matched, and the canonical Gemma batch-invariant runtime was attested. This is
+a clear perception-gate failure. Do not run Qwen or the RQ1 factorial. Do not
+interpret the positive visual-control lift as adequate accuracy or as an RCA
+benefit.
+
+Before reconsidering the factorial, remove the numeric indirection with a
+separately approved label-blind renderer change—preferably direct service-name
+caller/callee edges or a larger dedicated ID/name mapping region—and repeat an
+independent mapping qualification. This decision does not itself authorize
+that implementation or experiment.
+
+**Evidence.** The authoritative analysis is
+`RQs/RQ1/results/rq1b4_service_display_id_mapping_v1/analysis/analysis.json`;
+the finding is
+`RQs/RQ1/findings/rq1b4_service_display_id_mapping_finding.md`; the complete
+Gemma trajectory has 36 unique episodes. Actual-image per-dataset ID/edge
+accuracies are AegisLab 0.25/0.50, AIOPS-2022 0.75/0.25, and AIOPS-2025
+0.25/0.50. Errors are dominated by service-name transcription and wrong-row
+selection rather than infrastructure, parsing, truncation, or text priors.
+
+**Relationship to prior decisions.** DD-34's historical RQ1b3 closure and all
+earlier result statuses remain unchanged. This user-authorized missing-interface
+qualification strengthens, rather than reverses, its prohibition on advancing
+the current visual-complementarity mechanism. DD-35's RQ2 static-only status
+also remains unchanged; no RQ2 inference was opened.
+
+**Consequences.** The missing RQ1 factorial remains incomplete and blocked.
+RQ1c, RQ1d, training, reserve, and heldout work remain closed. The project is
+paused at the requested reporting point.
+
+---
+
+## DD-37: Open a forward-only RQ1 cross-region reasoning mechanism for implementation and smoke
+**Date:** 2026-08-04
+**Status:** adopted for implementation and Rule-16 smoke only
+
+**Context.** DD-34 closed the failed RQ1b3 evidence-acquisition mechanism, and
+DD-36 blocked the missing three-factor modality experiment after renderer-v7's
+numeric-ID-to-service-name interface failed its registered perception gate.
+Neither experiment tested a dependency chain in which the answer found in one
+information region determines what must be read from a second or third region.
+The user has now authorized a new, forward-only mechanism that measures direct,
+two-region, and three-region reasoning and separates metrics, logs, traces, and
+topology into four representation factors. Renderer-v12 has separately passed
+CPU render qualification for an explicit numeric-ID explanation, balanced
+typography, deterministic rendering, and boundary safety; that qualification
+does not itself establish model perception or efficacy.
+
+**Decision.** Adopt
+`RQs/RQ1/descriptions/new_RQ1_plan.md` as the protocol authority for two new
+experiments: RQ1b6, the cross-region reasoning ladder, and RQ1b7, the full
+`2^4` metrics/logs/traces/topology representation factorial. Reasoning level is
+the number of sequentially dependent distinct information regions, not graph
+hop count. Each case contains one Level-1, one Level-2, and one Level-3 task;
+each factorial cell answers the three-question packet in one call. The 16
+nonredundant cells expose every incident fact exactly once. The additional H
+cell is fixed as the all-visual image fragment A followed by the byte-identical
+all-text fragment B, with no rewriting or deduplication.
+
+This decision authorizes only provisional implementation under
+`RQs/RQ1/scripts/`, frozen disabled full-run configurations, static/CPU tests,
+and one registered Rule-16 smoke: exactly one validation case from RE2-OB,
+AIOPS-2022, and AIOPS-2025, 17 conditions, and both Gemma and Qwen, for 102
+requests total. Smoke correctness, parse success, and truncation are diagnostic
+model outcomes rather than passage criteria; complete paired artifacts, frozen
+hashes, accounting, writer drain, resume verification, and zero infrastructure
+failures determine passage. Stop immediately after smoke verification.
+
+For this new mechanism only, this user authorization narrowly supersedes the
+parts of DD-34 and DD-36 that prohibited any further RQ1 implementation or
+smoke. It does not reopen, rerun, reinterpret, repair, or rehabilitate their
+failed mechanisms or artifacts. All historical RQ0/RQ1 statuses and evidence
+scopes remain unchanged. DD-35 and RQ2's static-only status are also unchanged.
+
+**Evidence.** The authority is the user's 2026-08-04 directive and the adopted
+protocol named above. Renderer-v12's applicable but limited CPU evidence is
+recorded in
+`RQs/RQ1/findings/rq1b5_numeric_entity_id_explanation_renderer_v12_finding.md`;
+it is renderer qualification only. No model perception, factorial, transfer,
+development, independent-gate, heldout, or efficacy result exists for RQ1b6 or
+RQ1b7 at adoption time.
+
+**Alternatives rejected.** Reinterpreting Legacy-Q9 as multi-region reasoning
+would change a historical task after outcome observation. Reusing the old
+three-factor bundle would prevent traces and topology from having separate
+estimands. Mapping numeric IDs back to natural service names would reintroduce
+the failed DD-36 interface; the new exact-match tasks instead answer in
+case-local numeric IDs while preserving an evaluator-private one-to-one map.
+Splitting the three questions into separate model calls would triple the
+registered compute and break the one-packet comparison. Opening a 12-case
+perception gate or 90-case experiment before the new pipeline passes smoke
+would spend evidence on unqualified infrastructure.
+
+**Consequences.** `RQs/RQ1/src/` remains frozen. Legacy-Q9 and every historical
+run remain byte-for-byte and status-preserving. The only permitted GPU work is
+the isolated 102-request smoke under
+`RQs/RQ1/results/rq1b6_b7_cross_region_smoke_v1/`. The 12-case perception gate,
+both 90-case rosters, 30-case full-dashboard transfer, heldout/reserve access,
+RQ1c/RQ1d, SFT, LoRA, GRPO, and all other training remain blocked until a later
+explicit decision.
+
+**Implementation clarification (2026-08-04, before smoke freeze).** The new
+controlled-task eligibility universe uses all metric series from the
+structurally label-free `CaseRenderView`, not the legacy full-dashboard CEB's
+top-12 selected panels. The latter is a representation projection and omitted
+real topology endpoints in the only authorized AIOPS validation cases. The
+frozen selector is outcome-blind: one highest-ranked usable series per entity,
+then the existing 64-to-16 robust-z transformation. If a telemetry family has
+no display-unique first-step anchor, template selection rotates within the
+registered level's template list from an opaque-hash start and accepts the
+first exactly scoreable task; it never invents uniqueness. This clarification
+preserves fact equality because the selected facts, values, precision, and
+missingness remain identical across all 17 cells. It changes no historical
+artifact or status and does not expand the authorized GPU scope.
+
+**Runtime compatibility clarification (2026-08-04, before a valid smoke).**
+Freeze `mm_processor_cache_gb=0` for both required models and every condition.
+The first real image requests showed that vLLM 0.24's live multimodal
+`/tokenize` preflight populated the API-process mirrored LRU without a matching
+engine receiver entry, after which generation failed with `Expected a cached
+item for mm_hash`; the text-only cell completed. Disabling this officially
+supported CPU-side preprocessing cache makes token preflight and generation
+process each image directly. It does not change the checkpoint, BF16 precision,
+image facts or pixels, image encoder, decoding parameters, context/output
+ceilings, or per-arm call budget. The setting is symmetric across Gemma/Qwen
+and all 17 conditions and must be recorded by server attestation. The failed
+diagnostic attempts remain excluded infrastructure artifacts and provide no
+accuracy evidence.
+
+**Cross-tokenizer context clarification (2026-08-04, before a valid smoke).**
+Freeze the all-text serializer as `RQ1CrossRegionLosslessJSONRowsV1`: one
+column-order declaration per M/L/R/G section followed by one canonical JSON
+array per atomic fact in `[entity, field, relative_bin, value, unit]` order;
+the section header supplies domain. The initial Qwen preflight found that the
+semantically correct but verbose per-fact JSON-object form placed 12 of 51
+prompts at 16,565–18,573 input tokens. With the frozen 32,768 context and
+16,384 requested output ceiling, vLLM correctly rejects inputs over 16,384
+before generation. No Qwen generation occurred. Compact rows remove only
+repeated key spellings: all facts, values, units, precision, bins,
+missingness, per-fact location mappings, image bytes, H=A+B composition and
+question bytes remain intact. Lowering output limits per cell, deleting facts,
+or relaxing the preflight is prohibited. The completed predecessor Gemma
+diagnostic and failed Qwen preflight remain archived and cannot be mixed with
+the newly frozen two-model smoke; both models must rerun on the same compact
+prepared inputs.
+
+**Execution result (2026-08-04).** The newly frozen smoke completed and passed
+its post-hoc verifier. Gemma and Qwen each produced 51 completed trajectories
+covering three validation cases by all 17 conditions; the combined artifact
+contains 102 unique calls, complete pairing, zero infrastructure failures,
+zero truncations, drained writers, complete token/GPU/wall-time accounting and
+verified config, model, roster, prompt, fact, image, code and resume hashes.
+The authoritative report is
+`RQs/RQ1/results/rq1b6_b7_cross_region_smoke_v1/qualification/smoke_qualification.json`
+with `status=passed` and verification hash
+`7d26181628e62f412c8736944b824fe8a0b6dbc7a1dc7850d0f43584df105381`.
+Gemma/Qwen complete-chain exact-match accuracies of 0.3595/0.8105 and parse
+rates of 0.9412/0.9804 are diagnostic smoke outcomes over only three cases;
+they are not RCA AC@1/MRR, do not test P1–P3 and cannot authorize an efficacy
+claim. The three Gemma duplicate-value schema failures and one Qwen
+wrong-step-count failure remain model outcomes. In accordance with the frozen
+stop boundary, no perception gate, 90-case run, transfer, heldout access or
+training follows automatically from this passage.
+
+---
+
+## DD-38: Promote the passed RQ1b6/b7 smoke into the registered gated execution sequence
+**Date:** 2026-08-04
+**Status:** adopted; perception gate authorized, later stages remain conditional
+
+**Context.** DD-37 authorized implementation and the Rule-16 smoke only. That
+smoke has now passed with 102/102 complete calls, zero infrastructure failures,
+complete pairing, frozen hashes, and verified accounting. The user explicitly
+authorized continued RQ1 execution and requested that each qualified stage
+proceed to the next without an informal pause. The registered
+`new_RQ1_plan.md` nevertheless makes perception a prerequisite for the larger
+factorial, so authorization cannot erase its scientific stop condition.
+
+**Decision.** Adopt
+`RQs/RQ1/descriptions/rq1b6_b7_execution_protocol_v1.md` as the execution
+transition for RQ1b6/RQ1b7. Before opening any newly selected artifact, freeze
+four mutually disjoint, exposed-only roles after excluding all pre-existing
+RQ1 private rosters: 12 perception cases, 90 development cases, 90 independent
+gate cases, and 30 transfer cases, each balanced across AegisLab, AIOPS-2022,
+and AIOPS-2025. Run the 12-case perception gate first on both Gemma and Qwen
+using factual, deterministic same-dataset swapped-image, and neutral-image
+conditions. The negative controls are perception controls and must not be
+treated as information-equal efficacy arms.
+
+Promotion to the 90-case development factorial requires the frozen primary
+Gemma perception thresholds. Qwen must complete and its architecture-specific
+gate result must be reported, but a Qwen-only failure does not veto the Gemma
+primary experiment and does not permit omitting Qwen later. A failed primary
+gate blocks the efficacy sequence; it may be debugged only under a new
+versioned exposed-development protocol. If the primary gate passes, run the
+90-case development factorial, then the disjoint independent gate only after
+analysis choices are frozen, and finally the 30-case T/V/H transfer. Never
+open heldout, reserve, RE2-TT, or training data in this sequence.
+
+**Evidence.** The preceding smoke verification and hashes are recorded under
+DD-37. The new roster assignment hashes are `4acf7bff...` (perception),
+`5e593bf0...` (development), `55e15dfb...` (independent gate), and
+`f08fc4f3...` (transfer); their complete values live in the frozen public
+rosters under `RQs/RQ1/configs/rosters/`. The 12 prepared perception inputs
+passed schema, information-parity, exact A+B, repeat-render, leakage,
+answer-material, and compiler clipping qualification before any model call.
+
+**Consequences.** DD-37's smoke-only stop is superseded only for this ordered
+sequence. Historical RQ0/RQ1 statuses remain unchanged and `RQs/RQ1/src/`
+remains frozen. The next authorized GPU action is the 72-call two-model
+perception gate; downstream calls remain conditional on its registered result.
+
+**Execution result.** The perception run completed 72/72 registered calls with
+zero infrastructure failures and zero truncations, but the scientific gate
+failed. Gemma actual Level-1/Level-2 complete-chain accuracy was 0.083/0.333;
+Qwen was 0.833/0.917. Gemma actual-minus-control was 0.083 versus the required
+0.40. Qwen showed a large 0.875 visual-control lift but failed the direct-edge
+family and all-condition parse criteria. The authoritative amended verifier is
+`RQs/RQ1/results/rq1b6_b7_cross_region_perception_gate_v1/analysis/perception_gate_verification_v2.json`
+with hash `fc1f4d02cb078e7b5ac4695a7f647a437b0d211d02d054f145edc28d9a276809`.
+The 90-case factorial, independent gate, and transfer are therefore blocked.
+
+---
+
+## DD-39: Diagnose the architecture-specific perception failure with fixed region crops
+**Date:** 2026-08-04
+**Status:** adopted for exposed-development diagnosis only
+
+**Context.** Perception gate v1 establishes that the controlled facts are
+visually usable by Qwen but not by primary Gemma. Qwen factual Level-1/2
+case-macro accuracy was 0.875 versus 0.000 for both negative controls, whereas
+Gemma scored 0.208 versus 0.125 for the stronger control. Gemma trajectories
+show pervasive small-number and wrong-row errors across all four regions. The
+single 3072x2048 image is therefore a plausible architecture-specific
+downsampling bottleneck. The direct-neighbor task also has an avoidable output
+convention ambiguity around absent directions and `:` versus `=`.
+
+**Decision.** Adopt
+`RQs/RQ1/descriptions/rq1b6_b7_region_crop_recovery_protocol_v1.md`. On only the
+already exposed v1 perception cases, run a 36-call Gemma renderer-development
+diagnostic separating full-canvas prompt clarification, four lossless fixed
+region crops, and crops plus clarification. Select by the frozen accuracy,
+minimum-family, Level-3, token, and intervention ordering in that protocol.
+This diagnostic cannot support an RQ1 claim.
+
+If and only if a candidate passes its development screen, implement that
+representation consistently in all 17 cells, preserve exact fact equality and
+H=A+B, rerun a two-model Rule-16 smoke, and then use a fresh outcome-blind
+12-case subset from the already frozen exposed-development roster for a
+two-model independent perception gate at the original thresholds. Do not
+reclassify the failed v1 gate and do not open heldout, reserve, RE2-TT, or
+training data.
+
+**Consequences.** RQ1b6/RQ1b7 remain open but blocked from efficacy-scale
+execution. RQ2 and later RQs do not start yet because RQ1 has not established a
+qualified representation. `RQs/RQ1/src/` remains frozen.
+
+**Execution result.** The diagnostic completed all 36 registered Gemma calls
+with complete three-condition pairing, zero infrastructure failures, zero
+truncations, drained asynchronous writes, and verified crop/source hashes. The
+best condition was `four_region_crops_clarified`: Level-1/2/3 complete-chain
+accuracy was 0.500/0.667/0.500, compared with 0.167/0.167/0.000 for the
+clarified single canvas. The crop therefore repaired a substantial part of
+the architecture-specific small-text failure, but it did not pass the frozen
+screen: direct-edge accuracy remained 0.000 and parse rate was 0.833. The
+authoritative analysis is
+`RQs/RQ1/results/rq1b6_b7_region_crop_recovery_v1/analysis/analysis.json` with
+hash `424e780ea319a6ebddabc4272db137f34e4aaa5044e9ea2131b872cde25d0dbd`.
+No downstream roster is opened by this result.
+
+---
+
+## DD-40: Localize packet structural failures and teach target-relative edge semantics
+**Date:** 2026-08-05
+**Status:** adopted for a second exposed-development recovery diagnostic only
+
+**Context.** DD-39 showed that fixed lossless region crops improve Gemma's
+cross-region perception but leave two separable blockers. First, the v1 packet
+parser converts one question's wrong step region or step count into a global
+`parse_ok=false`, after which all three questions in the call score zero. That
+is stricter than the registered inferential design: the questions are scored
+separately and only the case is the statistical unit. A structurally valid
+answer to one query must not be erased by a different query's semantic path
+error. Second, direct-edge inspection shows genuine target-relative direction
+errors even though the G crop visibly lists `CALLER -> CALLEE`. One output was
+semantically correct but used colon spelling; the other responses frequently
+reported the target itself as its own neighbor or added an unsupported
+direction.
+
+**Decision.** Adopt
+`RQs/RQ1/descriptions/rq1b6_b7_topology_semantics_recovery_protocol_v2.md`.
+Keep every historical v1 artifact and status unchanged. Add a forward-only v2
+packet parser that reserves packet parse failure for invalid JSON/schema,
+duplicate/missing query IDs, or another packet-wide structural defect. Step
+count, step index, and registered-region mismatch are scored as failures only
+for the affected query. Do not normalize colon spelling, remove extra values,
+or otherwise repair model answers.
+
+On the same 12 already exposed perception cases, run Gemma with the four exact
+lossless M/L/R/G crops under two conditions: the DD-39 clarification control
+and a candidate that additionally gives a label-blind target-relative edge
+rule plus a synthetic notation example. The rule states that `U -> X` yields
+`upstream=U` for target X, `X -> D` yields `downstream=D`, the target is not a
+neighbor absent a visible self-loop, and separate neighbors must be separate
+strings using equals signs. It does not name any incident entity, select or
+highlight a supporting row, reorder evidence, or expose an answer. Promotion
+uses the existing DD-39 development thresholds and requires the candidate—not
+merely the control—to pass.
+
+**Alternatives rejected.** Post-hoc punctuation normalization would conceal a
+real output-contract failure. Highlighting the queried topology row would make
+the task answer-directed and violate the registered no-answer-highlight rule.
+Dropping the direct-neighbor family after observing its failures would change
+the question roster to fit results. Opening the 90-case factorial because the
+crop improved aggregate accuracy would bypass the registered minimum-family
+gate.
+
+**Consequences.** This is still exposed renderer/prompt development, not RQ1
+evidence. It authorizes no independent, heldout, transfer, training, or
+90-case execution. If the candidate passes, it must be implemented symmetrically
+in all relevant T/V/H and factorial prompts, followed by a new two-model
+Rule-16 smoke and a fresh two-model independent perception gate. If it fails,
+RQ1b6/RQ1b7 remain blocked and the failure must be recorded before any further
+mechanism is proposed.
+
+**Execution result.** ParserV2 behaved as intended: both 12-call conditions
+had packet parse rate 1.000 with zero infrastructure failures. The topology
+tutorial raised direct-edge accuracy from 0.000 to 0.667, showing that the
+caller/callee pixels are readable and the missing operation is endpoint-relative
+semantics. It nevertheless failed promotion: Level-1/2 accuracy was
+0.667/0.417 and trace-edge-to-topology accuracy was 0.500. Paired trajectories
+show that the long global tutorial changed answers to unrelated M/L/R questions,
+so it is an attention/prompt-interference mechanism rather than a generally
+qualified repair. The authoritative analysis is
+`RQs/RQ1/results/rq1b6_b7_topology_semantics_recovery_v2/analysis/analysis.json`
+with hash `7eceb0b3eb683470da93045302988adbaa8684fafba863357eddaefc1eea448b`.
+
+---
+
+## DD-41: Encode endpoint-relative direction inside each topology edge row
+**Date:** 2026-08-05
+**Status:** adopted for exposed renderer development only
+
+**Context.** DD-40 proved that explicit endpoint semantics can repair Gemma's
+direct-edge operation, but its long global example distracts unrelated
+questions. The G crop has ample unused space, and each edge is already one
+atomic fact with caller and callee. A compact, row-local redundant encoding can
+make the same fact operational without highlighting a queried edge or adding a
+case-specific fact.
+
+**Decision.** Adopt
+`RQs/RQ1/descriptions/rq1b6_b7_topology_endpoint_encoding_recovery_protocol_v3.md`.
+For every displayed topology edge `U -> D`, keep the existing edge-ID/caller/
+callee row and add a second line inside the same fact primitive:
+`upstream of D: U | downstream of U: D`. Update the common legend for every
+text and visual condition to the equivalent concise rule. Do not include a
+worked example, queried target, highlight, answer-dependent ordering, or
+support marker. The fact ID, caller, callee, edge ID, inventory, precision, and
+source selection remain unchanged; the visual row is only a redundant encoding
+of that same edge fact, while text arms receive the edge and common rule.
+
+Run one 12-call Gemma diagnostic on the same exposed cases with exact M/L/R/G
+region crops and ParserV2. Promotion requires the full existing development
+screen. This is the final prompt/renderer recovery attempt on the v1 case set;
+if it fails, do not keep tuning against these cases. Instead report that the
+primary Gemma architecture has not qualified for this operation and seek a new
+preregistered RQ1 design decision.
+
+**Consequences.** Historical renderers, v1/v2 runs, and their statuses remain
+unchanged. The renderer identifier is versioned forward. No 90-case,
+independent, transfer, heldout, reserve, or training execution is authorized by
+this decision. A pass still requires a new two-model Rule-16 smoke and fresh
+two-model independent perception gate before efficacy-scale work.
+
+**Execution result.** The v3 source compiler passed all 12-case/17-condition
+schema, exact-information, H=A+B, determinism, leakage, fact-location and
+clipping checks, and the crop artifacts passed exact pixel/inventory checks.
+All 12 Gemma calls completed with parse 1.000 and zero infrastructure failures,
+but the scientific screen failed: Level-1/2/3 accuracy was
+0.583/0.417/0.417; direct-edge, metric-to-topology and
+trace-edge-to-topology accuracy was 0.333/0.333/0.250. The authoritative
+analysis is
+`RQs/RQ1/results/rq1b6_b7_topology_endpoint_encoding_recovery_v3/analysis/analysis.json`
+with hash `4d20a0a1555c757798e20195ee60fbdee65bae86f560ec518429dcbaaf54bbad`.
+Per the preregistered stop rule, no further prompt or renderer tuning may use
+the v1 perception cases.
+
+---
+
+## DD-42: Replace single-turn packet answering with matched two-stage observation
+**Date:** 2026-08-05
+**Status:** adopted for forward-only implementation and Rule-16 smoke
+
+**Context.** Three bounded recovery attempts establish that region crops make
+Gemma's visual facts more readable and explicit direction rules can repair a
+specific operation, but single-turn joint perception and three-question
+reasoning remains unstable. Continuing to tune the same cases would overfit.
+The RQ1 roadmap already distinguishes evidence acquisition from diagnostic or
+cross-region reasoning through an `Observe and Connect -> Diagnose` boundary.
+The failed mechanism combined both inside one response, so it did not test
+that registered agent decomposition.
+
+**Decision.** Introduce RQ1b8, a two-stage cross-region Observer, under
+`RQs/RQ1/descriptions/rq1b8_two_stage_observer_protocol_v1.md`. Stage 1 receives
+the complete question packet and exactly one representation cell, then emits a
+strict evidence ledger containing raw displayed M/L/R rows and G caller/callee
+rows relevant to each registered step. It may not emit the final normalized
+answer. Stage 2 receives only the ledger, common question packet and output
+schema; it never reopens the images or source text. Every cell uses exactly two
+model calls with identical limits and stopping rules.
+
+Visual regions are supplied as fixed M/L/R/G crops in canonical order; text
+regions use the lossless serializer. Non-H factorial cells encode each fact
+exactly once, and H is the exact ordered concatenation of the all-visual crop
+parts A and byte-identical all-text part B. The endpoint semantics remain a
+common legend, not an answer highlight. ParserV2 is used; historical artifacts
+are not rescored.
+
+First implement only provisional code and a new two-model Rule-16 smoke on the
+same three authorized validation cases, covering all 17 cells and both stages
+(204 calls). Smoke passage remains infrastructure/artifact based, not
+correctness based. If it passes, freeze an outcome-blind 12-case subset from
+the previously frozen, unused 90-case exposed-development roster and run a
+fresh two-model observation gate. No v1 perception case may be used for tuning
+or selection. The 90-case factorial remains blocked until this fresh gate
+passes.
+
+**Alternatives rejected.** Splitting the three questions into three independent
+calls would triple the already large 17-cell budget and would not expose a
+shared evidence ledger. Training another case-level root-ranker would not
+address the demonstrated perception/reasoning coupling. Promoting Qwen alone
+after observing the Gemma failure would make architecture selection
+outcome-dependent. Relaxing the family gates would hide rather than fix the
+failed operation.
+
+**Consequences.** RQ1b6/RQ1b7 single-turn results remain failed qualification
+evidence. RQ1b8 is a distinct forward mechanism, not a rehabilitation. The
+next authorized GPU work is the two-model Rule-16 smoke only; `src/`, heldout,
+reserve, RE2-TT, training, RQ2 and all efficacy-scale calls remain blocked.
+### DD-43 — Promote RQ1b8 from Rule-16 smoke to a fresh two-stage perception gate
+
+**Date:** 2026-08-05
+**Status:** Accepted; limited promotion only
+**Supersedes:** None; executes the conditional next step in DD-42
+
+**Decision.** The RQ1b8 two-stage observer mechanism passed its registered
+Rule-16 smoke and is promoted only to a fresh 12-case exposed-development
+perception gate. The new roster must contain four cases from each of AegisLab,
+AIOPS-2022 and AIOPS-2025, be selected outcome-blind from the already frozen
+90-case development roster, and be disjoint from the 12 cases used by the
+single-turn perception/recovery sequence. Both Gemma and Qwen must run factual,
+same-dataset swapped-visual and neutral-visual controls through both stages.
+The 90-case development factorial, independent gate, transfer experiment,
+heldout data and training remain blocked.
+
+**Evidence.** `rq1b8_two_stage_observer_smoke_v1` completed and post-hoc
+verified all `204/204` registered calls with zero infrastructure failures,
+complete model/case/cell/stage pairing, drained asynchronous writers, and
+matching config, roster, prompt, fact, image, ledger-transfer, scoring and code
+hashes. Gemma Stage-1/Stage-2 parse rates were `1.000/0.961`; Qwen rates were
+`0.922/0.980`. Qwen produced four Stage-1 length truncations at the registered
+16,384-token ceiling; these are preserved model outcomes and did not affect
+Rule-16 passage. Smoke accuracy is diagnostic only and is not efficacy
+evidence.
+
+**Reason.** Infrastructure and artifact integrity are qualified, while the
+fresh perception gate is the smallest registered experiment that can test
+whether the observer actually extracts visual evidence better than matched
+controls. Advancing directly to 90 cases would confound a mechanism failure
+with the factorial efficacy test and waste substantially more Qwen compute.
+
+**Revisit condition.** Unlock the 90-case development factorial only if the
+fresh primary-model gate passes its frozen perception, control-lift, parse and
+integrity thresholds. A failed gate returns the mechanism to exposed-only
+development and cannot be repaired by opening the independent or heldout sets.
+
+### DD-44 — Add label-blind task eligibility to the fresh RQ1b8 roster
+
+**Date:** 2026-08-05
+**Status:** Accepted before any perception-gate model call
+
+**Decision.** Preserve the first fresh roster and its partial preparation as a
+failed static attempt. Freeze a version-2 roster from the same development-90
+source and the same per-dataset outcome-blind hash order, but require the exact
+packet compiler to produce a valid Level-1/2/3 packet at the case's prospective
+assignment index. Record every examined case and rejection reason in a private
+eligibility audit. Do not change prompts, questions, controls, thresholds,
+models, or inference settings.
+
+**Evidence and reason.** Preparation stopped on the sixth v1 case because no
+Level-1 template had a display-unique anchor at the frozen 16-bin precision.
+No VLM server was running and no model call or result existed. Task
+scoreability is a deterministic property of label-blind supplied facts, so it
+must be resolved before roster freeze rather than converted to an
+infrastructure/model failure or replaced after observing an outcome.
+
+**Consequences.** The v1 roster assignment `5a0b479b...` is static-ineligible
+and never evidentiary. The v2 roster remains exposed-development only and must
+still be disjoint from old perception cases. The 90-case factorial remains
+blocked until the unchanged primary-model perception thresholds pass.
+
+**Freeze result.** The eligibility-aware v2 roster examined 13 candidates and
+froze 12 cases (four per dataset) with assignment hash
+`2dc7ca3cc5ba5e448bf6d84548d9824f08e9bda77d5696806cc5a1d1177e7960`.
+Exactly one candidate was rejected by the label-blind compiler. Its private
+audit is `RQs/RQ1/configs/selections/rq1b8_perception_eligibility_audit_v2.json`.
+
+### DD-45 — Reject RQ1b8 promotion and isolate the typed handoff bottleneck
+
+**Date:** 2026-08-05
+**Status:** Accepted; RQ1 efficacy-scale execution remains blocked
+**Supersedes:** The conditional promotion branch in DD-43; DD-42 remains valid
+as historical motivation and a completed mechanism test
+
+**Decision.** RQ1b8 failed its fresh two-stage scientific gate. Do not launch
+the 90-case RQ1b6/RQ1b7 factorial, independent gate, full-dashboard transfer,
+heldout evaluation, training or RQ2 efficacy chain from this mechanism. Keep
+all 144 complete two-model calls as valid exposed-development perception and
+mechanism evidence. Authorize only a forward-versioned RQ1 exposed-development
+intervention that replaces the free-form Stage-1 row strings with a typed,
+lossless series/edge ledger and adds public per-step answer-kind contracts.
+The new contract must carry all 16 displayed bins, constrain allowed output
+shapes without enumerating answer values, preserve the same atomic facts and
+remain disjoint from every case used to derive this change.
+
+**Evidence.** The authoritative verification is
+`RQs/RQ1/results/rq1b8_two_stage_perception_gate_v2/analysis/two_stage_perception_gate_verification.json`
+with verification hash
+`dd1ee2f4460f9b02e300cd1cfc41ef91b2d27320069d41ac762b69dd1a798e04`.
+Both models completed 72/72 calls with zero infrastructure failures and zero
+truncations. Gemma factual Level-1/2 accuracy was `0.750/0.333`; Qwen was
+`0.917/0.500`. Both failed the direct-edge and trace-edge-to-topology family
+requirements. Nevertheless, factual minus strongest-control Level-1+2 accuracy
+was `+0.542` for Gemma and `+0.667` for Qwen, so correct images clearly supplied
+usable case-specific evidence.
+
+The post-hoc attrition diagnostic has report hash
+`404366c8adc0170a2b7edca51ba318adb39a346460c0cca5aba7f7923f3fe47b`.
+It does not rescore the gate. Stage-1 support completeness was `0.861` for
+Gemma and `0.833` for Qwen, but `0.323` and `0.233` of support-complete queries
+respectively were lost in Stage 2. Most topology failures already contained the
+correct caller/callee row; models then emitted the wrong target-relative role
+or an unregistered value label. In addition, the ledger schema's eight-string
+limit bound two Gemma 16-bin steps and one Qwen step. The observed failure is
+therefore a mixed handoff-capacity and answer-semantics defect, not evidence
+that the pixels contain no usable signal.
+
+**Verifier correction.** The first combined verifier invocation failed before
+analysis because it requested the nonexistent configuration key
+`models.required_models`; the frozen contract uses `models.execution_order`.
+The post-hoc verifier now reads that already-frozen two-model order. This is a
+non-scientific schema repair: it changes no model output, metric, threshold,
+case, prompt or gate decision and is regression-tested.
+
+**Alternatives rejected.** Relaxing the frozen thresholds would convert a
+failed gate into an outcome-selected pass. Normalizing or stripping the
+existing model answers post hoc would conceal real contract failures. Running
+the factorial because control lift passed would ignore the registered
+operation-reliability criteria. Reusing the same 12 cases for another prompt
+iteration would overfit the mechanism to observed trajectories.
+
+**Revisit condition.** A typed successor may reopen the factorial only after
+its own two-model Rule-16 smoke and a fresh, disjoint, template-balanced
+two-model perception gate both pass their preregistered integrity, perception,
+family, control-lift and parse thresholds. Until then, RQ1 remains at
+exposed-development qualification and RQ2 may be planned but not justified as
+the downstream efficacy continuation.
+
+### DD-46 — Bound an unparseable Stage-1 handoff before rerunning RQ1b9 smoke
+
+**Date:** 2026-08-05
+**Status:** Accepted after the failed v1 implementation qualification
+**Supersedes:** Only the unbounded parse-failure transfer in RQ1b9 v1; DD-45,
+the typed evidence/answer contracts, scientific thresholds and blocked
+efficacy-scale work remain unchanged
+
+**Decision.** Preserve `rq1b9_typed_handoff_smoke_v1` as an incomplete failed
+implementation attempt and do not resume or overwrite it. Register a v2
+Rule-16 smoke on the same authorized validation roster. When Stage 1 parses,
+v2 transfers the complete typed ledger exactly as before. When Stage 1 does
+not parse, v2 transfers only a bounded, deterministic failure marker containing
+status, parse error, finish reason, truncation flag, raw-response byte length
+and SHA-256. It must not transfer the raw failed response, synthesize a ledger,
+repair an answer, reopen the original image/text evidence or alter the private
+score. Stage 2 therefore records an ordinary model-outcome failure using only
+the public questions and the marker while remaining inside the registered
+32,768/16,384 context budget.
+
+**Evidence and reason.** Gemma v1 completed 19 of its 102 requested calls with
+zero service failures before the runner failed closed. Its ninth completed
+Stage-1 call generated the full 16,384-token ceiling, was recorded as
+`finish_reason=length`, `truncated=true`, and could not be parsed. The v1
+fallback serialized the entire 440,598-byte response into Stage 2. Token
+preflight then correctly rejected `17,146 + 16,384 > 32,768` before issuing the
+Stage-2 request. This is an implementation defect in failure propagation, not
+a model-quality, information-equality or GPU failure. Carrying a hash-bound
+failure marker preserves provenance without spending context on unusable
+malformed output.
+
+**Consequences.** V1 is diagnostic only and cannot satisfy Rule 16. V2 must
+repeat the complete two-model 204-call smoke under a new experiment ID, output
+root, config hash and runtime freeze. Smoke correctness and parse remain
+non-gating, while zero infrastructure failure and complete pairing remain
+mandatory. The fresh 12-case perception gate, 90-case factorial, independent
+gate, transfer, heldout, training and RQ2 efficacy work remain blocked until a
+v2 smoke passes and the unchanged scientific gate subsequently passes.
+
+### DD-47 — Promote RQ1b9 v2 only to a fresh typed perception gate
+
+**Date:** 2026-08-05
+**Status:** Accepted; limited promotion only
+**Supersedes:** None; executes the conditional next step in DD-46
+
+**Decision.** RQ1b9 v2 passed its two-model Rule-16 smoke. Promote only the
+typed, bounded-failure two-stage mechanism to the preregistered fresh 12-case
+exposed-development perception gate. Freeze four cases per primary dataset,
+disjoint from every prior single-turn and RQ1b8 perception/recovery case, using
+label-blind task eligibility and a template-balanced roster fixed before any
+new model call. Run factual, within-dataset matched swapped-visual and neutral
+controls through both stages for Gemma and Qwen. Preserve the unchanged
+thresholds in the v1/v2 typed protocol. Do not launch the 90-case factorial,
+independent gate, full-dashboard transfer, heldout, training or RQ2 efficacy
+work unless the primary Gemma scientific gate passes.
+
+**Evidence.** The authoritative report is
+`RQs/RQ1/results/rq1b9_typed_handoff_smoke_v2/qualification/smoke_qualification.json`
+with qualification hash
+`222753b1d31905dccce9b1583a47696415310f85f6eaacae6f47b220600022ec`.
+It verifies 204/204 calls, complete model/case/cell/stage pairing, zero
+infrastructure failures, exact config/roster/prompt/fact/image/transfer/code
+hashes, conversation histories, accounting and drained writers. Gemma
+Stage-1/Stage-2 parse counts were 48/51 and 51/51; one Gemma Stage-1 output
+reached the frozen 16,384-token ceiling and was safely propagated through the
+359-byte hash-bound failure marker. Qwen parsed 51/51 calls at both stages and
+had no truncation. Diagnostic complete-chain accuracy was 0.739 for Gemma and
+0.863 for Qwen, but correctness was not a smoke passage criterion.
+
+**Reason.** The bounded transfer is now infrastructure-qualified, while a
+matched negative-control gate is still required to establish that factual
+visual evidence, rather than schema compliance or language priors, supports
+the registered operations. A 12-case balanced gate is the smallest authorized
+scientific discriminator before the 90-case factorial budget.
+
+**Revisit condition.** Unlock the 90-case factorial only if Gemma passes every
+frozen Level-1, Level-2, family, control-lift, parse and infrastructure
+criterion. A failure preserves the typed route as negative mechanism evidence
+and cannot be repaired on the same cases or by selecting Qwen alone.
+
+### DD-48 — Reject the first RQ1b9 gate roster before rendering
+
+**Date:** 2026-08-05
+**Status:** Accepted before any roster-v1 render or model call
+**Supersedes:** Only the incomplete Level-1 balancing rule in the first DD-47
+roster-freeze implementation
+
+**Decision.** Preserve `rq1b9_typed_perception_*_v1.json` as a frozen but
+static-ineligible roster attempt. It must not be rendered, prepared or used for
+inference. Freeze a v2 roster from the same development-90 source, the same
+prior-case exclusions and the same label-blind compiler/rank rule, while
+requiring the eight non-topology Level-1 tasks to cover M, L and R with counts
+2/3/3 in any deterministic permutation. Keep all other quotas unchanged:
+four cases per dataset, four G-direct, four M-to-G, four R-to-G, four other
+Level-2, three of every Level-3 template, and within-dataset G/all-Level-2
+coverage.
+
+**Evidence and reason.** The first solver froze 12 disjoint cases with roster
+hash `81d3b6aa273090166e60ef1e2c853a19b59812a4999828327f71c1400fdd0bd3`
+and audit hash
+`2a87ab5f87cf88243493eff15183503d921a4220779e5eb9d7f34812c9045f0f`.
+It satisfied every implemented quota, but its Level-1 counts were G=4, L=3,
+R=5 and M=0. The registered protocol says the other eight questions cover
+M/L/R numeric direct reads; omitting M would make the direct-read and later
+factorial interpretation incomplete. This was detected from public template
+metadata before rendering or inference and uses no label or model outcome.
+
+**Consequences.** V1 remains non-evidentiary and cannot be rehabilitated. The
+v2 freeze is a static protocol correction, not outcome-driven case replacement.
+All GPU work remains blocked until v2 passes exact balance, disjointness,
+information-parity and leakage qualification.
+
+### DD-49 — Freeze the balanced RQ1b9 v2 gate roster and register execution
+
+**Date:** 2026-08-05
+**Status:** Accepted; preparation and the two-model typed perception gate are
+authorized, but efficacy-scale work remains blocked
+**Supersedes:** The blocked v2-roster state at the end of DD-48; it does not
+relax DD-45 or DD-47
+
+**Decision.** Use only `rq1b9_typed_perception_*_v2.json` for the RQ1b9
+typed-handoff perception gate. Register the gate under
+`rq1b9_typed_perception_gate_v1` with an independent deterministic swap salt,
+the already-qualified lossless/bounded typed transfer, and the unchanged RQ1b8
+scientific thresholds. Authorize static preparation, qualification, canonical
+Gemma inference, canonical Qwen inference, and the combined verifier. Do not
+run the 90-case factorial or any later experiment until the combined verifier
+applies the preregistered Gemma promotion rule.
+
+**Evidence.** The roster contains 12 fresh exposed-development cases, four per
+dataset, and has zero overlap with the single-turn perception roster and both
+RQ1b8 perception rosters. Its assignment hash is
+`b7cc195bf2e7000194ded55088807ccd74462626dbc4fe914712877bc1e4beca`,
+selection hash is
+`b72670f320cf82c7c9a9934c6c0de105cbe5c58456cd9e52d9c584a560d7aa6d`,
+and label-blind eligibility-audit hash is
+`f24ba3cfd859cceffe21663797a6094d9ce9851c0e79d5301d13af35a2bbc463`.
+The frozen Level-1 counts are G/M/L/R = 4/2/3/3; M-to-G, R-to-G and other
+Level-2 counts are 4/4/4; every Level-3 template has three cases; every dataset
+contains G-direct and both registered topology-link Level-2 families. All 77
+eligible nonexcluded candidates compiled; no label, fault type, root cause or
+model outcome entered selection.
+
+**Reason.** The v2 roster repairs the pre-inference coverage omission detected
+in DD-48 while preserving the same source pool, exclusions and outcome-blind
+selection mechanism. The separate swap salt makes the new donor map an
+explicit versioned contract without changing historical RQ1b8 behavior.
+
+**Revisit condition.** Only a complete, integrity-passing two-model run whose
+primary Gemma result passes every unchanged scientific threshold may unlock a
+typed 90-case development factorial. Otherwise this mechanism route stops and
+the same 12 cases may not be tuned or replaced using observed outcomes.
+
+**Preparation and runtime freeze.** All 12 realized packets reproduced the
+registered template balance. Static qualification passed schema, 17-cell fact
+parity, strict A+B, leakage, answer-material separation, renderer determinism,
+typed contracts and clipping checks across 432 image parts. The project and RQ1
+test selection passed 269 tests. An initial runtime freeze was created before a
+new test file's import-order lint was corrected; it was never used for a model
+call and is preserved only as an operational predecessor. The sole authoritative
+execution freeze is `contracts/runtime_freeze_v2.json`, with freeze hash
+`00427feb027299ea8de90a68cb6fa7bc8b1848de4b48888a66b0d7eb4cc7447f`
+and runtime-tree hash
+`c81dd7f7a6153fb7004cda8f3764925c122123257ac2a96d3c7ceb4b1274dd36`.
+
+### DD-50 — Stop the RQ1b9 typed two-stage route after the primary gate failure
+
+**Date:** 2026-08-05
+**Status:** Accepted; RQ1b6/RQ1b7 efficacy-scale execution remains blocked
+**Supersedes:** The conditional promotion branch in DD-47 and DD-49; it does
+not alter the validity or historical status of any completed artifact
+
+**Context.** RQ1b9 tested whether the capacity-safe typed Stage-1 handoff could
+make the controlled visual operations reliable enough to justify the 90-case
+reasoning/factorial experiment. Gemma was frozen as the primary promotion
+authority and Qwen as the mandatory architecture control. Promotion required
+the primary model to pass every unchanged perception, family, control-lift,
+parse and infrastructure threshold.
+
+**Decision.** Reject promotion of the typed two-stage mechanism. Do not run the
+90-case RQ1b6/RQ1b7 factorial, independent gate, full-dashboard transfer,
+heldout evaluation, training or RQ2 efficacy continuation with this mechanism.
+Keep all 144 calls as valid exposed-development perception/mechanism evidence.
+Record Qwen's pass as architecture-specific evidence, not as authority to
+replace the preregistered primary model. Do not tune another handoff or prompt
+on these 12 observed cases.
+
+**Evidence.** The authoritative verification is
+`RQs/RQ1/results/rq1b9_typed_perception_gate_v1/analysis/typed_handoff_perception_gate_verification.json`
+with verification hash
+`44e63019ef925f45e494d2eb606d72d2e629b737c1fa8356380c83b2ed350794`.
+Both models completed 72/72 calls with complete pairing and zero
+infrastructure failures. Gemma factual Level-1/Level-2 accuracy was
+`0.583/0.417`, direct-edge was `0.000`, metric-to-topology was `0.250`, and
+parse rate was `0.931`; all five are below their frozen requirements. Its
+factual-control lift passed at `+0.417`. Qwen passed every identical criterion:
+Level 1 `0.917`, Level 2 `1.000`, direct-edge `0.750`, both topology-link
+families `1.000`, control lift `+0.833`, parse `1.000`, and zero infrastructure
+failure. This proves the gate is attainable but not cross-architecture stable.
+
+The post-hoc failure analysis has report hash
+`4ebca915ae674cb084c9e3f4b61bff7e7b4f0a470cc1eb6ce606c455658ee14d`.
+Among Gemma's 19 incorrect factual questions, six belonged to two complete
+Stage-1 call failures (one 16,384-token truncation and one duplicate-query-ID
+schema failure), seven lost later registered regions, two omitted or misread a
+required fact, and four failed after complete supporting facts reached Stage 2.
+Three of the four direct-edge questions had the correct typed edges in Stage 1
+but failed target-relative neighbor selection in Stage 2. Lowering parse from
+0.95 to 0.90 would not change the Level-1, Level-2 or topology-family failures.
+
+**Alternatives rejected.** Relaxing thresholds after seeing the result would
+be outcome-selected. Switching the primary model to Qwen would violate the
+frozen architecture role. Running only Qwen's 90-case factorial would provide
+neither the planned Gemma-primary result nor cross-architecture evidence.
+Another prompt/ledger iteration on the same cases would tune to exposed errors.
+
+**Consequences.** The two proposed large RQ1 experiments remain intentionally
+unexecuted because their prerequisite failed; this is a protocol outcome, not
+unfinished inference. Any future attempt must begin from a new mechanistic
+hypothesis and fresh outcome-unseen exposed data. A direct single-stage solver
+or a deterministic, task-scoped extraction interface may be planned as a new
+version, but it cannot inherit promotion from Qwen's result or reuse these 12
+cases for selection. RQ2 may be planned as dashboard-design research, but it
+must not be justified as an efficacy continuation of a mechanism that failed
+the primary gate.
+
+### DD-51 — Close RQ1 under its sequential stopping rules and begin RQ2a static implementation
+
+**Date:** 2026-08-05
+**Status:** Superseded by DD-53 for every model-inference conclusion; its
+static implementation history remains auditable and RQ2 inference remains
+locked
+
+**Context.** RQ1 now has two independent negative decision paths. The disjoint
+Legacy RCA-VisOps gate found text to be the best fixed arm for both models and
+found no beneficial frozen routing effect. The newer cross-region/four-region
+route passed infrastructure smoke but failed its primary perception
+prerequisite after multiple exposed-only mechanism interventions. The last
+typed gate produced a Qwen-specific pass but a Gemma-primary failure.
+
+**Decision.** Treat RQ1 as completed under the registered sequential decision
+tree, with the main efficacy claim unsupported. The blocked 90-case factorial,
+independent transfer and heldout branches are not missing experiments: their
+prerequisite failure is the registered terminal outcome. Keep `RQs/RQ1/src/`
+frozen because no submission-ready RQ1 implementation was approved. Begin the
+next roadmap question only through the already registered RQ2a static
+implementation and qualification scope. Do not authorize RQ2 model inference,
+RQ2b, RQ2c, training or downstream efficacy claims in this decision.
+
+**Evidence.** The RQ1 synthesis is
+`RQs/RQ1/findings/rq1_final_synthesis_2026-08-05.md`. The Legacy independent
+gate file SHA-256 is
+`4a8ba8d40af584ac2dbb60d7ed17846ed64a2c935d20d18083b6dba6764a7552`.
+Gemma routed-minus-T was `-0.0118` (`p=0.0104`) and structural routed-minus-T
+was `-0.0562` (`p=0.0112`); Qwen's corresponding effects were `-0.0046`
+(`p=0.3622`) and `-0.0227` (`p=0.3698`). RQ1b9's authoritative verification
+hash is `44e63019ef925f45e494d2eb606d72d2e629b737c1fa8356380c83b2ed350794`:
+Qwen passed every perception criterion, while Gemma failed Level 1, Level 2,
+direct-edge, metric-to-topology and parse requirements.
+
+**Alternatives rejected.** Running the factorial despite the gate would break
+the preregistration. Declaring RQ1 generally positive from Qwen alone would
+ignore the frozen primary architecture and the independent router failure.
+Declaring that images are useless would ignore the large factual-control lifts
+and Qwen's complete gate pass. Promoting provisional code into `src/` would
+mistake mechanism exploration for a settled method.
+
+**Consequences.** RQ1's defensible conclusion is architecture-specific visual
+usability without stable cross-architecture performance benefit. RQ2 must ask
+the narrower causal design question—how encoding and arrangement affect
+answer-hidden evidence operations—and must state explicitly that a positive
+design effect is not yet a text-baseline or RCA-efficacy win. RQ2a static work
+may freeze rosters, facts, renderer cells, answer separation, parity, leakage,
+analysis and smoke contracts. A later explicit decision is still required
+before any RQ2 model request.
+
+### DD-52 — Reassign two unopened RQ1 gate rosters to preserve the RQ2 sample design
+
+**Date:** 2026-08-05
+**Status:** Accepted for RQ2a static implementation; inference remains locked
+**Supersedes:** Only the data-source clause in RQ2 master protocol v1 that
+required the independent and downstream pools to lie outside every historical
+RQ1 roster
+
+**Context.** The RQ2 v1 static check assumed at least 80 eligible exposed cases
+per dataset remained outside every RQ1 private roster: 50 for the independent
+gate and 30 for a downstream lock. After the later RQ1b6–b9 roster freezes,
+the actual outside-roster counts are only AegisLab 20, AIOPS-2022 41 and
+AIOPS-2025 35. Shrinking the 150-case gate would materially weaken its planned
+MDE and asymmetric per-dataset capacity would break the balanced design.
+
+**Decision.** Preserve the 60-case RQ2 development screen on already executed
+exposed RQ1 incidents. Reassign the unopened, disjoint
+`rq1b2_gate_private_v1.json` roster—exactly 50 cases per primary dataset—as the
+source of the 150-case RQ2a independent gate. Reassign the separate unopened
+`rq1b3_gate_private_v1.json` roster as the downstream-lock source, selecting
+30 of its 50 cases per dataset by the frozen RQ2 hash and retaining the other
+20 per dataset as an unopened buffer. Create new RQ2-owned rosters with hashes
+and lineage; do not edit or execute the historical RQ1 roster files. This
+permanently retires those rosters from their old RQ1 gate roles and does not
+reopen RQ1.
+
+**Evidence.** The exposure ledger contains 318/340/333 eligible exposed cases
+for AegisLab/AIOPS-2022/AIOPS-2025. The union of all current RQ1 private rosters
+leaves only 20/41/35 outside it. Each reassigned gate roster contains 150 unique
+cases, 50 per dataset; every one of its cases is absent from every other RQ1
+private roster. Neither roster has any opaque incident directory anywhere
+under `RQs/RQ1/results/`, and RQ1 has no corresponding gate result directory:
+only its development and smoke predecessors exist. Thus no model outcome,
+render or trajectory was observed for either pool.
+
+**Alternatives rejected.** Lowering the gate to 20 cases per dataset would
+raise the approximate paired MDE and remove the planned 90-case downstream
+lock. Opening reserve, heldout or RE2-TT would violate partition rules. Treating
+prior RQ1 execution as automatically disqualifying would discard two perfectly
+unopened exposed pools for historical names rather than scientific exposure.
+
+**Consequences.** RQ2 must version the data contract and make the reassignment
+explicit in its protocol, config, static checker and generated roster lineage.
+The 60/150/90 sample sizes, model roles, statistical thresholds and all
+information/leakage rules remain unchanged. The reassigned independent and
+downstream cases may not be inspected for RQ2 model outcomes before their
+registered stage. This decision authorizes only static roster construction and
+qualification; a later decision is still required before model inference.
+
+**Static completion.** The v2 roster generator and its drift-check mode passed
+the 10-test RQ2 static suite and lint. The frozen manifest is
+`RQs/RQ2/configs/rosters/rq2a_roster_bundle_v2.json`, with canonical bundle
+hash `c304f3c0831b5b47c9ee4c10527760206b6a362626c0c0ab02ab762fc9eb1bc4`
+and file SHA-256
+`b27b87c68b466d160aa2e735d244cffbe1f294d02608bd1047064561e17b0711`.
+It freezes 60 development, 150 independent-gate, 90 downstream-lock and 60
+buffer cases; all four private sets are pairwise disjoint. The generated
+contract remains `frozen_static_inference_locked` and does not authorize a
+model call.
+
+### DD-53 — Replace the local Qwen/Gemma inference recipe and invalidate protocol-v1 model results
+
+**Date:** 2026-08-05
+**Status:** Accepted; static migration complete, all successor model execution
+locked pending requalification
+**Supersedes:** The vLLM-inference-v1 runtime in all earlier decisions and the
+model-outcome-dependent conclusions or promotions in DD-25 through DD-51. It
+does not invalidate CPU-only renderer qualifications, static rosters,
+partition assignments, checkpoint bytes, external-API experiments, or the
+data-reallocation facts in DD-52.
+
+**Context.** The user selected a new canonical decoding and multimodal serving
+recipe after the Gemma failure analysis: `temperature=1.0`, `top_p=0.95`,
+Gemma `max_soft_tokens=1120`, Qwen `min_pixels=65536` and
+`max_pixels=2580480`, Gemma xgrammar with
+`disable_any_whitespace=true`, and chunked prefill enabled for Gemma. These are
+substantive runtime changes, not a relocation-only migration. The old local
+results therefore cannot be relabeled as if they used the new configuration.
+
+**Decision.** Adopt `vllm-inference-v2` as the sole configuration for new
+project-local Qwen3.6-27B and Gemma-4-26B-A4B-it calls. Keep both models
+unquantized BF16 with the existing 32,768 context, 16,384 output ceiling, seed
+42, thinking disabled, and `gpu_memory_utilization=0.65`. Freeze separate
+model-specific server contracts:
+
+- Qwen uses `min_pixels=65536`, `max_pixels=2580480`, batch-invariant off, and
+  chunked prefill off.
+- Gemma uses `max_soft_tokens=1120`, batch-invariant on, chunked prefill on,
+  and xgrammar with arbitrary JSON whitespace disabled.
+
+The Qwen pixel cap equals the source-pixel coverage associated with Gemma's
+1,120-soft-token budget (`1120 × 3² × 16² = 2,580,480`). This freezes matched
+source-pixel coverage; it does not assert equal architecture-specific image
+token counts, so actual image tokens remain a required per-call measurement.
+Because temperature 1.0 enables sampling, exact output repetition is not a
+validity gate; paired arms must instead share the registered sampling and
+replicate policy.
+
+Archive every prior local Qwen/Gemma result made under inference-v1 in place,
+without deleting, moving, or rewriting raw trajectories, logs, contracts,
+hashes, or analyses. The authoritative inventory contains 30 current RQ0/RQ1
+result roots and 46 legacy local-vLLM roots. They are invalid for scientific,
+qualification, routing, promotion, or efficacy claims and may not be resumed.
+External Claude/API runs and CPU/static artifacts are outside this
+runtime-specific invalidation. RQ0 and RQ1 are reopened; their former empirical
+endpoints are withdrawn. RQ2 had no model calls, so only its old static runtime
+contract is superseded.
+
+**Implementation evidence.** The pinned local environment is vLLM 0.24.0,
+xgrammar 0.2.3, Transformers 5.14.1, and PyTorch 2.11.0. The requested flags
+parse in that environment. Gemma's supported soft-token budgets include 1,120,
+and the explicit xgrammar backend is required for the whitespace restriction.
+vLLM accepts the selected Qwen chunked-prefill setting but emits an upstream
+GDN warning that disabling it may crash or produce incorrect output. The
+setting remains user-selected and frozen, but this warning makes a new live
+attestation and Rule-16 smoke mandatory before Qwen inference; it must not be
+silenced by changing the flag without another versioned decision.
+
+The canonical configuration SHA-256 is
+`0e8c51ed8e8723665da59151432675b755ed2183b5522acf1d61d09fcd4488a9`.
+The generated static lock file SHA-256 is
+`3c536f4d98c5582037321e6e7b4bfdf6b0da12c6d5e17a661e8dc8b0a5097f44`
+and its canonical content hash is
+`861b44779af8fe6db7f2cd96556995c3ef9f079d71cf702d3de2fda480957695`.
+The migration registry SHA-256 is
+`85d9a5c43493b5d608248964a229f860468a747c9e2ebce8071524460fc7fb3e`.
+The RQ0 and RQ1 successor-protocol hashes are respectively
+`de9413712790d02d9a6c9487bbb58d626dd6fca019e8eaa67c81eb8cbece3aa3`
+and
+`9737262c64502dc1b6b055a29a44d4e81e77939701ddfee9e0ff203802d16abb`.
+The RQ0, RQ1, and legacy archive-manifest hashes are respectively
+`9db3bfb62ddcc59a903674be65a098817ae471f8e2475ad386463e7812fe6cae`,
+`70ebbfbbfcb585f631942ac37544f6d6336ef5076bbdbfb09d4824b829c2236e`,
+and
+`3abb9080697c7b5dfd66ad79248fe5d82345d64394990a19be76af72790b0fd0`.
+
+RQ2 was regenerated as static contract V3 without model calls. Its config,
+roster-bundle file, and qualification hashes are respectively
+`6209efac67024560a2f12281bd5062903466de2cc01412d02cd5b4360b24a380`,
+`38d1c2450f205015ab25a00bd95dfa45e4126d6dfd775327927e199ca725082a`,
+and
+`01be52f1aa3ca5c0d387aade2dc1c0bd942de0ca8b836bbf5406b801d3ac3719`.
+
+The static lock also covers the RQ0 adapter launcher and the legacy SLURM
+entry point. The latter is deliberately a fail-closed, non-authoritative stub;
+the former still requires a separately enabled experiment-bound adapter
+contract and live attestation before use.
+
+**Consequences.** Old server attestations, token-budget reports, runtime
+freezes, smokes, gates, and run contracts remain immutable evidence of what was
+actually run, but none can authorize or qualify a v2 experiment. Successor
+protocols are explicitly unfrozen and `execution_authorized=false`. Before any
+new model call, create a new experiment ID/result root, regenerate the
+model-specific live server attestation and image-token/context preflight,
+freeze a new experiment-bound runtime contract/hash, and pass a new
+partition-aware Rule-16 smoke. Partial old outcomes may not choose rerun order,
+prompts, cases, or settings.
+
+**Revisit condition.** A runtime value may change only through another
+versioned decision that identifies affected experiments and creates new
+contracts/hashes. Historical inference-v1 results remain archived invalid even
+if a future recipe resembles their old settings.
+
+**Post-decision lightweight smoke.** A two-call runtime diagnostic subsequently
+confirmed that both model-specific launchers start and accept one real-image
+strict-JSON request. Gemma completed with effective `max_soft_tokens=1120`,
+chunked prefill on, and the registered xgrammar whitespace restriction; Qwen
+completed with the registered pixel limits and chunked prefill off. Both calls
+returned HTTP 200 with finish reason `stop`, and both services were then
+stopped. This diagnostic is recorded under
+`RQs/RQ1/results/rq1_vllm_inference_v2_runtime_smoke_v1/`. It is not the
+partition-aware three-case Rule-16 smoke and therefore does not change
+`execution_authorized=false` or unlock any full experiment.
+
+### DD-54 — Increase canonical vLLM scheduling capacity to 64 sequences
+
+**Date:** 2026-08-05
+**Status:** Adopted; operational amendment to DD-53
+
+**Context.** The DD-53 runtime used `max_num_seqs=8`. The user observed that
+experiments were slower than expected and the GPU was frequently underfilled,
+and reported prior successful use of 64 with these models in another project.
+This field limits vLLM's concurrent sequence scheduling capacity.
+
+**Decision.** Change only `max_num_seqs` from 8 to 64 for both Qwen3.6-27B and
+Gemma-4-26B-A4B-it. Keep every other DD-53 runtime field unchanged, including
+temperature, top-p, image budgets, chunked-prefill choices, BF16 precision,
+context/output limits, thinking state, structured-output policy and GPU-memory
+utilization. `Codex.md` was updated before the implementation, followed by the
+unified config, canonical launcher, RQ0 adapter launcher, runtime validator,
+RQ1 runtime expectations and generated hash lock. Historical experiment
+configs and run contracts remain immutable.
+
+**Evidence.** The new unified-config SHA-256 is
+`0c868ef495782d00207f5b0d206558f3f6d19c6cd75e79d11e425398b20637c2`.
+The generated lock file SHA-256 is
+`893eaf47f0d3ae32a24a1e6478208c7c5e649dc947021732c2d7ba90558648c6`,
+with canonical content hash
+`a43b388ce95f85e7276c2f3307e5359b1270119a890477a5530f328309d65d3d`.
+The migration-registry SHA-256 is
+`5cc5ea9346881a0baca08ad9e2cbe35d68b294b67dbf9c1792421bcbfb35b77f`.
+The administratively rebound RQ2 static-report SHA-256 is
+`a0f8bc740963baef6e0f0e38debbbf8179493ef334e7bf1f61cbd865f4db6d51`.
+The user explicitly waived static checks and smoke for this one-field capacity
+amendment; none were run. The previous lightweight two-call diagnostic used 8
+and remains historical diagnostic evidence rather than an attestation of 64.
+
+**Alternatives rejected.** Keeping 8 was rejected because it unnecessarily
+constrained batching and left the GPU underutilized. Changing additional
+runtime fields was rejected because the request was limited to this single
+capacity parameter.
+
+**Consequences.** No scientific result had been generated under the
+intermediate inference-v2 capacity setting, so the DD-53 invalidation manifests
+and the reopened status of RQ0/RQ1 are unchanged. Future runs must record 64 in
+their effective configuration. This waiver avoids an immediate standalone
+check or smoke solely for the capacity change; it does not remove the ordinary
+Rule-16 qualification required before a future full experiment.
+
+### DD-55 — Authorize the inference-v2 RQ0-to-RQ1 rerun and make RQ1 perception non-stopping
+
+**Date:** 2026-08-05
+**Status:** Accepted and executing
+**Supersedes:** The execution locks in the RQ0/RQ1 inference-v2 migration
+interlocks and only the stop-after-perception ordering clause of
+`RQs/RQ1/descriptions/rq1b6_b7_execution_protocol_v1.md`. It does not change
+the registered perception thresholds, information-equality contract, RQ1
+hypotheses, scoring, rosters, or the invalid status of inference-v1 results.
+
+**Context.** DD-53 invalidated all local Qwen/Gemma model outcomes generated
+under inference-v1 and reopened RQ0/RQ1. DD-54 then raised the canonical
+scheduling capacity to 64 without changing the scientific request contract.
+The user has now explicitly authorized a continuous rerun from RQ0 through
+the end of RQ1 using inference-v2, including both RQ1b6 cross-region reasoning
+and RQ1b7 four-region factorial experiments, regardless of whether the
+diagnostic perception gate meets its promotion thresholds.
+
+**Decision.** Execute only versioned successor result roots. RQ0 reruns its
+registered 720-case, three-arm paired experiment for Qwen3.6-27B followed by
+Gemma-4-26B-A4B-it after a model-specific live attestation, 720-case token
+preflight and partition-aware Rule-16 smoke. The old RQ0 roster is now exposed;
+therefore this rerun is a valid repeated-roster comparison under the new
+runtime but not a fresh untouched confirmation.
+
+For RQ1, run a new two-model Rule-16 smoke, then the complete 12-case
+actual/swapped/neutral perception experiment, the 90-case development utility
+map, and the disjoint 90-case independent gate. The perception thresholds and
+result interpretation remain exactly registered, but their result is
+diagnostic and non-stopping: failure must be reported and cannot be hidden,
+yet it cannot prevent execution of RQ1b6/RQ1b7. The 17-cell full runs jointly
+answer the reasoning-level question and estimate the M/L/R/G visual main
+effects; they are not two selectively launched protocols. Both models must
+complete every registered stage. No heldout, reserve, RE2-TT, training, SFT,
+LoRA, or GRPO is authorized.
+
+**Operational implementation.** Use the canonical unquantized BF16
+inference-v2 contract with `max_num_seqs=64`. Multiple resumable case shards
+may feed the one frozen server concurrently so that the scheduling capacity is
+actually used. Sharding is operational only: every call remains bound to the
+same roster, prompt, facts, model runtime, response schema and scorer, and the
+post-hoc verifier requires complete unique pairing before analysis. Whole-case
+infrastructure exclusions retain the project-wide 5% maximum. Partial results
+may be monitored but cannot choose prompts, cases, thresholds, model order or
+whether the second model runs.
+
+**Evidence at authorization.** The inference-v2 config SHA-256 is
+`0c868ef495782d00207f5b0d206558f3f6d19c6cd75e79d11e425398b20637c2`.
+After adding the shared live-server attester, the static lock file SHA-256 is
+`9781816f31552f8b5791c546f43640c3985942ef825a26736b73ca4feac64e14`
+and its content hash is
+`9be87f5009c2839722968db87567efd9f728ea954555b257da3839326918e55a`.
+RQ0's 720-case static qualification, representation transport audit and
+artifact inventory passed with 720/720 cases, zero failures and 2,880 frozen
+case artifacts. Qwen's live attestation recorded `max_num_seqs=64`, the
+registered pixel budget and chunked-prefill off; its token preflight passed all
+2,160 prompts with maximum input counts 15,741/14,171/14,798 for A/B/C, and
+its Rule-16 smoke passed all 9 calls with zero infrastructure failures.
+
+**Consequences.** A negative perception result remains important evidence
+that visual reading is weak and constrains causal interpretation, but it no
+longer censors the factorial outcome. A positive factorial or H-versus-T result
+must still be interpreted together with perception and information-parity
+evidence. Conversely, a failed perception gate cannot be silently renamed a
+pass merely because a downstream accuracy contrast is positive. Final
+conclusions and next-step decisions must be recorded after both models and the
+independent gate complete.
+
+### DD-56 — Make cross-region task eligibility template-local
+
+**Date:** 2026-08-05
+**Status:** Accepted; implementation correction before any RQ1 inference-v2
+model call
+
+**Context.** During preparation of the inference-v2 90-case development
+roster, case `INC-1CE353424263` stopped at packet compilation. The compiler
+eagerly required a display-unique metric anchor before it knew which template
+was being tested. Consequently, a valid topology-only Level-1 task, trace to
+topology Level-2 task, or log to trace to topology Level-3 task could be
+rejected merely because the metric region contained displayed-value ties. Two
+Level-3 fallbacks also described an anchor as unique without verifying that it
+was unique at displayed precision.
+
+**Decision.** Eligibility is evaluated separately for each registered
+template. A template may require only the regions and dependency anchors that
+it actually reads. Every first-step anchor must be unique at model-visible
+precision; `M→G→L` specifically requires a unique metric anchor for the
+protected caller, and `M/L→R→G` requires a unique first-region anchor whose
+trace association resolves to exactly one supplied edge. No answer, label,
+fault type, model output or RCA correctness is used by this correction.
+
+The partially prepared development and independent input trees were preserved
+with the suffix `inputs.superseded-eager-anchor-20260805`; they are not
+executable artifacts. The earlier smoke and perception runtime freezes were
+likewise preserved with a superseded suffix. All executable RQ1 stages must be
+prepared or re-frozen against the corrected implementation before their first
+model call.
+
+**Evidence.** The corrected compiler passes the complete RQ1/project static
+test command. A new regression fixture proves that G-only, R→G and L→R→G
+tasks remain eligible when every displayed metric value ties, while M→G→L
+correctly fails without a unique metric anchor. The real case that exposed the
+defect now compiles label-blind tasks `L_direct_bin`, `L_G_link` and
+`L_R_G_chain`.
+
+The subsequent complete scan found one genuinely ineligible case in the
+independent roster. The DD-56 outcome-blind repair preserved every eligible
+v1 row and replaced only that case with the first eligible otherwise-unused
+case in the original role/dataset hash order. The v2 assignment hash is
+`99e13fc85f2d9e9be1046a68961240a1d3f3288f250ae74c1a2a539031ef31d2`
+and the private audit hash is
+`11df80ad21d0a82557356824e345c85efc7b8b2c2b52a7ddead5405f5c9ead93`.
+Both 90-case inputs then passed exact information parity, strict A+B,
+answer-material isolation, leakage, clipping, schema and repeat-compilation
+qualification. Smoke and perception artifacts were requalified unchanged.
+The successor runtime-freeze hashes are `b68ead4f…80354` (smoke),
+`ded90369…08050` (perception), `1c6e66d1…5e7aa` (development) and
+`5d6aba01…f923e` (independent).
+
+**Consequences.** This repair changes no RQ1 hypothesis, representation cell,
+fact inventory, response schema, model configuration, roster count or
+threshold. It prevents false case ineligibility and false uniqueness claims.
+RQ0 is unaffected. If a case still has no eligible template at a required
+reasoning level after this correction, it must fail closed and may only be
+replaced through a separately frozen, label-blind eligibility-aware roster;
+the compiler must never fabricate uniqueness.
+
+### DD-57 — Retain the negative RQ0 inference-v2 result and proceed to decomposed RQ1
+
+**Date:** 2026-08-05
+**Status:** Accepted; RQ0 inference-v2 complete
+
+**Context.** DD-55 authorized a full repeated-roster RQ0 rerun after the
+inference-v2 migration. Qwen3.6-27B and Gemma-4-26B-A4B-it each completed all
+720 cases and all three equal-information arms. The rerun had zero
+infrastructure exclusions and zero truncations; Qwen had five model parse
+failures and Gemma had none. All registered static, leakage, token, smoke,
+pairing, and artifact checks passed.
+
+**Decision.** RQ0 remains not supported. For Qwen, macro-dataset MRR was
+0.3848/0.4083/0.3772 for visual-text/text-only/flat structured, giving A−B
+−0.0236 (Holm p=0.0897) and A−C +0.0076 (Holm p=0.5136). For Gemma the
+corresponding MRR was 0.3677/0.3933/0.3652, giving A−B −0.0256 (Holm
+p=0.0102) and A−C +0.0025 (Holm p=0.8634). Neither model met the registered
+`+0.05` practical-effect threshold against either baseline. The current RQ0
+dashboard must not be described as improving RCA.
+
+Proceed with the already registered RQ1b6/b7 execution. This is not a rescue
+reinterpretation of RQ0: RQ1 asks the narrower mechanistic questions of which
+M/L/R/G encodings help and whether visual effects grow with cross-region
+reasoning depth. Its perception result remains mandatory to report but
+non-stopping under DD-55.
+
+**Evidence and validity.** The merged Qwen and Gemma trajectory hashes are
+`2f6ab904b24bc5d2cb889dff351156b9ef13554295fd1d2b11a73012b6e3889c`
+and `2c7613265f1b58c57941a5658482e3e31e67d50bb187c9cae7a8832e58692ff7`.
+Because the 720-case roster was previously exposed, the outcome is valid as a
+new-runtime repeated-roster comparison but is not an untouched confirmation.
+An analysis-only stale renderer check was also repaired: the analyzer now
+compares every trajectory's renderer identity to the corresponding frozen CEB
+instead of requiring historical renderer v6. The repair changed no model
+artifact or numerical result.
+
+**Consequences.** RQ0 is closed for this inference-v2 rerun. No further RQ0
+prompt, renderer, or model tuning is selected from these outcomes. Any future
+claim that vision improves RCA must rest on a separately registered successor
+experiment and cannot erase or relabel this negative result.
+
+### DD-58 — Close RQ1 inference-v2 with Gemma-specific complementarity and proceed to RQ2
+
+**Date:** 2026-08-06
+**Status:** Accepted; RQ1 inference-v2 execution complete
+
+**Context.** DD-55 authorized the complete RQ1b6 reasoning ladder and RQ1b7
+M/L/R/G factorial regardless of the perception result, while retaining all
+registered thresholds and interpretations. Both models completed the 12-case
+perception experiment, 90-case development map, disjoint 90-case independent
+gate, and registered 30-case renderer-v12-layout T/V/H transfer under the
+canonical inference-v2 runtime. Static information equality, leakage,
+pairing, hash, writer and verification checks passed.
+
+**Decision.** Close the registered RQ1 inference-v2 execution without claiming
+a universal visual advantage. In the 90-case independent gate, Gemma passed
+P1: H minus T on Level 2+3 complete-chain accuracy was `+0.1111`
+(`p=0.00473`, paired `d_z=0.318`). The 30-case full-dashboard transfer repeated
+the direction and practical magnitude (`+0.1500`, `p=0.04166`). However,
+Gemma failed the depth-interaction P2 and every positive M/L/R/G visual-main-
+effect test. Qwen failed P1 and P2 in both runs; its independent and transfer
+parse rates also fell below 0.95. Both models failed the preregistered
+perception gate, although factual images outperformed swapped/neutral controls.
+
+The accepted result is therefore Gemma-specific multimodal complementarity:
+redundantly adding an image to byte-identical text can improve cross-region
+question answering for Gemma. It is not evidence that all-visual input beats
+text, that gain grows with reasoning depth, that one visual region is
+individually beneficial, that the result generalizes to Qwen, or that RQ0's
+negative RCA MRR conclusion has changed.
+
+**Evidence.** The independent analysis authority is
+`RQs/RQ1/results/rq1b6_b7_cross_region_independent_gate_v2/analysis/cross_region_analysis.json`;
+its integrity verification hash is
+`1214b9686b296aded0363ebf3f45d37dc4049a1515821be0edd4ffb7fbe52225`.
+The transfer analysis authority is
+`RQs/RQ1/results/rq1b6_b7_full_dashboard_transfer_v2/analysis/full_dashboard_transfer_analysis.json`;
+the transfer integrity verification hash is
+`74984b6b97268115c8915f4580a748cd5e7ff9585b06221ff34c411e58c2e7bf`.
+Both transfer models completed all 90 calls with zero infrastructure
+exclusions. The current full finding is
+`RQs/RQ1/findings/rq1_inference_v2_cross_region_and_transfer_finding_2026-08-06.md`.
+
+**Alternatives rejected.** Promoting Gemma's P1 into a cross-architecture RQ1
+claim was rejected because Qwen did not reproduce it and failed the parse
+gate. Treating V as the preferred representation was rejected because V was
+usually worse than T and sharply worse at difficult levels. Continuing to
+tune RQ1 on its independent/transfer outcomes was rejected because those sets
+are now exposed and such tuning would contaminate a successor confirmation.
+
+**Consequences.** Keep `RQs/RQ1/src/` frozen; the current solution is not a
+settled submission implementation. Proceed to RQ2 dashboard-design effects,
+targeting the observed perception weakness, harmful G/L/R visual effects and
+Qwen output instability while preserving equal information. RQ2 may use RQ1
+as prior evidence but must use newly registered development and confirmation
+artifacts and must not rewrite RQ0 or RQ1 conclusions.
+
+### DD-59 — Remove the Qwen project pixel cap and rerun RQ1 with the copied legacy typed two-stage logic
+
+**Date:** 2026-08-06
+**Status:** Accepted; implementation and successor qualification in progress
+**Supersedes:** DD-58 only as the current RQ1 endpoint and next-action decision,
+and the Qwen equal-source-pixel-cap clause of DD-53. It does not reclassify or
+rerun RQ0, alter RQ0's negative result, or modify any archived raw artifact.
+
+**Context.** The completed RQ1 inference-v2 sequence used the single-call
+cross-region answer path, whereas the last user-selected legacy mechanism was
+RQ1b9's typed two-stage `Observe/Connect -> Answer` path. The user authorized
+the vLLM and renderer changes but did not authorize replacing that experiment
+logic. The user also directed CanvasRCA to stop imposing Qwen
+`min_pixels/max_pixels`, so Qwen may use its native image processor rather than
+the project-level `65536/2580480` override.
+
+**Decision.** Future Qwen runs pass no `--mm-processor-kwargs`; Gemma remains at
+its supported `max_soft_tokens=1120`. Native processor, context and hardware
+limits still apply, and every call records actual image tokens. Preserve the
+completed RQ1 inference-v2 roots in place but archive their current-evidence
+role through
+`RQs/RQ1/results/_archive_inference_v2_single_stage_20260806/manifest.json`.
+RQ0 is explicitly excluded and remains valid under its own frozen capped-Qwen
+contract.
+
+Create a forward-versioned RQ1 successor by mechanically copying the RQ1b9
+typed two-stage implementation rather than editing the original. Its
+one-time implementation-migration audit permits only: (1) the user-approved
+current dashboard revision, and (2) the current user-approved vLLM runtime.
+Existing legacy behavior, questions, typed handoff, scoring, thresholds and
+information contract remain unchanged. Operational sharding/resume may be
+added only when it provably leaves the model-visible prompt, stages, schemas
+and scores unchanged. This allowlist is a developer-side code-review check,
+not an experiment gate or runtime contract. After it passes, remove the
+temporary checker and retain only its read-only audit report; formal configs,
+runners and result acceptance must not depend on it.
+
+**Evidence.** The archived sequence included the two-model Rule-16 smoke,
+12-case perception gate, 90-case development map, disjoint 90-case gate and
+30-case transfer recorded by DD-58. Their nine retained roots contain 31,244
+files and approximately 1.81 GB; per-root immutable tree hashes are recorded in
+the archive manifest. The new unified runtime config SHA-256 after removing the
+Qwen override is
+`b8e0a9db71bbf2be7ee644da5ccb6340086dd75c83d78afeeb69c54d1990d4a1`.
+The initially generated lock will be rebound after the copied-code and archive
+hash chains are final; no long-run contract may freeze against an intermediate
+lock.
+
+**Alternatives rejected.** Reusing the single-stage RQ1-v2 results as the final
+endpoint was rejected because it does not implement the intended legacy agent
+logic. Editing the old RQ1b9 files in place was rejected because it would erase
+provenance and make the old result unauditable. Retrospectively assigning the
+uncapped Qwen runtime to RQ0 was rejected because it would rewrite a substantive
+model-input contract rather than preserve history.
+
+**Consequences.** RQ1 is reopened. The archived RQ1-v2 numbers may be described
+only under their original contract and may not select or validate the new
+successor. Because the development, independent and transfer rosters have been
+seen, their successor reruns are repeated-roster corrected-logic evidence, not
+fresh untouched confirmation. New result IDs, copied-code provenance, updated
+hashes, live attestations and Rule-16 smoke are mandatory before long runs.
+`RQs/RQ1/src/` remains frozen and RQ2 efficacy inference remains paused until
+this RQ1 correction is resolved.
+
+### DD-60 — Cap aggregate model calls for every smoke and gate
+
+**Date:** 2026-08-06
+**Status:** Adopted
+**Supersedes:** Every prior smoke or gate call budget that exceeds the limits
+below, including the 204-call RQ1 successor smoke and 144-call RQ1 perception
+gate inherited under DD-59. DD-59 otherwise remains in force.
+
+**Context.** The copied RQ1 typed two-stage successor mechanically inherited a
+17-condition Rule-16 smoke. Across three cases, two stages and two models this
+expanded into 204 model calls. It then inherited a 12-case, three-control,
+two-stage, two-model perception gate requiring another 144 calls. These
+diagnostic workloads consumed hours that should have been reserved for the
+actual experiment. They exceeded the user's instruction that smoke should only
+establish that the code and end-to-end path work.
+
+**Decision.** Retain smoke tests and experimental gates, but impose absolute
+aggregate budgets. One complete logical smoke may initiate at most 18 LLM/VLM
+calls. One complete logical gate may initiate at most 36 LLM/VLM calls. Each cap
+applies across all models, cases, stages, arms, conditions, processes and
+retries; infrastructure-failed initiated requests also count. No protocol may
+evade a cap by splitting, renaming, chaining or repeating one logical smoke or
+gate. An inherited plan, config or contract above the applicable cap is
+non-executable and must be redesigned before any model call.
+
+**Evidence.** `rq1b9_legacy_typed_smoke_v3` completed 204 calls and therefore
+demonstrated the cost failure directly, even though its post-hoc integrity
+qualification passed. The subsequent
+`rq1b9_legacy_typed_perception_v3` completed Gemma's 72 calls and only part of
+Qwen's planned 72 calls before it was stopped. These artifacts retain only
+their already established diagnostic or incomplete scope; this decision does
+not turn them into efficacy evidence and does not retroactively alter any
+headline RQ result.
+
+**Alternatives rejected.** Keeping the full factorial inside smoke was rejected
+because it duplicates the experiment instead of cheaply qualifying the path.
+Treating a per-model call allowance as the cap was rejected because adding
+models would silently multiply diagnostic cost. Removing gates entirely was
+rejected because small targeted gates still provide useful infrastructure and
+mechanism checks.
+
+**Consequences.** The stopped 144-call RQ1 perception contract must not be
+resumed as the active gate. Before further model execution, RQ1 must register a
+replacement smoke/gate design that fits the 18/36 aggregate limits while
+preserving the relevant compiler, renderer, client, writer, evaluator and
+verification paths. Existing results retain their prior validity and scope;
+only future execution authority and budgets change.
+
+### DD-61 — Bound smoke and gate wall-clock execution
+
+**Date:** 2026-08-06
+**Status:** Adopted
+**Supersedes:** DD-60 and prior protocols only where they require a smoke or
+gate to wait for all planned units. DD-60's 18-call smoke cap and 36-call gate
+cap remain unchanged.
+
+**Context.** Call-count caps prevent diagnostic protocols from expanding across
+cases, conditions and models, but a small number of requests can still consume
+hours when a VLM produces a long output. A smoke or gate must therefore be
+bounded in both request count and elapsed execution time.
+
+**Decision.** One experiment's complete logical smoke has a 600-second
+aggregate wall-clock limit measured from the start of its supervisor, including
+preflight, requests, retries, persistence and verification. It exits
+immediately if completed earlier. At timeout, outstanding work is terminated
+and completed artifacts are preserved. If the timeout is the only error, the
+smoke passes; any other error still prevents passage.
+
+One complete logical gate has a 1200-second aggregate wall-clock limit, also
+measured from the start of its supervisor and exited immediately when completed
+earlier. At timeout, no remaining gate units are launched. Gate metrics and
+registered thresholds are computed using all and only cases whose complete
+required arm/condition/stage set finished before timeout. A partial case is not
+scored as complete, and the registered timeout is not an infrastructure or
+model error.
+
+**Evidence.** The RQ1 copied typed two-stage smoke and perception sequence
+showed that individual Qwen Stage-1 calls can run for many minutes even after
+call budgets are reduced. An explicit wall-clock limit is therefore necessary
+to make diagnostic cost predictable. This is an operational policy decision;
+the interrupted perception artifacts remain incomplete diagnostic evidence and
+are not converted into an efficacy result.
+
+**Alternatives rejected.** A per-call timeout alone was rejected because many
+individually legal calls can still make a smoke or gate too long. Waiting for
+every registered diagnostic unit was rejected because completion of the
+diagnostic workload is not more important than beginning the actual experiment.
+Treating the registered timeout as a smoke failure was rejected because the
+timeout is the mechanism that enforces the intended bounded qualification.
+
+**Consequences.** Future smoke and gate supervisors must enforce both the DD-60
+call caps and the DD-61 aggregate wall-clock limits. Existing configs or
+contracts that assume full diagnostic completion beyond these limits are
+non-executable until redesigned. These timeouts do not shorten or censor formal
+experiment calls; they apply only to smoke and gate execution.
+
+### DD-62 — Use simple diagnostic timing and require post-smoke artifact review
+
+**Date:** 2026-08-06
+**Status:** Adopted
+**Amends:** DD-61 implementation details without changing its 600/1200-second
+limits; adds the hidden-issue handling workflow to Rule-16 qualification.
+
+**Context.** The diagnostic bounds prevent smoke and gate workloads from
+consuming experimental time; they do not require precise clock
+synchronization. A smoke can also look healthy in a brief log while a persisted
+conversation, raw response, prompt or accounting record reveals a hidden bug.
+
+**Decision.** Enforce the bounds with ordinary process wall-clock or monotonic
+time and at most a small run-local state/supervisor. Second-level precision is
+sufficient. Do not modify WSL, the host clock, kernel or services and do not add
+distributed/high-precision timing infrastructure. After every smoke attempt,
+the acting agent must inspect the persisted summary/verifier output and every
+completed trajectory and conversation, not only the operational log, and must
+record the review under that smoke root.
+
+Every hidden issue is recorded. A safely repairable issue triggers a
+forward-versioned fix, affected contract/hash refresh and verification, after
+which work continues. The agent stops only when the issue is material and
+remains unsolved after reasonable in-scope diagnosis and repair; the blocker,
+evidence and affected scope must then be recorded.
+
+**Evidence.** The earlier RQ1 diagnostic sequence showed both kinds of failure:
+large diagnostic workloads delayed formal work, while important model-output
+and handoff defects were visible in detailed trajectories rather than in a
+high-level progress line. A simple timer controls cost; complete artifact review
+controls hidden correctness risk.
+
+**Consequences.** RQ1's successor smoke/gate implementation must remain small
+and locally timed. An automated inventory may support the review but cannot
+replace reading the persisted conversations. Fixable findings do not pause
+progress merely for confirmation; unresolved material findings do.
+
+### DD-63 — Do not rerun RQ1 diagnostics already exercised by the long v3 attempts
+
+**Date:** 2026-08-06
+**Status:** Adopted by explicit user direction
+**Amends:** DD-60 through DD-62 only for whether a replacement RQ1b9 smoke or
+perception gate must now be executed. Their limits still govern every future
+smoke/gate that is actually launched.
+
+**Context.** The v3 RQ1b9 smoke and perception attempts already spent many
+hours exercising the compiler, renderer, typed two-stage client, persistence
+and diagnostic paths. The new caps were introduced to prevent repeating that
+cost, not to demand another diagnostic rerun merely because the policy changed.
+
+**Decision.** Do not rerun a v4 replacement for the corresponding RQ1b9 smoke
+or perception gate. Preserve all v3 artifacts and their immediately preceding
+status/scope; the policy change neither upgrades nor invalidates them. Make the
+bounded v4 config copies the active defaults used by the current copied RQ1
+code, while leaving them unscheduled (`new_model_calls_required: false`). Thus
+any newly authorized future diagnostic obeys 18/36 calls, 600/1200 seconds and
+post-smoke artifact review from its first request, without another immediate
+diagnostic run.
+
+**Evidence.** The v3 smoke completed its very large planned diagnostic workload;
+the v3 perception attempt completed Gemma and a substantial part of Qwen before
+being stopped. These runs already exposed the diagnostic code paths and the
+cost problem. Repeating them would add no proportional infrastructure evidence.
+
+**Consequences.** No LLM/VLM call, preparation rerun or result reclassification
+is required for this policy implementation. Existing formal work may use its
+separately registered authority without waiting for a v4 diagnostic. Any later
+decision to run a new smoke/gate requires an explicit forward config and remains
+subject to the absolute limits.
+
+### DD-64 — Retry transient NVML failures without changing the RQ1 experiment
+
+**Date:** 2026-08-07
+**Status:** Adopted; Qwen formal rerun restarting under a model-specific
+operational runtime freeze
+
+**Context.** The RQ1b9 typed inference-v2 Qwen development rerun remained
+healthy at the canonical vLLM endpoint, but its per-call 50 ms NVML sampler
+converted transient WSL/NVML `The operating system has blocked the request`
+responses into infrastructure failures. The first terminal-attached attempt was
+already invalid after its server lifecycle ended. A subsequent fully detached
+four-runner attempt produced 630 completed call records and six NVML failures
+affecting five of 90 cases. Its 5.56% affected-case fraction exceeded the frozen
+5% whole-case exclusion ceiling, so the attempt was stopped and archived before
+analysis.
+
+**Decision.** Preserve every failed attempt and restart Qwen from empty
+authoritative shard roots. Amend only `GPUAccounting`: retry transient NVML
+query errors at the existing 50 ms sampling interval, allow 30 seconds for the
+first valid sample, make a bounded five-second final-sample attempt, record the
+number of transient errors, and continue to fail closed if fewer than two
+samples exist or the sampler cannot stop. Keep at most four runner processes.
+Do not change any prompt, evidence artifact, roster, condition order,
+checkpoint/tokenizer, inference-v2 model setting, typed two-stage handoff,
+response schema, scoring rule, exclusion threshold or statistical analysis.
+
+Gemma retains its completed old-accounting cells. Before changing the runtime
+tree, a dedicated fail-closed verifier sealed all three Gemma cells against the
+then-current runtime and raw artifacts. Qwen receives a distinct
+`runtime_freeze_qwen_accounting_v2.json`; final joint verification must validate
+the sealed Gemma verification and current Qwen runtime separately before
+requiring cross-model case identity.
+
+**Evidence.** The invalid detached attempt is recorded at
+`RQs/RQ1/results/rq1b9_legacy_typed_development_v3/_invalid_attempt_qwen_nvml_exclusion_ceiling_20260807/attempt_status.json`.
+Gemma's sealed verification hashes are
+`eaf2adfbd89e76a9cf2dccc8abb110768b3aa540ce87b41ef808df072bf9f583`
+(development),
+`9d3b60bb05f7eabc04395eb97a1ea414f77cbc16a291cf0236ba62097115769c`
+(independent), and
+`49254a3440e3ffa139879a5165e59d8aba2f5090ff87d9c69bdbed6e9b7dbffa`
+(transfer). The accounting unit/regression suite passed 31 tests. A live
+four-process, 15-second probe against the resident Qwen server produced 298
+samples per process, zero transient errors and clean reports. The new Qwen
+freeze hashes are `f0bc76cc…e2bb04` (development),
+`ac16399e…21b5aa` (independent), and `a57a6892…b6767` (transfer).
+
+**Alternatives rejected.** Counting NVML failures as model outcomes was
+rejected because no model response or parse failure caused them. Continuing
+after five affected cases was rejected by the registered 5% ceiling. Removing
+GPU accounting was rejected because token/GPU/cost accounting remains part of
+the experiment contract. Reducing concurrency alone was rejected because four
+runners already respected the project maximum and still encountered global
+transient NVML events. Rerunning Gemma was rejected because its complete cells
+had zero infrastructure errors and were sealed under their original runtime
+before the operational patch.
+
+**Consequences.** The three archived Qwen attempts remain invalid and cannot be
+mixed with the replacement. Qwen restarts all three scopes and records
+`gpu_accounting_transient_errors` per successful call. Any call still lacking a
+complete accounting report remains an infrastructure failure under the same
+paired-case exclusion policy. Final RQ1 claims remain blocked until Qwen's
+development, independent and transfer scopes complete and joint verification
+and preregistered analysis pass.
+
+### DD-65 — Add an isolated end-to-end RCA representation experiment to RQ1
+
+**Date:** 2026-08-08
+**Status:** Adopted for implementation and bounded smoke; long runs disabled
+**Amends:** RQ1's mechanism-only VisOps/perception program by adding a distinct
+RCA endpoint. It does not supersede or modify any earlier RQ1 artifact or
+finding.
+
+**Context.** The current RQ1 VisOps, perception, cross-region, and typed-handoff
+experiments diagnose whether models can read and combine dashboard regions.
+Their accuracy is question exact match, not RCA AC@K or MRR. Consequently they
+cannot establish that a representation improves root-cause ranking. RQ0 also
+cannot substitute for the missing RQ1 endpoint because its scope, renderer,
+and historical validity limitations differ from the current protocol.
+
+**Decision.** Add `RQ1c — Matched-plan evidence-grounded RCA` as an isolated,
+forward-versioned experiment. From one label-blind renderer-v12 evidence packet
+it produces five equal-fact arms: text `T`, flat JSONL `F`, image-only `V`,
+strict image-first `H=A+B`, and a fixed routed `R` that presents metrics and
+topology visually and logs/traces as text. Every arm uses two calls: a typed
+Observe/Connect ledger followed by a common text-only Diagnose stage that
+returns the frozen top-five RCA JSON. The model never has to preserve query or
+fact hashes; a deterministic host binder assigns short observation IDs after
+Stage 1. The main comparisons are paired MRR `R-T` and `R-F`, each requiring an
+effect of at least `+0.05`, Holm-adjusted `p<0.05`, and no main-dataset reverse
+effect of `-0.05` or worse.
+
+Implementation is confined to `RQs/RQ1/scripts/rq1c_rca_v1/` and new RQ1c
+configs, schemas, rosters, descriptions, and results. Existing VisOps,
+perception, cross-region, typed-handoff, and frozen `RQs/RQ1/src/` content must
+remain byte-identical. The development and locked-evaluation rosters contain
+90 and 300 disjoint exposed cases respectively, so their future conclusions
+are repeated-exposed rather than untouched confirmation. Full execution stays
+disabled in this implementation round.
+
+**Evidence and reasons.** True RCA must be judged at the root-cause ranking
+endpoint; perception accuracy and ledger integrity only explain mechanisms.
+The fixed router tests the observed complementarity hypothesis without giving
+any arm extra facts, while `H` distinguishes useful redundancy from selective
+routing. Removing opaque identifiers from the model-facing handoff directly
+addresses the query-binding attrition seen in RQ1b9 without changing the old
+experiment. A 12-call, 600-second Rule-16 smoke covers both models, all three
+authorized validation datasets, both stages, and all five arms while remaining
+within DD-60 through DD-62.
+
+**Consequences.** RQ1 cannot claim representation value for RCA from VisOps
+alone; it needs this distinct endpoint or a later successor. The new experiment
+must consume the unified inference-v2 configuration, preserve per-arm atomic
+fact equality, and use the granularity-aware scorer after evaluator-private ID
+mapping. No model-calling perception gate is added. After static qualification,
+the only currently authorized model work is the bounded smoke, and it must wait
+until the already-running RQ1 sequence releases the service. Long development
+or evaluation inference requires a separate explicit authorization.
+
+### DD-66 — Define RQ1c parity as matched source semantics and require unique grounded handoff
+
+**Date:** 2026-08-08
+**Status:** Adopted before any RQ1c model call
+**Amends:** DD-65's “equal-fact” wording and its initial Stage-1/runtime
+implementation details; the five arms, two-stage compute, hypotheses, rosters,
+and RCA endpoint remain unchanged.
+
+**Context.** A CPU-only adversarial review showed that fact-ID location parity
+was too weak to establish literal cross-transport information equality. Text
+and flat records still contained internal metric sample counts and exact bin
+centers that renderer-v12 did not print, while precomputed onset/persistence and
+multi-hop paths could become textual reasoning shortcuts. The first binder also
+allowed a generic or empty observation to match a record family and could omit
+the metric/panel identity needed by Stage 2. Separately, shared inference-v2
+lock drift was caught by the standalone static checker but had not yet been
+made unavoidable in every live and post-hoc path.
+
+**Decision.** Operationalize RQ1c parity as compilation from the same
+label-blind source-semantic packet, not identical raster/text perceptual
+decodability. Remove `observed_counts`, exact bin centers, unrounded values,
+precomputed metric onset/persistence, and precomputed multi-hop paths from all
+model arms. Preserve direct displayed edges and displayed propagation onset,
+so models may derive paths and temporal conclusions themselves. Keep the
+source-lineage map, strict `H=A+B`, and routed exact-once guarantees, but never
+describe those checks alone as pixel-level information equality.
+
+Require every Stage-1 observation to contain at least one readable named
+attribute such as panel, metric, service, entry, caller, or callee. Forward an
+observation and its candidate support only if all coordinates match exactly one
+atomic record. Keep empty, ambiguous, unmatched, invalid-candidate, free-form
+conflict, and unverified relation claims in the private audit rather than the
+Stage-2 evidence ledger. Use one versioned RQ1c v2 attestation schema with
+separate effective-YAML and runtime-source hashes, checkpoint/tokenizer locks,
+and exact model-specific runtime fields. Invoke the shared implementation-lock
+validator during runtime freeze, live attestation, execution, and post-hoc
+verification. An architecture bundle is incomplete whenever either registered
+model is incomplete, even if the other model passes both primary hypotheses.
+
+**Evidence and reasons.** The review reproduced an empty/generic metric
+observation being marked grounded and identified fields that existed only in
+serialized evidence. New regression tests now reject empty and ambiguous
+observations, filter invented edges/temporal/missing/conflict claims, require
+both architectures for aggregation, and fail closed on attestation/config
+drift. Three authorized validation cases were regenerated CPU-only from the
+amended packet and passed source-lineage, strict-hybrid, routed-exact-once,
+schema, privacy, and public leakage checks. The shared runtime lock still
+correctly blocks complete qualification because its runtime-validator hash is
+stale.
+
+**Consequences.** Earlier CPU-prepared RQ1c candidates are preserved under the
+smoke root's `cpu_prequalification_archive/` and are not resumable inputs. The
+current prepared indexes and resolved config hashes supersede them. No RQ1c
+smoke or efficacy result is invalidated because zero model calls have occurred.
+Smoke remains disabled and the aggregate live supervisor remains intentionally
+unwired until the active experiment releases the runtime, the shared lock is
+deliberately reconciled, CPU static qualification passes, and the user again
+authorizes model execution.
+## DD-43: Adopt a compact Nibi-portable source and global-contract layout
+
+**Date:** 2026-08-09
+**Status:** adopted
+
+**Context.** The WSL implementation accumulated multiple copied generations of
+RQ1 tooling: the retained RQ1 packages alone contained roughly 25,000 lines of
+Python, while experiment configs, descriptions, findings, and launchers mixed
+historical and current protocols. The layout also embedded workstation paths,
+stored Python entry points under shell-script directories, and treated serving,
+splitting, and scoring as partially independent per-RQ contracts. This was hard
+to audit and unsuitable for a clean Nibi deployment.
+
+**Decision.** Supersede the previous directory convention in this clean
+workspace. Shared Python lives under `src/`; shell entry points live under
+`scripts/`. The only root configs are the unified vLLM, dataset segmentation,
+and RCA scorer YAML files, backed by extensible classes in
+`src/unified_scripts/`. Every RQ has exactly three description documents, one
+finding document per experiment, no more than ten/800 lines of shell launchers,
+and five functional Python modules plus `__init__.py`, with a 2,500-line
+functional-source ceiling. The shared `vlmrca` package moves from the RQ tree to
+`src/vlmrca/`. RQ-specific adapters remain explicit and hash-recorded.
+
+The Nibi serving contract omits `--gpu-memory-utilization`; no CanvasRCA VRAM
+fraction cap is imposed. The model-specific Qwen/Gemma processing differences,
+unquantized BF16, sampling, context/output ceilings, and scheduler capacity are
+otherwise preserved. Build tooling uses the Alliance module and wheelhouse
+workflow and Slurm shell launchers. This local preparation is static-only.
+
+**Evidence.** Before cleanup, the RQ1 `rq1c_rca_v1`, `legacy_typed_v3`, and
+`rq1lib` Python trees contained about 8,035, 6,153, and 11,098 lines
+respectively. The refactored five RQ1 functional modules contain 1,286 lines;
+four short RQ1 shell entry points contain 73 lines. Root `configs/` contains
+exactly three files. Alliance documentation establishes Lmod modules, the
+Alliance Python wheelhouse, Apptainer rather than Docker, Slurm batch execution,
+and Nibi H100 resources.
+
+**Alternatives rejected.** Moving copied RQ1 packages under the shared source
+tree would satisfy the directory shape while preserving the maintenance
+problem. Keeping separate frozen per-RQ inference/split/scorer configs would
+allow fairness-critical drift. Setting GPU memory utilization to `1.0` would
+still impose a project cap and increase OOM risk; omission expresses the user's
+requested no-cap policy without falsifying physical memory limits.
+
+**Consequences.** Historical copied code is recoverable from Git but is not part
+of the Nibi worktree. RQ1 retains its experiment semantics through one
+configuration-driven engine and four consolidated findings. Deployment must
+build a new environment, freeze new hashes and rosters, run the bounded smoke,
+and use new result IDs. A future RQ may subclass the unified contracts, but any
+fairness-sensitive change requires a named adapter and a new protocol decision.
+
+## DD-67: Finalize six RQ1 experiments on the eligible frozen evaluation roster
+
+**Date:** 2026-08-09
+**Status:** adopted
+
+**Context.** The Nibi refactor consolidated four RQ1 experiments but the final
+program still needed (a) a causal check that visual semantics, rather than mere
+prompt perturbation, move the agent's evidence and ranking and (b) a check of
+whether useful evidence is lost at the two-stage handoff. The project already
+has a long-frozen 480-case evaluation roster; eleven cases carry an existing
+invalid status. CodeShrink (arXiv:2607.29637) offered an analogy about spending
+a fixed image canvas on readable content, but it is a 2026 preprint about
+code-image compression rather than RCA.
+
+**Decision.** Register `visual_counterfactual_rca` and `ledger_handoff_rca`
+alongside `legacy_q9`, `cross_region`, `typed_two_stage`, and `matched_rca`.
+Rerun all six on Nibi under new result IDs using all 469 eligible frozen cases:
+96 AegisLab, 100 AIOPS-2022, 93 AIOPS-2025, 90 RE2-OB, and 90 RE2-TT. Exclude
+the eleven invalid cases without replacement. Headline inference uses only the
+289 AegisLab/AIOPS cases; RE2-OB and final-OOD RE2-TT remain separate slices.
+
+The counterfactual experiment holds text and compute fixed while comparing the
+factual image with label-blind targeted, placebo, and neutral interventions.
+The handoff experiment compares semantically identical typed-text, visual, and
+strict redundant handoffs before a common RCA stage. Fixed-fact blank-space
+compaction is deferred to RQ2 because it changes layout, an RQ2 design axis.
+
+**Evidence.** The roster arithmetic is 96+100+93+90+90=469, with 289 primary
+cases. Existing RQ1 experiments distinguish direct perception, cross-region
+composition, typed transfer, and end-to-end RCA but do not isolate controlled
+visual influence or the representation of the intermediate ledger. CodeShrink
+supports only the high-level fixed-canvas analogy; it supplies no RCA evidence
+and has not been treated as such.
+
+**Alternatives rejected.** Replacing invalid cases was rejected because it
+would silently change a frozen evaluation roster. Pooling saturated RE2 slices
+into the headline was rejected because it would distort the main-dataset
+effect. Copying CodeShrink's attention/KV pruning or training machinery was
+rejected because it changes effective information/compute and is not an RCA
+intervention. Adding blank-space compaction to RQ1 was rejected to keep content
+and layout redesign out of the representation-value claim.
+
+**Consequences.** RQ1 now has exactly six finding authorities and three
+canonical description files. Historical local outcomes remain historical;
+final claims require complete, paired, newly identified Nibi artifacts. RQ2
+does not begin until these RQ1 results are verified and the representation
+decision is recorded.
