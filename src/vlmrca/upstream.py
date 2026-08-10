@@ -22,7 +22,7 @@ import warnings
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+PROJECT_ROOT = Path(os.environ.get("CANVASRCA_ROOT", Path.cwd())).expanduser().resolve()
 DEFAULT_UPSTREAM_ROOT = PROJECT_ROOT.parent / "RL-SLM-RCA-rw_phase2"
 UPSTREAM_ROOT = Path(os.environ.get("RL_SLM_RCA_ROOT", str(DEFAULT_UPSTREAM_ROOT)))
 
@@ -88,18 +88,28 @@ except ImportError:
 
     fault_taxonomy = _FaultTaxonomyFallback()
 
-# Cached loaders (src.baselines.dataset_loaders.*) are preferred over src.data.*
-# because they memoize DataCase objects as pickles under $SCRATCH/eda_cache,
-# turning a ~30 s parquet parse into a ~0.5 s unpickle.
-from src.baselines.dataset_loaders.re2 import RE2Dataset  # noqa: E402
-from src.baselines.dataset_loaders.aegislab import AegisLabDataset  # noqa: E402
-from src.baselines.dataset_loaders.aiops2022 import AIOPS2022Dataset  # noqa: E402
-from src.baselines.dataset_loaders.aiops2025 import AIOPS2025Dataset  # noqa: E402
+# Loader locations changed between the registered upstream snapshot and the
+# compatible Nibi checkout. Both implementations use the same DataCase/cache
+# contract; keep this named compatibility adapter at the one sanctioned import
+# boundary instead of teaching callers about either upstream layout.
+try:  # noqa: E402
+    from src.baselines.dataset_loaders.re2 import RE2Dataset  # type: ignore
+    from src.baselines.dataset_loaders.aegislab import AegisLabDataset  # type: ignore
+    from src.baselines.dataset_loaders.aiops2022 import AIOPS2022Dataset  # type: ignore
+    from src.baselines.dataset_loaders.aiops2025 import AIOPS2025Dataset  # type: ignore
+    DATASET_LOADER_ADAPTER = "baseline_cache_v1"
+except ImportError:  # noqa: E402
+    from src.data.re2 import RE2Dataset  # type: ignore
+    from src.data.aegislab import AegisLabDataset  # type: ignore
+    from src.data.aiops2022 import AIOPS2022Dataset  # type: ignore
+    from src.data.aiops2025 import AIOPS2025Dataset  # type: ignore
+    DATASET_LOADER_ADAPTER = "src_data_cache_v1"
 
 __all__ = [
     "UPSTREAM_ROOT",
     "SCRATCH",
     "DATA_ROOTS",
+    "DATASET_LOADER_ADAPTER",
     "DataCase",
     "parse_answer",
     "normalize_service",
@@ -208,7 +218,7 @@ def check_upstream_pin(pin_path: Optional[Path] = None) -> Dict[str, Any]:
     stamps the observed commit so results stay attributable.
     """
     if pin_path is None:
-        pin_path = Path(__file__).resolve().parents[2] / "artifacts" / "upstream_pin.yaml"
+        pin_path = PROJECT_ROOT / "artifacts" / "upstream_pin.yaml"
     live = upstream_commit()
     live_tree = upstream_source_tree_sha256()
     pinned = None

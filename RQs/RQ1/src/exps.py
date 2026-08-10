@@ -10,7 +10,7 @@ from typing import Any, Iterable, Literal, Mapping, Sequence
 from PIL import Image, ImageDraw, ImageFont
 
 from unified_scripts import canonical_json, stable_hash
-from vlmrca.processed import load_processed_case
+from vlmrca.processed import load_processed_case, load_processed_private
 from vlmrca.render.dashboard import (
     RENDERER_VERSION,
     CaseRenderView,
@@ -18,6 +18,8 @@ from vlmrca.render.dashboard import (
     opaque_incident_id,
 )
 from vlmrca.render.presets import make_dashboard_config
+from vlmrca.render.kpi_select import score_series
+from vlmrca.render.onset import pod_to_service, service_level_projection
 from vlmrca.rq0.evidence import (
     atomic_fact_records,
     build_canonical_evidence,
@@ -101,7 +103,7 @@ def dashboard_config(config: Mapping[str, Any]):
     return make_dashboard_config(
         config["renderer"]["preset"],
         overrides=dict(config["renderer"]["overrides"]),
-        name="rq1_nibi_renderer_v12",
+        name="rq1_nibi_renderer_v16",
     )
 
 
@@ -109,6 +111,19 @@ def _entities(view: CaseRenderView) -> set[str]:
     entities = set(map(str, view.services)) | set(map(str, view.graph.nodes))
     for source, target in view.graph.edges:
         entities.update((str(source), str(target)))
+    projected = service_level_projection(view.graph, view.metadata.get("node_pod_map"))
+    entities.update(map(str, projected.nodes))
+    metric_entities = {str(series.service) for series in score_series(view.metrics_df, view.services)}
+    entities.update(metric_entities)
+    entities.update(pod_to_service(name) for name in metric_entities)
+    if view.logs_df is not None and not view.logs_df.empty:
+        for column in ("container_name", "service_name"):
+            if column in view.logs_df.columns:
+                entities.update(map(str, view.logs_df[column].dropna().unique()))
+    if view.traces_df is not None and not view.traces_df.empty and "service_name" in view.traces_df.columns:
+        trace_entities = set(map(str, view.traces_df["service_name"].dropna().unique()))
+        entities.update(trace_entities)
+        entities.update(pod_to_service(name) for name in trace_entities)
     return entities
 
 
@@ -144,7 +159,7 @@ def prepare_case(dataset: str, case_id: str, config: Mapping[str, Any]) -> Prepa
 
     case = load_processed_case(dataset, case_id)
     view = CaseRenderView.from_case(case)
-    opaque_id = opaque_incident_id(case_id)
+    opaque_id = opaque_incident_id(case_id, dataset, int(config["seed"]))
     mapping, granularities = numeric_entity_map(_entities(view), opaque_id, int(config["seed"]))
     numeric_view = replace(view, entity_display_labels=mapping)
     full_png, manifest = compile_dashboard(numeric_view, dashboard_config(config))
@@ -177,8 +192,13 @@ def prepare_case(dataset: str, case_id: str, config: Mapping[str, Any]) -> Prepa
         "routed_image_sha256": stable_hash(routed_png),
         "variant_image_sha256": {name: stable_hash(value) for name, value in variants.items()},
     }
-    accepted = [str(case.ground_truth)]
-    accepted.extend(map(str, (case.metadata or {}).get("ground_truth_candidates") or ()))
+    # Only after every visible packet/image and its equality audit exist may the
+    # evaluator-private half be opened for scoring.
+    audit_representation_equality(ceb, full_png, routed_png, *variants.values())
+    evaluator = load_processed_private(dataset, case_id)
+    labels = dict(evaluator.get("labels") or {})
+    accepted = [str(labels.get("root_cause") or "")]
+    accepted.extend(map(str, labels.get("root_cause_candidates") or ()))
     private = {
         "schema_version": "RQ1PrivateEvaluatorV2",
         "opaque_incident_id": opaque_id,
@@ -195,9 +215,15 @@ def prepare_case(dataset: str, case_id: str, config: Mapping[str, Any]) -> Prepa
     }
     audit_visible(
         public,
-        (case_id, dataset, case.ground_truth, case.timestamp, (case.metadata or {}).get("processed_path")),
+        (
+            case_id,
+            dataset,
+            labels.get("root_cause"),
+            (evaluator.get("event") or {}).get("absolute_timestamp"),
+            (case.metadata or {}).get("processed_path"),
+            *mapping.keys(),
+        ),
     )
-    audit_representation_equality(ceb, full_png, routed_png, *variants.values())
     return PreparedCase(public=public, private=private, full_png=full_png, routed_png=routed_png, variant_pngs=variants)
 
 
@@ -455,7 +481,10 @@ def ledger_image(ledger: Mapping[str, Any]) -> bytes:
     width, height = 1600, 1000
     image = Image.new("RGB", (width, height), "#F8FAFC")
     draw = ImageDraw.Draw(image)
-    font = ImageFont.load_default()
+    # Use Pillow's portable logical font lookup instead of its Latin-1-only
+    # bitmap fallback.  Both Nibi environments resolve this name through the
+    # loaded module stack, without committing a site-specific absolute path.
+    font = ImageFont.truetype("DejaVuSansMono.ttf", 12)
     payload = canonical_json(ledger)
     lines = ["NORMALIZED EVIDENCE LEDGER — SAME FACTS AS TEXT HANDOFF"]
     lines.extend(payload[index:index + 142] for index in range(0, len(payload), 142))

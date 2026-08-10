@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import urllib.request
 from pathlib import Path
 
@@ -18,7 +19,11 @@ def main() -> int:
     args = parser.parse_args()
     config = VLLMInferenceConfig.load()
     runtime = config.model(args.model)
-    request = urllib.request.Request(runtime["base_url"].rstrip("/") + "/models", headers={"Authorization": "Bearer EMPTY"})
+    api_key = os.environ.get("VLLM_API_KEY", "EMPTY")
+    request = urllib.request.Request(
+        runtime["base_url"].rstrip("/") + "/models",
+        headers={"Authorization": f"Bearer {api_key}"},
+    )
     with urllib.request.urlopen(request, timeout=30) as response:
         models = json.loads(response.read())
     served = {str(item.get("id")) for item in models.get("data", ())}

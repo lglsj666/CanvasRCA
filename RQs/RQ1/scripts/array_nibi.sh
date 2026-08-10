@@ -10,18 +10,37 @@ PYTHON_BIN="${CANVASRCA_PYTHON:-python}"
 usage() {
   cat >&2 <<'EOF'
 Usage:
+  array_nibi.sh prepare EXPERIMENT_ID ROSTER [SHARDS]
   array_nibi.sh submit MODEL EXPERIMENT_ID EXPERIMENT ROSTER [SHARDS]
   array_nibi.sh merge  EXPERIMENT_ID EXPERIMENT [SHARDS]
 
 Set CANVASRCA_ARRAY_CONCURRENCY to cap simultaneously running H100 tasks
 (default: 4). Set CANVASRCA_SBATCH_ARGS for site/account-specific sbatch flags.
 Run submit once per model; shards are resumable under the same experiment ID.
+Set CANVASRCA_PREPARE_JOB_ID to make model arrays wait for CPU preparation.
 EOF
   exit 2
 }
 
 command="${1:-}"
 case "$command" in
+  prepare)
+    [[ $# -ge 3 && $# -le 4 ]] || usage
+    experiment_id="$2"
+    roster="$3"
+    shards="${4:-${CANVASRCA_SHARD_COUNT:-8}}"
+    [[ "$shards" =~ ^[1-9][0-9]*$ ]] || usage
+    [[ -f "$roster" ]] || { echo "roster does not exist: $roster" >&2; exit 2; }
+    extra=()
+    if [[ -n "${CANVASRCA_SBATCH_ARGS:-}" ]]; then
+      read -r -a extra <<<"$CANVASRCA_SBATCH_ARGS"
+    fi
+    sbatch --parsable "${extra[@]}" \
+      --array="0-$((shards - 1))" \
+      --export="ALL,CANVASRCA_EXPERIMENT_ID=${experiment_id},CANVASRCA_ROSTER=${roster},CANVASRCA_SHARD_COUNT=${shards}" \
+      RQs/RQ1/scripts/prepare_nibi.sh
+    ;;
+
   submit)
     [[ $# -ge 5 && $# -le 6 ]] || usage
     model="$2"
@@ -37,6 +56,13 @@ case "$command" in
     if [[ -n "${CANVASRCA_SBATCH_ARGS:-}" ]]; then
       # Deliberately shell-split administrator-supplied Slurm options.
       read -r -a extra <<<"$CANVASRCA_SBATCH_ARGS"
+    fi
+    if [[ -n "${CANVASRCA_PREPARE_JOB_ID:-}" ]]; then
+      [[ "$CANVASRCA_PREPARE_JOB_ID" =~ ^[0-9]+$ ]] || {
+        echo "CANVASRCA_PREPARE_JOB_ID must be numeric" >&2
+        exit 2
+      }
+      extra+=("--dependency=afterok:${CANVASRCA_PREPARE_JOB_ID}")
     fi
     sbatch "${extra[@]}" \
       --array="0-$((shards - 1))%${concurrency}" \

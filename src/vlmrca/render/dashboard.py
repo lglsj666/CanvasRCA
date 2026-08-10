@@ -89,7 +89,15 @@ from vlmrca.render.onset import compute_service_onsets, service_level_projection
 #      onset values.
 #  12  numeric-identity dashboards state explicitly that service, pod, and node
 #      names are represented by numeric IDs.
-RENDERER_VERSION = 12
+#  13  the visible incident identity uses the unified salted segmentation ID,
+#      so the dashboard header and frozen public roster cannot disagree.
+#  14  service-level graph projections and service strings embedded in metric
+#      names also receive case-local IDs; no natural entity aliases remain.
+#  15  the case-local identity inventory includes metric-derived and auxiliary
+#      telemetry entities, not only graph nodes and the metadata service list.
+#  16  metric entities are also registered after the same pod-to-service
+#      projection used by propagation onset computation.
+RENDERER_VERSION = 16
 
 
 # --------------------------------------------------------------------------- #
@@ -262,9 +270,10 @@ class DashboardConfig:
         return hashlib.md5(blob.encode()).hexdigest()[:10]
 
 
-def opaque_incident_id(case_id: str) -> str:
-    """Stable label-blind public id; the private roster retains the mapping."""
-    return "INC-" + hashlib.sha256(str(case_id).encode("utf-8")).hexdigest()[:12].upper()
+def opaque_incident_id(case_id: str, dataset: str, seed: int = 42) -> str:
+    """Unified label-blind public id; the private roster retains the mapping."""
+    key = f"{seed}:{dataset}:{case_id}"
+    return "INC-" + hashlib.sha256(key.encode("utf-8")).hexdigest()[:12].upper()
 
 
 # --------------------------------------------------------------------------- #
@@ -451,7 +460,7 @@ def compile_dashboard(
             unit = panels._time_unit(t.to_numpy(dtype="float64"))
             duration_s = max(0.0, (float(t.iloc[-1]) - float(t.iloc[0])) / unit)
             ts_range = f"  |  window t=0–{duration_s:.0f}s ({len(t)} source rows)"
-    public_id = opaque_incident_id(view.case_id) if cfg.redact_identity else view.case_id
+    public_id = opaque_incident_id(view.case_id, view.dataset) if cfg.redact_identity else view.case_id
     dataset_suffix = "" if cfg.redact_identity else f"  ({view.dataset})"
     fig.text(
         0.045,

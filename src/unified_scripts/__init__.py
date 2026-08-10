@@ -19,7 +19,20 @@ from typing import Any, ClassVar, Mapping, Self
 
 import yaml
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+def _project_root() -> Path:
+    """Find the worktree even when this package is installed non-editably."""
+
+    override = os.environ.get("CANVASRCA_ROOT")
+    if override:
+        return Path(override).expanduser().resolve()
+    for candidate in (Path.cwd(), *Path.cwd().parents, *Path(__file__).resolve().parents):
+        if (candidate / "configs" / "vllm_inference.yaml").is_file():
+            return candidate
+    raise RuntimeError("CanvasRCA root not found; set CANVASRCA_ROOT")
+
+
+PROJECT_ROOT = _project_root()
 
 
 class ConfigError(ValueError):

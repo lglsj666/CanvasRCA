@@ -4,15 +4,23 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=14
 #SBATCH --mem=240G
-#SBATCH --time=1-00:00:00
+#SBATCH --time=3-00:00:00
 #SBATCH --output=RQs/RQ1/results/slurm-%A_%a.log
 
 set -euo pipefail
 PROJECT_ROOT="$(git rev-parse --show-toplevel)"
 cd "$PROJECT_ROOT"
+export CANVASRCA_ENV="${CANVASRCA_INFERENCE_ENV:-$PROJECT_ROOT/.venv-inference}"
+# shellcheck disable=SC1091
+source scripts/load_nibi_modules.sh inference
 # shellcheck disable=SC1091
 source scripts/env.sh
+# shellcheck disable=SC1091
+source scripts/select_vllm_port.sh
 PYTHON="${CANVASRCA_PYTHON:-python}"
+export CANVASRCA_PYTHON="${CANVASRCA_PYTHON:-$CANVASRCA_ENV/bin/python}"
+export CANVASRCA_VLLM_BIN="${CANVASRCA_VLLM_BIN:-$CANVASRCA_ENV/bin/vllm}"
+PYTHON="$CANVASRCA_PYTHON"
 
 MODEL="${CANVASRCA_MODEL:?set CANVASRCA_MODEL to qwen3.6-27b or gemma-4-26b-a4b}"
 BASE_ID="${CANVASRCA_EXPERIMENT_ID:?set CANVASRCA_EXPERIMENT_ID}"
@@ -33,45 +41,56 @@ fi
 SHARD_TAG="$(printf 'shard-%04d-of-%04d' "$SHARD_INDEX" "$SHARD_COUNT")"
 EXPERIMENT_ID="${BASE_ID}__${SHARD_TAG}"
 RESULT_ROOT="RQs/RQ1/results/${EXPERIMENT_ID}"
-SHARD_ROSTER="RQs/RQ1/results/${BASE_ID}__shards/rosters/${SHARD_TAG}.json"
-mkdir -p "$RESULT_ROOT" "$(dirname "$SHARD_ROSTER")"
+mkdir -p "$RESULT_ROOT"
+[[ -f "$RESULT_ROOT/prepared/index.json" ]] || {
+  echo "CPU preparation is missing for $EXPERIMENT_ID" >&2
+  exit 3
+}
 
-# Split by stable roster position. The source roster is frozen before sbatch;
-# each case therefore belongs to exactly one resumable array task.
-if [[ ! -f "$SHARD_ROSTER" ]]; then
-  command -v jq >/dev/null || { echo "jq is required on the compute node" >&2; exit 3; }
-  ROSTER_TMP="${SHARD_ROSTER}.tmp.${SLURM_JOB_ID:-$$}.${MODEL}"
-  jq --argjson shard "$SHARD_INDEX" --argjson count "$SHARD_COUNT" '
-    (if type == "array" then .
-     elif (.cases | type) == "array" then .cases
-     elif (.datasets | type) == "object" then
-       [.datasets | to_entries[] | .key as $dataset | .value[]
-        | if type == "object" then . else {dataset: $dataset, case_id: .} end]
-     else error("roster must be an array or contain .cases/.datasets") end)
-    | to_entries | map(select((.key % $count) == $shard) | .value)
-  ' "$ROSTER" >"$ROSTER_TMP"
-  mv "$ROSTER_TMP" "$SHARD_ROSTER"
-fi
+RUNTIME_PREFIX="${RESULT_ROOT}/${EXPERIMENT}.${MODEL}.job-${SLURM_JOB_ID:-unknown}"
+"$PYTHON" -m pip freeze --all | sort >"${RUNTIME_PREFIX}.environment.txt"
+{
+  echo "slurm_job_id=${SLURM_JOB_ID:-unknown}"
+  echo "slurm_array_task_id=${SLURM_ARRAY_TASK_ID:-none}"
+  echo "model=$MODEL"
+  echo "experiment=$EXPERIMENT"
+  echo "cpus_per_task=${SLURM_CPUS_PER_TASK:-unknown}"
+  echo "memory_per_node=${SLURM_MEM_PER_NODE:-unknown}"
+  echo "cuda_visible_devices=${CUDA_VISIBLE_DEVICES:-unknown}"
+  module -t list 2>&1
+  nvidia-smi --query-gpu=name,uuid,memory.total --format=csv,noheader
+  sha256sum configs/vllm_inference.yaml requirements/base.txt requirements/inference.txt
+  sha256sum "${RUNTIME_PREFIX}.environment.txt"
+  echo "canvasrca_cache_root=$CANVASRCA_CACHE_ROOT"
+  echo "triton_cache_dir=$TRITON_CACHE_DIR"
+  echo "flashinfer_workspace_base=$FLASHINFER_WORKSPACE_BASE"
+  echo "vllm_port=$CANVASRCA_VLLM_PORT"
+  echo "vllm_base_url=$VLLM_BASE_URL"
+} >"${RUNTIME_PREFIX}.runtime.txt"
+scripts/monitor_gpu_nibi.sh "${RUNTIME_PREFIX}.gpu.csv" &
+MONITOR_PID=$!
 
-# Preparation is model-independent and retained across preemption/resubmission.
-command -v flock >/dev/null || { echo "flock is required on the compute node" >&2; exit 3; }
-(
-  flock 9
-  if [[ ! -f "$RESULT_ROOT/prepared/index.json" ]]; then
-    "$PYTHON" -m RQs.RQ1.src.main prepare "$EXPERIMENT_ID" "$SHARD_ROSTER"
-  fi
-) 9>"${RESULT_ROOT}/.prepare.lock"
-
-scripts/vllm_vlm/serve_canvasrca_nibi.sh "$MODEL" >"${RESULT_ROOT}/${MODEL}.server.log" 2>&1 &
+scripts/vllm_vlm/serve_canvasrca_nibi.sh "$MODEL" >"${RESULT_ROOT}/${EXPERIMENT}.${MODEL}.server.log" 2>&1 &
 SERVER_PID=$!
 cleanup() {
+  status=$?
+  trap - EXIT
+  set +e
   kill "$SERVER_PID" 2>/dev/null || true
   wait "$SERVER_PID" 2>/dev/null || true
+  kill "$MONITOR_PID" 2>/dev/null || true
+  wait "$MONITOR_PID" 2>/dev/null || true
+  {
+    echo "termination_exit_code=$status"
+    echo "termination_utc=$(date -u +%FT%TZ)"
+  } >>"${RUNTIME_PREFIX}.runtime.txt"
+  exit "$status"
 }
 trap cleanup EXIT
 
 for _ in $(seq 1 180); do
-  if curl -fsS http://127.0.0.1:8000/v1/models >/dev/null; then
+  if curl -fsS -H "Authorization: Bearer ${VLLM_API_KEY:-EMPTY}" \
+    "${VLLM_BASE_URL%/}/models" >/dev/null; then
     break
   fi
   if ! kill -0 "$SERVER_PID" 2>/dev/null; then
@@ -79,7 +98,8 @@ for _ in $(seq 1 180); do
   fi
   sleep 10
 done
-curl -fsS http://127.0.0.1:8000/v1/models >/dev/null
+curl -fsS -H "Authorization: Bearer ${VLLM_API_KEY:-EMPTY}" \
+  "${VLLM_BASE_URL%/}/models" >/dev/null
 
-"$PYTHON" -m cli.attest_vllm_server "$MODEL" --out "${RESULT_ROOT}/${MODEL}.server.json"
+"$PYTHON" -m cli.attest_vllm_server "$MODEL" --out "${RESULT_ROOT}/${EXPERIMENT}.${MODEL}.server.json"
 "$PYTHON" -m RQs.RQ1.src.main run "$EXPERIMENT_ID" "$EXPERIMENT" "$MODEL" --execute

@@ -4,15 +4,17 @@ from __future__ import annotations
 
 import ast
 import json
+import os
 from pathlib import Path
 from typing import Any, Callable
 
 from unified_scripts.rca_scorer import RCAScorer, RCAScorerConfig
 from unified_scripts.vllm_inference import VLLMInferenceConfig
+from vlmrca.render.dashboard import opaque_incident_id
 
-from .exps import RCA_ARMS, experiment_registry, factorial_cells
+from .exps import RCA_ARMS, experiment_registry, factorial_cells, ledger_image
 from .gates import qualification_contracts
-from .utils import DEFAULT_CONFIG, ROOT, load_yaml, numeric_entity_map
+from .utils import DEFAULT_CONFIG, ROOT, RQ1Error, audit_visible, load_yaml, numeric_entity_map
 
 FUNCTIONAL_RQ_FILES = ("main.py", "utils.py", "exps.py", "tests.py", "gates.py")
 ALL_RQ_SOURCE_FILES = set(FUNCTIONAL_RQ_FILES) | {"__init__.py"}
@@ -70,7 +72,12 @@ def check_rq_layouts() -> dict[str, Any]:
 
 
 def check_python_syntax() -> dict[str, int]:
-    files = [path for path in ROOT.rglob("*.py") if ".git" not in path.parts]
+    # Generated virtual environments live inside the Nibi worktree and can
+    # contain non-source files ending in .py. Audit only project-owned trees.
+    files = [*ROOT.glob("*.py")]
+    for source_root in (ROOT / "src", ROOT / "RQs", ROOT / "tests"):
+        if source_root.is_dir():
+            files.extend(source_root.rglob("*.py"))
     for path in files:
         ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
     return {"parsed_python_files": len(files)}
@@ -84,6 +91,19 @@ def check_unified_contracts(config: dict[str, Any]) -> dict[str, Any]:
     _assert("--mm-processor-kwargs" not in qwen_args, "Qwen still has a project pixel limit")
     _assert("--mm-processor-kwargs" in gemma_args, "Gemma soft-token policy disappeared")
     _assert("--enable-chunked-prefill" in gemma_args, "Gemma chunked prefill disappeared")
+    old_port = os.environ.get("CANVASRCA_VLLM_PORT")
+    os.environ["CANVASRCA_VLLM_PORT"] = "28765"
+    try:
+        dynamic = runtime.model("qwen3.6-27b")
+        dynamic_args = runtime.server_argv("qwen3.6-27b")
+    finally:
+        if old_port is None:
+            os.environ.pop("CANVASRCA_VLLM_PORT", None)
+        else:
+            os.environ["CANVASRCA_VLLM_PORT"] = old_port
+    _assert(dynamic["port"] == 28765, "deployment port override was ignored")
+    _assert(dynamic["base_url"] == "http://127.0.0.1:28765/v1", "deployment URL override drifted")
+    _assert(dynamic_args[dynamic_args.index("--port") + 1] == "28765", "server argv ignored deployment port")
     scorer = RCAScorer(RCAScorerConfig.load(config["unified"]["scorer"]), hit=lambda a, b: a == b)
     score = scorer.score(["wrong", "root"], ["root"]).as_dict()
     _assert(score["mrr"] == 0.5 and score["ac@1"] == 0.0 and score["ac@3"] == 1.0, "scorer metric definitions drifted")
@@ -111,6 +131,31 @@ def check_rq1_contract(config: dict[str, Any]) -> dict[str, Any]:
     counts = {name: len(rows) for name, rows in roster["datasets"].items()}
     _assert(counts == {"aegislab": 96, "aiops2022": 100, "aiops2025": 93, "re2_ob": 90, "re2_tt": 90}, "frozen RQ1 roster drifted")
     _assert(sum(counts.values()) == 469, "frozen RQ1 roster must contain 469 eligible cases")
+    adapter = config.get("inference_adapter") or {}
+    global_inference = VLLMInferenceConfig.load(config["unified"]["vllm"])
+    global_common = global_inference.data["common"]
+    _assert(
+        adapter.get("name") == "context_safe_output_v1"
+        and adapter.get("version") == 1
+        and adapter.get("max_tokens") == 8192,
+        "RQ1 context-safe inference adapter drifted",
+    )
+    _assert(
+        adapter["max_tokens"] <= global_common["max_model_len"] // 2
+        and adapter["max_tokens"] <= global_common["max_tokens"],
+        "RQ1 adapter must reserve at least half the context for prompt tokens",
+    )
+    _assert(ledger_image({}).startswith(b"\x89PNG\r\n\x1a\n"), "ledger Unicode board rendering failed")
+    for dataset, rows in roster["datasets"].items():
+        for row in rows:
+            observed = opaque_incident_id(row["case_id"], dataset, int(config["seed"]))
+            _assert(observed == row["opaque_incident_id"], f"opaque identity drifted for {dataset}")
+    try:
+        audit_visible({"fault_type": "disk"})
+    except RQ1Error:
+        pass
+    else:
+        raise AssertionError("explicit fault_type key escaped the public-artifact audit")
     return {"experiments": sorted(registry), "factorial_cells": 16, "id_granularities": kinds, "eval_counts": counts}
 
 

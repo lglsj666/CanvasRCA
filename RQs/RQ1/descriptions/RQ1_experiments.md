@@ -22,6 +22,34 @@ replacement. The headline inferential set is the 289 primary cases. RE2-OB and
 RE2-TT are reported separately and never pooled into the headline effect.
 Every model and arm uses the same case roster and paired exclusion policy.
 
+## Nibi qualification and execution order
+
+The Nibi Rule-16 smoke uses the first frozen eligible case from RE2-OB,
+AIOPS-2022, and AIOPS-2025 in roster order. It runs the one-stage `legacy_q9`
+T/V/H packet on both registered models: 3 cases × 3 arms × 2 models = exactly
+18 aggregate calls. The model servers must be healthy before the smoke starts;
+the aggregate supervisor then limits attestation, requests, persistence, and
+verification to 600 seconds. Each Slurm allocation is 30 minutes so server
+startup and cleanup also remain scheduler-bounded.
+
+All six full experiments remain mandatory after infrastructure qualification.
+A scientific gate or analysis threshold that is not met is reported as a
+negative outcome and is non-stopping. A rejection caused by a protocol
+mismatch, implementation defect, persistence failure, or unexpected
+infrastructure error must be repaired and rerun before progression. This rule
+does not alter any registered threshold or recode a negative result as a pass.
+
+The final replacement execution uses the named, versioned
+`context_safe_output_v1` RQ1 inference adapter. The global 16,384-token output
+ceiling remains unchanged, but every actual RQ1 request in both models, every
+arm, and both stages requests at most 8,192 output tokens. Before each call,
+the live server tokenizer must confirm that input tokens plus 8,192 do not
+exceed the frozen 32,768-token context. The adapter changes no evidence,
+prompt wording, arm, schema, decoding distribution, or scoring rule; it is a
+uniform feasibility correction after the earlier 16,384-token request made
+three complete long-text prompts impossible to submit. Its content and hash
+are stored in the runtime freeze and every completed stage record.
+
 ## `legacy_q9`
 
 Nine direct operations test whether the model can read individual metric, log,
@@ -46,7 +74,7 @@ an agent-mechanism experiment rather than an RCA endpoint.
 ## `matched_rca`
 
 This end-to-end RCA experiment compares five equal-source arms: complete text
-`T`, stable flat JSONL `F`, renderer-v12 image-only `V`, strict image-first
+`T`, stable flat JSONL `F`, renderer-v16 image-only `V`, strict image-first
 `H=A+B`, and routed `R` with metrics/topology visual and logs/traces textual.
 Stage 1 produces a normalized evidence ledger; Stage 2 sees only that ledger
 and the common candidate/task shell and returns ranked top-five RCA JSON.
@@ -97,4 +125,3 @@ test representation use without changing dashboard content.
 
 Heavy execution, bounded qualification, and artifact verification occur on
 Nibi. The WSL preparation does not produce scientific model results.
-

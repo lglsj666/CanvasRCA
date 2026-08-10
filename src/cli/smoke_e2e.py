@@ -9,6 +9,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+import signal
 import subprocess
 import time
 from pathlib import Path
@@ -24,11 +26,18 @@ def main() -> int:
         raise SystemExit("a smoke command is required and timeout may not exceed 600 seconds")
     started = time.monotonic()
     timed_out = False
+    process = subprocess.Popen(args.command, start_new_session=True)
     try:
-        completed = subprocess.run(args.command, timeout=args.timeout, check=False)
-        return_code = completed.returncode
+        return_code = process.wait(timeout=args.timeout)
     except subprocess.TimeoutExpired:
-        timed_out, return_code = True, 0
+        timed_out = True
+        os.killpg(process.pid, signal.SIGTERM)
+        try:
+            process.wait(timeout=10)
+        except subprocess.TimeoutExpired:
+            os.killpg(process.pid, signal.SIGKILL)
+            process.wait()
+        return_code = 0
     report = {
         "schema_version": "CanvasRCABoundedSmokeV1",
         "elapsed_seconds": time.monotonic() - started,

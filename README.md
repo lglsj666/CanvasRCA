@@ -57,7 +57,7 @@ The five end-to-end RCA arms are:
 
 - **T:** complete deterministic natural-language evidence;
 - **F:** the same facts as stable flat JSONL records;
-- **V:** renderer-v12 dashboard evidence only;
+- **V:** renderer-v16 dashboard evidence only;
 - **H:** strict image-first `A+B`, where A is exactly V and B is byte-identical
   to T;
 - **R:** metrics and topology visually, with logs and traces supplied as text.
@@ -176,6 +176,17 @@ scripts/build_nibi.sh base
 scripts/build_nibi.sh inference
 source scripts/env.sh
 ```
+
+The two build modes use separate `.venv-base` and `.venv-inference`
+environments. CPU preparation and rendering use the base environment; Slurm
+model jobs select the inference environment and consume pre-rendered artifacts.
+
+The wrapper loads the Nibi module hierarchy (`StdEnv/2023`, `gcc/12.3`,
+`python/3.11.5`, `arrow/25.0.0`, and `opencv/4.13.0` plus `cuda/12.6` for
+inference) before creating the isolated environment. Slurm entry points load
+the same stack. Module overrides are available through the
+`CANVASRCA_*_MODULE` environment variables and must be recorded in a heavy-run
+contract.
 
 If the exact compiled inference stack is not available from the Alliance
 wheelhouse, stage a compatible bundle and set:

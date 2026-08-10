@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import math
+import json
 from collections import defaultdict
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
@@ -14,7 +15,7 @@ from scipy.stats import wilcoxon
 from unified_scripts import stable_hash
 
 from .exps import ExperimentSpec, is_rca_task
-from .utils import RQ1Error, RunPaths
+from .utils import ROOT, RQ1Error, RunPaths, artifact_contract
 
 
 @dataclass(frozen=True)
@@ -217,23 +218,63 @@ def verify_result_root(paths: RunPaths, config: Mapping[str, Any]) -> dict[str, 
     index_path = paths.prepared / "index.json"
     if not index_path.is_file():
         raise RQ1Error("prepared index is missing")
-    index = __import__("json").loads(index_path.read_text())
+    index = json.loads(index_path.read_text())
     missing: list[str] = []
+    integrity_errors: list[str] = []
+    unsigned_index = dict(index)
+    recorded_index_hash = unsigned_index.pop("index_sha256", None)
+    if not recorded_index_hash or stable_hash(unsigned_index) != recorded_index_hash:
+        integrity_errors.append("prepared/index.json")
+    current_freeze = artifact_contract(
+        config=config,
+        code_files=tuple(sorted((ROOT / "RQs/RQ1/src").glob("*.py"))),
+    )
+    if current_freeze["freeze_sha256"] != index.get("runtime_freeze", {}).get("freeze_sha256"):
+        integrity_errors.append("runtime_freeze")
     for item in index.get("cases", ()):
+        item_missing = False
         for key in ("public", "private", "full_image", "routed_image"):
             path = paths.root / item[key]
             if not path.is_file():
                 missing.append(str(path.relative_to(paths.root)))
+                item_missing = True
+        for relative in item.get("variant_images", {}).values():
+            path = paths.root / relative
+            if not path.is_file():
+                missing.append(str(path.relative_to(paths.root)))
+                item_missing = True
+        if item_missing:
+            continue
+        public = json.loads((paths.root / item["public"]).read_text(encoding="utf-8"))
+        private = json.loads((paths.root / item["private"]).read_text(encoding="utf-8"))
+        checks = {
+            "public_sha256": stable_hash(public),
+            "private_sha256": stable_hash(private),
+            "full_image_sha256": stable_hash((paths.root / item["full_image"]).read_bytes()),
+            "routed_image_sha256": stable_hash((paths.root / item["routed_image"]).read_bytes()),
+        }
+        for key, observed in checks.items():
+            if observed != item.get(key):
+                integrity_errors.append(f"{item.get('opaque_incident_id')}:{key}")
+        for name, relative in item.get("variant_images", {}).items():
+            observed = stable_hash((paths.root / relative).read_bytes())
+            if observed != item.get("variant_image_sha256", {}).get(name):
+                integrity_errors.append(f"{item.get('opaque_incident_id')}:variant:{name}")
     trajectories = list(paths.trajectories.rglob("*.json"))
     for path in trajectories:
         if not path.with_suffix(".md").is_file():
             missing.append(str(path.with_suffix(".md").relative_to(paths.root)))
+        record = json.loads(path.read_text(encoding="utf-8"))
+        recorded = record.pop("record_sha256", None)
+        if not recorded or stable_hash(record) != recorded:
+            integrity_errors.append(str(path.relative_to(paths.root)))
     result = {
         "schema_version": "RQ1VerificationV2",
         "prepared_cases": len(index.get("cases", ())),
         "trajectories": len(trajectories),
         "missing": sorted(missing),
-        "passed": not missing,
+        "integrity_errors": sorted(integrity_errors),
+        "passed": not missing and not integrity_errors,
     }
     result["verification_sha256"] = stable_hash(result)
     return result

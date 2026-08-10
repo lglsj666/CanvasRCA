@@ -9,13 +9,14 @@ the CanvasRCA experiment boundary.
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 from typing import Any, Dict, Iterator, List, Optional
 
 from vlmrca.processed import iter_processed_cases, processed_index
 from vlmrca.upstream import DataCase
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
+REPO_ROOT = Path(os.environ.get("CANVASRCA_ROOT", Path.cwd())).expanduser().resolve()
 DEFAULT_MANIFEST = REPO_ROOT / "artifacts" / "segmentation" / "private_manifest.json"
 
 

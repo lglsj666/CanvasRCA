@@ -22,7 +22,7 @@ import pandas as pd
 
 from vlmrca.upstream import DataCase
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
+REPO_ROOT = Path(os.environ.get("CANVASRCA_ROOT", Path.cwd())).expanduser().resolve()
 PROCESSED_ROOT = Path(
     os.environ.get("CANVASRCA_PROCESSED_ROOT", REPO_ROOT / "dataset" / "processed")
 ).expanduser().resolve()
@@ -57,7 +57,7 @@ def processed_index(dataset: str) -> Dict[str, Dict[str, Any]]:
     """Return the processed manifest keyed by case id."""
     if dataset not in PROCESSED_DATASETS:
         raise ValueError(f"unknown processed dataset {dataset!r}")
-    path = PROCESSED_ROOT / dataset / "manifest.jsonl"
+    path = PROCESSED_ROOT / "private" / dataset / "manifest.jsonl"
     out: Dict[str, Dict[str, Any]] = {}
     for line in path.read_text(encoding="utf-8").splitlines():
         if line.strip():
@@ -67,8 +67,8 @@ def processed_index(dataset: str) -> Dict[str, Dict[str, Any]]:
 
 
 def _case_dir(dataset: str, row: Dict[str, Any]) -> Path:
-    path = (PROCESSED_ROOT / dataset / str(row["path"])).resolve()
-    root = (PROCESSED_ROOT / dataset).resolve()
+    path = (PROCESSED_ROOT / "public" / dataset / str(row["path"])).resolve()
+    root = (PROCESSED_ROOT / "public" / dataset).resolve()
     if root not in path.parents:
         raise ValueError(f"processed manifest path escapes dataset root: {path}")
     return path
@@ -236,34 +236,46 @@ def _graph(payload: Dict[str, Any]) -> nx.DiGraph:
 
 
 def load_processed_case(dataset: str, case_id: str) -> DataCase:
-    """Load one immutable processed incident."""
+    """Load only the public, label-blind half of one processed incident."""
     row = processed_index(dataset).get(case_id)
     if row is None:
         raise KeyError(f"{case_id!r} is absent from processed {dataset}")
     path = _case_dir(dataset, row)
     meta = json.loads((path / "metadata.json").read_text(encoding="utf-8"))
-    labels = dict(meta.get("labels") or {})
     graph = _graph(json.loads((path / "graph.json").read_text(encoding="utf-8")))
     # The metadata service inventory is part of the processed schema. Include
     # isolated services explicitly; otherwise topology availability would vary
     # with whether a trace edge happened to be observed in this incident.
     graph.add_nodes_from(str(s) for s in (meta.get("services") or []))
     return DataCase(
-        case_id=str(meta["case_id"]),
-        dataset=str(meta["dataset"]),
-        ground_truth=str(labels.get("root_cause") or ""),
-        fault_type=str(labels.get("fault_type") or ""),
-        timestamp=float((meta.get("event") or {}).get("timestamp") or 0.0),
+        case_id=case_id,
+        dataset=dataset,
+        ground_truth="",
+        fault_type="",
+        timestamp=float(meta.get("relative_incident_anchor_s") or 0.0),
         metrics_df=_wide_metrics(pd.read_parquet(path / "metrics.parquet")),
         logs_df=_logs(pd.read_parquet(path / "logs.parquet")),
         traces_df=_traces(pd.read_parquet(path / "traces.parquet")),
         graph=graph,
         metadata={
-            "ground_truth_candidates": list(labels.get("root_cause_candidates") or []),
             "processed_schema_version": meta.get("schema_version"),
             "processed_path": str(path),
+            **dict(meta.get("metadata") or {}),
         },
     )
+
+
+def load_processed_private(dataset: str, case_id: str) -> Dict[str, Any]:
+    """Read evaluator-private identity, labels, and absolute event time."""
+    row = processed_index(dataset).get(case_id)
+    if row is None:
+        raise KeyError(f"{case_id!r} is absent from processed {dataset}")
+    opaque = str(row["opaque_incident_id"])
+    path = PROCESSED_ROOT / "private" / dataset / "cases" / f"{opaque}.json"
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if payload.get("source_case_id") != case_id or payload.get("dataset") != dataset:
+        raise ValueError(f"processed private mapping mismatch for {dataset}/{case_id}")
+    return payload
 
 
 def iter_processed_cases(

@@ -5,7 +5,7 @@ Nibi workspace.
 
 The experiment now has a compact five-arm, two-stage implementation using the
 global vLLM, dataset segmentation, and RCA scorer contracts. Static preparation
-preserves renderer-v12 numeric identities, full metric sequences, concrete
+preserves renderer-v16 numeric identities, full metric sequences, concrete
 directed edges, explicit missingness, strict H=A+B, and routed exact-once
 transport.
 

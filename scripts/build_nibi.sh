@@ -3,18 +3,18 @@ set -euo pipefail
 
 PROJECT_ROOT="$(git rev-parse --show-toplevel)"
 cd "$PROJECT_ROOT"
+export CANVASRCA_ROOT="$PROJECT_ROOT"
 MODE="${1:-base}"
-PYTHON_MODULE="${CANVASRCA_PYTHON_MODULE:-python/3.11}"
-CUDA_MODULE="${CANVASRCA_CUDA_MODULE:-cuda/12.6}"
-ENV_DIR="${CANVASRCA_ENV:-$PROJECT_ROOT/.venv}"
-
-if command -v module >/dev/null 2>&1; then
-  module --force purge
-  module load "$PYTHON_MODULE"
-  if [[ "$MODE" == "inference" || "$MODE" == "all" ]]; then
-    module load "$CUDA_MODULE"
-  fi
+if [[ -n "${CANVASRCA_ENV:-}" ]]; then
+  ENV_DIR="$CANVASRCA_ENV"
+elif [[ "$MODE" == "inference" ]]; then
+  ENV_DIR="$PROJECT_ROOT/.venv-inference"
+else
+  ENV_DIR="$PROJECT_ROOT/.venv-base"
 fi
+
+# shellcheck disable=SC1091
+source scripts/load_nibi_modules.sh "$MODE"
 
 if [[ ! -x "$ENV_DIR/bin/python" ]]; then
   if command -v virtualenv >/dev/null 2>&1; then
@@ -40,12 +40,40 @@ fi
 if [[ "$MODE" == "dev" || "$MODE" == "all" ]]; then
   "${PIP[@]}" install "${INDEX_ARGS[@]}" -r requirements/dev.txt
 fi
-"${PIP[@]}" install "${INDEX_ARGS[@]}" --no-deps -e .
+mkdir -p build
+"${PIP[@]}" install "${INDEX_ARGS[@]}" --no-build-isolation --no-deps .
 
 python - <<'PY'
+import importlib.metadata as metadata
 import sys
 import vlmrca
 from unified_scripts.vllm_inference import VLLMInferenceConfig
-print({"python": sys.version.split()[0], "package": vlmrca.__name__, "config": VLLMInferenceConfig.load().source_sha256})
+record = {
+    "python": sys.version.split()[0],
+    "package": vlmrca.__name__,
+    "config": VLLMInferenceConfig.load().source_sha256,
+}
+if sys.argv[0] == "-" and metadata.version("canvasrca"):
+    record["canvasrca"] = metadata.version("canvasrca")
+print(record)
 PY
 
+if [[ "$MODE" == "inference" || "$MODE" == "all" ]]; then
+  [[ -x "$ENV_DIR/bin/vllm" ]] || { echo "vLLM console entry point is missing" >&2; exit 4; }
+  python - <<'PY'
+import importlib.metadata as metadata
+import torch
+import transformers
+import vllm
+import xgrammar
+
+print({
+    "torch": torch.__version__,
+    "transformers": transformers.__version__,
+    "vllm": vllm.__version__,
+    "xgrammar": metadata.version("xgrammar"),
+})
+PY
+fi
+
+"${PIP[@]}" check

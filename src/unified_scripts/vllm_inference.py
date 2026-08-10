@@ -51,7 +51,22 @@ class VLLMInferenceConfig(FrozenConfig):
         models = self.data["models"]
         if tag not in models:
             raise ConfigError(f"unknown model tag: {tag}")
-        return {**dict(self.data["common"]), **dict(models[tag])}
+        spec = {**dict(self.data["common"]), **dict(models[tag])}
+        # Multiple one-GPU Slurm jobs can share a physical Nibi node.  The
+        # frozen port is the portable default; a launcher-selected localhost
+        # port is deployment metadata and must be applied consistently to the
+        # server argument vector and live-server attestation.
+        port_override = os.environ.get("CANVASRCA_VLLM_PORT")
+        if port_override:
+            try:
+                port = int(port_override)
+            except ValueError as exc:
+                raise ConfigError("CANVASRCA_VLLM_PORT must be an integer") from exc
+            if not 1024 <= port <= 65535:
+                raise ConfigError("CANVASRCA_VLLM_PORT must be in [1024, 65535]")
+            spec["port"] = port
+            spec["base_url"] = f"http://{spec['host']}:{port}/v1"
+        return spec
 
     def model_path(self, tag: str) -> Path:
         spec = self.model(tag)

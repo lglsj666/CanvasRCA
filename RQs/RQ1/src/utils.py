@@ -20,8 +20,9 @@ from unified_scripts import canonical_json, project_path, stable_hash
 from unified_scripts.dataset_segmentation import DatasetSegmentationConfig
 from unified_scripts.rca_scorer import RCAScorer, RCAScorerConfig
 from unified_scripts.vllm_inference import VLLMInferenceConfig
+from vlmrca.upstream import DATASET_LOADER_ADAPTER, upstream_commit, upstream_source_tree_sha256
 
-ROOT = Path(__file__).resolve().parents[3]
+ROOT = Path(os.environ.get("CANVASRCA_ROOT", Path.cwd())).expanduser().resolve()
 RQ_ROOT = ROOT / "RQs" / "RQ1"
 DEFAULT_CONFIG = RQ_ROOT / "configs" / "rq1.yaml"
 
@@ -187,13 +188,52 @@ def scorer(config: Mapping[str, Any]) -> RCAScorer:
 
 def artifact_contract(*, config: Mapping[str, Any], code_files: Sequence[Path]) -> dict[str, Any]:
     globals_ = global_contracts(config)
-    files = {str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest() for path in code_files}
+    project_sources = (
+        set(code_files)
+        | set((ROOT / "src").rglob("*.py"))
+        | set((ROOT / "scripts").rglob("*.sh"))
+        | set((ROOT / "RQs/RQ1/scripts").glob("*.sh"))
+        | set((ROOT / "requirements").glob("*.txt"))
+        | {ROOT / "pyproject.toml", ROOT / "setup.cfg"}
+    )
+    files = {
+        str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
+        for path in sorted(project_sources)
+        if path.is_file()
+    }
+    model_manifests = {}
+    for model in config["runtime"]["models"]:
+        model_path = globals_["vllm"].model_path(model)
+        manifest = model_path / "download_manifest.json"
+        if not manifest.is_file():
+            raise RQ1Error(f"model download manifest missing: {manifest}")
+        model_manifests[model] = {
+            "path_runtime": str(manifest.resolve()),
+            "sha256": hashlib.sha256(manifest.read_bytes()).hexdigest(),
+            "content": json.loads(manifest.read_text(encoding="utf-8")),
+        }
     value = {
         "schema_version": "RQ1RuntimeFreezeV2",
         "rq_config_sha256": stable_hash(config),
         "global_contracts": {name: contract.audit_record() for name, contract in globals_.items()},
         "code_sha256": files,
+        "deployment_adapters": {
+            "inference_adapter": {
+                **dict(config["inference_adapter"]),
+                "adapter_sha256": stable_hash(config["inference_adapter"]),
+            },
+            "processed_case_adapter": {
+                "name": "processed_public_private_v2",
+                "sha256": files["src/vlmrca/processed.py"],
+            },
+            "upstream_loader_adapter": {
+                "name": DATASET_LOADER_ADAPTER,
+                "boundary_sha256": files["src/vlmrca/upstream.py"],
+                "upstream_commit": upstream_commit(),
+                "upstream_source_tree_sha256": upstream_source_tree_sha256(),
+            },
+        },
+        "model_download_manifests": model_manifests,
     }
     value["freeze_sha256"] = stable_hash(value)
     return value
-

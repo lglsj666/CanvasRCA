@@ -92,6 +92,15 @@ def _display_entity(name: Any, display_labels: Optional[Dict[str, str]]) -> str:
     return str((display_labels or {}).get(raw, raw))
 
 
+def _display_metric(name: Any, display_labels: Optional[Dict[str, str]]) -> str:
+    """Replace complete entity substrings embedded in diagnostic metric names."""
+    rendered = str(name)
+    for source in sorted((display_labels or {}), key=len, reverse=True):
+        if len(source) >= 4 and source in rendered:
+            rendered = rendered.replace(source, str(display_labels[source]))
+    return rendered
+
+
 def _elide(s: str, n: int) -> str:
     """Shorten from the middle, keeping the distinguishing tail."""
     s = str(s)
@@ -353,8 +362,9 @@ def render_metric_panel(
     metric_chars = max(8, body - svc_chars - 3)  # 3 for the " · " separator
     displayed_service = _display_entity(series.service, display_labels)
     rendered_service = _elide(displayed_service, svc_chars)
+    displayed_metric = _display_metric(series.metric, display_labels)
     ax.set_title(
-        f"{prefix}{rendered_service} · {_elide(series.metric, metric_chars)}",
+        f"{prefix}{rendered_service} · {_elide(displayed_metric, metric_chars)}",
         fontsize=typo.panel_title,
         color=style.TEXT,
         pad=2.0,
@@ -407,9 +417,9 @@ def render_metric_panel(
         "kind": "metric",
         "service": displayed_service,
         "rendered_service": rendered_service,
-        "metric": series.metric,
+        "metric": displayed_metric,
         "column": (
-            f"{displayed_service}_{series.metric}"
+            f"{displayed_service}_{displayed_metric}"
             if display_labels
             else series.column
         ),

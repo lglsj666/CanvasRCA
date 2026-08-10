@@ -1,6 +1,6 @@
 schema_version: CanvasRCARQ1ConfigV1
-status: static_nibi_preparation
-execution_enabled: false
+status: nibi_execution
+execution_enabled: true
 seed: 42
 
 unified:
@@ -10,7 +10,7 @@ unified:
 
 renderer:
   preset: rq0_v6
-  required_version: 12
+  required_version: 16
   overrides:
     topology_edge_key: identity_horizontal
     topology_edge_columns: 2
@@ -78,6 +78,13 @@ runtime:
   gate_timeout_seconds: 1200
   whole_case_infrastructure_exclusion_maximum: 0.05
   parse_rate_minimum: 0.95
+
+inference_adapter:
+  name: context_safe_output_v1
+  version: 1
+  max_tokens: 8192
+  scope: all_rq1_models_arms_cases_and_stages
+  reason: reserve_at_least_half_of_the_32768_context_for_model_visible_evidence
 
 analysis:
   no_confidence_intervals: true

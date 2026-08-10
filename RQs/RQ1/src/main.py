@@ -10,7 +10,9 @@ from pathlib import Path
 from typing import Any, Mapping, Sequence
 
 from unified_scripts import stable_hash
-from vlmrca.vlm.client import VLMResponse, call_vlm, text_part
+from vlmrca.vlm.client import VLMResponse, call_vlm, count_vllm_prompt_tokens, text_part
+from vlmrca.vlm.configs import get_config
+from unified_scripts.vllm_inference import VLLMInferenceConfig
 
 from .exps import (
     DIAGNOSE_SYSTEM,
@@ -104,6 +106,13 @@ def prepare(
                     "full_image": str(full_path.relative_to(paths.root)),
                     "routed_image": str(routed_path.relative_to(paths.root)),
                     "variant_images": {name: str(path.relative_to(paths.root)) for name, path in variant_paths.items()},
+                    "public_sha256": stable_hash(prepared.public),
+                    "private_sha256": stable_hash(prepared.private),
+                    "full_image_sha256": stable_hash(prepared.full_png),
+                    "routed_image_sha256": stable_hash(prepared.routed_png),
+                    "variant_image_sha256": {
+                        name: stable_hash(value) for name, value in prepared.variant_pngs.items()
+                    },
                 }
             )
     finally:
@@ -127,12 +136,35 @@ def _read_prepared(paths: RunPaths, item: Mapping[str, Any]) -> PreparedCase:
     full = (paths.root / item["full_image"]).read_bytes()
     routed = (paths.root / item["routed_image"]).read_bytes()
     variants = {name: (paths.root / rel).read_bytes() for name, rel in item.get("variant_images", {}).items()}
+    if stable_hash(public) != item.get("public_sha256"):
+        raise RQ1Error("prepared public artifact hash mismatch")
+    if stable_hash(private) != item.get("private_sha256"):
+        raise RQ1Error("prepared private artifact hash mismatch")
+    if stable_hash(full) != item.get("full_image_sha256"):
+        raise RQ1Error("prepared full-image index hash mismatch")
+    if stable_hash(routed) != item.get("routed_image_sha256"):
+        raise RQ1Error("prepared routed-image index hash mismatch")
+    if any(
+        stable_hash(value) != item.get("variant_image_sha256", {}).get(name)
+        for name, value in variants.items()
+    ):
+        raise RQ1Error("prepared counterfactual index hash mismatch")
     if stable_hash(full) != public["full_image_sha256"] or stable_hash(routed) != public["routed_image_sha256"]:
         raise RQ1Error("prepared image hash mismatch")
     expected_variants = public.get("variant_image_sha256", {})
     if any(stable_hash(value) != expected_variants.get(name) for name, value in variants.items()):
         raise RQ1Error("prepared counterfactual image hash mismatch")
     return PreparedCase(public=public, private=private, full_png=full, routed_png=routed, variant_pngs=variants)
+
+
+def _completed_target(path: Path) -> bool:
+    """Only completed model outcomes are terminal; infrastructure records retry."""
+    if not path.is_file():
+        return False
+    try:
+        return json.loads(path.read_text(encoding="utf-8")).get("status") == "completed"
+    except (OSError, json.JSONDecodeError):
+        return False
 
 
 def _finish_reason(response: VLMResponse) -> Any:
@@ -147,19 +179,64 @@ def _parts_hash(parts: Sequence[Mapping[str, Any]]) -> str:
     return stable_hash(rows)
 
 
+def _prompt_record(system: str, parts: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
+    """Persist the exact text and content hashes sent to the model."""
+
+    return {
+        "system": system,
+        "parts": [
+            {"type": "image", "sha256": stable_hash(part["png"])}
+            if part["type"] == "image"
+            else {"type": "text", "text": str(part["text"])}
+            for part in parts
+        ],
+    }
+
+
+def _prompt_markdown(stage: int, prompt: Mapping[str, Any]) -> str:
+    return (
+        f"\n## Stage {stage} prompt\n\n"
+        "```json\n"
+        + json.dumps(prompt, indent=2, sort_keys=True)
+        + "\n```\n"
+    )
+
+
 def _model_call(
     *,
     model: str,
     system: str,
     parts: list[dict[str, Any]],
     schema: Mapping[str, Any],
+    inference_adapter: Mapping[str, Any],
+    context_limit: int,
 ) -> tuple[dict[str, Any], str]:
     started = time.time()
+    max_tokens = int(inference_adapter["max_tokens"])
+    model_config = get_config(model, max_tokens=max_tokens)
+    prompt_tokens = count_vllm_prompt_tokens(parts, model_config, system=system)
+    text_tokens = count_vllm_prompt_tokens(parts, model_config, system=system, text_only=True)
+    if prompt_tokens is None or text_tokens is None:
+        raise RQ1Error("live multimodal token accounting failed")
+    if prompt_tokens + max_tokens > context_limit:
+        raise RQ1Error(
+            "prompt plus registered output budget exceeds context: "
+            f"{prompt_tokens}+{max_tokens}>{context_limit}"
+        )
     # call_vlm counts total attempts, not extra retries; one means one request.
-    response = call_vlm(parts, model=model, system=system, max_retries=1, response_format=dict(schema))
+    response = call_vlm(parts, model=model_config, system=system, max_retries=1, response_format=dict(schema))
     record = {
+        "prompt": _prompt_record(system, parts),
         "response_text": response.text,
         "input_tokens": response.input_tokens,
+        "text_tokens": text_tokens,
+        "image_tokens": prompt_tokens - text_tokens,
+        "tokenizer_input_tokens": prompt_tokens,
+        "tokenizer_api_input_delta": prompt_tokens - response.input_tokens,
+        "requested_max_tokens": max_tokens,
+        "context_limit": context_limit,
+        "context_headroom_tokens": context_limit - prompt_tokens - max_tokens,
+        "inference_adapter": dict(inference_adapter),
         "output_tokens": response.output_tokens,
         "total_tokens": response.total_tokens,
         "wall_time_s": time.time() - started,
@@ -208,8 +285,32 @@ def run(
     if not execute or not config.get("execution_enabled"):
         raise RQ1Error("real execution requires --execute and execution_enabled: true")
     spec = experiment_registry(config)[experiment]
+    inference_adapter = dict(config["inference_adapter"])
+    inference_adapter["adapter_sha256"] = stable_hash(inference_adapter)
+    context_limit = int(
+        VLLMInferenceConfig.load(config["unified"]["vllm"])
+        .model(model)["max_model_len"]
+    )
+    call_options = {
+        "inference_adapter": inference_adapter,
+        "context_limit": context_limit,
+    }
     paths = RunPaths.build(experiment_id, config)
     index = json.loads((paths.prepared / "index.json").read_text())
+    if index.get("experiment_id") != experiment_id:
+        raise RQ1Error("prepared index experiment ID mismatch")
+    recorded_index_sha256 = index.get("index_sha256")
+    unsigned_index = dict(index)
+    unsigned_index.pop("index_sha256", None)
+    if not recorded_index_sha256 or stable_hash(unsigned_index) != recorded_index_sha256:
+        raise RQ1Error("prepared index integrity hash mismatch")
+    current_freeze = artifact_contract(config=config, code_files=SOURCE_FILES)
+    recorded_freeze = index.get("runtime_freeze", {})
+    if current_freeze["freeze_sha256"] != recorded_freeze.get("freeze_sha256"):
+        raise RQ1Error(
+            "prepared runtime freeze differs from current code/config/models; "
+            "repeat the CPU preparation before inference"
+        )
     if shard_count < 1 or not 0 <= shard_index < shard_count:
         raise RQ1Error("invalid shard index/count")
     items = [
@@ -225,6 +326,11 @@ def run(
             opaque = str(prepared.public["opaque_incident_id"])
             trajectory_root = paths.trajectories / experiment / model
             if spec.task == "root_cause_handoff":
+                handoff_targets = {
+                    arm: trajectory_root / f"{opaque}__{arm}.json" for arm in spec.arms
+                }
+                if all(_completed_target(path) for path in handoff_targets.values()):
+                    continue
                 observer_parts = representation_parts(
                     "R", prepared.public["ceb"], prepared.full_png, prepared.routed_png,
                     config, prepared.variant_pngs,
@@ -233,6 +339,7 @@ def run(
                 call1, raw1 = _model_call(
                     model=model, system=OBSERVE_SYSTEM, parts=observer_parts,
                     schema=response_schema(spec, 1),
+                    **call_options,
                 )
                 try:
                     ledger = normalize_stage1_ledger(parse_json_object(raw1), prepared.public["ceb"])
@@ -241,9 +348,7 @@ def run(
                     ledger, stage1_parse = _stage1_failure(raw1, error), False
                 shared_key = stable_hash({"experiment": experiment, "model": model, "case": opaque, "observer": _parts_hash(observer_parts)})[:24]
                 for arm in spec.arms:
-                    target = trajectory_root / f"{opaque}__{arm}.json"
-                    if target.is_file():
-                        continue
+                    target = handoff_targets[arm]
                     stage2_parts = handoff_parts(arm, ledger, prepared.public["ceb"]["candidates"])
                     record = {
                         "experiment_id": experiment_id, "experiment": experiment, "model": model,
@@ -251,16 +356,30 @@ def run(
                         "analysis_dataset": prepared.private["dataset"],
                         "status": "completed", "stages": [{**call1, "stage": 1, "parse": stage1_parse, "normalized": ledger}],
                     }
-                    conversation = ["# RQ1 ledger-handoff RCA\n", f"- case: `{opaque}`\n- arm: `{arm}`\n- model: `{model}`\n", "\n## Shared Stage 1 response\n", raw1, "\n"]
+                    conversation = [
+                        "# RQ1 ledger-handoff RCA\n",
+                        f"- case: `{opaque}`\n- arm: `{arm}`\n- model: `{model}`\n",
+                        _prompt_markdown(1, call1["prompt"]),
+                        "\n## Shared Stage 1 response\n",
+                        raw1,
+                        "\n",
+                    ]
                     try:
-                        call2, raw2 = _model_call(model=model, system=DIAGNOSE_SYSTEM, parts=stage2_parts, schema=response_schema(spec, 2))
+                        call2, raw2 = _model_call(model=model, system=DIAGNOSE_SYSTEM, parts=stage2_parts, schema=response_schema(spec, 2), **call_options)
                         try:
                             final, stage2_parse = parse_json_object(raw2), True
                         except Exception as error:
                             final, stage2_parse = _stage1_failure(raw2, error), False
                         record["stages"].append({**call2, "stage": 2, "parse": stage2_parse, "normalized": final})
                         record["score"] = _score_rca(final, prepared.private, config)
-                        conversation.extend(("\n## Stage 2 response\n", raw2, "\n"))
+                        conversation.extend(
+                            (
+                                _prompt_markdown(2, call2["prompt"]),
+                                "\n## Stage 2 response\n",
+                                raw2,
+                                "\n",
+                            )
+                        )
                         completed += 1
                     except Exception as error:
                         record.update(status="infrastructure_error", error=f"{type(error).__name__}: {error}")
@@ -271,7 +390,7 @@ def run(
                 continue
             for arm in spec.arms:
                 target = trajectory_root / f"{opaque}__{arm}.json"
-                if target.is_file():
+                if _completed_target(target):
                     continue
                 parts = representation_parts(
                     arm,
@@ -300,7 +419,7 @@ def run(
                     )
                 conversation = ["# RQ1 trajectory\n", f"- case: `{opaque}`\n- arm: `{arm}`\n- model: `{model}`\n"]
                 try:
-                    call1, raw1 = _model_call(model=model, system=OBSERVE_SYSTEM, parts=parts, schema=response_schema(spec, 1))
+                    call1, raw1 = _model_call(model=model, system=OBSERVE_SYSTEM, parts=parts, schema=response_schema(spec, 1), **call_options)
                     try:
                         stage1 = parse_json_object(raw1)
                         if is_rca_task(spec):
@@ -309,19 +428,33 @@ def run(
                     except Exception as error:
                         stage1, stage1_parse = _stage1_failure(raw1, error), False
                     record["stages"].append({**call1, "stage": 1, "parse": stage1_parse, "normalized": stage1})
-                    conversation.extend(("\n## Stage 1 response\n", raw1, "\n"))
+                    conversation.extend(
+                        (
+                            _prompt_markdown(1, call1["prompt"]),
+                            "\n## Stage 1 response\n",
+                            raw1,
+                            "\n",
+                        )
+                    )
                     final = stage1
                     if spec.stages == 2:
                         stage2_parts = [text_part(stage2_prompt(spec, stage1, prepared.public["ceb"]["candidates"]))]
                         system = DIAGNOSE_SYSTEM if is_rca_task(spec) else OBSERVE_SYSTEM
-                        call2, raw2 = _model_call(model=model, system=system, parts=stage2_parts, schema=response_schema(spec, 2))
+                        call2, raw2 = _model_call(model=model, system=system, parts=stage2_parts, schema=response_schema(spec, 2), **call_options)
                         try:
                             final = parse_json_object(raw2)
                             stage2_parse = True
                         except Exception as error:
                             final, stage2_parse = _stage1_failure(raw2, error), False
                         record["stages"].append({**call2, "stage": 2, "parse": stage2_parse, "normalized": final})
-                        conversation.extend(("\n## Stage 2 response\n", raw2, "\n"))
+                        conversation.extend(
+                            (
+                                _prompt_markdown(2, call2["prompt"]),
+                                "\n## Stage 2 response\n",
+                                raw2,
+                                "\n",
+                            )
+                        )
                     if is_rca_task(spec):
                         record["score"] = _score_rca(final, prepared.private, config)
                     else:
@@ -337,7 +470,28 @@ def run(
                 writer.bytes(target.with_suffix(".md"), "".join(conversation).encode())
     finally:
         writer.drain()
-    result = {"completed": completed, "infrastructure_errors": failures, "experiment": experiment, "model": model, "shard_index": shard_index, "shard_count": shard_count, "assigned_cases": len(items)}
+    current_records = []
+    for item in items:
+        opaque = str(item["opaque_incident_id"])
+        for arm in spec.arms:
+            target = paths.trajectories / experiment / model / f"{opaque}__{arm}.json"
+            if target.is_file():
+                try:
+                    current_records.append(json.loads(target.read_text(encoding="utf-8")))
+                except json.JSONDecodeError:
+                    pass
+    result = {
+        "completed": sum(row.get("status") == "completed" for row in current_records),
+        "infrastructure_errors": sum(row.get("status") == "infrastructure_error" for row in current_records),
+        "expected_records": len(items) * len(spec.arms),
+        "newly_completed": completed,
+        "new_infrastructure_errors": failures,
+        "experiment": experiment,
+        "model": model,
+        "shard_index": shard_index,
+        "shard_count": shard_count,
+        "assigned_cases": len(items),
+    }
     write_json(paths.root / f"run_{experiment}_{model}_shard{shard_index:03d}-of-{shard_count:03d}.json", result)
     if shard_count == 1:
         write_json(paths.root / f"run_{experiment}_{model}.json", result)
@@ -348,7 +502,30 @@ def analyse(*, experiment_id: str, experiment: str, config_path: Path = DEFAULT_
     config = load_yaml(config_path)
     paths = RunPaths.build(experiment_id, config)
     records = [json.loads(path.read_text()) for path in (paths.trajectories / experiment).glob("*/*.json")]
-    result = analyze_records(records, experiment_registry(config)[experiment], config)
+    spec = experiment_registry(config)[experiment]
+    result = analyze_records(records, spec, config)
+    index = json.loads((paths.prepared / "index.json").read_text(encoding="utf-8"))
+    expected = {
+        (model, str(item["opaque_incident_id"]), arm)
+        for model in config["runtime"]["models"]
+        for item in index["cases"]
+        for arm in spec.arms
+    }
+    observed = {
+        (str(row.get("model")), str(row.get("opaque_incident_id")), str(row.get("arm")))
+        for row in records
+    }
+    missing, unexpected = expected - observed, observed - expected
+    result["artifact_completeness"] = {
+        "expected_records": len(expected),
+        "observed_records": len(observed),
+        "missing_records": len(missing),
+        "unexpected_records": len(unexpected),
+        "missing_examples": sorted(missing)[:10],
+        "unexpected_examples": sorted(unexpected)[:10],
+    }
+    result["complete"] = bool(result.get("complete")) and not missing and not unexpected
+    result["analysis_sha256"] = stable_hash(result)
     write_json(paths.summary, result)
     return result
 
