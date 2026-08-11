@@ -16,7 +16,7 @@ from typing import Any, Dict, Iterable, List, Optional
 from vlmrca.agent.trajectory import Episode, TrajectoryWriter, Turn
 from vlmrca.eval.metrics import summarize
 from vlmrca.eval.scoring import is_granularity_aware_hit
-from vlmrca.render.dashboard import CaseRenderView, DashboardConfig, compile_dashboard
+from RQs.RQ1.src.renderer.dashboard import CaseRenderView, DashboardConfig, compile_dashboard
 from vlmrca.upstream import normalize_service, parse_answer, upstream_commit
 from vlmrca.vlm.client import call_vlm
 from vlmrca.vlm.configs import VLMConfig, get_config

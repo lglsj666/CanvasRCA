@@ -13,11 +13,15 @@ import json
 import os
 import time
 import urllib.request
+import uuid
 from dataclasses import dataclass, field
-from typing import Any
+from pathlib import Path
+from typing import Any, Mapping
 
 from vlmrca.vlm.configs import VLMConfig, get_config, load_env
 from vlmrca.vlm.runtime_contract import assert_request_sampling
+from vlmrca.vlm.attention_probe import enabled as attention_probe_enabled
+from vlmrca.vlm.attention_probe import read_sidecar
 
 # --------------------------------------------------------------------------- #
 # Backend-neutral message parts                                               #
@@ -132,6 +136,8 @@ def call_vlm(
     max_retries: int = 3,
     response_format: dict[str, Any] | None = None,
     guided_regex: str | None = None,
+    partial_output_dir: Path | None = None,
+    partial_metadata: Mapping[str, Any] | None = None,
 ) -> VLMResponse:
     """
     Send one user turn made of text and image parts, return the reply.
@@ -164,6 +170,8 @@ def call_vlm(
                     system,
                     response_format=response_format,
                     guided_regex=guided_regex,
+                    partial_output_dir=partial_output_dir,
+                    partial_metadata=partial_metadata,
                 )
             elif cfg.backend == "gemini":
                 resp = _call_gemini(parts, cfg, system)
@@ -274,7 +282,13 @@ def _call_bedrock(parts, cfg, system) -> VLMResponse:
 
 
 def _call_openai(
-    parts, cfg, system, response_format=None, guided_regex: str | None = None
+    parts,
+    cfg,
+    system,
+    response_format=None,
+    guided_regex: str | None = None,
+    partial_output_dir: Path | None = None,
+    partial_metadata: Mapping[str, Any] | None = None,
 ) -> VLMResponse:
     from openai import OpenAI
 
@@ -304,6 +318,7 @@ def _call_openai(
     # and top_p 0.95 for both registered open-weight models. `cfg.extra` is
     # splatted last so a model can still override, but the registry keeps it
     # empty.
+    probe_request_id = f"canvasrca-{uuid.uuid4().hex}"
     kwargs: dict[str, Any] = {
         "model": cfg.model_id,
         "messages": messages,
@@ -327,6 +342,11 @@ def _call_openai(
         kwargs.setdefault("extra_body", {})["chat_template_kwargs"] = {
             "enable_thinking": cfg.thinking
         }
+    if attention_probe_enabled() and any(part["type"] == "image" for part in parts):
+        # vLLM carries this identifier unchanged through the engine and returns
+        # it as ``chatcmpl-<value>``.  It joins the same-pass worker sidecar to
+        # the normal response without another model execution.
+        kwargs.setdefault("extra_body", {})["request_id"] = probe_request_id
     # Merge extra_body rather than clobbering it, so an escape-hatch entry does
     # not silently drop the thinking kwarg.
     extra = dict(cfg.extra)
@@ -335,15 +355,143 @@ def _call_openai(
     if extra_body:
         kwargs["extra_body"] = extra_body
 
+    if partial_output_dir is not None:
+        return _call_openai_streaming(
+            client, kwargs, cfg, parts, probe_request_id,
+            partial_output_dir, partial_metadata,
+        )
+
     out = client.chat.completions.create(**kwargs)
     u = out.usage
+    probe = None
+    if attention_probe_enabled() and any(part["type"] == "image" for part in parts):
+        probe = read_sidecar(str(out.id))
+        if probe is None and os.environ.get("CANVASRCA_ATTENTION_PROBE_REQUIRED") == "1":
+            raise VLMError(f"required same-pass attention sidecar missing for {out.id}")
     return VLMResponse(
         text=out.choices[0].message.content or "",
         input_tokens=int(getattr(u, "prompt_tokens", 0) or 0),
         output_tokens=int(getattr(u, "completion_tokens", 0) or 0),
         raw={
+            "request_id": str(out.id),
             "finish_reason": out.choices[0].finish_reason,
             "usage": u.model_dump() if hasattr(u, "model_dump") else {},
+            "attention_probe": probe,
+        },
+    )
+
+
+def _write_partial(path: Path, payload: Mapping[str, Any]) -> None:
+    """Atomically checkpoint a streaming smoke response."""
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+    temporary.replace(path)
+
+
+def _call_openai_streaming(
+    client: Any,
+    kwargs: dict[str, Any],
+    cfg: VLMConfig,
+    parts: list[dict[str, Any]],
+    probe_request_id: str,
+    partial_output_dir: Path,
+    metadata: Mapping[str, Any] | None,
+) -> VLMResponse:
+    """Stream only bounded-smoke calls and persist their partial text.
+
+    The checkpoint is updated at least every 250 ms while tokens arrive.  An
+    external wall-clock supervisor may terminate the runner at any point; the
+    last atomic checkpoint therefore survives even when no SDK response object
+    is ever returned to the caller.
+    """
+
+    path = partial_output_dir / f"{probe_request_id}.json"
+    started = time.time()
+    state: dict[str, Any] = {
+        "schema_version": "CanvasRCASmokePartialResponseV1",
+        "status": "streaming",
+        "client_request_id": probe_request_id,
+        "response_request_id": None,
+        "model": cfg.tag,
+        "response_text": "",
+        "response_chars": 0,
+        "chunks_received": 0,
+        "started_unix_s": started,
+        "last_update_unix_s": started,
+        "finish_reason": None,
+        "usage": {},
+        "metadata": dict(metadata or {}),
+    }
+    _write_partial(path, state)
+    kwargs = {**kwargs, "stream": True, "stream_options": {"include_usage": True}}
+    pieces: list[str] = []
+    usage: Any = None
+    finish_reason: Any = None
+    response_id = probe_request_id
+    last_checkpoint = started
+    try:
+        for chunk in client.chat.completions.create(**kwargs):
+            response_id = str(getattr(chunk, "id", None) or response_id)
+            choices = list(getattr(chunk, "choices", None) or [])
+            if choices:
+                delta = getattr(choices[0], "delta", None)
+                content = getattr(delta, "content", None)
+                if isinstance(content, str):
+                    pieces.append(content)
+                finish_reason = getattr(choices[0], "finish_reason", None) or finish_reason
+            usage = getattr(chunk, "usage", None) or usage
+            state["chunks_received"] += 1
+            now = time.time()
+            if now - last_checkpoint >= 0.25 or finish_reason is not None:
+                state.update(
+                    response_request_id=response_id,
+                    response_text="".join(pieces),
+                    response_chars=sum(map(len, pieces)),
+                    last_update_unix_s=now,
+                    finish_reason=finish_reason,
+                )
+                _write_partial(path, state)
+                last_checkpoint = now
+    except Exception as error:
+        state.update(
+            status="client_error",
+            response_request_id=response_id,
+            response_text="".join(pieces),
+            response_chars=sum(map(len, pieces)),
+            last_update_unix_s=time.time(),
+            error=f"{type(error).__name__}: {error}",
+        )
+        _write_partial(path, state)
+        raise
+
+    usage_dict = usage.model_dump() if hasattr(usage, "model_dump") else {}
+    state.update(
+        status="completed",
+        response_request_id=response_id,
+        response_text="".join(pieces),
+        response_chars=sum(map(len, pieces)),
+        last_update_unix_s=time.time(),
+        finish_reason=finish_reason,
+        usage=usage_dict,
+    )
+    _write_partial(path, state)
+    probe = None
+    if attention_probe_enabled() and any(part["type"] == "image" for part in parts):
+        probe = read_sidecar(response_id)
+        if probe is None and os.environ.get("CANVASRCA_ATTENTION_PROBE_REQUIRED") == "1":
+            raise VLMError(f"required same-pass attention sidecar missing for {response_id}")
+    return VLMResponse(
+        text="".join(pieces),
+        input_tokens=int(usage_dict.get("prompt_tokens", 0) or 0),
+        output_tokens=int(usage_dict.get("completion_tokens", 0) or 0),
+        raw={
+            "request_id": response_id,
+            "finish_reason": finish_reason,
+            "usage": usage_dict,
+            "attention_probe": probe,
+            "partial_response_path": str(path),
         },
     )
 

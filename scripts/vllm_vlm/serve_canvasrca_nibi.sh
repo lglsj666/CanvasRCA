@@ -24,6 +24,14 @@ export VLLM_TRITON_FORCE_FIRST_CONFIG=1
 export TOKENIZERS_PARALLELISM=false
 export CUBLAS_WORKSPACE_CONFIG=:4096:8
 export CUBLASLT_WORKSPACE_SIZE=1
+export CANVASRCA_ATTENTION_PROBE=1
+export CANVASRCA_ATTENTION_PROBE_REQUIRED=1
+export CANVASRCA_ATTENTION_MODEL="$MODEL"
+export CANVASRCA_ATTENTION_DIR="${CANVASRCA_ATTENTION_DIR:-$CANVASRCA_CACHE_ROOT/attention_probe}"
+mkdir -p "$CANVASRCA_ATTENTION_DIR"
+# sitecustomize installs lazy hooks in the API and spawned engine processes.
+# It does not import vLLM early and it is active only for this launcher.
+export PYTHONPATH="$CANVASRCA_ROOT/src/vlmrca/vlm/attention_probe_bootstrap:$PYTHONPATH"
 if [[ "$MODEL" == "gemma-4-26b-a4b" ]]; then
   export VLLM_BATCH_INVARIANT=1
 else
@@ -33,4 +41,3 @@ fi
 # gpu_memory_utilization is null in the global Nibi config, so the generated
 # argument vector deliberately contains no --gpu-memory-utilization flag.
 exec "$VLLM_BIN" serve "${SERVER_ARGS[@]}"
-

@@ -22,7 +22,7 @@ REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO / "src"))
 
 from vlmrca.cache import load_cases  # noqa: E402
-from vlmrca.render.dashboard import CaseRenderView, DashboardConfig, compile_dashboard  # noqa: E402
+from RQs.RQ1.src.renderer.dashboard import CaseRenderView, DashboardConfig, compile_dashboard  # noqa: E402
 
 
 def main() -> int:

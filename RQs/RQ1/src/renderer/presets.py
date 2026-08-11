@@ -19,7 +19,7 @@ from __future__ import annotations
 from dataclasses import fields, replace
 from typing import Any, Dict, Mapping
 
-from vlmrca.render.dashboard import DashboardConfig
+from RQs.RQ1.src.renderer.dashboard import DashboardConfig
 
 # Fields that are not part of the rendered design space.
 _NON_AXIS_FIELDS = {"name"}

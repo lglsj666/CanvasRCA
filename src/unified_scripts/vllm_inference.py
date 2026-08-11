@@ -16,7 +16,7 @@ class VLLMInferenceConfig(FrozenConfig):
     """Frozen base recipe with explicit, hash-recorded experiment adapters."""
 
     DEFAULT_PATH = "configs/vllm_inference.yaml"
-    SCHEMA_VERSION = "CanvasRCAVLLMInferenceConfigV3"
+    SCHEMA_VERSION = "CanvasRCAVLLMInferenceConfigV5"
 
     def validate(self) -> None:
         common = self.data.get("common")
@@ -31,6 +31,7 @@ class VLLMInferenceConfig(FrozenConfig):
             "seed": 42,
             "max_model_len": 32768,
             "max_tokens": 16384,
+            "max_num_seqs": 128,
         }
         drift = {key: (common.get(key), value) for key, value in required.items() if common.get(key) != value}
         if drift:
@@ -46,6 +47,16 @@ class VLLMInferenceConfig(FrozenConfig):
         qwen = models["qwen3.6-27b"]
         if qwen.get("mm_processor_kwargs") is not None:
             raise ConfigError("Qwen must use its native image processor policy")
+        probe = self.data.get("attention_probe")
+        expected_probe = {
+            "enabled": True,
+            "required_for_visual_requests": True,
+            "extra_model_calls": 0,
+            "changes_generation": False,
+            "interpretation": "correlational_only",
+        }
+        if not isinstance(probe, Mapping) or any(probe.get(key) != value for key, value in expected_probe.items()):
+            raise ConfigError("same-pass visual attention probe contract drifted")
 
     def model(self, tag: str) -> dict[str, Any]:
         models = self.data["models"]

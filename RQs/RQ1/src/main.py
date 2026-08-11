@@ -6,30 +6,44 @@ import argparse
 import hashlib
 import json
 import time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-from unified_scripts import stable_hash
+from unified_scripts import canonical_json, stable_hash
 from vlmrca.vlm.client import VLMResponse, call_vlm, count_vllm_prompt_tokens, text_part
 from vlmrca.vlm.configs import get_config
+from vlmrca.vlm.attention_probe import map_groups_to_images, render_overlay as render_probe_overlay
 from unified_scripts.vllm_inference import VLLMInferenceConfig
 
 from .exps import (
+    DIRECT_DIAGNOSE_SYSTEM,
     DIAGNOSE_SYSTEM,
     OBSERVE_SYSTEM,
+    QA_SYSTEM,
+    TYPED_ANSWER_SYSTEM,
+    TYPED_OBSERVE_SYSTEM,
     PreparedCase,
+    attention_diagnostics,
+    balanced_arm_order,
     experiment_registry,
     handoff_parts,
     is_rca_task,
     prepare_case,
     representation_parts,
+    render_attention_overlay,
     response_schema,
     normalize_stage1_ledger,
+    normalize_typed_qa_ledger,
+    qa_representation_parts,
     score_reasoning,
     stage1_prompt,
     stage2_prompt,
+    validate_diagnosis,
+    validate_qa_response,
+    visual_diagnostic_for_arm,
 )
-from .gates import analyze_records, verify_result_root
+from .gates import analyze_records, analyze_stage_pair, verify_result_root
 from .utils import (
     AsyncWriter,
     DEFAULT_CONFIG,
@@ -43,7 +57,10 @@ from .utils import (
     write_json,
 )
 
-SOURCE_FILES = tuple(sorted((ROOT / "RQs/RQ1/src").glob("*.py")))
+SOURCE_FILES = tuple(sorted(
+    path for path in (ROOT / "RQs/RQ1/src").rglob("*.py")
+    if "__pycache__" not in path.parts
+))
 
 
 def _load_roster(path: Path) -> list[dict[str, str]]:
@@ -88,6 +105,11 @@ def prepare(
             private_path = paths.private / f"{opaque}.json"
             full_path = paths.renders / f"{opaque}.full.png"
             routed_path = paths.renders / f"{opaque}.routed.png"
+            qa_path = paths.renders / f"{opaque}.qa-controlled.png"
+            pixel_text_paths = [
+                paths.renders / f"{opaque}.pixel-text-{index:02d}.png"
+                for index in range(1, len(prepared.pixel_text_pngs) + 1)
+            ]
             variant_paths = {
                 name: paths.renders / f"{opaque}.{name}.png"
                 for name in prepared.variant_pngs
@@ -96,6 +118,9 @@ def prepare(
             writer.json(private_path, prepared.private)
             writer.bytes(full_path, prepared.full_png)
             writer.bytes(routed_path, prepared.routed_png)
+            writer.bytes(qa_path, prepared.qa_png)
+            for path, image in zip(pixel_text_paths, prepared.pixel_text_pngs, strict=True):
+                writer.bytes(path, image)
             for name, path in variant_paths.items():
                 writer.bytes(path, prepared.variant_pngs[name])
             index.append(
@@ -105,11 +130,15 @@ def prepare(
                     "private": str(private_path.relative_to(paths.root)),
                     "full_image": str(full_path.relative_to(paths.root)),
                     "routed_image": str(routed_path.relative_to(paths.root)),
+                    "qa_image": str(qa_path.relative_to(paths.root)),
+                    "pixel_text_images": [str(path.relative_to(paths.root)) for path in pixel_text_paths],
                     "variant_images": {name: str(path.relative_to(paths.root)) for name, path in variant_paths.items()},
                     "public_sha256": stable_hash(prepared.public),
                     "private_sha256": stable_hash(prepared.private),
                     "full_image_sha256": stable_hash(prepared.full_png),
                     "routed_image_sha256": stable_hash(prepared.routed_png),
+                    "qa_image_sha256": stable_hash(prepared.qa_png),
+                    "pixel_text_image_sha256": [stable_hash(value) for value in prepared.pixel_text_pngs],
                     "variant_image_sha256": {
                         name: stable_hash(value) for name, value in prepared.variant_pngs.items()
                     },
@@ -119,7 +148,7 @@ def prepare(
         writer.drain()
     freeze = artifact_contract(config=config, code_files=SOURCE_FILES)
     summary = {
-        "schema_version": "RQ1PreparedIndexV2",
+        "schema_version": "RQ1PreparedIndexV3",
         "experiment_id": experiment_id,
         "case_count": len(index),
         "cases": index,
@@ -135,6 +164,8 @@ def _read_prepared(paths: RunPaths, item: Mapping[str, Any]) -> PreparedCase:
     private = json.loads((paths.root / item["private"]).read_text())
     full = (paths.root / item["full_image"]).read_bytes()
     routed = (paths.root / item["routed_image"]).read_bytes()
+    qa = (paths.root / item["qa_image"]).read_bytes()
+    pixel_text = tuple((paths.root / rel).read_bytes() for rel in item.get("pixel_text_images", ()))
     variants = {name: (paths.root / rel).read_bytes() for name, rel in item.get("variant_images", {}).items()}
     if stable_hash(public) != item.get("public_sha256"):
         raise RQ1Error("prepared public artifact hash mismatch")
@@ -144,25 +175,36 @@ def _read_prepared(paths: RunPaths, item: Mapping[str, Any]) -> PreparedCase:
         raise RQ1Error("prepared full-image index hash mismatch")
     if stable_hash(routed) != item.get("routed_image_sha256"):
         raise RQ1Error("prepared routed-image index hash mismatch")
+    if stable_hash(qa) != item.get("qa_image_sha256"):
+        raise RQ1Error("prepared Q&A-image index hash mismatch")
+    if [stable_hash(value) for value in pixel_text] != item.get("pixel_text_image_sha256"):
+        raise RQ1Error("prepared pixel-text image index hash mismatch")
     if any(
         stable_hash(value) != item.get("variant_image_sha256", {}).get(name)
         for name, value in variants.items()
     ):
         raise RQ1Error("prepared counterfactual index hash mismatch")
-    if stable_hash(full) != public["full_image_sha256"] or stable_hash(routed) != public["routed_image_sha256"]:
+    if (stable_hash(full) != public["full_image_sha256"]
+            or stable_hash(routed) != public["routed_image_sha256"]
+            or stable_hash(qa) != public["qa_image_sha256"]
+            or [stable_hash(value) for value in pixel_text] != public["pixel_text_image_sha256"]):
         raise RQ1Error("prepared image hash mismatch")
     expected_variants = public.get("variant_image_sha256", {})
     if any(stable_hash(value) != expected_variants.get(name) for name, value in variants.items()):
         raise RQ1Error("prepared counterfactual image hash mismatch")
-    return PreparedCase(public=public, private=private, full_png=full, routed_png=routed, variant_pngs=variants)
+    return PreparedCase(public=public, private=private, full_png=full,
+                        routed_png=routed, qa_png=qa, pixel_text_pngs=pixel_text,
+                        variant_pngs=variants)
 
 
 def _completed_target(path: Path) -> bool:
-    """Only completed model outcomes are terminal; infrastructure records retry."""
+    """Only hash-valid completed outcomes are terminal; corruption must retry."""
     if not path.is_file():
         return False
     try:
-        return json.loads(path.read_text(encoding="utf-8")).get("status") == "completed"
+        record = json.loads(path.read_text(encoding="utf-8"))
+        recorded = record.pop("record_sha256", None)
+        return record.get("status") == "completed" and bool(recorded) and stable_hash(record) == recorded
     except (OSError, json.JSONDecodeError):
         return False
 
@@ -210,6 +252,9 @@ def _model_call(
     schema: Mapping[str, Any],
     inference_adapter: Mapping[str, Any],
     context_limit: int,
+    attention_output_root: Path,
+    partial_output_root: Path | None = None,
+    partial_metadata: Mapping[str, Any] | None = None,
 ) -> tuple[dict[str, Any], str]:
     started = time.time()
     max_tokens = int(inference_adapter["max_tokens"])
@@ -224,8 +269,43 @@ def _model_call(
             f"{prompt_tokens}+{max_tokens}>{context_limit}"
         )
     # call_vlm counts total attempts, not extra retries; one means one request.
-    response = call_vlm(parts, model=model_config, system=system, max_retries=1, response_format=dict(schema))
+    response = call_vlm(
+        parts, model=model_config, system=system, max_retries=1,
+        response_format=dict(schema), partial_output_dir=partial_output_root,
+        partial_metadata={**dict(partial_metadata or {}), "prompt_sha256": _parts_hash(parts)},
+    )
+    finish_reason = _finish_reason(response)
+    request_id = str((response.raw or {}).get("request_id") or "")
+    probe = (response.raw or {}).get("attention_probe")
+    attention_record: dict[str, Any]
+    images = [part["png"] for part in parts if part["type"] == "image"]
+    if images:
+        if not isinstance(probe, Mapping):
+            raise RQ1Error("visual request completed without required same-pass attention probe")
+        mapped = map_groups_to_images(probe, images)
+        call_root = attention_output_root / hashlib.sha256(request_id.encode()).hexdigest()
+        call_root.mkdir(parents=True, exist_ok=True)
+        write_json(call_root / "raw_probe.json", probe)
+        artifacts = []
+        for index, (png, artifact) in enumerate(zip(images, mapped, strict=True)):
+            grid_path, overlay_path = call_root / f"image_{index:02d}.json", call_root / f"image_{index:02d}.png"
+            write_json(grid_path, artifact); overlay_path.write_bytes(render_probe_overlay(png, artifact))
+            artifacts.append({
+                "image_index": index, "image_sha256": artifact["image_sha256"],
+                "source_visual_tokens": artifact["source_visual_tokens"],
+                "grid_path": str(grid_path.relative_to(attention_output_root.parents[2])),
+                "overlay_path": str(overlay_path.relative_to(attention_output_root.parents[2])),
+                "grid_sha256": stable_hash(artifact), "overlay_sha256": stable_hash(overlay_path.read_bytes()),
+            })
+        attention_record = {
+            "status": "collected_same_prefill", "request_id": request_id,
+            "method": probe["method"], "layer_name": probe["layer_name"],
+            "extra_model_calls": 0, "correlational_only": True, "artifacts": artifacts,
+        }
+    else:
+        attention_record = {"status": "not_applicable_text_only", "artifacts": [], "extra_model_calls": 0}
     record = {
+        "request_id": request_id,
         "prompt": _prompt_record(system, parts),
         "response_text": response.text,
         "input_tokens": response.input_tokens,
@@ -241,7 +321,11 @@ def _model_call(
         "total_tokens": response.total_tokens,
         "wall_time_s": time.time() - started,
         "model_latency_s": response.latency_s,
-        "finish_reason": _finish_reason(response),
+        "finish_reason": finish_reason,
+        "truncated": str(finish_reason).casefold() in {"length", "max_tokens", "max_output_tokens"},
+        "gpu_active_time_s": None,
+        "peak_gpu_memory_bytes": None,
+        "attention_probe": attention_record,
     }
     return record, response.text
 
@@ -251,8 +335,42 @@ def _stage1_failure(text: str, error: Exception) -> dict[str, Any]:
         "schema_version": "Stage1FailureV2",
         "failure": "parse_error",
         "detail": str(error),
-        "raw_response_sha256": stable_hash(text.encode()),
+        "raw_response_bytes": len(text.encode()),
     }
+
+
+def _sync_attention_status(
+    record: dict[str, Any], public: Mapping[str, Any], paths: RunPaths,
+) -> None:
+    profile = record.get("visual_diagnostic")
+    if not isinstance(profile, dict):
+        return
+    probes = [stage.get("attention_probe") for stage in record.get("stages") or ()]
+    collected = [probe for probe in probes if isinstance(probe, Mapping) and probe.get("status") == "collected_same_prefill"]
+    if collected:
+        atlas_values = public.get("visual_evidence_atlases") or {}
+        atlases = [value for value in atlas_values.values() if isinstance(value, Mapping)]
+        atlases.extend(
+            value for values in atlas_values.values() if isinstance(values, list)
+            for value in values if isinstance(value, Mapping)
+        )
+        diagnostics = []
+        required_regions = list(profile.get("visual_regions") or ())
+        for probe in collected:
+            for artifact_ref in probe.get("artifacts") or ():
+                artifact = json.loads((paths.root / artifact_ref["grid_path"]).read_text())
+                atlas = next((value for value in atlases
+                              if value.get("image_sha256") == artifact.get("image_sha256")), None)
+                if atlas is not None:
+                    candidate = {**artifact, "required_regions": required_regions}
+                    report = attention_diagnostics(candidate, atlas)
+                    artifact_ref["diagnostics"] = report; diagnostics.append(report)
+        profile.update(
+            attention_status="collected_same_prefill",
+            attention_artifacts=sum(len(probe.get("artifacts") or ()) for probe in collected),
+            attention_request_ids=[probe["request_id"] for probe in collected],
+            attention_diagnostics=diagnostics,
+        )
 
 
 def _score_rca(prediction: Mapping[str, Any], private: Mapping[str, Any], config: Mapping[str, Any]) -> dict[str, Any]:
@@ -271,7 +389,24 @@ def _score_rca(prediction: Mapping[str, Any], private: Mapping[str, Any], config
     }
 
 
-def run(
+def _case_arms(
+    spec: Any, dataset: str, config: Mapping[str, Any], *, smoke: bool,
+) -> tuple[str, ...]:
+    """Return the full formal arms or this experiment's bounded smoke cells."""
+
+    if not smoke:
+        return tuple(spec.arms)
+    plans = config.get("smoke_plans") or {}
+    plan = plans.get(spec.name)
+    if not isinstance(plan, Mapping):
+        raise RQ1Error(f"missing unique smoke plan for {spec.name}")
+    selected = tuple(map(str, plan.get(dataset) or ()))
+    if not selected or not set(selected) <= set(spec.arms):
+        raise RQ1Error(f"invalid smoke arms for {spec.name}/{dataset}: {selected}")
+    return selected
+
+
+def _run_partition(
     *,
     experiment_id: str,
     experiment: str,
@@ -280,6 +415,8 @@ def run(
     execute: bool = False,
     shard_index: int = 0,
     shard_count: int = 1,
+    writer_workers: int | None = None,
+    smoke: bool = False,
 ) -> dict[str, Any]:
     config = load_yaml(config_path)
     if not execute or not config.get("execution_enabled"):
@@ -291,11 +428,15 @@ def run(
         VLLMInferenceConfig.load(config["unified"]["vllm"])
         .model(model)["max_model_len"]
     )
+    paths = RunPaths.build(experiment_id, config)
     call_options = {
         "inference_adapter": inference_adapter,
         "context_limit": context_limit,
+        "attention_output_root": paths.root / "attention" / model / experiment,
+        "partial_output_root": (
+            paths.root / "partial_responses" / model / experiment if smoke else None
+        ),
     }
-    paths = RunPaths.build(experiment_id, config)
     index = json.loads((paths.prepared / "index.json").read_text())
     if index.get("experiment_id") != experiment_id:
         raise RQ1Error("prepared index experiment ID mismatch")
@@ -317,57 +458,102 @@ def run(
         item for item in index["cases"]
         if int(hashlib.sha256(str(item["opaque_incident_id"]).encode()).hexdigest(), 16) % shard_count == shard_index
     ]
-    writer = AsyncWriter(int(config["runtime"]["max_workers"]))
+    writer = AsyncWriter(
+        int(writer_workers if writer_workers is not None else config["runtime"]["max_workers"])
+    )
     completed = 0
     failures = 0
+    model_calls = 0
     try:
         for item in items:
             prepared = _read_prepared(paths, item)
             opaque = str(prepared.public["opaque_incident_id"])
+            case_arms = _case_arms(
+                spec, str(prepared.private["dataset"]), config, smoke=smoke,
+            )
             trajectory_root = paths.trajectories / experiment / model
             if spec.task == "root_cause_handoff":
                 handoff_targets = {
-                    arm: trajectory_root / f"{opaque}__{arm}.json" for arm in spec.arms
+                    arm: trajectory_root / f"{opaque}__{arm}.json" for arm in case_arms
                 }
                 if all(_completed_target(path) for path in handoff_targets.values()):
                     continue
-                observer_parts = representation_parts(
-                    "R", prepared.public["ceb"], prepared.full_png, prepared.routed_png,
-                    config, prepared.variant_pngs,
-                )
-                observer_parts.append(text_part(stage1_prompt(spec, prepared.public)))
-                call1, raw1 = _model_call(
-                    model=model, system=OBSERVE_SYSTEM, parts=observer_parts,
-                    schema=response_schema(spec, 1),
-                    **call_options,
-                )
-                try:
-                    ledger = normalize_stage1_ledger(parse_json_object(raw1), prepared.public["ceb"])
-                    stage1_parse = True
-                except Exception as error:
-                    ledger, stage1_parse = _stage1_failure(raw1, error), False
-                shared_key = stable_hash({"experiment": experiment, "model": model, "case": opaque, "observer": _parts_hash(observer_parts)})[:24]
-                for arm in spec.arms:
+                shared_path = trajectory_root / "_shared_stage1" / f"{opaque}.json"
+                if _completed_target(shared_path):
+                    shared = json.loads(shared_path.read_text(encoding="utf-8"))
+                    call1, raw1 = dict(shared["call"]), str(shared["raw_response"])
+                    ledger, stage1_parse = dict(shared["normalized"]), bool(shared["parse"])
+                    shared_key = str(shared["shared_stage1_call_key"])
+                else:
+                    observer_parts = representation_parts(
+                        "R", prepared.public["rca_packet"], prepared.full_png, prepared.routed_png,
+                        config, prepared.variant_pngs, prepared.pixel_text_pngs,
+                    )
+                    observer_parts.append(text_part(stage1_prompt(spec, prepared.public)))
+                    model_calls += 1
+                    call1, raw1 = _model_call(
+                        model=model, system=OBSERVE_SYSTEM, parts=observer_parts,
+                        schema=response_schema(spec, 1), **call_options,
+                        partial_metadata={"case": opaque, "arm": "R_shared", "stage": 1},
+                    )
+                    try:
+                        ledger = normalize_stage1_ledger(
+                            parse_json_object(raw1), prepared.public["rca_packet"]
+                        )
+                        stage1_parse = ledger.get("schema_version") != "Stage1FailureV2"
+                    except Exception as error:
+                        ledger, stage1_parse = _stage1_failure(raw1, error), False
+                    shared_key = stable_hash({
+                        "experiment": experiment, "model": model, "case": opaque,
+                        "observer": _parts_hash(observer_parts), "ledger": ledger,
+                    })[:24]
+                    shared = {
+                        "status": "completed", "shared_stage1_call_key": shared_key,
+                        "execution_mode": "smoke" if smoke else "formal",
+                        "call": call1, "raw_response": raw1, "normalized": ledger, "parse": stage1_parse,
+                    }
+                    shared["record_sha256"] = stable_hash(shared)
+                    write_json(shared_path, shared)
+                    shared_path.with_suffix(".md").parent.mkdir(parents=True, exist_ok=True)
+                    shared_path.with_suffix(".md").write_text(
+                        "# Shared Stage 1\n" + _prompt_markdown(1, call1["prompt"]) + "\n## Response\n" + raw1,
+                        encoding="utf-8",
+                    )
+                ordered_arms = balanced_arm_order(case_arms, opaque, experiment)
+                for order_index, arm in enumerate(ordered_arms):
                     target = handoff_targets[arm]
-                    stage2_parts = handoff_parts(arm, ledger, prepared.public["ceb"]["candidates"])
+                    if _completed_target(target):
+                        continue
+                    stage2_parts = handoff_parts(arm, ledger, prepared.public["rca_packet"]["candidates"])
                     record = {
                         "experiment_id": experiment_id, "experiment": experiment, "model": model,
+                        "execution_mode": "smoke" if smoke else "formal",
                         "opaque_incident_id": opaque, "arm": arm, "shared_stage1_call_key": shared_key,
+                        "registered_arm_order": list(ordered_arms), "arm_order_index": order_index,
                         "analysis_dataset": prepared.private["dataset"],
-                        "status": "completed", "stages": [{**call1, "stage": 1, "parse": stage1_parse, "normalized": ledger}],
+                        "analysis_fault_type": prepared.private.get("fault_type", "unknown"),
+                        "status": "completed", "stage1_reference": str(shared_path.relative_to(paths.root)),
+                        "visual_diagnostic": visual_diagnostic_for_arm(arm, spec.task, prepared.public),
+                        "stages": [{"stage": 1, "parse": stage1_parse, "shared_stage1_call_key": shared_key,
+                                    "normalized": ledger}],
                     }
                     conversation = [
                         "# RQ1 ledger-handoff RCA\n",
                         f"- case: `{opaque}`\n- arm: `{arm}`\n- model: `{model}`\n",
-                        _prompt_markdown(1, call1["prompt"]),
-                        "\n## Shared Stage 1 response\n",
-                        raw1,
-                        "\n",
+                        f"- shared Stage 1: `{shared_path.relative_to(paths.root)}`\n",
                     ]
                     try:
-                        call2, raw2 = _model_call(model=model, system=DIAGNOSE_SYSTEM, parts=stage2_parts, schema=response_schema(spec, 2), **call_options)
+                        model_calls += 1
+                        call2, raw2 = _model_call(
+                            model=model, system=DIAGNOSE_SYSTEM, parts=stage2_parts,
+                            schema=response_schema(spec, 2), **call_options,
+                            partial_metadata={"case": opaque, "arm": arm, "stage": 2},
+                        )
                         try:
-                            final, stage2_parse = parse_json_object(raw2), True
+                            final = validate_diagnosis(
+                                parse_json_object(raw2), prepared.public["rca_packet"]["candidates"]
+                            )
+                            stage2_parse = True
                         except Exception as error:
                             final, stage2_parse = _stage1_failure(raw2, error), False
                         record["stages"].append({**call2, "stage": 2, "parse": stage2_parse, "normalized": final})
@@ -384,46 +570,90 @@ def run(
                     except Exception as error:
                         record.update(status="infrastructure_error", error=f"{type(error).__name__}: {error}")
                         failures += 1
+                    _sync_attention_status(record, prepared.public, paths)
                     record["record_sha256"] = stable_hash(record)
                     writer.json(target, record)
                     writer.bytes(target.with_suffix(".md"), "".join(conversation).encode())
                 continue
-            for arm in spec.arms:
+            ordered_arms = balanced_arm_order(case_arms, opaque, experiment)
+            for order_index, arm in enumerate(ordered_arms):
                 target = trajectory_root / f"{opaque}__{arm}.json"
                 if _completed_target(target):
                     continue
-                parts = representation_parts(
-                    arm,
-                    prepared.public["ceb"],
-                    prepared.full_png,
-                    prepared.routed_png,
-                    config,
-                    prepared.variant_pngs,
-                )
+                if spec.task == "root_cause_counterfactual" and not prepared.private["counterfactual_pairs"]["eligible"]:
+                    record = {
+                        "experiment_id": experiment_id, "experiment": experiment, "model": model,
+                        "execution_mode": "smoke" if smoke else "formal",
+                        "opaque_incident_id": opaque, "arm": arm, "analysis_dataset": prepared.private["dataset"],
+                        "registered_arm_order": list(ordered_arms), "arm_order_index": order_index,
+                        "analysis_fault_type": prepared.private.get("fault_type", "unknown"),
+                        "status": "protocol_ineligible", "reason": "label_blind_counterfactual_selector_ineligible",
+                    }
+                    record["record_sha256"] = stable_hash(record)
+                    writer.json(target, record)
+                    writer.bytes(target.with_suffix(".md"), ("# Protocol-ineligible counterfactual case\n" + canonical_json(record)).encode())
+                    continue
+                if is_rca_task(spec):
+                    parts = representation_parts(
+                        arm, prepared.public["rca_packet"], prepared.full_png,
+                        prepared.routed_png, config, prepared.variant_pngs,
+                        prepared.pixel_text_pngs,
+                    )
+                else:
+                    parts = qa_representation_parts(arm, prepared.public["qa_packet"], prepared.qa_png)
                 parts.append(text_part(stage1_prompt(spec, prepared.public)))
                 contract = {
                     "experiment_id": experiment_id,
                     "experiment": experiment,
                     "model": model,
+                    "execution_mode": "smoke" if smoke else "formal",
                     "opaque_incident_id": opaque,
                     "arm": arm,
+                    "registered_arm_order": list(ordered_arms),
+                    "arm_order_index": order_index,
                     "representation_hash": _parts_hash(parts),
                     "runtime_freeze_sha256": index["runtime_freeze"]["freeze_sha256"],
                 }
                 contract["call_key"] = stable_hash(contract)[:24]
                 record: dict[str, Any] = {**contract, "status": "completed", "stages": []}
                 record["analysis_dataset"] = prepared.private["dataset"]
+                record["analysis_fault_type"] = prepared.private.get("fault_type", "unknown")
+                record["visual_diagnostic"] = visual_diagnostic_for_arm(arm, spec.task, prepared.public)
                 if spec.task == "root_cause_counterfactual":
                     record["counterfactual_pair"] = prepared.private["counterfactual_pairs"].get(
                         arm.removeprefix("H_"), []
                     )
                 conversation = ["# RQ1 trajectory\n", f"- case: `{opaque}`\n- arm: `{arm}`\n- model: `{model}`\n"]
                 try:
-                    call1, raw1 = _model_call(model=model, system=OBSERVE_SYSTEM, parts=parts, schema=response_schema(spec, 1), **call_options)
+                    first_system = (DIRECT_DIAGNOSE_SYSTEM if spec.task == "root_cause_direct"
+                                    else OBSERVE_SYSTEM if is_rca_task(spec)
+                                    else TYPED_OBSERVE_SYSTEM if spec.name == "typed_two_stage"
+                                    else QA_SYSTEM)
+                    typed_questions = (prepared.public["reasoning_questions"]
+                                       if spec.name == "typed_two_stage" else ())
+                    model_calls += 1
+                    call1, raw1 = _model_call(
+                        model=model, system=first_system, parts=parts,
+                        schema=response_schema(spec, 1, typed_questions), **call_options,
+                        partial_metadata={"case": opaque, "arm": arm, "stage": 1},
+                    )
                     try:
                         stage1 = parse_json_object(raw1)
-                        if is_rca_task(spec):
-                            stage1 = normalize_stage1_ledger(stage1, prepared.public["ceb"])
+                        if spec.task == "root_cause_direct":
+                            stage1 = validate_diagnosis(
+                                stage1, prepared.public["rca_packet"]["candidates"]
+                            )
+                        elif is_rca_task(spec):
+                            stage1 = normalize_stage1_ledger(stage1, prepared.public["rca_packet"])
+                        elif spec.name == "typed_two_stage":
+                            stage1 = normalize_typed_qa_ledger(
+                                stage1, prepared.public["reasoning_questions"],
+                                prepared.public["qa_packet"],
+                            )
+                        else:
+                            questions = (prepared.public["legacy_questions"] if spec.task == "direct_visops"
+                                         else prepared.public["reasoning_questions"])
+                            stage1 = validate_qa_response(stage1, questions)
                         stage1_parse = True
                     except Exception as error:
                         stage1, stage1_parse = _stage1_failure(raw1, error), False
@@ -438,11 +668,26 @@ def run(
                     )
                     final = stage1
                     if spec.stages == 2:
-                        stage2_parts = [text_part(stage2_prompt(spec, stage1, prepared.public["ceb"]["candidates"]))]
-                        system = DIAGNOSE_SYSTEM if is_rca_task(spec) else OBSERVE_SYSTEM
-                        call2, raw2 = _model_call(model=model, system=system, parts=stage2_parts, schema=response_schema(spec, 2), **call_options)
+                        questions = prepared.public["reasoning_questions"] if spec.name == "typed_two_stage" else ()
+                        stage2_parts = [text_part(stage2_prompt(
+                            spec, stage1, prepared.public["rca_packet"]["candidates"], questions,
+                        ))]
+                        system = (DIAGNOSE_SYSTEM if is_rca_task(spec)
+                                  else TYPED_ANSWER_SYSTEM if spec.name == "typed_two_stage" else QA_SYSTEM)
+                        model_calls += 1
+                        call2, raw2 = _model_call(
+                            model=model, system=system, parts=stage2_parts,
+                            schema=response_schema(spec, 2), **call_options,
+                            partial_metadata={"case": opaque, "arm": arm, "stage": 2},
+                        )
                         try:
                             final = parse_json_object(raw2)
+                            if is_rca_task(spec):
+                                final = validate_diagnosis(final, prepared.public["rca_packet"]["candidates"])
+                            else:
+                                final = validate_qa_response(
+                                    final, prepared.public["reasoning_questions"], typed=spec.name == "typed_two_stage",
+                                )
                             stage2_parse = True
                         except Exception as error:
                             final, stage2_parse = _stage1_failure(raw2, error), False
@@ -458,13 +703,15 @@ def run(
                     if is_rca_task(spec):
                         record["score"] = _score_rca(final, prepared.private, config)
                     else:
-                        questions = prepared.private["questions"][:9 if spec.task == "direct_visops" else 3]
+                        questions = (prepared.private["legacy_questions"] if spec.task == "direct_visops"
+                                     else prepared.private["reasoning_questions"])
                         record["score"] = score_reasoning(final, questions)
                     completed += 1
                 except Exception as error:
                     record.update(status="infrastructure_error", error=f"{type(error).__name__}: {error}")
                     failures += 1
                     conversation.extend(("\n## Infrastructure error\n", record["error"], "\n"))
+                _sync_attention_status(record, prepared.public, paths)
                 record["record_sha256"] = stable_hash(record)
                 writer.json(target, record)
                 writer.bytes(target.with_suffix(".md"), "".join(conversation).encode())
@@ -472,8 +719,9 @@ def run(
         writer.drain()
     current_records = []
     for item in items:
-        opaque = str(item["opaque_incident_id"])
-        for arm in spec.arms:
+        prepared = _read_prepared(paths, item)
+        opaque = str(prepared.public["opaque_incident_id"])
+        for arm in _case_arms(spec, str(prepared.private["dataset"]), config, smoke=smoke):
             target = paths.trajectories / experiment / model / f"{opaque}__{arm}.json"
             if target.is_file():
                 try:
@@ -483,9 +731,17 @@ def run(
     result = {
         "completed": sum(row.get("status") == "completed" for row in current_records),
         "infrastructure_errors": sum(row.get("status") == "infrastructure_error" for row in current_records),
-        "expected_records": len(items) * len(spec.arms),
+        "expected_records": sum(
+            len(_case_arms(
+                spec, str(_read_prepared(paths, item).private["dataset"]), config,
+                smoke=smoke,
+            ))
+            for item in items
+        ),
         "newly_completed": completed,
         "new_infrastructure_errors": failures,
+        "new_model_calls": model_calls,
+        "execution_mode": "smoke" if smoke else "formal",
         "experiment": experiment,
         "model": model,
         "shard_index": shard_index,
@@ -498,12 +754,116 @@ def run(
     return result
 
 
+def _concurrency_partitions(
+    shard_index: int, shard_count: int, request_concurrency: int,
+) -> tuple[tuple[int, int], ...]:
+    """Split one registered shard into disjoint case-level worker residues."""
+
+    if request_concurrency < 1 or request_concurrency > 4:
+        raise RQ1Error("request_concurrency must be between one and four")
+    if shard_count < 1 or not 0 <= shard_index < shard_count:
+        raise RQ1Error("invalid shard index/count")
+    combined_count = shard_count * request_concurrency
+    return tuple(
+        (shard_index + worker * shard_count, combined_count)
+        for worker in range(request_concurrency)
+    )
+
+
+def run(
+    *,
+    experiment_id: str,
+    experiment: str,
+    model: str,
+    config_path: Path = DEFAULT_CONFIG,
+    execute: bool = False,
+    shard_index: int = 0,
+    shard_count: int = 1,
+    smoke: bool = False,
+) -> dict[str, Any]:
+    """Run different cases concurrently while preserving each case's arm order."""
+
+    config = load_yaml(config_path)
+    request_concurrency = int(config["runtime"]["request_concurrency"])
+    partitions = _concurrency_partitions(shard_index, shard_count, request_concurrency)
+    if request_concurrency == 1:
+        return _run_partition(
+            experiment_id=experiment_id, experiment=experiment, model=model,
+            config_path=config_path, execute=execute,
+            shard_index=shard_index, shard_count=shard_count,
+            smoke=smoke,
+        )
+    with ThreadPoolExecutor(max_workers=request_concurrency) as pool:
+        futures = [
+            pool.submit(
+                _run_partition,
+                experiment_id=experiment_id, experiment=experiment, model=model,
+                config_path=config_path, execute=execute,
+                shard_index=worker_index, shard_count=worker_count,
+                writer_workers=1,
+                smoke=smoke,
+            )
+            for worker_index, worker_count in partitions
+        ]
+        worker_results = [future.result() for future in futures]
+    # Worker partitions are disjoint. Consolidate their summaries directly;
+    # calling the runner again could retry an infrastructure-error target and
+    # would violate the bounded-smoke request budget.
+    result = {
+        "completed": sum(int(row["completed"]) for row in worker_results),
+        "infrastructure_errors": sum(
+            int(row["infrastructure_errors"]) for row in worker_results
+        ),
+        "expected_records": sum(int(row["expected_records"]) for row in worker_results),
+        "newly_completed": sum(int(row["newly_completed"]) for row in worker_results),
+        "new_infrastructure_errors": sum(
+            int(row["new_infrastructure_errors"]) for row in worker_results
+        ),
+        "new_model_calls": sum(int(row["new_model_calls"]) for row in worker_results),
+        "execution_mode": "smoke" if smoke else "formal",
+        "experiment": experiment,
+        "model": model,
+        "shard_index": shard_index,
+        "shard_count": shard_count,
+        "assigned_cases": sum(int(row["assigned_cases"]) for row in worker_results),
+        "request_concurrency": request_concurrency,
+        "concurrency_unit": "different_cases_within_case_arm_order_serial",
+        "worker_partitions": [
+            {"shard_index": index, "shard_count": count}
+            for index, count in partitions
+        ],
+        "worker_newly_completed": sum(int(row["newly_completed"]) for row in worker_results),
+        "worker_new_infrastructure_errors": sum(
+            int(row["new_infrastructure_errors"]) for row in worker_results
+        ),
+        "worker_new_model_calls": sum(int(row["new_model_calls"]) for row in worker_results),
+    }
+    paths = RunPaths.build(experiment_id, config)
+    write_json(
+        paths.root / f"run_{experiment}_{model}_shard{shard_index:03d}-of-{shard_count:03d}.json",
+        result,
+    )
+    if shard_count == 1:
+        write_json(paths.root / f"run_{experiment}_{model}.json", result)
+    return result
+
+
 def analyse(*, experiment_id: str, experiment: str, config_path: Path = DEFAULT_CONFIG) -> dict[str, Any]:
     config = load_yaml(config_path)
     paths = RunPaths.build(experiment_id, config)
     records = [json.loads(path.read_text()) for path in (paths.trajectories / experiment).glob("*/*.json")]
     spec = experiment_registry(config)[experiment]
     result = analyze_records(records, spec, config)
+    if spec.task == "root_cause_handoff":
+        shared = [json.loads(path.read_text()) for path in
+                  (paths.trajectories / experiment).glob("*/_shared_stage1/*.json")]
+        calls = [row.get("call") or {} for row in shared]
+        result["shared_stage1_accounting"] = {
+            "calls": len(calls),
+            "total_input_tokens": sum(int(row.get("input_tokens") or 0) for row in calls),
+            "total_output_tokens": sum(int(row.get("output_tokens") or 0) for row in calls),
+            "total_wall_time_s": sum(float(row.get("wall_time_s") or 0) for row in calls),
+        }
     index = json.loads((paths.prepared / "index.json").read_text(encoding="utf-8"))
     expected = {
         (model, str(item["opaque_incident_id"]), arm)
@@ -530,11 +890,63 @@ def analyse(*, experiment_id: str, experiment: str, config_path: Path = DEFAULT_
     return result
 
 
+def compare_stages(*, experiment_id: str, config_path: Path = DEFAULT_CONFIG) -> dict[str, Any]:
+    """Compare matched direct and ledger-mediated RCA without claiming causality."""
+
+    config = load_yaml(config_path)
+    paths = RunPaths.build(experiment_id, config)
+    load = lambda name: [json.loads(path.read_text()) for path in
+                         (paths.trajectories / name).glob("*/*.json")]
+    result = analyze_stage_pair(load("direct_rca"), load("matched_rca"), config)
+    write_json(paths.root / "stage_comparison_direct_vs_matched.json", result)
+    return result
+
+
 def verify(*, experiment_id: str, config_path: Path = DEFAULT_CONFIG) -> dict[str, Any]:
     config = load_yaml(config_path)
     result = verify_result_root(RunPaths.build(experiment_id, config), config)
     write_json(RunPaths.build(experiment_id, config).root / "verification.json", result)
     return result
+
+
+def attention_overlay(
+    *, experiment_id: str, opaque_incident_id: str, image_role: str,
+    artifact_path: Path, output: Path | None = None, config_path: Path = DEFAULT_CONFIG,
+) -> dict[str, Any]:
+    """Ingest an external attention grid and produce an auditable overlay."""
+
+    config = load_yaml(config_path)
+    paths = RunPaths.build(experiment_id, config)
+    index = json.loads((paths.prepared / "index.json").read_text(encoding="utf-8"))
+    item = next((row for row in index["cases"] if row["opaque_incident_id"] == opaque_incident_id), None)
+    if item is None:
+        raise RQ1Error(f"unknown prepared incident {opaque_incident_id!r}")
+    public = json.loads((paths.root / item["public"]).read_text(encoding="utf-8"))
+    atlas = (public.get("visual_evidence_atlases") or {}).get(image_role)
+    if not isinstance(atlas, Mapping):
+        raise RQ1Error(f"prepared case has no visual atlas role {image_role!r}")
+    if image_role == "full":
+        image_path = paths.root / item["full_image"]
+    elif image_role == "routed":
+        image_path = paths.root / item["routed_image"]
+    elif image_role == "qa":
+        image_path = paths.root / item["qa_image"]
+    else:
+        relative = (item.get("variant_images") or {}).get(image_role)
+        if not relative:
+            raise RQ1Error(f"prepared case has no image role {image_role!r}")
+        image_path = paths.root / relative
+    artifact = json.loads(artifact_path.read_text(encoding="utf-8"))
+    diagnostics = attention_diagnostics(artifact, atlas)
+    output = output or paths.root / "attention" / f"{opaque_incident_id}.{image_role}.overlay.png"
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_bytes(render_attention_overlay(image_path.read_bytes(), artifact, atlas))
+    report = {
+        **diagnostics, "overlay": str(output.relative_to(paths.root)),
+        "artifact_sha256": stable_hash(artifact), "atlas_sha256": atlas["atlas_sha256"],
+    }
+    write_json(output.with_suffix(".json"), report)
+    return report
 
 
 def cli(argv: Sequence[str] | None = None) -> int:
@@ -547,26 +959,48 @@ def cli(argv: Sequence[str] | None = None) -> int:
     p_prepare.add_argument("--limit", type=int)
     p_run = sub.add_parser("run")
     p_run.add_argument("experiment_id")
-    p_run.add_argument("experiment", choices=("legacy_q9", "cross_region", "typed_two_stage", "matched_rca", "visual_counterfactual_rca", "ledger_handoff_rca"))
+    p_run.add_argument("experiment", choices=("legacy_q9", "cross_region", "typed_two_stage", "direct_rca", "matched_rca", "visual_counterfactual_rca", "ledger_handoff_rca"))
     p_run.add_argument("model")
     p_run.add_argument("--execute", action="store_true")
+    p_run.add_argument("--smoke", action="store_true")
     p_run.add_argument("--shard-index", type=int, default=0)
     p_run.add_argument("--shard-count", type=int, default=1)
     p_analyse = sub.add_parser("analyse")
     p_analyse.add_argument("experiment_id")
     p_analyse.add_argument("experiment")
+    p_compare = sub.add_parser("compare-stages")
+    p_compare.add_argument("experiment_id")
     p_verify = sub.add_parser("verify")
     p_verify.add_argument("experiment_id")
+    p_attention = sub.add_parser("attention-overlay")
+    p_attention.add_argument("experiment_id")
+    p_attention.add_argument("opaque_incident_id")
+    p_attention.add_argument("image_role")
+    p_attention.add_argument("artifact", type=Path)
+    p_attention.add_argument("--output", type=Path)
     sub.add_parser("static")
     args = parser.parse_args(argv)
     if args.command == "prepare":
         result = prepare(experiment_id=args.experiment_id, roster=args.roster, config_path=args.config, limit=args.limit)
     elif args.command == "run":
-        result = run(experiment_id=args.experiment_id, experiment=args.experiment, model=args.model, config_path=args.config, execute=args.execute, shard_index=args.shard_index, shard_count=args.shard_count)
+        result = run(
+            experiment_id=args.experiment_id, experiment=args.experiment,
+            model=args.model, config_path=args.config, execute=args.execute,
+            shard_index=args.shard_index, shard_count=args.shard_count,
+            smoke=args.smoke,
+        )
     elif args.command == "analyse":
         result = analyse(experiment_id=args.experiment_id, experiment=args.experiment, config_path=args.config)
+    elif args.command == "compare-stages":
+        result = compare_stages(experiment_id=args.experiment_id, config_path=args.config)
     elif args.command == "verify":
         result = verify(experiment_id=args.experiment_id, config_path=args.config)
+    elif args.command == "attention-overlay":
+        result = attention_overlay(
+            experiment_id=args.experiment_id, opaque_incident_id=args.opaque_incident_id,
+            image_role=args.image_role, artifact_path=args.artifact,
+            output=args.output, config_path=args.config,
+        )
     else:
         from .tests import run_static_checks
 

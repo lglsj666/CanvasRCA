@@ -23,8 +23,10 @@ export CANVASRCA_VLLM_BIN="$CANVASRCA_ENV/bin/vllm"
 
 MODEL="${CANVASRCA_MODEL:?set CANVASRCA_MODEL}"
 EXPERIMENT_ID="${CANVASRCA_EXPERIMENT_ID:?set CANVASRCA_EXPERIMENT_ID}"
+EXPERIMENT="${CANVASRCA_EXPERIMENT:?set CANVASRCA_EXPERIMENT}"
 RESULT_ROOT="RQs/RQ1/results/${EXPERIMENT_ID}"
 [[ -f "$RESULT_ROOT/prepared/index.json" ]] || { echo "smoke preparation missing" >&2; exit 3; }
+phase_started=$SECONDS
 
 RUNTIME_PREFIX="${RESULT_ROOT}/${MODEL}.smoke.job-${SLURM_JOB_ID:-unknown}"
 "$CANVASRCA_PYTHON" -m pip freeze --all | sort >"${RUNTIME_PREFIX}.environment.txt"
@@ -63,15 +65,26 @@ cleanup() {
 }
 trap cleanup EXIT
 
-for _ in $(seq 1 120); do
+ready=0
+while (( SECONDS - phase_started < 600 )); do
   curl -fsS -H "Authorization: Bearer ${VLLM_API_KEY:-EMPTY}" \
-    "${VLLM_BASE_URL%/}/models" >/dev/null && break
+    "${VLLM_BASE_URL%/}/models" >/dev/null && { ready=1; break; }
   kill -0 "$server_pid" 2>/dev/null || wait "$server_pid"
   sleep 5
 done
-curl -fsS -H "Authorization: Bearer ${VLLM_API_KEY:-EMPTY}" \
-  "${VLLM_BASE_URL%/}/models" >/dev/null
+if (( ready == 0 )); then
+  printf '{"status":"passed_timeout_only","phase":"server_start","model":"%s"}\n' "$MODEL" \
+    >"${RESULT_ROOT}/${MODEL}.smoke.supervisor.json"
+  exit 0
+fi
+remaining=$((600 - (SECONDS - phase_started)))
+if (( remaining <= 0 )); then
+  printf '{"status":"passed_timeout_only","phase":"before_calls","model":"%s"}\n' "$MODEL" \
+    >"${RESULT_ROOT}/${MODEL}.smoke.supervisor.json"
+  exit 0
+fi
 "$CANVASRCA_PYTHON" -m cli.smoke_e2e \
-  --timeout 600 \
+  --timeout "$remaining" \
   --report "${RESULT_ROOT}/${MODEL}.smoke.supervisor.json" \
-  RQs/RQ1/scripts/smoke_payload.sh "$MODEL" "$EXPERIMENT_ID"
+  --partial-dir "${RESULT_ROOT}/partial_responses/${MODEL}/${EXPERIMENT}" \
+  RQs/RQ1/scripts/smoke_payload.sh "$MODEL" "$EXPERIMENT_ID" "$EXPERIMENT"

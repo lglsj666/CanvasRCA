@@ -10,6 +10,11 @@ VLM can use the same visual organization to improve ranked root-cause analysis
 over text-only and flat structured evidence under controlled information and
 compute.
 
+Every visual request also records a same-prefill, model-internal
+Q-to-visual-key attention sidecar and image-space heatmap. This diagnostic adds
+no model call, does not change generation, and is interpreted as correlational
+only; controlled visual counterfactuals remain the causal test.
+
 The repository is currently prepared for deployment on the Digital Research
 Alliance Nibi cluster. The Nibi refactor and CPU-only static qualification are
 complete; no model inference, smoke, gate, training, or GPU experiment has been
@@ -22,7 +27,7 @@ flowchart LR
     D[Read-only processed incident] --> S[Unified deterministic split]
     S --> E[Label-blind evidence packet]
     E --> T[Text / flat / visual / hybrid representation]
-    T --> V[Two-stage VLM agent]
+    T --> V[One- or two-stage VLM agent]
     V --> P[Private ID mapping]
     P --> C[Unified RCA scorer]
     C --> R[Paired RQ results and findings]
@@ -41,7 +46,7 @@ compiled from the same incident fact inventory.
 > text-only and flat structured representations, and which observability
 > operations exhibit stable modality complementarity?
 
-RQ1 contains six related but distinct experiments. All six receive final Nibi
+RQ1 contains seven related but distinct experiments. All seven receive final Nibi
 reruns on the same eligible evaluation roster:
 
 | Experiment | Purpose | Scientific endpoint |
@@ -49,18 +54,31 @@ reruns on the same eligible evaluation roster:
 | `legacy_q9` | Direct metric, log, trace, and topology reading | Perception mechanism only |
 | `cross_region` | Level-1/2/3 joins across M/L/R/G regions | Cross-region mechanism only |
 | `typed_two_stage` | Measure evidence extraction and handoff attrition | Agent mechanism only |
-| `matched_rca` | Compare T/F/V/H/R equal-fact representations | Ranked RCA: MRR and AC/AVG@K |
+| `direct_rca` | Directly rank roots from T/F/V/P/H/R in one call | One-stage RCA reference |
+| `matched_rca` | Compare T/F/V/P/H/R equal-fact representations | Ranked RCA: MRR and AC/AVG@K |
 | `visual_counterfactual_rca` | Test whether controlled image semantics causally move evidence and rankings | Visual influence plus RCA |
 | `ledger_handoff_rca` | Test whether visual evidence survives the Stage-1/Stage-2 boundary | Handoff mechanism plus RCA |
 
-The five end-to-end RCA arms are:
+The six end-to-end RCA arms are:
 
 - **T:** complete deterministic natural-language evidence;
 - **F:** the same facts as stable flat JSONL records;
-- **V:** renderer-v16 dashboard evidence only;
+- **V:** the real renderer-v12 telemetry dashboard with metric curves and the
+  registered topology/log/trace panels;
+- **P:** the T natural-language evidence divided into M/R/L/G and drawn as pixels (a text-on-canvas
+  pseudo-dashboard, not a telemetry dashboard);
 - **H:** strict image-first `A+B`, where A is exactly V and B is byte-identical
   to T;
 - **R:** metrics and topology visually, with logs and traces supplied as text.
+
+The current v16 prompt contract follows locked SIRCL* ordering for every
+text-bearing transport: metrics, traces, logs, then topology. RCA prompts add
+shared field semantics, origin-versus-symptom guidance, and an internal
+`INITIAL → VERIFY → REVISE` check while preserving the frozen final JSON.
+Two-stage RCA uses at most 16 compact visible record keys and four metric bins
+per metric key; the host binds exact facts instead of asking the model to
+retranscribe full arrays or nullable identity tuples. Q&A prompts explain fields only, and H remains strict
+image-first A+B.
 
 The frozen project evaluation roster has 469 eligible cases after excluding 11
 already-invalid cases without replacement: 96 AegisLab, 100 AIOPS-2022, 93
@@ -87,7 +105,7 @@ and [experiments](RQs/RQ2/descriptions/RQ2_experiments.md).
 ```text
 configs/                    exactly three unified project configs
 src/unified_scripts/        extensible implementations of those contracts
-src/vlmrca/                 shared renderer, client, evaluation, and training
+src/vlmrca/                 shared client, evaluation, and training
 src/cli/                    shared Python command-line entry points
 scripts/                    shared shell entry points only
 RQs/RQx/configs/            RQ-specific configuration only
@@ -95,14 +113,20 @@ RQs/RQx/descriptions/       statement, experiments, and qualitative road map
 RQs/RQx/findings/           one findings document per experiment
 RQs/RQx/scripts/            RQ shell triggers only
 RQs/RQx/src/                five compact functional modules plus __init__.py
+RQs/RQ1/src/renderer/       provisional RQ1-owned renderer-v12 snapshot
 RQs/RQx/results/            generated experiment artifacts
 requirements/               Nibi dependency sets
 ```
 
 RQ1 was reduced from roughly 25,000 lines of duplicated experiment code to
 1,286 lines across its five functional Python modules. Shared inference,
-segmentation, scoring, rendering, client, and artifact behavior is reused
+segmentation, scoring, client, and artifact behavior is reused
 instead of copied into each experiment.
+
+There is deliberately no project-global renderer while dashboard design is an
+open research variable. RQ1 owns the provisional renderer-v12 snapshot; later
+RQs must copy or explicitly inherit it unchanged unless the user authorizes a
+dashboard-design experiment.
 
 The complete directory and integrity rules are authoritative in
 [Codex.md](Codex.md).
@@ -125,7 +149,8 @@ adapt a contract; it may not silently fork a second unified implementation.
 
 Both supported models use unquantized BF16, seed 42, temperature 1.0, top-p
 0.95, a 32,768-token context, a 16,384-token output ceiling, thinking disabled,
-prefix caching disabled, and `max_num_seqs=64`.
+prefix caching disabled, and `max_num_seqs=128`. RQ1 uniformly requests at
+most 8,192 output tokens through its context-safe adapter.
 
 - **Qwen3.6-27B:** native image-processor policy, no CanvasRCA pixel-budget
   override, chunked prefill disabled.
@@ -264,7 +289,7 @@ See [Codex.md](Codex.md) for the complete authoritative rules.
   cross-region mechanism results; no current end-to-end RQ1 RCA conclusion.
 - **RQ1 next step:** deploy exact dependencies/data/models, freeze the existing
   469-case eligible roster and contracts, run bounded qualification, then rerun
-  all six registered experiments under new result IDs.
+  all seven registered experiments under new result IDs.
 - **RQ2 next step:** begin only after RQ1 produces a verified representation
   decision suitable for controlled dashboard-design experiments.
 - **Current blocker:** Nibi deployment artifacts and live qualification have not

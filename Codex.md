@@ -40,6 +40,7 @@ RQs/RQx/descriptions/       exactly three canonical RQ documents
 RQs/RQx/findings/           one finding document per experiment
 RQs/RQx/scripts/            RQ-specific shell entry points only
 RQs/RQx/src/                compact RQ-specific Python package
+RQs/RQ1/src/renderer/       provisional RQ1-owned dashboard implementation
 RQs/RQx/results/            RQ-specific generated artifacts
 requirements/               Nibi dependency sets
 plans/design_decisions.md   project-wide decisions and supersessions
@@ -116,7 +117,7 @@ shell behavior belongs in repository-root `scripts/`.
 
 ### Python source
 
-`RQs/RQx/src/` contains exactly five functional modules plus the package marker:
+`RQs/RQx/src/` normally contains exactly five functional modules plus the package marker:
 
 ```text
 main.py       experiment flow and CLI
@@ -127,21 +128,38 @@ gates.py      gate definitions, verification, and decision metrics
 __init__.py   package marker with version information in comments
 ```
 
-The five functional modules together may not exceed 2,500 lines. Do not evade
+The five functional modules together may not exceed 5,000 lines. Do not evade
 the limit with generated source, embedded code strings, hidden RQ packages, or
 copies under `src/vlmrca/`. Move genuinely global, reusable behavior into the
 three unified scripts or the shared main pipeline; delete obsolete duplicated
 RQ versions once their successor preserves the required behavior.
+
+The only current exception is `RQs/RQ1/src/renderer/`. It contains the
+versioned, provisional dashboard implementation being evaluated by RQ1 and is
+counted separately from the five-module 5,000-line limit. This exception must
+not be used for unrelated experiment code or as a line-limit escape hatch.
 
 `RQs/RQx/configs/` contains only RQ-specific configuration. It references the
 three root unified configs by relative path.
 
 ## Shared main pipeline
 
-Reusable rendering, model-client, evaluation, training, caching, and trajectory
-logic belongs in `src/vlmrca/`. Shared Python command-line utilities belong in
+Reusable model-client, evaluation, training, caching, and trajectory logic
+belongs in `src/vlmrca/`. Shared Python command-line utilities belong in
 `src/cli/`; shared shell wrappers belong in `scripts/`. RQ-specific mutable
 logic belongs only in that RQ's five functional modules.
+
+There is no project-global renderer and no global renderer configuration while
+dashboard design remains an open research variable. The only authoritative
+provisional implementation is `RQs/RQ1/src/renderer/`; code that needs the
+current dashboard must import that package explicitly. `src/vlmrca/render/`, a
+symlink or wrapper under that path, and any other global renderer authority are
+forbidden. RQ2 and later RQs must copy or explicitly inherit the exact frozen
+RQ1 renderer snapshot. A renderer change is allowed only when the user
+authorizes an experiment about dashboard design; it then requires an RQ-local
+version, a new hash/contract, visual inspection, leakage audit, determinism
+check, and cross-arm atomic-fact equality audit. An RQ-local change must never
+silently mutate a renderer used by another RQ.
 
 `src/vlmrca/upstream.py` is the only sanctioned import boundary into the
 optional RL-SLM-RCA sibling checkout. Never modify that sibling from this
@@ -175,8 +193,17 @@ All project-owned inference uses `src/vlmrca/vlm/client.py`,
 
 Both registered models use unquantized BF16, seed 42, temperature 1.0, top-p
 0.95, a 32,768-token context, a 16,384-token output ceiling, thinking disabled,
-prefix caching disabled, and a maximum scheduler capacity of 64 sequences.
+prefix caching disabled, and a maximum scheduler capacity of 128 sequences.
 Sampling means exact byte repetition is not a validity gate.
+
+RQ1 retains the uniform `context_safe_output_v1` request adapter: every RQ1
+model, experiment, arm, case, and stage requests at most 8,192 output tokens,
+reserving half of the 32,768-token context for model-visible input. The
+`max_num_seqs=128` field changes server scheduling capacity only; it does not
+change prompts, evidence, output budgets, decoding, or scoring. Its effective
+value must still be hash-recorded. Output truncation and parse failure are
+model outcomes and must be recorded rather than repaired with a case-specific
+budget.
 
 Qwen uses its native image-processor policy and receives no project-level
 `min_pixels`, `max_pixels`, or other image pixel-budget override. Qwen keeps
@@ -194,6 +221,28 @@ infrastructure outcome, never a model-quality score.
 Every run records the effective global config hash, adapter hash if any, actual
 text/image/input/output tokens, wall time, GPU-active time when available, peak
 memory, finish reason, parse status, and infrastructure status.
+
+Every successful visual model request must collect the registered true
+model-internal attention diagnostic during that request's normal prefill. The
+custom vLLM 0.24 hook observes the Q/K tensors already produced at each
+model's first full-attention layer after multimodal fusion, computes the final
+prompt query's per-head softmax over visual-token keys, averages heads, and
+continues the unchanged fused-attention/generation path. It must not initiate a
+second forward, retry, completion, experiment unit, arm, or LLM/VLM call. The
+resulting token vector, 16x16 image grid, image/hash-matched heat overlay,
+method, layer, and request ID are required trajectory artifacts for visual
+requests; text-only requests record `not_applicable_text_only`. Missing probe
+artifacts are infrastructure/integrity errors, never wrong model answers or
+performance-gate failures.
+
+Renderer density and Stage-1 M/L/R/G region coverage remain separate,
+model-call-free diagnostics. Neither those proxies nor model-internal
+attention authorize a causal explanation. Attention is correlational and must
+not affect prompts, evidence, logits, sampling, predictions, scores, case
+selection, or stopping. The registered visual counterfactual experiment, not
+attention, supplies causal evidence about visual influence. Standard vLLM's
+OpenAI API still exposes no attention; the project-owned same-prefill hook and
+its versioned runtime contract are the sole authorized source.
 
 ## Dataset segmentation and privacy
 
@@ -253,17 +302,77 @@ caller-to-callee edges, units, precision, bins, and legends must have identical
 semantic fact inventories across arms. A fact may move between pixels and text
 but may not disappear or appear only in one arm.
 
+A real dashboard, a text-on-canvas/pixel-text representation, and pure text are
+distinct representations. Never call the text-on-canvas artifact a rendered
+telemetry dashboard: the real dashboard must contain the registered plots and
+graphical encodings. Any comparison among these representations is permitted
+only after their model-visible atomic fact inventories, numeric precision,
+bins, missingness, candidates, concrete edges, and legends are proven equal.
+For the registered RQ1 pixel-text control, render the frozen T-arm
+natural-language incident-fact lines themselves, preserving their order and
+partitioning them only with region page headings. Under the current RQ1 v16
+protocol, text-bearing incident evidence is ordered M/metrics, R/traces,
+L/logs, then G/topology; the real dashboard keeps its frozen spatial layout.
+Do not source that control
+from F or from a newly written summary. T remains the inherited natural-language
+serializer and F remains the inherited stable flat-JSONL serializer.
+
 If image-only evidence is fragment A and text-only evidence is fragment B, the
 hybrid prompt is exactly A+B or exactly B+A. Freeze one order. Do not rewrite,
 summarize, deduplicate, or add a hybrid-only instruction. Prompt wording,
 candidate order, task shell, output schema, retry policy, and inference config
 remain identical across compared arms.
 
+RCA prompts must explain the model-visible evidence fields, relative-time and
+missingness semantics, caller/callee direction, the RCA objective, and how to
+distinguish an originating fault from propagated symptoms. Non-RCA Q&A and
+perception prompts explain their data structures and fields but must not add an
+RCA guide. A reasoning scaffold may change internal deliberation, but the
+registered final RCA JSON schema remains frozen. RQ1 v16 retains v12's Stage-2
+SIRCL*-adapted internal `INITIAL -> VERIFY -> REVISE` procedure and emits only
+the final JSON; that shared instruction is identical across compared arms and
+does not alter the strict A+B hybrid evidence fragment.
+
+RQ1 v16 two-stage RCA uses `CompactRecordKeyLedgerV4`. Stage 1 may select at
+most 16 unique public evidence records and at most four metric bins per
+selector. Each selector contains exactly one nonempty, human-readable
+`record_key` plus `relative_bins`: `M1` for a visible metric panel,
+`L:<entity>` for a log row, `R:<entity>` for a trace row, `G:<entity>` for a
+propagation row, or `G:<caller>-><callee>` for a directed edge. Explicitly
+missing log/trace evidence uses `L:missing` or `R:missing`. The model must not
+transcribe raw values, full arrays, attributes, units, fact IDs, relation
+arrays, or candidate-support lists. The label-blind host deterministically
+binds each key to exactly one public fact, copies its exact scalar fields and
+selected values, and derives topology relations only from selected public
+topology facts. A duplicate public key fails preparation. This compact handoff
+changes no model-visible incident evidence before Stage 1 and is identical
+across compared arms.
+
 ## Experiments and artifacts
 
 Long runs execute in the background through Slurm and must be resumable by a
 content-addressed call key. Pre-render CPU artifacts before allocating a GPU.
-Use no more than four CPU workers and monitor host memory.
+Use no more than four CPU preprocessing or artifact-writer workers and monitor
+host memory. RQ1 model-request concurrency is a separate frozen field:
+`request_concurrency=4`. The runner must consume it by processing up to four
+different cases concurrently while preserving the registered arm order and
+Stage-1-to-Stage-2 dependency within each case. Each concurrent case uses one
+artifact-writer worker so request concurrency does not silently multiply the
+four-worker artifact pool.
+
+`max_num_seqs` is server scheduling capacity, not generated load. Before a
+heavy RQ run, a CPU-only matrix must compile every registered experiment/arm
+against both effective model contracts. Every registered experiment has
+exactly one independent logical smoke; that experiment's smoke must exercise
+both registered models and every distinct request path and response schema
+within the per-model call cap. Do not combine several experiments into an
+omnibus smoke, and do not spend a separate model call on every statically
+equivalent arm. During stable inference, record request queue/running depth
+with GPU utilization and throughput. Repeated GPU-idle intervals while
+runnable cases remain are an operational throughput defect; startup, shutdown,
+model-switch, and naturally drained-queue intervals are not. GPU utilization
+percentage is not a scientific validity metric and must not be used to
+reclassify an otherwise valid result.
 
 Each experiment stores artifacts under `RQs/RQx/results/<experiment>/`:
 
@@ -288,11 +397,34 @@ truncations remain model outcomes.
 
 ## Smoke and gate bounds
 
-A complete logical smoke may initiate at most 18 aggregate LLM/VLM calls across
-all models, cases, arms, stages, retries, and processes. Its total wall-clock
-timeout is 600 seconds from supervisor start. A timeout-only outcome passes;
+A registered experiment has exactly one logical smoke. Within that smoke,
+**each model independently receives an 18-call budget** across its cases, arms,
+stages, retries, and processes. A two-model smoke may therefore initiate at
+most 36 calls, with no more than 18 from either model. The two model phases must
+run sequentially, never concurrently. Each model phase has its own 600-second
+wall-clock timeout from phase-supervisor start, so one two-model logical smoke
+may take at most 1,200 seconds of active phase time plus scheduler/model-switch
+overhead. Multiple experiments do not share one smoke budget, and one
+experiment may not be split into several nominal smokes.
+
+A complete logical smoke may initiate at most 18 LLM/VLM calls per model across
+that model's cases, arms, stages, retries, and processes. Each sequential model
+phase has a 600-second wall-clock timeout from its supervisor start. A
+timeout-only outcome passes for that phase;
 any other protocol, numerical, integrity, persistence, or infrastructure error
 does not. Correctness is not a smoke pass condition.
+
+Every model call made by a bounded smoke must use streaming transport and
+atomically checkpoint the accumulated response under that experiment's
+`partial_responses/` tree while generation is in progress. The checkpoint must
+identify the case, arm, stage, model and request, and preserve the response text
+already received, chunk count and timestamps. When the phase supervisor reaches
+its timeout, it must terminate outstanding work and mark these checkpoints as
+`timeout_partial`; it must not discard an unfinished response merely because no
+final SDK response object was returned. Streaming is a smoke observability
+mechanism only: it does not change the registered prompt, sampling parameters,
+output ceiling, schema, model or scientific status, and it does not add a model
+call.
 
 A complete logical model-calling gate may initiate at most 36 aggregate calls
 and has a 1,200-second total timeout. At timeout, terminate outstanding work and
@@ -304,9 +436,15 @@ responses, prompts, truncations, and accounting for hidden problems. Record a
 hidden issue without halting routine progress. If it is safely fixable, fix it
 and continue; stop only when the problem is material and cannot be resolved.
 
-The local WSL Nibi-preparation refactor is static-only. Do not run a smoke,
-model-calling gate, vLLM server, inference, training, or GPU job during this
-refactor.
+The Nibi worktree retains its Nibi scientific configuration. A local WSL
+qualification may be launched only through an external deployment adapter
+under the local CanvasRCA worktree's `scripts/` directory. That adapter may
+override deployment paths for the local dataset, models, environments, ports,
+and result root, but it must import the Nibi worktree code and must not rewrite
+the Nibi scientific prompts, renderer, arms, scorer, roster semantics, or
+model-specific inference recipe. Local smokes and gates remain subject to the
+same aggregate call and timeout bounds above; their artifacts are diagnostic
+and cannot be represented as Nibi heavy-run results.
 
 ## Monitoring and decisions
 
@@ -318,4 +456,10 @@ decision is recorded with its evidence and reason. Cross-project decisions go
 to `plans/design_decisions.md`; RQ-specific protocol decisions go to the three
 canonical description files; final experiment conclusions go to the single
 matching findings file. Supersede an older decision explicitly rather than
-silently rewriting history.
+silently changing policy. `plans/design_decisions.md` is a compact register of
+current operative decisions, not a chronological transcript: when several
+decisions concern one topic, fold the necessary context, evidence,
+consequences, and revisit conditions into the newest authority and remove the
+superseded full entries. Keep a short old-ID-to-current-authority lineage table
+when artifacts cite the old IDs. Historical detail remains in Git history,
+dated devlogs, findings, and immutable experiment artifacts.

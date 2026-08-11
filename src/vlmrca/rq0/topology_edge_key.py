@@ -5,7 +5,7 @@ from __future__ import annotations
 import hashlib
 from typing import Any, Dict, List, Tuple
 
-from vlmrca.render.edge_key import (
+from RQs.RQ1.src.renderer.edge_key import (
     propagation_rank_edges,
     render_topology_edge_key,
     render_topology_edge_key_large,

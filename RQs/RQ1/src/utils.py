@@ -87,14 +87,19 @@ class AsyncWriter:
         self.pending.clear()
 
 
-NODE = re.compile(r"^(?:node|worker)[-_]?\w+$", re.I)
-POD = re.compile(r"^.+-(?:[a-f0-9]{8,10}-[a-z0-9]{4,6}|\d+)$", re.I)
+NODE_PATTERNS = (
+    re.compile(r"^node[-_]?\d+$", re.I),
+    re.compile(r"^gke-.+-[a-z0-9]{4}$", re.I),
+    re.compile(r"^(?:worker|master)[-_]?\d+$", re.I),
+)
+REPLICA_POD = re.compile(r"^.+-[a-f0-9]{8,10}-[a-z0-9]{4,6}$", re.I)
+ORDINAL_POD = re.compile(r"^.+-\d+$")
 
 
 def entity_granularity(name: str) -> str:
-    if NODE.fullmatch(name):
+    if any(pattern.fullmatch(name) for pattern in NODE_PATTERNS):
         return "node"
-    if POD.fullmatch(name):
+    if REPLICA_POD.fullmatch(name) or ORDINAL_POD.fullmatch(name):
         return "pod"
     return "service"
 
@@ -135,6 +140,8 @@ def audit_visible(value: Any, private_markers: Iterable[Any] = ()) -> None:
         if f'"{key.casefold()}"' in text:
             raise RQ1Error(f"model-visible artifact contains forbidden key {key!r}")
     for raw in private_markers:
+        if raw is None:
+            continue
         marker = str(raw).strip().casefold()
         if marker and len(marker) >= 4 and marker in text:
             raise RQ1Error(f"private marker escaped into public artifact: {raw!r}")

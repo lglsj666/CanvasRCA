@@ -32,7 +32,7 @@ from typing import Dict, List, Literal, Optional, Sequence, Tuple
 import numpy as np
 import pandas as pd
 
-from vlmrca.render.kpi_select import (
+from RQs.RQ1.src.renderer.kpi_select import (
     MIN_BASELINE_VALID,
     Z_CAP,
     ScoredSeries,
@@ -202,7 +202,7 @@ def _trace_onsets(
     k_sigma: float,
 ) -> Dict[str, ServiceOnset]:
     """Per-service p95 span latency, binned, first crossing per service."""
-    from vlmrca.render.panels import resolve_time_seconds
+    from RQs.RQ1.src.renderer.panels import resolve_time_seconds
 
     if traces_df is None or traces_df.empty:
         return {}

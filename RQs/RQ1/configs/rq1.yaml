@@ -1,5 +1,6 @@
-schema_version: CanvasRCARQ1ConfigV1
-status: nibi_execution
+schema_version: CanvasRCARQ1ConfigV5
+protocol_revision: rq1_record_key_stage1_v16
+status: nibi_requalification_required
 execution_enabled: true
 seed: 42
 
@@ -10,7 +11,7 @@ unified:
 
 renderer:
   preset: rq0_v6
-  required_version: 16
+  required_version: 12
   overrides:
     topology_edge_key: identity_horizontal
     topology_edge_columns: 2
@@ -35,12 +36,20 @@ experiments:
     stages: 2
     arms: factorial_16_plus_H
     reasoning_levels: [1, 2, 3]
+  direct_rca:
+    task: root_cause_direct
+    stages: 1
+    arms: [T, F, V, P, H, R]
+    primary_metric: mrr
+    stage_reference: matched_rca
+    comparison_role: descriptive_one_stage_reference
   matched_rca:
     task: root_cause_ranking
     stages: 2
-    arms: [T, F, V, H, R]
+    arms: [T, F, V, P, H, R]
     primary_metric: mrr
     primary_comparisons: [[R, T], [R, F]]
+    secondary_comparisons: [[V, T], [P, T], [V, P], [H, T], [R, H], [T, F]]
   visual_counterfactual_rca:
     task: root_cause_counterfactual
     stages: 2
@@ -69,7 +78,7 @@ data:
 runtime:
   models: [gemma-4-26b-a4b, qwen3.6-27b]
   max_workers: 4
-  request_concurrency: 8
+  request_concurrency: 4
   default_shard_count: 8
   result_root: RQs/RQ1/results
   smoke_call_cap: 18
@@ -79,12 +88,59 @@ runtime:
   whole_case_infrastructure_exclusion_maximum: 0.05
   parse_rate_minimum: 0.95
 
+# One independent dual-model smoke per experiment. Values select the arm(s)
+# run for the single prescribed validation case from each dataset. The static
+# suite compiles all arms; these bounded live cells cover distinct transports.
+smoke_plans:
+  legacy_q9:
+    re2_ob: [T, V, H]
+    aiops2022: [T, V, H]
+    aiops2025: [T, V, H]
+  cross_region:
+    re2_ob: [Mt-Lt-Rt-Gt]
+    aiops2022: [Mv-Lv-Rv-Gv]
+    aiops2025: [H]
+  typed_two_stage:
+    re2_ob: [Mt-Lt-Rt-Gt]
+    aiops2022: [Mv-Lv-Rv-Gv]
+    aiops2025: [H]
+  direct_rca:
+    re2_ob: [T]
+    aiops2022: [V]
+    aiops2025: [R]
+  matched_rca:
+    re2_ob: [T]
+    aiops2022: [V]
+    aiops2025: [R]
+  visual_counterfactual_rca:
+    re2_ob: [H_factual, H_neutral]
+    aiops2022: [H_targeted]
+    aiops2025: [H_placebo]
+  ledger_handoff_rca:
+    re2_ob: [L_txt]
+    aiops2022: [L_vis]
+    aiops2025: [L_hyb]
+
 inference_adapter:
   name: context_safe_output_v1
   version: 1
   max_tokens: 8192
   scope: all_rq1_models_arms_cases_and_stages
   reason: reserve_at_least_half_of_the_32768_context_for_model_visible_evidence
+
+visual_diagnostics:
+  schema_version: RQ1VisualDiagnosticsV2
+  enabled: true
+  model_calls_added: 0
+  patch_grid: [16, 16]
+  metrics: [blank_patch_fraction, evidence_patch_fraction, mean_ink_fraction, region_evidence_patch_fraction]
+  ledger_region_selection: true
+  attention_artifact_policy: required_same_prefill_qk_probe_for_every_visual_request
+  standard_vllm_exposes_attention: false
+  custom_vllm_probe_enabled: true
+  attention_extra_model_calls: 0
+  attention_layer_policy: first_full_attention_after_multimodal_fusion
+  attention_is_causal_evidence: false
 
 analysis:
   no_confidence_intervals: true
@@ -93,3 +149,6 @@ analysis:
   rca_minimum_effect: 0.05
   reasoning_effects_are_accuracy_not_rca: true
   counterfactual_cvi_minimum: 0.05
+  counterfactual_top1_change_minimum: 0.10
+  counterfactual_top5_change_minimum: 0.30
+  counterfactual_rank_distance_minimum: 0.10

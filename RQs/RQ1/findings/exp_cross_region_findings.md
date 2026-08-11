@@ -1,7 +1,7 @@
 # Cross-Region Findings
 
-**Status:** historical exposed-development mechanism evidence; final 469-case
-Nibi rerun not yet completed; not an RCA result.
+**Status:** historical exposed-development mechanism evidence only. Every
+predecessor compact Nibi trajectory is archived invalid; not an RCA result.
 
 Under the inference-v2 successor run, Gemma showed a narrow hybrid-over-text
 gain on level-2/3 complete-chain accuracy (`+0.1111`), while the preregistered
@@ -15,10 +15,16 @@ could read several topology operations extremely well, whereas Gemma was much
 less reliable. These experiments show architecture-dependent visual use and
 cross-region brittleness; they do not establish improved root-cause ranking.
 
-Renderer-v12 numeric identities and the explicit English identity explanation
-are retained. The refactor removes duplicated recovery implementations while
-preserving their final representation contract.
+Renderer-v17 numeric identities and the explicit English identity explanation
+are retained. The restored controlled canvas uses measured lossless wrapping,
+display-unique anchors, and the full 4/6/4 registry; it does not reuse the
+scientifically invalid compact predecessor packets.
 
 These local outcomes are not substituted for the registered final Nibi rerun.
 This file will be updated with the 289-case primary headline and separate
 RE2-OB/RE2-TT slices after that run is complete and verified.
+
+The final local three-case diagnostic's one AIOPS-2025 H cell parsed with valid
+query membership but scored `0/3` complete chains and `0.50` step accuracy.
+This is a path check and visible warning about task difficulty, not a gate or
+scientific result.

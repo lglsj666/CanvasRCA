@@ -8,7 +8,7 @@ pod names while keeping pod- and node-level ground truth exact.
 
 from __future__ import annotations
 
-from vlmrca.render.onset import pod_to_service
+from RQs.RQ1.src.renderer.onset import pod_to_service
 from vlmrca.upstream import is_service_level_hit, normalize_service
 
 
@@ -28,4 +28,3 @@ def is_granularity_aware_hit(predicted: str, accepted: str) -> bool:
     if accepted_norm.startswith(("node-", "worker-")):
         return False
     return normalize_service(pod_to_service(predicted_norm)) == accepted_norm
-
