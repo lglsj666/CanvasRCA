@@ -1,7 +1,9 @@
 # Cross-Region Findings
 
-**Status:** historical exposed-development mechanism evidence only. Every
-predecessor compact Nibi trajectory is archived invalid; not an RCA result.
+**Status:** corrected v17 renderer-crop factorial and T/P/V/H rerun not yet run.
+Predecessor compact and Controlled-canvas trajectories are archived diagnostic
+material and cannot establish real-dashboard usefulness; this is not an RCA
+result.
 
 Under the inference-v2 successor run, Gemma showed a narrow hybrid-over-text
 gain on level-2/3 complete-chain accuracy (`+0.1111`), while the preregistered
@@ -15,10 +17,11 @@ could read several topology operations extremely well, whereas Gemma was much
 less reliable. These experiments show architecture-dependent visual use and
 cross-region brittleness; they do not establish improved root-cause ranking.
 
-Renderer-v17 numeric identities and the explicit English identity explanation
-are retained. The restored controlled canvas uses measured lossless wrapping,
-display-unique anchors, and the full 4/6/4 registry; it does not reuse the
-scientifically invalid compact predecessor packets.
+Renderer-v12 numeric identities and the explicit English identity explanation
+are retained. Formal visual factorial cells now use actual renderer-v12 source
+crops, while P is globally reserved for the exact T text rendered as pixels.
+The 4/6/4 registry means Level-1/2/3 template counts; no Level 4–6 source exists
+in the synced tree.
 
 These local outcomes are not substituted for the registered final Nibi rerun.
 This file will be updated with the 289-case primary headline and separate

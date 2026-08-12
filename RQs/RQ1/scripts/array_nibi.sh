@@ -10,7 +10,7 @@ PYTHON_BIN="${CANVASRCA_PYTHON:-python}"
 usage() {
   cat >&2 <<'EOF'
 Usage:
-  array_nibi.sh prepare EXPERIMENT_ID ROSTER [SHARDS]
+  array_nibi.sh prepare EXPERIMENT_ID[:EXPERIMENT_ID...] ROSTER
   array_nibi.sh submit MODEL EXPERIMENT_ID EXPERIMENT ROSTER [SHARDS]
   array_nibi.sh merge  EXPERIMENT_ID EXPERIMENT [SHARDS]
 
@@ -18,6 +18,8 @@ Set CANVASRCA_ARRAY_CONCURRENCY to cap simultaneously running H100 tasks
 (default: 4). Set CANVASRCA_SBATCH_ARGS for site/account-specific sbatch flags.
 Run submit once per model; shards are resumable under the same experiment ID.
 Set CANVASRCA_PREPARE_JOB_ID to make model arrays wait for CPU preparation.
+Set CANVASRCA_AFTEROK_JOB_ID on the Gemma submission to wait for the complete
+Qwen array, ensuring that the two registered models never overlap.
 EOF
   exit 2
 }
@@ -25,19 +27,17 @@ EOF
 command="${1:-}"
 case "$command" in
   prepare)
-    [[ $# -ge 3 && $# -le 4 ]] || usage
-    experiment_id="$2"
+    [[ $# -eq 3 ]] || usage
+    experiment_ids="$2"
     roster="$3"
-    shards="${4:-${CANVASRCA_SHARD_COUNT:-8}}"
-    [[ "$shards" =~ ^[1-9][0-9]*$ ]] || usage
+    [[ "$experiment_ids" =~ ^[A-Za-z0-9._-]+(:[A-Za-z0-9._-]+)*$ ]] || usage
     [[ -f "$roster" ]] || { echo "roster does not exist: $roster" >&2; exit 2; }
     extra=()
     if [[ -n "${CANVASRCA_SBATCH_ARGS:-}" ]]; then
       read -r -a extra <<<"$CANVASRCA_SBATCH_ARGS"
     fi
     sbatch --parsable "${extra[@]}" \
-      --array="0-$((shards - 1))" \
-      --export="ALL,CANVASRCA_EXPERIMENT_ID=${experiment_id},CANVASRCA_ROSTER=${roster},CANVASRCA_SHARD_COUNT=${shards}" \
+      --export="ALL,CANVASRCA_EXPERIMENT_IDS=${experiment_ids},CANVASRCA_ROSTER=${roster}" \
       RQs/RQ1/scripts/prepare_nibi.sh
     ;;
 
@@ -47,7 +47,7 @@ case "$command" in
     experiment_id="$3"
     experiment="$4"
     roster="$5"
-    shards="${6:-${CANVASRCA_SHARD_COUNT:-8}}"
+    shards="${6:-${CANVASRCA_SHARD_COUNT:-24}}"
     concurrency="${CANVASRCA_ARRAY_CONCURRENCY:-4}"
     [[ "$model" == "qwen3.6-27b" || "$model" == "gemma-4-26b-a4b" ]] || usage
     [[ "$shards" =~ ^[1-9][0-9]*$ && "$concurrency" =~ ^[1-9][0-9]*$ ]] || usage
@@ -57,12 +57,20 @@ case "$command" in
       # Deliberately shell-split administrator-supplied Slurm options.
       read -r -a extra <<<"$CANVASRCA_SBATCH_ARGS"
     fi
-    if [[ -n "${CANVASRCA_PREPARE_JOB_ID:-}" ]]; then
-      [[ "$CANVASRCA_PREPARE_JOB_ID" =~ ^[0-9]+$ ]] || {
-        echo "CANVASRCA_PREPARE_JOB_ID must be numeric" >&2
-        exit 2
-      }
-      extra+=("--dependency=afterok:${CANVASRCA_PREPARE_JOB_ID}")
+    dependencies=()
+    for dependency_var in CANVASRCA_PREPARE_JOB_ID CANVASRCA_AFTEROK_JOB_ID; do
+      dependency_id="${!dependency_var:-}"
+      if [[ -n "$dependency_id" ]]; then
+        [[ "$dependency_id" =~ ^[0-9]+$ ]] || {
+          echo "$dependency_var must be numeric" >&2
+          exit 2
+        }
+        dependencies+=("$dependency_id")
+      fi
+    done
+    if (( ${#dependencies[@]} )); then
+      dependency_list="$(IFS=:; echo "${dependencies[*]}")"
+      extra+=("--dependency=afterok:${dependency_list}")
     fi
     sbatch "${extra[@]}" \
       --array="0-$((shards - 1))%${concurrency}" \
@@ -74,7 +82,7 @@ case "$command" in
     [[ $# -ge 3 && $# -le 4 ]] || usage
     experiment_id="$2"
     experiment="$3"
-    shards="${4:-${CANVASRCA_SHARD_COUNT:-8}}"
+    shards="${4:-${CANVASRCA_SHARD_COUNT:-24}}"
     [[ "$shards" =~ ^[1-9][0-9]*$ ]] || usage
     command -v jq >/dev/null || { echo "jq is required for merge" >&2; exit 3; }
     merged="RQs/RQ1/results/${experiment_id}"

@@ -21,7 +21,7 @@ from .exps import (
     TEMPLATE_VALUE_KINDS,
     TYPED_ANSWER_SYSTEM, TYPED_OBSERVE_SYSTEM,
     _atomic_fact, _counterfactual_pairs, balanced_arm_order, build_qa_packet,
-    compile_controlled_canvas, compile_pixel_text_pages, experiment_registry, factorial_cells, handoff_parts,
+    compile_pixel_text_pages, experiment_registry, factorial_cells, handoff_parts,
     ledger_image, ledger_images, normalize_stage1_ledger, normalize_typed_qa_ledger,
     qa_representation_parts, questions_for_case, representation_parts, response_schema,
     score_reasoning, validate_diagnosis, validate_qa_response, attention_diagnostics,
@@ -30,7 +30,7 @@ from .exps import (
     stage1_prompt, stage2_prompt,
 )
 from .main import _concurrency_partitions
-from .gates import _rbo_at_k, analyze_stage_pair, qualification_contracts
+from .gates import _rbo_at_k, analyze_records, analyze_stage_pair, qualification_contracts
 from .utils import DEFAULT_CONFIG, ROOT, RQ1Error, audit_visible, load_yaml, numeric_entity_map
 
 FUNCTIONAL_RQ_FILES = ("main.py", "utils.py", "exps.py", "tests.py", "gates.py")
@@ -108,8 +108,8 @@ def check_python_syntax() -> dict[str, int]:
 def check_unified_contracts(config: dict[str, Any]) -> dict[str, Any]:
     runtime = VLLMInferenceConfig.load(config["unified"]["vllm"])
     _assert(
-        runtime.data.get("protocol_version") == "vllm-inference-v5-nibi-same-pass-attention",
-        "global vLLM max-sequences-128 protocol drifted",
+        runtime.data.get("protocol_version") == "vllm-inference-v6-nibi-compact-structured-json",
+        "global vLLM compact-structured-JSON protocol drifted",
     )
     _assert(
         all(runtime.model(tag)["max_tokens"] == 16384
@@ -123,6 +123,13 @@ def check_unified_contracts(config: dict[str, Any]) -> dict[str, Any]:
     _assert("--mm-processor-kwargs" not in qwen_args, "Qwen still has a project pixel limit")
     _assert("--mm-processor-kwargs" in gemma_args, "Gemma soft-token policy disappeared")
     _assert("--enable-chunked-prefill" in gemma_args, "Gemma chunked prefill disappeared")
+    expected_structured = '{"backend":"xgrammar","disable_any_whitespace":true}'
+    for tag, args in (("Qwen", qwen_args), ("Gemma", gemma_args)):
+        _assert("--structured-outputs-config" in args,
+                f"{tag} structured-output server configuration disappeared")
+        value = args[args.index("--structured-outputs-config") + 1]
+        _assert(value == expected_structured,
+                f"{tag} permits unbounded schema-legal JSON whitespace")
     old_port = os.environ.get("CANVASRCA_VLLM_PORT")
     os.environ["CANVASRCA_VLLM_PORT"] = "28765"
     try:
@@ -144,9 +151,9 @@ def check_unified_contracts(config: dict[str, Any]) -> dict[str, Any]:
 
 
 def check_rq1_contract(config: dict[str, Any]) -> dict[str, Any]:
-    _assert(config.get("schema_version") == "CanvasRCARQ1ConfigV5"
-            and config.get("protocol_revision") == "rq1_record_key_stage1_v16",
-            "direct-RCA RQ1 protocol revision drifted")
+    _assert(config.get("schema_version") == "CanvasRCARQ1ConfigV6"
+            and config.get("protocol_revision") == "rq1_renderer_qa_v17",
+            "RQ1 renderer-Q&A protocol revision drifted")
     _assert(config["runtime"].get("request_concurrency") == 4,
             "formal RQ1 runner must use case-level request concurrency four")
     partitions = _concurrency_partitions(1, 4, 4)
@@ -159,10 +166,13 @@ def check_rq1_contract(config: dict[str, Any]) -> dict[str, Any]:
         "visual_counterfactual_rca", "ledger_handoff_rca",
     }, "RQ1 experiment registry drifted")
     _assert(registry["matched_rca"].arms == RCA_ARMS, "RCA arms drifted")
+    _assert(registry["legacy_q9"].arms == ("T", "P", "V", "H")
+            and len(registry["cross_region"].arms) == len(registry["typed_two_stage"].arms) == 19,
+            "formal Q&A T/P/V/H or factorial registry drifted")
     _assert(registry["visual_counterfactual_rca"].arms == ("H_factual", "H_targeted", "H_placebo", "H_neutral"), "counterfactual arms drifted")
     _assert(registry["ledger_handoff_rca"].arms == ("L_txt", "L_vis", "L_hyb"), "handoff arms drifted")
     smoke_plans = config.get("smoke_plans") or {}
-    smoke_datasets = {"re2_ob", "aiops2022", "aiops2025"}
+    smoke_datasets = {"aegislab", "aiops2022", "aiops2025"}
     _assert(set(smoke_plans) == set(registry), "every experiment must have exactly one smoke plan")
     smoke_calls: dict[str, int] = {}
     for name, spec in registry.items():
@@ -180,9 +190,31 @@ def check_rq1_contract(config: dict[str, Any]) -> dict[str, Any]:
     client_source = (ROOT / "src/vlmrca/vlm/client.py").read_text()
     supervisor_source = (ROOT / "src/cli/smoke_e2e.py").read_text()
     smoke_source = (ROOT / "RQs/RQ1/scripts/smoke_nibi.sh").read_text()
+    smoke_submit_source = (ROOT / "RQs/RQ1/scripts/submit_smoke_nibi.sh").read_text()
+    prepare_source = (ROOT / "RQs/RQ1/scripts/prepare_nibi.sh").read_text()
+    array_source = (ROOT / "RQs/RQ1/scripts/array_nibi.sh").read_text()
     _assert("partial_output_dir" in client_source and "timeout_partial" in supervisor_source
             and "--partial-dir" in smoke_source,
             "bounded smoke no longer preserves partial responses at timeout")
+    _assert(
+        'MODEL="${CANVASRCA_MODEL:?' in smoke_source
+        and 'run_model_phase "$MODEL"' in smoke_source
+        and "MODELS=(" not in smoke_source
+        and smoke_submit_source.count("sbatch --parsable") == 2
+        and 'CANVASRCA_MODEL=qwen3.6-27b' in smoke_submit_source
+        and 'CANVASRCA_MODEL=gemma-4-26b-a4b' in smoke_submit_source
+        and '--dependency="afterok:$qwen_job"' in smoke_submit_source,
+        "two-job sequential one-model smoke launcher drifted",
+    )
+    _assert("#SBATCH --time=00:30:00" in prepare_source,
+            "preparation template must request exactly 30 minutes")
+    prepare_block = array_source.split("  prepare)", 1)[1].split("  submit)", 1)[0]
+    _assert(
+        "SLURM_ARRAY_TASK_ID" not in prepare_source
+        and "--array" not in prepare_block
+        and "CANVASRCA_EXPERIMENT_IDS" in prepare_source,
+        "full-roster non-array preparation launcher drifted",
+    )
     _assert(len(factorial_cells()) == 16 and len(set(factorial_cells())) == 16, "factorial cells are incomplete")
     mapping_a, kinds = numeric_entity_map(["checkout", "node-1", "checkout-abcdef12-abcde"], "INC-ABC")
     mapping_b, _ = numeric_entity_map(["checkout", "node-1", "checkout-abcdef12-abcde"], "INC-XYZ")
@@ -220,6 +252,13 @@ def check_rq1_contract(config: dict[str, Any]) -> dict[str, Any]:
         pass
     else:
         raise AssertionError("explicit fault_type key escaped the public-artifact audit")
+    audit_visible({"entity": "checkoutservice2"}, ("checkoutservice",))
+    try:
+        audit_visible({"entity": "checkoutservice"}, ("checkoutservice",))
+    except RQ1Error:
+        pass
+    else:
+        raise AssertionError("leakage audit missed an exact private identifier")
     return {"experiments": sorted(registry), "factorial_cells": 16,
             "id_granularities": kinds, "eval_counts": counts,
             "per_model_smoke_calls": smoke_calls}
@@ -263,7 +302,7 @@ def _fixture_packets() -> tuple[dict[str, Any], dict[str, Any], bytes]:
            "candidates": candidates, "facts": facts,
            "fact_inventory_hash": stable_hash(facts)}
     qa = build_qa_packet(rca)
-    png = compile_controlled_canvas(qa)
+    png = compile_pixel_text_pages(qa)[0]
     return rca, qa, png
 
 
@@ -277,8 +316,8 @@ def check_semantic_regressions() -> dict[str, Any]:
     }
     _assert(serializer_hashes == {
         "common": "3f37b0b3fe93355a0f014adb0d001c8e0404eabde3567438fd918bc315904434",
-        "T": "f12f1214d16cf8dbe813bb0d027c3d4fd83e7030821b11cec404fd7b53abfaa3",
-        "F": "eac9cf2552056cc5120d6b84b4ca46de5a4f37fc49093c055ae12d2591d83e95",
+        "T": "46f1d23ce62b6098122f128ec9045945edf50ef6834f1be0c5253f9cc4748357",
+        "F": "5dc312b6772203958cc55acd9f0a74de773fcddd2f3022bc4a1555e5d9b9978b",
     }, "registered common/SIRCL-ordered T/F serializer bytes drifted")
     text_transport = _packet_text(rca)
     text_region_offsets = [text_transport.index(marker) for marker in (
@@ -289,24 +328,39 @@ def check_semantic_regressions() -> dict[str, Any]:
     flat_regions = [json.loads(line)["region"] for line in _packet_flat(rca).splitlines()]
     _assert(tuple(dict.fromkeys(flat_regions)) == PROMPT_REGION_ORDER,
             "F transport is not ordered M -> R -> L -> G")
-    atlas = visual_patch_atlas(png, layout="controlled", font_point_size=15.0)
+    atlas = visual_patch_atlas(png, layout="dashboard", font_point_size=15.0)
     weights = [1.0 if patch["region"] == "M" else 0.0 for patch in atlas["patches"]]
     attention = {"image_sha256": atlas["image_sha256"], "grid": atlas["grid"],
                  "weights": weights, "required_regions": ["M"], "attention_source": "synthetic_static_test"}
     attention_report = attention_diagnostics(attention, atlas)
-    _assert(attention_report["required_region_attention_mass"] == 1.0
+    _assert(abs(attention_report["required_region_attention_mass"] - 1.0) < 1e-9
             and attention_report["blank_attention_mass"] >= 0.0,
             "attention-to-renderer atlas diagnostics drifted")
     _assert(render_attention_overlay(png, attention, atlas).startswith(b"\x89PNG\r\n\x1a\n"),
             "attention overlay is not a PNG")
-    profile = visual_diagnostic_for_arm("H", "cross_region_reasoning", {"visual_evidence_atlases": {"qa": atlas}})
+    pixel_pages = compile_pixel_text_pages(qa)
+    region_pngs = {region: (png,) for region in PROMPT_REGION_ORDER}
+    qa_atlases = {region: [visual_patch_atlas(png, layout=f"crop_{region}")]
+                  for region in PROMPT_REGION_ORDER}
+    profile = visual_diagnostic_for_arm("H", "cross_region_reasoning", {
+        "visual_evidence_atlases": {"full": atlas, "qa_full": atlas,
+                                     "pixel_text": [atlas], "qa_regions": qa_atlases}})
     _assert(profile["image_count"] == 1 and set(profile["visual_regions"]) == {"M", "L", "R", "G"},
             "existing-arm visual diagnostics drifted")
-    t, v, h = (qa_representation_parts(arm, qa, png) for arm in ("T", "V", "H"))
+    t, p, v, h = (qa_representation_parts(arm, qa, png, pixel_pages, region_pngs)
+                  for arm in ("T", "P", "V", "H"))
     _assert(h == [*v, *t], "Q&A hybrid is not strict A+B")
+    _assert(v == [{"type": "image", "png": png}] and p == [
+        {"type": "image", "png": page} for page in pixel_pages],
+        "Q&A V/P do not use the real-image/exact-text-pixel sources")
+    _assert(qa["evidence_text_sha256"] == stable_hash(t[0]["text"]),
+            "P_QA source text is not byte-identical to T_QA")
+    _assert(t[0]["text"] == "\n".join(
+        line for _region, lines in _packet_text_region_blocks(qa) for line in lines
+    ) + "\n", "T_QA contains text outside the exact P_QA raster source")
     signatures = {
         tuple((part["type"], stable_hash(part["png"] if part["type"] == "image" else str(part["text"])))
-              for part in qa_representation_parts(cell, qa, png))
+              for part in qa_representation_parts(cell, qa, png, pixel_pages, region_pngs))
         for cell in factorial_cells()
     }
     _assert(len(signatures) == 16,
@@ -385,22 +439,33 @@ def check_semantic_regressions() -> dict[str, Any]:
 
     legacy, reasoning = questions_for_case(qa, "INC-FIXTURE")
     _assert({question.template for question in legacy} == {
-        "metric_exact_lookup", "log_exact_lookup", "trace_exact_lookup", "earliest_onset",
-        "longest_persistence", "directed_edge", "multi_hop_path",
-        "entity_modality_alignment", "metric_missingness",
+        "metric_panel_entity", "metric_printed_peak", "window_duration", "log_table_cell",
+        "trace_table_cell", "directed_edge", "propagation_readout",
+        "metric_printed_baseline", "log_display_mode",
     }, "Legacy-Q9 semantics drifted")
-    _assert(all("owning panel" not in question.text for question in reasoning[1:]),
-            "cross-region questions regressed to panel-owner lookup")
+    _assert(all("bin " not in question.text for question in [*legacy, *reasoning]),
+            "Q&A targets an exact curve bin that is not explicitly printed")
+    no_edge_rca = {**rca, "facts": [fact for fact in rca["facts"]
+                                     if fact["field"] != "directed_call_edge"]}
+    no_edge_qa = build_qa_packet(no_edge_rca)
+    no_edge_legacy, no_edge_reasoning = questions_for_case(no_edge_qa, "INC-NO-EDGE")
+    _assert(no_edge_legacy[5].answer_steps == (("none",),)
+            and [question.level for question in no_edge_reasoning] == [1, 2, 3]
+            and any(fact["field"] == "directed_edge_key_status" for fact in no_edge_qa["facts"]),
+            "explicitly empty renderer edge key still makes Q&A preparation fail")
     observed_templates = {1: set(), 2: set(), 3: set()}
     for index in range(2048):
         _legacy, sampled = questions_for_case(qa, f"INC-TEMPLATE-{index}")
         for question in sampled:
             observed_templates[question.level].add(question.template)
     _assert(observed_templates == {
-        1: {"M_direct_bin", "L_direct_bin", "R_direct_bin", "G_direct_neighbors"},
+        1: {"M_direct_read", "L_direct_read", "R_direct_read", "G_direct_read"},
         2: {"M_L_link", "M_R_link", "M_G_link", "L_R_link", "L_G_link", "R_G_link"},
-        3: {"M_L_R_chain", "M_G_L_chain", "M_R_G_chain", "L_R_G_chain"},
+        3: {"M_locator_chain", "R_locator_chain", "L_locator_chain", "G_locator_chain"},
     }, f"14-template registry is not fully reachable: {observed_templates}")
+    _assert(all(len(q.regions) == 3 and len(set(q.regions)) >= 2 and "using that locator" in q.text
+                for q in reasoning if q.level == 3),
+            "Level-3 dependency chain lacks three dependent visible operations")
     response = {"answers": [{"query_id": q.query_id, "answer": {"steps": [
         {"step": index, "region": region, "values": list(q.answer_steps[index - 1])}
         for index, region in enumerate(q.regions, 1)]}} for q in reasoning]}
@@ -408,16 +473,8 @@ def check_semantic_regressions() -> dict[str, Any]:
     _assert(score_reasoning(response, [q.private() for q in reasoning])["complete_chain_accuracy"] == 1.0,
             "known-correct nested Q&A response did not score one")
     def selector(region: str) -> dict[str, Any]:
-        row = qa["regions"][region][0]
-        fields = {"M": "bins", "L": "events", "R": "spans"}
-        return {
-            "entity_id": (str(row["caller"]) if region == "G" else
-                          str(row["entity"]) if row.get("entity") is not None else None),
-            "edge_id": None if region != "R" or row.get("edge_id") is None else str(row["edge_id"]),
-            "panel_id": str(row["panel_id"]) if region == "M" else None,
-            "row_index": int(row["entry_index"]) if region in {"L", "R"} else None,
-            "field": fields.get(region), "relative_bins": [0] if region != "G" else [],
-        }
+        return {"record_key": {"M": "M1", "L": "L:101", "R": "R:101", "G": "G:101"}[region],
+                "field": None}
     typed = {q.query_id: {f"s{index}": selector(region)
                           for index, region in enumerate(q.regions, 1)} for q in reasoning}
     normalized_typed = normalize_typed_qa_ledger(
@@ -425,40 +482,21 @@ def check_semantic_regressions() -> dict[str, Any]:
     )
     _assert(normalized_typed["binding_audit"]["unsupported_steps"] == 0,
             "host-bound typed selector fixture contains unsupported steps")
-    graph_entities = {str(value) for row in qa["regions"]["G"]
-                      for value in (row["caller"], row["callee"])}
-    isolated = next((str(row["entity"]) for row in qa["regions"]["M"]
-                     if str(row["entity"]) not in graph_entities), None)
-    if isolated is not None:
-        absence = normalize_typed_qa_ledger(
-            {"q1": {"s1": {"entity_id": isolated, "edge_id": None,
-                              "panel_id": None, "row_index": None, "field": None,
-                              "relative_bins": []}}},
-            [{"query_id": "q1", "region_path": ["G"], "template": "G_direct_neighbors"}], qa,
-        )
-        record = absence["ledgers"][0]["observations"][0]["records"][0]
-        _assert(record["record_kind"] == "topology_no_incident_edge",
-                "verified zero-edge topology selection was treated as unsupported")
     selector_schema = response_schema(
         experiment_registry(load_yaml())["typed_two_stage"], 1,
         [q.public() for q in reasoning],
     )["json_schema"]["schema"]["properties"]
     for question in reasoning:
-        for index, region in enumerate(question.regions, 1):
+        for index, _region in enumerate(question.regions, 1):
             properties = selector_schema[question.query_id]["properties"][f"s{index}"]["properties"]
-            required_edge = ((region == "G" and TEMPLATE_VALUE_KINDS[question.template][index - 1]
-                              in {"endpoint_roles", "other_endpoint_id"})
-                             or (region == "R" and question.template == "R_G_link"))
-            _assert(properties["edge_id"].get("type") == ("string" if required_edge else "null"),
-                    "typed selector edge requirement drifted")
-            _assert(properties["entity_id"].get("type") == ("null" if required_edge else "string"),
-                    "typed selector entity requirement drifted")
-            if required_edge:
-                _assert(properties["edge_id"].get("pattern") == "^E[0-9]{2}$",
-                        "typed edge ID grammar is unconstrained")
-            else:
-                _assert(properties["entity_id"].get("pattern") == "^[0-9]{3,5}$",
-                        "typed entity ID grammar is unconstrained")
+            _assert(set(properties) == {"record_key", "field"},
+                    "typed Q&A selector is not the compact public record-key contract")
+    _assert(set(qa["fact_mappings"]) == {fact["fact_id"] for fact in qa["facts"]}
+            and all(set(row) == {"T_QA", "P_QA", "V_QA", "factorial_region"}
+                    for row in qa["fact_mappings"].values()),
+            "canonical Q&A fact-to-representation index is incomplete")
+    _assert(load_yaml()["experiments"]["cross_region"]["reasoning_levels"] == [1, 2, 3],
+            "absent Level 4-6 source was silently represented by template counts")
     validate_diagnosis({"services": ["101"], "reason": "evidence", "confidence": "high"}, rca["candidates"])
     registry = experiment_registry(load_yaml())
     diagnosis_schema = response_schema(registry["matched_rca"], 2)
@@ -489,7 +527,7 @@ def check_semantic_regressions() -> dict[str, Any]:
     for name in ("legacy_q9", "cross_region", "typed_two_stage"):
         spec = registry[name]
         for arm in spec.arms:
-            _assert(bool(qa_representation_parts(arm, qa, png)),
+            _assert(bool(qa_representation_parts(arm, qa, png, pixel_pages, region_pngs)),
                     f"{name}/{arm} compiled no prompt parts")
         response_schema(
             spec, 1,
@@ -557,6 +595,34 @@ def check_semantic_regressions() -> dict[str, Any]:
             "compiled_arms_total": sum(compiled_arms.values())}
 
 
+def check_analysis_completeness(config: dict[str, Any]) -> dict[str, Any]:
+    """Entirely absent model/case pairs must make a model summary incomplete."""
+
+    spec = experiment_registry(config)["legacy_q9"]
+    case_ids = ("INC-SMOKE-A", "INC-SMOKE-B", "INC-SMOKE-C")
+    models = ("qwen3.6-27b", "gemma-4-26b-a4b")
+    assignments = ((models[0], case_ids[:1]), (models[1], case_ids))
+    records = [{
+        "model": model, "opaque_incident_id": case_id, "arm": arm,
+        "status": "completed", "analysis_dataset": "aiops2022",
+        "score": {spec.primary_metric: 1.0},
+        "stages": [{"stage": 1, "parse": True}], "visual_diagnostic": {},
+    } for model, cases in assignments for case_id in cases for arm in spec.arms]
+    result = analyze_records(records, spec, config, expected_models=models,
+                             expected_case_ids=case_ids)
+    qwen = result["by_model"][models[0]]
+    gemma = result["by_model"][models[1]]
+    _assert(not result["complete"] and not qwen["complete"] and gemma["complete"],
+            "an incomplete model was reported complete")
+    exclusion = qwen["whole_case_exclusion"]
+    _assert((exclusion["total_cases"], exclusion["included_cases"],
+             exclusion["incomplete_pair_cases"]) == (3, 1, 2),
+            "entirely absent expected cases were not counted as incomplete")
+    return {"aggregate_complete": result["complete"], "qwen_complete": qwen["complete"],
+            "qwen_incomplete_cases": exclusion["incomplete_pair_cases"],
+            "gemma_complete": gemma["complete"]}
+
+
 def run_static_checks(config_path: Path = DEFAULT_CONFIG) -> dict[str, Any]:
     """Run static/CPU checks only; this function cannot invoke a model."""
 
@@ -568,6 +634,7 @@ def run_static_checks(config_path: Path = DEFAULT_CONFIG) -> dict[str, Any]:
         ("unified_contracts", lambda: check_unified_contracts(config)),
         ("rq1_contract", lambda: check_rq1_contract(config)),
         ("semantic_regressions", check_semantic_regressions),
+        ("analysis_completeness", lambda: check_analysis_completeness(config)),
     ]
     results: dict[str, Any] = {}
     for name, check in checks:
@@ -635,7 +702,8 @@ def run_live_logic_diagnostic(model: str, output: Path, config_path: Path = DEFA
     # One-stage paths: one direct packet and one cross-region packet.
     for experiment, dataset, arm in (("legacy_q9", "aiops2022", "T"), ("cross_region", "aiops2025", "H")):
         spec, prepared = registry[experiment], cases[dataset]
-        parts = qa_representation_parts(arm, prepared.public["qa_packet"], prepared.qa_png)
+        parts = qa_representation_parts(arm, prepared.public["qa_packet"], prepared.qa_full_png,
+                                        prepared.pixel_text_pngs, prepared.qa_region_pngs)
         parts.append(text_part(stage1_prompt(spec, prepared.public)))
         call, raw = invoke(f"{experiment}_stage1", QA_SYSTEM, parts, response_schema(spec, 1))
         payload, parsed = safe_parse(raw)
@@ -648,7 +716,8 @@ def run_live_logic_diagnostic(model: str, output: Path, config_path: Path = DEFA
 
     # Typed Q&A path.
     spec, prepared = registry["typed_two_stage"], cases["re2_ob"]
-    parts = qa_representation_parts("H", prepared.public["qa_packet"], prepared.qa_png)
+    parts = qa_representation_parts("H", prepared.public["qa_packet"], prepared.qa_full_png,
+                                    prepared.pixel_text_pngs, prepared.qa_region_pngs)
     parts.append(text_part(stage1_prompt(spec, prepared.public)))
     call1, raw1 = invoke(
         "typed_two_stage_stage1", TYPED_OBSERVE_SYSTEM, parts,

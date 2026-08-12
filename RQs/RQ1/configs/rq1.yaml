@@ -1,5 +1,5 @@
-schema_version: CanvasRCARQ1ConfigV5
-protocol_revision: rq1_record_key_stage1_v16
+schema_version: CanvasRCARQ1ConfigV6
+protocol_revision: rq1_renderer_qa_v17
 status: nibi_requalification_required
 execution_enabled: true
 seed: 42
@@ -24,17 +24,17 @@ experiments:
   legacy_q9:
     task: direct_visops
     stages: 1
-    arms: [T, V, H]
+    arms: [T, P, V, H]
     question_count: 9
   cross_region:
     task: cross_region_reasoning
     stages: 1
-    arms: factorial_16_plus_H
+    arms: factorial_16_plus_P_V_H
     reasoning_levels: [1, 2, 3]
   typed_two_stage:
     task: cross_region_reasoning
     stages: 2
-    arms: factorial_16_plus_H
+    arms: factorial_16_plus_P_V_H
     reasoning_levels: [1, 2, 3]
   direct_rca:
     task: root_cause_direct
@@ -64,7 +64,7 @@ experiments:
 
 data:
   allowed_datasets: [aegislab, aiops2022, aiops2025, re2_ob, re2_tt]
-  smoke_datasets: [re2_ob, aiops2022, aiops2025]
+  smoke_datasets: [aegislab, aiops2022, aiops2025]
   frozen_source_manifest: RQs/RQ1/configs/rosters/case_manifest_480_frozen_v1.json
   frozen_eval_adapter: RQs/RQ1/configs/rosters/rq1_frozen_eval_469_adapter_v1.json
   private_roster: RQs/RQ1/configs/rosters/rq1_frozen_eval_469_private_v1.json
@@ -79,7 +79,9 @@ runtime:
   models: [gemma-4-26b-a4b, qwen3.6-27b]
   max_workers: 4
   request_concurrency: 4
-  default_shard_count: 8
+  # 24 shards are approximately one third the size of the previous 8-shard
+  # deployment while preserving the frozen roster and case assignments.
+  default_shard_count: 24
   result_root: RQs/RQ1/results
   smoke_call_cap: 18
   smoke_timeout_seconds: 600
@@ -93,31 +95,31 @@ runtime:
 # suite compiles all arms; these bounded live cells cover distinct transports.
 smoke_plans:
   legacy_q9:
-    re2_ob: [T, V, H]
-    aiops2022: [T, V, H]
-    aiops2025: [T, V, H]
+    aegislab: [T, P, V, H]
+    aiops2022: [T, P, V, H]
+    aiops2025: [T, P, V, H]
   cross_region:
-    re2_ob: [Mt-Lt-Rt-Gt]
-    aiops2022: [Mv-Lv-Rv-Gv]
-    aiops2025: [H]
+    aegislab: [Mt-Rt-Lt-Gt, P]
+    aiops2022: [Mv-Rt-Lv-Gt, V]
+    aiops2025: [Mv-Rv-Lv-Gv, H]
   typed_two_stage:
-    re2_ob: [Mt-Lt-Rt-Gt]
-    aiops2022: [Mv-Lv-Rv-Gv]
-    aiops2025: [H]
+    aegislab: [Mt-Rt-Lt-Gt, P]
+    aiops2022: [Mv-Rt-Lv-Gt, V]
+    aiops2025: [Mv-Rv-Lv-Gv, H]
   direct_rca:
-    re2_ob: [T]
+    aegislab: [T]
     aiops2022: [V]
     aiops2025: [R]
   matched_rca:
-    re2_ob: [T]
+    aegislab: [T]
     aiops2022: [V]
     aiops2025: [R]
   visual_counterfactual_rca:
-    re2_ob: [H_factual, H_neutral]
+    aegislab: [H_factual, H_neutral]
     aiops2022: [H_targeted]
     aiops2025: [H_placebo]
   ledger_handoff_rca:
-    re2_ob: [L_txt]
+    aegislab: [L_txt]
     aiops2022: [L_vis]
     aiops2025: [L_hyb]
 

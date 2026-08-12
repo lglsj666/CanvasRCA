@@ -104,8 +104,13 @@ def prepare(
             public_path = paths.prepared / f"{opaque}.json"
             private_path = paths.private / f"{opaque}.json"
             full_path = paths.renders / f"{opaque}.full.png"
+            qa_full_path = paths.renders / f"{opaque}.qa-full.png"
             routed_path = paths.renders / f"{opaque}.routed.png"
-            qa_path = paths.renders / f"{opaque}.qa-controlled.png"
+            qa_region_paths = {
+                region: [paths.renders / f"{opaque}.qa-renderer-{region}-{page:02d}.png"
+                         for page in range(1, len(images) + 1)]
+                for region, images in prepared.qa_region_pngs.items()
+            }
             pixel_text_paths = [
                 paths.renders / f"{opaque}.pixel-text-{index:02d}.png"
                 for index in range(1, len(prepared.pixel_text_pngs) + 1)
@@ -117,8 +122,11 @@ def prepare(
             writer.json(public_path, prepared.public)
             writer.json(private_path, prepared.private)
             writer.bytes(full_path, prepared.full_png)
+            writer.bytes(qa_full_path, prepared.qa_full_png)
             writer.bytes(routed_path, prepared.routed_png)
-            writer.bytes(qa_path, prepared.qa_png)
+            for region, region_paths in qa_region_paths.items():
+                for path, image in zip(region_paths, prepared.qa_region_pngs[region], strict=True):
+                    writer.bytes(path, image)
             for path, image in zip(pixel_text_paths, prepared.pixel_text_pngs, strict=True):
                 writer.bytes(path, image)
             for name, path in variant_paths.items():
@@ -129,15 +137,23 @@ def prepare(
                     "public": str(public_path.relative_to(paths.root)),
                     "private": str(private_path.relative_to(paths.root)),
                     "full_image": str(full_path.relative_to(paths.root)),
+                    "qa_full_image": str(qa_full_path.relative_to(paths.root)),
                     "routed_image": str(routed_path.relative_to(paths.root)),
-                    "qa_image": str(qa_path.relative_to(paths.root)),
+                    "qa_region_images": {
+                        region: [str(path.relative_to(paths.root)) for path in region_paths]
+                        for region, region_paths in qa_region_paths.items()
+                    },
                     "pixel_text_images": [str(path.relative_to(paths.root)) for path in pixel_text_paths],
                     "variant_images": {name: str(path.relative_to(paths.root)) for name, path in variant_paths.items()},
                     "public_sha256": stable_hash(prepared.public),
                     "private_sha256": stable_hash(prepared.private),
                     "full_image_sha256": stable_hash(prepared.full_png),
+                    "qa_full_image_sha256": stable_hash(prepared.qa_full_png),
                     "routed_image_sha256": stable_hash(prepared.routed_png),
-                    "qa_image_sha256": stable_hash(prepared.qa_png),
+                    "qa_region_image_sha256": {
+                        region: [stable_hash(value) for value in images]
+                        for region, images in prepared.qa_region_pngs.items()
+                    },
                     "pixel_text_image_sha256": [stable_hash(value) for value in prepared.pixel_text_pngs],
                     "variant_image_sha256": {
                         name: stable_hash(value) for name, value in prepared.variant_pngs.items()
@@ -148,7 +164,7 @@ def prepare(
         writer.drain()
     freeze = artifact_contract(config=config, code_files=SOURCE_FILES)
     summary = {
-        "schema_version": "RQ1PreparedIndexV3",
+        "schema_version": "RQ1PreparedIndexV5",
         "experiment_id": experiment_id,
         "case_count": len(index),
         "cases": index,
@@ -163,8 +179,12 @@ def _read_prepared(paths: RunPaths, item: Mapping[str, Any]) -> PreparedCase:
     public = json.loads((paths.root / item["public"]).read_text())
     private = json.loads((paths.root / item["private"]).read_text())
     full = (paths.root / item["full_image"]).read_bytes()
+    qa_full = (paths.root / item["qa_full_image"]).read_bytes()
     routed = (paths.root / item["routed_image"]).read_bytes()
-    qa = (paths.root / item["qa_image"]).read_bytes()
+    qa_regions = {
+        region: tuple((paths.root / rel).read_bytes() for rel in values)
+        for region, values in item.get("qa_region_images", {}).items()
+    }
     pixel_text = tuple((paths.root / rel).read_bytes() for rel in item.get("pixel_text_images", ()))
     variants = {name: (paths.root / rel).read_bytes() for name, rel in item.get("variant_images", {}).items()}
     if stable_hash(public) != item.get("public_sha256"):
@@ -173,10 +193,12 @@ def _read_prepared(paths: RunPaths, item: Mapping[str, Any]) -> PreparedCase:
         raise RQ1Error("prepared private artifact hash mismatch")
     if stable_hash(full) != item.get("full_image_sha256"):
         raise RQ1Error("prepared full-image index hash mismatch")
+    if stable_hash(qa_full) != item.get("qa_full_image_sha256"):
+        raise RQ1Error("prepared Q&A full-image index hash mismatch")
     if stable_hash(routed) != item.get("routed_image_sha256"):
         raise RQ1Error("prepared routed-image index hash mismatch")
-    if stable_hash(qa) != item.get("qa_image_sha256"):
-        raise RQ1Error("prepared Q&A-image index hash mismatch")
+    if {region: [stable_hash(value) for value in values] for region, values in qa_regions.items()} != item.get("qa_region_image_sha256"):
+        raise RQ1Error("prepared Q&A region-image index hash mismatch")
     if [stable_hash(value) for value in pixel_text] != item.get("pixel_text_image_sha256"):
         raise RQ1Error("prepared pixel-text image index hash mismatch")
     if any(
@@ -185,16 +207,18 @@ def _read_prepared(paths: RunPaths, item: Mapping[str, Any]) -> PreparedCase:
     ):
         raise RQ1Error("prepared counterfactual index hash mismatch")
     if (stable_hash(full) != public["full_image_sha256"]
+            or stable_hash(qa_full) != public["qa_full_image_sha256"]
             or stable_hash(routed) != public["routed_image_sha256"]
-            or stable_hash(qa) != public["qa_image_sha256"]
+            or {region: [stable_hash(value) for value in values] for region, values in qa_regions.items()}
+               != public["qa_region_image_sha256"]
             or [stable_hash(value) for value in pixel_text] != public["pixel_text_image_sha256"]):
         raise RQ1Error("prepared image hash mismatch")
     expected_variants = public.get("variant_image_sha256", {})
     if any(stable_hash(value) != expected_variants.get(name) for name, value in variants.items()):
         raise RQ1Error("prepared counterfactual image hash mismatch")
-    return PreparedCase(public=public, private=private, full_png=full,
-                        routed_png=routed, qa_png=qa, pixel_text_pngs=pixel_text,
-                        variant_pngs=variants)
+    return PreparedCase(public=public, private=private, full_png=full, qa_full_png=qa_full,
+                        routed_png=routed, pixel_text_pngs=pixel_text,
+                        qa_region_pngs=qa_regions, variant_pngs=variants)
 
 
 def _completed_target(path: Path) -> bool:
@@ -349,11 +373,17 @@ def _sync_attention_status(
     collected = [probe for probe in probes if isinstance(probe, Mapping) and probe.get("status") == "collected_same_prefill"]
     if collected:
         atlas_values = public.get("visual_evidence_atlases") or {}
-        atlases = [value for value in atlas_values.values() if isinstance(value, Mapping)]
-        atlases.extend(
-            value for values in atlas_values.values() if isinstance(values, list)
-            for value in values if isinstance(value, Mapping)
-        )
+
+        def flatten_atlases(value: Any) -> list[Mapping[str, Any]]:
+            if isinstance(value, Mapping) and value.get("image_sha256"):
+                return [value]
+            if isinstance(value, Mapping):
+                return [item for child in value.values() for item in flatten_atlases(child)]
+            if isinstance(value, (list, tuple)):
+                return [item for child in value for item in flatten_atlases(child)]
+            return []
+
+        atlases = flatten_atlases(atlas_values)
         diagnostics = []
         required_regions = list(profile.get("visual_regions") or ())
         for probe in collected:
@@ -600,7 +630,10 @@ def _run_partition(
                         prepared.pixel_text_pngs,
                     )
                 else:
-                    parts = qa_representation_parts(arm, prepared.public["qa_packet"], prepared.qa_png)
+                    parts = qa_representation_parts(
+                        arm, prepared.public["qa_packet"], prepared.qa_full_png,
+                        prepared.pixel_text_pngs, prepared.qa_region_pngs,
+                    )
                 parts.append(text_part(stage1_prompt(spec, prepared.public)))
                 contract = {
                     "experiment_id": experiment_id,
@@ -853,7 +886,16 @@ def analyse(*, experiment_id: str, experiment: str, config_path: Path = DEFAULT_
     paths = RunPaths.build(experiment_id, config)
     records = [json.loads(path.read_text()) for path in (paths.trajectories / experiment).glob("*/*.json")]
     spec = experiment_registry(config)[experiment]
-    result = analyze_records(records, spec, config)
+    index = json.loads((paths.prepared / "index.json").read_text(encoding="utf-8"))
+    expected_models = tuple(map(str, config["runtime"]["models"]))
+    expected_case_ids = tuple(str(item["opaque_incident_id"]) for item in index["cases"])
+    result = analyze_records(
+        records,
+        spec,
+        config,
+        expected_models=expected_models,
+        expected_case_ids=expected_case_ids,
+    )
     if spec.task == "root_cause_handoff":
         shared = [json.loads(path.read_text()) for path in
                   (paths.trajectories / experiment).glob("*/_shared_stage1/*.json")]
@@ -864,10 +906,9 @@ def analyse(*, experiment_id: str, experiment: str, config_path: Path = DEFAULT_
             "total_output_tokens": sum(int(row.get("output_tokens") or 0) for row in calls),
             "total_wall_time_s": sum(float(row.get("wall_time_s") or 0) for row in calls),
         }
-    index = json.loads((paths.prepared / "index.json").read_text(encoding="utf-8"))
     expected = {
         (model, str(item["opaque_incident_id"]), arm)
-        for model in config["runtime"]["models"]
+        for model in expected_models
         for item in index["cases"]
         for arm in spec.arms
     }
@@ -885,6 +926,7 @@ def analyse(*, experiment_id: str, experiment: str, config_path: Path = DEFAULT_
         "unexpected_examples": sorted(unexpected)[:10],
     }
     result["complete"] = bool(result.get("complete")) and not missing and not unexpected
+    result.pop("analysis_sha256", None)
     result["analysis_sha256"] = stable_hash(result)
     write_json(paths.summary, result)
     return result
@@ -922,15 +964,24 @@ def attention_overlay(
     if item is None:
         raise RQ1Error(f"unknown prepared incident {opaque_incident_id!r}")
     public = json.loads((paths.root / item["public"]).read_text(encoding="utf-8"))
-    atlas = (public.get("visual_evidence_atlases") or {}).get(image_role)
+    atlases = public.get("visual_evidence_atlases") or {}
+    atlas = atlases.get(image_role)
+    region_ref = None
+    if image_role.startswith("qa_region_"):
+        _, _, region, page_text = image_role.split("_", 3)
+        page = int(page_text) - 1
+        region_ref = (region, page)
+        atlas = (atlases.get("qa_regions") or {}).get(region, [])[page]
     if not isinstance(atlas, Mapping):
         raise RQ1Error(f"prepared case has no visual atlas role {image_role!r}")
     if image_role == "full":
         image_path = paths.root / item["full_image"]
+    elif image_role == "qa_full":
+        image_path = paths.root / item["qa_full_image"]
     elif image_role == "routed":
         image_path = paths.root / item["routed_image"]
-    elif image_role == "qa":
-        image_path = paths.root / item["qa_image"]
+    elif region_ref is not None:
+        image_path = paths.root / item["qa_region_images"][region_ref[0]][region_ref[1]]
     else:
         relative = (item.get("variant_images") or {}).get(image_role)
         if not relative:

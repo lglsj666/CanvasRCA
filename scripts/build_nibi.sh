@@ -31,10 +31,41 @@ INDEX_ARGS=(--no-index)
 if [[ -n "${CANVASRCA_WHEEL_DIR:-}" ]]; then
   INDEX_ARGS+=(--find-links "$CANVASRCA_WHEEL_DIR")
 fi
+verify_local_distributions() {
+  local package location
+  for package in "$@"; do
+    location="$("${PIP[@]}" show "$package" | sed -n 's/^Location: //p')"
+    [[ "$location" == "$ENV_DIR"/lib/python*/site-packages ]] || {
+      echo "$package was not materialized inside $ENV_DIR (location: $location)" >&2
+      exit 5
+    }
+  done
+}
 
 "${PIP[@]}" install "${INDEX_ARGS[@]}" --upgrade pip setuptools wheel
+# Nibi's module stack can expose distribution metadata from CVMFS paths that
+# are not present in every compute-node Python path.  Materialize the pure
+# Python runtime closure inside each venv instead of accepting those external
+# distributions as satisfying the pins.  Arrow and OpenCV remain explicit
+# Lmod-provided binary dependencies loaded by load_nibi_modules.sh.
+BASE_LOCAL_PINS=(
+  "packaging==26.0"
+  "pillow==12.1.0"
+  "python-dateutil==2.9.0.post0"
+  "pytz==2026.2"
+)
+"${PIP[@]}" install "${INDEX_ARGS[@]}" --ignore-installed "${BASE_LOCAL_PINS[@]}"
+verify_local_distributions packaging pillow python-dateutil pytz
 "${PIP[@]}" install "${INDEX_ARGS[@]}" -r requirements/base.txt
 if [[ "$MODE" == "inference" || "$MODE" == "all" ]]; then
+  INFERENCE_LOCAL_PINS=(
+    "psutil==7.2.2"
+    "pygments==2.19.2"
+    "pyzmq==27.1.0"
+    "sympy==1.14.0"
+  )
+  "${PIP[@]}" install "${INDEX_ARGS[@]}" --ignore-installed "${INFERENCE_LOCAL_PINS[@]}"
+  verify_local_distributions psutil pygments pyzmq sympy
   "${PIP[@]}" install "${INDEX_ARGS[@]}" -r requirements/inference.txt
 fi
 if [[ "$MODE" == "dev" || "$MODE" == "all" ]]; then

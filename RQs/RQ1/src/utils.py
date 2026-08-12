@@ -143,7 +143,9 @@ def audit_visible(value: Any, private_markers: Iterable[Any] = ()) -> None:
         if raw is None:
             continue
         marker = str(raw).strip().casefold()
-        if marker and len(marker) >= 4 and marker in text:
+        if marker and len(marker) >= 4 and re.search(
+            rf"(?<![a-z0-9]){re.escape(marker)}(?![a-z0-9])", text,
+        ):
             raise RQ1Error(f"private marker escaped into public artifact: {raw!r}")
 
 

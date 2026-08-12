@@ -12,9 +12,9 @@ launcher or unrecorded server flag.
 
 Both models use unquantized BF16, 32768 context, 16384 output ceiling,
 temperature 1.0, top-p 0.95, seed 42, thinking off, prefix caching off, and
-`max_num_seqs=64`. Qwen has no project pixel-budget override and keeps chunked
-prefill disabled. Gemma uses `max_soft_tokens=1120`, xgrammar with arbitrary
-whitespace disabled, and chunked prefill enabled.
+`max_num_seqs=128`. Both models use xgrammar with arbitrary JSON whitespace
+disabled. Qwen has no project pixel-budget override and keeps chunked prefill
+disabled. Gemma uses `max_soft_tokens=1120` and chunked prefill enabled.
 
 The Nibi global config sets `gpu_memory_utilization: null`. Confirm that the
 effective argv contains no `--gpu-memory-utilization` flag. This removes the

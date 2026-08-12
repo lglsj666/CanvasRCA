@@ -227,7 +227,7 @@ Deployment paths can be supplied without editing committed files:
 export CANVASRCA_PROCESSED_ROOT=dataset/processed
 export CANVASRCA_QWEN_MODEL=models/Qwen3.6-27B
 export CANVASRCA_GEMMA_MODEL=models/gemma-4-26B-A4B-it
-export RL_SLM_RCA_ROOT=../RL-SLM-RCA-rw_phase2
+export RL_SLM_RCA_ROOT=../self-evolving-RCA-rwrl
 ```
 
 See the [Nibi preparation guide](docs/nibi_preparation.md) for wheelhouse,

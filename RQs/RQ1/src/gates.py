@@ -253,8 +253,14 @@ def _comparison(records: Sequence[Mapping[str, Any]], left: str, right: str, met
     return {"left": left, "right": right, "metric": metric, **paired_statistics(differences)}
 
 
-def _whole_case_filter(records: Sequence[Mapping[str, Any]], arms: Sequence[str]) -> tuple[list[Mapping[str, Any]], dict[str, Any]]:
+def _whole_case_filter(
+    records: Sequence[Mapping[str, Any]],
+    arms: Sequence[str],
+    expected_case_keys: Sequence[tuple[str, str]] | None = None,
+) -> tuple[list[Mapping[str, Any]], dict[str, Any]]:
     table: dict[tuple[str, str], list[Mapping[str, Any]]] = defaultdict(list)
+    for key in expected_case_keys or ():
+        table[(str(key[0]), str(key[1]))]
     for record in records:
         table[(str(record.get("model")), str(record.get("opaque_incident_id")))].append(record)
     excluded = {key for key, rows in table.items() if any(row.get("status") == "infrastructure_error" for row in rows)}
@@ -373,27 +379,45 @@ def analyze_records(
     records: Sequence[Mapping[str, Any]],
     spec: ExperimentSpec,
     config: Mapping[str, Any],
+    *,
+    expected_models: Sequence[str] | None = None,
+    expected_case_ids: Sequence[str] | None = None,
 ) -> dict[str, Any]:
-    models = sorted({str(record.get("model")) for record in records})
+    models = sorted(
+        set(map(str, expected_models))
+        if expected_models is not None
+        else {str(record.get("model")) for record in records}
+    )
     if len(models) > 1:
         result = {
-            "schema_version": "RQ1AnalysisV3",
+            "schema_version": "RQ1AnalysisV4",
             "experiment": spec.name,
             "by_model": {
-                model: analyze_records([row for row in records if str(row.get("model")) == model], spec, config)
+                model: analyze_records(
+                    [row for row in records if str(row.get("model")) == model],
+                    spec,
+                    config,
+                    expected_models=(model,),
+                    expected_case_ids=expected_case_ids,
+                )
                 for model in models
             },
         }
         result["complete"] = all(row["complete"] for row in result["by_model"].values())
         result["analysis_sha256"] = stable_hash(result)
         return result
-    filtered, exclusion = _whole_case_filter(records, spec.arms)
+    expected_case_keys = (
+        tuple((models[0], str(case_id)) for case_id in expected_case_ids)
+        if expected_case_ids is not None and len(models) == 1
+        else None
+    )
+    filtered, exclusion = _whole_case_filter(records, spec.arms, expected_case_keys)
     total = len(records)
     headline_datasets = set(map(str, config["data"]["headline_datasets"]))
     headline = [row for row in filtered if str(row.get("analysis_dataset")) in headline_datasets]
     parse_rates = _parse_rates(filtered)
     result: dict[str, Any] = {
-        "schema_version": "RQ1AnalysisV4",
+        "schema_version": "RQ1AnalysisV5",
         "experiment": spec.name,
         "task": spec.task,
         "records": total,
@@ -481,14 +505,21 @@ def analyze_records(
             if (subset := [row for row in headline if str(row.get("analysis_fault_type")) == fault])
         }
     else:
+        text_arm = "T" if spec.name == "legacy_q9" else "Mt-Rt-Lt-Gt"
         result["comparisons"] = {
-            "H-T": _comparison(headline, "H", "T" if spec.name == "legacy_q9" else "Mt-Lt-Rt-Gt", spec.primary_metric),
+            "P-T": _comparison(headline, "P", text_arm, spec.primary_metric),
+            "V-P": _comparison(headline, "V", "P", spec.primary_metric),
+            "V-T": _comparison(headline, "V", text_arm, spec.primary_metric),
+            "H-T": _comparison(headline, "H", text_arm, spec.primary_metric),
+            "H-V": _comparison(headline, "H", "V", spec.primary_metric),
         }
         if spec.name != "legacy_q9":
             result["visual_main_effects"] = {
                 region: _factorial_effect(headline, region, spec.primary_metric) for region in ("M", "L", "R", "G")
             }
-            result["comparisons"]["V-T"] = _comparison(headline, "Mv-Lv-Rv-Gv", "Mt-Lt-Rt-Gt", spec.primary_metric)
+            result["comparisons"]["factorial_all_visual-minus-all_text"] = _comparison(
+                headline, "Mv-Rv-Lv-Gv", "Mt-Rt-Lt-Gt", spec.primary_metric,
+            )
     minimum_parse = float(config["runtime"]["parse_rate_minimum"])
     result["complete"] = (
         bool(parse_rates) and all(value >= minimum_parse for value in parse_rates.values())
@@ -519,11 +550,17 @@ def verify_result_root(paths: RunPaths, config: Mapping[str, Any]) -> dict[str, 
         integrity_errors.append("runtime_freeze")
     for item in index.get("cases", ()):
         item_missing = False
-        for key in ("public", "private", "full_image", "routed_image", "qa_image"):
+        for key in ("public", "private", "full_image", "qa_full_image", "routed_image"):
             path = paths.root / item[key]
             if not path.is_file():
                 missing.append(str(path.relative_to(paths.root)))
                 item_missing = True
+        for values in item.get("qa_region_images", {}).values():
+            for relative in values:
+                path = paths.root / relative
+                if not path.is_file():
+                    missing.append(str(path.relative_to(paths.root)))
+                    item_missing = True
         for relative in item.get("variant_images", {}).values():
             path = paths.root / relative
             if not path.is_file():
@@ -537,8 +574,8 @@ def verify_result_root(paths: RunPaths, config: Mapping[str, Any]) -> dict[str, 
             "public_sha256": stable_hash(public),
             "private_sha256": stable_hash(private),
             "full_image_sha256": stable_hash((paths.root / item["full_image"]).read_bytes()),
+            "qa_full_image_sha256": stable_hash((paths.root / item["qa_full_image"]).read_bytes()),
             "routed_image_sha256": stable_hash((paths.root / item["routed_image"]).read_bytes()),
-            "qa_image_sha256": stable_hash((paths.root / item["qa_image"]).read_bytes()),
         }
         for key, observed in checks.items():
             if observed != item.get(key):
@@ -547,6 +584,12 @@ def verify_result_root(paths: RunPaths, config: Mapping[str, Any]) -> dict[str, 
             observed = stable_hash((paths.root / relative).read_bytes())
             if observed != item.get("variant_image_sha256", {}).get(name):
                 integrity_errors.append(f"{item.get('opaque_incident_id')}:variant:{name}")
+        observed_regions = {
+            region: [stable_hash((paths.root / relative).read_bytes()) for relative in values]
+            for region, values in item.get("qa_region_images", {}).items()
+        }
+        if observed_regions != item.get("qa_region_image_sha256"):
+            integrity_errors.append(f"{item.get('opaque_incident_id')}:qa_region_images")
     trajectories = list(paths.trajectories.rglob("*.json"))
     for path in trajectories:
         if not path.with_suffix(".md").is_file():

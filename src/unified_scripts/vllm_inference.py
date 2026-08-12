@@ -16,7 +16,7 @@ class VLLMInferenceConfig(FrozenConfig):
     """Frozen base recipe with explicit, hash-recorded experiment adapters."""
 
     DEFAULT_PATH = "configs/vllm_inference.yaml"
-    SCHEMA_VERSION = "CanvasRCAVLLMInferenceConfigV5"
+    SCHEMA_VERSION = "CanvasRCAVLLMInferenceConfigV6"
 
     def validate(self) -> None:
         common = self.data.get("common")
@@ -47,6 +47,12 @@ class VLLMInferenceConfig(FrozenConfig):
         qwen = models["qwen3.6-27b"]
         if qwen.get("mm_processor_kwargs") is not None:
             raise ConfigError("Qwen must use its native image processor policy")
+        compact_json = {"backend": "xgrammar", "disable_any_whitespace": True}
+        for tag in ("qwen3.6-27b", "gemma-4-26b-a4b"):
+            if models[tag].get("structured_outputs_config") != compact_json:
+                raise ConfigError(
+                    f"{tag} must use xgrammar with arbitrary JSON whitespace disabled"
+                )
         probe = self.data.get("attention_probe")
         expected_probe = {
             "enabled": True,

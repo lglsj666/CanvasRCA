@@ -23,7 +23,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 PROJECT_ROOT = Path(os.environ.get("CANVASRCA_ROOT", Path.cwd())).expanduser().resolve()
-DEFAULT_UPSTREAM_ROOT = PROJECT_ROOT.parent / "RL-SLM-RCA-rw_phase2"
+DEFAULT_UPSTREAM_ROOT = PROJECT_ROOT.parent / "self-evolving-RCA-rwrl"
 UPSTREAM_ROOT = Path(os.environ.get("RL_SLM_RCA_ROOT", str(DEFAULT_UPSTREAM_ROOT)))
 
 DEFAULT_SCRATCH = PROJECT_ROOT

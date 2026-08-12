@@ -95,7 +95,7 @@ separate authorization decision.
 
 ## DD-78: Freeze the current Nibi runtime and case concurrency
 
-**Date:** 2026-08-10  
+**Date:** 2026-08-12
 **Status:** adopted
 
 **Decision.** Use the unified Nibi vLLM contract with unquantized BF16,
@@ -103,6 +103,14 @@ separate authorization decision.
 CanvasRCA VRAM-fraction argument, and scheduler capacity
 `max_num_seqs=128`. RQ1 requests keep the uniform 8,192-token context-safe
 output adapter.
+
+Both registered models use xgrammar structured decoding with arbitrary JSON
+whitespace disabled. Qwen previously inherited vLLM's `auto` backend and
+`disable_any_whitespace=false`; its typed Stage-2 smoke then emitted 3,690
+whitespace tokens after a 28-token answer prefix until the phase timeout.
+Compact JSON removes only schema-irrelevant whitespace choices and is applied
+uniformly to Qwen and Gemma; prompts, schemas, semantic values, sampling
+temperature/top-p, and scoring remain unchanged.
 
 The formal RQ1 runner processes at most four different cases concurrently.
 Within a case, registered arm order and Stage-1-to-Stage-2 dependencies remain
@@ -112,14 +120,22 @@ never run Qwen and Gemma concurrently for a registered sequential workflow.
 
 Transient NVML accounting reads may be retried without repeating model
 inference; an unresolvable accounting record remains an infrastructure error.
-Full shards request enough wall time and memory for model startup and draining;
-the current deployment target is one day and 100 GiB unless a newer measured
-resource contract replaces it.
+CPU preparation requests 00:30:00 and 100 GiB. All preparations for a launch
+batch run serially inside one non-array CPU job; each preparation covers its
+complete roster and is never divided into Slurm shards. Full GPU inference
+requests 07:59:00 and 100 GiB per task; the frozen 469-case roster remains
+split into 24 deterministic, resumable inference shards, approximately one
+third the size of the predecessor eight-shard deployment. Many same-model
+inference shards may be queued at once, subject to the array concurrency cap.
+The complete Gemma array waits for the complete Qwen array through an `afterok`
+dependency, so the two models never run concurrently.
 
 **Reason.** Four concurrent cases use vLLM batching without the host pressure
 of eight. Scheduler capacity is not generated load. Task-local ports prevent
 cross-job server collisions, and the uniform output adapter prevents
-case-specific compute drift.
+case-specific compute drift. The installed vLLM/xgrammar sources confirm that
+the prior default allowed unlimited whitespace between JSON elements; the
+Qwen timeout artifact reproduced that failure directly.
 
 **Consequence.** Runtime changes require new effective-config hashes,
 attestation, preparation, result IDs, and bounded qualification. GPU utilization
@@ -155,8 +171,8 @@ Any syntax or binder change requires a forward protocol and new qualification.
 
 ## DD-85: Freeze the RQ1 renderer, representations, and prompt semantics
 
-**Date:** 2026-08-10  
-**Status:** adopted
+**Date:** 2026-08-11
+**Status:** adopted; Q&A representation correction current in v17
 
 **Decision.** RQ1 owns the only provisional renderer at
 `RQs/RQ1/src/renderer/`: the restored renderer-v12 snapshot. There is no
@@ -172,6 +188,22 @@ The RCA representation family is:
 - `H`: strict image-first A+B, where A is exactly V and B is byte-identical T;
 - `R`: metrics/topology visual with logs/traces textual, exact-once by fact.
 
+The formal Q&A family is `T_QA` (pure renderer-visible evidence text), `P_QA`
+(that exact text rendered as pixels), `V_QA` (the real renderer-v12 dashboard),
+and strict image-first `H_QA=V_QA+T_QA`. Q&A factorial visual cells use only
+deterministic renderer-v12 M/R/L/G source crops; the full-dashboard `V_QA`
+remains separate. The former Controlled M/L/R/G text canvas is archived as a
+synthetic spatial-formatting diagnostic and cannot support a real-dashboard
+efficacy claim. Level 4–6 is recorded as absent from the synced implementation;
+the 4/6/4 counts refer only to Level-1/2/3 templates.
+
+Q&A preparation preserves every inherited RCA renderer artifact byte-for-byte.
+When renderer-v12 creates a service-level topology alias that was absent from
+the inherited entity map, the Q&A render deterministically assigns that alias
+an unused three-digit service ID before compiling its common evidence index.
+An explicitly empty directed-edge key is serialized as the visible fact
+`status=none`; it does not make a frozen case ineligible.
+
 Every comparison requires equal atomic facts, precision, bins, missingness,
 candidates, concrete edges, and legends. Text-bearing evidence is ordered
 M/metrics, R/traces, L/logs, then G/topology. RCA prompts explain field
@@ -179,9 +211,21 @@ semantics and origin-versus-symptom reasoning and use the SIRCL-inspired
 internal `INITIAL -> VERIFY -> REVISE` check while emitting only the frozen
 top-five JSON. Q&A prompts explain fields but contain no RCA guide.
 
-**Reason.** The text-on-canvas artifact is a useful pixel-transport control but
-is not a telemetry dashboard. A global mutable renderer or representation-
-specific prompt would confound the RQ1 claim.
+**Reason.** The exact-text `P_QA` is the only valid pixel-transport control.
+The old Controlled canvas independently reformatted and rearranged evidence,
+so treating it as either `P_QA` or a real dashboard confounded the RQ1 claim.
+A global mutable renderer or representation-specific prompt would add another
+confound.
+
+**Qualification evidence.** Zero-call static job `19558580` passed. CPU
+preparation job `19558566` completed three cross-dataset cases in 53 seconds
+with 100 GiB and passed the artifact verifier. For all three cases,
+`H_QA.image_sha256 == V_QA.image_sha256`,
+`H_QA.text_sha256 == P_QA.source_text_sha256 == T_QA.text_sha256`, the crop
+source hash equals the full renderer-v12 image hash, and the controlled canvas
+is absent from formal arms. Visual inspection also fixed and requalified the
+G/L boundary so the complete propagation legend belongs only to G and the log
+table begins cleanly in L.
 
 **Consequence.** Renderer, serializer, prompt, or evidence changes require a
 new protocol, parity/leakage audit, visual inspection, hashes, and result IDs.
@@ -253,11 +297,13 @@ causal visual-influence test.
 **Date:** 2026-08-11  
 **Status:** adopted
 
-**Decision.** Every registered experiment has exactly one logical smoke. Qwen
-and Gemma run sequentially. Each model independently receives at most 18 calls
-and a 600-second phase timeout. Do not combine experiments into an omnibus
-smoke or split one experiment to reset a budget. A model-calling gate has at
-most 36 aggregate calls and 1,200 seconds.
+**Decision.** Every registered experiment has exactly one logical smoke formed
+from exactly two non-array Slurm jobs: one Qwen job and one Gemma job. A job
+loads exactly one model. Schedule all Qwen phases before any Gemma phase so the
+two model families never overlap. Each model independently receives at most 18
+calls and a 600-second phase timeout. Do not combine experiments into an
+omnibus smoke, shard either model phase, or split a model phase to reset its
+budget. A model-calling gate has at most 36 aggregate calls and 1,200 seconds.
 
 Every smoke request streams the unchanged registered generation and atomically
 checkpoints accumulated text. At timeout, terminate outstanding work, preserve

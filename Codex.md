@@ -209,8 +209,10 @@ Qwen uses its native image-processor policy and receives no project-level
 `min_pixels`, `max_pixels`, or other image pixel-budget override. Qwen keeps
 chunked prefill disabled unless a new versioned decision changes it.
 
-Gemma uses `max_soft_tokens=1120`, xgrammar structured output with arbitrary
-whitespace disabled, and chunked prefill enabled.
+Both Qwen and Gemma use xgrammar structured output with arbitrary JSON
+whitespace disabled. This prevents an otherwise schema-valid decoder path from
+sampling unbounded spaces or newlines between JSON tokens. Gemma additionally
+uses `max_soft_tokens=1120` and chunked prefill enabled.
 
 For Nibi, `gpu_memory_utilization` is `null`. The launcher must omit
 `--gpu-memory-utilization`; there is no CanvasRCA-imposed VRAM fraction cap.

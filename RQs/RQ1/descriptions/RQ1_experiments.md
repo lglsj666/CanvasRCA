@@ -7,11 +7,11 @@ ID; historical local results remain context rather than final evidence.
 
 ## Semantic-restoration authority
 
-The current successor is `rq1_record_key_stage1_v16`. It retains the v15
-compact-output objective, v14 same-prefill attention runtime, v13
-seven-experiment registry, v12
-SIRCL-adapted Stage-2 prompt, renderer-v12 and all representation facts, while
-replacing only the RCA two-stage evidence-transfer protocol. The first
+The current successor is `rq1_renderer_qa_v17`. It retains the v16
+`CompactRecordKeyLedgerV4` RCA protocol, v14 same-prefill attention runtime,
+v13 seven-experiment registry, v12 SIRCL-adapted Stage-2 prompt, and the exact
+renderer-v12 RCA representations. V17 changes only formal Q&A representations
+and their questions/typed binder. The first
 Nibi refactor shortened load-bearing prompts and replaced parts of the old
 controlled evidence/task compiler with approximate summaries. Any Nibi model
 trajectory produced by that predecessor implementation is archived diagnostic
@@ -24,21 +24,23 @@ partially superseding v11's inherited serializer *ordering*: model-visible text
 now follows the locked SIRCL* sequence M/metrics → R/traces → L/logs →
 G/topology. No fact, precision, bin, candidate, or edge changes with the order.
 
-At the 2026-08-11 handoff, the v16 code and contract edits were complete but
-deliberately not tested at the user's request. Nibi must run the static suite
-and each affected experiment's bounded dual-model smoke before any heavy run.
+The old Controlled M/L/R/G text canvas is archived diagnostic material. It is
+neither a real dashboard nor the exact-text pixel transport and cannot support
+a dashboard-efficacy claim. No historical trajectory is rewritten.
 
 The restored contract requires all of the following before a replacement run:
 
 - public/private physical separation and a fail-closed leakage audit;
 - case-local numeric identities in every M/L/R/G representation, including
   entity mentions inside normalized log templates;
-- one controlled 16-bin fact packet shared by text, visual, factorial, and
-  strict image-first A+B arms;
+- one renderer-visible, label-blind Q&A evidence index shared by `T_QA`,
+  `P_QA`, `V_QA`, `H_QA`, and every factorial crop/text cell;
 - four Level-1, six Level-2, and four Level-3 templates whose later lookup
   scope depends on the preceding region result;
-- trace edge IDs in R without endpoints, with caller/callee resolution only in
-  G, so `R→G` is a real cross-region join rather than an answer in the prompt;
+- real renderer-v12 metric curves, trace/log tables, propagation plot, and
+  complete caller-to-callee edge key in `V_QA`;
+- deterministic numeric IDs for renderer-created service aliases in Q&A only;
+  the inherited RCA image bytes and identity mapping are not rewritten;
 - complete visible-fact equality for RCA T/F/V/P/H/R arms, a typed Stage-1
   binder, and Stage 2 access only to the normalized ledger;
 - `CompactRecordKeyLedgerV4`: at most 16 unique public-record keys, at most four
@@ -51,15 +53,15 @@ The restored contract requires all of the following before a replacement run:
 - inheritance of the old T natural-language and F flat-JSONL field semantics,
   intentionally reordered M/R/L/G under v12; P renders the exact current T
   fact lines as M/R/L/G pixel pages without creating a new summary or consuming F;
-- RCA text/flat records contain no panel metadata absent from the image;
-  controlled-QA-only onset and persistence values remain confined to the
-  controlled canvas where they are explicitly printed;
+- Q&A exact-match questions target only explicitly printed panel identities,
+  summaries, table cells, propagation readouts, and concrete edges—not an
+  approximate curve point or hidden high-precision value;
 - case-balanced arm order, paired whole-case exclusion, headline inference on
   AegisLab/AIOPS-2022/AIOPS-2025 only, and separate RE2-OB/RE2-TT reporting;
 - label-blind counterfactual eligibility with a hard failure on no-op swaps,
   plus lossless multi-page visual-ledger handoff and shared Stage-1 accounting.
 
-The CPU suite proves that all 14 reasoning templates are reachable and that
+The CPU suite proves that all 14 Level-1/2/3 reasoning templates are reachable and that
 strict A+B, exact-once routed transport, scorer semantics, pagination, resume
 keys, and model-specific unified inference arguments hold. A local legacy-data
 reader may be enabled only through the explicit environment adapter described
@@ -84,8 +86,8 @@ revising. Only the frozen top-five JSON is emitted. Q&A/VisOps prompts explain
 the same data fields but deliberately omit the RCA method and VERIFY guide.
 
 T, F, P, Q&A text fragments, and region-bearing Stage-2 ledger rows use
-M → R → L → G. The real and controlled visual renderers retain their frozen
-spatial layouts; a prompt-order amendment is not a dashboard-layout experiment.
+M → R → L → G. The real renderer retains its frozen spatial layout; a
+prompt-order amendment is not a dashboard-layout experiment.
 H remains strictly image-first `A+B`: its image bytes equal V and its incident
 text bytes equal T, with no hybrid-only prompt instruction.
 
@@ -122,13 +124,13 @@ and AIOPS-2025 in roster order for its one registered smoke. The Qwen phase runs
 first; only after it exits does the Gemma phase start. Each model phase has an
 independent ceiling of 18 calls and 600 seconds, including server readiness,
 requests, persistence, and verification. The CPU-only matrix compiles all
-56 arms, while the live plans use these per-model call counts:
+61 arms, while the live plans use these per-model call counts:
 
 | Experiment | Calls/model |
 |---|---:|
-| `legacy_q9` | 9 |
-| `cross_region` | 3 |
-| `typed_two_stage` | 6 |
+| `legacy_q9` | 12 |
+| `cross_region` | 6 |
+| `typed_two_stage` | 12 |
 | `direct_rca` | 3 |
 | `matched_rca` | 6 |
 | `visual_counterfactual_rca` | 8 |
@@ -180,36 +182,59 @@ its wall-clock bound, the supervisor preserves and marks unfinished text as
 score; formal experiment transport and all scientific settings remain
 unchanged.
 
+The effective vLLM v6 runtime uses xgrammar with arbitrary JSON whitespace
+disabled for both models. This closes the Qwen failure reproduced in the first
+v17 typed Stage-2 smoke, where the grammar admitted an unbounded run of spaces
+and newlines after a valid answer prefix. The correction changes only JSON
+serialization freedom: prompts, schemas, evidence, semantic values, sampling
+settings, and scorers are unchanged. That affected Qwen typed phase is invalid
+as qualification evidence and requires a forward smoke under the v6 runtime.
+
 ## `legacy_q9`
 
-Nine direct operations test whether the model can read individual metric, log,
-trace, and topology facts. T/V/H provide text-only, image-only, and strict
-image-first A+B inputs. Exact-match accuracy is perception evidence, not RCA
-accuracy. The nine operations are exact metric-bin lookup, exact log-bin
-lookup, exact trace-bin lookup, earliest onset, longest persistence, directed
-edge lookup, explicit multi-hop path, cross-region entity alignment, and
-metric missingness. They are not replaced by panel-owner or row-count proxy
-questions.
+Nine direct operations test facts explicitly readable in renderer-v12: metric
+panel identity, printed baseline/peak, the displayed window duration, visible
+log/trace cells, a directed edge, a propagation readout, and the log display mode. Formal arms are
+`T_QA`, exact-text pixel transport `P_QA`, real dashboard `V_QA`, and strict
+image-first `H_QA=V_QA+T_QA`. Exact-match accuracy is perception evidence, not
+RCA accuracy. The archived Controlled canvas is not a formal arm.
 
 ## `cross_region`
 
 Level-1 direct reads, level-2 two-region joins, and level-3 three-region joins
-test composition across M/L/R/G. Sixteen text-versus-visual factorial cells
-plus strict A+B localize representation effects. Short question identifiers
+test composition across M/L/R/G. Sixteen text-versus-real-renderer-crop
+factorial cells plus global `P_QA`, full-dashboard `V_QA`, and strict `H_QA`
+localize representation effects. Each visual factorial fragment is a source
+crop from renderer-v12; mixed arms place visual fragments first and remaining
+exact text fragments second in M/R/L/G order. Short question identifiers
 only associate outputs with questions; complete-chain and step accuracy score
 the reasoning result. The exact template registry is 4/6/4: M/L/R/G direct;
-M↔L, M↔R, M↔G, L↔R, L↔G, R↔G; and M→L→R, M→G→L,
-M→R→G, L→R→G. Every first-region anchor is unique at displayed precision;
-later lookup scope is determined by the preceding answer. Template selection
+M↔L, M↔R, M↔G, L↔R, L↔G, R↔G; and four M/R/L/G-start
+start→pivot→target locator-chain families. A chain prefers three distinct
+visible regions. When case-local renderer rows share an ID across only two
+regions, the same registered family uses a start→pivot→start round trip with
+three distinct dependent operations rather than inventing a cross-granularity
+join. Step 2 returns the pivot's visible row or panel locator; Step 3 must use
+that locator to recover the entity before reading the target.
+Thus an explicitly empty edge key remains evidence rather than making a valid
+case ineligible. Every later lookup depends on the preceding answer.
+Template selection
 is deterministic among the templates eligible for that case, because a case
 with no trace or no qualifying graph join cannot support every family.
+
+Interpret `P_QA-T_QA` as pixel transport, `V_QA-P_QA` as true dashboard
+encoding, `V_QA-T_QA` as the overall real-dashboard effect, `H_QA-T_QA` as
+incremental dashboard value over identical text, and `H_QA-V_QA` as text
+complementarity. The factorial all-visual crop cell is not relabelled as the
+full-dashboard `V_QA` because it does not preserve the complete spatial layout.
 
 ## `typed_two_stage`
 
 The cross-region packets run through a host-bound typed ledger before the
 answer stage. The public question contract fixes q1/q2/q3, the exact number of
-steps, and each M/L/R/G path. Stage 1 selects only a visible entity or edge,
-panel/row, field, and relative bins in those fixed slots. A deterministic
+steps, and each M/L/R/G path. Stage 1 selects only a compact visible record key
+(`M1`, `L:<entity>`, `R:<entity>`, `G:<entity>`, or
+`G:<caller>-><callee>`) and optional displayed field in each slot. A deterministic
 label-blind binder then copies the exact displayed values and units from the
 same public packet. Unsupported selectors remain explicit step records rather
 than invalidating all three questions. Stage 2 receives the question contracts
@@ -217,6 +242,11 @@ plus this normalized ledger and returns typed step values. This measures
 extraction, grounding, and handoff attrition without testing memory for opaque
 IDs or raw-sequence transcription. It is an agent-mechanism experiment rather
 than an RCA endpoint.
+
+No Level 4–6 source or registered successor exists in the synced Nibi tree.
+The 4/6/4 notation above counts Level-1/2/3 templates; it must not be reported
+as Levels 4–6. A future Level 4–6 successor must inherit this corrected
+T/P/V/H contract and receive a new experiment registration and result ID.
 
 ## `direct_rca`
 

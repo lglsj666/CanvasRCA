@@ -71,7 +71,7 @@ are not copied into the repository-relative defaults:
 export CANVASRCA_PROCESSED_ROOT=dataset/processed
 export CANVASRCA_QWEN_MODEL=models/Qwen3.6-27B
 export CANVASRCA_GEMMA_MODEL=models/gemma-4-26B-A4B-it
-export RL_SLM_RCA_ROOT=../RL-SLM-RCA-rw_phase2
+export RL_SLM_RCA_ROOT=../self-evolving-RCA-rwrl
 ```
 
 The registered public checkpoints can be staged at their frozen revisions with
@@ -117,20 +117,22 @@ an attestation, and start the RQ run. Smoke allocations are 30 minutes with a
 600-second logical supervisor; full allocations are three days. Adjust wall
 time through a versioned script change, not an ad hoc scientific override.
 
-Render on CPU before allocating a GPU. The smoke uses the exact registered
-three-case roster and 18 aggregate calls across both models:
+Render on CPU before allocating a GPU. All smoke preparations run serially in
+one non-array CPU job. Each experiment's logical smoke then uses exactly two
+separate non-array GPU jobs, one model per job:
 
 ```bash
-RQs/RQ1/scripts/array_nibi.sh prepare SMOKE_ID \
-  RQs/RQ1/configs/rosters/rq1_nibi_smoke_private_v1.json 1
-sbatch --export=ALL,CANVASRCA_MODEL=qwen3.6-27b,CANVASRCA_EXPERIMENT_ID=SMOKE_ID__shard-0000-of-0001 \
-  RQs/RQ1/scripts/smoke_nibi.sh
-sbatch --export=ALL,CANVASRCA_MODEL=gemma-4-26b-a4b,CANVASRCA_EXPERIMENT_ID=SMOKE_ID__shard-0000-of-0001 \
-  RQs/RQ1/scripts/smoke_nibi.sh
+RQs/RQ1/scripts/array_nibi.sh prepare \
+  SMOKE_LEGACY_ID:SMOKE_CROSS_ID:SMOKE_TYPED_ID:SMOKE_DIRECT_ID:SMOKE_MATCHED_ID:SMOKE_COUNTERFACTUAL_ID:SMOKE_HANDOFF_ID \
+  RQs/RQ1/configs/rosters/rq1_nibi_smoke_private_v1.json
+RQs/RQ1/scripts/submit_smoke_nibi.sh qwen3.6-27b SMOKE_LEGACY_ID legacy_q9
+RQs/RQ1/scripts/submit_smoke_nibi.sh gemma-4-26b-a4b SMOKE_LEGACY_ID legacy_q9
+# Submit the corresponding pair for each of the other six experiments.
 ```
 
-For the frozen run, prepare the 469 cases once in a CPU array, then submit all
-six experiments for both models against those immutable prepared shards. Use
+For the frozen run, prepare all 469 cases once in one CPU job, then submit the
+registered experiments for both models against that immutable preparation.
+Full inference remains deterministically and resumably sharded. Use
 `CANVASRCA_PREPARE_JOB_ID` for an `afterok` dependency and reuse the same base
 ID so completed calls remain resumable.
 

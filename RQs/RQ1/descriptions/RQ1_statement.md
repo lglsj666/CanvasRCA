@@ -25,3 +25,6 @@ only in a preregistered strict hybrid, but no compared arm may gain or lose an
 incident fact. The topology graph is a representation region, not an additional
 raw data source.
 
+For Q&A, the only text-as-image control is the exact T evidence rendered as
+pixels (`P_QA`). Real-dashboard claims use renderer-v12 (`V_QA`); the archived
+Controlled text canvas cannot support such a claim.

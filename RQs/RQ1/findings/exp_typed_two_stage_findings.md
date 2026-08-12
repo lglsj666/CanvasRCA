@@ -1,8 +1,18 @@
 # Typed Two-Stage Findings
 
-**Status:** historical local mechanism qualification only. Predecessor compact
-Nibi trajectories are archived invalid; the historical cross-architecture gate
-failed.
+**Status:** corrected v17 record-key Q&A handoff rerun not yet run. Predecessor
+compact and Controlled-canvas trajectories are archived diagnostic material;
+the historical cross-architecture gate failed and cannot support a
+real-dashboard claim.
+
+**Nibi v17 smoke correction.** Qwen Stage 2 began a valid response and then
+generated 3,690 schema-legal whitespace tokens until the bounded supervisor
+stopped it. The installed vLLM 0.24 configuration defaulted to
+`backend=auto`, `disable_any_whitespace=false`; xgrammar consequently admitted
+unbounded spaces and newlines. This phase is invalid as qualification evidence,
+not a valid timeout-only pass. Runtime v6 explicitly uses xgrammar with
+arbitrary JSON whitespace disabled for both models. A new bounded typed smoke
+is required before formal execution.
 
 The typed handoff removed the earlier eight-row ledger bottleneck. On the
 12-case perception qualification, Qwen passed all registered mechanism checks:
@@ -19,7 +29,7 @@ These local outcomes are not substituted for the registered final Nibi rerun.
 This file will be updated with the 289-case primary headline and separate
 RE2-OB/RE2-TT slices after that run is complete and verified.
 
-Both renderer-v17 local diagnostics exercised the finite failure path. In the
+Both archived predecessor diagnostics exercised the finite failure path. In the
 first, Gemma duplicated an edge ID into `entity_id`; in the focused successor,
 it omitted later registered steps for two queries. Stage 2 parsed the bounded
 failure-marker input in both runs. The host did not repair either model error.
@@ -84,7 +94,7 @@ case/arm Stage-1 prompts were byte-identical across models. Stage-2 uses the
 same system/task contract but necessarily receives the ledger produced by its
 own model, so its incident prompt is not expected to be byte-identical.
 
-This bounded evidence resolves the observed transport failures for the tested
-T/V/H paths. It remains infrastructure and mechanism qualification rather than
-an efficacy result; full Nibi inference requires a fresh v10 preparation and
-result ID.
+This bounded predecessor evidence resolved its observed transport failures for
+the tested T/V/H paths. It remains infrastructure and mechanism qualification,
+not an efficacy result. The current v17 Q&A representation correction requires
+fresh preparation and a new result ID.

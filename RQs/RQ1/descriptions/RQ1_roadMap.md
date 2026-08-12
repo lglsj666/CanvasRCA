@@ -6,8 +6,8 @@ result-dependent roster or a rigid numerical branch tree.
 1. Freeze the 469-case eligible evaluation roster and the 289-case headline
    subset before model execution; preserve the eleven invalid exclusions.
 2. Rerun `legacy_q9`, `cross_region`, and `typed_two_stage` on Nibi to establish
-   direct readability, cross-region composition, and handoff behavior under one
-   final runtime.
+   direct readability, cross-region composition, and handoff behavior using
+   Q&A T/P/V/H and actual renderer-v12 factorial crops under one final runtime.
 3. Run `direct_rca` and `matched_rca` to determine whether the representation changes actual
    ranked root-cause performance rather than only intermediate operations.
 4. Run `visual_counterfactual_rca` to test whether controlled visual semantics
@@ -27,7 +27,9 @@ result-dependent roster or a rigid numerical branch tree.
 
 All seven experiments use new Nibi result IDs and the unified contracts. Their
 records carry model-call-free renderer-density and ledger-region diagnostics.
-The v16 two-stage RCA successor uses compact, non-null visible record keys
+The v17 Q&A correction removes the Controlled text canvas from formal arms;
+that canvas remains historical diagnostic material only. The v16 two-stage
+RCA successor remains unchanged and uses compact, non-null visible record keys
 rather than model-transcribed telemetry arrays or nullable identity tuples;
 deterministic binding supplies exact facts to Stage 2 and records rejected
 keys in the grounding audit.

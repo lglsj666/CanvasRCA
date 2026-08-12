@@ -19,6 +19,7 @@ from RQs.RQ1.src.renderer.dashboard import (
     RENDERER_VERSION,
     CaseRenderView,
     compile_dashboard,
+    crop_dashboard_evidence_regions,
     opaque_incident_id,
 )
 from RQs.RQ1.src.renderer.presets import make_dashboard_config
@@ -31,28 +32,28 @@ from .utils import RQ1Error, audit_visible, numeric_entity_map
 
 Region = Literal["M", "L", "R", "G"]
 RCA_ARMS = ("T", "F", "V", "P", "H", "R")
-REGIONS: tuple[Region, ...] = ("M", "L", "R", "G")
-PROMPT_REGION_ORDER: tuple[Region, ...] = ("M", "R", "L", "G")
+REGIONS: tuple[Region, ...] = ("M", "R", "L", "G")
+PROMPT_REGION_ORDER: tuple[Region, ...] = REGIONS
 ENTITY_ID_NOTE = "Service names, pod names, and node names are represented by numeric IDs."
 VISUAL_PATCH_GRID = (16, 16)
 TEMPLATE_VALUE_KINDS = {
-    "M_direct_bin": ("scalar_value",), "L_direct_bin": ("scalar_value",),
-    "R_direct_bin": ("scalar_value",), "G_direct_neighbors": ("neighbor_roles",),
+    "M_direct_read": ("entity_id",), "L_direct_read": ("scalar_value",),
+    "R_direct_read": ("scalar_value",), "G_direct_read": ("scalar_value",),
     "M_L_link": ("entity_id", "scalar_value"), "M_R_link": ("entity_id", "scalar_value"),
-    "M_G_link": ("entity_id", "neighbor_roles"), "L_R_link": ("entity_id", "scalar_value"),
-    "L_G_link": ("entity_id", "neighbor_roles"), "R_G_link": ("edge_id", "endpoint_roles"),
-    "M_L_R_chain": ("entity_id", "relative_bin", "scalar_value"),
-    "M_G_L_chain": ("entity_id", "entity_id", "scalar_value"),
-    "M_R_G_chain": ("entity_id", "edge_id", "other_endpoint_id"),
-    "L_R_G_chain": ("entity_id", "edge_id", "other_endpoint_id"),
+    "M_G_link": ("entity_id", "scalar_value"), "L_R_link": ("entity_id", "scalar_value"),
+    "L_G_link": ("entity_id", "scalar_value"), "R_G_link": ("entity_id", "scalar_value"),
+    "M_locator_chain": ("entity_id", "scalar_value", "scalar_value"),
+    "R_locator_chain": ("entity_id", "scalar_value", "scalar_value"),
+    "L_locator_chain": ("entity_id", "scalar_value", "scalar_value"),
+    "G_locator_chain": ("entity_id", "scalar_value", "scalar_value"),
 }
 
 QA_EVIDENCE_GUIDE = """Evidence structure and fields:
-- M (metrics): each row identifies a panel, entity and metric. `values_16`/visual `bins` are the 16 displayed relative-time values; `onset_bin_64`, `persistence_bins_64` and `missing_bins_64` report displayed onset, duration and missingness metadata.
-- R (traces): service or E## edge rows contain `span_count_16`, `error_count_16`, `max_p95_ms_16` and `associated_edge_ids`; visual aliases are `spans`, `errors` and `p95ms`.
-- L (logs): rows contain `event_count_16`, `error_count_16` and a representative normalized template; visual aliases are `events` and `errors`.
-- G (topology): each E## row is one directed caller -> callee edge. For target X, U -> X is an upstream caller and X -> D is a downstream callee.
-Relative bins are case-local. `missing`/`null` means unavailable evidence, never numeric zero. Metric and trace anomaly magnitudes come from different instruments and must not be compared as if they shared a scale. Text evidence is ordered M -> R -> L -> G, with topology after the three telemetry modalities."""
+- M (metrics): renderer-v12 metric panels identify a panel, numeric entity and metric; curves use 64 relative bins and the printed line reports baseline, peak and signed peak-z at dashboard precision.
+- R (traces): the visible table reports numeric entity, p95 before/during, relative change and error percentage when available.
+- L (logs): the visible table reports numeric entity and either error counts/fraction or pre/during volume change.
+- G (topology): the propagation plot prints entity onset/severity/source and the edge key lists every directed caller -> callee edge. For target X, U -> X is upstream and X -> D is downstream.
+Relative bins are case-local. `missing`/`null` means unavailable evidence, never numeric zero. Metric and trace anomaly magnitudes come from different instruments and must not be compared as if they shared a scale. Text evidence is ordered M -> R -> L -> G."""
 
 RCA_EVIDENCE_GUIDE = """Incident-evidence structure and fields:
 - C/common: `candidate_set` is exhaustive and ordered; `evidence_schema` and `selection_summary` describe the label-blind renderer/selector, not a diagnosis; `evidence_legends` defines IDs, time and edges.
@@ -111,9 +112,10 @@ class PreparedCase:
     public: Mapping[str, Any]
     private: Mapping[str, Any]
     full_png: bytes
+    qa_full_png: bytes
     routed_png: bytes
-    qa_png: bytes
     pixel_text_pngs: tuple[bytes, ...]
+    qa_region_pngs: Mapping[str, tuple[bytes, ...]]
     variant_pngs: Mapping[str, bytes]
 
 
@@ -122,6 +124,8 @@ def _patch_region(layout: str, x: float, y: float, *, base_ratio: float) -> str:
 
     if layout == "controlled":
         return "M" if x < 0.5 and y < 0.52 else "L" if y < 0.52 else "R" if x < 0.5 else "G"
+    if layout.startswith("crop_") and layout[-1:] in REGIONS:
+        return layout[-1]
     if layout == "dashboard":
         if y >= base_ratio:
             return "G"  # horizontal caller->callee identity key
@@ -266,8 +270,8 @@ def experiment_registry(config: Mapping[str, Any]) -> dict[str, ExperimentSpec]:
     registry: dict[str, ExperimentSpec] = {}
     for name, value in config["experiments"].items():
         arms = value["arms"]
-        if arms == "factorial_16_plus_H":
-            arms = tuple(factorial_cells()) + ("H",)
+        if arms == "factorial_16_plus_P_V_H":
+            arms = tuple(factorial_cells()) + ("P", "V", "H")
         registry[name] = ExperimentSpec(
             name=name,
             task=str(value["task"]),
@@ -518,8 +522,9 @@ def _natural_fact_line(fact: Mapping[str, Any]) -> str:
 
 def _packet_text(packet: Mapping[str, Any], regions: Iterable[str] = REGIONS) -> str:
     selected = tuple(regions)
-    heading = ("=== ROUTED LOG AND TRACE EVIDENCE ===" if set(selected) == {"L", "R"}
-               else "=== COMPLETE INCIDENT EVIDENCE B ===")
+    heading = ("=== COMPLETE INCIDENT EVIDENCE B ===" if set(selected) == set(REGIONS)
+               else "=== ROUTED LOG AND TRACE EVIDENCE ===" if set(selected) == {"L", "R"}
+               else "=== INCIDENT EVIDENCE TEXT FRAGMENTS ===")
     lines = [heading]
     lines.extend(_natural_fact_line(fact) for fact in _prompt_packet_regions(packet, selected))
     return "\n".join(lines) + "\n"
@@ -554,6 +559,16 @@ def _packet_text_region_blocks(
     return tuple((region, tuple(lines)) for region, lines in blocks)
 
 
+def _qa_incident_text(
+    packet: Mapping[str, Any], regions: Iterable[str] = PROMPT_REGION_ORDER,
+) -> str:
+    """Return only the frozen Q&A incident-fact lines in M/R/L/G order."""
+
+    return "\n".join(
+        _natural_fact_line(fact) for fact in _prompt_packet_regions(packet, regions)
+    ) + "\n"
+
+
 def _packet_flat_records(packet: Mapping[str, Any]) -> list[tuple[str, str]]:
     facts = _prompt_packet_regions(packet, PROMPT_REGION_ORDER)
     return [
@@ -569,279 +584,46 @@ def _packet_flat(packet: Mapping[str, Any]) -> str:
     return "".join(line for _region, line in _packet_flat_records(packet))
 
 
-def _compress_16(values: Sequence[Any]) -> list[str | None]:
-    """Convert the visible 64-bin metric line to 16 deterministic display bins."""
+def build_qa_packet(rca_packet: Mapping[str, Any]) -> dict[str, Any]:
+    """Index the renderer-v12 incident facts once for every formal Q&A arm."""
 
-    output: list[str | None] = []
-    for start in range(0, 64, 4):
-        finite = []
-        for value in values[start:start + 4]:
-            number = _number(value)
-            if number is not None and math.isfinite(number):
-                finite.append(number)
-        output.append(_display_number(sum(finite) / len(finite)) if finite else None)
-    return output
-
-
-def _shown_16(values: Sequence[Any]) -> list[str | None]:
-    """Aggregate any label-blind visible series to 16 display bins."""
-
-    output: list[str | None] = []
-    size = len(values)
-    for index in range(16):
-        start, end = math.floor(index * size / 16), math.floor((index + 1) * size / 16)
-        numbers = [_number(value) for value in values[start:max(start + 1, end)]]
-        finite = [value for value in numbers if value is not None and math.isfinite(value)]
-        output.append(_display_number(sum(finite) / len(finite)) if finite else None)
-    return output
-
-
-def _qa_regions_from_view(
-    view: CaseRenderView, mapping: Mapping[str, str], rca_packet: Mapping[str, Any],
-    metric_annotations: Mapping[str, Mapping[str, Any]] | None = None,
-) -> dict[str, list[dict[str, Any]]]:
-    """Restore the registered dense M/L/R/G controlled evidence semantics."""
-
-    def public_service(raw: Any) -> str | None:
-        value = str(raw or "")
-        return mapping.get(pod_to_service(value)) or mapping.get(value)
-
-    def replace_entity_mentions(text: str) -> str:
-        output = text
-        for natural in sorted(mapping, key=len, reverse=True):
-            output = re.sub(rf"(?<![\w]){re.escape(natural)}(?![\w])", mapping[natural], output,
-                            flags=re.IGNORECASE)
-        return output
-
-    projected = service_level_projection(view.graph, view.metadata.get("node_pod_map"))
-    scored_by_service: dict[str, list[Any]] = defaultdict(list)
-    for series in score_series(view.metrics_df, view.services):
-        if public_service(series.service):
-            scored_by_service[pod_to_service(str(series.service))].append(series)
-    log_services = {
-        pod_to_service(str(raw)) for raw in (() if view.logs_df is None else view.logs_df.get("container_name", ()))
+    facts = [dict(fact) for fact in _prompt_packet_regions(rca_packet, PROMPT_REGION_ORDER)]
+    if not any(fact["field"] == "directed_call_edge" for fact in facts):
+        # Renderer-v12 prints this absence explicitly in the directed-edge key.
+        # Give T/P the same visible fact instead of treating an empty edge list
+        # as either an eligibility failure or an implicit hidden value.
+        facts.append(_atomic_fact("G", "directed_edge_key_status", {"status": "none"}))
+        facts = _prompt_packet_regions({"facts": facts}, PROMPT_REGION_ORDER)
+    lines = [_natural_fact_line(fact) for fact in facts]
+    primitive = {
+        "M": "metric_panel_or_relative_time_axis", "R": "R1_visible_trace_table",
+        "L": "G1_visible_log_table", "G": "propagation_panel_or_directed_edge_key",
     }
-    trace_services = {
-        pod_to_service(str(raw)) for raw in (() if view.traces_df is None else view.traces_df.get("service_name", ()))
+    mappings = {
+        fact["fact_id"]: {
+            "T_QA": {"source_line": index + 1, "text_sha256": stable_hash(lines[index])},
+            "P_QA": {"source_line": index + 1, "image_primitive": "lossless_wrapped_text_line"},
+            "V_QA": {"renderer_primitive": primitive[str(fact["region"])],
+                     "visible_record_key": _public_record_key(fact)},
+            "factorial_region": str(fact["region"]),
+        }
+        for index, fact in enumerate(facts)
     }
-    graph_edges_natural = sorted({
-        (str(left), str(right)) for left, right in projected.edges if str(left) != str(right)
-    })
-    eligible = set(scored_by_service) & log_services & trace_services & set(map(str, projected.nodes))
-    base_edges = [edge for edge in graph_edges_natural if set(edge) <= eligible]
-    if not base_edges:
-        raise RQ1Error("controlled Q&A has no metric/log/trace-qualified directed edge")
-    salt = str(rca_packet["opaque_incident_id"])
-    base = min(base_edges, key=lambda edge: stable_hash(f"{salt}:base-edge:{edge[0]}->{edge[1]}"))
-    chosen_edges = [base]
-    for edge in sorted(
-        (edge for edge in graph_edges_natural if edge != base),
-        key=lambda edge: stable_hash(f"{salt}:edge-distractor:{edge[0]}->{edge[1]}"),
-    ):
-        if edge[0] == base[0]:
-            continue
-        chosen_edges.append(edge)
-        if len(chosen_edges) == 4:
-            break
-    selected_services = list(base)
-    ranked_entities = [str(mapping[service]) for service in selected_services]
-    graph_edges = [
-        (str(mapping[left]), str(mapping[right])) for left, right in chosen_edges
-        if left in mapping and right in mapping
-    ]
-
-    def normalized_16(series: Any) -> tuple[list[str | None], list[bool]]:
-        raw = [_number(value) for value in view.metrics_df[series.column].tolist()]
-        baseline_values = [value for value in raw[:max(4, round(len(raw) / 4))] if value is not None]
-        if len(baseline_values) < 4:
-            raise RQ1Error(f"controlled metric baseline is too sparse: {series.column}")
-        centre = statistics.median(baseline_values)
-        mad = statistics.median(abs(value - centre) for value in baseline_values)
-        scale = max(1.4826 * mad, abs(centre) * 0.01, 1e-9)
-        values: list[str | None] = []
-        missing: list[bool] = []
-        for index in range(16):
-            start = round(index * len(raw) / 16); end = round((index + 1) * len(raw) / 16)
-            block = [value for value in raw[start:end] if value is not None]
-            missing.append(not block)
-            values.append(None if not block else f"{max(-99.9, min(99.9, (statistics.median(block) - centre) / scale)):.1f}")
-        return values, missing
-
-    metrics = []
-    for index, service in enumerate(selected_services, 1):
-        series = min(scored_by_service[service], key=lambda value: (-float(value.score), value.column))
-        values, missing = normalized_16(series)
-        onset = next((position for position in range(15) if values[position] is not None and values[position + 1] is not None
-                      and abs(float(values[position])) >= 3 and abs(float(values[position + 1])) >= 3
-                      and float(values[position]) * float(values[position + 1]) > 0), None)
-        persistence = 0 if onset is None else next((position - onset for position in range(onset, 16)
-                                                    if values[position] is None or abs(float(values[position])) < 3), 16 - onset)
-        metrics.append({
-            "panel_id": f"M{index:02d}", "source_panel_id": f"M{index:02d}",
-            "entity": str(mapping[service]), "metric": series.metric,
-            "values_16": values, "missing_16": missing,
-            "missing_bins_64": sum(missing) * 4,
-            "onset_bin_64": None if onset is None else onset * 4,
-            "persistence_bins_64": persistence * 4,
-            "unit": "robust_z_one_decimal_winsorized_abs_99_9",
-        })
-
-    clocks = [_number(value) for value in view.metrics_df.get("timestamp", ())]
-    finite_clocks = [value for value in clocks if value is not None and math.isfinite(value)]
-    start, end = (min(finite_clocks), max(finite_clocks)) if len(finite_clocks) >= 2 else (0.0, 1.0)
-    duration = max(end - start, 1e-9)
-
-    def bin_of(value: Any) -> int | None:
-        number = _number(value)
-        if number is None or number < start or number > end:
-            return None
-        return min(15, max(0, int((number - start) / duration * 16)))
-
-    selected = set(ranked_entities)
-    log_events: Counter[tuple[str, int]] = Counter()
-    log_errors: Counter[tuple[str, int]] = Counter()
-    templates: dict[str, Counter[str]] = defaultdict(Counter)
-    if view.logs_df is not None and not view.logs_df.empty:
-        for row in view.logs_df.itertuples(index=False):
-            entity, relative_bin = public_service(getattr(row, "container_name", "")), bin_of(getattr(row, "timestamp", None))
-            if entity not in selected or relative_bin is None:
-                continue
-            message = " ".join(str(getattr(row, "message", "")).lower().split())
-            template = replace_entity_mentions(
-                re.sub(r"\b(?:[0-9a-f]{8,}|\d+(?:\.\d+)?)\b", "<v>", message)
-            )
-            log_events[(entity, relative_bin)] += 1
-            log_errors[(entity, relative_bin)] += int(any(word in f"{getattr(row, 'level', '')} {message}" for word in ("error", "fatal", "panic", "exception")))
-            if template:
-                templates[entity][template] += 1
-
-    service_spans: Counter[tuple[str, int]] = Counter()
-    service_errors: Counter[tuple[str, int]] = Counter()
-    service_latency: dict[tuple[str, int], list[float]] = defaultdict(list)
-    edge_spans: Counter[tuple[tuple[str, str], int]] = Counter()
-    edge_errors: Counter[tuple[tuple[str, str], int]] = Counter()
-    edge_latency: dict[tuple[tuple[str, str], int], list[float]] = defaultdict(list)
-    span_owner: dict[tuple[str, str], str] = {}
-    traces = view.traces_df
-    if traces is not None and not traces.empty:
-        for row in traces.itertuples(index=False):
-            entity = public_service(getattr(row, "service_name", ""))
-            trace_id, span_id = str(getattr(row, "trace_id", "")), str(getattr(row, "span_id", ""))
-            if entity and span_id:
-                span_owner.setdefault((trace_id, span_id), entity)
-        for row in traces.itertuples(index=False):
-            entity, relative_bin = public_service(getattr(row, "service_name", "")), bin_of(getattr(row, "timestamp", None))
-            if entity not in selected or relative_bin is None:
-                continue
-            status = str(getattr(row, "status_code", "") or "").lower()
-            number = _number(status)
-            is_error = int((number is not None and number >= 400) or any(word in status for word in ("error", "fail", "fatal")))
-            latency = _number(getattr(row, "duration_ms", None))
-            service_spans[(entity, relative_bin)] += 1
-            service_errors[(entity, relative_bin)] += is_error
-            if latency is not None and latency >= 0:
-                service_latency[(entity, relative_bin)].append(latency)
-            parent = span_owner.get((str(getattr(row, "trace_id", "")), str(getattr(row, "parent_span_id", ""))))
-            if parent and parent != entity:
-                edge = (parent, entity)
-                if edge in graph_edges:
-                    edge_spans[(edge, relative_bin)] += 1
-                    edge_errors[(edge, relative_bin)] += is_error
-                    if latency is not None and latency >= 0:
-                        edge_latency[(edge, relative_bin)].append(latency)
-
-    selected_edges = list(graph_edges[:16])
-    edge_ids = {edge: f"E{index:02d}" for index, edge in enumerate(selected_edges, 1)}
-
-    def p95(values: Sequence[float]) -> str | None:
-        if not values:
-            return None
-        ordered = sorted(values)
-        return _display_number(ordered[math.ceil(0.95 * len(ordered)) - 1])
-
-    logs = []
-    traces_out = []
-    for index, entity in enumerate(ranked_entities):
-        template = min(templates[entity], key=lambda item: (-templates[entity][item], item), default=None)
-        logs.append({
-            "entry_index": index, "entity": entity,
-            "event_count_16": [str(log_events[(entity, b)]) for b in range(16)],
-            "error_count_16": [str(log_errors[(entity, b)]) for b in range(16)],
-            "representative_template": template or "missing",
-        })
-        associated = sorted(edge_ids[edge] for edge in selected_edges if entity in edge)
-        traces_out.append({
-            "entry_index": index, "row_kind": "service", "entity": entity,
-            "span_count_16": [str(service_spans[(entity, b)]) for b in range(16)],
-            "error_count_16": [str(service_errors[(entity, b)]) for b in range(16)],
-            "max_p95_ms_16": [p95(service_latency[(entity, b)]) for b in range(16)],
-            "associated_edge_ids": associated,
-        })
-    for edge in selected_edges[:min(2, max(0, 8 - len(traces_out)))]:
-        traces_out.append({
-            "entry_index": len(traces_out), "row_kind": "edge", "edge_id": edge_ids[edge],
-            "span_count_16": [str(edge_spans[(edge, b)]) for b in range(16)],
-            "error_count_16": [str(edge_errors[(edge, b)]) for b in range(16)],
-            "max_p95_ms_16": [p95(edge_latency[(edge, b)]) for b in range(16)],
-        })
-    topology = [{"edge_id": edge_ids[edge], "caller": edge[0], "callee": edge[1]} for edge in selected_edges]
-    return {"M": metrics, "L": logs, "R": traces_out, "G": topology}
-
-
-def build_qa_packet(rca_packet: Mapping[str, Any], *, view: CaseRenderView | None = None,
-                    mapping: Mapping[str, str] | None = None,
-                    metric_annotations: Mapping[str, Mapping[str, Any]] | None = None) -> dict[str, Any]:
-    """Build the registered four-region fact set identically in text/pixels."""
-
-    if view is not None and mapping is not None:
-        regions = _qa_regions_from_view(view, mapping, rca_packet, metric_annotations)
-    else:
-        regions = {region: [] for region in REGIONS}
-
-        by_field: dict[str, list[Mapping[str, Any]]] = {}
-        for fact in rca_packet["facts"]:
-            by_field.setdefault(str(fact["field"]), []).append(fact)
-        for fact in by_field.get("metric_series_64", [])[:8]:
-            row = fact["payload"]
-            regions["M"].append({"panel_id": row["panel_id"], "entity": row["service"],
-                                 "metric": row["metric"], "values_16": _compress_16(row["values"]),
-                                 "missing_16": [all(row["missing_mask"][start:start + 4]) for start in range(0, 64, 4)],
-                                 "missing_bins_64": sum(bool(value) for value in row["missing_mask"]),
-                                 "onset_bin_64": row.get("onset_bin"),
-                                 "persistence_bins_64": row.get("persistence_bins"),
-                                 "unit": fact.get("unit")})
-        for fact in by_field.get("log_summary_entry", [])[:8]:
-            row = dict(fact["payload"]); entity = str(row.get("service"))
-            regions["L"].append({"entry_index": len(regions["L"]), "entity": entity,
-                                 "event_count_16": [str(row.get("total") or 0)] * 16,
-                                 "error_count_16": [str(row.get("error_count") or row.get("errors") or 0)] * 16,
-                                 "representative_template": "missing"})
-        for fact in by_field.get("trace_summary_entry", [])[:8]:
-            row = dict(fact["payload"]); entity = str(row.get("service"))
-            regions["R"].append({"entry_index": len(regions["R"]), "row_kind": "service", "entity": entity,
-                                 "span_count_16": ["0"] * 16, "error_count_16": ["0"] * 16,
-                                 "max_p95_ms_16": [row.get("p95_during_ms")] * 16, "associated_edge_ids": []})
-        for index, fact in enumerate(by_field.get("directed_call_edge", [])[:16], start=1):
-            row = fact["payload"]
-            regions["G"].append({"edge_id": f"E{index:02d}", "caller": row["caller"], "callee": row["callee"]})
-        edge_by_entity: dict[str, list[str]] = defaultdict(list)
-        for row in regions["G"]:
-            edge_by_entity[str(row["caller"])].append(row["edge_id"]); edge_by_entity[str(row["callee"])].append(row["edge_id"])
-        for row in regions["R"]:
-            row["associated_edge_ids"] = sorted(edge_by_entity[str(row["entity"])])
-        for edge in regions["G"][:min(2, max(0, 8 - len(regions["R"])))]:
-            regions["R"].append({"entry_index": len(regions["R"]), "row_kind": "edge",
-                                 "edge_id": edge["edge_id"], "span_count_16": ["0"] * 16,
-                                 "error_count_16": ["0"] * 16, "max_p95_ms_16": [None] * 16})
-    facts = []
-    for region in REGIONS:
-        for index, payload in enumerate(regions[region]):
-            facts.append(_atomic_fact(region, "controlled_region_row", {"row": index, **payload}))
     packet = {
-        "schema_version": "CrossRegionPacketV2", "opaque_incident_id": rca_packet["opaque_incident_id"],
-        "regions": regions, "facts": facts,
-        "fact_inventory_hash": stable_hash([fact["fact_id"] for fact in facts]),
+        "schema_version": "QAEvidenceIndexV1",
+        "opaque_incident_id": rca_packet["opaque_incident_id"],
+        "facts": facts, "fact_mappings": mappings,
+        "fact_inventory_hash": stable_hash(facts),
+        "entity_inventory": sorted({str(value) for fact in facts for value in fact.get("entity_ids") or ()}),
+        "edge_inventory": sorted(
+            f"{fact['payload']['caller']}->{fact['payload']['callee']}"
+            for fact in facts if fact["field"] == "directed_call_edge"
+        ),
+        "equality_dimensions": ["numeric_entity_id", "metric_64_bin_display", "missingness",
+                                "unit", "display_precision", "log", "trace", "directed_edge",
+                                "relative_time", "legend_in_common_prompt"],
     }
+    packet["evidence_text_sha256"] = stable_hash(_qa_incident_text(packet))
     packet["packet_hash"] = stable_hash(packet)
     return packet
 
@@ -872,68 +654,10 @@ def _wrap_visible_line(draw: ImageDraw.ImageDraw, line: str, font: ImageFont.Ima
             else:
                 high = midpoint - 1
         if low < 1:
-            raise RQ1Error("controlled-canvas font cannot fit one character")
+            raise RQ1Error("pixel-text font cannot fit one character")
         output.append(remaining[:low])
         remaining = remaining[low:]
     return output or [""]
-
-
-def compile_controlled_canvas(packet: Mapping[str, Any]) -> bytes:
-    """Render the Q&A pixel-text control; this is not a telemetry dashboard."""
-
-    width, height = 1800, 1600
-    image = Image.new("RGB", (width, height), "#F8FAFC")
-    draw = ImageDraw.Draw(image)
-    draw.text((30, 16), "CONTROLLED TELEMETRY EVIDENCE — M / L / R / G", fill="#102027", font=_font(25, bold=True))
-    draw.text((30, 50), ENTITY_ID_NOTE, fill="#37474F", font=_font(18))
-    boxes = {"M": (20, 85, 890, 820), "L": (910, 85, 1780, 820),
-             "R": (20, 840, 890, 1580), "G": (910, 840, 1780, 1580)}
-    labels = {"M": "M — METRICS (16 relative bins)", "L": "L — LOG SUMMARY",
-              "R": "R — TRACE SUMMARY", "G": "G — DIRECTED TOPOLOGY (caller -> callee)"}
-    detail_font = _font(15)
-    for region, box in boxes.items():
-        draw.rectangle(box, outline="#455A64", width=3, fill="#FFFFFF")
-        x1, y1, x2, _ = box
-        draw.text((x1 + 16, y1 + 12), labels[region], fill="#102027", font=_font(20, bold=True))
-        y = y1 + 48
-        for row in packet["regions"][region]:
-            if region == "M":
-                line = f"{row['panel_id']} entity={row['entity']} metric={row['metric']}"
-                value_line = "bins 00-15: " + " | ".join("missing" if v is None else str(v) for v in row["values_16"])
-                summary = (
-                    f"onset_bin_64={row.get('onset_bin_64', 'missing')} "
-                    f"persistence_bins_64={row.get('persistence_bins_64', 'missing')} "
-                    f"missing_bins_64={row.get('missing_bins_64', 'missing')}"
-                )
-                lines = (line, value_line, summary)
-            elif region == "G":
-                lines = (f"{row['edge_id']}: {row['caller']} -> {row['callee']}",)
-            elif region == "L":
-                lines = (
-                    f"entity={row['entity']} events=" + ",".join(row["event_count_16"]),
-                    " errors=" + ",".join(row["error_count_16"]) + f" template={row['representative_template']}",
-                )
-            elif region == "R":
-                identity = f"entity={row['entity']} edges={','.join(row['associated_edge_ids']) or 'none'}" if row["row_kind"] == "service" else f"edge={row['edge_id']}"
-                lines = (
-                    identity + " spans=" + ",".join(row["span_count_16"]),
-                    " errors=" + ",".join(row["error_count_16"]),
-                    " p95ms=" + ",".join("missing" if value is None else str(value) for value in row["max_p95_ms_16"]),
-                )
-            else:
-                lines = (canonical_json(row),)
-            for line in lines:
-                for visible_line in _wrap_visible_line(draw, line, detail_font, x2 - x1 - 32):
-                    draw.text((x1 + 16, y), visible_line, fill="#263238", font=detail_font)
-                    if draw.textbbox((x1 + 16, y), visible_line, font=detail_font)[2] > x2 - 16:
-                        raise RQ1Error(f"controlled {region} line exceeds its fixed canvas")
-                    y += 21
-            y += 5
-            if y > box[3] - 25:
-                raise RQ1Error(f"controlled {region} region overflows its fixed canvas")
-    output = io.BytesIO()
-    image.save(output, format="PNG", optimize=False, compress_level=6)
-    return output.getvalue()
 
 
 def compile_pixel_text_pages(packet: Mapping[str, Any]) -> tuple[bytes, ...]:
@@ -950,6 +674,7 @@ def compile_pixel_text_pages(packet: Mapping[str, Any]) -> tuple[bytes, ...]:
     titles = {"M": "M — METRICS", "L": "L — LOGS", "R": "R — TRACES", "G": "G — TOPOLOGY"}
     page_capacity = (height - 3 * margin - 32) // line_height
     pages: list[bytes] = []
+    source_text = _qa_incident_text(packet)
     for region, source_lines in _packet_text_region_blocks(packet):
         probe = Image.new("RGB", (width, height), "white")
         probe_draw = ImageDraw.Draw(probe)
@@ -967,29 +692,13 @@ def compile_pixel_text_pages(packet: Mapping[str, Any]) -> tuple[bytes, ...]:
             pages.append(stream.getvalue())
     if not pages or len(pages) > 8:
         raise RQ1Error(f"pixel-text transport requires {len(pages)} pages; expected 1..8")
+    if stable_hash(source_text) != packet.get("evidence_text_sha256", stable_hash(source_text)):
+        raise RQ1Error("pixel-text source differs from the frozen T_QA evidence fragment")
     return tuple(pages)
 
 
-def _qa_text(packet: Mapping[str, Any], regions: Iterable[str]) -> str:
-    selected = set(regions)
-    return "\n\n".join(
-        f"=== REGION {region} ===\n{canonical_json(packet['regions'][region])}"
-        for region in PROMPT_REGION_ORDER if region in selected
-    )
-
-
-def _qa_mask(png: bytes, visual: set[str]) -> bytes:
-    image = Image.open(io.BytesIO(png)).convert("RGB")
-    draw = ImageDraw.Draw(image)
-    boxes = {"M": (20, 85, 890, 820), "L": (910, 85, 1780, 820),
-             "R": (20, 840, 890, 1580), "G": (910, 840, 1780, 1580)}
-    for region, box in boxes.items():
-        if region not in visual:
-            draw.rectangle(box, outline="#90A4AE", width=3, fill="#ECEFF1")
-            draw.text((box[0] + 18, box[1] + 18), f"REGION {region} — EVIDENCE IN TEXT", fill="#455A64", font=_font(18, bold=True))
-    output = io.BytesIO()
-    image.save(output, format="PNG", optimize=False, compress_level=6)
-    return output.getvalue()
+def _qa_text(packet: Mapping[str, Any], regions: Iterable[str] = PROMPT_REGION_ORDER) -> str:
+    return _qa_incident_text(packet, regions)
 
 
 def _routed_image(png: bytes, manifest: Mapping[str, Any], config: Any) -> bytes:
@@ -1099,6 +808,33 @@ def _counterfactual_pairs(ceb: Mapping[str, Any]) -> dict[str, Any]:
             "all_pairs_candidate_scoped": True, "same_granularity": True}
 
 
+def _qa_display_mapping(
+    view: CaseRenderView, mapping: Mapping[str, str], opaque_id: str,
+) -> tuple[dict[str, str], dict[str, str]]:
+    """Extend, never rewrite, frozen IDs for renderer-created service aliases.
+
+    Renderer-v12 projects pod-level topology names to services. Those projected
+    names are not always present in the original entity universe, so the RCA
+    renderer historically fell back to a natural service label in rare rows.
+    Q&A must keep the RCA artifacts unchanged while still satisfying its
+    numeric-identity contract; add deterministic unused three-digit IDs only
+    for those Q&A renderer aliases.
+    """
+
+    extended = dict(mapping)
+    aliases = sorted({pod_to_service(value) for value in _entities(view)} - set(extended))
+    used = set(extended.values())
+    available = [str(value) for value in range(100, 1000) if str(value) not in used]
+    available.sort(key=lambda value: stable_hash(f"{opaque_id}:qa-service-alias:{value}"))
+    if len(aliases) > len(available):
+        raise RQ1Error("Q&A service-alias identity space is exhausted")
+    kinds = {}
+    for alias, numeric in zip(aliases, available, strict=False):
+        extended[alias] = numeric
+        kinds[alias] = "service"
+    return extended, kinds
+
+
 def prepare_case(dataset: str, case_id: str, config: Mapping[str, Any]) -> PreparedCase:
     """Compile label-blind RCA/Q&A packets and images, then open labels privately."""
 
@@ -1116,18 +852,19 @@ def prepare_case(dataset: str, case_id: str, config: Mapping[str, Any]) -> Prepa
         ceb, str(manifest["config_fingerprint"]),
         source_manifest_hash=stable_hash(manifest),
     )
-    metric_annotations = {
-        str(row.get("panel_id")): {
-            "onset_bin_64": row.get("onset_bin"),
-            "persistence_bins_64": row.get("persistence_bins"),
-        }
-        for row in ceb.get("metric_series") or ()
-    }
-    qa_packet = build_qa_packet(
-        rca_packet, view=view, mapping=mapping, metric_annotations=metric_annotations,
+    qa_mapping, qa_extra_granularities = _qa_display_mapping(view, mapping, opaque_id)
+    qa_full_png, qa_manifest = compile_dashboard(
+        replace(view, entity_display_labels=qa_mapping), renderer_cfg,
     )
-    qa_png = compile_controlled_canvas(qa_packet)
-    pixel_text_pngs = compile_pixel_text_pages(rca_packet)
+    if qa_manifest.get("config_fingerprint") != manifest.get("config_fingerprint"):
+        raise RQ1Error("Q&A renderer-v12 configuration differs from the RCA renderer")
+    qa_ceb = build_canonical_evidence(qa_manifest)
+    qa_packet = build_qa_packet(build_visible_rca_packet(
+        qa_ceb, str(qa_manifest["config_fingerprint"]),
+        source_manifest_hash=stable_hash(qa_manifest),
+    ))
+    pixel_text_pngs = compile_pixel_text_pages(qa_packet)
+    qa_region_pngs, qa_crop_audit = crop_dashboard_evidence_regions(qa_full_png, renderer_cfg)
     routed_png = _routed_image(full_png, manifest, renderer_cfg)
     inverse = {numeric: natural for natural, numeric in mapping.items()}
 
@@ -1155,9 +892,15 @@ def prepare_case(dataset: str, case_id: str, config: Mapping[str, Any]) -> Prepa
     visual_atlases = {
         "full": visual_patch_atlas(full_png, layout="dashboard", dashboard_base_ratio=base_ratio,
                                    font_point_size=font_size),
+        "qa_full": visual_patch_atlas(qa_full_png, layout="dashboard", dashboard_base_ratio=base_ratio,
+                                       font_point_size=font_size),
         "routed": visual_patch_atlas(routed_png, layout="dashboard", dashboard_base_ratio=base_ratio,
                                      font_point_size=font_size),
-        "qa": visual_patch_atlas(qa_png, layout="controlled", font_point_size=15.0),
+        "qa_regions": {
+            region: [visual_patch_atlas(value, layout=f"crop_{region}", font_point_size=font_size)
+                     for value in pages]
+            for region, pages in qa_region_pngs.items()
+        },
         "pixel_text": [
             visual_patch_atlas(value, layout="pixel_text", font_point_size=17.0)
             for value in pixel_text_pngs
@@ -1170,7 +913,7 @@ def prepare_case(dataset: str, case_id: str, config: Mapping[str, Any]) -> Prepa
     }
     legacy_questions, reasoning_questions = questions_for_case(qa_packet, opaque_id)
     public = {
-        "schema_version": "RQ1PreparedCaseV4",
+        "schema_version": "RQ1PreparedCaseV6",
         "opaque_incident_id": opaque_id,
         "renderer_version": RENDERER_VERSION,
         "rca_packet": rca_packet,
@@ -1179,13 +922,22 @@ def prepare_case(dataset: str, case_id: str, config: Mapping[str, Any]) -> Prepa
         "reasoning_questions": [question.public() for question in reasoning_questions],
         "counterfactual": {key: value for key, value in selection.items() if key not in {"targeted", "placebo"}},
         "full_image_sha256": stable_hash(full_png),
+        "qa_full_image_sha256": stable_hash(qa_full_png),
         "routed_image_sha256": stable_hash(routed_png),
-        "qa_image_sha256": stable_hash(qa_png),
         "pixel_text_image_sha256": [stable_hash(value) for value in pixel_text_pngs],
+        "qa_region_image_sha256": {
+            region: [stable_hash(value) for value in pages]
+            for region, pages in qa_region_pngs.items()
+        },
+        "qa_region_crop_audit": qa_crop_audit,
         "representation_roles": {
-            "V": "renderer_v12_real_telemetry_dashboard",
-            "P": "pixel_text_pseudo_dashboard",
-            "T": "native_text",
+            "V": "unchanged_rca_renderer_v12_real_telemetry_dashboard",
+            "V_QA": "renderer_v12_real_telemetry_dashboard_with_complete_numeric_aliases",
+            "P_QA": "exact_T_QA_pixel_text_pseudo_dashboard",
+            "T_QA": "native_incident_fact_text",
+            "H_QA": "strict_V_QA_image_then_exact_T_QA_text",
+            "factorial_visual": "renderer_v12_source_crops",
+            "controlled_canvas": "archived_diagnostic_only_not_generated",
         },
         "variant_image_sha256": {name: stable_hash(value) for name, value in variants.items()},
         "visual_evidence_atlases": visual_atlases,
@@ -1193,7 +945,7 @@ def prepare_case(dataset: str, case_id: str, config: Mapping[str, Any]) -> Prepa
     # Only after every visible packet/image and its equality audit exist may the
     # evaluator-private half be opened for scoring.
     public["representation_audit"] = audit_representation_equality(
-        rca_packet, qa_packet, full_png, routed_png, qa_png, pixel_text_pngs,
+        rca_packet, qa_packet, full_png, qa_full_png, routed_png, pixel_text_pngs, qa_region_pngs,
         *variants.values()
     )
     evaluator = load_processed_private(dataset, case_id)
@@ -1208,7 +960,9 @@ def prepare_case(dataset: str, case_id: str, config: Mapping[str, Any]) -> Prepa
                           or (evaluator.get("event") or {}).get("fault_type") or "unknown"),
         "source_case_id": case_id,
         "numeric_to_natural": {numeric: natural for natural, numeric in mapping.items()},
+        "qa_numeric_to_natural": {numeric: natural for natural, numeric in qa_mapping.items()},
         "entity_granularity": granularities,
+        "qa_extra_entity_granularity": qa_extra_granularities,
         "accepted_labels": sorted(set(filter(None, accepted))),
         "legacy_questions": [question.private() for question in legacy_questions],
         "reasoning_questions": [question.private() for question in reasoning_questions],
@@ -1219,20 +973,22 @@ def prepare_case(dataset: str, case_id: str, config: Mapping[str, Any]) -> Prepa
             "selector_audit": selection,
         },
     }
-    audit_visible(
-        public,
-        (
-            case_id,
-            dataset,
-            labels.get("root_cause"),
-            (evaluator.get("event") or {}).get("absolute_timestamp"),
-            (case.metadata or {}).get("processed_path"),
-            *mapping.keys(),
-        ),
+    private_markers = (
+        case_id, dataset, labels.get("root_cause"),
+        (evaluator.get("event") or {}).get("absolute_timestamp"),
+        (case.metadata or {}).get("processed_path"),
     )
-    return PreparedCase(public=public, private=private, full_png=full_png,
-                        routed_png=routed_png, qa_png=qa_png,
-                        pixel_text_pngs=pixel_text_pngs, variant_pngs=variants)
+    # Preserve the inherited RCA audit scope while making the corrected Q&A
+    # contract fail closed on every renderer-created service alias as well.
+    audit_visible(public, (*private_markers, *mapping.keys()))
+    audit_visible({
+        "qa_packet": qa_packet,
+        "legacy_questions": public["legacy_questions"],
+        "reasoning_questions": public["reasoning_questions"],
+    }, (*private_markers, *qa_mapping.keys()))
+    return PreparedCase(public=public, private=private, full_png=full_png, qa_full_png=qa_full_png,
+                        routed_png=routed_png, pixel_text_pngs=pixel_text_pngs,
+                        qa_region_pngs=qa_region_pngs, variant_pngs=variants)
 
 
 def common_shell(packet: Mapping[str, Any]) -> str:
@@ -1256,20 +1012,27 @@ def visual_diagnostic_for_arm(arm: str, task: str, public: Mapping[str, Any]) ->
 
     atlases = public.get("visual_evidence_atlases") or {}
     if task in {"direct_visops", "cross_region_reasoning"}:
-        visual = REGIONS if arm in {"V", "H", "Mv-Lv-Rv-Gv"} else tuple(sorted(_cell_visual_regions(arm)))
+        if arm == "P":
+            values = list(atlases.get("pixel_text") or ())
+            return {"image_count": len(values), "image_role": "pixel_text_pseudo_dashboard",
+                    "atlas_sha256": [value["atlas_sha256"] for value in values],
+                    "visual_regions": [], "attention_status": "required_same_prefill_probe_pending"}
+        if arm in {"V", "H"}:
+            atlas = atlases["qa_full"]
+            return {"image_count": 1, "image_role": "renderer_v12_real_dashboard",
+                    "atlas_sha256": atlas["atlas_sha256"], "visual_regions": list(REGIONS),
+                    "blank_patch_fraction": atlas["blank_patch_fraction"],
+                    "evidence_patch_fraction": atlas["evidence_patch_fraction"],
+                    "attention_status": "required_same_prefill_probe_pending"}
+        visual = tuple(region for region in REGIONS if region in _cell_visual_regions(arm))
         if not visual:
             return {"image_count": 0, "visual_regions": [], "attention_status": "not_applicable_text_only"}
-        atlas = atlases["qa"]
-        patches = list(atlas["patches"])
-        selected = [patch for patch in patches if patch["region"] in set(visual)]
+        selected = [atlas for region in visual for atlas in atlases["qa_regions"][region]]
         return {
-            "image_count": 1, "image_role": "qa", "atlas_sha256": atlas["atlas_sha256"],
+            "image_count": len(selected), "image_role": "renderer_v12_region_crops",
+            "atlas_sha256": [atlas["atlas_sha256"] for atlas in selected],
             "visual_regions": list(visual),
-            "encoded_region_patch_fraction": len(selected) / len(patches),
-            "incident_evidence_patch_fraction": sum(not row["blank"] for row in selected) / len(patches),
-            "blank_patch_fraction_within_encoded_regions": (
-                sum(row["blank"] for row in selected) / len(selected) if selected else None
-            ),
+            "blank_patch_fraction": sum(atlas["blank_patch_fraction"] for atlas in selected) / len(selected),
             "attention_status": "required_same_prefill_probe_pending",
         }
     if arm == "P":
@@ -1370,63 +1133,90 @@ def representation_parts(
     return [*incident, text_part(shell)]
 
 
-def qa_representation_parts(arm: str, packet: Mapping[str, Any], qa_png: bytes) -> list[dict[str, Any]]:
-    """Compile 16 factorial conditions plus strict image-first H from one packet."""
+def qa_representation_parts(
+    arm: str, packet: Mapping[str, Any], full_png: bytes,
+    pixel_text_pngs: Sequence[bytes], region_pngs: Mapping[str, Sequence[bytes]],
+) -> list[dict[str, Any]]:
+    """Compile formal T/P/V/H and actual renderer-crop factorial Q&A arms."""
 
-    if arm in {"T", "Mt-Lt-Rt-Gt"}:
-        return [text_part(_qa_text(packet, REGIONS))]
-    if arm in {"V", "Mv-Lv-Rv-Gv"}:
-        return [image_part(qa_png)]
+    text = _qa_text(packet)
+    all_text, all_visual = "Mt-Rt-Lt-Gt", "Mv-Rv-Lv-Gv"
+    if arm in {"T", all_text}:
+        return [text_part(text)]
+    if arm == "P":
+        return [image_part(page) for page in pixel_text_pngs]
+    if arm == "V":
+        return [image_part(full_png)]
     if arm == "H":
-        return [image_part(qa_png), text_part(_qa_text(packet, REGIONS))]
+        return [image_part(full_png), text_part(text)]
     if arm not in factorial_cells():
         raise RQ1Error(f"unknown Q&A arm {arm!r}")
     visual = set(_cell_visual_regions(arm))
     textual = [region for region in REGIONS if region not in visual]
-    parts = [image_part(_qa_mask(qa_png, visual))] if visual else []
+    parts = [
+        image_part(page) for region in REGIONS if region in visual
+        for page in region_pngs.get(region, ())
+    ]
+    if visual and not parts:
+        raise RQ1Error(f"Q&A factorial arm {arm} has no renderer-v12 crop")
     if textual:
         parts.append(text_part(_qa_text(packet, textual)))
+    if arm == all_visual and any(part["type"] != "image" for part in parts):
+        raise RQ1Error("all-visual factorial cell contains nonvisual incident evidence")
     return parts
 
 
 def audit_representation_equality(rca_packet: Mapping[str, Any], qa_packet: Mapping[str, Any],
-                                  full_png: bytes, routed_png: bytes, qa_png: bytes,
+                                  full_png: bytes, qa_full_png: bytes, routed_png: bytes,
                                   pixel_text_pngs: Sequence[bytes],
+                                  region_pngs: Mapping[str, Sequence[bytes]],
                                   *variants: bytes) -> dict[str, Any]:
     facts = list(rca_packet["facts"])
     inventory = stable_hash(facts)
     if inventory != rca_packet.get("fact_inventory_hash"):
         raise RQ1Error("RCA packet fact inventory hash drifted")
     qfacts = list(qa_packet["facts"])
-    if stable_hash([fact["fact_id"] for fact in qfacts]) != qa_packet.get("fact_inventory_hash"):
+    if stable_hash(qfacts) != qa_packet.get("fact_inventory_hash"):
         raise RQ1Error("Q&A packet fact inventory hash drifted")
     if Image.open(io.BytesIO(full_png)).size != Image.open(io.BytesIO(routed_png)).size:
         raise RQ1Error("routed image geometry differs from the full dashboard")
     if any(Image.open(io.BytesIO(value)).size != Image.open(io.BytesIO(full_png)).size for value in variants):
         raise RQ1Error("counterfactual image geometry differs from the factual dashboard")
-    if not qa_png.startswith(b"\x89PNG\r\n\x1a\n"):
-        raise RQ1Error("controlled Q&A canvas is not PNG")
     if not pixel_text_pngs or len(pixel_text_pngs) > 8 or any(
         not value.startswith(b"\x89PNG\r\n\x1a\n") for value in pixel_text_pngs
     ):
-        raise RQ1Error("pixel-text RCA transport is not a bounded PNG sequence")
-    qa_t = qa_representation_parts("T", qa_packet, qa_png)
-    qa_v = qa_representation_parts("V", qa_packet, qa_png)
-    qa_h = qa_representation_parts("H", qa_packet, qa_png)
+        raise RQ1Error("pixel-text transport is not a bounded PNG sequence")
+    if set(region_pngs) != set(REGIONS) or any(
+        not pages or any(not value.startswith(b"\x89PNG\r\n\x1a\n") for value in pages)
+        for pages in region_pngs.values()
+    ):
+        raise RQ1Error("renderer-v12 Q&A region crops are incomplete")
+    qa_t = qa_representation_parts("T", qa_packet, qa_full_png, pixel_text_pngs, region_pngs)
+    qa_p = qa_representation_parts("P", qa_packet, qa_full_png, pixel_text_pngs, region_pngs)
+    qa_v = qa_representation_parts("V", qa_packet, qa_full_png, pixel_text_pngs, region_pngs)
+    qa_h = qa_representation_parts("H", qa_packet, qa_full_png, pixel_text_pngs, region_pngs)
     if qa_h != [*qa_v, *qa_t]:
         raise RQ1Error("Q&A H is not strict image-first A+B")
+    if qa_v != [image_part(qa_full_png)] or qa_p != [image_part(page) for page in pixel_text_pngs]:
+        raise RQ1Error("Q&A V/P transport differs from renderer-v12/exact-T sources")
     for cell in factorial_cells():
-        qa_representation_parts(cell, qa_packet, qa_png)
-    text_b = _packet_text(rca_packet).encode()
-    t_fact_lines = tuple(text_b.decode().splitlines()[1:])
-    pixel_source_lines = tuple(
-        line for _region, lines in _packet_text_region_blocks(rca_packet)
+        qa_representation_parts(cell, qa_packet, qa_full_png, pixel_text_pngs, region_pngs)
+    rca_text_b = _packet_text(rca_packet).encode()
+    qa_text_b = _qa_text(qa_packet).encode()
+    t_fact_lines = tuple(qa_text_b.decode().splitlines())
+    pixel_fact_lines = tuple(
+        line for _region, lines in _packet_text_region_blocks(qa_packet)
         for line in lines
     )
+    pixel_source_lines = pixel_fact_lines
     if pixel_source_lines != t_fact_lines:
         raise RQ1Error("pixel-text source is not the exact T-arm natural-language fact sequence")
+    if stable_hash(_qa_text(qa_packet)) != qa_packet.get("evidence_text_sha256"):
+        raise RQ1Error("T_QA differs from the canonical incident-evidence fragment")
+    if set(qa_packet.get("fact_mappings") or ()) != {fact["fact_id"] for fact in qfacts}:
+        raise RQ1Error("Q&A fact-to-representation index is incomplete")
     h_parts = representation_parts("H", rca_packet, full_png, routed_png, {}, {})
-    if h_parts[0]["png"] != full_png or str(h_parts[1]["text"]).encode() != text_b:
+    if h_parts[0]["png"] != full_png or str(h_parts[1]["text"]).encode() != rca_text_b:
         raise RQ1Error("RCA H is not strict image-first A+B")
     r_fact_ids = {fact["fact_id"] for fact in facts}
     if len(r_fact_ids) != len(facts):
@@ -1451,13 +1241,21 @@ def audit_representation_equality(rca_packet: Mapping[str, Any], qa_packet: Mapp
     return {
         "passed": True, "rca_fact_inventory_hash": inventory, "rca_fact_count": len(facts),
         "qa_fact_inventory_hash": qa_packet["fact_inventory_hash"], "qa_fact_count": len(qfacts),
-        "H_is_strict_A_plus_B": True, "qa_H_is_strict_A_plus_B": True,
+        "H_is_strict_A_plus_B": True, "qa_H_is_strict_V_plus_T": True,
         "T_P_V_atomic_fact_equality": True,
         "P_transport": "exact_T_text_rendered_as_pixels",
-        "P_source_fact_text_hash": stable_hash("\n".join(pixel_source_lines) + "\n"),
+        "P_source_fact_text_hash": stable_hash("\n".join(pixel_fact_lines) + "\n"),
         "T_fact_text_hash": stable_hash("\n".join(t_fact_lines) + "\n"),
-        "T_incident_text_hash": stable_hash(text_b.decode()),
+        "P_source_text_hash": stable_hash("\n".join(pixel_source_lines) + "\n"),
+        "T_incident_text_hash": stable_hash(qa_text_b.decode()),
+        "RCA_T_incident_text_hash": stable_hash(rca_text_b.decode()),
         "P_image_count": len(pixel_text_pngs),
+        "qa_P_source_text_sha256": qa_packet["evidence_text_sha256"],
+        "qa_V_image_sha256": stable_hash(qa_full_png),
+        "qa_H_image_sha256": stable_hash(qa_h[0]["png"]),
+        "qa_H_text_sha256": stable_hash(qa_h[1]["text"]),
+        "qa_controlled_canvas_formal": False,
+        "qa_factorial_visual_source": "renderer_v12_source_crops",
         "qa_factorial_cells": 16, "R_exact_once_by_region": True,
         "R_visual_fact_ids": sorted(routed_visual), "R_text_fact_ids": sorted(routed_text),
         "common_fact_ids": sorted(common_ids),
@@ -1473,10 +1271,10 @@ def audit_representation_equality(rca_packet: Mapping[str, Any], qa_packet: Mapp
         "qa_fact_locations": {
             cell: {fact["fact_id"]: (
                 "image+text" if cell == "H" else
-                "image" if cell in {"V", "Mv-Lv-Rv-Gv"} or (
-                    cell not in {"T", "Mt-Lt-Rt-Gt"} and f"{fact['region']}v" in cell
+                "image" if cell in {"P", "V", "Mv-Rv-Lv-Gv"} or (
+                    cell not in {"T", "Mt-Rt-Lt-Gt"} and f"{fact['region']}v" in cell
                 ) else "text") for fact in qfacts}
-            for cell in [*factorial_cells(), "H"]
+            for cell in [*factorial_cells(), "P", "V", "H"]
         },
     }
 
@@ -1561,7 +1359,7 @@ def _direct_lookup(rows: Sequence[Mapping[str, Any]], fields: Sequence[str],
     return pool[int(stable_hash(f"{opaque_id}:{salt}"), 16) % len(pool)]
 
 
-def questions_for_case(packet: Mapping[str, Any], opaque_id: str) -> tuple[list[Question], list[Question]]:
+def _archived_controlled_questions_for_case(packet: Mapping[str, Any], opaque_id: str) -> tuple[list[Question], list[Question]]:
     """Build Legacy-Q9 plus the registered 4/6/4-template reasoning ladder."""
 
     metrics = list(packet["regions"]["M"])
@@ -1708,11 +1506,162 @@ def questions_for_case(packet: Mapping[str, Any], opaque_id: str) -> tuple[list[
     return q9, [replace(level1, query_id="q1"), replace(level2, query_id="q2"), replace(level3, query_id="q3")]
 
 
-QA_SYSTEM = """You are answering label-free telemetry questions from controlled evidence regions. Use only the supplied evidence. Service names, pod names, and node names are represented by numeric IDs. A directed topology edge caller -> callee means the caller invokes the callee. Relative bins are case-local. Return exactly one JSON object matching ReasoningPacketResponseV2. The answers array must contain exactly one answer for each supplied query_id in supplied order. Do not add prose, markdown, or hidden chain-of-thought. Each requested step must contain only the step number, region code, and normalized string values.""" + "\n\n" + QA_EVIDENCE_GUIDE
+def _qa_rows(packet: Mapping[str, Any], field: str) -> list[dict[str, Any]]:
+    return [dict(fact["payload"]) for fact in packet["facts"] if fact["field"] == field]
 
-TYPED_OBSERVE_SYSTEM = """You are Stage 1, Observe and Connect, for controlled telemetry evidence. Use only the supplied M/L/R/G evidence. Service names, pod names, and node names are represented by numeric IDs. Relative bins are case-local. Fill the fixed q1/q2/q3 step slots with compact selectors for the visible rows needed by each registered step. Every schema-required entity_id or edge_id must be copied from visible evidence; never use null for the required identifier. The host, not you, copies exact displayed values from the public evidence packet. For M select entity_id, panel_id, field, and the relevant relative_bins. For L select entity_id, optional row_index, field, and relevant bins. For R select the schema-required entity_id or edge_id, optional row_index, field, and relevant bins. The visual labels bins/events/errors/spans/p95ms are accepted aliases for values_16/event_count_16/error_count_16/span_count_16/max_p95_ms_16. For G select the schema-required edge_id to resolve one edge, or entity_id to retrieve every displayed incident edge touching that entity; field must be null (the visible phrase neighbor_roles is accepted as a no-op alias). Use null only for selectors that the schema marks inapplicable. An empty relative_bins array requests the complete displayed field. Never copy raw sequences or values, invent query IDs, omit a registered slot, answer the questions, emit private fact IDs, root cause, prose, markdown, or chain-of-thought. Return exactly the schema-defined q1/q2/q3 selector object.""" + "\n\n" + QA_EVIDENCE_GUIDE
 
-TYPED_ANSWER_SYSTEM = """You are Stage 2, Answer, for controlled cross-region telemetry questions. The typed Stage-1 raw-record ledger and registered question contracts in the user message are your only incident evidence; never infer a fact absent from them. A directed edge caller -> callee means the caller is upstream of its callee and the callee is downstream of the caller. For target X, U -> X yields upstream=U and X -> D yields downstream=D; the target is not its own neighbor without a visible self-loop. A topology_no_incident_edge record means the verified visible entity has no caller/callee edge in the complete supplied G and therefore has missing neighbor roles. Follow every public value_kind exactly. Values may contain only plain scalars, IDs, bins, E## edge IDs, caller=ID, callee=ID, upstream=ID, downstream=ID, NA, missing, or none. Never output entity=, edge_id=, span_count=, other_endpoint=, a full ledger row, prose, or markdown. Return ReasoningPacketResponseV3 with exactly one answer per supplied query in supplied order.""" + "\n\n" + QA_EVIDENCE_GUIDE
+def _shown_field(row: Mapping[str, Any], preferred: Sequence[str]) -> tuple[str, str]:
+    for field in preferred:
+        if field in row and not isinstance(row[field], (list, dict)):
+            return field, "missing" if row[field] is None else str(row[field])
+    raise RQ1Error("renderer-visible row lacks a registered readable scalar")
+
+
+def questions_for_case(packet: Mapping[str, Any], opaque_id: str) -> tuple[list[Question], list[Question]]:
+    """Build Q9 and dependent Level-1/2/3 questions from renderer-visible rows."""
+
+    metrics, logs = _qa_rows(packet, "metric_series_64"), _qa_rows(packet, "log_summary_entry")
+    traces, edges = _qa_rows(packet, "trace_summary_entry"), _qa_rows(packet, "directed_call_edge")
+    propagation = _qa_rows(packet, "propagation_service")
+    if not metrics or not logs or not traces or not propagation:
+        raise RQ1Error("renderer-v12 Q&A requires visible M/L/R rows and propagation readouts")
+
+    def pick(rows: Sequence[Any], salt: str) -> Any:
+        return rows[int(stable_hash(f"{opaque_id}:{salt}"), 16) % len(rows)]
+
+    def scalar(row: Mapping[str, Any], region: str) -> tuple[str, str]:
+        if region == "G":
+            return _shown_field(
+                row, ("onset_rel_min_display", "severity_z_display", "evidence_source_display"),
+            )
+        choices = (("peak", "baseline", "signed_z") if region == "M" else
+                   ("error_logs", "error_count", "total_logs", "total", "error_pct", "n_pre", "n_during", "change_pct") if region == "L" else
+                   ("p95_during_ms", "p95_pre_ms", "delta_pct", "error_pct"))
+        return _shown_field(row, choices)
+
+    def label(region: str, row: Mapping[str, Any]) -> str:
+        return (f"panel {row['panel_id']}" if region == "M" else
+                f"propagation row {int(row.get('rank') or 0)}" if region == "G" else
+                f"visible row {int(row.get('entry_index') or 0) + 1}")
+
+    metric, log, trace = pick(metrics, "legacy-M"), pick(logs, "legacy-L"), pick(traces, "legacy-R")
+    edge = min(edges, key=lambda row: int(row.get("edge_index") or 0)) if edges else None
+    log_field, log_value = scalar(log, "L"); trace_field, trace_value = scalar(trace, "R")
+    grow = pick(propagation, "legacy-G") if propagation else {"service": "missing", "onset_rel_min_display": None}
+    gfield, gvalue = _shown_field(grow, ("onset_rel_min_display", "severity_z_display", "evidence_source_display"))
+    log_meta = (_qa_rows(packet, "log_summary_meta") or [{"mode": "none"}])[0]
+    window = (_qa_rows(packet, "observation_window") or [{"duration_rel_s": None}])[0]
+    q9 = [
+        Question("q1", 1, ("M",), "metric_panel_entity", f"Which entity ID is printed in metric panel {metric['panel_id']}?", ((str(metric["service"]),),)),
+        Question("q2", 1, ("M",), "metric_printed_peak", f"Read the printed peak value under panel {metric['panel_id']}.", ((str(metric.get("peak") or "missing"),),)),
+        Question("q3", 1, ("M",), "window_duration", "Read the dashboard-header window duration in seconds; return the number without the s unit.", ((str(window.get("duration_rel_s") or "missing"),),)),
+        Question("q4", 1, ("L",), "log_table_cell", f"In the visible log row for entity {log['service']}, read {log_field}.", ((log_value,),)),
+        Question("q5", 1, ("R",), "trace_table_cell", f"In the visible trace row for entity {trace['service']}, read {trace_field}.", ((trace_value,),)),
+        Question("q6", 1, ("G",), "directed_edge",
+                 f"Read edge-key row {int(edge.get('edge_index') or 0) + 1} as caller->callee."
+                 if edge else "The visible directed-edge key explicitly reports no displayed edge. Return none.",
+                 ((f"{edge['caller']}->{edge['callee']}" if edge else "none",),)),
+        Question("q7", 1, ("G",), "propagation_readout", f"For propagation entity {grow['service']}, read {gfield}.", ((gvalue,),)),
+        Question("q8", 1, ("M",), "metric_printed_baseline", f"Read the printed baseline value under panel {metric['panel_id']}.", ((str(metric.get("baseline") or "missing"),),)),
+        Question("q9", 1, ("L",), "log_display_mode", "Is the visible log panel in errors, volume, or none mode? Return one of those words.", ((str(log_meta.get("mode") or "none"),),)),
+    ]
+    metric_by = {str(row["service"]): row for row in metrics}
+    log_by = {str(row["service"]): row for row in logs}
+    trace_by = {str(row["service"]): row for row in traces}
+    propagation_by = {str(row["service"]): row for row in propagation}
+    propagation_visible_rank = {
+        str(row["service"]): str(row.get("rank") or index)
+        for index, row in enumerate(propagation, 1)
+    }
+    sources = {"M": metric_by, "L": log_by, "R": trace_by}
+    edge_rows = [{"caller": str(row["caller"]), "callee": str(row["callee"])} for row in edges]
+    level1_pool = [
+        Question("q1", 1, ("M",), "M_direct_read", f"In M, return the entity printed in panel {metric['panel_id']}.", ((str(metric["service"]),),)),
+        Question("q1", 1, ("L",), "L_direct_read", f"In L, read {log_field} for entity {log['service']}.", ((log_value,),)),
+        Question("q1", 1, ("R",), "R_direct_read", f"In R, read {trace_field} for entity {trace['service']}.", ((trace_value,),)),
+    ]
+    direct_g = pick(propagation, "level1-G")
+    direct_g_field, direct_g_value = _shown_field(
+        direct_g, ("onset_rel_min_display", "severity_z_display", "evidence_source_display"),
+    )
+    level1_pool.append(Question("q1", 1, ("G",), "G_direct_read",
+        f"In G, read {direct_g_field} for propagation entity {direct_g['service']}.",
+        ((direct_g_value,),)))
+    level1 = _pick_template(level1_pool, opaque_id, 1)
+
+    links: list[Question] = []
+    for left, right, template in (("M", "L", "M_L_link"), ("M", "R", "M_R_link"),
+                                  ("L", "R", "L_R_link")):
+        common = sorted(set(sources[left]) & set(sources[right]))
+        if common:
+            entity = pick(common, template); source = sources[left][entity]
+            field, value = scalar(sources[right][entity], right)
+            links.append(Question("q2", 2, (left, right), template,
+                f"Step 1 ({left}): read the entity ID from {label(left, source)}. Step 2 ({right}): using that ID, read {field}.",
+                ((entity,), (value,))))
+    for left, template in (("M", "M_G_link"), ("L", "L_G_link"), ("R", "R_G_link")):
+        eligible = sorted(set(sources[left]) & set(propagation_by))
+        if eligible:
+            entity = pick(eligible, template)
+            field, value = _shown_field(
+                propagation_by[entity], ("onset_rel_min_display", "severity_z_display", "evidence_source_display"),
+            )
+            links.append(Question("q2", 2, (left, "G"), template,
+                f"Step 1 ({left}): read the entity ID from {label(left, sources[left][entity])}. Step 2 (G): using that ID, read {field} from its propagation row.",
+                ((entity,), (value,))))
+    level2 = _pick_template(links, opaque_id, 2)
+
+    chains: list[Question] = []
+    source_rows = {**sources, "G": propagation_by}
+
+    def locator(region: str, entity: str) -> tuple[str, str]:
+        row = source_rows[region][entity]
+        if region == "G":
+            return "propagation-row rank", propagation_visible_rank[entity]
+        if region == "M":
+            return "panel ID", str(row["panel_id"])
+        return "row number", str(int(row.get("entry_index") or 0) + 1)
+
+    region_order = ("M", "R", "L", "G")
+    for start in region_order:
+        template = f"{start}_locator_chain"
+        choices: list[tuple[str, str, list[str]]] = []
+        for pivot in ("G", *region_order):
+            if pivot == start:
+                continue
+            for target in region_order:
+                if target in {start, pivot}:
+                    continue
+                common = sorted(set(source_rows[start]) & set(source_rows[pivot]) & set(source_rows[target]))
+                if common:
+                    choices.append((pivot, target, common))
+        if not choices:
+            for pivot in ("G", *region_order):
+                if pivot == start:
+                    continue
+                common = sorted(set(source_rows[start]) & set(source_rows[pivot]))
+                if common:
+                    choices.append((pivot, start, common))
+        if not choices:
+            continue
+        pivot, target, common = pick(choices, f"{template}:path")
+        entity = pick(common, f"{template}:{pivot}:{target}")
+        locator_name, locator_value = locator(pivot, entity)
+        field, value = scalar(source_rows[target][entity], target)
+        chains.append(Question("q3", 3, (start, pivot, target), template,
+            f"Step 1 ({start}): read the entity ID from {label(start, source_rows[start][entity])}. "
+            f"Step 2 ({pivot}): using that ID, read its visible {locator_name}. "
+            f"Step 3 ({target}): using that locator to recover the {pivot} entity, read {field} for it in {target}.",
+            ((entity,), (locator_value,), (value,))))
+    level3 = _pick_template(chains, opaque_id, 3)
+    return q9, [replace(level1, query_id="q1"), replace(level2, query_id="q2"), replace(level3, query_id="q3")]
+
+
+QA_SYSTEM = """You are answering label-free telemetry questions from a common renderer-v12 evidence packet. Use only the supplied evidence. Service names, pod names, and node names are represented by numeric IDs. A directed topology edge caller -> callee means the caller invokes the callee. Relative bins are case-local. Return exactly one JSON object matching ReasoningPacketResponseV2. The answers array must contain exactly one answer for each supplied query_id in supplied order. Do not add prose, markdown, or hidden chain-of-thought. Each requested step must contain only the step number, region code, and normalized string values.""" + "\n\n" + QA_EVIDENCE_GUIDE
+
+TYPED_OBSERVE_SYSTEM = """You are Stage 1, Observe and Connect, for the common renderer-v12 Q&A evidence. Use only the supplied M/R/L/G evidence. Fill every fixed q1/q2/q3 step slot with one compact visible-record selector. Use record_key=M1 for a metric panel, L:<numeric entity> for a log row, R:<numeric entity> for a trace row, G:<numeric entity> for a propagation row and all incident edges touching that entity, or G:<caller>-><callee> for one directed edge. `field` may name the visible scalar needed by the question or be null. The host copies exact public values. Never answer the questions, copy arrays, invent query IDs, emit private fact IDs, root cause, prose, markdown, or chain-of-thought. Return exactly the schema-defined selector object.""" + "\n\n" + QA_EVIDENCE_GUIDE
+
+TYPED_ANSWER_SYSTEM = """You are Stage 2, Answer, for renderer-v12 cross-region telemetry questions. The typed Stage-1 public-record ledger and registered question contracts are your only incident evidence. A directed edge caller -> callee means caller is upstream and callee is downstream. Later steps must use the entity resolved by the preceding step. Follow every public value_kind exactly and return ReasoningPacketResponseV3 with exactly one answer per supplied query in supplied order. Do not emit a full ledger row, prose, markdown, or hidden chain-of-thought.""" + "\n\n" + QA_EVIDENCE_GUIDE
 
 OBSERVE_SYSTEM = """You are Stage 1, Observe and Connect, for a microservice root-cause analysis.
 Use only the supplied incident evidence. Service names, pod names, and node names are represented by numeric IDs. A directed edge caller -> callee means the caller invokes the callee. Relative bins and relative seconds are measured from the supplied case-local window start; missing is evidence, not zero.
@@ -1796,34 +1745,12 @@ def _qa_schema(*, typed_questions: Sequence[Mapping[str, Any]] = (),
     answer_step = {"type": "object", "additionalProperties": False,
                    "required": list(step_properties), "properties": step_properties}
     if typed_questions:
-        null = {"type": "null"}
-        entity_id = {"type": "string", "pattern": "^[0-9]{3,5}$"}
-        edge_id = {"type": "string", "pattern": "^E[0-9]{2}$"}
-        field_names = {
-            "M": ["values_16", "bins", "values"],
-            "L": ["event_count_16", "error_count_16", "events", "errors"],
-            "R": ["span_count_16", "error_count_16", "max_p95_ms_16",
-                  "associated_edge_ids", "spans", "errors", "p95ms"],
-            "G": [None, "neighbor_roles"],
-        }
-
-        def selector_schema(question: Mapping[str, Any], step: int, region: str) -> dict[str, Any]:
-            template = str(question["template"])
-            value_kind = TEMPLATE_VALUE_KINDS[template][step - 1]
-            edge_required = ((region == "G" and value_kind in {"endpoint_roles", "other_endpoint_id"})
-                             or (region == "R" and template == "R_G_link"))
-            return {"type": "object", "additionalProperties": False,
-                "required": ["entity_id", "edge_id", "panel_id", "row_index", "field", "relative_bins"],
-                "properties": {
-                    "entity_id": null if edge_required else entity_id,
-                    "edge_id": edge_id if edge_required else null,
-                    "panel_id": {"type": "string", "pattern": "^M[0-9]{2}$"} if region == "M" else null,
-                    "row_index": (null if region == "G" else
-                                  {"anyOf": [{"type": "integer", "minimum": 0}, {"type": "null"}]}),
-                    "field": {"enum": field_names[region]},
-                    "relative_bins": {"type": "array", "maxItems": 0 if region == "G" else 16,
-                                      "items": {"type": "integer", "minimum": 0, "maximum": 15}},
-                }}
+        selector = {"type": "object", "additionalProperties": False,
+                    "required": ["record_key", "field"],
+                    "properties": {
+                        "record_key": {"type": "string"},
+                        "field": {"anyOf": [{"type": "string"}, {"type": "null"}]},
+                    }}
         properties = {}
         for question in typed_questions:
             query_id = str(question["query_id"])
@@ -1832,11 +1759,10 @@ def _qa_schema(*, typed_questions: Sequence[Mapping[str, Any]] = (),
                 "type": "object", "additionalProperties": False,
                 "required": step_names,
                 "properties": {
-                    name: selector_schema(question, index, str(question["region_path"][index - 1]))
-                    for index, name in enumerate(step_names, 1)
+                    name: selector for name in step_names
                 },
             }
-        name = "typed_question_selector_v5"
+        name = "typed_question_record_selector_v6"
     else:
         row = {"type": "object", "additionalProperties": False,
                "required": ["query_id", "answer"],
@@ -2176,13 +2102,13 @@ def _typed_selector_records(packet: Mapping[str, Any], region: str,
 
 def normalize_typed_qa_ledger(raw: Mapping[str, Any], questions: Sequence[Mapping[str, Any]],
                               packet: Mapping[str, Any]) -> dict[str, Any]:
-    """Expand fixed selector slots into exact public records; retain unsupported slots."""
+    """Bind fixed record-key slots to exact renderer-visible public facts."""
 
     expected = {str(question["query_id"]): question for question in questions}
     if set(raw) != set(expected):
         raise RQ1Error("typed selector object does not contain exactly q1/q2/q3")
     normalized, supported, unsupported = [], 0, 0
-    selector_fields = {"entity_id", "edge_id", "panel_id", "row_index", "field", "relative_bins"}
+    public_index = _public_record_index(packet)
     for query_id, question in expected.items():
         row = raw.get(query_id)
         path = list(map(str, question["region_path"]))
@@ -2192,16 +2118,32 @@ def normalize_typed_qa_ledger(raw: Mapping[str, Any], questions: Sequence[Mappin
         observations = []
         for index, (step_name, region) in enumerate(zip(step_names, path, strict=True), 1):
             selector = row[step_name]
-            if not isinstance(selector, Mapping) or set(selector) != selector_fields:
+            if not isinstance(selector, Mapping) or set(selector) != {"record_key", "field"}:
                 raise RQ1Error(f"typed selector fields differ for {query_id}.{step_name}")
-            records = _typed_selector_records(packet, region, selector)
+            key, requested = _normalize_record_key(selector["record_key"]), selector.get("field")
+            fact = public_index.get(key)
+            facts = [] if fact is None or str(fact["region"]) != region else [fact]
+            entity_match = re.fullmatch(r"G:([0-9]{3,5})", key)
+            if region == "G" and entity_match:
+                entity = entity_match.group(1)
+                facts = [fact for fact in packet["facts"] if fact["region"] == "G" and (
+                    (fact["field"] == "propagation_service" and str(fact["payload"].get("service")) == entity)
+                    or (fact["field"] == "directed_call_edge" and entity in {
+                        str(fact["payload"].get("caller")), str(fact["payload"].get("callee"))})
+                )]
+            if requested is not None and not any(str(requested) in fact["payload"] for fact in facts):
+                facts = []
+            records = [{"record_key": _public_record_key(fact), "region": region,
+                        "field": fact["field"], "payload": dict(fact["payload"]),
+                        "entity_ids": list(fact.get("entity_ids") or ()), "unit": fact.get("unit")}
+                       for fact in facts]
             supported += bool(records)
             unsupported += not bool(records)
             observations.append({"step": index, "region": region,
                                  "selector": dict(selector), "supported": bool(records),
                                  "records": records})
         normalized.append({"query_id": query_id, "observations": observations})
-    return {"schema_version": "Stage1TypedLedgerTransferV4", "ledgers": normalized,
+    return {"schema_version": "Stage1TypedLedgerTransferV5", "ledgers": normalized,
             "binding_audit": {"supported_steps": supported, "unsupported_steps": unsupported}}
 
 

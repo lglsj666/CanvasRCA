@@ -23,6 +23,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 import networkx as nx  # noqa: E402
 import pandas as pd  # noqa: E402
+from PIL import Image  # noqa: E402
 
 from RQs.RQ1.src.renderer import panels, style  # noqa: E402
 from RQs.RQ1.src.renderer.edge_key import (  # noqa: E402
@@ -676,6 +677,64 @@ def _json_safe(obj):
     if isinstance(obj, float) and not math.isfinite(obj):
         return None
     return obj
+
+
+def crop_dashboard_evidence_regions(
+    png: bytes, cfg: DashboardConfig,
+) -> Tuple[Dict[str, Tuple[bytes, ...]], Dict[str, Any]]:
+    """Crop the frozen renderer-v12 dashboard into actual M/R/L/G fragments.
+
+    The crops copy source pixels only.  In particular, they never redraw a
+    telemetry row or substitute serialized text for a graphical panel.  G has
+    two fragments because the propagation plot occupies the upper side column
+    while the complete caller-to-callee identity key is the appended strip.
+    """
+
+    source = Image.open(io.BytesIO(png)).convert("RGB")
+    base_height = int(cfg.long_side_px * cfg.canvas_aspect)
+    if source.width != cfg.long_side_px or source.height < base_height:
+        raise ValueError("dashboard image geometry differs from its frozen renderer config")
+    split = round(source.width * 0.746)
+    # Keep the propagation readout legend with G.  The row immediately below
+    # starts the log table; 0.558 is the whitespace midpoint between those two
+    # renderer-v12 primitives at the frozen geometry.  The earlier 0.542 cut
+    # clipped the final propagation-omission line and duplicated its tail at
+    # the top of L.
+    propagation_end = round(base_height * 0.558)
+    auxiliary_mid = propagation_end + (base_height - propagation_end) // 2
+    boxes: Dict[str, Tuple[Tuple[int, int, int, int], ...]] = {
+        "M": ((0, 0, split, base_height),),
+        "R": ((split, auxiliary_mid, source.width, base_height),),
+        "L": ((split, propagation_end, source.width, auxiliary_mid),),
+        "G": ((split, 0, source.width, propagation_end),
+              (0, base_height, source.width, source.height)),
+    }
+    output: Dict[str, Tuple[bytes, ...]] = {}
+    for region, region_boxes in boxes.items():
+        pages = []
+        for box in region_boxes:
+            if box[2] <= box[0] or box[3] <= box[1]:
+                raise ValueError(f"renderer-v12 {region} crop is empty")
+            stream = io.BytesIO()
+            source.crop(box).save(stream, format="PNG", optimize=False, compress_level=6)
+            pages.append(stream.getvalue())
+        output[region] = tuple(pages)
+    audit = {
+        "schema_version": "RendererV12RegionCropAuditV1",
+        "source_image_sha256": hashlib.sha256(png).hexdigest(),
+        "source_image_px": list(source.size),
+        "region_order": ["M", "R", "L", "G"],
+        "crop_boxes_px": {region: [list(box) for box in values] for region, values in boxes.items()},
+        "crop_sha256": {
+            region: [hashlib.sha256(page).hexdigest() for page in pages]
+            for region, pages in output.items()
+        },
+        "pixel_operation": "source_crop_only",
+    }
+    audit["audit_sha256"] = hashlib.sha256(
+        json.dumps(audit, sort_keys=True, separators=(",", ":")).encode()
+    ).hexdigest()
+    return output, audit
 
 
 def _render_overplot(

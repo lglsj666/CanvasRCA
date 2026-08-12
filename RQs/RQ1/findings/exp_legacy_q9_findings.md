@@ -1,7 +1,9 @@
 # Legacy Q9 Findings
 
-**Status:** historical local mechanism evidence only. Every predecessor compact
-Nibi trajectory is archived invalid; semantic-restoration rerun required.
+**Status:** corrected v17 T/P/V/H rerun not yet run. Predecessor compact Nibi
+trajectories are invalid, and Controlled-canvas trajectories are retained only
+as synthetic spatial-formatting diagnostics; neither supports a real-dashboard
+efficacy claim.
 
 The nine direct questions established the distinction between dashboard
 readability and RCA ranking. Numeric IDs, direct values, edge directions, logs,
@@ -11,11 +13,11 @@ cause. Earlier local model calls retain their original artifact-specific
 status. Nibi calls made with the semantic-compression implementation are not
 promoted and cannot be merged into the replacement run.
 
-The retained design contribution is the single-region control family and the
-strict T/V/H prompt construction. Future executions use the compact engine and
+The corrected design uses pure text T, exact-T pixel transport P, the real
+renderer-v12 dashboard V, and strict image-first H=V+T. Future executions use
 new result IDs. This file will report the 289-case primary headline and
 separate RE2-OB/RE2-TT slices after the final rerun is complete and verified.
 
-The renderer-v17 local diagnostic parsed and scored `6/9` on its single
+The archived pre-v17 local diagnostic parsed and scored `6/9` on its single
 AIOPS-2022 cell. This only confirms the restored scorer/task path executes; it
 is not an estimate of model performance.

@@ -3,7 +3,7 @@
 
 CANVASRCA_ROOT="${CANVASRCA_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 export CANVASRCA_ROOT
-export RL_SLM_RCA_ROOT="${RL_SLM_RCA_ROOT:-$(cd "$CANVASRCA_ROOT/.." && pwd)/RL-SLM-RCA-rw_phase2}"
+export RL_SLM_RCA_ROOT="${RL_SLM_RCA_ROOT:-$(cd "$CANVASRCA_ROOT/.." && pwd)/self-evolving-RCA-rwrl}"
 export SCRATCH="${SCRATCH:-$CANVASRCA_ROOT}"
 export CANVASRCA_PROCESSED_ROOT="${CANVASRCA_PROCESSED_ROOT:-$CANVASRCA_ROOT/dataset/processed}"
 export CANVASRCA_CACHE_ROOT="${CANVASRCA_CACHE_ROOT:-$SCRATCH/canvasrca_cache}"

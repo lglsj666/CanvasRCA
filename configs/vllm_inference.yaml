@@ -1,5 +1,5 @@
-schema_version: CanvasRCAVLLMInferenceConfigV5
-protocol_version: vllm-inference-v5-nibi-same-pass-attention
+schema_version: CanvasRCAVLLMInferenceConfigV6
+protocol_version: vllm-inference-v6-nibi-compact-structured-json
 status: frozen_global_base
 effective_date: 2026-08-10
 
@@ -62,7 +62,9 @@ models:
     batch_invariant: false
     enable_chunked_prefill: false
     mm_processor_kwargs: null
-    structured_outputs_config: null
+    structured_outputs_config:
+      backend: xgrammar
+      disable_any_whitespace: true
 
   gemma-4-26b-a4b:
     model_path: models/gemma-4-26B-A4B-it
