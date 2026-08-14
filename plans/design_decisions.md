@@ -269,7 +269,7 @@ new protocol, parity/leakage audit, visual inspection, hashes, and result IDs.
 ## DD-86: Run the final seven-experiment RQ1 program
 
 **Date:** 2026-08-13
-**Status:** adopted; final Nibi results pending
+**Status:** adopted; split-site final results pending
 
 **Decision.** RQ1 contains exactly seven experiments:
 
@@ -282,11 +282,14 @@ new protocol, parity/leakage audit, visual inspection, hashes, and result IDs.
    influence;
 7. `ledger_handoff_rca` — text/visual/hybrid encoding of one normalized ledger.
 
-Run both registered models on all 469 eligible frozen cases under new Nibi
-result IDs: 96 AegisLab, 100 AIOPS-2022, 93 AIOPS-2025, 90 RE2-OB, and 90
-RE2-TT. Do not replace the eleven already-invalid cases. Headline inference
-uses only the 289 AegisLab/AIOPS cases; report RE2-OB and final-OOD RE2-TT
-separately.
+Run both registered models on all 469 eligible frozen cases: 96 AegisLab, 100
+AIOPS-2022, 93 AIOPS-2025, 90 RE2-OB, and 90 RE2-TT. Do not replace the eleven
+already-invalid cases. Headline inference uses only the 289 AegisLab/AIOPS
+cases; report RE2-OB and final-OOD RE2-TT separately. `matched_rca` is a whole-
+experiment local heldout covering all 24 shards and both sequential models;
+Nibi submits none of it. The other six experiments remain Nibi-owned. The
+local return must preserve the exact frozen contract and content-addressed
+checkpoints described in `tmp/RQ1_HELDOUT_matched_rca.md`.
 
 The paired `direct_rca` versus `matched_rca` analysis is descriptive rather
 than a strict causal stage-count ablation because the latter also adds
@@ -300,23 +303,35 @@ job, keeping 8+4 active whenever enough eligible work remains. The eight-hour
 wrapper interrupts its scientific payload after 7 hours 55 minutes, and the
 thirty-minute wrapper interrupts after 25 minutes; each reserves up to two
 minutes for process cleanup and artifact-writer drain before its Slurm cutoff.
-A registered timeout retries the same unit within its duration lane from its
+A registered timeout retries the same Nibi unit within its duration lane from its
 hash-valid completed case/arm artifacts; the interrupted call starts again
 rather than splicing a partial response. Hash-valid model truncation/parse
 outcomes stay terminal, while infrastructure, integrity, or unknown-status
 errors require diagnosis before automatic retry. Preparation, smoke, static
 tests, gates, and merge jobs do not consume the formal window. Finish every
-Qwen unit before submitting Gemma work so model families never overlap.
+Qwen unit—including the local heldout—before submitting Gemma work so model
+families never overlap across execution sites.
+
+The `visual_counterfactual_rca` non-timeout failure in job 19772049 was a
+control-flow defect: protocol-ineligible cases reached targeted/placebo image
+lookup before their registered no-call exclusion. Its corrected Nibi execution
+uses the dedicated v23 runtime freeze. Existing eligible completed calls may be
+migrated only after exact prompt, representation, schema, arm-order, record-
+hash and attention-artifact equivalence checks; obsolete partial-case no-call
+markers are not migrated. This operational recovery does not change eligible
+model requests or rerun compatible completed calls.
 
 **Reason.** Perception scores cannot substitute for RCA, output influence
 cannot substitute for accuracy, and handoff loss must be separated from
 upstream visual reading.
 
-**Consequence.** RQ1 is not complete until all seven experiments, both models,
-artifact verification, paired analysis, and findings are complete. Historical
-local or predecessor-protocol results remain diagnostic only. A full 24-shard
-array must not be submitted as one pending block; formal launch and monitoring
-must maintain the eight-eight-hour plus four-thirty-minute mixed window.
+**Consequence.** RQ1 is not complete until all seven experiments across both
+execution sites, both models, artifact verification, paired analysis, and
+findings are complete. Historical local or predecessor-protocol results remain
+diagnostic only. A full 24-shard Nibi array must not be submitted as one pending
+block; Nibi formal launch and monitoring maintain the eight-eight-hour plus
+four-thirty-minute mixed window. Gemma stays blocked until the complete Qwen
+phase, including returned heldout artifacts, is verified.
 
 ---
 
