@@ -2,8 +2,10 @@
 
 RQ1 has seven registered experiments implemented by the compact engine in
 `RQs/RQ1/src/`. They reuse the unified inference, segmentation, and RCA-scoring
-contracts in `configs/`. Every experiment is rerun on Nibi under a new result
-ID; historical local results remain context rather than final evidence.
+contracts in `configs/`. Every experiment receives a new final result lineage
+on its assigned execution site; historical local results remain context rather
+than final evidence. `direct_rca` and `matched_rca` are whole-experiment local
+heldouts, while the other five experiments remain Nibi-owned.
 
 ## Semantic-restoration authority
 
@@ -135,6 +137,16 @@ Every model and arm uses the same case roster and paired exclusion policy.
 
 ## Nibi qualification and execution order
 
+Formal execution is experiment-major rather than shard-round-robin. Nibi has
+exactly one active formal experiment at a time. It completes and verifies all
+24 Qwen shards for that experiment, then all 24 Gemma shards, before activating
+the next Nibi experiment. Every live Nibi formal job must belong to the active
+experiment. Local and Nibi may process different whole experiments in
+parallel, but no experiment may be split between sites. The current local
+heldouts are all of `matched_rca` and all of `direct_rca`; Nibi submits neither.
+The invalidated Nibi `direct_rca` shard-0 result was deleted, so its local run
+starts from scratch.
+
 Every experiment uses the first frozen eligible case from RE2-OB, AIOPS-2022,
 and AIOPS-2025 in roster order for its one registered smoke. The Qwen phase runs
 first; only after it exits does the Gemma phase start. Each model phase has an
@@ -153,7 +165,8 @@ requests, persistence, and verification. The CPU-only matrix compiles all
 | `ledger_handoff_rca` | 6 |
 
 No predecessor smoke or runtime freeze authorizes the restored code. All seven
-full experiments remain mandatory after new infrastructure qualification.
+full experiments remain mandatory after new infrastructure qualification,
+whether assigned to Nibi or to a whole-experiment local heldout.
 A scientific gate or analysis threshold that is not met is reported as a
 negative outcome and is non-stopping. A rejection caused by a protocol
 mismatch, implementation defect, persistence failure, or unexpected

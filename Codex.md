@@ -374,12 +374,27 @@ submitting an authorized rerun.
 
 Long runs execute in the background through Slurm and must be resumable by a
 content-addressed call key. Pre-render CPU artifacts before allocating a GPU.
-The current RQ1 formal execution has twelve scheduler positions split into two
-independent duration lanes: eight jobs request `08:00:00`, and four jobs request
-`00:30:00`. `RUNNING`, `PENDING`, and `COMPLETING` jobs consume a position. An
-eight-hour position is refilled only with an eight-hour job, and a thirty-minute
-position only with a thirty-minute job, keeping 8+4 active whenever enough
-eligible work remains. Count individual jobs rather than array parents. The
+RQ1 formal execution is experiment-major, never round-robin across experiments.
+Each execution site owns whole experiments. Nibi has exactly one active formal
+experiment at a time: every Nibi `RUNNING`, `PENDING`, or `COMPLETING` formal
+job must belong to that experiment. Finish and verify all of its Qwen shards,
+then finish and verify all of its Gemma shards, before activating the next Nibi
+experiment. Never submit shards from a future experiment merely to fill an
+open scheduler position. The two model families must not overlap within an
+experiment. `direct_rca` and `matched_rca` are whole-experiment local heldouts,
+covering all 24 shards and both models; Nibi must submit no shard of either.
+The invalidated Nibi `direct_rca` shard-0 output is not reusable, and its local
+execution starts from scratch. A local and Nibi site may work concurrently only
+on different whole experiments assigned to those sites; an experiment is never
+split between them.
+
+Within the one active Nibi experiment, the formal execution has twelve
+scheduler positions split into two independent duration lanes: eight jobs
+request `08:00:00`, and four jobs request `00:30:00`. `RUNNING`, `PENDING`, and
+`COMPLETING` jobs consume a position. An eight-hour position is refilled only
+with an eight-hour job, and a thirty-minute position only with a thirty-minute
+job, keeping 8+4 active whenever enough eligible work from the active experiment
+remains. Count individual jobs rather than array parents. The
 eight-hour wrapper interrupts its payload after 7 hours 55 minutes; the
 thirty-minute wrapper interrupts after 25 minutes. Both reserve up to two
 minutes for cleanup before the Slurm hard limit. A registered payload timeout
@@ -393,8 +408,7 @@ be relabeled as a job-timeout checkpoint. Before an automatic timeout resume,
 classify existing artifacts; any infrastructure error, hash/integrity error, or
 unknown status pauses automatic retry for diagnosis. Smoke, preparation,
 static-test, gate, merge, and other non-formal jobs are outside the 8+4 formal
-window. The two registered model families remain sequential: every Qwen unit
-must complete before any Gemma unit is submitted.
+window.
 Use no more than four CPU preprocessing or artifact-writer workers and monitor
 host memory. RQ1 model-request concurrency is a separate frozen field:
 `request_concurrency=4`. The runner must consume it by processing up to four

@@ -268,8 +268,8 @@ new protocol, parity/leakage audit, visual inspection, hashes, and result IDs.
 
 ## DD-86: Run the final seven-experiment RQ1 program
 
-**Date:** 2026-08-13
-**Status:** adopted; split-site final results pending
+**Date:** 2026-08-14
+**Status:** adopted; whole-experiment split-site final results pending
 
 **Decision.** RQ1 contains exactly seven experiments:
 
@@ -285,21 +285,36 @@ new protocol, parity/leakage audit, visual inspection, hashes, and result IDs.
 Run both registered models on all 469 eligible frozen cases: 96 AegisLab, 100
 AIOPS-2022, 93 AIOPS-2025, 90 RE2-OB, and 90 RE2-TT. Do not replace the eleven
 already-invalid cases. Headline inference uses only the 289 AegisLab/AIOPS
-cases; report RE2-OB and final-OOD RE2-TT separately. `matched_rca` is a whole-
-experiment local heldout covering all 24 shards and both sequential models;
-Nibi submits none of it. The other six experiments remain Nibi-owned. The
-local return must preserve the exact frozen contract and content-addressed
-checkpoints described in `tmp/RQ1_HELDOUT_matched_rca.md`.
+cases; report RE2-OB and final-OOD RE2-TT separately. `matched_rca` and
+`direct_rca` are whole-experiment local heldouts, each covering all 24 shards
+and both sequential models; Nibi submits none of either experiment. The other
+five experiments remain Nibi-owned. The `matched_rca` return must preserve the
+exact frozen contract and content-addressed checkpoints described in
+`tmp/RQ1_HELDOUT_matched_rca.md`. The completed Nibi `direct_rca` Qwen shard 0
+was explicitly invalidated and deleted at the user's direction, so the local
+`direct_rca` run starts from scratch. Its local deployment guide remains
+intentionally unwritten until the user finishes synchronizing the code and
+requests it.
 
 The paired `direct_rca` versus `matched_rca` analysis is descriptive rather
 than a strict causal stage-count ablation because the latter also adds
 selection, binding, compression, and a second decoding opportunity.
 
-Submit formal work through twelve scheduler positions split into independent
-duration lanes: eight `08:00:00` jobs and four `00:30:00` jobs. Count
+Formal execution is experiment-major at each site. Nibi activates one formal
+experiment at a time, finishes and verifies all 24 Qwen shards, then finishes
+and verifies all 24 Gemma shards, and only then activates the next Nibi
+experiment. All Nibi `RUNNING`, `PENDING`, and `COMPLETING` formal jobs must
+belong to that one active experiment; never interleave a few shards from
+several experiments. Local and Nibi may process different whole experiments
+concurrently, but neither site may split an experiment with the other.
+
+Within the active Nibi experiment, submit formal work through twelve scheduler
+positions split into independent duration lanes: eight `08:00:00` jobs and
+four `00:30:00` jobs. Count
 `RUNNING`, `PENDING`, and `COMPLETING` jobs. Refill an eight-hour position only
 with an eight-hour job and a thirty-minute position only with a thirty-minute
-job, keeping 8+4 active whenever enough eligible work remains. The eight-hour
+job, keeping 8+4 active whenever enough eligible work from that experiment
+remains. The eight-hour
 wrapper interrupts its scientific payload after 7 hours 55 minutes, and the
 thirty-minute wrapper interrupts after 25 minutes; each reserves up to two
 minutes for process cleanup and artifact-writer drain before its Slurm cutoff.
@@ -308,9 +323,9 @@ hash-valid completed case/arm artifacts; the interrupted call starts again
 rather than splicing a partial response. Hash-valid model truncation/parse
 outcomes stay terminal, while infrastructure, integrity, or unknown-status
 errors require diagnosis before automatic retry. Preparation, smoke, static
-tests, gates, and merge jobs do not consume the formal window. Finish every
-Qwen unit—including the local heldout—before submitting Gemma work so model
-families never overlap across execution sites.
+tests, gates, and merge jobs do not consume the formal window. Within each
+experiment, Qwen must finish before Gemma starts; the two model families never
+overlap for that experiment.
 
 The `visual_counterfactual_rca` non-timeout failure in job 19772049 was a
 control-flow defect: protocol-ineligible cases reached targeted/placebo image
@@ -330,8 +345,9 @@ execution sites, both models, artifact verification, paired analysis, and
 findings are complete. Historical local or predecessor-protocol results remain
 diagnostic only. A full 24-shard Nibi array must not be submitted as one pending
 block; Nibi formal launch and monitoring maintain the eight-eight-hour plus
-four-thirty-minute mixed window. Gemma stays blocked until the complete Qwen
-phase, including returned heldout artifacts, is verified.
+four-thirty-minute mixed window for only the current experiment. Partial
+progress in one experiment never justifies switching Nibi to another; a switch
+requires complete two-model verification of the current experiment.
 
 ---
 

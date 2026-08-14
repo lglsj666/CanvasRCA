@@ -25,7 +25,7 @@ result-dependent roster or a rigid numerical branch tree.
 8. Treat fixed-canvas density, blank-space compaction, and other layout/content
    redesigns as RQ2 variables. Do not tune them on RQ1 final outcomes.
 
-All seven experiments use new Nibi result IDs and the unified contracts. Their
+All seven experiments use new final result lineages and the unified contracts. Their
 records carry model-call-free renderer-density and ledger-region diagnostics.
 The v17 Q&A correction removes the Controlled text canvas from formal arms;
 that canvas remains historical diagnostic material only. The v16 two-stage
@@ -41,6 +41,13 @@ correctness never selects a method, partial formal outcomes never tune a prompt
 or roster, and historical local results are not mixed with final Nibi cells.
 The formal runner processes up to four different cases concurrently while
 preserving within-case arm order and two-stage dependencies.
+
+Execution ownership is whole-experiment. Nibi advances one experiment at a
+time: all Qwen shards, then all Gemma shards, then verification, before the
+next experiment is activated. It must not interleave a few shards from several
+experiments. `direct_rca` and `matched_rca` are local whole-experiment heldouts;
+the remaining five experiments are Nibi-owned. Different sites may work on
+different whole experiments concurrently, but may not split one experiment.
 
 Before a heavy rerun, compile and audit every registered arm against both
 effective model contracts without model calls. Each of the seven experiments

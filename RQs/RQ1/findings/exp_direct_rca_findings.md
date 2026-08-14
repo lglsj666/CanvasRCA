@@ -1,8 +1,10 @@
 # Direct RCA Findings
 
-**Status:** v21 successor smoke qualified; the v22b formal rerun has started
-and is incomplete. No RCA
-efficacy or stage-architecture conclusion is claimed from the smoke.
+**Status:** v21 successor smoke qualified; final full execution is reassigned
+as a whole-experiment local heldout and has not started. The prior Nibi Qwen
+shard-0 result was explicitly invalidated and deleted at the user's direction;
+the local run must start from scratch. Nibi must submit no `direct_rca` shard.
+No RCA efficacy or stage-architecture conclusion is currently valid.
 
 `direct_rca` is the registered natural one-stage reference for the current RQ1
 RCA family. It consumes the same T/F/V/P/H/R incident representations and
@@ -23,4 +25,5 @@ That paired difference is an agent-architecture description, not an isolated
 causal effect of adding one stage: the two-stage route also adds explicit
 evidence selection, deterministic fact binding, ledger compression, and a
 second decoding opportunity. This file must be updated only after the complete
-replacement Nibi run and verifier finish.
+replacement local run, returned-artifact verification, and registered analysis
+finish.
