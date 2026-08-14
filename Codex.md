@@ -505,8 +505,11 @@ and cannot be represented as Nibi heavy-run results.
 
 ## Monitoring and decisions
 
-Monitor a new heavy job frequently until stable. After stability, poll about
-once every 360 seconds. Do not high-frequency poll a healthy long run.
+Monitor a new heavy job frequently until stable. During the current Nibi
+power-constrained scheduling period, poll stable, running, or pending heavy
+jobs about once every 600 seconds (`sleep 600`). Do not high-frequency poll a
+healthy long run. Revisit this interval only when the cluster condition or the
+user's monitoring instruction changes.
 
 Every material project, protocol, implementation, validity, or next-step
 decision is recorded with its evidence and reason. Cross-project decisions go

@@ -292,9 +292,8 @@ five experiments remain Nibi-owned. The `matched_rca` return must preserve the
 exact frozen contract and content-addressed checkpoints described in
 `tmp/RQ1_HELDOUT_matched_rca.md`. The completed Nibi `direct_rca` Qwen shard 0
 was explicitly invalidated and deleted at the user's direction, so the local
-`direct_rca` run starts from scratch. Its local deployment guide remains
-intentionally unwritten until the user finishes synchronizing the code and
-requests it.
+`direct_rca` run starts from scratch. Its local deployment and return contract
+is recorded in `tmp/RQ1_HELDOUT_direct_rca.md`.
 
 The paired `direct_rca` versus `matched_rca` analysis is descriptive rather
 than a strict causal stage-count ablation because the latter also adds
