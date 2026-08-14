@@ -120,15 +120,23 @@ never run Qwen and Gemma concurrently for a registered sequential workflow.
 
 Transient NVML accounting reads may be retried without repeating model
 inference; an unresolvable accounting record remains an infrastructure error.
-CPU preparation requests 00:30:00 and 100 GiB. All preparations for a launch
-batch run serially inside one non-array CPU job; each preparation covers its
-complete roster and is never divided into Slurm shards. Full GPU inference
-requests 07:59:00 and 100 GiB per task; the frozen 469-case roster remains
-split into 24 deterministic, resumable inference shards, approximately one
-third the size of the predecessor eight-shard deployment. Many same-model
-inference shards may be queued at once, subject to the array concurrency cap.
-The complete Gemma array waits for the complete Qwen array through an `afterok`
-dependency, so the two models never run concurrently.
+CPU preparation requests 00:30:00 and 100 GiB. One non-array job uses at most
+four case-preparation processes, checkpoints each completed case atomically,
+and resumes from hash-matched artifacts. One smoke preparation is shared by
+all seven experiment result IDs. One formal preparation writes the exact 24
+deterministic `__shard-xxxx-of-xxxx` roots that GPU arrays consume; it is not a
+Slurm array and never rerenders a case once per experiment. The frozen
+469-case roster remains split into 24 deterministic inference shards,
+approximately one third the size of the predecessor eight-shard deployment.
+Formal inference wall times and scheduler-window composition are governed by
+DD-86. Both registered duration wrappers reserve cleanup time before Slurm's
+hard cutoff and retry the same experiment ID against content-addressed targets,
+so only missing, invalid, or incomplete case/arm targets run again. Job-timeout
+resumption is explicitly distinct from model outcomes: hash-valid length
+termination, truncation, and parse failure remain terminal results. An existing
+infrastructure error, integrity/hash failure, or unknown status blocks
+automatic timeout retry for diagnosis rather than being misclassified as the
+timeout cursor.
 
 **Reason.** Four concurrent cases use vLLM batching without the host pressure
 of eight. Scheduler capacity is not generated load. Task-local ports prevent
@@ -146,16 +154,26 @@ is operational evidence, not a scientific validity metric.
 ## DD-83: Use fixed public-bound selectors for typed Q&A
 
 **Date:** 2026-08-10  
-**Status:** adopted; current typed interface is v10
+**Status:** adopted; current typed interface is v22
 
-**Decision.** `typed_two_stage` keeps fixed q1/q2/q3 step slots. The model
-selects public entity, edge, panel, and bin identifiers; a label-blind binder
-copies exact displayed values and preserves unsupported steps rather than
-invalidating the whole ledger. Required identifiers are non-null according to
-the public question template. Entity IDs are three-to-five digits, edge IDs
-use `E##`, and metric panels use the visible bounded panel syntax. Verified
-absence of an incident edge is represented explicitly rather than treated as
-an unbound hallucination.
+**Decision.** `typed_two_stage` keeps fixed step slots for every case-eligible
+query in the supplied public contract. Each slot
+selects one visible public record key (`M1`, `L:<entity>`, `R:<entity>`,
+`G:<entity>`, or `G:<caller>-><callee>`) plus an optional visible field. A
+label-blind binder copies only matching public records and preserves an
+unsupported slot without guessing. Verified absence of an incident edge is an
+explicit public fact. M/L/R→G questions require directed neighbor traversal,
+and Level 3 always traverses three distinct regions.
+`entity_id` is the only canonical selector name for a record's visible numeric
+identity. The label-blind binder reads it from the public fact envelope;
+arbitrary aliases and invalid record keys remain unsupported.
+
+Question eligibility is frozen before inference from renderer-visible facts.
+Every case has one Level-1 question; Level-2 and Level-3 are included only when
+the case exposes a real dependent two-region or strict three-distinct-region
+chain. Missing levels are absent from that case's schema and score denominator,
+never fabricated or scored as model errors. A 469-packet no-call audit found
+316 cases with Levels 1/2/3, 132 with Levels 1/2, and 21 with Level 1 only.
 
 Qwen and Gemma receive the same scientific prompt, evidence, questions,
 Stage-2 contract, and scorer. Do not add model-specific prompt repairs.
@@ -172,7 +190,7 @@ Any syntax or binder change requires a forward protocol and new qualification.
 ## DD-85: Freeze the RQ1 renderer, representations, and prompt semantics
 
 **Date:** 2026-08-11
-**Status:** adopted; Q&A representation correction current in v17
+**Status:** adopted; Q&A representation correction current in v22
 
 **Decision.** RQ1 owns the only provisional renderer at
 `RQs/RQ1/src/renderer/`: the restored renderer-v12 snapshot. There is no
@@ -204,12 +222,30 @@ an unused three-digit service ID before compiling its common evidence index.
 An explicitly empty directed-edge key is serialized as the visible fact
 `status=none`; it does not make a frozen case ineligible.
 
-Every comparison requires equal atomic facts, precision, bins, missingness,
+Every comparison requires equal model-visible atomic facts, precision, bins, missingness,
 candidates, concrete edges, and legends. Text-bearing evidence is ordered
 M/metrics, R/traces, L/logs, then G/topology. RCA prompts explain field
 semantics and origin-versus-symptom reasoning and use the SIRCL-inspired
 internal `INITIAL -> VERIFY -> REVISE` check while emitting only the frozen
 top-five JSON. Q&A prompts explain fields but contain no RCA guide.
+
+The structured Q&A grammar uses ordered `prefixItems` to bind every answer to
+the supplied public query contract: exactly nine answers for `legacy_q9` and
+the exact one-to-three case-eligible questions for cross-region packets, with
+the exact query ID, step count, step number, region, and (for typed Stage 2)
+value kind at each position.
+The host independently validates the same contract. A generic answer count or
+generic one-to-three-step item grammar is forbidden: both previously allowed a
+schema-valid response that the host then rejected, confounding a model outcome
+with an orchestration mismatch.
+
+The v22 Q&A evidence index excludes high-precision raw metric arrays that the
+dashboard does not print. It compiles each curve into its 64
+observed/missing plot-point pixel coordinates, visible y-axis tick labels,
+printed baseline/peak/deviation, and displayed fault-band coordinates from the
+same renderer-v12 axes. The acceptance audit verifies this display contract,
+T=P source-byte equality, H=V+T hashes, crops, printed table cells, and directed
+edges. A common upstream source alone never sets an equality flag.
 
 **Reason.** The exact-text `P_QA` is the only valid pixel-transport control.
 The old Controlled canvas independently reformatted and rearranged evidence,
@@ -217,15 +253,13 @@ so treating it as either `P_QA` or a real dashboard confounded the RQ1 claim.
 A global mutable renderer or representation-specific prompt would add another
 confound.
 
-**Qualification evidence.** Zero-call static job `19558580` passed. CPU
-preparation job `19558566` completed three cross-dataset cases in 53 seconds
-with 100 GiB and passed the artifact verifier. For all three cases,
-`H_QA.image_sha256 == V_QA.image_sha256`,
-`H_QA.text_sha256 == P_QA.source_text_sha256 == T_QA.text_sha256`, the crop
-source hash equals the full renderer-v12 image hash, and the controlled canvas
-is absent from formal arms. Visual inspection also fixed and requalified the
-G/L boundary so the complete propagation legend belongs only to G and the log
-table begins cleanly in L.
+**Qualification evidence.** Predecessor v17 artifacts remain diagnostic only.
+V22 requires a new zero-call matrix and fresh bounded dual-model smoke for the
+two Q&A experiments whose runtime request schema changed (`cross_region` and
+`typed_two_stage`). The other five experiments reuse their already-inspected
+v21 logical smokes because their prompts, evidence, schemas, scoring, and model
+paths are unchanged. Formal submission still requires the shared 469-case
+preparation, visual inspection, verifier, and content-addressed freeze.
 
 **Consequence.** Renderer, serializer, prompt, or evidence changes require a
 new protocol, parity/leakage audit, visual inspection, hashes, and result IDs.
@@ -234,7 +268,7 @@ new protocol, parity/leakage audit, visual inspection, hashes, and result IDs.
 
 ## DD-86: Run the final seven-experiment RQ1 program
 
-**Date:** 2026-08-10  
+**Date:** 2026-08-13
 **Status:** adopted; final Nibi results pending
 
 **Decision.** RQ1 contains exactly seven experiments:
@@ -258,13 +292,31 @@ The paired `direct_rca` versus `matched_rca` analysis is descriptive rather
 than a strict causal stage-count ablation because the latter also adds
 selection, binding, compression, and a second decoding opportunity.
 
+Submit formal work through twelve scheduler positions split into independent
+duration lanes: eight `08:00:00` jobs and four `00:30:00` jobs. Count
+`RUNNING`, `PENDING`, and `COMPLETING` jobs. Refill an eight-hour position only
+with an eight-hour job and a thirty-minute position only with a thirty-minute
+job, keeping 8+4 active whenever enough eligible work remains. The eight-hour
+wrapper interrupts its scientific payload after 7 hours 55 minutes, and the
+thirty-minute wrapper interrupts after 25 minutes; each reserves up to two
+minutes for process cleanup and artifact-writer drain before its Slurm cutoff.
+A registered timeout retries the same unit within its duration lane from its
+hash-valid completed case/arm artifacts; the interrupted call starts again
+rather than splicing a partial response. Hash-valid model truncation/parse
+outcomes stay terminal, while infrastructure, integrity, or unknown-status
+errors require diagnosis before automatic retry. Preparation, smoke, static
+tests, gates, and merge jobs do not consume the formal window. Finish every
+Qwen unit before submitting Gemma work so model families never overlap.
+
 **Reason.** Perception scores cannot substitute for RCA, output influence
 cannot substitute for accuracy, and handoff loss must be separated from
 upstream visual reading.
 
 **Consequence.** RQ1 is not complete until all seven experiments, both models,
 artifact verification, paired analysis, and findings are complete. Historical
-local or predecessor-protocol results remain diagnostic only.
+local or predecessor-protocol results remain diagnostic only. A full 24-shard
+array must not be submitted as one pending block; formal launch and monitoring
+must maintain the eight-eight-hour plus four-thirty-minute mixed window.
 
 ---
 
@@ -316,12 +368,41 @@ raw and partial responses, truncation, accounting, and hidden issues. Fix a
 safe hidden issue under a forward protocol; preserve material unresolved issues
 as blockers.
 
+A smoke qualifies the same shared compiler, renderer, prompts, schemas, model
+client, persistence, scorer, and runner behavior used by its corresponding
+full experiment. When a smoke exposes a defect in any shared path, repair that
+shared implementation rather than adding a smoke-only workaround. Advance the
+affected runtime/protocol contract, regenerate any preparation whose freeze or
+artifacts changed, and rerun the affected logical smoke before submitting its
+full experiment. A purely external launch precondition may be corrected
+without regenerating preparation only when the recorded freeze remains exactly
+unchanged and the failed attempt made no model call.
+
+Every shared ledger-handoff Stage-1 record and every downstream handoff record
+must carry the effective runtime-freeze hash, representation hash, and
+content-addressed call key. The verifier accepts an explicit shared preparation
+ID for smoke roots and validates those artifacts against that authority; it
+must not silently skip verification because preparation lives in a different
+result root.
+
+Before any preparation, smoke, gate, or formal submission, inventory existing
+jobs and artifacts. Reuse compatible completed artifacts and resume incomplete
+content-addressed units. Rerun a completed unit only after recording concrete
+evidence that it is missing, corrupt, invalid, or incompatible with a
+load-bearing contract change, and rerun only the smallest affected scope. A
+pure operational optimization that preserves evidence, prompts, schemas,
+inference, and scoring does not invalidate completed preparation or smoke.
+
 **Reason.** Earlier diagnostics spent hundreds of calls or discarded useful
 unfinished output. Static exhaustive arm compilation plus bounded live path
 coverage is sufficient for infrastructure qualification.
 
 **Consequence.** Partial responses are never parsed or scored as complete
-answers. A passed smoke is qualification evidence only, never efficacy.
+answers. A passed smoke is qualification evidence only, never efficacy. A
+failed smoke blocks the corresponding full experiment until its shared-path
+cause is repaired and requalified; the full path is never kept artificially
+frozen merely to avoid invalidating preparation. Completed work is not repeated
+for convenience, scheduler bookkeeping, or operational-only optimization.
 
 ---
 

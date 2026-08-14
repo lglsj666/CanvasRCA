@@ -353,8 +353,9 @@ def render_metric_panel(
     metric_chars = max(8, body - svc_chars - 3)  # 3 for the " · " separator
     displayed_service = _display_entity(series.service, display_labels)
     rendered_service = _elide(displayed_service, svc_chars)
+    rendered_metric = _elide(series.metric, metric_chars)
     ax.set_title(
-        f"{prefix}{rendered_service} · {_elide(series.metric, metric_chars)}",
+        f"{prefix}{rendered_service} · {rendered_metric}",
         fontsize=typo.panel_title,
         color=style.TEXT,
         pad=2.0,
@@ -408,6 +409,7 @@ def render_metric_panel(
         "service": displayed_service,
         "rendered_service": rendered_service,
         "metric": series.metric,
+        "rendered_metric": rendered_metric,
         "column": (
             f"{displayed_service}_{series.metric}"
             if display_labels
@@ -418,9 +420,20 @@ def render_metric_panel(
         "peak_value": series.peak_value,
         "baseline_mean": series.baseline_mean,
         "baseline_std": series.baseline_std,
+        "printed_summary": {
+            "signed_z": zpart,
+            "baseline": _fmt(series.baseline_mean),
+            "peak": _fmt(series.peak_value),
+        },
         "normalized": bool(normalize),
         "n_samples": n_valid,
         "time_range_rel_s": time_range,
+        "plot_x_rel_s": x.tolist(),
+        "fault_window_plot_x_rel_s": (
+            [(float(fault_window[0]) - t0) / unit,
+             (float(fault_window[1]) - t0) / unit]
+            if fault_window is not None else None
+        ),
         "time_bin_centers_rel_s": bin_centers_s.tolist() if bin_centers_s is not None else None,
         "values": bin_values.tolist() if bin_values is not None else None,
         "observed_counts": bin_counts.tolist() if bin_counts is not None else None,
@@ -823,6 +836,15 @@ def render_propagation_panel(
 
     manifest_rows = []
     for i, o in enumerate(shown):
+        if o.onset_ts is not None:
+            rel = (float(o.onset_ts) - float(t0)) / unit / 60.0
+            onset_display = f"{rel:.1f}".rstrip("0").rstrip(".") + "m"
+            severity_display = f"≥{Z_CAP:.0f}" if o.peak_z >= Z_CAP else f"{o.peak_z:.0f}"
+            source_display = {"trace": "T", "metric": "M"}.get(
+                getattr(o, "source", ""), "none"
+            )
+        else:
+            onset_display, severity_display, source_display = "no onset", "none", "none"
         manifest_rows.append({
             "rank": i + 1,
             "service": _display_entity(o.service, display_labels),
@@ -831,6 +853,9 @@ def render_propagation_panel(
             if o.onset_ts is not None else None,
             "peak_z": round(float(o.peak_z), 3),
             "source": getattr(o, "source", "none"),
+            "onset_display": onset_display,
+            "severity_display": severity_display,
+            "source_display": source_display,
             "callers": [
                 _display_entity(name, display_labels)
                 for name in sorted(graph.predecessors(o.service))

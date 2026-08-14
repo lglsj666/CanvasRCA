@@ -111,26 +111,25 @@ python -m cli.validate_processed_cases \
 ## Slurm and vLLM
 
 `RQs/RQ1/scripts/smoke_nibi.sh` and `RQs/RQ1/scripts/submit_nibi.sh` are
-one-H100 templates. Both request 14 CPU cores and 240 GB host memory, start the
+one-H100 templates. Both request 14 CPU cores and 100 GB host memory, start the
 canonical server inside the allocation, wait for the models endpoint, record
 an attestation, and start the RQ run. Smoke allocations are 30 minutes with a
-600-second logical supervisor; full allocations are three days. Adjust wall
+600-second logical supervisor; full allocations are 7 hours 59 minutes. Adjust wall
 time through a versioned script change, not an ad hoc scientific override.
 
-Render on CPU before allocating a GPU. All smoke preparations run serially in
-one non-array CPU job. Each experiment's logical smoke then uses exactly two
+Render on CPU before allocating a GPU. All smoke preparation runs in one
+non-array, four-worker, resumable CPU job and is shared by every experiment.
+Each experiment's logical smoke then uses exactly two
 separate non-array GPU jobs, one model per job:
 
 ```bash
-RQs/RQ1/scripts/array_nibi.sh prepare \
-  SMOKE_LEGACY_ID:SMOKE_CROSS_ID:SMOKE_TYPED_ID:SMOKE_DIRECT_ID:SMOKE_MATCHED_ID:SMOKE_COUNTERFACTUAL_ID:SMOKE_HANDOFF_ID \
+RQs/RQ1/scripts/array_nibi.sh prepare SMOKE_PREPARED_ID \
   RQs/RQ1/configs/rosters/rq1_nibi_smoke_private_v1.json
-RQs/RQ1/scripts/submit_smoke_nibi.sh qwen3.6-27b SMOKE_LEGACY_ID legacy_q9
-RQs/RQ1/scripts/submit_smoke_nibi.sh gemma-4-26b-a4b SMOKE_LEGACY_ID legacy_q9
-# Submit the corresponding pair for each of the other six experiments.
+RQs/RQ1/scripts/submit_all_smokes_nibi.sh SMOKE_PREPARED_ID RQ1_V19_SMOKE
 ```
 
-For the frozen run, prepare all 469 cases once in one CPU job, then submit the
+For the frozen run, prepare all 469 cases into 24 deterministic roots once in
+one resumable CPU job, then submit the
 registered experiments for both models against that immutable preparation.
 Full inference remains deterministically and resumably sharded. Use
 `CANVASRCA_PREPARE_JOB_ID` for an `afterok` dependency and reuse the same base
@@ -151,7 +150,7 @@ fraction cap; vLLM and the Slurm allocation still impose physical limits.
    upstream hashes.
 6. Submit the bounded smoke and inspect summaries, attestations, logs,
    conversations, prompts, raw responses, truncation, and accounting.
-7. Submit all six RQ1 experiments for both models after infrastructure smoke
+7. Submit all seven RQ1 experiments for both models after infrastructure smoke
    qualification.
 8. Repair and resume protocol, mismatch, or infrastructure failures. A missed
    scientific threshold is a negative result and does not stop later

@@ -1,8 +1,8 @@
 # ledger_handoff_rca Findings
 
-**Status:** v16 visible-record-key Stage-1 repair implemented but not tested at
-handoff. Predecessor trajectories remain diagnostic/archive evidence; Nibi
-qualification and replacement rerun are required.
+**Status:** v21 visible-record-key successor smoke qualified. The v22b formal
+rerun has started and is incomplete. Predecessor trajectories remain
+diagnostic/archive evidence.
 
 The shared RCA Stage-2 prompt now explains the normalized ledger and uses the
 internal SIRCL-style VERIFY procedure. This prompt qualification supplies no

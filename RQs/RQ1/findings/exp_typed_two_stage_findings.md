@@ -1,9 +1,23 @@
 # Typed Two-Stage Findings
 
-**Status:** corrected v17 record-key Q&A handoff rerun not yet run. Predecessor
+**Status:** v22 case-eligible record-key handoff successor passed its fresh
+dual-model logical smoke; the v22b formal rerun has started and is incomplete. Qwen job 19726652 and
+Gemma job 19726654 completed all six case/arm records and all twelve stages per
+model with zero infrastructure errors, parse failures, truncations, or
+overlength responses. The inspected v21 smoke remains valid for its
+three-question packets but does not exercise the new one- and two-question
+schemas. Predecessor
 compact and Controlled-canvas trajectories are archived diagnostic material;
 the historical cross-architecture gate failed and cannot support a
 real-dashboard claim.
+
+**V20 qualification defect.** Artifact review found that Stage 1 could select
+the canonical visible value kind `entity_id`, but the host binder looked only
+inside region-specific payload fields. Numeric identity is stored in the
+public fact envelope, so otherwise valid `M*` and `G:<entity>` selections were
+misclassified as unsupported. V21 binds only the exact `entity_id` name from
+that public envelope; it continues to reject aliases and invalid record keys.
+All v20 smoke outputs remain diagnostic and do not qualify a formal run.
 
 **Nibi v17 smoke correction.** Qwen Stage 2 began a valid response and then
 generated 3,690 schema-legal whitespace tokens until the bounded supervisor

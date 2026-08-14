@@ -1,7 +1,8 @@
 # Direct RCA Findings
 
-**Status:** v16 contract awaiting successor static/live qualification; no model
-result exists and no RCA efficacy or stage-architecture conclusion is claimed.
+**Status:** v21 successor smoke qualified; the v22b formal rerun has started
+and is incomplete. No RCA
+efficacy or stage-architecture conclusion is claimed from the smoke.
 
 `direct_rca` is the registered natural one-stage reference for the current RQ1
 RCA family. It consumes the same T/F/V/P/H/R incident representations and

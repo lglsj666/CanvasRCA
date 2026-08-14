@@ -243,6 +243,23 @@ def _arm_means(records: Sequence[Mapping[str, Any]], metric: str) -> dict[str, f
     return {arm: mean(values) for arm, values in sorted(by_arm.items()) if values}
 
 
+def _nested_score_arm_means(
+    records: Sequence[Mapping[str, Any]], metric: str,
+) -> dict[str, dict[str, float]]:
+    by_arm: dict[str, dict[str, list[float]]] = defaultdict(lambda: defaultdict(list))
+    for record in records:
+        values = (record.get("score") or {}).get(metric)
+        if record.get("status") != "completed" or not isinstance(values, Mapping):
+            continue
+        for key, value in values.items():
+            if value is not None:
+                by_arm[str(record["arm"])][str(key)].append(float(value))
+    return {
+        arm: {key: mean(values) for key, values in sorted(metrics.items()) if values}
+        for arm, metrics in sorted(by_arm.items())
+    }
+
+
 def _comparison(records: Sequence[Mapping[str, Any]], left: str, right: str, metric: str) -> dict[str, Any]:
     table: dict[tuple[str, str], dict[str, float]] = defaultdict(dict)
     for record in records:
@@ -506,6 +523,22 @@ def analyze_records(
         }
     else:
         text_arm = "T" if spec.name == "legacy_q9" else "Mt-Rt-Lt-Gt"
+        qa_metrics = (
+            "complete_chain_accuracy", "correct_prefix_accuracy", "step_accuracy",
+            "level_1_complete_chain_accuracy", "level_2_complete_chain_accuracy",
+            "level_3_complete_chain_accuracy", "eligible_question_count",
+        )
+        result["qa_metric_arm_means"] = {
+            metric: {
+                "headline": _arm_means(headline, metric),
+                "all_slices": _arm_means(filtered, metric),
+            }
+            for metric in qa_metrics
+        }
+        result["template_complete_chain_accuracy_by_arm"] = {
+            "headline": _nested_score_arm_means(headline, "template_complete_chain_accuracy"),
+            "all_slices": _nested_score_arm_means(filtered, "template_complete_chain_accuracy"),
+        }
         result["comparisons"] = {
             "P-T": _comparison(headline, "P", text_arm, spec.primary_metric),
             "V-P": _comparison(headline, "V", "P", spec.primary_metric),
@@ -520,6 +553,21 @@ def analyze_records(
             result["comparisons"]["factorial_all_visual-minus-all_text"] = _comparison(
                 headline, "Mv-Rv-Lv-Gv", "Mt-Rt-Lt-Gt", spec.primary_metric,
             )
+        result["by_dataset"] = {
+            dataset: {
+                "records": len(subset),
+                "arm_means": _arm_means(subset, spec.primary_metric),
+                "level_arm_means": {
+                    metric: _arm_means(subset, metric)
+                    for metric in qa_metrics if metric.startswith("level_")
+                },
+                "template_arm_means": _nested_score_arm_means(
+                    subset, "template_complete_chain_accuracy",
+                ),
+            }
+            for dataset in sorted({str(row.get("analysis_dataset")) for row in filtered})
+            if (subset := [row for row in filtered if str(row.get("analysis_dataset")) == dataset])
+        }
     minimum_parse = float(config["runtime"]["parse_rate_minimum"])
     result["complete"] = (
         bool(parse_rates) and all(value >= minimum_parse for value in parse_rates.values())
@@ -530,9 +578,11 @@ def analyze_records(
     return result
 
 
-def verify_result_root(paths: RunPaths, config: Mapping[str, Any]) -> dict[str, Any]:
+def verify_result_root(paths: RunPaths, config: Mapping[str, Any],
+                       prepared_paths: RunPaths | None = None) -> dict[str, Any]:
     qualification_contracts(config)
-    index_path = paths.prepared / "index.json"
+    prepared_paths = prepared_paths or paths
+    index_path = prepared_paths.prepared / "index.json"
     if not index_path.is_file():
         raise RQ1Error("prepared index is missing")
     index = json.loads(index_path.read_text())
@@ -551,41 +601,41 @@ def verify_result_root(paths: RunPaths, config: Mapping[str, Any]) -> dict[str, 
     for item in index.get("cases", ()):
         item_missing = False
         for key in ("public", "private", "full_image", "qa_full_image", "routed_image"):
-            path = paths.root / item[key]
+            path = prepared_paths.root / item[key]
             if not path.is_file():
-                missing.append(str(path.relative_to(paths.root)))
+                missing.append(f"prepared:{path.relative_to(prepared_paths.root)}")
                 item_missing = True
         for values in item.get("qa_region_images", {}).values():
             for relative in values:
-                path = paths.root / relative
+                path = prepared_paths.root / relative
                 if not path.is_file():
-                    missing.append(str(path.relative_to(paths.root)))
+                    missing.append(f"prepared:{path.relative_to(prepared_paths.root)}")
                     item_missing = True
         for relative in item.get("variant_images", {}).values():
-            path = paths.root / relative
+            path = prepared_paths.root / relative
             if not path.is_file():
-                missing.append(str(path.relative_to(paths.root)))
+                missing.append(f"prepared:{path.relative_to(prepared_paths.root)}")
                 item_missing = True
         if item_missing:
             continue
-        public = json.loads((paths.root / item["public"]).read_text(encoding="utf-8"))
-        private = json.loads((paths.root / item["private"]).read_text(encoding="utf-8"))
+        public = json.loads((prepared_paths.root / item["public"]).read_text(encoding="utf-8"))
+        private = json.loads((prepared_paths.root / item["private"]).read_text(encoding="utf-8"))
         checks = {
             "public_sha256": stable_hash(public),
             "private_sha256": stable_hash(private),
-            "full_image_sha256": stable_hash((paths.root / item["full_image"]).read_bytes()),
-            "qa_full_image_sha256": stable_hash((paths.root / item["qa_full_image"]).read_bytes()),
-            "routed_image_sha256": stable_hash((paths.root / item["routed_image"]).read_bytes()),
+            "full_image_sha256": stable_hash((prepared_paths.root / item["full_image"]).read_bytes()),
+            "qa_full_image_sha256": stable_hash((prepared_paths.root / item["qa_full_image"]).read_bytes()),
+            "routed_image_sha256": stable_hash((prepared_paths.root / item["routed_image"]).read_bytes()),
         }
         for key, observed in checks.items():
             if observed != item.get(key):
                 integrity_errors.append(f"{item.get('opaque_incident_id')}:{key}")
         for name, relative in item.get("variant_images", {}).items():
-            observed = stable_hash((paths.root / relative).read_bytes())
+            observed = stable_hash((prepared_paths.root / relative).read_bytes())
             if observed != item.get("variant_image_sha256", {}).get(name):
                 integrity_errors.append(f"{item.get('opaque_incident_id')}:variant:{name}")
         observed_regions = {
-            region: [stable_hash((paths.root / relative).read_bytes()) for relative in values]
+            region: [stable_hash((prepared_paths.root / relative).read_bytes()) for relative in values]
             for region, values in item.get("qa_region_images", {}).items()
         }
         if observed_regions != item.get("qa_region_image_sha256"):
@@ -595,6 +645,11 @@ def verify_result_root(paths: RunPaths, config: Mapping[str, Any]) -> dict[str, 
         if not path.with_suffix(".md").is_file():
             missing.append(str(path.with_suffix(".md").relative_to(paths.root)))
         record = json.loads(path.read_text(encoding="utf-8"))
+        for key in ("call_key", "representation_hash", "runtime_freeze_sha256"):
+            if not record.get(key):
+                integrity_errors.append(f"{path.relative_to(paths.root)}:missing_{key}")
+        if record.get("runtime_freeze_sha256") != index.get("runtime_freeze", {}).get("freeze_sha256"):
+            integrity_errors.append(f"{path.relative_to(paths.root)}:runtime_freeze")
         calls = list(record.get("stages") or ())
         if isinstance(record.get("call"), Mapping):
             calls.append(record["call"])
@@ -621,6 +676,7 @@ def verify_result_root(paths: RunPaths, config: Mapping[str, Any]) -> dict[str, 
             integrity_errors.append(str(path.relative_to(paths.root)))
     result = {
         "schema_version": "RQ1VerificationV2",
+        "prepared_experiment_id": index.get("experiment_id"),
         "prepared_cases": len(index.get("cases", ())),
         "trajectories": len(trajectories),
         "missing": sorted(missing),

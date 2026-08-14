@@ -1,6 +1,9 @@
 # Legacy Q9 Findings
 
-**Status:** corrected v17 T/P/V/H rerun not yet run. Predecessor compact Nibi
+**Status:** corrected v21 T/P/V/H smoke qualified; the v22b formal rerun has
+started and is incomplete. The v19 Qwen smoke is an
+invalid diagnostic because its grammar permitted three steps for a Level-1
+answer while the validator required one. Predecessor compact Nibi
 trajectories are invalid, and Controlled-canvas trajectories are retained only
 as synthetic spatial-formatting diagnostics; neither supports a real-dashboard
 efficacy claim.

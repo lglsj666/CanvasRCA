@@ -1,8 +1,7 @@
 # Matched RCA Findings
 
-**Status:** v16 visible-record-key Stage-1 repair implemented but not tested at
-the user's handoff boundary; Nibi static qualification, bounded successor
-smoke, and full rerun are required. No valid final Nibi result exists.
+**Status:** v21 visible-record-key successor smoke qualified; the v22b formal
+rerun has started and is incomplete. No valid final Nibi result exists.
 
 The experiment now has a compact six-arm, two-stage implementation using the
 global vLLM, dataset segmentation, and RCA scorer contracts. Static preparation

@@ -4,15 +4,19 @@ from __future__ import annotations
 
 import ast
 import hashlib
+import io
 import json
+import math
 import os
 import time
 from pathlib import Path
+from types import SimpleNamespace
 from typing import Any, Callable
 
 from unified_scripts import stable_hash
 from unified_scripts.rca_scorer import RCAScorer, RCAScorerConfig
 from unified_scripts.vllm_inference import VLLMInferenceConfig
+from PIL import Image, ImageChops
 from RQs.RQ1.src.renderer.dashboard import opaque_incident_id
 
 from .exps import (
@@ -26,11 +30,14 @@ from .exps import (
     qa_representation_parts, questions_for_case, representation_parts, response_schema,
     score_reasoning, validate_diagnosis, validate_qa_response, attention_diagnostics,
     render_attention_overlay, visual_diagnostic_for_arm, visual_patch_atlas,
-    common_shell, _packet_flat, _packet_text, _packet_text_region_blocks,
+    common_shell, _packet_flat, _packet_text, _packet_text_region_blocks, _routed_image,
     stage1_prompt, stage2_prompt,
 )
-from .main import _concurrency_partitions
-from .gates import _rbo_at_k, analyze_records, analyze_stage_pair, qualification_contracts
+from .main import _concurrency_partitions, _load_roster, _request_contract
+from .gates import (
+    _rbo_at_k, analyze_records, analyze_stage_pair, qualification_contracts,
+    verify_result_root,
+)
 from .utils import DEFAULT_CONFIG, ROOT, RQ1Error, audit_visible, load_yaml, numeric_entity_map
 
 FUNCTIONAL_RQ_FILES = ("main.py", "utils.py", "exps.py", "tests.py", "gates.py")
@@ -151,8 +158,8 @@ def check_unified_contracts(config: dict[str, Any]) -> dict[str, Any]:
 
 
 def check_rq1_contract(config: dict[str, Any]) -> dict[str, Any]:
-    _assert(config.get("schema_version") == "CanvasRCARQ1ConfigV6"
-            and config.get("protocol_revision") == "rq1_renderer_qa_v17",
+    _assert(config.get("schema_version") == "CanvasRCARQ1ConfigV10"
+            and config.get("protocol_revision") == "rq1_renderer_qa_v22",
             "RQ1 renderer-Q&A protocol revision drifted")
     _assert(config["runtime"].get("request_concurrency") == 4,
             "formal RQ1 runner must use case-level request concurrency four")
@@ -191,6 +198,7 @@ def check_rq1_contract(config: dict[str, Any]) -> dict[str, Any]:
     supervisor_source = (ROOT / "src/cli/smoke_e2e.py").read_text()
     smoke_source = (ROOT / "RQs/RQ1/scripts/smoke_nibi.sh").read_text()
     smoke_submit_source = (ROOT / "RQs/RQ1/scripts/submit_smoke_nibi.sh").read_text()
+    smoke_batch_source = (ROOT / "RQs/RQ1/scripts/submit_all_smokes_nibi.sh").read_text()
     prepare_source = (ROOT / "RQs/RQ1/scripts/prepare_nibi.sh").read_text()
     array_source = (ROOT / "RQs/RQ1/scripts/array_nibi.sh").read_text()
     _assert("partial_output_dir" in client_source and "timeout_partial" in supervisor_source
@@ -206,15 +214,38 @@ def check_rq1_contract(config: dict[str, Any]) -> dict[str, Any]:
         and '--dependency="afterok:$qwen_job"' in smoke_submit_source,
         "two-job sequential one-model smoke launcher drifted",
     )
+    _assert(
+        'dependency="$(IFS=:; echo "${qwen_jobs[*]}")"' in smoke_batch_source
+        and '--dependency="afterok:${dependency}"' in smoke_batch_source
+        and smoke_batch_source.count("RQs/RQ1/scripts/smoke_nibi.sh") == 2,
+        "batch smoke launcher can overlap Qwen and Gemma experiment phases",
+    )
     _assert("#SBATCH --time=00:30:00" in prepare_source,
             "preparation template must request exactly 30 minutes")
     prepare_block = array_source.split("  prepare)", 1)[1].split("  submit)", 1)[0]
     _assert(
         "SLURM_ARRAY_TASK_ID" not in prepare_source
         and "--array" not in prepare_block
-        and "CANVASRCA_EXPERIMENT_IDS" in prepare_source,
+        and "--output-shard-count" in prepare_source
+        and "ProcessPoolExecutor" in (ROOT / "RQs/RQ1/src/main.py").read_text(),
         "full-roster non-array preparation launcher drifted",
     )
+    submit_source = (ROOT / "RQs/RQ1/scripts/submit_nibi.sh").read_text()
+    smoke_payload_source = (ROOT / "RQs/RQ1/scripts/smoke_payload.sh").read_text()
+    _assert(
+        'PREPARED_ID="${CANVASRCA_PREPARED_EXPERIMENT_ID:-$EXPERIMENT_ID}"' in smoke_source
+        and '"$PREPARED_ID"' in smoke_source
+        and 'mkdir -p "$RESULT_ROOT"' in smoke_source
+        and '--prepared-experiment-id "$PREPARED_ID"' in smoke_source
+        and '--prepared-experiment-id "$PREPARED_ID"' in smoke_payload_source
+        and 'PREPARED_ID="${PREPARED_BASE_ID}__${SHARD_TAG}"' in submit_source
+        and '--prepared-experiment-id "$PREPARED_ID"' in submit_source
+        and '--shard-index "$SHARD_INDEX"' in submit_source
+        and '--shard-count "$SHARD_COUNT"' in submit_source,
+        "GPU launchers do not consume the exact shared/sharded preparation authority",
+    )
+    _assert("prepared_paths" in verify_result_root.__annotations__,
+            "verifier cannot follow the shared smoke preparation authority")
     _assert(len(factorial_cells()) == 16 and len(set(factorial_cells())) == 16, "factorial cells are incomplete")
     mapping_a, kinds = numeric_entity_map(["checkout", "node-1", "checkout-abcdef12-abcde"], "INC-ABC")
     mapping_b, _ = numeric_entity_map(["checkout", "node-1", "checkout-abcdef12-abcde"], "INC-XYZ")
@@ -226,6 +257,14 @@ def check_rq1_contract(config: dict[str, Any]) -> dict[str, Any]:
     counts = {name: len(rows) for name, rows in roster["datasets"].items()}
     _assert(counts == {"aegislab": 96, "aiops2022": 100, "aiops2025": 93, "re2_ob": 90, "re2_tt": 90}, "frozen RQ1 roster drifted")
     _assert(sum(counts.values()) == 469, "frozen RQ1 roster must contain 469 eligible cases")
+    smoke_roster = _load_roster(
+        ROOT / "RQs/RQ1/configs/rosters/rq1_nibi_smoke_private_v1.json", config,
+    )
+    _assert(
+        {row["dataset"] for row in smoke_roster} == {"aegislab", "aiops2022", "aiops2025"}
+        and all(row["opaque_incident_id"].startswith("INC-") for row in smoke_roster),
+        "registered smoke roster or frozen opaque linkage drifted",
+    )
     adapter = config.get("inference_adapter") or {}
     global_inference = VLLMInferenceConfig.load(config["unified"]["vllm"])
     global_common = global_inference.data["common"]
@@ -259,6 +298,19 @@ def check_rq1_contract(config: dict[str, Any]) -> dict[str, Any]:
         pass
     else:
         raise AssertionError("leakage audit missed an exact private identifier")
+    audit_visible({"entity": "acheckoutservice"}, ("checkoutservice",))
+    audit_visible({"entity": "checkoutservice9"}, ("checkoutservice",))
+    for visible in ("checkoutservice/pod", "[checkoutservice]", "écheckoutserviceé"):
+        try:
+            audit_visible({"entity": visible}, ("checkoutservice",))
+        except RQ1Error:
+            pass
+        else:
+            raise AssertionError("leakage audit changed its ASCII boundary semantics")
+    leakage_started = time.perf_counter()
+    audit_visible({"evidence": "x" * 1_000_000}, (f"private-marker-{index}" for index in range(1000)))
+    _assert(time.perf_counter() - leakage_started < 5.0,
+            "literal leakage audit regressed to per-marker pathological runtime")
     return {"experiments": sorted(registry), "factorial_cells": 16,
             "id_granularities": kinds, "eval_counts": counts,
             "per_model_smoke_calls": smoke_calls}
@@ -301,7 +353,25 @@ def _fixture_packets() -> tuple[dict[str, Any], dict[str, Any], bytes]:
     rca = {"schema_version": "RCAEvidencePacketV1", "opaque_incident_id": "INC-FIXTURE",
            "candidates": candidates, "facts": facts,
            "fact_inventory_hash": stable_hash(facts)}
-    qa = build_qa_packet(rca)
+    metric_panels = []
+    for index, service in enumerate(("101", "202"), 1):
+        metric_panels.append({
+            "kind": "metric", "panel_id": f"M{index}", "rendered_metric": "latency" if index == 1 else "errors",
+            "printed_summary": {"baseline": "1.00" if index == 1 else "100",
+                                "peak": "63" if index == 1 else "163",
+                                "signed_z": "peak +9.0z" if index == 1 else "peak +8.0z"},
+            "display_curve_contract": {"schema_version": "RendererV12MetricDisplayV1",
+                "plot_width_px": 120, "plot_height_px": 80,
+                "points_64": [{"x_px_from_left": i, "y_px_from_top": 64 - i} for i in range(64)],
+                "y_tick_labels": [{"y_px_from_top": 40, "label": "1"}],
+                "observed_bins_have_markers": True, "missing_bin_marker": None,
+                "fault_band_x_px_from_left": [30, 40]},
+        })
+    metric_panels.append({"kind": "propagation", "rows": [
+        {"service": "101", "onset_display": "1m", "severity_display": "9", "source_display": "M"},
+        {"service": "202", "onset_display": "2m", "severity_display": "8", "source_display": "M"},
+    ]})
+    qa = build_qa_packet(rca, {"panels": metric_panels})
     png = compile_pixel_text_pages(qa)[0]
     return rca, qa, png
 
@@ -338,6 +408,21 @@ def check_semantic_regressions() -> dict[str, Any]:
             "attention-to-renderer atlas diagnostics drifted")
     _assert(render_attention_overlay(png, attention, atlas).startswith(b"\x89PNG\r\n\x1a\n"),
             "attention overlay is not a PNG")
+    source_image = Image.new("RGB", (1000, 1000), "#DDEEFF")
+    source_stream = io.BytesIO(); source_image.save(source_stream, format="PNG")
+    routed = Image.open(io.BytesIO(_routed_image(
+        source_stream.getvalue(),
+        {"panels": [{"kind": kind} for kind in (
+            "metric", "propagation", "logs", "traces", "direct_identity_edge_key",
+        )]},
+        SimpleNamespace(long_side_px=1000, canvas_aspect=.76),
+    ))).convert("RGB")
+    _assert(
+        ImageChops.difference(source_image.crop((0, 0, 746, 760)), routed.crop((0, 0, 746, 760))).getbbox() is None
+        and ImageChops.difference(source_image.crop((746, 0, 1000, 424)), routed.crop((746, 0, 1000, 424))).getbbox() is None
+        and ImageChops.difference(source_image.crop((0, 760, 1000, 1000)), routed.crop((0, 760, 1000, 1000))).getbbox() is None,
+        "routed mask changed metric, propagation, or edge-key pixels",
+    )
     pixel_pages = compile_pixel_text_pages(qa)
     region_pngs = {region: (png,) for region in PROMPT_REGION_ORDER}
     qa_atlases = {region: [visual_patch_atlas(png, layout=f"crop_{region}")]
@@ -445,9 +530,21 @@ def check_semantic_regressions() -> dict[str, Any]:
     }, "Legacy-Q9 semantics drifted")
     _assert(all("bin " not in question.text for question in [*legacy, *reasoning]),
             "Q&A targets an exact curve bin that is not explicitly printed")
+    _assert(all("values" not in fact["payload"] and "missing_mask" not in fact["payload"]
+                for fact in qa["facts"] if fact["field"] == "metric_series_64"),
+            "Q&A text still exposes raw metric values absent from dashboard pixels")
+    _assert(all(
+        point is None or all(math.isfinite(float(value)) for value in point.values())
+        for fact in qa["facts"] if fact["field"] == "metric_series_64"
+        for point in fact["payload"]["display_curve"]["points_64"]
+    ), "Q&A display contract contains a non-finite plot coordinate")
     no_edge_rca = {**rca, "facts": [fact for fact in rca["facts"]
                                      if fact["field"] != "directed_call_edge"]}
-    no_edge_qa = build_qa_packet(no_edge_rca)
+    no_edge_qa = {**qa, "facts": [fact for fact in qa["facts"] if fact["field"] != "directed_call_edge"]}
+    no_edge_qa["facts"].append(_atomic_fact("G", "directed_edge_key_status", {"status": "none"}))
+    no_edge_qa["facts"] = sorted(no_edge_qa["facts"], key=lambda fact: (
+        PROMPT_REGION_ORDER.index(fact["region"]), fact["field"], fact["fact_id"]
+    ))
     no_edge_legacy, no_edge_reasoning = questions_for_case(no_edge_qa, "INC-NO-EDGE")
     _assert(no_edge_legacy[5].answer_steps == (("none",),)
             and [question.level for question in no_edge_reasoning] == [1, 2, 3]
@@ -463,9 +560,58 @@ def check_semantic_regressions() -> dict[str, Any]:
         2: {"M_L_link", "M_R_link", "M_G_link", "L_R_link", "L_G_link", "R_G_link"},
         3: {"M_locator_chain", "R_locator_chain", "L_locator_chain", "G_locator_chain"},
     }, f"14-template registry is not fully reachable: {observed_templates}")
-    _assert(all(len(q.regions) == 3 and len(set(q.regions)) >= 2 and "using that locator" in q.text
+    for index in range(256):
+        _legacy, sampled = questions_for_case(qa, f"INC-TOPOLOGY-{index}")
+        for question in sampled:
+            if question.template in {"M_G_link", "L_G_link", "R_G_link"}:
+                _assert("caller->callee edge key" in question.text
+                        and all(value.startswith(("upstream=", "downstream="))
+                                for value in question.answer_steps[1]),
+                        "M/L/R→G no longer performs directed topology traversal")
+    _assert(all(len(q.regions) == 3 and len(set(q.regions)) == 3
                 for q in reasoning if q.level == 3),
-            "Level-3 dependency chain lacks three dependent visible operations")
+            "Level-3 dependency chain does not traverse three distinct regions")
+
+    def sparse_questions(*, paired_lr: bool) -> list[Any]:
+        packet = json.loads(json.dumps(qa))
+        region_entities = {"M": "101", "L": "202", "R": "202" if paired_lr else "303", "G": "404"}
+        packet["facts"] = [fact for fact in packet["facts"] if fact["field"] != "directed_call_edge"]
+        for fact in packet["facts"]:
+            field = str(fact["field"])
+            if field in {"metric_series_64", "log_summary_entry", "trace_summary_entry", "propagation_service"}:
+                entity = region_entities[str(fact["region"])]
+                fact["payload"]["service"] = entity
+                fact["entity_ids"] = [entity]
+        return questions_for_case(packet, f"INC-SPARSE-{int(paired_lr)}")[1]
+
+    one_level = sparse_questions(paired_lr=False)
+    two_levels = sparse_questions(paired_lr=True)
+    _assert(
+        [question.level for question in one_level] == [1]
+        and [question.level for question in two_levels] == [1, 2],
+        "case-local question eligibility fabricated an unsupported reasoning level",
+    )
+    one_level_public = [question.public() for question in one_level]
+    one_level_schema = response_schema(
+        experiment_registry(load_yaml())["cross_region"], 1, one_level_public,
+    )["json_schema"]["schema"]["properties"]["answers"]
+    _assert(
+        (one_level_schema["minItems"], one_level_schema["maxItems"]) == (1, 1)
+        and one_level_schema["prefixItems"][0]["properties"]["query_id"]["const"] == "q1",
+        "case-local live grammar does not bind the exact eligible query inventory",
+    )
+    one_level_response = {"answers": [{"query_id": "q1", "answer": {"steps": [{
+        "step": 1, "region": one_level[0].regions[0],
+        "values": list(one_level[0].answer_steps[0]),
+    }]}}]}
+    sparse_score = score_reasoning(one_level_response, [one_level[0].private()])
+    _assert(
+        sparse_score["complete_chain_accuracy"] == 1.0
+        and sparse_score["eligible_reasoning_levels"] == [1]
+        and sparse_score["level_2_complete_chain_accuracy"] is None
+        and sparse_score["level_3_complete_chain_accuracy"] is None,
+        "an ineligible reasoning level was scored as a model failure",
+    )
     response = {"answers": [{"query_id": q.query_id, "answer": {"steps": [
         {"step": index, "region": region, "values": list(q.answer_steps[index - 1])}
         for index, region in enumerate(q.regions, 1)]}} for q in reasoning]}
@@ -482,6 +628,26 @@ def check_semantic_regressions() -> dict[str, Any]:
     )
     _assert(normalized_typed["binding_audit"]["unsupported_steps"] == 0,
             "host-bound typed selector fixture contains unsupported steps")
+    identity_questions = [
+        {"query_id": "q1", "region_path": ["M"]},
+        {"query_id": "q2", "region_path": ["G"]},
+    ]
+    identity_selectors = {
+        "q1": {"s1": {"record_key": "M1", "field": "entity_id"}},
+        "q2": {"s1": {"record_key": "G:101", "field": "entity_id"}},
+    }
+    identity_bound = normalize_typed_qa_ledger(identity_selectors, identity_questions, qa)
+    _assert(identity_bound["binding_audit"] == {"supported_steps": 2, "unsupported_steps": 0}
+            and all(any(record["entity_ids"] == ["101"]
+                        for record in row["observations"][0]["records"])
+                    for row in identity_bound["ledgers"]),
+            "canonical entity_id selectors do not bind visible public record identities")
+    invalid_identity = json.loads(json.dumps(identity_selectors))
+    invalid_identity["q1"]["s1"]["field"] = "entity"
+    invalid_identity["q2"]["s1"]["record_key"] = "G:999"
+    invalid_bound = normalize_typed_qa_ledger(invalid_identity, identity_questions, qa)
+    _assert(invalid_bound["binding_audit"] == {"supported_steps": 0, "unsupported_steps": 2},
+            "typed identity binder guessed an alias or invalid public record key")
     selector_schema = response_schema(
         experiment_registry(load_yaml())["typed_two_stage"], 1,
         [q.public() for q in reasoning],
@@ -529,13 +695,59 @@ def check_semantic_regressions() -> dict[str, Any]:
         for arm in spec.arms:
             _assert(bool(qa_representation_parts(arm, qa, png, pixel_pages, region_pngs)),
                     f"{name}/{arm} compiled no prompt parts")
-        response_schema(
-            spec, 1,
-            public["reasoning_questions"] if name == "typed_two_stage" else (),
-        )
+        questions = (public["legacy_questions"] if name == "legacy_q9"
+                     else public["reasoning_questions"])
+        response_schema(spec, 1, questions)
         if spec.stages == 2:
-            response_schema(spec, 2)
+            response_schema(spec, 2, questions)
         compiled_arms[name] = len(spec.arms)
+    legacy_answer_schema = response_schema(
+        registry["legacy_q9"], 1, public["legacy_questions"],
+    )["json_schema"]["schema"]["properties"]["answers"]
+    cross_answer_schema = response_schema(
+        registry["cross_region"], 1, public["reasoning_questions"],
+    )["json_schema"]["schema"]["properties"]["answers"]
+    typed_answer_schema = response_schema(
+        registry["typed_two_stage"], 2, public["reasoning_questions"],
+    )["json_schema"]["schema"]["properties"]["answers"]
+    _assert(
+        (legacy_answer_schema["minItems"], legacy_answer_schema["maxItems"]) == (9, 9)
+        and (cross_answer_schema["minItems"], cross_answer_schema["maxItems"]) == (3, 3)
+        and (typed_answer_schema["minItems"], typed_answer_schema["maxItems"]) == (3, 3),
+        "live Q&A grammar does not require the complete supplied query inventory",
+    )
+    for schema, questions, typed in (
+        (legacy_answer_schema, public["legacy_questions"], False),
+        (cross_answer_schema, public["reasoning_questions"], False),
+        (typed_answer_schema, public["reasoning_questions"], True),
+    ):
+        rows = schema.get("prefixItems") or []
+        _assert(len(rows) == len(questions),
+                "live Q&A grammar does not bind each ordered query")
+        for row, question in zip(rows, questions, strict=True):
+            _assert(row["properties"]["query_id"].get("const") == question["query_id"],
+                    "live Q&A grammar does not bind ordered query IDs")
+            step_schema = row["properties"]["answer"]["properties"]["steps"]
+            expected_regions = list(question["region_path"])
+            _assert(
+                (step_schema["minItems"], step_schema["maxItems"]) ==
+                (len(expected_regions), len(expected_regions))
+                and len(step_schema.get("prefixItems") or ()) == len(expected_regions),
+                "live Q&A grammar and validator disagree on exact step count",
+            )
+            for index, (step, region) in enumerate(
+                zip(step_schema["prefixItems"], expected_regions, strict=True), 1,
+            ):
+                properties = step["properties"]
+                _assert(
+                    properties["step"].get("const") == index
+                    and properties["region"].get("const") == region,
+                    "live Q&A grammar and validator disagree on the step path",
+                )
+                if typed:
+                    expected_kinds = TEMPLATE_VALUE_KINDS[question["template"]]
+                    _assert(properties["value_kind"].get("const") == expected_kinds[index - 1],
+                            "typed answer grammar and validator disagree on value kind")
     variants = {"targeted": png, "placebo": png, "neutral": png}
     for name in ("direct_rca", "matched_rca", "visual_counterfactual_rca"):
         spec = registry[name]
@@ -573,6 +785,18 @@ def check_semantic_regressions() -> dict[str, Any]:
     response_schema(handoff_spec, 1)
     response_schema(handoff_spec, 2)
     compiled_arms["ledger_handoff_rca"] = len(handoff_spec.arms)
+    contract = _request_contract(
+        experiment_id="smoke-fixture", experiment="ledger_handoff_rca", model="fixture",
+        execution_mode="smoke", opaque_incident_id="INC-FIXTURE", arm="L_hyb",
+        parts=[{"type": "text", "text": "fixture"}], runtime_freeze_sha256="freeze",
+        extra={"shared_stage1_call_key": "shared"},
+    )
+    _assert(
+        len(contract["call_key"]) == 24 and contract["representation_hash"]
+        and contract["runtime_freeze_sha256"] == "freeze"
+        and contract["shared_stage1_call_key"] == "shared",
+        "shared request-contract helper omitted resumability provenance",
+    )
     orders = {balanced_arm_order(RCA_ARMS, f"INC-{i}", "matched_rca") for i in range(64)}
     _assert(len(orders) >= len(RCA_ARMS), "arm order is not case-balanced")
     selection = _counterfactual_pairs({"candidates": rca["candidates"], "metric_series": [
@@ -640,189 +864,6 @@ def run_static_checks(config_path: Path = DEFAULT_CONFIG) -> dict[str, Any]:
     for name, check in checks:
         results[name] = check()
     return {"passed": True, "model_calls": 0, "checks": results}
-
-
-def run_live_logic_diagnostic(model: str, output: Path, config_path: Path = DEFAULT_CONFIG) -> dict[str, Any]:
-    """Exercise all six paths for development; this is not a registered smoke."""
-
-    from unified_scripts import canonical_json
-    from unified_scripts.vllm_inference import VLLMInferenceConfig
-    from vlmrca.vlm.client import text_part
-
-    from .exps import (
-        RCA_ARMS, handoff_parts, is_rca_task, normalize_stage1_ledger,
-        normalize_typed_qa_ledger, qa_representation_parts, representation_parts,
-        prepare_case, response_schema, stage1_prompt, stage2_prompt,
-    )
-    from .main import _model_call, _stage1_failure
-    from .utils import parse_json_object, stable_hash, write_json
-
-    config = load_yaml(config_path)
-    smoke_profile = os.environ.get("CANVASRCA_RQ1_SMOKE_PROFILE", "all_six")
-    if smoke_profile not in {"all_six", "final_patch"}:
-        raise RQ1Error(f"unknown local smoke profile {smoke_profile!r}")
-    registry = experiment_registry(config)
-    runtime = VLLMInferenceConfig.load(config["unified"]["vllm"])
-    adapter = {**dict(config["inference_adapter"])}
-    adapter["adapter_sha256"] = stable_hash(adapter)
-    call_options = {
-        "inference_adapter": adapter,
-        "context_limit": int(runtime.model(model)["max_model_len"]),
-        "attention_output_root": output / "attention",
-    }
-    cases = {
-        "aiops2022": prepare_case("aiops2022", "aiops2022_2022-03-20-cloudbed1_000", config),
-        "aiops2025": prepare_case("aiops2025", "aiops2025_0419ba04-373", config),
-        "re2_ob": prepare_case("re2_ob", "re2_ob_checkoutservice_cpu_1", config),
-    }
-    output.mkdir(parents=True, exist_ok=True)
-    started, calls, records = time.time(), 0, []
-
-    def invoke(label: str, system: str, parts: list[dict[str, Any]], schema: dict[str, Any]) -> tuple[dict[str, Any], str]:
-        nonlocal calls
-        if calls >= 18:
-            raise RQ1Error("live logic diagnostic exceeded one model's 18-call cap")
-        calls += 1
-        record, raw = _model_call(model=model, system=system, parts=parts, schema=schema, **call_options)
-        row = {"label": label, "call_number": calls, "call": record, "raw_response": raw}
-        records.append(row)
-        write_json(output / f"{calls:02d}_{label}.json", row)
-        (output / f"{calls:02d}_{label}.md").write_text(
-            f"# {label}\n\n```json\n{json.dumps(record['prompt'], indent=2, sort_keys=True)}\n```\n\n## Raw response\n\n```json\n{raw}\n```\n",
-            encoding="utf-8",
-        )
-        return record, raw
-
-    def safe_parse(raw: str) -> tuple[dict[str, Any], bool]:
-        try:
-            return parse_json_object(raw), True
-        except Exception as error:
-            return _stage1_failure(raw, error), False
-
-    # One-stage paths: one direct packet and one cross-region packet.
-    for experiment, dataset, arm in (("legacy_q9", "aiops2022", "T"), ("cross_region", "aiops2025", "H")):
-        spec, prepared = registry[experiment], cases[dataset]
-        parts = qa_representation_parts(arm, prepared.public["qa_packet"], prepared.qa_full_png,
-                                        prepared.pixel_text_pngs, prepared.qa_region_pngs)
-        parts.append(text_part(stage1_prompt(spec, prepared.public)))
-        call, raw = invoke(f"{experiment}_stage1", QA_SYSTEM, parts, response_schema(spec, 1))
-        payload, parsed = safe_parse(raw)
-        questions = prepared.public["legacy_questions"] if experiment == "legacy_q9" else prepared.public["reasoning_questions"]
-        try:
-            validate_qa_response(payload, questions)
-        except Exception:
-            parsed = False
-        call["diagnostic_parse"] = parsed
-
-    # Typed Q&A path.
-    spec, prepared = registry["typed_two_stage"], cases["re2_ob"]
-    parts = qa_representation_parts("H", prepared.public["qa_packet"], prepared.qa_full_png,
-                                    prepared.pixel_text_pngs, prepared.qa_region_pngs)
-    parts.append(text_part(stage1_prompt(spec, prepared.public)))
-    call1, raw1 = invoke(
-        "typed_two_stage_stage1", TYPED_OBSERVE_SYSTEM, parts,
-        response_schema(spec, 1, prepared.public["reasoning_questions"]),
-    )
-    stage1, parsed1 = safe_parse(raw1)
-    try:
-        stage1 = normalize_typed_qa_ledger(
-            stage1, prepared.public["reasoning_questions"], prepared.public["qa_packet"],
-        )
-    except Exception as error:
-        stage1, parsed1 = _stage1_failure(raw1, error), False
-    call1["diagnostic_parse"] = parsed1
-    call2, raw2 = invoke("typed_two_stage_stage2", TYPED_ANSWER_SYSTEM,
-                         [text_part(stage2_prompt(spec, stage1, prepared.public["rca_packet"]["candidates"],
-                                                  prepared.public["reasoning_questions"]))],
-                         response_schema(spec, 2))
-    payload2, parsed2 = safe_parse(raw2)
-    try:
-        validate_qa_response(payload2, prepared.public["reasoning_questions"], typed=True)
-    except Exception:
-        parsed2 = False
-    call2["diagnostic_parse"] = parsed2
-
-    def rca_pair(experiment: str, prepared: Any, arm: str) -> None:
-        spec = registry[experiment]
-        parts = representation_parts(arm, prepared.public["rca_packet"], prepared.full_png,
-                                     prepared.routed_png, config, prepared.variant_pngs)
-        parts.append(text_part(stage1_prompt(spec, prepared.public)))
-        call1, raw1 = invoke(f"{experiment}_stage1", OBSERVE_SYSTEM, parts, response_schema(spec, 1))
-        stage1, parsed1 = safe_parse(raw1)
-        try:
-            stage1 = normalize_stage1_ledger(stage1, prepared.public["rca_packet"])
-        except Exception as error:
-            stage1, parsed1 = _stage1_failure(raw1, error), False
-        call1["diagnostic_parse"] = parsed1
-        call2, raw2 = invoke(f"{experiment}_stage2", DIAGNOSE_SYSTEM,
-                             [text_part(stage2_prompt(spec, stage1, prepared.public["rca_packet"]["candidates"]))],
-                             response_schema(spec, 2))
-        final, parsed2 = safe_parse(raw2)
-        try:
-            validate_diagnosis(final, prepared.public["rca_packet"]["candidates"])
-        except Exception:
-            parsed2 = False
-        call2["diagnostic_parse"] = parsed2
-
-    rca_pair("matched_rca", cases["aiops2022"], "R")
-    if not cases["aiops2025"].private["counterfactual_pairs"]["eligible"]:
-        raise RQ1Error("registered local counterfactual smoke case is ineligible")
-    if smoke_profile == "all_six":
-        rca_pair("visual_counterfactual_rca", cases["aiops2025"], "H_targeted")
-
-    # Ledger handoff shares one routed observer and tests the visual+text handoff.
-    if smoke_profile == "all_six":
-        spec, prepared = registry["ledger_handoff_rca"], cases["re2_ob"]
-        observer = representation_parts("R", prepared.public["rca_packet"], prepared.full_png,
-                                        prepared.routed_png, config, prepared.variant_pngs)
-        observer.append(text_part(stage1_prompt(spec, prepared.public)))
-        call1, raw1 = invoke("ledger_handoff_rca_stage1", OBSERVE_SYSTEM, observer, response_schema(spec, 1))
-        stage1, parsed1 = safe_parse(raw1)
-        try:
-            stage1 = normalize_stage1_ledger(stage1, prepared.public["rca_packet"])
-        except Exception as error:
-            stage1, parsed1 = _stage1_failure(raw1, error), False
-        call1["diagnostic_parse"] = parsed1
-        call2, raw2 = invoke("ledger_handoff_rca_stage2", DIAGNOSE_SYSTEM,
-                             handoff_parts("L_hyb", stage1, prepared.public["rca_packet"]["candidates"]),
-                             response_schema(spec, 2))
-        final, parsed2 = safe_parse(raw2)
-        try:
-            validate_diagnosis(final, prepared.public["rca_packet"]["candidates"])
-        except Exception:
-            parsed2 = False
-        call2["diagnostic_parse"] = parsed2
-
-    for row in records:
-        write_json(output / f"{int(row['call_number']):02d}_{row['label']}.json", row)
-    visual_profiles = {
-        "legacy_q9_T": visual_diagnostic_for_arm("T", registry["legacy_q9"].task, cases["aiops2022"].public),
-        "cross_region_H": visual_diagnostic_for_arm("H", registry["cross_region"].task, cases["aiops2025"].public),
-        "typed_two_stage_H": visual_diagnostic_for_arm("H", registry["typed_two_stage"].task, cases["re2_ob"].public),
-        "matched_rca_R": visual_diagnostic_for_arm("R", registry["matched_rca"].task, cases["aiops2022"].public),
-        "counterfactual_targeted": visual_diagnostic_for_arm(
-            "H_targeted", registry["visual_counterfactual_rca"].task, cases["aiops2025"].public
-        ),
-        "ledger_handoff_L_hyb": visual_diagnostic_for_arm(
-            "L_hyb", registry["ledger_handoff_rca"].task, cases["re2_ob"].public
-        ),
-    }
-    report = {
-        "schema_version": "RQ1LocalLiveLogicDiagnosticV2", "status": "diagnostic_completed",
-        "scientific_status": "diagnostic_only_not_scientific_evidence", "model": model,
-        "smoke_profile": smoke_profile,
-        "model_calls": calls, "call_cap": 18, "wall_time_s": time.time() - started,
-        "experiments": sorted(registry), "records": len(records),
-        "parsed_records": sum(bool(row["call"].get("diagnostic_parse")) for row in records),
-        "effective_max_num_seqs": int(runtime.model(model)["max_num_seqs"]),
-        "global_max_tokens": int(runtime.model(model)["max_tokens"]),
-        "rq1_requested_max_tokens": int(adapter["max_tokens"]),
-        "visual_diagnostics": visual_profiles,
-        "raw_and_conversation_artifacts_inspection_required": True,
-    }
-    report["report_sha256"] = stable_hash(report)
-    write_json(output / "summary.json", report)
-    return report
 
 
 if __name__ == "__main__":

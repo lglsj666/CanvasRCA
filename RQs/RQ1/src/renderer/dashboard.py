@@ -14,6 +14,7 @@ from __future__ import annotations
 import hashlib
 import io
 import json
+import math
 from dataclasses import asdict, dataclass, field
 from typing import Any, Dict, List, Literal, Optional, Sequence, Tuple
 
@@ -91,6 +92,12 @@ from RQs.RQ1.src.renderer.onset import compute_service_onsets, service_level_pro
 #  12  numeric-identity dashboards state explicitly that service, pod, and node
 #      names are represented by numeric IDs.
 RENDERER_VERSION = 12
+
+# Frozen renderer-v12 geometry shared by source crops, routed views, and the
+# model-attention atlas.  Keeping these values in one authority prevents a
+# derived representation from silently clipping or relabelling dashboard ink.
+DASHBOARD_SIDE_SPLIT = 0.746
+DASHBOARD_PROPAGATION_END = 0.558
 
 
 # --------------------------------------------------------------------------- #
@@ -265,7 +272,66 @@ class DashboardConfig:
 
 def opaque_incident_id(case_id: str) -> str:
     """Stable label-blind public id; the private roster retains the mapping."""
-    return "INC-" + hashlib.sha256(str(case_id).encode("utf-8")).hexdigest()[:12].upper()
+    value = str(case_id)
+    if (len(value) == 16 and value.startswith("INC-")
+            and all(character in "0123456789ABCDEF" for character in value[4:])):
+        return value
+    return "INC-" + hashlib.sha256(value.encode("utf-8")).hexdigest()[:12].upper()
+
+
+def _attach_metric_display_contract(metric_axes: Sequence[Tuple[Any, Dict[str, Any]]]) -> None:
+    """Record the plot-pixel coordinates actually exposed by renderer-v12."""
+
+    for ax, panel in metric_axes:
+        values = panel.get("values") or []
+        x_values = panel.get("plot_x_rel_s") or []
+        if len(values) != 64 or len(x_values) != 64:
+            raise ValueError("renderer-v12 metric display contract requires 64 bins")
+        bbox = ax.get_window_extent()
+        width, height = max(1, round(bbox.width)), max(1, round(bbox.height))
+        normalized = bool(panel.get("normalized"))
+        baseline = float(panel.get("baseline_mean") or 0.0)
+        spread = float(panel.get("baseline_std") or 0.0)
+        points = []
+        for x_value, source_value in zip(x_values, values, strict=True):
+            if (source_value is None or x_value is None
+                    or not math.isfinite(float(source_value))
+                    or not math.isfinite(float(x_value))):
+                points.append(None)
+                continue
+            y_value = float(source_value)
+            if normalized and spread > 0:
+                y_value = (y_value - baseline) / spread
+            pixel_x, pixel_y = ax.transData.transform((float(x_value), y_value))
+            points.append({
+                "x_px_from_left": max(0, min(width - 1, round(pixel_x - bbox.x0))),
+                "y_px_from_top": max(0, min(height - 1, round(bbox.y1 - pixel_y))),
+            })
+        ticks = []
+        for location, label in zip(ax.get_yticks(), ax.get_yticklabels(), strict=False):
+            text = label.get_text().strip()
+            if not text:
+                continue
+            _pixel_x, pixel_y = ax.transData.transform((0.0, float(location)))
+            row = round(bbox.y1 - pixel_y)
+            if 0 <= row < height:
+                ticks.append({"y_px_from_top": row, "label": text})
+        panel["display_curve_contract"] = {
+            "schema_version": "RendererV12MetricDisplayV1",
+            "plot_width_px": width,
+            "plot_height_px": height,
+            "points_64": points,
+            "y_tick_labels": ticks,
+            "observed_bins_have_markers": True,
+            "missing_bin_marker": None,
+        }
+        fault_window = panel.get("fault_window_plot_x_rel_s")
+        if fault_window:
+            panel["display_curve_contract"]["fault_band_x_px_from_left"] = [
+                max(0, min(width - 1, round(
+                    ax.transData.transform((float(value), 0.0))[0] - bbox.x0
+                ))) for value in fault_window
+            ]
 
 
 # --------------------------------------------------------------------------- #
@@ -442,6 +508,7 @@ def compile_dashboard(
         trace_row_chars = 22
 
     manifest_panels: List[Dict[str, Any]] = []
+    metric_axes: List[Tuple[Any, Dict[str, Any]]] = []
 
     # Header — opaque identity and relative window only. Never labels, dataset
     # names, source paths, or absolute timestamps.
@@ -495,8 +562,7 @@ def compile_dashboard(
         for i, s in enumerate(chosen):
             r, c = divmod(i, cols)
             ax = fig.add_subplot(gs[r, c])
-            manifest_panels.append(
-                panels.render_metric_panel(
+            entry = panels.render_metric_panel(
                     ax,
                     panel_id=f"M{i+1}",
                     metrics_df=view.metrics_df,
@@ -511,12 +577,12 @@ def compile_dashboard(
                     display_labels=display_labels,
                     typography=typography,
                 )
-            )
+            manifest_panels.append(entry)
+            metric_axes.append((ax, entry))
     else:
         ax = fig.add_subplot(gs[0:max(metric_rows, 1), 0:cols])
-        manifest_panels.append(
-            _render_overplot(ax, view, chosen, fault_window, cfg, typography)
-        )
+        entry = _render_overplot(ax, view, chosen, fault_window, cfg, typography)
+        manifest_panels.append(entry)
 
     # Auxiliary column.
     topo_nodes: Sequence[str] = sorted(view.graph.nodes())
@@ -591,6 +657,9 @@ def compile_dashboard(
                 )
             )
 
+    fig.canvas.draw()
+    if metric_axes:
+        _attach_metric_display_contract(metric_axes)
     buf = io.BytesIO()
     fig.savefig(buf, format="png", facecolor="white")
     plt.close(fig)
@@ -694,13 +763,13 @@ def crop_dashboard_evidence_regions(
     base_height = int(cfg.long_side_px * cfg.canvas_aspect)
     if source.width != cfg.long_side_px or source.height < base_height:
         raise ValueError("dashboard image geometry differs from its frozen renderer config")
-    split = round(source.width * 0.746)
+    split = round(source.width * DASHBOARD_SIDE_SPLIT)
     # Keep the propagation readout legend with G.  The row immediately below
     # starts the log table; 0.558 is the whitespace midpoint between those two
     # renderer-v12 primitives at the frozen geometry.  The earlier 0.542 cut
     # clipped the final propagation-omission line and duplicated its tail at
     # the top of L.
-    propagation_end = round(base_height * 0.558)
+    propagation_end = round(base_height * DASHBOARD_PROPAGATION_END)
     auxiliary_mid = propagation_end + (base_height - propagation_end) // 2
     boxes: Dict[str, Tuple[Tuple[int, int, int, int], ...]] = {
         "M": ((0, 0, split, base_height),),

@@ -4,9 +4,10 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import itertools
 import json
 import time
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import FIRST_COMPLETED, ProcessPoolExecutor, ThreadPoolExecutor, wait
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
@@ -15,6 +16,7 @@ from vlmrca.vlm.client import VLMResponse, call_vlm, count_vllm_prompt_tokens, t
 from vlmrca.vlm.configs import get_config
 from vlmrca.vlm.attention_probe import map_groups_to_images, render_overlay as render_probe_overlay
 from unified_scripts.vllm_inference import VLLMInferenceConfig
+from unified_scripts.dataset_segmentation import CaseRecord, DatasetSegmentationConfig
 
 from .exps import (
     DIRECT_DIAGNOSE_SYSTEM,
@@ -63,7 +65,7 @@ SOURCE_FILES = tuple(sorted(
 ))
 
 
-def _load_roster(path: Path) -> list[dict[str, str]]:
+def _load_roster(path: Path, config: Mapping[str, Any]) -> list[dict[str, str]]:
     payload = json.loads(path.read_text(encoding="utf-8"))
     if isinstance(payload, dict) and isinstance(payload.get("datasets"), Mapping):
         rows = [
@@ -76,11 +78,81 @@ def _load_roster(path: Path) -> list[dict[str, str]]:
     if not isinstance(rows, list):
         raise RQ1Error("roster must be a list or contain a cases list")
     normalized = []
+    segmentation = DatasetSegmentationConfig.load(config["unified"]["segmentation"])
     for row in rows:
         if not isinstance(row, Mapping) or not row.get("dataset") or not row.get("case_id"):
             raise RQ1Error("private roster rows require dataset and case_id")
-        normalized.append({"dataset": str(row["dataset"]), "case_id": str(row["case_id"])})
+        dataset, case_id = str(row["dataset"]), str(row["case_id"])
+        expected = segmentation.opaque_id(CaseRecord(dataset, case_id, Path(".")))
+        observed = str(row.get("opaque_incident_id") or expected)
+        if observed != expected:
+            raise RQ1Error(
+                f"roster opaque ID mismatch for {dataset}/{case_id}: {observed} != {expected}"
+            )
+        normalized.append({"dataset": dataset, "case_id": case_id,
+                           "opaque_incident_id": observed})
     return normalized
+
+
+def _prepare_roster_row(row: Mapping[str, str], config: Mapping[str, Any]) -> PreparedCase:
+    return prepare_case(row["dataset"], row["case_id"], config, row["opaque_incident_id"])
+
+
+def _persist_prepared(paths: RunPaths, prepared: PreparedCase) -> dict[str, Any]:
+    opaque = str(prepared.public["opaque_incident_id"])
+    public_path, private_path = paths.prepared / f"{opaque}.json", paths.private / f"{opaque}.json"
+    full_path = paths.renders / f"{opaque}.full.png"
+    qa_full_path = paths.renders / f"{opaque}.qa-full.png"
+    routed_path = paths.renders / f"{opaque}.routed.png"
+    qa_region_paths = {
+        region: [paths.renders / f"{opaque}.qa-renderer-{region}-{page:02d}.png"
+                 for page in range(1, len(images) + 1)]
+        for region, images in prepared.qa_region_pngs.items()
+    }
+    pixel_text_paths = [paths.renders / f"{opaque}.pixel-text-{index:02d}.png"
+                        for index in range(1, len(prepared.pixel_text_pngs) + 1)]
+    variant_paths = {name: paths.renders / f"{opaque}.{name}.png" for name in prepared.variant_pngs}
+    write_json(public_path, prepared.public); write_json(private_path, prepared.private)
+    from .utils import atomic_write
+    atomic_write(full_path, prepared.full_png); atomic_write(qa_full_path, prepared.qa_full_png)
+    atomic_write(routed_path, prepared.routed_png)
+    for region, region_paths in qa_region_paths.items():
+        for path, image in zip(region_paths, prepared.qa_region_pngs[region], strict=True):
+            atomic_write(path, image)
+    for path, image in zip(pixel_text_paths, prepared.pixel_text_pngs, strict=True):
+        atomic_write(path, image)
+    for name, path in variant_paths.items():
+        atomic_write(path, prepared.variant_pngs[name])
+    return {
+        "opaque_incident_id": opaque,
+        "public": str(public_path.relative_to(paths.root)), "private": str(private_path.relative_to(paths.root)),
+        "full_image": str(full_path.relative_to(paths.root)),
+        "qa_full_image": str(qa_full_path.relative_to(paths.root)),
+        "routed_image": str(routed_path.relative_to(paths.root)),
+        "qa_region_images": {region: [str(path.relative_to(paths.root)) for path in values]
+                             for region, values in qa_region_paths.items()},
+        "pixel_text_images": [str(path.relative_to(paths.root)) for path in pixel_text_paths],
+        "variant_images": {name: str(path.relative_to(paths.root)) for name, path in variant_paths.items()},
+        "public_sha256": stable_hash(prepared.public), "private_sha256": stable_hash(prepared.private),
+        "full_image_sha256": stable_hash(prepared.full_png),
+        "qa_full_image_sha256": stable_hash(prepared.qa_full_png),
+        "routed_image_sha256": stable_hash(prepared.routed_png),
+        "qa_region_image_sha256": {region: [stable_hash(value) for value in images]
+                                   for region, images in prepared.qa_region_pngs.items()},
+        "pixel_text_image_sha256": [stable_hash(value) for value in prepared.pixel_text_pngs],
+        "variant_image_sha256": {name: stable_hash(value) for name, value in prepared.variant_pngs.items()},
+    }
+
+
+def _write_prepared_index(paths: RunPaths, experiment_id: str, entries: Sequence[Mapping[str, Any]],
+                          freeze: Mapping[str, Any], *, partial: bool) -> dict[str, Any]:
+    summary = {"schema_version": "RQ1PreparedIndexV6", "experiment_id": experiment_id,
+               "case_count": len(entries),
+               "cases": sorted((dict(row) for row in entries), key=lambda row: row["opaque_incident_id"]),
+               "runtime_freeze": dict(freeze), "preparation_complete": not partial}
+    summary["index_sha256"] = stable_hash(summary)
+    write_json(paths.prepared / ("index.partial.json" if partial else "index.json"), summary)
+    return summary
 
 
 def prepare(
@@ -89,90 +161,67 @@ def prepare(
     roster: Path,
     config_path: Path = DEFAULT_CONFIG,
     limit: int | None = None,
+    output_shard_count: int = 1,
 ) -> dict[str, Any]:
     config = load_yaml(config_path)
-    paths = RunPaths.build(experiment_id, config)
-    rows = _load_roster(roster)
+    if output_shard_count < 1:
+        raise RQ1Error("preparation output shard count must be positive")
+    rows = _load_roster(roster, config)
     if limit is not None:
         rows = rows[:limit]
-    writer = AsyncWriter(int(config["runtime"]["max_workers"]))
-    index: list[dict[str, Any]] = []
-    try:
-        for row in rows:
-            prepared = prepare_case(row["dataset"], row["case_id"], config)
-            opaque = str(prepared.public["opaque_incident_id"])
-            public_path = paths.prepared / f"{opaque}.json"
-            private_path = paths.private / f"{opaque}.json"
-            full_path = paths.renders / f"{opaque}.full.png"
-            qa_full_path = paths.renders / f"{opaque}.qa-full.png"
-            routed_path = paths.renders / f"{opaque}.routed.png"
-            qa_region_paths = {
-                region: [paths.renders / f"{opaque}.qa-renderer-{region}-{page:02d}.png"
-                         for page in range(1, len(images) + 1)]
-                for region, images in prepared.qa_region_pngs.items()
-            }
-            pixel_text_paths = [
-                paths.renders / f"{opaque}.pixel-text-{index:02d}.png"
-                for index in range(1, len(prepared.pixel_text_pngs) + 1)
-            ]
-            variant_paths = {
-                name: paths.renders / f"{opaque}.{name}.png"
-                for name in prepared.variant_pngs
-            }
-            writer.json(public_path, prepared.public)
-            writer.json(private_path, prepared.private)
-            writer.bytes(full_path, prepared.full_png)
-            writer.bytes(qa_full_path, prepared.qa_full_png)
-            writer.bytes(routed_path, prepared.routed_png)
-            for region, region_paths in qa_region_paths.items():
-                for path, image in zip(region_paths, prepared.qa_region_pngs[region], strict=True):
-                    writer.bytes(path, image)
-            for path, image in zip(pixel_text_paths, prepared.pixel_text_pngs, strict=True):
-                writer.bytes(path, image)
-            for name, path in variant_paths.items():
-                writer.bytes(path, prepared.variant_pngs[name])
-            index.append(
-                {
-                    "opaque_incident_id": opaque,
-                    "public": str(public_path.relative_to(paths.root)),
-                    "private": str(private_path.relative_to(paths.root)),
-                    "full_image": str(full_path.relative_to(paths.root)),
-                    "qa_full_image": str(qa_full_path.relative_to(paths.root)),
-                    "routed_image": str(routed_path.relative_to(paths.root)),
-                    "qa_region_images": {
-                        region: [str(path.relative_to(paths.root)) for path in region_paths]
-                        for region, region_paths in qa_region_paths.items()
-                    },
-                    "pixel_text_images": [str(path.relative_to(paths.root)) for path in pixel_text_paths],
-                    "variant_images": {name: str(path.relative_to(paths.root)) for name, path in variant_paths.items()},
-                    "public_sha256": stable_hash(prepared.public),
-                    "private_sha256": stable_hash(prepared.private),
-                    "full_image_sha256": stable_hash(prepared.full_png),
-                    "qa_full_image_sha256": stable_hash(prepared.qa_full_png),
-                    "routed_image_sha256": stable_hash(prepared.routed_png),
-                    "qa_region_image_sha256": {
-                        region: [stable_hash(value) for value in images]
-                        for region, images in prepared.qa_region_pngs.items()
-                    },
-                    "pixel_text_image_sha256": [stable_hash(value) for value in prepared.pixel_text_pngs],
-                    "variant_image_sha256": {
-                        name: stable_hash(value) for name, value in prepared.variant_pngs.items()
-                    },
-                }
-            )
-    finally:
-        writer.drain()
     freeze = artifact_contract(config=config, code_files=SOURCE_FILES)
-    summary = {
-        "schema_version": "RQ1PreparedIndexV5",
-        "experiment_id": experiment_id,
-        "case_count": len(index),
-        "cases": index,
+    shard_ids = [experiment_id if output_shard_count == 1 else
+                 f"{experiment_id}__shard-{index:04d}-of-{output_shard_count:04d}"
+                 for index in range(output_shard_count)]
+    paths = [RunPaths.build(value, config) for value in shard_ids]
+    entries: list[list[dict[str, Any]]] = [[] for _ in shard_ids]
+    assignments = {row["opaque_incident_id"]: int(hashlib.sha256(
+        row["opaque_incident_id"].encode()).hexdigest(), 16) % output_shard_count for row in rows}
+    missing = []
+    for index, shard_paths in enumerate(paths):
+        final_path = shard_paths.prepared / "index.json"
+        partial_path = shard_paths.prepared / "index.partial.json"
+        resume_path = final_path if final_path.is_file() else partial_path
+        if resume_path.is_file():
+            previous = json.loads(resume_path.read_text(encoding="utf-8"))
+            if previous.get("runtime_freeze", {}).get("freeze_sha256") == freeze["freeze_sha256"]:
+                for item in previous.get("cases") or ():
+                    if assignments.get(str(item["opaque_incident_id"])) == index:
+                        _read_prepared(shard_paths, item)
+                        entries[index].append(dict(item))
+    completed_ids = {row["opaque_incident_id"] for values in entries for row in values}
+    missing = [row for row in rows if row["opaque_incident_id"] not in completed_ids]
+    workers = max(1, min(4, int(config["runtime"]["max_workers"])))
+    # Keep only one task per worker in flight.  Submitting the complete roster
+    # up front made ProcessPoolExecutor wait for hundreds of queued cases after
+    # the first preparation exception, hiding the real failure and preventing
+    # partial indexes from advancing.
+    row_iter = iter(missing)
+    with ProcessPoolExecutor(max_workers=workers) as pool:
+        futures = {}
+        for row in itertools.islice(row_iter, workers):
+            futures[pool.submit(_prepare_roster_row, row, config)] = row
+        while futures:
+            finished, _pending = wait(futures, return_when=FIRST_COMPLETED)
+            for future in finished:
+                row, prepared = futures.pop(future), future.result()
+                index = assignments[row["opaque_incident_id"]]
+                entries[index].append(_persist_prepared(paths[index], prepared))
+                _write_prepared_index(paths[index], shard_ids[index], entries[index], freeze, partial=True)
+                next_row = next(row_iter, None)
+                if next_row is not None:
+                    futures[pool.submit(_prepare_roster_row, next_row, config)] = next_row
+    summaries = []
+    for shard_paths, shard_id, shard_entries in zip(paths, shard_ids, entries, strict=True):
+        summaries.append(_write_prepared_index(shard_paths, shard_id, shard_entries, freeze, partial=False))
+        (shard_paths.prepared / "index.partial.json").unlink(missing_ok=True)
+    return summaries[0] if output_shard_count == 1 else {
+        "schema_version": "RQ1PreparedShardSetV1", "experiment_id": experiment_id,
+        "shard_count": output_shard_count, "case_count": sum(row["case_count"] for row in summaries),
+        "shards": [{"experiment_id": row["experiment_id"], "case_count": row["case_count"],
+                    "index_sha256": row["index_sha256"]} for row in summaries],
         "runtime_freeze": freeze,
     }
-    summary["index_sha256"] = stable_hash(summary)
-    write_json(paths.prepared / "index.json", summary)
-    return summary
 
 
 def _read_prepared(paths: RunPaths, item: Mapping[str, Any]) -> PreparedCase:
@@ -243,6 +292,23 @@ def _parts_hash(parts: Sequence[Mapping[str, Any]]) -> str:
         payload = part["png"] if part["type"] == "image" else str(part["text"]).encode()
         rows.append({"type": part["type"], "sha256": stable_hash(payload)})
     return stable_hash(rows)
+
+
+def _request_contract(*, experiment_id: str, experiment: str, model: str,
+                      execution_mode: str, opaque_incident_id: str, arm: str,
+                      parts: Sequence[Mapping[str, Any]], runtime_freeze_sha256: str,
+                      extra: Mapping[str, Any] | None = None) -> dict[str, Any]:
+    """Build the content-addressed provenance shared by every RQ1 request path."""
+
+    contract = {
+        "experiment_id": experiment_id, "experiment": experiment, "model": model,
+        "execution_mode": execution_mode, "opaque_incident_id": opaque_incident_id,
+        "arm": arm, "representation_hash": _parts_hash(parts),
+        "runtime_freeze_sha256": runtime_freeze_sha256,
+        **dict(extra or {}),
+    }
+    contract["call_key"] = stable_hash(contract)[:24]
+    return contract
 
 
 def _prompt_record(system: str, parts: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
@@ -447,6 +513,7 @@ def _run_partition(
     shard_count: int = 1,
     writer_workers: int | None = None,
     smoke: bool = False,
+    prepared_experiment_id: str | None = None,
 ) -> dict[str, Any]:
     config = load_yaml(config_path)
     if not execute or not config.get("execution_enabled"):
@@ -459,6 +526,8 @@ def _run_partition(
         .model(model)["max_model_len"]
     )
     paths = RunPaths.build(experiment_id, config)
+    prepared_id = prepared_experiment_id or experiment_id
+    prepared_paths = RunPaths.build(prepared_id, config)
     call_options = {
         "inference_adapter": inference_adapter,
         "context_limit": context_limit,
@@ -467,8 +536,8 @@ def _run_partition(
             paths.root / "partial_responses" / model / experiment if smoke else None
         ),
     }
-    index = json.loads((paths.prepared / "index.json").read_text())
-    if index.get("experiment_id") != experiment_id:
+    index = json.loads((prepared_paths.prepared / "index.json").read_text())
+    if index.get("experiment_id") != prepared_id:
         raise RQ1Error("prepared index experiment ID mismatch")
     recorded_index_sha256 = index.get("index_sha256")
     unsigned_index = dict(index)
@@ -496,7 +565,7 @@ def _run_partition(
     model_calls = 0
     try:
         for item in items:
-            prepared = _read_prepared(paths, item)
+            prepared = _read_prepared(prepared_paths, item)
             opaque = str(prepared.public["opaque_incident_id"])
             case_arms = _case_arms(
                 spec, str(prepared.private["dataset"]), config, smoke=smoke,
@@ -508,18 +577,29 @@ def _run_partition(
                 }
                 if all(_completed_target(path) for path in handoff_targets.values()):
                     continue
+                observer_parts = representation_parts(
+                    "R", prepared.public["rca_packet"], prepared.full_png,
+                    prepared.routed_png, config, prepared.variant_pngs,
+                    prepared.pixel_text_pngs,
+                )
+                observer_parts.append(text_part(stage1_prompt(spec, prepared.public)))
+                shared_contract = _request_contract(
+                    experiment_id=experiment_id, experiment=experiment, model=model,
+                    execution_mode="smoke" if smoke else "formal",
+                    opaque_incident_id=opaque, arm="R_shared", parts=observer_parts,
+                    runtime_freeze_sha256=index["runtime_freeze"]["freeze_sha256"],
+                )
+                shared_key = str(shared_contract["call_key"])
                 shared_path = trajectory_root / "_shared_stage1" / f"{opaque}.json"
                 if _completed_target(shared_path):
                     shared = json.loads(shared_path.read_text(encoding="utf-8"))
+                    if any(shared.get(key) != value for key, value in shared_contract.items()):
+                        raise RQ1Error("shared Stage-1 resume contract differs from current request")
                     call1, raw1 = dict(shared["call"]), str(shared["raw_response"])
                     ledger, stage1_parse = dict(shared["normalized"]), bool(shared["parse"])
-                    shared_key = str(shared["shared_stage1_call_key"])
+                    if str(shared.get("shared_stage1_call_key")) != shared_key:
+                        raise RQ1Error("shared Stage-1 call key differs from its request contract")
                 else:
-                    observer_parts = representation_parts(
-                        "R", prepared.public["rca_packet"], prepared.full_png, prepared.routed_png,
-                        config, prepared.variant_pngs, prepared.pixel_text_pngs,
-                    )
-                    observer_parts.append(text_part(stage1_prompt(spec, prepared.public)))
                     model_calls += 1
                     call1, raw1 = _model_call(
                         model=model, system=OBSERVE_SYSTEM, parts=observer_parts,
@@ -533,13 +613,9 @@ def _run_partition(
                         stage1_parse = ledger.get("schema_version") != "Stage1FailureV2"
                     except Exception as error:
                         ledger, stage1_parse = _stage1_failure(raw1, error), False
-                    shared_key = stable_hash({
-                        "experiment": experiment, "model": model, "case": opaque,
-                        "observer": _parts_hash(observer_parts), "ledger": ledger,
-                    })[:24]
                     shared = {
-                        "status": "completed", "shared_stage1_call_key": shared_key,
-                        "execution_mode": "smoke" if smoke else "formal",
+                        **shared_contract, "status": "completed",
+                        "shared_stage1_call_key": shared_key,
                         "call": call1, "raw_response": raw1, "normalized": ledger, "parse": stage1_parse,
                     }
                     shared["record_sha256"] = stable_hash(shared)
@@ -555,11 +631,17 @@ def _run_partition(
                     if _completed_target(target):
                         continue
                     stage2_parts = handoff_parts(arm, ledger, prepared.public["rca_packet"]["candidates"])
+                    contract = _request_contract(
+                        experiment_id=experiment_id, experiment=experiment, model=model,
+                        execution_mode="smoke" if smoke else "formal",
+                        opaque_incident_id=opaque, arm=arm, parts=stage2_parts,
+                        runtime_freeze_sha256=index["runtime_freeze"]["freeze_sha256"],
+                        extra={"registered_arm_order": list(ordered_arms),
+                               "arm_order_index": order_index,
+                               "shared_stage1_call_key": shared_key},
+                    )
                     record = {
-                        "experiment_id": experiment_id, "experiment": experiment, "model": model,
-                        "execution_mode": "smoke" if smoke else "formal",
-                        "opaque_incident_id": opaque, "arm": arm, "shared_stage1_call_key": shared_key,
-                        "registered_arm_order": list(ordered_arms), "arm_order_index": order_index,
+                        **contract,
                         "analysis_dataset": prepared.private["dataset"],
                         "analysis_fault_type": prepared.private.get("fault_type", "unknown"),
                         "status": "completed", "stage1_reference": str(shared_path.relative_to(paths.root)),
@@ -610,19 +692,6 @@ def _run_partition(
                 target = trajectory_root / f"{opaque}__{arm}.json"
                 if _completed_target(target):
                     continue
-                if spec.task == "root_cause_counterfactual" and not prepared.private["counterfactual_pairs"]["eligible"]:
-                    record = {
-                        "experiment_id": experiment_id, "experiment": experiment, "model": model,
-                        "execution_mode": "smoke" if smoke else "formal",
-                        "opaque_incident_id": opaque, "arm": arm, "analysis_dataset": prepared.private["dataset"],
-                        "registered_arm_order": list(ordered_arms), "arm_order_index": order_index,
-                        "analysis_fault_type": prepared.private.get("fault_type", "unknown"),
-                        "status": "protocol_ineligible", "reason": "label_blind_counterfactual_selector_ineligible",
-                    }
-                    record["record_sha256"] = stable_hash(record)
-                    writer.json(target, record)
-                    writer.bytes(target.with_suffix(".md"), ("# Protocol-ineligible counterfactual case\n" + canonical_json(record)).encode())
-                    continue
                 if is_rca_task(spec):
                     parts = representation_parts(
                         arm, prepared.public["rca_packet"], prepared.full_png,
@@ -635,19 +704,30 @@ def _run_partition(
                         prepared.pixel_text_pngs, prepared.qa_region_pngs,
                     )
                 parts.append(text_part(stage1_prompt(spec, prepared.public)))
-                contract = {
-                    "experiment_id": experiment_id,
-                    "experiment": experiment,
-                    "model": model,
-                    "execution_mode": "smoke" if smoke else "formal",
-                    "opaque_incident_id": opaque,
-                    "arm": arm,
-                    "registered_arm_order": list(ordered_arms),
-                    "arm_order_index": order_index,
-                    "representation_hash": _parts_hash(parts),
-                    "runtime_freeze_sha256": index["runtime_freeze"]["freeze_sha256"],
-                }
-                contract["call_key"] = stable_hash(contract)[:24]
+                contract = _request_contract(
+                    experiment_id=experiment_id, experiment=experiment, model=model,
+                    execution_mode="smoke" if smoke else "formal",
+                    opaque_incident_id=opaque, arm=arm, parts=parts,
+                    runtime_freeze_sha256=index["runtime_freeze"]["freeze_sha256"],
+                    extra={"registered_arm_order": list(ordered_arms),
+                           "arm_order_index": order_index},
+                )
+                if (spec.task == "root_cause_counterfactual"
+                        and not prepared.private["counterfactual_pairs"]["eligible"]):
+                    record = {
+                        **contract,
+                        "analysis_dataset": prepared.private["dataset"],
+                        "analysis_fault_type": prepared.private.get("fault_type", "unknown"),
+                        "status": "protocol_ineligible",
+                        "reason": "label_blind_counterfactual_selector_ineligible",
+                    }
+                    record["record_sha256"] = stable_hash(record)
+                    writer.json(target, record)
+                    writer.bytes(
+                        target.with_suffix(".md"),
+                        ("# Protocol-ineligible counterfactual case\n" + canonical_json(record)).encode(),
+                    )
+                    continue
                 record: dict[str, Any] = {**contract, "status": "completed", "stages": []}
                 record["analysis_dataset"] = prepared.private["dataset"]
                 record["analysis_fault_type"] = prepared.private.get("fault_type", "unknown")
@@ -662,12 +742,14 @@ def _run_partition(
                                     else OBSERVE_SYSTEM if is_rca_task(spec)
                                     else TYPED_OBSERVE_SYSTEM if spec.name == "typed_two_stage"
                                     else QA_SYSTEM)
-                    typed_questions = (prepared.public["reasoning_questions"]
-                                       if spec.name == "typed_two_stage" else ())
+                    qa_questions = (
+                        prepared.public["legacy_questions"] if spec.task == "direct_visops" else
+                        prepared.public["reasoning_questions"] if not is_rca_task(spec) else ()
+                    )
                     model_calls += 1
                     call1, raw1 = _model_call(
                         model=model, system=first_system, parts=parts,
-                        schema=response_schema(spec, 1, typed_questions), **call_options,
+                        schema=response_schema(spec, 1, qa_questions), **call_options,
                         partial_metadata={"case": opaque, "arm": arm, "stage": 1},
                     )
                     try:
@@ -710,7 +792,7 @@ def _run_partition(
                         model_calls += 1
                         call2, raw2 = _model_call(
                             model=model, system=system, parts=stage2_parts,
-                            schema=response_schema(spec, 2), **call_options,
+                            schema=response_schema(spec, 2, questions), **call_options,
                             partial_metadata={"case": opaque, "arm": arm, "stage": 2},
                         )
                         try:
@@ -752,7 +834,7 @@ def _run_partition(
         writer.drain()
     current_records = []
     for item in items:
-        prepared = _read_prepared(paths, item)
+        prepared = _read_prepared(prepared_paths, item)
         opaque = str(prepared.public["opaque_incident_id"])
         for arm in _case_arms(spec, str(prepared.private["dataset"]), config, smoke=smoke):
             target = paths.trajectories / experiment / model / f"{opaque}__{arm}.json"
@@ -766,7 +848,7 @@ def _run_partition(
         "infrastructure_errors": sum(row.get("status") == "infrastructure_error" for row in current_records),
         "expected_records": sum(
             len(_case_arms(
-                spec, str(_read_prepared(paths, item).private["dataset"]), config,
+                spec, str(_read_prepared(prepared_paths, item).private["dataset"]), config,
                 smoke=smoke,
             ))
             for item in items
@@ -780,6 +862,7 @@ def _run_partition(
         "shard_index": shard_index,
         "shard_count": shard_count,
         "assigned_cases": len(items),
+        "prepared_experiment_id": prepared_id,
     }
     write_json(paths.root / f"run_{experiment}_{model}_shard{shard_index:03d}-of-{shard_count:03d}.json", result)
     if shard_count == 1:
@@ -813,6 +896,7 @@ def run(
     shard_index: int = 0,
     shard_count: int = 1,
     smoke: bool = False,
+    prepared_experiment_id: str | None = None,
 ) -> dict[str, Any]:
     """Run different cases concurrently while preserving each case's arm order."""
 
@@ -825,6 +909,7 @@ def run(
             config_path=config_path, execute=execute,
             shard_index=shard_index, shard_count=shard_count,
             smoke=smoke,
+            prepared_experiment_id=prepared_experiment_id,
         )
     with ThreadPoolExecutor(max_workers=request_concurrency) as pool:
         futures = [
@@ -835,6 +920,7 @@ def run(
                 shard_index=worker_index, shard_count=worker_count,
                 writer_workers=1,
                 smoke=smoke,
+                prepared_experiment_id=prepared_experiment_id,
             )
             for worker_index, worker_count in partitions
         ]
@@ -859,6 +945,7 @@ def run(
         "shard_index": shard_index,
         "shard_count": shard_count,
         "assigned_cases": sum(int(row["assigned_cases"]) for row in worker_results),
+        "prepared_experiment_id": prepared_experiment_id or experiment_id,
         "request_concurrency": request_concurrency,
         "concurrency_unit": "different_cases_within_case_arm_order_serial",
         "worker_partitions": [
@@ -944,9 +1031,12 @@ def compare_stages(*, experiment_id: str, config_path: Path = DEFAULT_CONFIG) ->
     return result
 
 
-def verify(*, experiment_id: str, config_path: Path = DEFAULT_CONFIG) -> dict[str, Any]:
+def verify(*, experiment_id: str, config_path: Path = DEFAULT_CONFIG,
+           prepared_experiment_id: str | None = None) -> dict[str, Any]:
     config = load_yaml(config_path)
-    result = verify_result_root(RunPaths.build(experiment_id, config), config)
+    result_paths = RunPaths.build(experiment_id, config)
+    prepared_paths = RunPaths.build(prepared_experiment_id, config) if prepared_experiment_id else result_paths
+    result = verify_result_root(result_paths, config, prepared_paths)
     write_json(RunPaths.build(experiment_id, config).root / "verification.json", result)
     return result
 
@@ -1008,6 +1098,7 @@ def cli(argv: Sequence[str] | None = None) -> int:
     p_prepare.add_argument("experiment_id")
     p_prepare.add_argument("roster", type=Path)
     p_prepare.add_argument("--limit", type=int)
+    p_prepare.add_argument("--output-shard-count", type=int, default=1)
     p_run = sub.add_parser("run")
     p_run.add_argument("experiment_id")
     p_run.add_argument("experiment", choices=("legacy_q9", "cross_region", "typed_two_stage", "direct_rca", "matched_rca", "visual_counterfactual_rca", "ledger_handoff_rca"))
@@ -1016,6 +1107,7 @@ def cli(argv: Sequence[str] | None = None) -> int:
     p_run.add_argument("--smoke", action="store_true")
     p_run.add_argument("--shard-index", type=int, default=0)
     p_run.add_argument("--shard-count", type=int, default=1)
+    p_run.add_argument("--prepared-experiment-id")
     p_analyse = sub.add_parser("analyse")
     p_analyse.add_argument("experiment_id")
     p_analyse.add_argument("experiment")
@@ -1023,6 +1115,7 @@ def cli(argv: Sequence[str] | None = None) -> int:
     p_compare.add_argument("experiment_id")
     p_verify = sub.add_parser("verify")
     p_verify.add_argument("experiment_id")
+    p_verify.add_argument("--prepared-experiment-id")
     p_attention = sub.add_parser("attention-overlay")
     p_attention.add_argument("experiment_id")
     p_attention.add_argument("opaque_incident_id")
@@ -1032,20 +1125,25 @@ def cli(argv: Sequence[str] | None = None) -> int:
     sub.add_parser("static")
     args = parser.parse_args(argv)
     if args.command == "prepare":
-        result = prepare(experiment_id=args.experiment_id, roster=args.roster, config_path=args.config, limit=args.limit)
+        result = prepare(experiment_id=args.experiment_id, roster=args.roster,
+                         config_path=args.config, limit=args.limit,
+                         output_shard_count=args.output_shard_count)
     elif args.command == "run":
         result = run(
             experiment_id=args.experiment_id, experiment=args.experiment,
             model=args.model, config_path=args.config, execute=args.execute,
             shard_index=args.shard_index, shard_count=args.shard_count,
-            smoke=args.smoke,
+            smoke=args.smoke, prepared_experiment_id=args.prepared_experiment_id,
         )
     elif args.command == "analyse":
         result = analyse(experiment_id=args.experiment_id, experiment=args.experiment, config_path=args.config)
     elif args.command == "compare-stages":
         result = compare_stages(experiment_id=args.experiment_id, config_path=args.config)
     elif args.command == "verify":
-        result = verify(experiment_id=args.experiment_id, config_path=args.config)
+        result = verify(
+            experiment_id=args.experiment_id, config_path=args.config,
+            prepared_experiment_id=args.prepared_experiment_id,
+        )
     elif args.command == "attention-overlay":
         result = attention_overlay(
             experiment_id=args.experiment_id, opaque_incident_id=args.opaque_incident_id,

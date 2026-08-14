@@ -7,11 +7,27 @@ ID; historical local results remain context rather than final evidence.
 
 ## Semantic-restoration authority
 
-The current successor is `rq1_renderer_qa_v17`. It retains the v16
+The current successor is `rq1_renderer_qa_v22`. It retains the v16
 `CompactRecordKeyLedgerV4` RCA protocol, v14 same-prefill attention runtime,
 v13 seven-experiment registry, v12 SIRCL-adapted Stage-2 prompt, and the exact
-renderer-v12 RCA representations. V17 changes only formal Q&A representations
-and their questions/typed binder. The first
+renderer-v12 RCA representations. V21 retains the authorized v18 T/P/V/H Q&A
+representation family while correcting frozen opaque-ID linkage, display-level
+metric fact equality, directed topology questions, strict three-region Level 3,
+shared preparation, and derived-image geometry. It additionally makes the
+structured Q&A answer array, ordered query IDs, step counts, step numbers,
+regions, and typed value kinds equal the supplied public query contract,
+records the full content-addressed contract for shared ledger-handoff Stage 1
+and each handoff target, and lets the verifier follow an explicit shared
+preparation authority. It also defines `entity_id` as the sole canonical
+selector for a record's public numeric identity: the binder reads that value
+from the fact envelope without accepting aliases or guessing an invalid key.
+V22 additionally freezes case-local question eligibility after the common
+visible evidence packet is built. All 469 frozen cases support Level 1; 448
+support Level 2; and 316 support strict, three-distinct-region Level 3. The
+resulting inventories are 316 cases with Levels 1/2/3, 132 with Levels 1/2,
+and 21 with Level 1 only. An unsupported level is absent from that case's
+public query contract and its metric denominator; it is never fabricated,
+relaxed, or scored as an incorrect model answer. The first
 Nibi refactor shortened load-bearing prompts and replaced parts of the old
 controlled evidence/task compiler with approximate summaries. Any Nibi model
 trajectory produced by that predecessor implementation is archived diagnostic
@@ -210,17 +226,29 @@ exact text fragments second in M/R/L/G order. Short question identifiers
 only associate outputs with questions; complete-chain and step accuracy score
 the reasoning result. The exact template registry is 4/6/4: M/L/R/G direct;
 M↔L, M↔R, M↔G, L↔R, L↔G, R↔G; and four M/R/L/G-start
-start→pivot→target locator-chain families. A chain prefers three distinct
-visible regions. When case-local renderer rows share an ID across only two
-regions, the same registered family uses a start→pivot→start round trip with
-three distinct dependent operations rather than inventing a cross-granularity
-join. Step 2 returns the pivot's visible row or panel locator; Step 3 must use
-that locator to recover the entity before reading the target.
+start→pivot→target locator-chain families. Every Level-3 chain traverses three
+distinct visible regions; a two-region start→pivot→start fallback is forbidden.
+For M/L/R→G joins, the G operation follows the printed caller→callee edge key
+and returns directed upstream/downstream neighbors rather than a same-entity
+propagation scalar. A Level-3 chain uses such an endpoint as the next region's
+lookup key when an eligible edge is visible; otherwise it uses a strict
+three-region entity/locator chain. Step 3 must use the preceding result.
 Thus an explicitly empty edge key remains evidence rather than making a valid
 case ineligible. Every later lookup depends on the preceding answer.
 Template selection
 is deterministic among the templates eligible for that case, because a case
 with no trace or no qualifying graph join cannot support every family.
+Every frozen case remains in every Q&A arm. Its ordered answer schema contains
+exactly its one-to-three eligible questions, so paired representation
+comparisons never replace a case or pretend that a missing evidence join was a
+model failure.
+
+The v22 Q&A evidence index does not expose raw 64-bin metric values as text.
+For each curve it records the 64 observed/missing point locations at the actual
+renderer-v12 plot-pixel resolution, visible tick labels, printed
+baseline/peak/deviation summary, and displayed fault-band coordinates. The
+T/P/V visible-fact audit verifies those compiled display coordinates and
+printed cells; it never infers equality merely from a shared upstream source.
 
 Interpret `P_QA-T_QA` as pixel transport, `V_QA-P_QA` as true dashboard
 encoding, `V_QA-T_QA` as the overall real-dashboard effect, `H_QA-T_QA` as
@@ -231,13 +259,14 @@ full-dashboard `V_QA` because it does not preserve the complete spatial layout.
 ## `typed_two_stage`
 
 The cross-region packets run through a host-bound typed ledger before the
-answer stage. The public question contract fixes q1/q2/q3, the exact number of
-steps, and each M/L/R/G path. Stage 1 selects only a compact visible record key
+answer stage. The public question contract fixes every supplied eligible query
+ID, its exact number of steps, and its M/L/R/G path. Stage 1 selects only a compact visible record key
 (`M1`, `L:<entity>`, `R:<entity>`, `G:<entity>`, or
 `G:<caller>-><callee>`) and optional displayed field in each slot. A deterministic
 label-blind binder then copies the exact displayed values and units from the
-same public packet. Unsupported selectors remain explicit step records rather
-than invalidating all three questions. Stage 2 receives the question contracts
+same public packet. The canonical `entity_id` field binds the visible numeric
+identity stored in the public fact envelope. Unsupported selectors remain explicit step records rather
+than invalidating the supplied questions. Stage 2 receives the question contracts
 plus this normalized ledger and returns typed step values. This measures
 extraction, grounding, and handoff attrition without testing memory for opaque
 IDs or raw-sequence transcription. It is an agent-mechanism experiment rather

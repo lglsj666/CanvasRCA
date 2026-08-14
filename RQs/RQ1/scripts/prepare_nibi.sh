@@ -15,21 +15,16 @@ export CANVASRCA_ENV="${CANVASRCA_BASE_ENV:-$PROJECT_ROOT/.venv-base}"
 # shellcheck disable=SC1091
 source scripts/env.sh
 
-EXPERIMENT_IDS="${CANVASRCA_EXPERIMENT_IDS:-${CANVASRCA_EXPERIMENT_ID:-}}"
-[[ -n "$EXPERIMENT_IDS" ]] || {
-  echo "set CANVASRCA_EXPERIMENT_IDS (colon-separated) or CANVASRCA_EXPERIMENT_ID" >&2
+EXPERIMENT_ID="${CANVASRCA_EXPERIMENT_ID:-}"
+[[ -n "$EXPERIMENT_ID" ]] || {
+  echo "set CANVASRCA_EXPERIMENT_ID" >&2
   exit 2
 }
 ROSTER="${CANVASRCA_ROSTER:?set CANVASRCA_ROSTER}"
-IFS=: read -r -a PREPARATION_IDS <<<"$EXPERIMENT_IDS"
-for experiment_id in "${PREPARATION_IDS[@]}"; do
-  [[ "$experiment_id" =~ ^[A-Za-z0-9._-]+$ ]] || {
-    echo "invalid preparation experiment ID: $experiment_id" >&2
-    exit 2
-  }
-  result_root="RQs/RQ1/results/${experiment_id}"
-  mkdir -p "$result_root"
-  if [[ ! -f "$result_root/prepared/index.json" ]]; then
-    python -m RQs.RQ1.src.main prepare "$experiment_id" "$ROSTER"
-  fi
-done
+SHARD_COUNT="${CANVASRCA_SHARD_COUNT:-1}"
+[[ "$EXPERIMENT_ID" =~ ^[A-Za-z0-9._-]+$ && "$SHARD_COUNT" =~ ^[1-9][0-9]*$ ]] || {
+  echo "invalid preparation experiment ID or shard count" >&2
+  exit 2
+}
+python -m RQs.RQ1.src.main prepare "$EXPERIMENT_ID" "$ROSTER" \
+  --output-shard-count "$SHARD_COUNT"

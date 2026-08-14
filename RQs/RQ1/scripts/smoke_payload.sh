@@ -4,12 +4,14 @@ set -euo pipefail
 MODEL="${1:?usage: smoke_payload.sh MODEL EXPERIMENT_ID EXPERIMENT}"
 EXPERIMENT_ID="${2:?missing experiment id}"
 EXPERIMENT="${3:?missing experiment name}"
+PREPARED_ID="${4:-$EXPERIMENT_ID}"
 RESULT_ROOT="RQs/RQ1/results/${EXPERIMENT_ID}"
 
 "$CANVASRCA_PYTHON" -m cli.attest_vllm_server "$MODEL" \
   --out "${RESULT_ROOT}/${MODEL}.smoke.server.json"
 "$CANVASRCA_PYTHON" -m RQs.RQ1.src.main run \
-  "$EXPERIMENT_ID" "$EXPERIMENT" "$MODEL" --execute --smoke
+  "$EXPERIMENT_ID" "$EXPERIMENT" "$MODEL" --execute --smoke \
+  --prepared-experiment-id "$PREPARED_ID"
 
 summary="${RESULT_ROOT}/run_${EXPERIMENT}_${MODEL}.json"
 [[ -f "$summary" ]] || { echo "smoke run summary missing" >&2; exit 4; }

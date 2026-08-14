@@ -5,7 +5,8 @@ set -euo pipefail
 # registered model phases cannot overlap and each allocation requests one H100.
 EXPERIMENT_ID="${1:?usage: submit_smoke_nibi.sh EXPERIMENT_ID EXPERIMENT}"
 EXPERIMENT="${2:?missing experiment name}"
-COMMON="ALL,CANVASRCA_EXPERIMENT_ID=$EXPERIMENT_ID,CANVASRCA_EXPERIMENT=$EXPERIMENT"
+PREPARED_ID="${3:-${CANVASRCA_PREPARED_EXPERIMENT_ID:-$EXPERIMENT_ID}}"
+COMMON="ALL,CANVASRCA_EXPERIMENT_ID=$EXPERIMENT_ID,CANVASRCA_EXPERIMENT=$EXPERIMENT,CANVASRCA_PREPARED_EXPERIMENT_ID=$PREPARED_ID"
 SBATCH_ARGS=()
 if [[ -n "${CANVASRCA_SBATCH_ARGS:-}" ]]; then
   # Deliberately shell-split administrator-supplied Slurm options.

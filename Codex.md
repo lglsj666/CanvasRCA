@@ -185,6 +185,15 @@ resource name and should pair the GPU with an appropriate CPU/RAM request.
 Record the allocated GPU model, count, CPU count, RAM, job ID, module list,
 environment hash, and termination reason.
 
+All Nibi CanvasRCA jobs for this allocation must be submitted with the base
+Slurm account `def-jacobsen` (for example through
+`SBATCH_ACCOUNT=def-jacobsen`). Nibi records an accepted GPU job under the
+derived account name `def-jacobsen_gpu`; verify that exact account immediately
+after every submission. Do not use `rrg-jacobsen-ab` or
+`rrg-jacobsen-ab_gpu` for CanvasRCA work. If an incorrect-account job has not
+started, cancel it and resubmit the same unit under `def-jacobsen`; never repeat
+a completed model call solely to change accounting metadata.
+
 ## Unified vLLM inference policy
 
 All project-owned inference uses `src/vlmrca/vlm/client.py`,
@@ -352,8 +361,40 @@ across compared arms.
 
 ## Experiments and artifacts
 
+**非必要，一定要避免重跑任何东西。** Before submitting preparation,
+smoke, gate, or formal work, inventory the scheduler and existing on-disk
+artifacts. Reuse every compatible completed artifact and resume incomplete
+content-addressed work. A completed unit may be rerun only when concrete
+evidence shows that its required artifact is missing, corrupt, scientifically
+invalid, or incompatible with a load-bearing changed contract. An operational
+optimization that leaves model-visible evidence, prompts, schemas, inference,
+and scoring unchanged does not invalidate completed preparation or smoke
+artifacts. Record the evidence and the smallest necessary rerun scope before
+submitting an authorized rerun.
+
 Long runs execute in the background through Slurm and must be resumable by a
 content-addressed call key. Pre-render CPU artifacts before allocating a GPU.
+The current RQ1 formal execution has twelve scheduler positions split into two
+independent duration lanes: eight jobs request `08:00:00`, and four jobs request
+`00:30:00`. `RUNNING`, `PENDING`, and `COMPLETING` jobs consume a position. An
+eight-hour position is refilled only with an eight-hour job, and a thirty-minute
+position only with a thirty-minute job, keeping 8+4 active whenever enough
+eligible work remains. Count individual jobs rather than array parents. The
+eight-hour wrapper interrupts its payload after 7 hours 55 minutes; the
+thirty-minute wrapper interrupts after 25 minutes. Both reserve up to two
+minutes for cleanup before the Slurm hard limit. A registered payload timeout
+resubmits the same unit in its existing duration lane against content-addressed
+artifacts, skips only hash-valid completed case/arm targets, and restarts the
+interrupted target from the beginning rather than splicing a partial response.
+A non-timeout failure must be diagnosed before that unit is automatically
+retried. Hash-valid model outcomes such as output-length termination,
+truncation, or parse failure remain terminal scientific outcomes and must never
+be relabeled as a job-timeout checkpoint. Before an automatic timeout resume,
+classify existing artifacts; any infrastructure error, hash/integrity error, or
+unknown status pauses automatic retry for diagnosis. Smoke, preparation,
+static-test, gate, merge, and other non-formal jobs are outside the 8+4 formal
+window. The two registered model families remain sequential: every Qwen unit
+must complete before any Gemma unit is submitted.
 Use no more than four CPU preprocessing or artifact-writer workers and monitor
 host memory. RQ1 model-request concurrency is a separate frozen field:
 `request_concurrency=4`. The runner must consume it by processing up to four

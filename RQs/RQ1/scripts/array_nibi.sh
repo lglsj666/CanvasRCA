@@ -10,7 +10,7 @@ PYTHON_BIN="${CANVASRCA_PYTHON:-python}"
 usage() {
   cat >&2 <<'EOF'
 Usage:
-  array_nibi.sh prepare EXPERIMENT_ID[:EXPERIMENT_ID...] ROSTER
+  array_nibi.sh prepare PREPARED_EXPERIMENT_ID ROSTER [SHARDS]
   array_nibi.sh submit MODEL EXPERIMENT_ID EXPERIMENT ROSTER [SHARDS]
   array_nibi.sh merge  EXPERIMENT_ID EXPERIMENT [SHARDS]
 
@@ -27,17 +27,18 @@ EOF
 command="${1:-}"
 case "$command" in
   prepare)
-    [[ $# -eq 3 ]] || usage
-    experiment_ids="$2"
+    [[ $# -ge 3 && $# -le 4 ]] || usage
+    experiment_id="$2"
     roster="$3"
-    [[ "$experiment_ids" =~ ^[A-Za-z0-9._-]+(:[A-Za-z0-9._-]+)*$ ]] || usage
+    shards="${4:-1}"
+    [[ "$experiment_id" =~ ^[A-Za-z0-9._-]+$ && "$shards" =~ ^[1-9][0-9]*$ ]] || usage
     [[ -f "$roster" ]] || { echo "roster does not exist: $roster" >&2; exit 2; }
     extra=()
     if [[ -n "${CANVASRCA_SBATCH_ARGS:-}" ]]; then
       read -r -a extra <<<"$CANVASRCA_SBATCH_ARGS"
     fi
     sbatch --parsable "${extra[@]}" \
-      --export="ALL,CANVASRCA_EXPERIMENT_IDS=${experiment_ids},CANVASRCA_ROSTER=${roster}" \
+      --export="ALL,CANVASRCA_EXPERIMENT_ID=${experiment_id},CANVASRCA_ROSTER=${roster},CANVASRCA_SHARD_COUNT=${shards}" \
       RQs/RQ1/scripts/prepare_nibi.sh
     ;;
 
@@ -90,10 +91,12 @@ case "$command" in
     mkdir -p "$merged" "$merged/prepared" "$merged/private" "$merged/renders" \
       "$merged/trajectories" "$merged/shard_reports"
     indexes=()
+    prepared_base="${CANVASRCA_PREPARED_EXPERIMENT_ID:-$experiment_id}"
     for ((index = 0; index < shards; index++)); do
       tag="$(printf 'shard-%04d-of-%04d' "$index" "$shards")"
       shard="RQs/RQ1/results/${experiment_id}__${tag}"
-      [[ -f "$shard/prepared/index.json" ]] || { echo "missing shard: $tag" >&2; exit 4; }
+      prepared_shard="RQs/RQ1/results/${prepared_base}__${tag}"
+      [[ -f "$prepared_shard/prepared/index.json" ]] || { echo "missing prepared shard: $tag" >&2; exit 4; }
       IFS=',' read -r -a required_models <<<"$merge_models"
       for model in "${required_models[@]}"; do
         [[ -f "$shard/run_${experiment}_${model}.json" ]] || {
@@ -101,9 +104,12 @@ case "$command" in
           exit 4
         }
       done
-      indexes+=("$shard/prepared/index.json")
+      indexes+=("$prepared_shard/prepared/index.json")
       mkdir -p "$merged/shard_reports/${tag}"
-      for directory in prepared private renders trajectories; do
+      for directory in prepared private renders; do
+        [[ -d "$prepared_shard/$directory" ]] && cp -a "$prepared_shard/$directory/." "$merged/$directory/"
+      done
+      for directory in trajectories; do
         [[ -d "$shard/$directory" ]] && cp -a "$shard/$directory/." "$merged/$directory/"
       done
       find "$shard" -maxdepth 1 -type f \( -name 'run_*.json' -o -name '*.server.json' \) \

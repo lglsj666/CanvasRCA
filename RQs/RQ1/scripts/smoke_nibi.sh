@@ -24,7 +24,10 @@ export CANVASRCA_VLLM_BIN="$CANVASRCA_ENV/bin/vllm"
 EXPERIMENT_ID="${CANVASRCA_EXPERIMENT_ID:?set CANVASRCA_EXPERIMENT_ID}"
 EXPERIMENT="${CANVASRCA_EXPERIMENT:?set CANVASRCA_EXPERIMENT}"
 RESULT_ROOT="RQs/RQ1/results/${EXPERIMENT_ID}"
-[[ -f "$RESULT_ROOT/prepared/index.json" ]] || { echo "smoke preparation missing" >&2; exit 3; }
+PREPARED_ID="${CANVASRCA_PREPARED_EXPERIMENT_ID:-$EXPERIMENT_ID}"
+PREPARED_ROOT="RQs/RQ1/results/${PREPARED_ID}"
+[[ -f "$PREPARED_ROOT/prepared/index.json" ]] || { echo "smoke preparation missing" >&2; exit 3; }
+mkdir -p "$RESULT_ROOT"
 
 MODEL="${CANVASRCA_MODEL:?set CANVASRCA_MODEL to one registered model}"
 [[ "$MODEL" == "qwen3.6-27b" || "$MODEL" == "gemma-4-26b-a4b" ]] || {
@@ -124,7 +127,7 @@ run_model_phase() {
     --timeout "$remaining" \
     --report "${RESULT_ROOT}/${model}.smoke.supervisor.json" \
     --partial-dir "${RESULT_ROOT}/partial_responses/${model}/${EXPERIMENT}" \
-    RQs/RQ1/scripts/smoke_payload.sh "$model" "$EXPERIMENT_ID" "$EXPERIMENT"
+    RQs/RQ1/scripts/smoke_payload.sh "$model" "$EXPERIMENT_ID" "$EXPERIMENT" "$PREPARED_ID"
   phase_status=$?
   set -e
   stop_phase "$phase_status"
@@ -132,3 +135,5 @@ run_model_phase() {
 }
 
 run_model_phase "$MODEL"
+"$CANVASRCA_PYTHON" -m RQs.RQ1.src.main verify "$EXPERIMENT_ID" \
+  --prepared-experiment-id "$PREPARED_ID"

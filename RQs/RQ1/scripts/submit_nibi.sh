@@ -40,10 +40,12 @@ fi
 
 SHARD_TAG="$(printf 'shard-%04d-of-%04d' "$SHARD_INDEX" "$SHARD_COUNT")"
 EXPERIMENT_ID="${BASE_ID}__${SHARD_TAG}"
+PREPARED_BASE_ID="${CANVASRCA_PREPARED_EXPERIMENT_ID:-$BASE_ID}"
+PREPARED_ID="${PREPARED_BASE_ID}__${SHARD_TAG}"
 RESULT_ROOT="RQs/RQ1/results/${EXPERIMENT_ID}"
 mkdir -p "$RESULT_ROOT"
-[[ -f "$RESULT_ROOT/prepared/index.json" ]] || {
-  echo "CPU preparation is missing for $EXPERIMENT_ID" >&2
+[[ -f "RQs/RQ1/results/${PREPARED_ID}/prepared/index.json" ]] || {
+  echo "CPU preparation is missing for $PREPARED_ID" >&2
   exit 3
 }
 
@@ -102,4 +104,7 @@ curl -fsS -H "Authorization: Bearer ${VLLM_API_KEY:-EMPTY}" \
   "${VLLM_BASE_URL%/}/models" >/dev/null
 
 "$PYTHON" -m cli.attest_vllm_server "$MODEL" --out "${RESULT_ROOT}/${EXPERIMENT}.${MODEL}.server.json"
-"$PYTHON" -m RQs.RQ1.src.main run "$EXPERIMENT_ID" "$EXPERIMENT" "$MODEL" --execute
+"$PYTHON" -m RQs.RQ1.src.main run "$EXPERIMENT_ID" "$EXPERIMENT" "$MODEL" --execute \
+  --prepared-experiment-id "$PREPARED_ID" \
+  --shard-index "$SHARD_INDEX" \
+  --shard-count "$SHARD_COUNT"

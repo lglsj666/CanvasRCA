@@ -143,9 +143,26 @@ def audit_visible(value: Any, private_markers: Iterable[Any] = ()) -> None:
         if raw is None:
             continue
         marker = str(raw).strip().casefold()
-        if marker and len(marker) >= 4 and re.search(
-            rf"(?<![a-z0-9]){re.escape(marker)}(?![a-z0-9])", text,
-        ):
+        # This is byte-for-byte equivalent to the former escaped-literal
+        # lookaround regex, including its ASCII-only boundary definition. A
+        # regex search per natural entity became effectively quadratic on
+        # large AegisLab packets; ``str.find`` performs the literal scan in C
+        # without changing which occurrence is considered visible.
+        found = False
+        if marker and len(marker) >= 4:
+            start = 0
+            while True:
+                index = text.find(marker, start)
+                if index < 0:
+                    break
+                end = index + len(marker)
+                left_ok = index == 0 or text[index - 1] not in "abcdefghijklmnopqrstuvwxyz0123456789"
+                right_ok = end == len(text) or text[end] not in "abcdefghijklmnopqrstuvwxyz0123456789"
+                if left_ok and right_ok:
+                    found = True
+                    break
+                start = index + 1
+        if found:
             raise RQ1Error(f"private marker escaped into public artifact: {raw!r}")
 
 

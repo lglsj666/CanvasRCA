@@ -1,8 +1,8 @@
 # visual_counterfactual_rca Findings
 
-**Status:** v16 visible-record-key Stage-1 repair implemented but not tested at
-handoff. Predecessor trajectories remain diagnostic/archive evidence; Nibi
-qualification and replacement rerun are required.
+**Status:** v21 successor smoke qualified. The v22b formal rerun has started
+and is incomplete. Predecessor trajectories remain diagnostic/archive
+evidence.
 
 The shared RCA Stage-2 prompt now uses the registered field/RCA guide and
 internal SIRCL-style VERIFY procedure. This is a successor protocol change,
