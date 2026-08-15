@@ -49,8 +49,10 @@ positions may be filled by Gemma from the same active experiment once fewer
 Qwen units remain than the twelve-position window. Each job loads one model,
 and the two models never run the same shard concurrently. Compatible artifacts from already-submitted jobs are
 preserved, but those jobs are not refilled when they belong to a non-active
-experiment. `direct_rca` and `matched_rca` are local whole-experiment heldouts;
-the remaining five experiments are Nibi-owned. Different sites may work on
+experiment. `direct_rca`, `matched_rca`, and `ledger_handoff_rca` are local
+whole-experiment heldouts; the remaining four experiments are Nibi-owned. A
+completed pre-transfer checkpoint may move with its whole experiment, but it
+does not authorize further Nibi execution. Different sites may work on
 different whole experiments concurrently, but may not split one experiment.
 
 Before a heavy rerun, compile and audit every registered arm against both

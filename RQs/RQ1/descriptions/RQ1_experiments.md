@@ -4,8 +4,9 @@ RQ1 has seven registered experiments implemented by the compact engine in
 `RQs/RQ1/src/`. They reuse the unified inference, segmentation, and RCA-scoring
 contracts in `configs/`. Every experiment receives a new final result lineage
 on its assigned execution site; historical local results remain context rather
-than final evidence. `direct_rca` and `matched_rca` are whole-experiment local
-heldouts, while the other five experiments remain Nibi-owned.
+than final evidence. `direct_rca`, `matched_rca`, and `ledger_handoff_rca` are
+whole-experiment local heldouts, while the other four experiments remain
+Nibi-owned.
 
 ## Semantic-restoration authority
 
@@ -148,8 +149,10 @@ metadata share one result root. Jobs from a
 different experiment that predate this clarification may finish and retain
 their compatible artifacts, but are not refilled. Local and Nibi may process
 different whole experiments in parallel, but no experiment may be split between sites.
-The current local heldouts are all of `matched_rca` and all of `direct_rca`;
-Nibi submits neither.
+The current local heldouts are all of `matched_rca`, all of `direct_rca`, and
+all of `ledger_handoff_rca`; Nibi submits none of these experiments. The
+completed v22b Qwen ledger-handoff shard 0 is a transferable checkpoint under
+the same frozen lineage, not a split-site authorization.
 
 Every experiment uses the first frozen eligible case from RE2-OB, AIOPS-2022,
 and AIOPS-2025 in roster order for its one registered smoke. The Qwen phase runs

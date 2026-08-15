@@ -382,9 +382,9 @@ active experiment, Qwen has submission priority; when fewer eligible Qwen jobs
 remain than the twelve available positions, Gemma jobs from the same experiment
 fill the unused positions and the two model families may overlap in separate
 one-model jobs. This is an operational scheduling rule and changes no scientific
-contract. `direct_rca` and
-`matched_rca` are whole-experiment local heldouts covering all 24 shards and
-both models; Nibi must submit no shard of either. A local and Nibi site may
+contract. `direct_rca`, `matched_rca`, and `ledger_handoff_rca` are
+whole-experiment local heldouts covering all 24 shards and both models; Nibi
+must submit no shard of any of them. A local and Nibi site may
 work concurrently only on different whole experiments assigned to those
 sites; an experiment is never split between them. Jobs from another experiment
 that were already submitted before this rule was clarified may finish and

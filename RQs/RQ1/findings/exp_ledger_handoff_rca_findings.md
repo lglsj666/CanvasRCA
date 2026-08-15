@@ -1,8 +1,14 @@
 # ledger_handoff_rca Findings
 
-**Status:** v21 visible-record-key successor smoke qualified. The v22b formal
-rerun has started and is incomplete. Predecessor trajectories remain
-diagnostic/archive evidence.
+**Status:** v21 visible-record-key successor smoke qualified. Final full
+execution is reassigned as a whole-experiment local heldout covering all 24
+shards and both models; Nibi must submit no further `ledger_handoff_rca` job.
+Before reassignment, Nibi job 19772050 completed Qwen shard 0 under the frozen
+v22b lineage: 51/51 formal handoff targets plus 17 shared Stage-1 records are
+hash-valid completed checkpoints with zero infrastructure, integrity,
+unknown-status, parse, or model-length failures. They may be transferred and
+resumed locally but are not a complete experiment or scientific result.
+Predecessor trajectories remain diagnostic/archive evidence.
 
 The shared RCA Stage-2 prompt now explains the normalized ledger and uses the
 internal SIRCL-style VERIFY procedure. This prompt qualification supplies no

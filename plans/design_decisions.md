@@ -287,13 +287,16 @@ new protocol, parity/leakage audit, visual inspection, hashes, and result IDs.
 Run both registered models on all 469 eligible frozen cases: 96 AegisLab, 100
 AIOPS-2022, 93 AIOPS-2025, 90 RE2-OB, and 90 RE2-TT. Do not replace the eleven
 already-invalid cases. Headline inference uses only the 289 AegisLab/AIOPS
-cases; report RE2-OB and final-OOD RE2-TT separately. `matched_rca` and
-`direct_rca` are whole-experiment local heldouts, each covering all 24 shards
-and both sequential models; Nibi submits none of either experiment. The other
-five experiments remain Nibi-owned. The `matched_rca` return must preserve the
+cases; report RE2-OB and final-OOD RE2-TT separately. `matched_rca`,
+`direct_rca`, and `ledger_handoff_rca` are whole-experiment local heldouts,
+each covering all 24 shards and both registered models; Nibi submits none of
+these experiments. The other four experiments remain Nibi-owned. The
+`matched_rca` return must preserve the
 exact frozen contract and content-addressed checkpoints described in
 `tmp/RQ1_HELDOUT_matched_rca.md`. The complete local `direct_rca` deployment
-and return contract is recorded in `tmp/RQ1_HELDOUT_direct_rca.md`.
+and return contract is recorded in `tmp/RQ1_HELDOUT_direct_rca.md`. The
+ledger-handoff deployment, checkpoint-transfer, and return contract is recorded
+in `tmp/RQ1_HELDOUT_ledger_handoff_rca.md`.
 
 The paired `direct_rca` versus `matched_rca` analysis is descriptive rather
 than a strict causal stage-count ablation because the latter also adds
@@ -359,6 +362,9 @@ upstream visual reading.
 shard finished was unnecessarily rigid once only six Qwen units remained for
 `legacy_q9`. Cross-experiment filling remains rejected because it would split
 execution attention across experiments and complicate local/Nibi ownership.
+Continuing `ledger_handoff_rca` on Nibi was rejected after the user reassigned
+the complete experiment to local execution; Nibi job 19772050 remains a
+transferable frozen checkpoint rather than permission for more Nibi shards.
 
 **Consequence.** RQ1 is not complete until all seven experiments across both
 execution sites, both models, artifact verification, paired analysis, and
