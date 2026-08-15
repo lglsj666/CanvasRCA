@@ -54,7 +54,7 @@ the prepared indexes that cite it. Required scientific settings include:
 
 - unquantized BF16 registered Qwen and Gemma checkpoints;
 - seed 42, temperature 1.0, top-p 0.95, thinking disabled;
-- 32,768-token context and the uniform RQ1 8,192-token request ceiling;
+- 40,960-token context and the unchanged uniform RQ1 8,192-token request ceiling;
 - xgrammar structured output with arbitrary JSON whitespace disabled;
 - the registered model-specific image/chunked-prefill policies;
 - `request_concurrency=4`, with arms and Stage 1 -> Stage 2 serial per case;

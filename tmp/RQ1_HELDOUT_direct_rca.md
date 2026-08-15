@@ -63,7 +63,7 @@ Required settings include:
 
 - the exact registered unquantized BF16 Qwen and Gemma checkpoints;
 - seed 42, temperature 1.0, top-p 0.95, thinking disabled;
-- 32,768-token context and the uniform RQ1 8,192-token request ceiling;
+- 40,960-token context and the unchanged uniform RQ1 8,192-token request ceiling;
 - xgrammar structured output with arbitrary JSON whitespace disabled;
 - Qwen native image processing with chunked prefill disabled;
 - Gemma `max_soft_tokens=1120` with chunked prefill enabled;

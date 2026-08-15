@@ -24,7 +24,7 @@ def build_lock() -> dict:
         PROJECT_ROOT / "scripts/vllm_vlm/serve_canvasrca_nibi.sh",
     )
     payload = {
-        "schema_version": "CanvasRCAVLLMLockV4",
+        "schema_version": "CanvasRCAVLLMLockV7",
         "config": config.audit_record(),
         "files": {str(path.relative_to(PROJECT_ROOT)): hashlib.sha256(path.read_bytes()).hexdigest() for path in paths},
         "models": {tag: config.model(tag) for tag in ("qwen3.6-27b", "gemma-4-26b-a4b")},

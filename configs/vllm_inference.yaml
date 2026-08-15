@@ -1,7 +1,7 @@
-schema_version: CanvasRCAVLLMInferenceConfigV6
-protocol_version: vllm-inference-v6-nibi-compact-structured-json
+schema_version: CanvasRCAVLLMInferenceConfigV7
+protocol_version: vllm-inference-v7-nibi-context40960
 status: frozen_global_base
-effective_date: 2026-08-10
+effective_date: 2026-08-15
 
 software:
   python: "3.11"
@@ -30,7 +30,7 @@ common:
   quantization: null
   seed: 42
   generation_config: vllm
-  max_model_len: 32768
+  max_model_len: 40960
   max_tokens: 16384
   temperature: 1.0
   top_p: 0.95

@@ -148,7 +148,7 @@ adapt a contract; it may not silently fork a second unified implementation.
 ## Registered inference configuration
 
 Both supported models use unquantized BF16, seed 42, temperature 1.0, top-p
-0.95, a 32,768-token context, a 16,384-token output ceiling, thinking disabled,
+0.95, a 40,960-token context, a 16,384-token output ceiling, thinking disabled,
 prefix caching disabled, and `max_num_seqs=128`. RQ1 uniformly requests at
 most 8,192 output tokens through its context-safe adapter.
 

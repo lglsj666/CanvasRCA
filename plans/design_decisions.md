@@ -11,7 +11,7 @@ The consolidated lineage is:
 | Earlier decisions | Current authority |
 |---|---|
 | DD-35 | DD-52 — RQ2 staged design and roster policy |
-| DD-54, DD-64, DD-68, DD-69, DD-70, DD-74, DD-76 runtime clause, DD-77 | DD-78 — Nibi runtime and concurrency |
+| DD-54, DD-64, DD-68, DD-69, DD-70, DD-74, DD-76 runtime clause, DD-77, DD-78 | DD-91 — Nibi runtime, context capacity, and concurrency |
 | DD-67 | DD-86 — final RQ1 experiment program |
 | DD-75, DD-84 | DD-85 — renderer, representations, and prompt contract |
 | DD-79, DD-80 | DD-83 — typed Q&A selector contract |
@@ -93,16 +93,30 @@ separate authorization decision.
 
 ---
 
-## DD-78: Freeze the current Nibi runtime and case concurrency
+## DD-91: Freeze the current Nibi runtime, context capacity, and case concurrency
 
-**Date:** 2026-08-12
+**Date:** 2026-08-15
 **Status:** adopted
 
+**Context.** Under the 32,768-token predecessor, full-roster Gemma tokenization
+produced 30 deterministic `input + 8192 > 32768` infrastructure errors in
+`legacy_q9` T/H while Qwen fit the same evidence. Completed Gemma answers used
+at most 375 output tokens; the failure occurred before inference and was not a
+model outcome.
+
 **Decision.** Use the unified Nibi vLLM contract with unquantized BF16,
-32,768-token context, the model-specific Qwen/Gemma processor recipes, no
+40,960-token context, the model-specific Qwen/Gemma processor recipes, no
 CanvasRCA VRAM-fraction argument, and scheduler capacity
 `max_num_seqs=128`. RQ1 requests keep the uniform 8,192-token context-safe
-output adapter.
+output adapter; the global 16,384-token ceiling is also unchanged. Prompts,
+evidence, schemas, arms, sampling, scoring, and checkpoints remain unchanged.
+
+The user explicitly retains every hash-valid predecessor result whose recorded
+request fit and terminated within 32,768 tokens and waives a replacement smoke.
+Retained records keep their predecessor runtime freeze; new calls use the
+40,960-token freeze. An explicit compatibility manifest validates and joins
+the two freezes. Old-context infrastructure errors are rerun from the beginning
+and never counted as model outcomes.
 
 Both registered models use xgrammar structured decoding with arbitrary JSON
 whitespace disabled. Qwen previously inherited vLLM's `auto` backend and
@@ -140,16 +154,30 @@ infrastructure error, integrity/hash failure, or unknown status blocks
 automatic timeout retry for diagnosis rather than being misclassified as the
 timeout cursor.
 
-**Reason.** Four concurrent cases use vLLM batching without the host pressure
+**Evidence.** In one paired case, identical T evidence encoded to 20,191 Qwen
+tokens but 25,482 Gemma tokens; H encoded to 22,202 and 26,564 tokens. Across
+the first three Gemma shards, failing prompts ranged from 25,374 to 28,466
+tokens. With the unchanged 8,192 allowance, the largest observed request needs
+36,658 tokens and fits the authorized 40,960 limit.
+
+**Alternatives rejected.** Evidence compression would change model-visible
+facts. A case-specific output budget would create case-dependent compute.
+Lowering the uniform output ceiling would alter a frozen generation condition.
+Discarding affected cases would turn a deterministic infrastructure defect into
+exclusions.
+
+**Consequences.** Four concurrent cases use vLLM batching without the host pressure
 of eight. Scheduler capacity is not generated load. Task-local ports prevent
 cross-job server collisions, and the uniform output adapter prevents
 case-specific compute drift. The installed vLLM/xgrammar sources confirm that
 the prior default allowed unlimited whitespace between JSON elements; the
 Qwen timeout artifact reproduced that failure directly.
 
-**Consequence.** Runtime changes require new effective-config hashes,
-attestation, preparation, result IDs, and bounded qualification. GPU utilization
-is operational evidence, not a scientific validity metric.
+The successor requires new effective-config hashes and live attestation.
+Preparation bytes are reused through a hash-audited refreeze because inference
+capacity does not affect rendering. The user-authorized compatibility manifest
+prevents unnecessary repetition of completed model calls. GPU utilization is
+operational evidence, not a scientific validity metric.
 
 ---
 

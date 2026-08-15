@@ -596,7 +596,15 @@ def verify_result_root(paths: RunPaths, config: Mapping[str, Any],
         config=config,
         code_files=tuple(sorted((ROOT / "RQs/RQ1/src").rglob("*.py"))),
     )
-    if current_freeze["freeze_sha256"] != index.get("runtime_freeze", {}).get("freeze_sha256"):
+    from vlmrca.vlm.runtime_contract import compatible_runtime_freezes
+    try:
+        allowed_freezes = compatible_runtime_freezes(
+            prepared_paths.root / "runtime_compatibility.json",
+            str(index.get("runtime_freeze", {}).get("freeze_sha256")),
+            current_freeze["freeze_sha256"],
+        )
+    except ValueError:
+        allowed_freezes = frozenset()
         integrity_errors.append("runtime_freeze")
     for item in index.get("cases", ()):
         item_missing = False
@@ -648,7 +656,7 @@ def verify_result_root(paths: RunPaths, config: Mapping[str, Any],
         for key in ("call_key", "representation_hash", "runtime_freeze_sha256"):
             if not record.get(key):
                 integrity_errors.append(f"{path.relative_to(paths.root)}:missing_{key}")
-        if record.get("runtime_freeze_sha256") != index.get("runtime_freeze", {}).get("freeze_sha256"):
+        if record.get("runtime_freeze_sha256") not in allowed_freezes:
             integrity_errors.append(f"{path.relative_to(paths.root)}:runtime_freeze")
         calls = list(record.get("stages") or ())
         if isinstance(record.get("call"), Mapping):

@@ -1,20 +1,20 @@
 {
   "config": {
     "adapter_sha256": null,
-    "effective_sha256": "eab39a74b3035758f410fd367eeb0c6d3d273da05679d0a895d4835b2dfd2988",
-    "schema_version": "CanvasRCAVLLMInferenceConfigV4",
+    "effective_sha256": "c5c1bfde874710bf41e677c4069d087d74e7af85fc6380999a351dd6c8f00b79",
+    "schema_version": "CanvasRCAVLLMInferenceConfigV7",
     "source": "configs/vllm_inference.yaml",
-    "source_sha256": "1495da42cac724bba2e65175b83ca619002a26b7f7d2b65b2d1116447595cb06"
+    "source_sha256": "5ea5120a22315869490fca549593e51c9ff35ade06a87ccddb4b058dba86454f"
   },
   "files": {
-    "configs/vllm_inference.yaml": "1495da42cac724bba2e65175b83ca619002a26b7f7d2b65b2d1116447595cb06",
-    "scripts/vllm_vlm/serve_canvasrca_nibi.sh": "31a343b881e2d4a0050e35c4332404d2de729dbf6115231b2e47dd802a628670",
-    "src/unified_scripts/vllm_inference.py": "abd6943c88e819bf0626dc78a7499427563dcff2f638c020c62ebcc2a3b8de5e",
-    "src/vlmrca/vlm/client.py": "25ae522876558a09f354957d35ab86fc0f04affe95741dee8d62ea21b4e4c369",
+    "configs/vllm_inference.yaml": "5ea5120a22315869490fca549593e51c9ff35ade06a87ccddb4b058dba86454f",
+    "scripts/vllm_vlm/serve_canvasrca_nibi.sh": "636e0f39538414a70837075de5554c6a0575425b538166146f7215bef586bf58",
+    "src/unified_scripts/vllm_inference.py": "cd1fb069f1c919a4e6ee0da010679759e099b709f33aca0cbbff2b2063dbac42",
+    "src/vlmrca/vlm/client.py": "7dc664a5490e1da900adbd25585bbff3ba5b59d10c6b5d38c16000543cefca64",
     "src/vlmrca/vlm/configs.py": "96f82e24cfabf3a8ae0fe6be3922fd5519cff85a4c3fb8f58558bb0c16839941",
-    "src/vlmrca/vlm/runtime_contract.py": "38860f0327334dde3edf584fce461d0706c4e0e3bf46f9185391bf7fdcb0eedc"
+    "src/vlmrca/vlm/runtime_contract.py": "0f296992706dae4f4b6fa445a7c2fbdb616b2aad1b74672ca6d49f20bf8de311"
   },
-  "lock_sha256": "5317da64f97b6667742612fd369940a6e2448097313083dcd35b943544be7a0b",
+  "lock_sha256": "ccb294f5322cc2bce832e515be2e9e80cc26593e2ea53e9a099c18ddc239b85e",
   "models": {
     "gemma-4-26b-a4b": {
       "async_scheduling": false,
@@ -35,7 +35,7 @@
       "gpu_memory_utilization": null,
       "host": "127.0.0.1",
       "max_images_per_prompt": 8,
-      "max_model_len": 32768,
+      "max_model_len": 40960,
       "max_num_seqs": 128,
       "max_tokens": 16384,
       "max_videos_per_prompt": 0,
@@ -80,7 +80,7 @@
       "gpu_memory_utilization": null,
       "host": "127.0.0.1",
       "max_images_per_prompt": 8,
-      "max_model_len": 32768,
+      "max_model_len": 40960,
       "max_num_seqs": 128,
       "max_tokens": 16384,
       "max_videos_per_prompt": 0,
@@ -93,7 +93,10 @@
       "request_timeout_sec": 1800,
       "seed": 42,
       "served_model_name": "Qwen/Qwen3.6-27B",
-      "structured_outputs_config": null,
+      "structured_outputs_config": {
+        "backend": "xgrammar",
+        "disable_any_whitespace": true
+      },
       "temperature": 1.0,
       "tensor_parallel_size": 1,
       "top_p": 0.95,
@@ -102,5 +105,5 @@
       "wait_timeout_sec": 1800
     }
   },
-  "schema_version": "CanvasRCAVLLMLockV4"
+  "schema_version": "CanvasRCAVLLMLockV7"
 }

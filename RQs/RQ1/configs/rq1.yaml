@@ -128,7 +128,7 @@ inference_adapter:
   version: 1
   max_tokens: 8192
   scope: all_rq1_models_arms_cases_and_stages
-  reason: reserve_at_least_half_of_the_32768_context_for_model_visible_evidence
+  reason: preserve_8192_output_tokens_with_32768_prompt_capacity_in_the_40960_context
 
 visual_diagnostics:
   schema_version: RQ1VisualDiagnosticsV2

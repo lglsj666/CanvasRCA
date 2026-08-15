@@ -14,6 +14,7 @@ from typing import Any, Mapping, Sequence
 from unified_scripts import canonical_json, stable_hash
 from vlmrca.vlm.client import VLMResponse, call_vlm, count_vllm_prompt_tokens, text_part
 from vlmrca.vlm.configs import get_config
+from vlmrca.vlm.runtime_contract import compatible_runtime_freezes, completed_record_is_compatible
 from vlmrca.vlm.attention_probe import map_groups_to_images, render_overlay as render_probe_overlay
 from unified_scripts.vllm_inference import VLLMInferenceConfig
 from unified_scripts.dataset_segmentation import CaseRecord, DatasetSegmentationConfig
@@ -270,16 +271,9 @@ def _read_prepared(paths: RunPaths, item: Mapping[str, Any]) -> PreparedCase:
                         qa_region_pngs=qa_regions, variant_pngs=variants)
 
 
-def _completed_target(path: Path) -> bool:
+def _completed_target(path: Path, allowed_freezes: Sequence[str]) -> bool:
     """Only hash-valid completed outcomes are terminal; corruption must retry."""
-    if not path.is_file():
-        return False
-    try:
-        record = json.loads(path.read_text(encoding="utf-8"))
-        recorded = record.pop("record_sha256", None)
-        return record.get("status") == "completed" and bool(recorded) and stable_hash(record) == recorded
-    except (OSError, json.JSONDecodeError):
-        return False
+    return completed_record_is_compatible(path, allowed_freezes)
 
 
 def _finish_reason(response: VLMResponse) -> Any:
@@ -546,11 +540,10 @@ def _run_partition(
         raise RQ1Error("prepared index integrity hash mismatch")
     current_freeze = artifact_contract(config=config, code_files=SOURCE_FILES)
     recorded_freeze = index.get("runtime_freeze", {})
-    if current_freeze["freeze_sha256"] != recorded_freeze.get("freeze_sha256"):
-        raise RQ1Error(
-            "prepared runtime freeze differs from current code/config/models; "
-            "repeat the CPU preparation before inference"
-        )
+    allowed_freezes = compatible_runtime_freezes(
+        prepared_paths.root / "runtime_compatibility.json",
+        str(recorded_freeze.get("freeze_sha256")), current_freeze["freeze_sha256"],
+    )
     if shard_count < 1 or not 0 <= shard_index < shard_count:
         raise RQ1Error("invalid shard index/count")
     items = [
@@ -575,7 +568,7 @@ def _run_partition(
                 handoff_targets = {
                     arm: trajectory_root / f"{opaque}__{arm}.json" for arm in case_arms
                 }
-                if all(_completed_target(path) for path in handoff_targets.values()):
+                if all(_completed_target(path, allowed_freezes) for path in handoff_targets.values()):
                     continue
                 observer_parts = representation_parts(
                     "R", prepared.public["rca_packet"], prepared.full_png,
@@ -587,11 +580,11 @@ def _run_partition(
                     experiment_id=experiment_id, experiment=experiment, model=model,
                     execution_mode="smoke" if smoke else "formal",
                     opaque_incident_id=opaque, arm="R_shared", parts=observer_parts,
-                    runtime_freeze_sha256=index["runtime_freeze"]["freeze_sha256"],
+                    runtime_freeze_sha256=current_freeze["freeze_sha256"],
                 )
                 shared_key = str(shared_contract["call_key"])
                 shared_path = trajectory_root / "_shared_stage1" / f"{opaque}.json"
-                if _completed_target(shared_path):
+                if _completed_target(shared_path, allowed_freezes):
                     shared = json.loads(shared_path.read_text(encoding="utf-8"))
                     if any(shared.get(key) != value for key, value in shared_contract.items()):
                         raise RQ1Error("shared Stage-1 resume contract differs from current request")
@@ -628,14 +621,14 @@ def _run_partition(
                 ordered_arms = balanced_arm_order(case_arms, opaque, experiment)
                 for order_index, arm in enumerate(ordered_arms):
                     target = handoff_targets[arm]
-                    if _completed_target(target):
+                    if _completed_target(target, allowed_freezes):
                         continue
                     stage2_parts = handoff_parts(arm, ledger, prepared.public["rca_packet"]["candidates"])
                     contract = _request_contract(
                         experiment_id=experiment_id, experiment=experiment, model=model,
                         execution_mode="smoke" if smoke else "formal",
                         opaque_incident_id=opaque, arm=arm, parts=stage2_parts,
-                        runtime_freeze_sha256=index["runtime_freeze"]["freeze_sha256"],
+                        runtime_freeze_sha256=current_freeze["freeze_sha256"],
                         extra={"registered_arm_order": list(ordered_arms),
                                "arm_order_index": order_index,
                                "shared_stage1_call_key": shared_key},
@@ -690,7 +683,7 @@ def _run_partition(
             ordered_arms = balanced_arm_order(case_arms, opaque, experiment)
             for order_index, arm in enumerate(ordered_arms):
                 target = trajectory_root / f"{opaque}__{arm}.json"
-                if _completed_target(target):
+                if _completed_target(target, allowed_freezes):
                     continue
                 if is_rca_task(spec):
                     parts = representation_parts(
@@ -708,7 +701,7 @@ def _run_partition(
                     experiment_id=experiment_id, experiment=experiment, model=model,
                     execution_mode="smoke" if smoke else "formal",
                     opaque_incident_id=opaque, arm=arm, parts=parts,
-                    runtime_freeze_sha256=index["runtime_freeze"]["freeze_sha256"],
+                    runtime_freeze_sha256=current_freeze["freeze_sha256"],
                     extra={"registered_arm_order": list(ordered_arms),
                            "arm_order_index": order_index},
                 )

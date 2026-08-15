@@ -1,7 +1,16 @@
 # Legacy Q9 Findings
 
-**Status:** corrected v21 T/P/V/H smoke qualified; the v22b formal rerun has
-started and is incomplete. The v19 Qwen smoke is an
+**Status:** corrected v21 T/P/V/H smoke qualified. In the v22b formal rerun,
+Qwen completed and persisted all 24 shards (1,876/1,876 records, zero
+infrastructure errors). Gemma shards 0--2 persisted 158 valid records but also
+30 deterministic infrastructure errors: the T/H prompt token count plus the
+registered 8,192-token output allowance exceeded the frozen 32,768-token
+context. Unstarted Gemma shards 3--5 were canceled rather than knowingly
+repeating that failure. The user authorized a successor 40,960-token context
+while preserving the 8,192-token RQ1 output allowance, explicitly retained
+all compatible completed predecessor calls, and waived replacement smoke.
+The smallest necessary formal recovery is pending. These infrastructure errors
+are not model-quality outcomes. The v19 Qwen smoke is an
 invalid diagnostic because its grammar permitted three steps for a Level-1
 answer while the validator required one. Predecessor compact Nibi
 trajectories are invalid, and Controlled-canvas trajectories are retained only

@@ -185,7 +185,9 @@ The final replacement execution uses the named, versioned
 ceiling remains unchanged, but every actual RQ1 request in both models, every
 arm, and both stages requests at most 8,192 output tokens. Before each call,
 the live server tokenizer must confirm that input tokens plus 8,192 do not
-exceed the frozen 32,768-token context. The adapter changes no evidence,
+exceed the frozen 40,960-token context. This 8,192-token context increase was
+authorized after full-roster Gemma tokenization exposed T/H prompts longer
+than the former 24,576-token input allowance. The adapter changes no evidence,
 prompt wording, arm, schema, decoding distribution, or scoring rule; it is a
 uniform feasibility correction after the earlier 16,384-token request made
 three complete long-text prompts impossible to submit. Its content and hash
@@ -194,6 +196,15 @@ are stored in the runtime freeze and every completed stage record.
 The global `max_num_seqs=128` amendment changes only vLLM scheduling capacity.
 The 16,384-token global ceiling and 8,192-token RQ1 request adapter are
 unchanged from the restored protocol.
+
+The 40,960-token capacity successor retains hash-valid completed calls made
+under the predecessor 32,768-token context when their recorded inputs plus the
+unchanged 8,192-token request ceiling fit that predecessor limit and all other
+contract hashes match. Retained records keep their original runtime freeze;
+new records keep the successor freeze, with an explicit compatibility manifest
+joining them. The user waived a replacement smoke and authorized direct formal
+recovery because the change adds context capacity only. Old-context
+infrastructure errors are not scientific outcomes and are rerun in full.
 
 The formal runner consumes the frozen `request_concurrency=4` contract at case
 granularity. Up to four different cases may issue requests at once;

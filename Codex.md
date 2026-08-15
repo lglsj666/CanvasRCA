@@ -201,18 +201,29 @@ All project-owned inference uses `src/vlmrca/vlm/client.py`,
 `scripts/vllm_vlm/serve_canvasrca_nibi.sh`.
 
 Both registered models use unquantized BF16, seed 42, temperature 1.0, top-p
-0.95, a 32,768-token context, a 16,384-token output ceiling, thinking disabled,
+0.95, a 40,960-token context, a 16,384-token output ceiling, thinking disabled,
 prefix caching disabled, and a maximum scheduler capacity of 128 sequences.
 Sampling means exact byte repetition is not a validity gate.
 
 RQ1 retains the uniform `context_safe_output_v1` request adapter: every RQ1
 model, experiment, arm, case, and stage requests at most 8,192 output tokens,
-reserving half of the 32,768-token context for model-visible input. The
+leaving up to 32,768 tokens for model-visible input. The
 `max_num_seqs=128` field changes server scheduling capacity only; it does not
 change prompts, evidence, output budgets, decoding, or scoring. Its effective
 value must still be hash-recorded. Output truncation and parse failure are
 model outcomes and must be recorded rather than repaired with a case-specific
 budget.
+
+The 2026-08-15 capacity successor increased only `max_model_len` from 32,768
+to 40,960. The user explicitly retained every hash-valid completed predecessor
+result and waived a replacement smoke: prompts, evidence, output ceilings,
+sampling, schemas, and scoring did not change, and each retained request had
+already fit and terminated under the smaller context. New calls use the
+40,960-token freeze; retained calls keep their truthful 32,768-token freeze.
+An explicit compatibility manifest must connect the two freezes, and a runner
+may skip a predecessor target only after validating its call key, hashes,
+terminal status, and old-context feasibility. Infrastructure errors created by
+the old context are not retained outcomes and must be rerun from the beginning.
 
 Qwen uses its native image-processor policy and receives no project-level
 `min_pixels`, `max_pixels`, or other image pixel-budget override. Qwen keeps
@@ -511,7 +522,7 @@ and cannot be represented as Nibi heavy-run results.
 
 Monitor a new heavy job frequently until stable. During the current Nibi
 power-constrained scheduling period, poll stable, running, or pending heavy
-jobs about once every 600 seconds (`sleep 600`). Do not high-frequency poll a
+jobs once every 600 seconds (`sleep 600`). Do not high-frequency poll a
 healthy long run. Revisit this interval only when the cluster condition or the
 user's monitoring instruction changes.
 

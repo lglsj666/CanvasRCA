@@ -16,7 +16,7 @@ class VLLMInferenceConfig(FrozenConfig):
     """Frozen base recipe with explicit, hash-recorded experiment adapters."""
 
     DEFAULT_PATH = "configs/vllm_inference.yaml"
-    SCHEMA_VERSION = "CanvasRCAVLLMInferenceConfigV6"
+    SCHEMA_VERSION = "CanvasRCAVLLMInferenceConfigV7"
 
     def validate(self) -> None:
         common = self.data.get("common")
@@ -29,7 +29,7 @@ class VLLMInferenceConfig(FrozenConfig):
             "temperature": 1.0,
             "top_p": 0.95,
             "seed": 42,
-            "max_model_len": 32768,
+            "max_model_len": 40960,
             "max_tokens": 16384,
             "max_num_seqs": 128,
         }

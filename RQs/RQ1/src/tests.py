@@ -115,11 +115,12 @@ def check_python_syntax() -> dict[str, int]:
 def check_unified_contracts(config: dict[str, Any]) -> dict[str, Any]:
     runtime = VLLMInferenceConfig.load(config["unified"]["vllm"])
     _assert(
-        runtime.data.get("protocol_version") == "vllm-inference-v6-nibi-compact-structured-json",
-        "global vLLM compact-structured-JSON protocol drifted",
+        runtime.data.get("protocol_version") == "vllm-inference-v7-nibi-context40960",
+        "global vLLM 40,960-context protocol drifted",
     )
     _assert(
-        all(runtime.model(tag)["max_tokens"] == 16384
+        all(runtime.model(tag)["max_model_len"] == 40960
+            and runtime.model(tag)["max_tokens"] == 16384
             and runtime.model(tag)["max_num_seqs"] == 128
             for tag in ("qwen3.6-27b", "gemma-4-26b-a4b")),
         "registered model output/scheduler settings drifted",
@@ -275,9 +276,10 @@ def check_rq1_contract(config: dict[str, Any]) -> dict[str, Any]:
         "RQ1 context-safe inference adapter drifted",
     )
     _assert(
-        adapter["max_tokens"] <= global_common["max_model_len"] // 2
+        adapter["max_tokens"] == 8192
+        and global_common["max_model_len"] - adapter["max_tokens"] == 32768
         and adapter["max_tokens"] <= global_common["max_tokens"],
-        "RQ1 adapter must reserve at least half the context for prompt tokens",
+        "RQ1 adapter must preserve 8,192 output tokens and 32,768 prompt tokens",
     )
     _assert(ledger_image({}).startswith(b"\x89PNG\r\n\x1a\n"), "ledger Unicode board rendering failed")
     _assert(
