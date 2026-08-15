@@ -137,15 +137,19 @@ Every model and arm uses the same case roster and paired exclusion policy.
 
 ## Nibi qualification and execution order
 
-Formal execution is experiment-major rather than shard-round-robin. Nibi has
-exactly one active formal experiment at a time. It completes and verifies all
-24 Qwen shards for that experiment, then all 24 Gemma shards, before activating
-the next Nibi experiment. Every live Nibi formal job must belong to the active
-experiment. Local and Nibi may process different whole experiments in
-parallel, but no experiment may be split between sites. The current local
-heldouts are all of `matched_rca` and all of `direct_rca`; Nibi submits neither.
-The invalidated Nibi `direct_rca` shard-0 result was deleted, so its local run
-starts from scratch.
+Formal execution is strictly experiment-major rather than shard round-robin.
+Nibi finishes and verifies all 24 shards for both models of one experiment
+before activating the next Nibi experiment. There is no cross-experiment tail
+fill. Qwen has submission priority within the active experiment; if fewer Qwen
+units remain than the twelve scheduler positions, Gemma units from that same
+experiment fill the unused positions in separate one-model jobs. The same shard
+is not run for both models concurrently because its verifier and operational
+metadata share one result root. Jobs from a
+different experiment that predate this clarification may finish and retain
+their compatible artifacts, but are not refilled. Local and Nibi may process
+different whole experiments in parallel, but no experiment may be split between sites.
+The current local heldouts are all of `matched_rca` and all of `direct_rca`;
+Nibi submits neither.
 
 Every experiment uses the first frozen eligible case from RE2-OB, AIOPS-2022,
 and AIOPS-2025 in roster order for its one registered smoke. The Qwen phase runs

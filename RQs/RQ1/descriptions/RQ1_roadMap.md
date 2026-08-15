@@ -42,10 +42,14 @@ or roster, and historical local results are not mixed with final Nibi cells.
 The formal runner processes up to four different cases concurrently while
 preserving within-case arm order and two-stage dependencies.
 
-Execution ownership is whole-experiment. Nibi advances one experiment at a
-time: all Qwen shards, then all Gemma shards, then verification, before the
-next experiment is activated. It must not interleave a few shards from several
-experiments. `direct_rca` and `matched_rca` are local whole-experiment heldouts;
+Execution ownership is whole-experiment. Nibi finishes both models of one
+experiment before starting the next Nibi-owned experiment. Cross-experiment
+tail fill is forbidden. Qwen receives submission priority, while unused formal
+positions may be filled by Gemma from the same active experiment once fewer
+Qwen units remain than the twelve-position window. Each job loads one model,
+and the two models never run the same shard concurrently. Compatible artifacts from already-submitted jobs are
+preserved, but those jobs are not refilled when they belong to a non-active
+experiment. `direct_rca` and `matched_rca` are local whole-experiment heldouts;
 the remaining five experiments are Nibi-owned. Different sites may work on
 different whole experiments concurrently, but may not split one experiment.
 

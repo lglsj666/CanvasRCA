@@ -115,8 +115,10 @@ temperature/top-p, and scoring remain unchanged.
 The formal RQ1 runner processes at most four different cases concurrently.
 Within a case, registered arm order and Stage-1-to-Stage-2 dependencies remain
 serial. Each concurrent case has one asynchronous writer. Servers use
-task-local ports, record effective configuration and queue/running depth, and
-never run Qwen and Gemma concurrently for a registered sequential workflow.
+task-local ports and record effective configuration and queue/running depth. A
+single job and every registered smoke remain one-model and sequential; DD-86
+separately permits independent Qwen and Gemma formal jobs from the same active
+experiment to overlap during model-tail scheduling.
 
 Transient NVML accounting reads may be retried without repeating model
 inference; an unresolvable accounting record remains an infrastructure error.
@@ -268,7 +270,7 @@ new protocol, parity/leakage audit, visual inspection, hashes, and result IDs.
 
 ## DD-86: Run the final seven-experiment RQ1 program
 
-**Date:** 2026-08-14
+**Date:** 2026-08-15
 **Status:** adopted; whole-experiment split-site final results pending
 
 **Decision.** RQ1 contains exactly seven experiments:
@@ -290,41 +292,55 @@ cases; report RE2-OB and final-OOD RE2-TT separately. `matched_rca` and
 and both sequential models; Nibi submits none of either experiment. The other
 five experiments remain Nibi-owned. The `matched_rca` return must preserve the
 exact frozen contract and content-addressed checkpoints described in
-`tmp/RQ1_HELDOUT_matched_rca.md`. The completed Nibi `direct_rca` Qwen shard 0
-was explicitly invalidated and deleted at the user's direction, so the local
-`direct_rca` run starts from scratch. Its local deployment and return contract
-is recorded in `tmp/RQ1_HELDOUT_direct_rca.md`.
+`tmp/RQ1_HELDOUT_matched_rca.md`. The complete local `direct_rca` deployment
+and return contract is recorded in `tmp/RQ1_HELDOUT_direct_rca.md`.
 
 The paired `direct_rca` versus `matched_rca` analysis is descriptive rather
 than a strict causal stage-count ablation because the latter also adds
 selection, binding, compression, and a second decoding opportunity.
 
-Formal execution is experiment-major at each site. Nibi activates one formal
-experiment at a time, finishes and verifies all 24 Qwen shards, then finishes
-and verifies all 24 Gemma shards, and only then activates the next Nibi
-experiment. All Nibi `RUNNING`, `PENDING`, and `COMPLETING` formal jobs must
-belong to that one active experiment; never interleave a few shards from
-several experiments. Local and Nibi may process different whole experiments
-concurrently, but neither site may split an experiment with the other.
+Formal execution is strictly experiment-major at each site. Nibi completes and
+verifies all 24 shards for both registered models of one experiment before
+activating another Nibi experiment. Cross-experiment tail fill is not allowed.
+Local and Nibi may process different whole experiments concurrently, but
+neither site may split an experiment with the other. Within the one active Nibi
+experiment, Qwen has submission priority. When fewer eligible Qwen units remain
+than the twelve scheduler positions, Gemma units from that same experiment fill
+the unused positions in independent one-model jobs. The same shard is not run
+for both models concurrently because its verifier and operational metadata
+share one result root.
 
-Within the active Nibi experiment, submit formal work through twelve scheduler
-positions split into independent duration lanes: eight `08:00:00` jobs and
-four `00:30:00` jobs. Count
-`RUNNING`, `PENDING`, and `COMPLETING` jobs. Refill an eight-hour position only
-with an eight-hour job and a thirty-minute position only with a thirty-minute
-job, keeping 8+4 active whenever enough eligible work from that experiment
-remains. The eight-hour
-wrapper interrupts its scientific payload after 7 hours 55 minutes, and the
-thirty-minute wrapper interrupts after 25 minutes; each reserves up to two
-minutes for process cleanup and artifact-writer drain before its Slurm cutoff.
-A registered timeout retries the same Nibi unit within its duration lane from its
-hash-valid completed case/arm artifacts; the interrupted call starts again
+Submit formal work through twelve scheduler positions, all requesting
+`00:30:00`; no new eight-hour formal jobs are submitted. Count only `RUNNING`,
+`PENDING`, and `COMPLETING` jobs; completed jobs do not consume a position.
+Keep twelve thirty-minute jobs active whenever enough eligible work from the
+active experiment remains. Refill unfinished or safely resumable Qwen units
+first and use Gemma units from the same experiment for the remaining positions.
+The wrapper interrupts its scientific
+payload after 25 minutes and reserves up to two minutes for process cleanup and
+artifact-writer drain before its Slurm cutoff. A registered timeout retries the
+same Nibi unit from its hash-valid completed case/arm artifacts; the interrupted call starts again
 rather than splicing a partial response. Hash-valid model truncation/parse
 outcomes stay terminal, while infrastructure, integrity, or unknown-status
 errors require diagnosis before automatic retry. Preparation, smoke, static
-tests, gates, and merge jobs do not consume the formal window. Within each
-experiment, Qwen must finish before Gemma starts; the two model families never
-overlap for that experiment.
+tests, gates, and merge jobs do not consume the formal window. Each job loads
+exactly one model and requests one H100. Same-experiment model tail filling
+changes scheduling only; it does not change prompts, evidence, schemas,
+sampling, scoring, content-addressed keys, or result validity.
+
+The transition canceled four unstarted eight-hour jobs—19827718, 19827719,
+19827720, and 19833959—after confirming `PENDING`, zero elapsed time, and no
+model call. Replacement thirty-minute jobs 19846079--19846083 reuse the same
+content-addressed artifacts. This changes scheduling and interruption cadence
+only; it does not change the scientific runtime freezes or any completed model
+outcome.
+
+The later clarification makes `visual_counterfactual_rca` the active whole
+experiment through both model families. Its Qwen work retained submission
+priority over Gemma before any new `legacy_q9` submission. Legacy-Q9 jobs that
+were already submitted remain untouched and their compatible results are
+preserved, but opened positions are not refilled with legacy-Q9 work. This
+transition exception does not reinstate cross-experiment tail filling.
 
 The `visual_counterfactual_rca` non-timeout failure in job 19772049 was a
 control-flow defect: protocol-ineligible cases reached targeted/placebo image
@@ -339,14 +355,18 @@ model requests or rerun compatible completed calls.
 cannot substitute for accuracy, and handoff loss must be separated from
 upstream visual reading.
 
+**Alternatives rejected.** Leaving scheduler positions idle until every Qwen
+shard finished was unnecessarily rigid once only six Qwen units remained for
+`legacy_q9`. Cross-experiment filling remains rejected because it would split
+execution attention across experiments and complicate local/Nibi ownership.
+
 **Consequence.** RQ1 is not complete until all seven experiments across both
 execution sites, both models, artifact verification, paired analysis, and
 findings are complete. Historical local or predecessor-protocol results remain
 diagnostic only. A full 24-shard Nibi array must not be submitted as one pending
-block; Nibi formal launch and monitoring maintain the eight-eight-hour plus
-four-thirty-minute mixed window for only the current experiment. Partial
-progress in one experiment never justifies switching Nibi to another; a switch
-requires complete two-model verification of the current experiment.
+block; Nibi formal launch and monitoring maintain twelve thirty-minute jobs and
+submit no new eight-hour formal job. One experiment's two verified model result
+sets must finish before the next experiment is activated.
 
 ---
 

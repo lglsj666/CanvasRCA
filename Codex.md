@@ -374,31 +374,35 @@ submitting an authorized rerun.
 
 Long runs execute in the background through Slurm and must be resumable by a
 content-addressed call key. Pre-render CPU artifacts before allocating a GPU.
-RQ1 formal execution is experiment-major, never round-robin across experiments.
-Each execution site owns whole experiments. Nibi has exactly one active formal
-experiment at a time: every Nibi `RUNNING`, `PENDING`, or `COMPLETING` formal
-job must belong to that experiment. Finish and verify all of its Qwen shards,
-then finish and verify all of its Gemma shards, before activating the next Nibi
-experiment. Never submit shards from a future experiment merely to fill an
-open scheduler position. The two model families must not overlap within an
-experiment. `direct_rca` and `matched_rca` are whole-experiment local heldouts,
-covering all 24 shards and both models; Nibi must submit no shard of either.
-The invalidated Nibi `direct_rca` shard-0 output is not reusable, and its local
-execution starts from scratch. A local and Nibi site may work concurrently only
-on different whole experiments assigned to those sites; an experiment is never
-split between them.
+RQ1 formal execution is strictly experiment-major, never shard-round-robin or
+tail-filled across experiments. Each execution site owns whole experiments.
+Nibi activates one experiment and completes and verifies all 24 shards for both
+registered models before activating the next Nibi experiment. Within that one
+active experiment, Qwen has submission priority; when fewer eligible Qwen jobs
+remain than the twelve available positions, Gemma jobs from the same experiment
+fill the unused positions and the two model families may overlap in separate
+one-model jobs. This is an operational scheduling rule and changes no scientific
+contract. `direct_rca` and
+`matched_rca` are whole-experiment local heldouts covering all 24 shards and
+both models; Nibi must submit no shard of either. A local and Nibi site may
+work concurrently only on different whole experiments assigned to those
+sites; an experiment is never split between them. Jobs from another experiment
+that were already submitted before this rule was clarified may finish and
+their compatible artifacts are preserved, but they are not refilled and do
+not authorize that experiment to become active.
 
-Within the one active Nibi experiment, the formal execution has twelve
-scheduler positions split into two independent duration lanes: eight jobs
-request `08:00:00`, and four jobs request `00:30:00`. `RUNNING`, `PENDING`, and
-`COMPLETING` jobs consume a position. An eight-hour position is refilled only
-with an eight-hour job, and a thirty-minute position only with a thirty-minute
-job, keeping 8+4 active whenever enough eligible work from the active experiment
-remains. Count individual jobs rather than array parents. The
-eight-hour wrapper interrupts its payload after 7 hours 55 minutes; the
-thirty-minute wrapper interrupts after 25 minutes. Both reserve up to two
-minutes for cleanup before the Slurm hard limit. A registered payload timeout
-resubmits the same unit in its existing duration lane against content-addressed
+Nibi formal execution has twelve scheduler positions, all requesting
+`00:30:00`; do not submit new eight-hour formal jobs. Only `RUNNING`,
+`PENDING`, and `COMPLETING` jobs consume a position; completed jobs do not.
+Keep twelve thirty-minute jobs active whenever enough eligible work from the
+one active experiment remains, and count individual jobs rather than array
+parents. Refill resumable or unfinished Qwen units first, then fill any remaining
+positions with Gemma units from that same experiment. Do not run both models for
+the same shard concurrently because shard-level verification and operational
+metadata share a result root. Cross-experiment fill remains forbidden until both
+models are complete and verified. The thirty-minute wrapper interrupts its payload after 25 minutes and
+reserves up to two minutes for cleanup before the Slurm hard limit. A
+registered payload timeout resubmits the same unit against content-addressed
 artifacts, skips only hash-valid completed case/arm targets, and restarts the
 interrupted target from the beginning rather than splicing a partial response.
 A non-timeout failure must be diagnosed before that unit is automatically
@@ -407,8 +411,8 @@ truncation, or parse failure remain terminal scientific outcomes and must never
 be relabeled as a job-timeout checkpoint. Before an automatic timeout resume,
 classify existing artifacts; any infrastructure error, hash/integrity error, or
 unknown status pauses automatic retry for diagnosis. Smoke, preparation,
-static-test, gate, merge, and other non-formal jobs are outside the 8+4 formal
-window.
+static-test, gate, merge, and other non-formal jobs are outside the twelve-job
+formal window.
 Use no more than four CPU preprocessing or artifact-writer workers and monitor
 host memory. RQ1 model-request concurrency is a separate frozen field:
 `request_concurrency=4`. The runner must consume it by processing up to four

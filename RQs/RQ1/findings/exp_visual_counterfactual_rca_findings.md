@@ -1,8 +1,12 @@
 # visual_counterfactual_rca Findings
 
-**Status:** v21 successor smoke qualified. The v22b formal rerun has started
-and is incomplete. Predecessor trajectories remain diagnostic/archive
-evidence.
+**Status:** the corrected v23 469-case formal inference is complete for both
+registered models. Qwen and Gemma each completed 24/24 shards and 1,876/1,876
+terminal records with zero infrastructure errors; all 24 current shard
+verifiers cover the combined two-model trajectories and report zero missing or
+integrity errors. Final consolidation, registered analysis, and scientific
+interpretation remain pending, so no efficacy or causal conclusion is claimed
+yet. Predecessor trajectories remain diagnostic/archive evidence.
 
 The shared RCA Stage-2 prompt now uses the registered field/RCA guide and
 internal SIRCL-style VERIFY procedure. This is a successor protocol change,

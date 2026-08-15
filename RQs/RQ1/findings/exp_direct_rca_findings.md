@@ -1,9 +1,8 @@
 # Direct RCA Findings
 
 **Status:** v21 successor smoke qualified; final full execution is reassigned
-as a whole-experiment local heldout and has not started. The prior Nibi Qwen
-shard-0 result was explicitly invalidated and deleted at the user's direction;
-the local run must start from scratch. Nibi must submit no `direct_rca` shard.
+as a whole-experiment local heldout and has not started. The local execution
+covers all 24 shards and both models. Nibi must submit no `direct_rca` shard.
 No RCA efficacy or stage-architecture conclusion is currently valid.
 
 `direct_rca` is the registered natural one-stage reference for the current RQ1
