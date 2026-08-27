@@ -1,0 +1,84 @@
+schema_version: CanvasRCAVLLMInferenceConfigV10
+protocol_version: vllm-inference-v10-rq1_1-multimodal-attention
+status: draft_successor_pending_rq1_1_smoke
+effective_date: 2026-08-17
+
+deployment:
+  profile: local
+  python: /home/lglsj/CanvasRCA/venvs/infer/bin/python
+  vllm_bin: /home/lglsj/CanvasRCA/venvs/infer/bin/vllm
+
+software:
+  python: "3.11"
+  vllm: "0.24.0"
+  xgrammar: "0.2.3"
+  transformers: "5.14.1"
+  torch: "2.11.0"
+
+common:
+  backend: vllm
+  base_url: http://127.0.0.1:8000/v1
+  host: 127.0.0.1
+  port: 8000
+  dtype: bfloat16
+  quantization: null
+  seed: 42
+  generation_config: vllm
+  max_model_len: 40960
+  max_tokens: 16384
+  temperature: 1.0
+  top_p: 0.95
+  request_timeout_sec: 1800
+  wait_timeout_sec: 1800
+  async_scheduling: false
+  # This is the only operational recipe difference from the Nibi profile.
+  gpu_memory_utilization: 0.65
+  mm_processor_cache_gb: 0
+  max_num_seqs: 128
+  tensor_parallel_size: 1
+  max_images_per_prompt: 8
+  max_videos_per_prompt: 0
+  disable_thinking: true
+  default_chat_template_kwargs: {enable_thinking: false}
+  enable_prefix_caching: false
+  use_flashinfer_sampler: false
+  enforce_eager: true
+  trust_remote_code: true
+  enable_log_requests: false
+  extra_server_args: []
+
+models:
+  qwen3.8-27b:
+    model_path: /home/lglsj/CanvasRCA/models/Qwen3.8-27B
+    model_path_env: CANVASRCA_QWEN_MODEL
+    served_model_name: Qwen/Qwen3.8-27B
+    repository_revision: 1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0
+    default_chat_template_kwargs: {enable_thinking: false, preserve_thinking: false}
+    batch_invariant: false
+    enable_chunked_prefill: false
+    mm_processor_kwargs: null
+    structured_outputs_config:
+      backend: xgrammar
+      disable_any_whitespace: true
+
+  gemma-4-26b-a4b:
+    model_path: /home/lglsj/CanvasRCA/models/gemma-4-26B-A4B-it
+    model_path_env: CANVASRCA_GEMMA_MODEL
+    served_model_name: google/gemma-4-26B-A4B-it
+    batch_invariant: true
+    enable_chunked_prefill: true
+    mm_processor_kwargs: {max_soft_tokens: 1120}
+    structured_outputs_config:
+      backend: xgrammar
+      disable_any_whitespace: true
+
+comparability:
+  actual_image_tokens_must_be_recorded: true
+  model_specific_processor_differences_are_frozen: true
+  qwen_project_pixel_budget_override_present: false
+  gpu_memory_utilization_is_not_an_experimental_variable: true
+
+adapters:
+  policy: explicit_hash_recorded_subclass_or_mapping
+  may_override_for_registered_experiment: [request_timeout_sec, max_num_seqs, extra_server_args]
+  fairness_sensitive_changes_require_new_protocol: [temperature, top_p, seed, max_model_len, max_tokens, dtype, quantization]

@@ -76,7 +76,7 @@ data:
   invalid_cases_are_replaced: false
 
 runtime:
-  models: [gemma-4-26b-a4b, qwen3.6-27b]
+  models: [gemma-4-26b-a4b, qwen3.8-27b]
   max_workers: 4
   request_concurrency: 4
   # 24 shards are approximately one third the size of the previous 8-shard

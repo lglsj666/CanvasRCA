@@ -15,19 +15,26 @@ DEFAULT_OUTPUT = PROJECT_ROOT / "artifacts/contracts/vllm_inference.lock.json"
 
 def build_lock() -> dict:
     config = VLLMInferenceConfig.load()
+    launcher = (
+        "serve_canvasrca_local.sh"
+        if config.data["deployment"]["profile"] == "local"
+        else "serve_canvasrca_nibi.sh"
+    )
     paths = (
         config.source,
         PROJECT_ROOT / "src/unified_scripts/vllm_inference.py",
         PROJECT_ROOT / "src/vlmrca/vlm/client.py",
+        PROJECT_ROOT / "src/vlmrca/vlm/attention_probe.py",
+        PROJECT_ROOT / "src/vlmrca/vlm/attention_probe_bootstrap/sitecustomize.py",
         PROJECT_ROOT / "src/vlmrca/vlm/configs.py",
         PROJECT_ROOT / "src/vlmrca/vlm/runtime_contract.py",
-        PROJECT_ROOT / "scripts/vllm_vlm/serve_canvasrca_nibi.sh",
+        PROJECT_ROOT / "scripts/vllm_vlm" / launcher,
     )
     payload = {
-        "schema_version": "CanvasRCAVLLMLockV7",
+        "schema_version": "CanvasRCAVLLMLockV10",
         "config": config.audit_record(),
         "files": {str(path.relative_to(PROJECT_ROOT)): hashlib.sha256(path.read_bytes()).hexdigest() for path in paths},
-        "models": {tag: config.model(tag) for tag in ("qwen3.6-27b", "gemma-4-26b-a4b")},
+        "models": {tag: config.model(tag) for tag in ("qwen3.8-27b", "gemma-4-26b-a4b")},
     }
     payload["lock_sha256"] = stable_hash(payload)
     return payload

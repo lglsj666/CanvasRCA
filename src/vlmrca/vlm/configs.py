@@ -83,7 +83,7 @@ class VLMConfig:
     # vLLM honours `seed` per request; the API backends ignore it. It only
     # matters if temperature is ever raised above 0 for a sampling study.
     seed: Optional[int] = 42
-    # Emit a chain of thought before answering. Both current Qwen3.6 and Gemma-4
+    # Emit a chain of thought before answering. Both current Qwen3.8 and Gemma-4
     # templates accept `enable_thinking`; the canonical protocol keeps it off.
     thinking: bool = False
     # Whether this model's chat template exposes `enable_thinking`. When True,
@@ -92,10 +92,9 @@ class VLMConfig:
     # Self-hosted models are reached through an OpenAI-compatible vLLM server.
     base_url_env: Optional[str] = None
     api_key_env: Optional[str] = None
-    # Per-request timeout. The SDK default (600 s) is not generous enough for a
-    # thinking arm: qwen3.6-27b generates ~30 tok/s, so a 16k-token chain of
-    # thought is ~9 minutes and a 32k one is ~18. An ambiguous timeout is
-    # indistinguishable from a dead server in the logs, so make it explicit.
+    # Per-request timeout. Long structured generations can exceed the SDK
+    # default; an ambiguous timeout is indistinguishable from a dead server in
+    # the logs, so make it explicit.
     request_timeout_s: Optional[float] = 1800.0
     # Escape hatch for backend-specific knobs. Splatted last, so it overrides
     # the fields above -- keep it empty unless a model genuinely needs it.
@@ -185,11 +184,9 @@ VLM_CONFIGS: Dict[str, VLMConfig] = {
     # 4-15x the wall clock. But it is an axis, not a settled default -- paired on
     # matched cases, thinking is worth +0.22 MRR on qwen3.5-4b and +0.28 on
     # qwen3.5-9b wherever the chain of thought fits in the budget. The 2026-07-24
-    # "disable thinking" conclusion generalised from two artifacts: qwen3.5-9b hit
-    # max_tokens on 8/20 cases (stop_reason=length at exactly 16384, truncated
-    # mid-reasoning) and qwen3.6-27b failed 18/20 with connection errors while its
-    # server logged a healthy 30 tok/s throughout. Neither was a reasoning-quality
-    # result. Thinking arms therefore get 32768 tokens so a CoT can terminate.
+    # "disable thinking" conclusion previously mixed truncation and infrastructure
+    # failures. Neither is a reasoning-quality result. Thinking arms therefore
+    # require a separately registered output budget so a CoT can terminate.
     "qwen3.5-9b": VLMConfig(
         tag="qwen3.5-9b",
         backend="openai",
@@ -212,10 +209,10 @@ VLM_CONFIGS: Dict[str, VLMConfig] = {
         base_url_env="VLLM_BASE_URL",
         api_key_env="VLLM_API_KEY",
     ),
-    "qwen3.6-27b": VLMConfig(
-        tag="qwen3.6-27b",
+    "qwen3.8-27b": VLMConfig(
+        tag="qwen3.8-27b",
         backend="openai",
-        model_id="Qwen/Qwen3.6-27B",
+        model_id="Qwen/Qwen3.8-27B",
         max_tokens=16384,
         temperature=1.0,
         top_p=0.95,
@@ -274,7 +271,7 @@ def get_config(tag: str, **overrides: Any) -> VLMConfig:
     if tag not in VLM_CONFIGS:
         raise KeyError(f"Unknown model tag {tag!r}. Known: {sorted(VLM_CONFIGS)}")
     cfg = VLM_CONFIGS[tag]
-    if tag in {"qwen3.6-27b", "gemma-4-26b-a4b"}:
+    if tag in {"qwen3.8-27b", "gemma-4-26b-a4b"}:
         # The registry is an API adapter; the global YAML remains the authority.
         from unified_scripts.vllm_inference import VLLMInferenceConfig
 

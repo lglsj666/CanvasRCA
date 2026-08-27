@@ -16,7 +16,7 @@ from typing import Any, Dict, Iterable, List, Optional
 from vlmrca.agent.trajectory import Episode, TrajectoryWriter, Turn
 from vlmrca.eval.metrics import summarize
 from vlmrca.eval.scoring import is_granularity_aware_hit
-from RQs.RQ1.src.renderer.dashboard import CaseRenderView, DashboardConfig, compile_dashboard
+from RQs.RQ1_1.src.renderer.dashboard import CaseRenderView, DashboardConfig, compile_dashboard
 from vlmrca.upstream import normalize_service, parse_answer, upstream_commit
 from vlmrca.vlm.client import call_vlm
 from vlmrca.vlm.configs import VLMConfig, get_config
@@ -236,12 +236,10 @@ def run_experiment(
     Run the pipeline over a set of cases and write trajectories + summary.
 
     `max_consecutive_failures` aborts the run when the backend has plainly gone
-    away. Without it a dead server is indistinguishable from a bad model: the
-    qwen3.6-27b bake-off cell lost its vLLM server after case 3, failed the
-    remaining 17 cases in about seven seconds each, scored every one of them 0,
-    and reported MRR 0.050 -- a number that then reached a devlog and a design
-    doc as if it measured the model. Partial results are still written, so an
-    aborted run is resumable and honest about its own coverage.
+    away. Without it a dead server is indistinguishable from a bad model and
+    infrastructure failures can be misreported as zero-quality predictions.
+    Partial results are still written, so an aborted run is resumable and
+    honest about its own coverage.
     """
     dashboard_cfg = dashboard_cfg or DashboardConfig()
     out_dir = Path(out_dir or Path("results") / experiment)

@@ -15,12 +15,12 @@ export CANVASRCA_ENV="${CANVASRCA_INFERENCE_ENV:-$PROJECT_ROOT/.venv-inference}"
 # shellcheck disable=SC1091
 source scripts/env.sh
 
-MODEL="${1:?usage: download_model_nibi.sh qwen3.6-27b|gemma-4-26b-a4b}"
+MODEL="${1:?usage: download_model_nibi.sh qwen3.8-27b|gemma-4-26b-a4b}"
 case "$MODEL" in
-  qwen3.6-27b)
-    REPOSITORY="Qwen/Qwen3.6-27B"
-    REVISION="6a9e13bd6fc8f0983b9b99948120bc37f49c13e9"
-    TARGET="${CANVASRCA_QWEN_MODEL:-$PROJECT_ROOT/models/Qwen3.6-27B}"
+  qwen3.8-27b)
+    REPOSITORY="Qwen/Qwen3.8-27B"
+    REVISION="1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0"
+    TARGET="${CANVASRCA_QWEN_MODEL:-$PROJECT_ROOT/models/Qwen3.8-27B}"
     ;;
   gemma-4-26b-a4b)
     REPOSITORY="google/gemma-4-26B-A4B-it"

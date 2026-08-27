@@ -50,7 +50,7 @@ case "$command" in
     roster="$5"
     shards="${6:-${CANVASRCA_SHARD_COUNT:-24}}"
     concurrency="${CANVASRCA_ARRAY_CONCURRENCY:-4}"
-    [[ "$model" == "qwen3.6-27b" || "$model" == "gemma-4-26b-a4b" ]] || usage
+    [[ "$model" == "qwen3.8-27b" || "$model" == "gemma-4-26b-a4b" ]] || usage
     [[ "$shards" =~ ^[1-9][0-9]*$ && "$concurrency" =~ ^[1-9][0-9]*$ ]] || usage
     [[ -f "$roster" ]] || { echo "roster does not exist: $roster" >&2; exit 2; }
     extra=()
@@ -87,7 +87,7 @@ case "$command" in
     [[ "$shards" =~ ^[1-9][0-9]*$ ]] || usage
     command -v jq >/dev/null || { echo "jq is required for merge" >&2; exit 3; }
     merged="RQs/RQ1/results/${experiment_id}"
-    merge_models="${CANVASRCA_MERGE_MODELS:-gemma-4-26b-a4b,qwen3.6-27b}"
+    merge_models="${CANVASRCA_MERGE_MODELS:-gemma-4-26b-a4b,qwen3.8-27b}"
     mkdir -p "$merged" "$merged/prepared" "$merged/private" "$merged/renders" \
       "$merged/trajectories" "$merged/shard_reports"
     indexes=()

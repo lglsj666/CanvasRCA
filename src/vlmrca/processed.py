@@ -1,6 +1,6 @@
 """Read-only adapter from the canonical processed dataset into ``DataCase``.
 
-RQ0 is not allowed to parse raw benchmark files.  The processed corpus already
+RQ experiments are not allowed to parse raw benchmark files. The processed corpus already
 contains one directory per incident with normalized timestamps/entities and a
 versioned metadata record, but its metric parquet retains three storage shapes:
 long records, entity-wide records, and globally wide records.  This module
@@ -26,10 +26,6 @@ REPO_ROOT = Path(os.environ.get("CANVASRCA_ROOT", Path.cwd())).expanduser().reso
 PROCESSED_ROOT = Path(
     os.environ.get("CANVASRCA_PROCESSED_ROOT", REPO_ROOT / "dataset" / "processed")
 ).expanduser().resolve()
-LEGACY_PROCESSED_ROOT = (
-    Path(os.environ["CANVASRCA_LEGACY_PROCESSED_ROOT"]).expanduser().resolve()
-    if os.environ.get("CANVASRCA_LEGACY_PROCESSED_ROOT") else None
-)
 PROCESSED_DATASETS = ("aegislab", "aiops2022", "aiops2025", "re2_ob", "re2_tt")
 
 _METRIC_DESCRIPTOR_COLUMNS = {
@@ -62,25 +58,20 @@ def processed_index(dataset: str) -> Dict[str, Dict[str, Any]]:
     if dataset not in PROCESSED_DATASETS:
         raise ValueError(f"unknown processed dataset {dataset!r}")
     path = PROCESSED_ROOT / "private" / dataset / "manifest.jsonl"
-    if not path.is_file() and LEGACY_PROCESSED_ROOT is not None:
-        path = LEGACY_PROCESSED_ROOT / dataset / "manifest.jsonl"
+    if not path.is_file():
+        raise FileNotFoundError(
+            f"canonical CanvasRCAProcessedPublicCaseV2 manifest is missing: {path}"
+        )
     out: Dict[str, Dict[str, Any]] = {}
     for line in path.read_text(encoding="utf-8").splitlines():
         if line.strip():
             row = json.loads(line)
-            if LEGACY_PROCESSED_ROOT is not None and "opaque_incident_id" not in row:
-                row = {**row, "local_legacy_adapter": True}
             out[str(row["case_id"])] = row
     return out
 
 
 def _case_dir(dataset: str, row: Dict[str, Any]) -> Path:
-    if row.get("local_legacy_adapter"):
-        if LEGACY_PROCESSED_ROOT is None:
-            raise ValueError("legacy processed adapter is not configured")
-        root = (LEGACY_PROCESSED_ROOT / dataset).resolve()
-    else:
-        root = (PROCESSED_ROOT / "public" / dataset).resolve()
+    root = (PROCESSED_ROOT / "public" / dataset).resolve()
     path = (root / str(row["path"])).resolve()
     if root not in path.parents:
         raise ValueError(f"processed manifest path escapes dataset root: {path}")
@@ -100,7 +91,9 @@ def _entity_series(df: pd.DataFrame) -> pd.Series:
     return pd.Series(["unknown"] * len(df), index=df.index, dtype="object")
 
 
-def _metric_timestamp(df: pd.DataFrame) -> pd.Series:
+def _metric_timestamp(
+    df: pd.DataFrame, *, allow_row_index_fallback: bool = True
+) -> pd.Series:
     for col in ("timestamp_seconds", "timestamp", "time"):
         if col not in df.columns:
             continue
@@ -113,7 +106,9 @@ def _metric_timestamp(df: pd.DataFrame) -> pd.Series:
         finite = vals[np.isfinite(vals)]
         if len(finite):
             return vals
-    return pd.Series(np.arange(len(df), dtype="float64"), index=df.index)
+    if allow_row_index_fallback:
+        return pd.Series(np.arange(len(df), dtype="float64"), index=df.index)
+    return pd.Series(np.nan, index=df.index, dtype="float64")
 
 
 def _wide_metrics(df: pd.DataFrame) -> pd.DataFrame:
@@ -214,7 +209,10 @@ def _traces(df: pd.DataFrame) -> pd.DataFrame:
     if df.empty:
         return pd.DataFrame(columns=columns)
     out = pd.DataFrame(index=df.index)
-    out["timestamp"] = _metric_timestamp(df)
+    # A row ordinal is not a time coordinate.  In particular, it previously
+    # turned RE2's all-null stored trace timestamps into plausible-looking
+    # 0..N seconds and corrupted the pre/during split in the trace panel.
+    out["timestamp"] = _metric_timestamp(df, allow_row_index_fallback=False)
     out["service_name"] = _entity_series(df)
     aliases = {
         "trace_id": ("trace_id", "traceID"),
@@ -286,14 +284,6 @@ def load_processed_private(dataset: str, case_id: str) -> Dict[str, Any]:
     row = processed_index(dataset).get(case_id)
     if row is None:
         raise KeyError(f"{case_id!r} is absent from processed {dataset}")
-    if row.get("local_legacy_adapter"):
-        meta = json.loads((_case_dir(dataset, row) / "metadata.json").read_text(encoding="utf-8"))
-        labels = dict(meta.get("labels") or {})
-        return {
-            "source_case_id": case_id, "dataset": dataset, "labels": labels,
-            "fault_type": labels.get("fault_type"), "event": dict(meta.get("event") or {}),
-            "local_legacy_adapter": True,
-        }
     opaque = str(row["opaque_incident_id"])
     path = PROCESSED_ROOT / "private" / dataset / "cases" / f"{opaque}.json"
     payload = json.loads(path.read_text(encoding="utf-8"))

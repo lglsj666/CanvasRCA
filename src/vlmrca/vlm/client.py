@@ -18,10 +18,10 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Mapping
 
-from vlmrca.vlm.configs import VLMConfig, get_config, load_env
-from vlmrca.vlm.runtime_contract import assert_request_sampling
 from vlmrca.vlm.attention_probe import enabled as attention_probe_enabled
 from vlmrca.vlm.attention_probe import read_sidecar
+from vlmrca.vlm.configs import VLMConfig, get_config, load_env
+from vlmrca.vlm.runtime_contract import assert_request_sampling
 
 # --------------------------------------------------------------------------- #
 # Backend-neutral message parts                                               #
@@ -86,6 +86,8 @@ def count_vllm_prompt_tokens(
     payload: dict[str, Any] = {"model": cfg.model_id, "messages": messages}
     if cfg.thinking_via_template:
         payload["chat_template_kwargs"] = {"enable_thinking": cfg.thinking}
+        if cfg.tag == "qwen3.8-27b":
+            payload["chat_template_kwargs"]["preserve_thinking"] = False
     endpoint = base_url.rstrip("/")
     endpoint = endpoint.removesuffix("/v1")
     request = urllib.request.Request(
@@ -305,7 +307,7 @@ def _call_openai(
 
     messages = _openai_messages(parts, system)
 
-    if cfg.tag in {"qwen3.6-27b", "gemma-4-26b-a4b"}:
+    if cfg.tag in {"qwen3.8-27b", "gemma-4-26b-a4b"}:
         assert_request_sampling(
             temperature=cfg.temperature,
             top_p=cfg.top_p,
@@ -339,13 +341,13 @@ def _call_openai(
     if cfg.thinking_via_template:
         # Current Qwen and Gemma templates expose enable_thinking. Keep it an
         # explicit request field rather than relying on a checkpoint default.
-        kwargs.setdefault("extra_body", {})["chat_template_kwargs"] = {
-            "enable_thinking": cfg.thinking
-        }
-    if attention_probe_enabled() and any(part["type"] == "image" for part in parts):
-        # vLLM carries this identifier unchanged through the engine and returns
-        # it as ``chatcmpl-<value>``.  It joins the same-pass worker sidecar to
-        # the normal response without another model execution.
+        template_kwargs = {"enable_thinking": cfg.thinking}
+        if cfg.tag == "qwen3.8-27b":
+            template_kwargs["preserve_thinking"] = False
+        kwargs.setdefault("extra_body", {})["chat_template_kwargs"] = template_kwargs
+    if attention_probe_enabled():
+        # vLLM carries this identifier through the engine. It joins the
+        # original-prefill sidecar to the normal response without a replay.
         kwargs.setdefault("extra_body", {})["request_id"] = probe_request_id
     # Merge extra_body rather than clobbering it, so an escape-hatch entry does
     # not silently drop the thinking kwarg.
@@ -363,11 +365,9 @@ def _call_openai(
 
     out = client.chat.completions.create(**kwargs)
     u = out.usage
-    probe = None
-    if attention_probe_enabled() and any(part["type"] == "image" for part in parts):
-        probe = read_sidecar(str(out.id))
-        if probe is None and os.environ.get("CANVASRCA_ATTENTION_PROBE_REQUIRED") == "1":
-            raise VLMError(f"required same-pass attention sidecar missing for {out.id}")
+    probe = read_sidecar(str(out.id)) if attention_probe_enabled() else None
+    if attention_probe_enabled() and probe is None and os.environ.get("CANVASRCA_ATTENTION_PROBE_REQUIRED") == "1":
+        raise VLMError(f"required same-prefill attention sidecar missing for {out.id}")
     return VLMResponse(
         text=out.choices[0].message.content or "",
         input_tokens=int(getattr(u, "prompt_tokens", 0) or 0),
@@ -477,11 +477,9 @@ def _call_openai_streaming(
         usage=usage_dict,
     )
     _write_partial(path, state)
-    probe = None
-    if attention_probe_enabled() and any(part["type"] == "image" for part in parts):
-        probe = read_sidecar(response_id)
-        if probe is None and os.environ.get("CANVASRCA_ATTENTION_PROBE_REQUIRED") == "1":
-            raise VLMError(f"required same-pass attention sidecar missing for {response_id}")
+    probe = read_sidecar(response_id) if attention_probe_enabled() else None
+    if attention_probe_enabled() and probe is None and os.environ.get("CANVASRCA_ATTENTION_PROBE_REQUIRED") == "1":
+        raise VLMError(f"required same-prefill attention sidecar missing for {response_id}")
     return VLMResponse(
         text="".join(pieces),
         input_tokens=int(usage_dict.get("prompt_tokens", 0) or 0),

@@ -26,7 +26,7 @@ data:
   independent_per_dataset: 50
 
 runtime:
-  models: [gemma-4-26b-a4b, qwen3.6-27b]
+  models: [gemma-4-26b-a4b, qwen3.8-27b]
   result_root: RQs/RQ2/results
   smoke_call_cap: 18
   smoke_timeout_seconds: 600
@@ -39,4 +39,3 @@ analysis:
   paired_test: wilcoxon_pratt
   effect_size: paired_cohens_dz
   no_confidence_intervals: true
-

@@ -22,10 +22,10 @@ from typing import Dict, List
 import numpy as np
 
 from vlmrca.cache import load_cases
-from RQs.RQ1.src.renderer import panels as panels_mod
-from RQs.RQ1.src.renderer.dashboard import CaseRenderView, compile_dashboard
-from RQs.RQ1.src.renderer.kpi_select import Z_CAP
-from RQs.RQ1.src.renderer.presets import make_dashboard_config
+from RQs.RQ1_1.src.renderer import panels as panels_mod
+from RQs.RQ1_1.src.renderer.dashboard import CaseRenderView, compile_dashboard
+from RQs.RQ1_1.src.renderer.kpi_select import Z_CAP
+from RQs.RQ1_1.src.renderer.presets import make_dashboard_config
 
 
 def _pct(x: float) -> str:

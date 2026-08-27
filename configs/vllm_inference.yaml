@@ -1,7 +1,12 @@
-schema_version: CanvasRCAVLLMInferenceConfigV7
-protocol_version: vllm-inference-v7-nibi-context40960
-status: frozen_global_base
-effective_date: 2026-08-15
+schema_version: CanvasRCAVLLMInferenceConfigV10
+protocol_version: vllm-inference-v10-rq1_1-multimodal-attention
+status: draft_successor_pending_rq1_1_smoke
+effective_date: 2026-08-17
+
+deployment:
+  profile: nibi
+  python: .venv-base/bin/python
+  vllm_bin: .venv-base/bin/vllm
 
 software:
   python: "3.11"
@@ -9,17 +14,6 @@ software:
   xgrammar: "0.2.3"
   transformers: "5.14.1"
   torch: "2.11.0"
-
-attention_probe:
-  enabled: true
-  required_for_visual_requests: true
-  method: final_prompt_query_to_visual_keys_per_head_softmax_mean
-  layer_policy: first_full_attention_after_multimodal_fusion
-  qwen_layer_index: 3
-  gemma_layer_index: 5
-  extra_model_calls: 0
-  changes_generation: false
-  interpretation: correlational_only
 
 common:
   backend: vllm
@@ -55,10 +49,12 @@ common:
   extra_server_args: []
 
 models:
-  qwen3.6-27b:
-    model_path: models/Qwen3.6-27B
+  qwen3.8-27b:
+    model_path: models/Qwen3.8-27B
     model_path_env: CANVASRCA_QWEN_MODEL
-    served_model_name: Qwen/Qwen3.6-27B
+    served_model_name: Qwen/Qwen3.8-27B
+    repository_revision: 1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0
+    default_chat_template_kwargs: {enable_thinking: false, preserve_thinking: false}
     batch_invariant: false
     enable_chunked_prefill: false
     mm_processor_kwargs: null

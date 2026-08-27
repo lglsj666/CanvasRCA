@@ -40,7 +40,7 @@ RQs/RQx/descriptions/       exactly three canonical RQ documents
 RQs/RQx/findings/           one finding document per experiment
 RQs/RQx/scripts/            RQ-specific shell entry points only
 RQs/RQx/src/                compact RQ-specific Python package
-RQs/RQ1/src/renderer/       provisional RQ1-owned dashboard implementation
+RQs/RQ1_1/src/renderer/     active provisional renderer inherited from RQ1
 RQs/RQx/results/            RQ-specific generated artifacts
 requirements/               Nibi dependency sets
 plans/design_decisions.md   project-wide decisions and supersessions
@@ -134,8 +134,8 @@ copies under `src/vlmrca/`. Move genuinely global, reusable behavior into the
 three unified scripts or the shared main pipeline; delete obsolete duplicated
 RQ versions once their successor preserves the required behavior.
 
-The only current exception is `RQs/RQ1/src/renderer/`. It contains the
-versioned, provisional dashboard implementation being evaluated by RQ1 and is
+The only current exception is `RQs/RQ1_1/src/renderer/`. It contains the
+versioned, provisional dashboard implementation being evaluated by RQ1.1 and is
 counted separately from the five-module 5,000-line limit. This exception must
 not be used for unrelated experiment code or as a line-limit escape hatch.
 
@@ -151,11 +151,18 @@ logic belongs only in that RQ's five functional modules.
 
 There is no project-global renderer and no global renderer configuration while
 dashboard design remains an open research variable. The only authoritative
-provisional implementation is `RQs/RQ1/src/renderer/`; code that needs the
-current dashboard must import that package explicitly. `src/vlmrca/render/`, a
+provisional implementation is `RQs/RQ1_1/src/renderer/`; it was initially
+copied byte-for-byte from the latest RQ1 renderer before RQ1.1 changes began.
+The registered renderer-v13 then received the user-authorized, RQ1.1-local
+finite-trace-time, topology-context, and negative-zero display fixes documented
+in `RQs/RQ1_1/descriptions/RQ1_1_experiments.md`. The initial-copy hashes remain
+provenance evidence, not an assertion that the current tree is unchanged. Code
+that needs the current dashboard must import that package explicitly.
+`src/vlmrca/render/`, a
 symlink or wrapper under that path, and any other global renderer authority are
 forbidden. RQ2 and later RQs must copy or explicitly inherit the exact frozen
-RQ1 renderer snapshot. A renderer change is allowed only when the user
+RQ1.1 renderer snapshot. `RQs/RQ1/` is historical audit material and is not an
+active implementation dependency. A renderer change is allowed only when the user
 authorizes an experiment about dashboard design; it then requires an RQ-local
 version, a new hash/contract, visual inspection, leakage audit, determinism
 check, and cross-arm atomic-fact equality audit. An RQ-local change must never
@@ -196,16 +203,27 @@ a completed model call solely to change accounting metadata.
 
 ## Unified vLLM inference policy
 
-All project-owned inference uses `src/vlmrca/vlm/client.py`,
-`configs/vllm_inference.yaml`, and
-`scripts/vllm_vlm/serve_canvasrca_nibi.sh`.
+All project-owned inference uses `src/vlmrca/vlm/client.py` and one explicitly
+selected deployment profile of the same unified recipe:
 
-Both registered models use unquantized BF16, seed 42, temperature 1.0, top-p
+- Nibi: `configs/vllm_inference.yaml` with
+  `scripts/vllm_vlm/serve_canvasrca_nibi.sh`.
+- Local WSL: `configs/vllm_inference_local.yaml` with
+  `scripts/vllm_vlm/serve_canvasrca_local.sh` after sourcing
+  `scripts/env_local.sh`.
+
+`CANVASRCA_VLLM_CONFIG` is the only authorized profile selector. Never infer a
+profile from a hostname and never copy model-specific sampling or processor
+settings into an experiment script. Every runner, client, server attestation,
+and run contract must resolve and hash the same selected profile.
+
+The registered open-weight models are Qwen3.8-27B and
+Gemma-4-26B-A4B-it. Both use unquantized BF16, seed 42, temperature 1.0, top-p
 0.95, a 40,960-token context, a 16,384-token output ceiling, thinking disabled,
 prefix caching disabled, and a maximum scheduler capacity of 128 sequences.
 Sampling means exact byte repetition is not a validity gate.
 
-RQ1 retains the uniform `context_safe_output_v1` request adapter: every RQ1
+RQ1.1 retains the uniform `context_safe_output_v1` request adapter: every RQ1.1
 model, experiment, arm, case, and stage requests at most 8,192 output tokens,
 leaving up to 32,768 tokens for model-visible input. The
 `max_num_seqs=128` field changes server scheduling capacity only; it does not
@@ -218,16 +236,27 @@ The 2026-08-15 capacity successor increased only `max_model_len` from 32,768
 to 40,960. The user explicitly retained every hash-valid completed predecessor
 result and waived a replacement smoke: prompts, evidence, output ceilings,
 sampling, schemas, and scoring did not change, and each retained request had
-already fit and terminated under the smaller context. New calls use the
-40,960-token freeze; retained calls keep their truthful 32,768-token freeze.
-An explicit compatibility manifest must connect the two freezes, and a runner
-may skip a predecessor target only after validating its call key, hashes,
-terminal status, and old-context feasibility. Infrastructure errors created by
-the old context are not retained outcomes and must be rerun from the beginning.
+already fit and terminated under the smaller context. Runtime-freeze hashes
+remain truthful audit metadata but are not validity, comparability, or resume
+gates. A runner skips an earlier target after validating its record hash,
+self-consistent call key, model/experiment identity, and completed terminal
+status; it does not require a matching freeze or compatibility manifest.
+Infrastructure errors are not completed outcomes and must be rerun from the
+beginning. Removing this gate is status-preserving: every Nibi record already
+accepted as completed remains valid.
 
-Qwen uses its native image-processor policy and receives no project-level
+Qwen uses the official `Qwen/Qwen3.8-27B` checkpoint at revision
+`1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0`, stored by default at
+`models/Qwen3.8-27B`. Qwen uses its native image-processor policy and receives no project-level
 `min_pixels`, `max_pixels`, or other image pixel-budget override. Qwen keeps
-chunked prefill disabled unless a new versioned decision changes it.
+chunked prefill disabled unless a new versioned decision changes it. Because
+Qwen3.8 enables thinking and preservation of prior thinking by default, both
+`enable_thinking=false` and `preserve_thinking=false` must be explicit in the
+server and request chat-template kwargs. Qwen3.6 is not an active model,
+checkpoint, launcher target, cache target, or queue target. Historical Qwen3.6
+records that are inside the explicitly protected RQ1 audit set retain their
+original model label and bytes; they must never satisfy or be written into an
+RQ1.1 Qwen3.8 result target.
 
 Both Qwen and Gemma use xgrammar structured output with arbitrary JSON
 whitespace disabled. This prevents an otherwise schema-valid decoder path from
@@ -240,37 +269,65 @@ This does not claim physically unlimited memory: vLLM, the model, the context,
 and the Slurm allocation retain their intrinsic limits. OOM or preemption is an
 infrastructure outcome, never a model-quality score.
 
+For local WSL, `gpu_memory_utilization` is exactly `0.65`. The local profile
+uses `/home/lglsj/CanvasRCA/venvs/infer/` and the Qwen3.8/Gemma checkpoints
+under `/home/lglsj/CanvasRCA/models/`; these deployment paths must not be
+written into the Nibi profile. Apart from deployment paths and this operational
+VRAM fraction, the two profiles must be structurally identical, including
+checkpoint identity/revision, BF16 precision, context/output limits,
+temperature, top-p, seed, thinking/template kwargs, xgrammar, image processor,
+chunked prefill, prefix caching, scheduler capacity, and request timeouts. A
+static parity check must fail on any additional difference. The VRAM fraction
+is recorded for reproducibility and is not itself a scientific variable.
+Local WSL never submits a Slurm job and must not call `sbatch`; launch it
+directly with `scripts/vllm_vlm/serve_canvasrca_local.sh` or
+`RQs/RQ1_1/scripts/run_local.sh`, using `nohup`/ordinary shell backgrounding
+only when persistence is needed. `#SBATCH`, account, array, dependency, and job
+submission logic belongs exclusively to Nibi entry points.
+Local canonical V2 preparation runs directly through
+`RQs/RQ1_1/scripts/prepare_local.sh` and writes under
+`build/local_processed_v2/`; it must not read the retired single-layer
+processed corpus as an experimental fallback.
+
 Every run records the effective global config hash, adapter hash if any, actual
 text/image/input/output tokens, wall time, GPU-active time when available, peak
 memory, finish reason, parse status, and infrastructure status.
 
-Every successful visual model request must collect the registered true
-model-internal attention diagnostic during that request's normal prefill. The
-custom vLLM 0.24 hook observes the Q/K tensors already produced at each
-model's first full-attention layer after multimodal fusion, computes the final
-prompt query's per-head softmax over visual-token keys, averages heads, and
-continues the unchanged fused-attention/generation path. It must not initiate a
-second forward, retry, completion, experiment unit, arm, or LLM/VLM call. The
-resulting token vector, 16x16 image grid, image/hash-matched heat overlay,
-method, layer, and request ID are required trajectory artifacts for visual
-requests; text-only requests record `not_applicable_text_only`. Missing probe
-artifacts are infrastructure/integrity errors, never wrong model answers or
-performance-gate failures.
+RQ1.1 records image and text attention during the original generation prefill.
+The registered first full-attention layer supplies the final prompt query and
+all prior prompt keys; the hook observes them without changing Q/K/V tensors,
+logits, sampling, or the number of model calls. Persist raw prompt-token
+weights for every request. For visual requests also persist image-token
+weights, value norms, pre-output-projection attention-weighted value norms,
+16x16 grids, hash-matched overlays, and M/R/L/G region diagnostics. The first
+grid row is an explicit `dashboard_header_band`, not M/G evidence, and its
+spatial meaning is limited to the registered grid resolution. Record
+first-patch rank and peak-to-median ratios.
+Map text tokens to the system/task shell, candidates/common text, M/R/L/G
+evidence, tool history, and unassigned control tokens. Report both raw mass and
+token-count-normalized focus because a longer span otherwise receives more
+mass by construction. Missing required attention is an artifact-integrity
+error for the new attention-enabled protocol. Attention remains correlational:
+it may describe where the model looked, but it cannot by itself establish
+causal use, correctness, representation benefit, or an attention sink. A sink
+claim requires registered content- and position-intervention evidence.
 
-Renderer density and Stage-1 M/L/R/G region coverage remain separate,
-model-call-free diagnostics. Neither those proxies nor model-internal
-attention authorize a causal explanation. Attention is correlational and must
-not affect prompts, evidence, logits, sampling, predictions, scores, case
-selection, or stopping. The registered visual counterfactual experiment, not
-attention, supplies causal evidence about visual influence. Standard vLLM's
-OpenAI API still exposes no attention; the project-owned same-prefill hook and
-its versioned runtime contract are the sole authorized source.
+RQ1.1 is not an attempt to prove that images improve RCA. Its purpose is to
+measure how representations affect direct RCA, cross-region reasoning,
+bounded tool use, internal attention allocation, and token cost. Positive,
+negative, null, mixed, and architecture-specific effects are all valid results.
 
 ## Dataset segmentation and privacy
 
 Experiments read only processed per-case data under `dataset/processed/` or the
 path supplied by `CANVASRCA_PROCESSED_ROOT`. The complete `dataset/` tree is
 read-only. Do not modify raw or processed data.
+
+The only authorized loader schema is `CanvasRCAProcessedPublicCaseV2`, with
+public telemetry and physically isolated private labels. Legacy processed-root
+environment variables, local-preparation adapters, fallbacks, and silent
+schema conversion are forbidden. A missing canonical case or manifest fails
+closed before any model call.
 
 All splits and rosters originate from
 `src/unified_scripts/dataset_segmentation.py` and
@@ -279,7 +336,7 @@ identities. Source case IDs and labels remain in physically separate
 evaluator-private artifacts. RQ quotas and label-blind strata are explicit
 adapters; an RQ must not resample cases after seeing model results.
 
-The final Nibi RQ1 rerun uses the long-frozen project evaluation roster after
+The RQ1.1 run uses the long-frozen project evaluation roster after
 excluding its eleven existing invalid cases without replacement: 96 AegisLab,
 100 AIOPS-2022, 93 AIOPS-2025, 90 RE2-OB, and 90 RE2-TT, for 469 eligible cases.
 The 289 cases from the first three datasets are the only headline inferential
@@ -330,14 +387,27 @@ telemetry dashboard: the real dashboard must contain the registered plots and
 graphical encodings. Any comparison among these representations is permitted
 only after their model-visible atomic fact inventories, numeric precision,
 bins, missingness, candidates, concrete edges, and legends are proven equal.
-For the registered RQ1 pixel-text control, render the frozen T-arm
+For the registered RQ1.1 `S` pixel-text control, render the frozen T-arm
 natural-language incident-fact lines themselves, preserving their order and
-partitioning them only with region page headings. Under the current RQ1 v16
+partitioning them only with region page headings. Under the current RQ1.1
 protocol, text-bearing incident evidence is ordered M/metrics, R/traces,
 L/logs, then G/topology; the real dashboard keeps its frozen spatial layout.
-Do not source that control
-from F or from a newly written summary. T remains the inherited natural-language
-serializer and F remains the inherited stable flat-JSONL serializer.
+Do not source that control from JSONL or from a newly written summary. RQ1.1
+has no flat-JSONL arm. T remains the sole natural-language serializer.
+
+Every service, pod, and node identity visible to a model or returned by a tool
+must be a deterministic case-local numeric ID: three digits for service, four
+for node, and five for pod. Each case receives a new one-to-one mapping.
+Natural identities remain evaluator-private. Operation, metric, and template
+semantics remain diagnostic public fields, but an exact embedded entity name
+must be replaced by its numeric ID.
+
+RQ1.1 logs use `DenumReadableLogGraphV1`, which adopts Denum's numeric-token
+parsing and repeated-structure separation without binary output. The canonical
+graph preserves template text, typed diagnostic numbers, relative bins,
+severity, and multiplicity. `DenumLogTextV1`, the renderer log rows, and
+`search_logs` must derive from that one graph and pass semantic round-trip and
+fact-inventory equality checks.
 
 If image-only evidence is fragment A and text-only evidence is fragment B, the
 hybrid prompt is exactly A+B or exactly B+A. Freeze one order. Do not rewrite,
@@ -347,28 +417,18 @@ remain identical across compared arms.
 
 RCA prompts must explain the model-visible evidence fields, relative-time and
 missingness semantics, caller/callee direction, the RCA objective, and how to
-distinguish an originating fault from propagated symptoms. Non-RCA Q&A and
-perception prompts explain their data structures and fields but must not add an
-RCA guide. A reasoning scaffold may change internal deliberation, but the
-registered final RCA JSON schema remains frozen. RQ1 v16 retains v12's Stage-2
-SIRCL*-adapted internal `INITIAL -> VERIFY -> REVISE` procedure and emits only
-the final JSON; that shared instruction is identical across compared arms and
-does not alter the strict A+B hybrid evidence fragment.
+distinguish an originating fault from propagated symptoms. Non-RCA Q&A prompts
+explain their M/R/L/G data structures and fields but must not add an RCA guide.
+The registered final RCA JSON schema remains frozen.
 
-RQ1 v16 two-stage RCA uses `CompactRecordKeyLedgerV4`. Stage 1 may select at
-most 16 unique public evidence records and at most four metric bins per
-selector. Each selector contains exactly one nonempty, human-readable
-`record_key` plus `relative_bins`: `M1` for a visible metric panel,
-`L:<entity>` for a log row, `R:<entity>` for a trace row, `G:<entity>` for a
-propagation row, or `G:<caller>-><callee>` for a directed edge. Explicitly
-missing log/trace evidence uses `L:missing` or `R:missing`. The model must not
-transcribe raw values, full arrays, attributes, units, fact IDs, relation
-arrays, or candidate-support lists. The label-blind host deterministically
-binds each key to exactly one public fact, copies its exact scalar fields and
-selected values, and derives topology relations only from selected public
-topology facts. A duplicate public key fails preparation. This compact handoff
-changes no model-visible incident evidence before Stage 1 and is identical
-across compared arms.
+RQ1.1 replaces the predecessor two-stage ledger with a distinct fixed
+three-step ReAct-like experiment. Each step has exactly one planner call, one
+host execution of `search_metrics`, `search_traces`, `search_logs`, or
+`search_topology`, and one analysis call. It never stops early; Step 3's
+temporary ranking becomes the final ranking. Every arm and model has identical
+tool permissions, canonical public data, result row and character budgets, and
+invalid-call behavior. Tools accept only case-local numeric IDs and relative
+time, and can never read evaluator-private labels.
 
 ## Experiments and artifacts
 
@@ -383,39 +443,24 @@ and scoring unchanged does not invalidate completed preparation or smoke
 artifacts. Record the evidence and the smallest necessary rerun scope before
 submitting an authorized rerun.
 
-Long runs execute in the background through Slurm and must be resumable by a
-content-addressed call key. Pre-render CPU artifacts before allocating a GPU.
-RQ1 formal execution is strictly experiment-major, never shard-round-robin or
-tail-filled across experiments. Each execution site owns whole experiments.
-Nibi activates one experiment and completes and verifies all 24 shards for both
-registered models before activating the next Nibi experiment. Within that one
-active experiment, Qwen has submission priority; when fewer eligible Qwen jobs
-remain than the twelve available positions, Gemma jobs from the same experiment
-fill the unused positions and the two model families may overlap in separate
-one-model jobs. This is an operational scheduling rule and changes no scientific
-contract. `direct_rca`, `matched_rca`, and `ledger_handoff_rca` are
-whole-experiment local heldouts covering all 24 shards and both models; Nibi
-must submit no shard of any of them. A local and Nibi site may
-work concurrently only on different whole experiments assigned to those
-sites; an experiment is never split between them. Jobs from another experiment
-that were already submitted before this rule was clarified may finish and
-their compatible artifacts are preserved, but they are not refilled and do
-not authorize that experiment to become active.
+On Nibi, long runs execute in the background through Slurm. On local WSL, long
+runs execute directly as ordinary background processes and must never submit a
+Slurm job. Both deployment profiles must remain resumable by a content-addressed
+call key. Pre-render CPU artifacts before allocating a GPU.
+RQ1.1 does not reuse historical RQ1 preparation or inference records. Its
+formal order is `direct_rca`, `direct_qa`, then `multi_stage_rca`. For each
+experiment, run Qwen3.8 to completion and verification before Gemma; do not
+condition the second model on the first model's outcome. Results live only
+under `RQs/RQ1_1/results/` and never mix with protected RQ1 audit artifacts.
 
-Nibi formal execution has twelve scheduler positions, all requesting
-`00:30:00`; do not submit new eight-hour formal jobs. Only `RUNNING`,
-`PENDING`, and `COMPLETING` jobs consume a position; completed jobs do not.
-Keep twelve thirty-minute jobs active whenever enough eligible work from the
-one active experiment remains, and count individual jobs rather than array
-parents. Refill resumable or unfinished Qwen units first, then fill any remaining
-positions with Gemma units from that same experiment. Do not run both models for
-the same shard concurrently because shard-level verification and operational
-metadata share a result root. Cross-experiment fill remains forbidden until both
-models are complete and verified. The thirty-minute wrapper interrupts its payload after 25 minutes and
-reserves up to two minutes for cleanup before the Slurm hard limit. A
-registered payload timeout resubmits the same unit against content-addressed
-artifacts, skips only hash-valid completed case/arm targets, and restarts the
-interrupted target from the beginning rather than splicing a partial response.
+RQ1.1 formal GPU jobs request one H100, four CPUs, 100 GB RAM, and at most one
+day. Shards are resumable by content-addressed target. Refill eligible work
+only from the one active experiment, complete Qwen3.8 before starting Gemma,
+and do not overlap the two models. Cross-experiment fill remains forbidden
+until both models for the current experiment are complete and verified. A
+registered scheduler or payload timeout resubmits the same unit, skips only
+hash-valid completed case/arm targets, and restarts an interrupted target from
+the beginning rather than splicing a partial response.
 A non-timeout failure must be diagnosed before that unit is automatically
 retried. Hash-valid model outcomes such as output-length termination,
 truncation, or parse failure remain terminal scientific outcomes and must never
@@ -436,8 +481,9 @@ four-worker artifact pool.
 heavy RQ run, a CPU-only matrix must compile every registered experiment/arm
 against both effective model contracts. Every registered experiment has
 exactly one independent logical smoke; that experiment's smoke must exercise
-both registered models and every distinct request path and response schema
-within the per-model call cap. Do not combine several experiments into an
+both registered models and every distinct request path and response schema that
+fits within the shared call cap. Statically equivalent paths are covered by CPU
+checks rather than extra calls. Do not combine several experiments into an
 omnibus smoke, and do not spend a separate model call on every statically
 equivalent arm. During stable inference, record request queue/running depth
 with GPU utilization and throughput. Repeated GPU-idle intervals while
@@ -469,20 +515,16 @@ truncations remain model outcomes.
 
 ## Smoke and gate bounds
 
-A registered experiment has exactly one logical smoke. Within that smoke,
-**each model independently receives an 18-call budget** across its cases, arms,
-stages, retries, and processes. A two-model smoke may therefore initiate at
-most 36 calls, with no more than 18 from either model. The two model phases must
-run sequentially, never concurrently. Each model phase has its own 600-second
-wall-clock timeout from phase-supervisor start, so one two-model logical smoke
-may take at most 1,200 seconds of active phase time plus scheduler/model-switch
-overhead. Multiple experiments do not share one smoke budget, and one
+A registered experiment has exactly one logical smoke. Its Qwen3.8 and Gemma
+phases share **one aggregate budget of at most 18 LLM/VLM calls** across all
+cases, arms, stages, retries, and processes. The two model phases run
+sequentially, never concurrently. The complete two-model smoke shares one
+600-second wall-clock timeout measured from the logical smoke supervisor start,
+including model startup, model switching, requests, persistence, and
+verification. Multiple experiments do not share one smoke budget, and one
 experiment may not be split into several nominal smokes.
 
-A complete logical smoke may initiate at most 18 LLM/VLM calls per model across
-that model's cases, arms, stages, retries, and processes. Each sequential model
-phase has a 600-second wall-clock timeout from its supervisor start. A
-timeout-only outcome passes for that phase;
+A timeout-only outcome passes for the complete logical smoke;
 any other protocol, numerical, integrity, persistence, or infrastructure error
 does not. Correctness is not a smoke pass condition.
 
@@ -508,15 +550,14 @@ responses, prompts, truncations, and accounting for hidden problems. Record a
 hidden issue without halting routine progress. If it is safely fixable, fix it
 and continue; stop only when the problem is material and cannot be resolved.
 
-The Nibi worktree retains its Nibi scientific configuration. A local WSL
-qualification may be launched only through an external deployment adapter
-under the local CanvasRCA worktree's `scripts/` directory. That adapter may
-override deployment paths for the local dataset, models, environments, ports,
-and result root, but it must import the Nibi worktree code and must not rewrite
-the Nibi scientific prompts, renderer, arms, scorer, roster semantics, or
-model-specific inference recipe. Local smokes and gates remain subject to the
-same aggregate call and timeout bounds above; their artifacts are diagnostic
-and cannot be represented as Nibi heavy-run results.
+The Nibi worktree retains both explicit deployment profiles so the same source
+can switch between Nibi and local WSL without an external code copy. The local
+profile may change only deployment paths and `gpu_memory_utilization`; it must
+not rewrite prompts, renderer, arms, scorer, roster semantics, model-specific
+inference fields, or prepared evidence. Local smokes and gates remain subject
+to the same aggregate call and timeout bounds above. Hardware/runtime metadata
+must identify local WSL rather than Nibi; a local artifact must never be
+represented as a Nibi job.
 
 ## Monitoring and decisions
 

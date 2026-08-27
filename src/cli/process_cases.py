@@ -8,7 +8,7 @@ import json
 import os
 import shutil
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any
 
 import numpy as np
 import pandas as pd
@@ -77,6 +77,31 @@ def _relative_seconds(values: pd.Series, anchor_s: float) -> pd.Series:
     return seconds - anchor_s
 
 
+def _first_relative_time(
+    frame: pd.DataFrame,
+    anchor_s: float,
+    candidates: tuple[str, ...],
+    *,
+    kind: str,
+) -> pd.Series:
+    """Use the first timestamp column that contains an actual timestamp.
+
+    Some RE2 trace tables contain a schema-level ``timestamp`` column whose
+    values are all null while the same rows carry valid epoch values in
+    ``startTime`` and ``startTimeMillis``.  Presence alone is therefore not a
+    sufficient timestamp contract.
+    """
+    for name in candidates:
+        if name not in frame.columns:
+            continue
+        relative = _relative_seconds(frame[name], anchor_s)
+        if np.isfinite(relative.to_numpy(dtype="float64", na_value=np.nan)).any():
+            return relative
+    raise ValueError(
+        f"non-empty {kind} table has no finite timestamp in {list(candidates)}"
+    )
+
+
 def _metrics(frame: pd.DataFrame, anchor_s: float) -> pd.DataFrame:
     if frame is None or frame.empty:
         return pd.DataFrame(columns=["timestamp"])
@@ -118,8 +143,17 @@ def _traces(frame: pd.DataFrame, anchor_s: float) -> pd.DataFrame:
     if frame is None or frame.empty:
         return pd.DataFrame(columns=columns)
     out = pd.DataFrame(index=frame.index)
-    out["timestamp"] = _relative_seconds(
-        frame.get("timestamp", pd.Series(np.nan, index=frame.index)), anchor_s
+    out["timestamp"] = _first_relative_time(
+        frame,
+        anchor_s,
+        (
+            "timestamp",
+            "timestamp_seconds",
+            "startTime",
+            "startTimeMillis",
+            "start_time",
+        ),
+        kind="trace",
     )
     aliases = {
         "span_id": ("span_id", "spanID"),

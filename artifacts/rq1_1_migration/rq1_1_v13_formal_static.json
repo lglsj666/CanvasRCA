@@ -1,0 +1,97 @@
+{
+  "analysis": {
+    "cross_experiment_pairs": 2,
+    "infrastructure_errors": 0,
+    "model_output_errors": 1
+  },
+  "config": {
+    "experiments": [
+      "direct_qa",
+      "direct_rca",
+      "multi_stage_rca"
+    ],
+    "models": [
+      "qwen3.8-27b",
+      "gemma-4-26b-a4b"
+    ]
+  },
+  "denum": {
+    "character_ratio": 10.125,
+    "events": 4,
+    "templates": 3
+  },
+  "inference": {
+    "local_effective_sha256": "a0ed06780c5ef622fddf2ded09aa9bee7cd7f9df2218fce6bb34f20d31be6e6e",
+    "nibi_projection_sha256": "209390bfdfb5a63de88af8d4c07dac4dbc9ef2aafa01adc018c18c8b02394792",
+    "parity_except_paths_and_vram": true,
+    "selected_profile": "local"
+  },
+  "layout": {
+    "functional_python_lines": 2798,
+    "shell_files": 10,
+    "shell_lines": 321
+  },
+  "legacy_audit": {
+    "offenders": []
+  },
+  "passed": true,
+  "provenance": {
+    "initial_copy_sha256": "35abdcc2ff6dc5c840cd2c83422ed083b4adb38ab3ceac5cf866513f9d0d2057",
+    "packages": {
+      "Denum": {
+        "commit": "a3a697564e378643461e27ab92ea44b098424c35",
+        "license": "Apache-2.0",
+        "license_file": "LICENSE.txt",
+        "repository": "https://github.com/gaiusyu/Denum",
+        "role": "method reference only; RQ1.1 emits readable text/graph and never Denum binary"
+      },
+      "ReAct": {
+        "commit": "6bdb3a1fd38b8188fc7ba4102969fe483df8fdc9",
+        "license": "MIT",
+        "license_file": "LICENSE",
+        "repository": "https://github.com/ysymyth/ReAct",
+        "role": "method and prompt reference only; not a runtime dependency"
+      }
+    }
+  },
+  "questions_and_arms": {
+    "arms": [
+      "T",
+      "V",
+      "S",
+      "LV",
+      "MV",
+      "TCV",
+      "TPV"
+    ],
+    "selected": [
+      "L1-M",
+      "L2-RL",
+      "L3-MLR",
+      "L4-LRGM"
+    ],
+    "template_counts": {
+      "1": 4,
+      "2": 12,
+      "3": 24,
+      "4": 24
+    }
+  },
+  "renderer": {
+    "renderer_files": 8,
+    "renderer_tree_hash": "30d15402f01c6d38df45a953f43f0116f069e987f9bc4da6f53668cea40efaec",
+    "renderer_version": 13
+  },
+  "static_sha256": "ea377435b9e58a67a69908b410cfdcfc787d16bc379e901c4c63b37c879774ee",
+  "syntax": {
+    "python_files": 14
+  },
+  "tools": {
+    "tools": [
+      "search_metrics",
+      "search_traces",
+      "search_logs",
+      "search_topology"
+    ]
+  }
+}

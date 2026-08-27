@@ -431,7 +431,7 @@ causal visual-influence test.
 ## DD-88: Use one bounded, inspectable smoke per experiment
 
 **Date:** 2026-08-11  
-**Status:** adopted
+**Status:** superseded by DD-97 for future smokes; historical statuses unchanged
 
 **Decision.** Every registered experiment has exactly one logical smoke formed
 from exactly two non-array Slurm jobs: one Qwen job and one Gemma job. A job
@@ -525,3 +525,352 @@ dashboard visibly uses `M1` through `M12`.
 T/F/V/P/H/R evidence, strict H=A+B, Stage 2, scorer, Q&A, attention, data, and
 vLLM remain unchanged. V16 has not been tested per user instruction; Nibi must
 run static checks and fresh bounded dual-model smokes before any heavy RCA run.
+
+---
+
+## DD-92: Replace the active Qwen endpoint with Qwen3.8-27B
+
+**Date:** 2026-08-17
+**Status:** adopted; supersedes Qwen3.6 as the active Qwen endpoint
+
+**Decision.** Use the official unquantized BF16 `Qwen/Qwen3.8-27B` checkpoint
+at revision `1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0` as model key
+`qwen3.8-27b`. Keep the existing scientific RQ1 prompts, renderer,
+representations, arm order, Stage-1/Stage-2 contracts, schemas, scorer,
+40,960-token context, 8,192-token RQ1 output request, temperature 1.0, top-p
+0.95, and seed 42 unchanged. Explicitly set both `enable_thinking=false` and
+`preserve_thinking=false`; retain native Qwen image processing and disabled
+chunked prefill.
+
+Run all seven registered RQ1 experiments locally on the frozen 469-case roster
+under a new Qwen3.8 result lineage. Reuse the existing model-independent
+prepared packets without re-preparation. The user explicitly waives replacement
+smoke for this successor and authorizes direct full execution. A hashed
+preparation-only compatibility manifest may bridge the old preparation freeze
+to the new runtime freeze, but it returns only the new freeze as eligible for
+completed targets. It must never make a Qwen3.6 trajectory resumable as a
+Qwen3.8 trajectory.
+
+**Evidence.** The official repository is public, ungated, has no
+`quantization_config`, identifies `Qwen3_5ForConditionalGeneration`/
+`qwen3_5`, stores text weights as BF16, and retains image token ID 248056. It
+therefore follows the already pinned Qwen3.5-family vLLM and same-pass attention
+paths. The official model card states that thinking and preserved thinking are
+enabled by default, so both must be explicitly disabled to retain the registered
+non-thinking protocol.
+
+**Reason.** The user selected the newly released stronger checkpoint and wants
+the complete RQ1 matrix measured on it. Preparation is independent of model
+weights, while generated outputs are not; separating those two facts avoids
+both unnecessary CPU work and invalid reuse of predecessor answers.
+
+**Consequence.** Historical Qwen3.6 results remain in their current directories,
+retain the `qwen3.6-27b` label and their prior validity scope, and are never
+overwritten or reclassified. New Qwen3.8 artifacts use distinct experiment IDs
+and `qwen3.8-27b` model directories. The waiver is specific to this transition
+and is not a general exception for future model replacements.
+
+---
+
+## DD-93: Resume Qwen3.8 counterfactual RCA after the eligibility-order fix
+
+**Date:** 2026-08-20
+**Status:** adopted; operational correctness fix only
+
+**Decision.** In `visual_counterfactual_rca`, evaluate the frozen label-blind
+counterfactual eligibility flag before resolving a targeted or placebo image.
+For an ineligible case, write one hash-valid `protocol_ineligible` terminal
+record per registered arm with zero model calls. Resume the existing Qwen3.8
+lineage by call key, retaining predecessor-freeze completed records through a
+signed, versioned compatibility manifest.
+
+**Evidence and reason.** Preparation is internally consistent: 430 of 469
+cases contain all four registered counterfactual variants, while 39 cases are
+intentionally ineligible and contain only the neutral control. The runner had
+attempted to load the deliberately absent targeted/placebo PNG before checking
+that flag, causing `missing counterfactual image 'placebo'`. A separate shell
+cleanup defect referenced an unset local server PID after the primary error.
+
+**Consequence.** The fix changes neither eligible-case evidence nor any
+model-visible prompt, image, renderer, scorer, sampling parameter, or output.
+The 48 completed Qwen3.8 records remain valid and resumable. Ineligible cases
+consume no inference calls and are excluded by the pre-existing registered
+whole-case analysis rule. The cleanup now guards the server PID. The resumed
+run uses a new runtime freeze while accepting only the explicitly named prior
+Qwen3.8 result freeze; Qwen3.6 records remain ineligible for reuse.
+
+---
+
+## DD-94: Treat runtime-freeze hashes as audit metadata rather than validity gates
+
+**Date:** 2026-08-20
+**Status:** adopted; supersedes the freeze-matching and compatibility-manifest
+requirements in DD-91, DD-92, and DD-93
+
+**Context.** The Nibi `typed_two_stage` Gemma run has 6,053 completed records
+and 428 infrastructure-error records already materialized locally. Resuming on
+the workstation exposed that a whole-runtime source-tree hash can change even
+when the model-visible evidence, prompt, model checkpoint, request parameters,
+and scorer needed by a target remain unchanged. Treating that aggregate hash
+as a hard gate would unnecessarily repeat completed model calls.
+
+**Decision.** Runtime-freeze hashes remain recorded for audit and provenance,
+but matching them is no longer a validity, comparability, preparation-reuse, or
+resume requirement. A prior target is reusable when its record hash and call
+key are self-consistent, its model/experiment/arm identity matches its result
+path, and its status is `completed`. Existing Nibi completed records retain
+their validity. Infrastructure errors, corrupt records, aborted calls, missing
+targets, and model-identity mismatches are not reusable and must run again.
+
+**Evidence.** The downloaded Gemma lineage contains 6,481 JSON records:
+6,053 completed outcomes and 428 infrastructure errors. The completed records
+carry self-consistent content-addressed call keys and record hashes. The user
+explicitly authorized removal of the runtime-freeze gate and preservation of
+these completed outcomes.
+
+**Alternatives rejected.** Requiring a newly signed compatibility manifest for
+every source-tree hash transition was rejected because it turns broad
+provenance metadata into an unrelated experimental gate. Reusing every file
+that merely exists was also rejected because it would incorrectly retain
+infrastructure failures or corrupt artifacts.
+
+**Consequences.** Resume code ignores runtime-freeze equality while retaining
+the freeze value in every record. Model checkpoints and model-specific result
+directories remain strict boundaries; this decision does not allow Qwen3.6
+outputs to satisfy Qwen3.8 targets. Prompt, renderer, evidence, scoring, and
+sampling changes still require distinct experiment/version decisions even
+though freeze equality itself is not enforced.
+
+---
+
+## DD-95: Establish RQ1.1 as the single-preparation representation successor
+
+**Date:** 2026-08-26
+**Status:** adopted; RQ1.1 remains unfrozen until its bounded live smokes pass
+
+**Decision.** Preserve the latest RQ1 formal shards, local heldout outcomes,
+result analysis, and `docs/RQ1_report.md` byte-for-byte as historical audit
+evidence. Build `RQs/RQ1_1/` from a verified byte-identical copy of the current
+RQ1 code, then limit the active successor to one Nibi public/private
+preparation path, one inherited renderer-v12 snapshot, Qwen3.8 and Gemma, and
+three experiments: `direct_qa`, `direct_rca`, and a fixed three-step
+ReAct-like `multi_stage_rca`. The RCA representation arms are T, V, S, LV, MV,
+TCV, and TPV; the JSONL, hybrid-duplication, and predecessor two-stage ledger
+arms are not part of RQ1.1. Attention collection is removed from active runs.
+
+Every model-visible service, pod, and node name is replaced by a deterministic
+case-local numeric ID (three, five, and four digits respectively). Each case
+uses a new mapping, while its text, images, tools, candidate set, and private
+scorer mapping remain internally one-to-one. Operation names, metric names,
+and normalized log templates remain visible unless they themselves contain an
+entity name, in which case only that entity substring is anonymized.
+
+RQ1.1 adopts ReAct only as a method/prompt reference and adopts Denum's numeric
+token/template separation as `DenumReadableLogGraphV1`; neither third-party
+repository is a runtime dependency. Logs remain directly readable text/graph
+data, retain typed diagnostic numbers and multiplicity, and never use a binary
+round trip. All seven representation arms derive from the same atomic fact
+inventory, and S is a lossless pixel rendering of T's incident fragment.
+
+**Evidence and reason.** The prior RQ1 corpus mixed preparation lineages and
+accumulated overlapping experimental paths. The user requested a clean
+successor without rewriting the newest results. Initial RQ1→RQ1.1 copy
+manifests are identical; the inherited renderer trees are source-equivalent
+after normalizing the required `RQs.RQ1`→`RQs.RQ1_1` package-import rewrite; and
+the serialized non-attention inference projection is identical before and
+after active attention removal. Static checks cover the 4/12/24/24 ordered QA
+template pools, seven-arm fact equality, anonymization/leakage boundaries,
+four deterministic public tools, readable-log semantic round-trip, and the
+unchanged model-specific Qwen3.8/Gemma recipes.
+
+**Consequences.** Old RQ1 results keep their existing interpretation and are
+never promoted as RQ1.1 outcomes. RQ1.1 preparation and inference records use
+new result IDs under `RQs/RQ1_1/results/`; historical prepared inputs and model
+answers are not resumed. Formal execution stays disabled until each of the
+three experiments passes its bounded, shared-budget two-model smoke and completed outputs
+are manually inspected. Later SFT/post-training may reuse the anonymization
+contract, but no training is authorized by this decision. RQ2 and later work
+may inherit the exact RQ1.1 renderer snapshot but cannot edit it silently.
+
+---
+
+## DD-96: Use explicit Nibi and local deployment profiles for one inference recipe
+
+**Date:** 2026-08-26
+**Status:** adopted; both profiles remain part of the unfrozen RQ1.1 successor
+
+**Context.** RQ1.1 will switch between Nibi H100 execution and the local WSL
+workstation. Nibi must not impose a project VRAM fraction, while local inference
+must reserve capacity by setting `gpu_memory_utilization=0.65`. Inferring a
+configuration from the hostname or maintaining two experiment implementations
+would recreate the ambiguity that RQ1.1 is intended to remove.
+
+**Decision.** Keep one unified loader, client, runner, prompts and scientific
+inference recipe with two explicit YAML deployment profiles. Nibi uses
+`configs/vllm_inference.yaml`; local WSL uses
+`configs/vllm_inference_local.yaml`, selected only through
+`CANVASRCA_VLLM_CONFIG`. The local profile points to the inference environment
+and Qwen3.8/Gemma checkpoints under `/home/lglsj/CanvasRCA/` and sets
+`gpu_memory_utilization=0.65`. Nibi retains relative cluster paths and a null
+VRAM fraction, so its launcher omits the flag. Run contracts hash and name the
+profile actually used.
+
+**Evidence.** The Nibi and local source hashes at adoption are respectively
+`f3609c325a8b9a3a88d63783302dd8d2b604980a4cedfad904dae4760b384877`
+and `5af1b30f28aa3c3e22042838555c38e7bafe070cb6b84528793bb87ff11ae4ac`.
+The static parity test normalized only `deployment`, model paths and
+`gpu_memory_utilization` and found every remaining field equal. Generated Qwen
+argv omitted `--gpu-memory-utilization` on Nibi and emitted
+`--gpu-memory-utilization 0.65` locally. Both local checkpoint `config.json`
+files, the local inference Python and the local vLLM executable exist.
+
+**Alternatives rejected.** Hostname-based auto-selection was rejected because
+it is implicit and difficult to audit. Copying RQ code or prompts into a local
+adapter was rejected because it can create scientific drift. Adding a 0.65 cap
+to Nibi was rejected because the user requires the H100 profile to retain its
+existing uncapped operational configuration.
+
+**Consequences.** Deployment location and VRAM fraction are recorded
+operational metadata, not representation variables. Any profile difference
+beyond deployment paths and the VRAM fraction fails static qualification and
+requires a new decision. Local artifacts must identify local execution and may
+not be represented as Nibi jobs; scientific comparisons remain governed by the
+same prompts, evidence, model-specific processors, decoding and scorer.
+Local WSL launches the shared runner directly and never invokes `sbatch` or
+contains Slurm account, array, dependency, or submission logic. Those controls
+belong exclusively to the Nibi entry points.
+
+---
+
+## DD-97: Restore one shared 18-call and 600-second budget per two-model smoke
+
+**Date:** 2026-08-26
+**Status:** adopted; supersedes the per-model smoke budgets in DD-88 and the
+initial RQ1.1 implementation notes
+
+**Decision.** One experiment has one logical smoke covering Qwen3.8 and Gemma.
+The two models run sequentially and share at most 18 initiated LLM/VLM calls
+and one 600-second wall-clock timeout measured from the smoke supervisor start,
+including both model startups, switching, inference, persistence, and
+verification. A smoke may not be split to reset either bound.
+
+**Reason.** Smoke is an infrastructure and artifact-path qualification, not an
+efficacy experiment. The shared limit prevents two-model startup and broad arm
+coverage from consuming more time than the formal work it is meant to protect.
+Statically equivalent request paths remain covered by CPU tests; the bounded
+live sample exercises both models and the distinct schemas/state transitions
+that fit within the shared budget.
+
+**Consequence.** `direct_qa` uses eight calls across both models and
+`direct_rca` uses fourteen. `multi_stage_rca` assigns one complete three-step V
+trajectory to each model and uses the remaining six calls for selected
+first-step paths, for exactly eighteen calls total. A timeout-only result still
+passes; any non-timeout infrastructure, integrity, persistence, numerical, or
+protocol error prevents passage. Historical smoke results retain their prior
+status and are not rerun solely because the future budget changed.
+
+---
+
+## DD-98: Make the RQ1.1 candidate list the complete label-blind entity universe
+
+**Date:** 2026-08-27
+**Status:** adopted; supersedes the candidate-source detail in DD-95 without
+changing its anonymization, representation, renderer, or inference decisions
+
+**Context.** The first local RQ1.1 `direct_rca` diagnostic batch showed that
+AIOPS-2022's inherited renderer-manifest `services` field contained pods and
+nodes but omitted service identities that were legitimately visible in
+metrics, traces, logs, topology, and tool outputs. Calling that subset
+"exhaustive" made a visible service ID illegal to rank and made service-level
+evidence impossible to connect directly to a valid service candidate.
+
+**Decision.** Generate the ordered candidate set from the complete label-blind
+entity universe already used for case-local anonymization: every eligible
+service, pod, node, telemetry entity, graph node, and deployment identity.
+Require every model-visible fact entity to be a member of that set before any
+model call. Tool rows remain derived from the same mapping and are audited for
+the same coverage. Keep all IDs case-local and evaluator mapping private.
+
+**Evidence.** The stopped diagnostic produced 164 records, of which 27 were
+rejected for an unknown case-local ID; all 27 occurred on AIOPS-2022 and each
+contained at least one model-visible service ID omitted from the 45–46 item
+legacy candidate subset. In `aiops2022_2022-03-20-cloudbed2_009`, the repaired
+label-blind universe contained 85 candidates, covered all 85 fact identities
+and all 63 tool-returnable identities, and contained the private evaluator's
+accepted root service after the public input had already been compiled. The
+seven-arm inventory remained unique and equal, `S=T` remained true, renderer
+version remained 13, and static hash
+`6f4c07b25fe7b1d2d8a04b2832444ea6fbda65a521ac2f4cd95635fd2c6814d7`
+passed.
+
+**Alternatives rejected.** Silently dropping unknown IDs would discard part of
+a model ranking and change scoring semantics. Publishing natural service-to-pod
+names would weaken case-local anonymization. Retaining the legacy subset would
+make valid observable entities impossible outputs on one dataset. Using the
+private root label to add a candidate was rejected as label-dependent input
+construction.
+
+**Consequences.** The stopped v1 diagnostic and its preparation are invalid for
+performance or modality claims and remain audit-only. All 469 cases are
+regenerated under a new v2 contract and result ID. No renderer, prompt,
+sampling, checkpoint, model processor, tool permission, or scorer change is
+authorized by this decision. The formal queue retains the order
+`direct_rca` → `direct_qa` → `multi_stage_rca`, completing Qwen3.8 and then
+Gemma inside each experiment.
+
+---
+
+## DD-99: Measure image and text attention without a directional RQ1 objective
+
+**Date:** 2026-08-27
+**Status:** adopted; supersedes only the attention-removal clause in DD-95 and
+extends DD-87 from visual-only keys to all prior prompt keys
+
+**Context.** Historical RQ1 same-prefill overlays established where visual
+attention was allocated, but they could not compare image attention with text
+evidence or explain correctness. The user clarified that RQ1 is no longer
+intended to prove that images are useful and requested a neutral mechanism
+measurement over both modalities.
+
+**Decision.** Restart RQ1.1 under an attention-enabled successor protocol.
+Every request records the final prompt query's attention to all prior prompt
+keys at the first registered full-attention layer. Persist raw prompt-token
+weights and semantic text-span aggregates for all arms; visual arms also store
+image grids and overlays. Attention collection occurs in the original prefill,
+adds no model call, and does not modify generation. Interpret it only as a
+correlational diagnostic. RQ1.1 compares representation effects on RCA,
+cross-region reasoning, tool use, attention, and cost without a preferred sign.
+
+**Evidence.** The historical report contains complete same-prefill visual
+diagnostics for 73,936 requests. It shows 62.4–66.8% of full-dashboard visual
+attention on metrics and 27.7–30.8% on topology, but correct and incorrect
+attention distributions are almost indistinguishable. This demonstrates both
+the diagnostic value and the causal limitation of raw attention. A raw audit
+of the report's representative case found that the first row of the old 16×16
+visual grid held 41.1% of Qwen3.6's visual-conditional mass, 41.4% of Qwen3.8's,
+and 27.3% of Gemma's. The concentration is therefore present in the captured
+visual weights, but the old plot exaggerates its apparent absolute importance:
+it softmax-normalized over visual keys only, scaled opacity by each image's own
+maximum, and spatially expanded a coarse grid. The new protocol reports an
+explicit first-grid-row `dashboard_header_band`, the top-left cell, and their
+absolute all-prompt mass separately from M/R/L/G. The band is deliberately
+described as grid-resolution, not as a pixel-exact title segmentation. It also
+stores per-patch value norms and pre-output-projection attention-weighted value
+norms, first-patch rank, and peak-to-median ratios. These diagnostics distinguish
+a high-weight/low-contribution sink candidate from a token carrying a large
+value contribution, but they do not authorize a sink claim without subsequent
+content and position interventions.
+
+**Alternatives rejected.** Visual-only attention cannot test whether a model
+substitutes text for pixels. A second forward replay would not describe the
+exact generation path and would double compute. Treating attention as proof of
+visual benefit is unsupported by the historical correctness comparison.
+
+**Consequences.** The interrupted attention-free RQ1.1 run and all RQ1.1 result
+artifacts were deleted at the user's direction; protected historical RQ1
+results and `docs/RQ1_report.md` remain unchanged. Preparation is regenerated
+from the same canonical inputs because it was stored inside the deleted result
+root, not because attention changes evidence. New smokes must verify both
+models, text-only and visual attention artifacts, raw vectors, span mapping,
+image overlays, hashes, and unchanged model inference fields before the formal
+queue restarts.

@@ -19,7 +19,7 @@ DATASET="${1:?usage: process_dataset_nibi.sh DATASET RAW_ROOT OUTPUT_ROOT CACHE_
 RAW_ROOT="${2:?missing raw dataset root}"
 OUTPUT_ROOT="${3:?missing processed output root}"
 CACHE_ROOT="${4:?missing upstream cache root}"
-ROSTER="RQs/RQ1/configs/rosters/rq1_frozen_eval_469_private_v1.json"
+ROSTER="RQs/RQ1_1/configs/rosters/rq1_frozen_eval_469_private_v1.json"
 
 export RL_SLM_RCA_ROOT="${RL_SLM_RCA_ROOT:?set RL_SLM_RCA_ROOT when submitting}"
 export EDA_CACHE_DIR="$CACHE_ROOT"

@@ -15,7 +15,7 @@ fi
 
 qwen_job="$(sbatch --parsable \
   "${SBATCH_ARGS[@]}" \
-  --export="$COMMON,CANVASRCA_MODEL=qwen3.6-27b" \
+  --export="$COMMON,CANVASRCA_MODEL=qwen3.8-27b" \
   RQs/RQ1/scripts/smoke_nibi.sh)"
 gemma_job="$(sbatch --parsable \
   "${SBATCH_ARGS[@]}" \

@@ -8,7 +8,7 @@ pod names while keeping pod- and node-level ground truth exact.
 
 from __future__ import annotations
 
-from RQs.RQ1.src.renderer.onset import pod_to_service
+from RQs.RQ1_1.src.renderer.onset import pod_to_service
 from vlmrca.upstream import is_service_level_hit, normalize_service
 
 

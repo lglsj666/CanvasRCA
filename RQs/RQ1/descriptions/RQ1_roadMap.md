@@ -55,6 +55,11 @@ completed pre-transfer checkpoint may move with its whole experiment, but it
 does not authorize further Nibi execution. Different sites may work on
 different whole experiments concurrently, but may not split one experiment.
 
+For the user-authorized 2026-08-17 Qwen3.8 model successor, all seven RQ1
+experiments instead run locally, experiment-major, with new result IDs. This
+one-model successor run reuses frozen preparation but never reuses a Qwen3.6
+completion, and does not alter the normal site policy for Gemma or later work.
+
 Before a heavy rerun, compile and audit every registered arm against both
 effective model contracts without model calls. Each of the seven experiments
 then receives exactly one independent bounded smoke covering both Qwen and

@@ -16,7 +16,22 @@ class VLLMInferenceConfig(FrozenConfig):
     """Frozen base recipe with explicit, hash-recorded experiment adapters."""
 
     DEFAULT_PATH = "configs/vllm_inference.yaml"
-    SCHEMA_VERSION = "CanvasRCAVLLMInferenceConfigV7"
+    SCHEMA_VERSION = "CanvasRCAVLLMInferenceConfigV10"
+
+    @classmethod
+    def load(cls, path=None, *, adapter=None):
+        """Load the explicitly selected deployment profile.
+
+        Callers that name the canonical default still honor
+        ``CANVASRCA_VLLM_CONFIG``. This keeps the experiment code identical on
+        Nibi and local WSL while making profile selection visible and
+        hash-recorded rather than inferred from the hostname.
+        """
+
+        override = os.environ.get("CANVASRCA_VLLM_CONFIG")
+        is_default = path is None or project_path(path).resolve() == project_path(cls.DEFAULT_PATH).resolve()
+        selected = override if override and is_default else path
+        return super().load(selected, adapter=adapter)
 
     def validate(self) -> None:
         common = self.data.get("common")
@@ -36,34 +51,30 @@ class VLLMInferenceConfig(FrozenConfig):
         drift = {key: (common.get(key), value) for key, value in required.items() if common.get(key) != value}
         if drift:
             raise ConfigError(f"frozen inference fields drifted: {drift}")
-        if common.get("gpu_memory_utilization", "missing") is not None:
+        deployment = self.data.get("deployment")
+        if not isinstance(deployment, Mapping) or deployment.get("profile") not in {"nibi", "local"}:
+            raise ConfigError("vLLM config requires deployment.profile=nibi|local")
+        expected_gpu = None if deployment["profile"] == "nibi" else 0.65
+        if common.get("gpu_memory_utilization", "missing") != expected_gpu:
             raise ConfigError(
-                "Nibi config must set gpu_memory_utilization to null so the "
-                "launcher omits --gpu-memory-utilization"
+                f"{deployment['profile']} profile requires "
+                f"gpu_memory_utilization={expected_gpu!r}"
             )
-        for tag in ("qwen3.6-27b", "gemma-4-26b-a4b"):
+        for key in ("python", "vllm_bin"):
+            if not str(deployment.get(key) or ""):
+                raise ConfigError(f"deployment.{key} is required")
+        for tag in ("qwen3.8-27b", "gemma-4-26b-a4b"):
             if tag not in models:
                 raise ConfigError(f"missing registered model: {tag}")
-        qwen = models["qwen3.6-27b"]
+        qwen = models["qwen3.8-27b"]
         if qwen.get("mm_processor_kwargs") is not None:
             raise ConfigError("Qwen must use its native image processor policy")
         compact_json = {"backend": "xgrammar", "disable_any_whitespace": True}
-        for tag in ("qwen3.6-27b", "gemma-4-26b-a4b"):
+        for tag in ("qwen3.8-27b", "gemma-4-26b-a4b"):
             if models[tag].get("structured_outputs_config") != compact_json:
                 raise ConfigError(
                     f"{tag} must use xgrammar with arbitrary JSON whitespace disabled"
                 )
-        probe = self.data.get("attention_probe")
-        expected_probe = {
-            "enabled": True,
-            "required_for_visual_requests": True,
-            "extra_model_calls": 0,
-            "changes_generation": False,
-            "interpretation": "correlational_only",
-        }
-        if not isinstance(probe, Mapping) or any(probe.get(key) != value for key, value in expected_probe.items()):
-            raise ConfigError("same-pass visual attention probe contract drifted")
-
     def model(self, tag: str) -> dict[str, Any]:
         models = self.data["models"]
         if tag not in models:
@@ -152,7 +163,7 @@ class VLLMInferenceConfig(FrozenConfig):
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("model", choices=("qwen3.6-27b", "gemma-4-26b-a4b"))
+    parser.add_argument("model", choices=("qwen3.8-27b", "gemma-4-26b-a4b"))
     parser.add_argument("--config", default=VLLMInferenceConfig.DEFAULT_PATH)
     parser.add_argument("--format", choices=("json", "argv"), default="json")
     args = parser.parse_args(argv)

@@ -14,7 +14,7 @@ from unified_scripts.vllm_inference import VLLMInferenceConfig
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("model", choices=("qwen3.6-27b", "gemma-4-26b-a4b"))
+    parser.add_argument("model", choices=("qwen3.8-27b", "gemma-4-26b-a4b"))
     parser.add_argument("--out", type=Path)
     args = parser.parse_args()
     config = VLLMInferenceConfig.load()

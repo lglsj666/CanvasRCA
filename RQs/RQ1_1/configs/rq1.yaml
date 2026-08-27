@@ -1,0 +1,127 @@
+schema_version: CanvasRCARQ1_1ConfigV1
+protocol_revision: rq1_1_v3_multimodal_attention_draft
+status: static_qualified_attention_smoke_pending
+execution_enabled: false
+seed: 42
+
+unified:
+  vllm: configs/vllm_inference.yaml
+  segmentation: configs/dataset_segmentation.yaml
+  scorer: configs/rca_scorer.yaml
+
+renderer:
+  owner: RQ1_1
+  inherited_from: RQs/RQ1/src/renderer
+  preset: rq0_v6
+  required_version: 13
+  overrides:
+    topology_edge_key: identity_horizontal
+    topology_edge_columns: 2
+    uniform_detail_font_pt: 9.5
+    canvas_aspect: 0.76
+    entity_label_mode: case_local_ids
+    show_entity_id_explanation: true
+
+external_methods:
+  react:
+    repository: https://github.com/ysymyth/ReAct
+    commit: 6bdb3a1fd38b8188fc7ba4102969fe483df8fdc9
+    local_path: packages/ReAct
+    runtime_dependency: false
+  denum:
+    repository: https://github.com/gaiusyu/Denum
+    commit: a3a697564e378643461e27ab92ea44b098424c35
+    local_path: packages/Denum
+    runtime_dependency: false
+    graph_schema: DenumReadableLogGraphV1
+    text_schema: DenumLogTextV1
+    visual_schema: DenumLogVisualRowsV1
+    binary_output: false
+    relative_bins: 64
+    visible_template_limit: 8
+    tool_row_limit: 20
+    tool_character_limit: 12000
+
+experiments:
+  direct_rca:
+    task: direct_rca
+    model_calls_per_case_arm: 1
+    arms: [T, V, S, LV, MV, TCV, TPV]
+    primary_metric: mrr
+  direct_qa:
+    task: direct_qa
+    model_calls_per_case_arm: 1
+    arms: [L1, L2, L3, L4]
+    reasoning_levels: [1, 2, 3, 4]
+    template_counts: {L1: 4, L2: 12, L3: 24, L4: 24}
+    primary_metric: complete_chain_accuracy
+  multi_stage_rca:
+    task: multi_stage_rca
+    steps: 3
+    model_calls_per_step: 2
+    model_calls_per_case_arm: 6
+    arms: [T, V, S, LV, MV, TCV, TPV]
+    tools: [search_metrics, search_traces, search_logs, search_topology]
+    primary_metric: mrr
+
+data:
+  allowed_datasets: [aegislab, aiops2022, aiops2025, re2_ob, re2_tt]
+  smoke_datasets: [re2_ob, aiops2022, aiops2025]
+  frozen_source_manifest: RQs/RQ1_1/configs/rosters/case_manifest_480_frozen_v1.json
+  frozen_eval_adapter: RQs/RQ1_1/configs/rosters/rq1_frozen_eval_469_adapter_v1.json
+  private_roster: RQs/RQ1_1/configs/rosters/rq1_frozen_eval_469_private_v1.json
+  public_roster: RQs/RQ1_1/configs/rosters/rq1_frozen_eval_469_public_v1.json
+  exact_counts: {aegislab: 96, aiops2022: 100, aiops2025: 93, re2_ob: 90, re2_tt: 90}
+  headline_datasets: [aegislab, aiops2022, aiops2025]
+  saturated_diagnostic_datasets: [re2_ob]
+  final_ood_datasets: [re2_tt]
+  preparation_schema: CanvasRCAProcessedPublicCaseV2
+  missing_case_policy: fail_closed
+
+runtime:
+  models: [qwen3.8-27b, gemma-4-26b-a4b]
+  max_workers: 4
+  request_concurrency: 4
+  default_shard_count: 24
+  result_root: RQs/RQ1_1/results
+  smoke_call_cap_total: 18
+  smoke_timeout_seconds_total: 600
+  whole_case_infrastructure_exclusion_maximum: 0.05
+  parse_rate_minimum: 0.95
+
+smoke_plans:
+  direct_rca:
+    re2_ob: [T, V, S]
+    aiops2022: [LV, MV]
+    aiops2025: [TCV, TPV]
+  direct_qa:
+    re2_ob: [L1]
+    aiops2022: [L2]
+    aiops2025: [L3, L4]
+  multi_stage_rca:
+    qwen3.8-27b:
+      re2_ob: [V]
+      aiops2022: [T]
+      aiops2025: []
+    gemma-4-26b-a4b:
+      re2_ob: [V]
+      aiops2022: [S]
+      aiops2025: [LV]
+    full_arm: V
+    total_calls: 18
+
+inference_adapter:
+  name: context_safe_output_v1
+  version: 1
+  max_tokens: 8192
+  scope: all_rq1_1_models_arms_cases_and_stages
+
+analysis:
+  no_confidence_intervals: true
+  paired_test: wilcoxon_pratt
+  effect_size: paired_cohens_dz
+  rca_minimum_effect: 0.05
+  primary_rca_comparisons: [[V, T], [LV, T], [MV, T], [TCV, T], [TPV, T]]
+  negative_control_comparison: [S, T]
+  multi_stage_direct_comparison: secondary_family
+  holm_correction: true

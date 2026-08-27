@@ -18,7 +18,7 @@ for experiment in "${EXPERIMENTS[@]}"; do
   result_id="${RESULT_PREFIX}_${experiment}"
   common="ALL,CANVASRCA_EXPERIMENT_ID=${result_id},CANVASRCA_EXPERIMENT=${experiment},CANVASRCA_PREPARED_EXPERIMENT_ID=${PREPARED_ID}"
   qwen_job="$(sbatch --parsable "${SBATCH_ARGS[@]}" \
-    --export="${common},CANVASRCA_MODEL=qwen3.6-27b" \
+    --export="${common},CANVASRCA_MODEL=qwen3.8-27b" \
     RQs/RQ1/scripts/smoke_nibi.sh)"
   qwen_jobs+=("$qwen_job")
   result_ids+=("$result_id")

@@ -30,7 +30,7 @@ PREPARED_ROOT="RQs/RQ1/results/${PREPARED_ID}"
 mkdir -p "$RESULT_ROOT"
 
 MODEL="${CANVASRCA_MODEL:?set CANVASRCA_MODEL to one registered model}"
-[[ "$MODEL" == "qwen3.6-27b" || "$MODEL" == "gemma-4-26b-a4b" ]] || {
+[[ "$MODEL" == "qwen3.8-27b" || "$MODEL" == "gemma-4-26b-a4b" ]] || {
   echo "invalid CANVASRCA_MODEL: $MODEL" >&2
   exit 2
 }

@@ -272,8 +272,32 @@ def _read_prepared(paths: RunPaths, item: Mapping[str, Any]) -> PreparedCase:
 
 
 def _completed_target(path: Path, allowed_freezes: Sequence[str]) -> bool:
-    """Only hash-valid completed outcomes are terminal; corruption must retry."""
-    return completed_record_is_compatible(path, allowed_freezes)
+    """Accept hash-valid model outcomes and zero-call protocol exclusions."""
+
+    if completed_record_is_compatible(path, allowed_freezes):
+        return True
+    try:
+        record = json.loads(path.read_text(encoding="utf-8"))
+        recorded_hash = record.pop("record_sha256", None)
+    except (OSError, json.JSONDecodeError):
+        return False
+    if (record.get("status") != "protocol_ineligible"
+            or not recorded_hash or stable_hash(record) != recorded_hash):
+        return False
+    keys = (
+        "experiment_id", "experiment", "model", "execution_mode",
+        "opaque_incident_id", "arm", "representation_hash",
+        "runtime_freeze_sha256",
+    )
+    if any(key not in record for key in keys):
+        return False
+    contract = {key: record[key] for key in keys}
+    if "registered_arm_order" in record:
+        contract.update(
+            registered_arm_order=record["registered_arm_order"],
+            arm_order_index=record.get("arm_order_index"),
+        )
+    return record.get("call_key") == stable_hash(contract)[:24]
 
 
 def _finish_reason(response: VLMResponse) -> Any:
@@ -554,6 +578,7 @@ def _run_partition(
         int(writer_workers if writer_workers is not None else config["runtime"]["max_workers"])
     )
     completed = 0
+    protocol_ineligible = 0
     failures = 0
     model_calls = 0
     try:
@@ -586,6 +611,18 @@ def _run_partition(
                 shared_path = trajectory_root / "_shared_stage1" / f"{opaque}.json"
                 if _completed_target(shared_path, allowed_freezes):
                     shared = json.loads(shared_path.read_text(encoding="utf-8"))
+                    # A capacity-only runtime successor may reuse a completed
+                    # predecessor Stage 1.  Reconstruct that immutable request
+                    # contract with the freeze recorded by the shared result;
+                    # new Stage-2 calls still use ``current_freeze`` below.
+                    retained_freeze = str(shared.get("runtime_freeze_sha256") or "")
+                    shared_contract = _request_contract(
+                        experiment_id=experiment_id, experiment=experiment, model=model,
+                        execution_mode="smoke" if smoke else "formal",
+                        opaque_incident_id=opaque, arm="R_shared", parts=observer_parts,
+                        runtime_freeze_sha256=retained_freeze,
+                    )
+                    shared_key = str(shared_contract["call_key"])
                     if any(shared.get(key) != value for key, value in shared_contract.items()):
                         raise RQ1Error("shared Stage-1 resume contract differs from current request")
                     call1, raw1 = dict(shared["call"]), str(shared["raw_response"])
@@ -685,6 +722,35 @@ def _run_partition(
                 target = trajectory_root / f"{opaque}__{arm}.json"
                 if _completed_target(target, allowed_freezes):
                     continue
+                if (spec.task == "root_cause_counterfactual"
+                        and not prepared.private["counterfactual_pairs"]["eligible"]):
+                    # No arm-specific model input exists for an ineligible
+                    # transplant case.  Record the frozen label-blind exclusion
+                    # before attempting to resolve targeted/placebo images.
+                    contract = _request_contract(
+                        experiment_id=experiment_id, experiment=experiment, model=model,
+                        execution_mode="smoke" if smoke else "formal",
+                        opaque_incident_id=opaque, arm=arm, parts=(),
+                        runtime_freeze_sha256=current_freeze["freeze_sha256"],
+                        extra={"registered_arm_order": list(ordered_arms),
+                               "arm_order_index": order_index},
+                    )
+                    record = {
+                        **contract,
+                        "analysis_dataset": prepared.private["dataset"],
+                        "analysis_fault_type": prepared.private.get("fault_type", "unknown"),
+                        "status": "protocol_ineligible",
+                        "reason": "label_blind_counterfactual_selector_ineligible",
+                        "model_calls": 0,
+                    }
+                    record["record_sha256"] = stable_hash(record)
+                    writer.json(target, record)
+                    writer.bytes(
+                        target.with_suffix(".md"),
+                        ("# Protocol-ineligible counterfactual case\n" + canonical_json(record)).encode(),
+                    )
+                    protocol_ineligible += 1
+                    continue
                 if is_rca_task(spec):
                     parts = representation_parts(
                         arm, prepared.public["rca_packet"], prepared.full_png,
@@ -705,22 +771,6 @@ def _run_partition(
                     extra={"registered_arm_order": list(ordered_arms),
                            "arm_order_index": order_index},
                 )
-                if (spec.task == "root_cause_counterfactual"
-                        and not prepared.private["counterfactual_pairs"]["eligible"]):
-                    record = {
-                        **contract,
-                        "analysis_dataset": prepared.private["dataset"],
-                        "analysis_fault_type": prepared.private.get("fault_type", "unknown"),
-                        "status": "protocol_ineligible",
-                        "reason": "label_blind_counterfactual_selector_ineligible",
-                    }
-                    record["record_sha256"] = stable_hash(record)
-                    writer.json(target, record)
-                    writer.bytes(
-                        target.with_suffix(".md"),
-                        ("# Protocol-ineligible counterfactual case\n" + canonical_json(record)).encode(),
-                    )
-                    continue
                 record: dict[str, Any] = {**contract, "status": "completed", "stages": []}
                 record["analysis_dataset"] = prepared.private["dataset"]
                 record["analysis_fault_type"] = prepared.private.get("fault_type", "unknown")
@@ -838,6 +888,13 @@ def _run_partition(
                     pass
     result = {
         "completed": sum(row.get("status") == "completed" for row in current_records),
+        "protocol_ineligible": sum(
+            row.get("status") == "protocol_ineligible" for row in current_records
+        ),
+        "terminal_records": sum(
+            row.get("status") in {"completed", "protocol_ineligible"}
+            for row in current_records
+        ),
         "infrastructure_errors": sum(row.get("status") == "infrastructure_error" for row in current_records),
         "expected_records": sum(
             len(_case_arms(
@@ -847,6 +904,7 @@ def _run_partition(
             for item in items
         ),
         "newly_completed": completed,
+        "new_protocol_ineligible": protocol_ineligible,
         "new_infrastructure_errors": failures,
         "new_model_calls": model_calls,
         "execution_mode": "smoke" if smoke else "formal",
@@ -923,11 +981,20 @@ def run(
     # would violate the bounded-smoke request budget.
     result = {
         "completed": sum(int(row["completed"]) for row in worker_results),
+        "protocol_ineligible": sum(
+            int(row.get("protocol_ineligible", 0)) for row in worker_results
+        ),
+        "terminal_records": sum(
+            int(row.get("terminal_records", row["completed"])) for row in worker_results
+        ),
         "infrastructure_errors": sum(
             int(row["infrastructure_errors"]) for row in worker_results
         ),
         "expected_records": sum(int(row["expected_records"]) for row in worker_results),
         "newly_completed": sum(int(row["newly_completed"]) for row in worker_results),
+        "new_protocol_ineligible": sum(
+            int(row.get("new_protocol_ineligible", 0)) for row in worker_results
+        ),
         "new_infrastructure_errors": sum(
             int(row["new_infrastructure_errors"]) for row in worker_results
         ),

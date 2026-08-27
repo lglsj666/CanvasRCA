@@ -5,8 +5,9 @@ PROJECT_ROOT="$(git rev-parse --show-toplevel)"
 cd "$PROJECT_ROOT"
 # shellcheck disable=SC1091
 source scripts/env.sh
+export CANVASRCA_VLLM_CONFIG="$PROJECT_ROOT/configs/vllm_inference.yaml"
 
-MODEL="${1:?usage: serve_canvasrca_nibi.sh qwen3.6-27b|gemma-4-26b-a4b}"
+MODEL="${1:?usage: serve_canvasrca_nibi.sh qwen3.8-27b|gemma-4-26b-a4b}"
 PYTHON_BIN="${CANVASRCA_PYTHON:-python}"
 VLLM_BIN="${CANVASRCA_VLLM_BIN:-vllm}"
 
@@ -29,8 +30,6 @@ export CANVASRCA_ATTENTION_PROBE_REQUIRED=1
 export CANVASRCA_ATTENTION_MODEL="$MODEL"
 export CANVASRCA_ATTENTION_DIR="${CANVASRCA_ATTENTION_DIR:-$CANVASRCA_CACHE_ROOT/attention_probe}"
 mkdir -p "$CANVASRCA_ATTENTION_DIR"
-# sitecustomize installs lazy hooks in the API and spawned engine processes.
-# It does not import vLLM early and it is active only for this launcher.
 export PYTHONPATH="$CANVASRCA_ROOT/src/vlmrca/vlm/attention_probe_bootstrap:$PYTHONPATH"
 if [[ "$MODEL" == "gemma-4-26b-a4b" ]]; then
   export VLLM_BATCH_INVARIANT=1

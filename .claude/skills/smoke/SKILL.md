@@ -26,19 +26,21 @@ Do not use AegisLab, RE2-TT, synthetic cases, test, heldout, unused, or `.invali
 cases. RE2-TT remains embargoed for final OOD evaluation.
 
 Run through the same compiler, renderer, `src/vlmrca/vlm/client.py`, asynchronous
-writer, evaluator, artifact inventory, verifier, and full 32768/16384 limits as
+writer, evaluator, artifact inventory, verifier, and full 40960/16384 limits as
 the planned run. Freeze code, model/tokenizer or adapter, configuration, prompt,
 evidence, renderer, scorer, and partition hashes before the first call or
 optimizer step.
 
-One complete logical smoke may initiate at most 18 model calls across all
-models, stages, cases, conditions and retries. Its aggregate wall-clock budget
-is 600 seconds. Use a simple run-local process clock/state; do not modify WSL or
-host clock configuration or build precision timing infrastructure. Exit as soon
-as the smoke completes. If the registered timeout is the only error, preserve
-completed artifacts and treat the bounded smoke as passed. Experimental gates
-are likewise capped at 36 aggregate calls and 1200 seconds; on timeout, score
-only cases with their complete required condition/stage set.
+The two models share at most 18 calls across all stages, cases, conditions,
+retries, and processes. Model phases run sequentially, never concurrently. The
+complete logical smoke shares one 600-second wall-clock budget, including model
+startup and switching. Use a simple run-local process clock/state; do not
+modify WSL or host clock configuration or build precision timing infrastructure.
+Exit as soon as the smoke completes. If the registered timeout is the only
+error, preserve completed artifacts and treat the bounded smoke as passed.
+Experimental gates are capped at 36
+aggregate calls and 1200 seconds; on timeout, score only cases with their
+complete required condition/stage set.
 
 ## Passage criteria
 

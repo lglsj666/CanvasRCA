@@ -61,3 +61,19 @@ candidate `supports/opposes` fields still permitted poorly grounded visual
 selectors. V16 therefore replaces only that selector interface with one
 nonempty visible `record_key`; the counterfactual conditions and evidence are
 unchanged. V16 has not yet been tested and makes no causal or efficacy claim.
+
+## 2026-08-20 Qwen3.8 successor resume
+
+The separate Qwen3.8 successor lineage stopped after 50 terminal records: 48
+completed model outputs and two `protocol_ineligible` records. This was an
+implementation-order failure, not a model or evidence failure. The runner
+looked up targeted/placebo images before consulting the frozen label-blind
+eligibility field; those images are intentionally absent for 39 ineligible
+cases. Preparation contains the full four variants for all 430 eligible cases.
+
+The runner now handles ineligibility before image lookup and emits zero-call,
+hash-valid terminal records for every arm of such a case. Eligible prompts,
+images, outputs, renderer and scorer are unchanged, so completed Qwen3.8
+records retain their status and the lineage resumes by call key. This entry is
+an operational finding only; no partial counterfactual efficacy result is
+reported.

@@ -115,18 +115,26 @@ def check_python_syntax() -> dict[str, int]:
 def check_unified_contracts(config: dict[str, Any]) -> dict[str, Any]:
     runtime = VLLMInferenceConfig.load(config["unified"]["vllm"])
     _assert(
-        runtime.data.get("protocol_version") == "vllm-inference-v7-nibi-context40960",
+        runtime.data.get("protocol_version") == "vllm-inference-v8-qwen38-context40960",
         "global vLLM 40,960-context protocol drifted",
     )
     _assert(
         all(runtime.model(tag)["max_model_len"] == 40960
             and runtime.model(tag)["max_tokens"] == 16384
             and runtime.model(tag)["max_num_seqs"] == 128
-            for tag in ("qwen3.6-27b", "gemma-4-26b-a4b")),
+            for tag in ("qwen3.8-27b", "gemma-4-26b-a4b")),
         "registered model output/scheduler settings drifted",
     )
-    qwen_args = runtime.server_argv("qwen3.6-27b")
+    qwen_args = runtime.server_argv("qwen3.8-27b")
     gemma_args = runtime.server_argv("gemma-4-26b-a4b")
+    qwen_runtime = runtime.model("qwen3.8-27b")
+    _assert(
+        qwen_runtime["served_model_name"] == "Qwen/Qwen3.8-27B"
+        and qwen_runtime["repository_revision"] == "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0"
+        and qwen_runtime["default_chat_template_kwargs"]
+        == {"enable_thinking": False, "preserve_thinking": False},
+        "Qwen3.8 identity or explicit non-thinking template contract drifted",
+    )
     _assert("--gpu-memory-utilization" not in qwen_args + gemma_args, "Nibi launcher still has a VRAM fraction cap")
     _assert("--mm-processor-kwargs" not in qwen_args, "Qwen still has a project pixel limit")
     _assert("--mm-processor-kwargs" in gemma_args, "Gemma soft-token policy disappeared")
@@ -141,8 +149,8 @@ def check_unified_contracts(config: dict[str, Any]) -> dict[str, Any]:
     old_port = os.environ.get("CANVASRCA_VLLM_PORT")
     os.environ["CANVASRCA_VLLM_PORT"] = "28765"
     try:
-        dynamic = runtime.model("qwen3.6-27b")
-        dynamic_args = runtime.server_argv("qwen3.6-27b")
+        dynamic = runtime.model("qwen3.8-27b")
+        dynamic_args = runtime.server_argv("qwen3.8-27b")
     finally:
         if old_port is None:
             os.environ.pop("CANVASRCA_VLLM_PORT", None)
@@ -210,7 +218,7 @@ def check_rq1_contract(config: dict[str, Any]) -> dict[str, Any]:
         and 'run_model_phase "$MODEL"' in smoke_source
         and "MODELS=(" not in smoke_source
         and smoke_submit_source.count("sbatch --parsable") == 2
-        and 'CANVASRCA_MODEL=qwen3.6-27b' in smoke_submit_source
+        and 'CANVASRCA_MODEL=qwen3.8-27b' in smoke_submit_source
         and 'CANVASRCA_MODEL=gemma-4-26b-a4b' in smoke_submit_source
         and '--dependency="afterok:$qwen_job"' in smoke_submit_source,
         "two-job sequential one-model smoke launcher drifted",
@@ -826,7 +834,7 @@ def check_analysis_completeness(config: dict[str, Any]) -> dict[str, Any]:
 
     spec = experiment_registry(config)["legacy_q9"]
     case_ids = ("INC-SMOKE-A", "INC-SMOKE-B", "INC-SMOKE-C")
-    models = ("qwen3.6-27b", "gemma-4-26b-a4b")
+    models = ("qwen3.8-27b", "gemma-4-26b-a4b")
     assignments = ((models[0], case_ids[:1]), (models[1], case_ids))
     records = [{
         "model": model, "opaque_incident_id": case_id, "arm": arm,

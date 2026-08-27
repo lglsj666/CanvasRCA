@@ -14,7 +14,7 @@ import math
 from collections import deque
 from typing import Any, Dict, Iterable, List, Optional, Sequence
 
-from vlmrca.rq0.evidence import (
+from vlmrca.evidence import (
     COMMON_INSTRUCTIONS,
     COMMON_SYSTEM,
     RQ0_ANSWER_FORMAT,

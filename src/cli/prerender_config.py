@@ -33,8 +33,8 @@ sys.path.insert(0, str(REPO / "src"))
 
 from vlmrca.cache import iter_cases, load_manifest  # noqa: E402
 from vlmrca.eval.run_experiment import _render_cached  # noqa: E402
-from RQs.RQ1.src.renderer.dashboard import CaseRenderView  # noqa: E402
-from RQs.RQ1.src.renderer.presets import (  # noqa: E402
+from RQs.RQ1_1.src.renderer.dashboard import CaseRenderView  # noqa: E402
+from RQs.RQ1_1.src.renderer.presets import (  # noqa: E402
     make_dashboard_config,
     parse_set_args,
 )

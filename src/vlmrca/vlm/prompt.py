@@ -14,7 +14,7 @@ names, topology edges, peak magnitudes) that rasterised pixels lose.
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Literal, Optional
+from typing import Any, Dict, List, Literal
 
 from vlmrca.upstream import (
     build_compact_topology,

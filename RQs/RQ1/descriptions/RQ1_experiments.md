@@ -4,9 +4,11 @@ RQ1 has seven registered experiments implemented by the compact engine in
 `RQs/RQ1/src/`. They reuse the unified inference, segmentation, and RCA-scoring
 contracts in `configs/`. Every experiment receives a new final result lineage
 on its assigned execution site; historical local results remain context rather
-than final evidence. `direct_rca`, `matched_rca`, and `ledger_handoff_rca` are
-whole-experiment local heldouts, while the other four experiments remain
-Nibi-owned.
+than final evidence. The 2026-08-17 Qwen3.8 successor explicitly supersedes
+the earlier site split for that model only: all seven experiments run locally
+from the same frozen 469-case prepared packets under new Qwen3.8 result IDs.
+Existing Qwen3.6 and Gemma artifacts are not moved, overwritten, or counted as
+Qwen3.8 completions.
 
 ## Semantic-restoration authority
 

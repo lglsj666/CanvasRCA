@@ -33,7 +33,7 @@ from torch.optim.lr_scheduler import LambdaLR
 from transformers import AutoModelForImageTextToText, AutoProcessor
 
 from vlmrca.config_paths import resolve_project_path
-from vlmrca.training.causal_sft import canonical_json, sha256_json
+from vlmrca.training.causal_sft import sha256_json
 
 ROOT = Path(__file__).resolve().parents[3]
 LANGUAGE_LINEAR_SUFFIXES = {
@@ -275,7 +275,7 @@ def _verify_selected_files(records: Iterable[Dict[str, Any]]) -> None:
 
 def _model_lock(config: Dict[str, Any]) -> Dict[str, Any]:
     lock_path = resolve_project_path(ROOT, config["model"]["checkpoint_lock"])
-    lock = json.loads(lock_path.read_text())["models"]["qwen3.6-27b"]
+    lock = json.loads(lock_path.read_text())["models"]["qwen3.8-27b"]
     model_path = ROOT / config["model"]["path"]
     if _sha_file(model_path / "config.json") != lock["config_sha256"]:
         raise RuntimeError("Qwen config drifted from checkpoint lock")

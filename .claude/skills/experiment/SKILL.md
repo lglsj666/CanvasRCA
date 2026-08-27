@@ -25,12 +25,15 @@ latest applicable plan, and status artifacts.
 ## Qualify and execute
 
 Use the bounded smoke from the `smoke` skill. Correctness is not a smoke gate.
-Heavy runs use the shared client, `configs/vllm_inference.yaml`, the canonical
-Nibi launcher, a live attestation, background Slurm execution, resumable call
-keys, asynchronous writes, and complete artifact verification. Monitor closely
-until stable, then about every 360 seconds. Do not tune from partial formal
-results. Pair whole-case infrastructure exclusions and retain parse failures
-and truncations as model outcomes.
+Heavy runs use the shared client and an explicitly selected deployment profile:
+`configs/vllm_inference.yaml` plus the Nibi launcher for Slurm, or
+`configs/vllm_inference_local.yaml` plus the direct local launcher for WSL.
+Local runs never invoke `sbatch`. Require a live attestation, background
+execution, resumable call keys, asynchronous writes, and complete artifact
+verification. Monitor closely until stable, then at the interval registered in
+`Codex.md`. Do not tune from partial formal results. Pair whole-case
+infrastructure exclusions and retain parse failures and truncations as model
+outcomes.
 
 ## Analyse and report
 

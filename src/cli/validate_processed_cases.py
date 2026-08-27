@@ -93,6 +93,12 @@ def validate(root: Path, roster_path: Path) -> dict[str, Any]:
             for name in ("metrics.parquet", "logs.parquet", "traces.parquet"):
                 bounds = _timestamp_bounds(public / name)
                 ranges.append(bounds)
+                row_kind = name.removesuffix(".parquet")
+                row_count = int((metadata.get("row_counts") or {}).get(row_kind) or 0)
+                if row_count > 0 and bounds == (None, None):
+                    errors.append(
+                        f"{dataset}/{opaque}/{name}: non-empty telemetry has no finite timestamp"
+                    )
                 finite = [abs(value) for value in bounds if value is not None]
                 if finite and max(finite) >= 1e8:
                     errors.append(f"{dataset}/{opaque}/{name}: absolute time escaped into public telemetry")
