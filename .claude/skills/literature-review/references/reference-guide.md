@@ -1,6 +1,6 @@
 # CanvasRCA / CoVisRCA 关键词与参考文献导航
 
-> 更新时间：2026-08-03  
+> 更新时间：2026-09-01
 > 用途：供本地 coding agent 在实现 Dashboard Builder、RCA Solver、VLM Scorer、RL credit assignment 和协同进化训练时快速定位论文与代码。  
 > 原则：优先采用 2025–2026 年工作；较早论文只作为设计语法、贡献度量或实验基础。
 
@@ -394,8 +394,8 @@
 |---|---|---|
 | Dash-M5H | https://aclanthology.org/2026.acl-demo.14/ | 多模态信号时间同步；overview-to-detail evidence tracing |
 | Dash-M5H code | https://github.com/nd-hal/M5H-Dashboard-VLM | Quarto + Observable JS + D3 实现参考 |
-| ChartMuseum | https://arxiv.org/abs/2505.13444 | 复杂 visual reasoning benchmark；区分视觉推理与文本捷径 |
-| Chart Deception | https://arxiv.org/abs/2607.22600 | 轴、比例、颜色和编码对 VLM 的误导与 stress test |
+| ChartMuseum — NeurIPS 2025 Datasets and Benchmarks | https://papers.nips.cc/paper_files/paper/2025/hash/ca20efa9cf3703186d91424cf4876f8b-Abstract-Datasets_and_Benchmarks_Track.html | 复杂 visual reasoning benchmark；区分视觉推理与文本捷径 |
+| The Perils of Chart Deception — IEEE VIS 2025 short paper / Best Short Paper | https://sfa.ieeevis.org/year/2025/program/paper_1628b4eb-473e-4157-9d19-44990b75efc7.html | 轴、比例、颜色和编码对 VLM 的误导与 stress test；short-paper status 不写成 VIS full paper |
 | Look Less, Reason More | https://aclanthology.org/2026.acl-long.225/ | 学习何时使用 crop/zoom 等视觉操作 |
 | Visually-Guided Policy Optimization | https://aclanthology.org/2026.acl-long.301/ | 防止 VLM RL 忽略图像；visual activation 和 visual forgetting |
 | VGPO code | https://github.com/wzb-bupt/VGPO | visual-aware advantage 实现参考 |
@@ -403,6 +403,40 @@
 | Multimodal Self-Instruct | https://aclanthology.org/2024.emnlp-main.1072/ | 合成 dashboards/graphs/flowcharts 与 atomic grounding data |
 | ScreenAI | https://arxiv.org/abs/2402.04615 | UI/infographic understanding、region annotation |
 | Ferret-UI | https://arxiv.org/abs/2404.05719 | 高分辨率 UI grounding 和小区域理解 |
+
+## 4.5 RQ2 固定 Dashboard 设计空间
+
+下表只记录已由会议官网、ACL Anthology、CVF Open Access 或正式
+proceedings 核验的发表状态。它们为 RQ2 的 design language、资格检查和
+机制分析提供依据；它们不预先证明某个 CanvasRCA dashboard 设计会提高
+RCA。
+
+| 论文 | 已核验状态与链接 | RQ2 可迁移要点 |
+|---|---|---|
+| DashBot | [IEEE VIS 2022 full paper](https://virtual.ieeevis.org/year/2022/paper_v-full-1033.html) | 将 dashboard 设计写成显式、受约束的动作空间；不把其训练型 RL selector 搬入 RQ2 |
+| Dashboard Design Patterns | IEEE VIS 2022（会议 papers/sessions 正式记录） | 用 arrangement、coordination 和多视图关系定义可审计设计因素 |
+| DMiner | [IEEE VIS 2023 / TVCG](https://content.ieeevis.org/year/2023/paper_v-tvcg-10057994.html) | 区分单视图 encoding 与跨视图 arrangement/coordination，支持 RQ2 的 M/G/A 因素边界 |
+| From Dashboard Zoo to Census | [IEEE VIS 2025](https://sfa.ieeevis.org/year/2025/program/paper_aeb6a938-4d06-4c0d-828a-6152918115c3.html) | 用 content blocks 与关系图描述 dashboard composition，支持固定 DSL 而不是自由像素生成 |
+| Vega-Lite | [IEEE VIS 2016](https://www.ieeevis.org/year/2016/info/overview-amp-topics/papers-sessions) | 声明式 grammar 使 encoding、layout 和 data transform 可复现、可消融 |
+| Draco | [IEEE VIS 2018](https://www.ieeevis.org/year/2018/info/papers-sessions) | 用约束和偏好表达 visualization design space；RQ2 只借用显式约束思想，不借用 learned selector |
+| Draco 2 | [IEEE VIS 2023 short paper](https://content.ieeevis.org/year/2023/paper_v-short-1018.html) | 可扩展约束平台支持将设计规则版本化并检查非法组合 |
+| ChartVerse | [ACL 2026 long paper](https://aclanthology.org/2026.acl-long.344/) | answer-first、truth-anchored QA 合成支持从可见事实确定性地产生 packed operation questions |
+| ChartMuseum | [NeurIPS 2025 Datasets and Benchmarks](https://papers.nips.cc/paper_files/paper/2025/hash/ca20efa9cf3703186d91424cf4876f8b-Abstract-Datasets_and_Benchmarks_Track.html) | 将 chart perception 与语言捷径分离，并单独报告复杂视觉读取失败 |
+| On the Perception Bottleneck of VLMs for Chart Understanding | [Findings of EMNLP 2025](https://aclanthology.org/2025.findings-emnlp.573/) | packed QA 需要分别评价 lookup、组合和最终 RCA，不能用 RCA 分数掩盖 perception failure |
+| VLM²-Bench | [ACL 2025 long paper](https://aclanthology.org/2025.acl-long.372/) | 测试模型能否连接显式对应线索，支持 cross-source alignment operation |
+| Visual Graph Understanding / VGCure | [ACL 2025 long paper](https://aclanthology.org/2025.acl-long.1482/) | 单独测试节点、边方向和路径，避免用整体 RCA 替代 topology qualification |
+| Words or Vision | [CVPR 2025](https://openaccess.thecvf.com/content/CVPR2025/html/Deng_Words_or_Vision_Do_Vision-Language_Models_Have_Blind_Faith_in_CVPR_2025_paper.html) | 冻结图文顺序并检查 text bias；attention 只作为相关性诊断 |
+| S-VCO | [ACL 2025 long paper](https://aclanthology.org/2025.acl-long.1462/) | 对称视觉对比提示说明非语义视觉扰动应作为稳定性控制，而非新事实 |
+| BlackVIP | [CVPR 2023](https://openaccess.thecvf.com/content/CVPR2023/html/Oh_BlackVIP_Black-Box_Visual_Prompting_for_Robust_Transfer_Learning_CVPR_2023_paper.html) | 黑盒视觉提示可改变 frozen model 行为，支持 skin perturbation 但不支持把它解释为事实贡献 |
+| Text or Pixels? | [Findings of EMNLP 2025](https://aclanthology.org/2025.findings-emnlp.558/) | 将 token efficiency 与 accuracy 分轴报告，并保留 text screenshot negative control |
+| HORNet | [CVPR 2026 Workshop](https://openaccess.thecvf.com/content/CVPR2026W/CV4Smalls/html/Bai_HORNet_Task-Guided_Frame_Selection_for_Video_Question_Answering_with_Vision-Language_CVPRW_2026_paper.html) | 仅作为 task-guided input selection 的 workshop 证据；不得写成 CVPR main-track，也不在 RQ2 训练 selector |
+| CLEVR | [CVPR 2017](https://openaccess.thecvf.com/content_cvpr_2017/html/Johnson_CLEVR_A_Diagnostic_CVPR_2017_paper.html) | 用可执行函数程序与 effective program size 衡量必要推理深度，并检查能跳过中间步骤仍答对的 shortcut；支持将 reasoning difficulty 与视觉区域数分开 |
+| MultiChartQA | [NAACL 2025 long paper](https://aclanthology.org/2025.naacl-long.566/) | 区分 direct、parallel、comparative 与 sequential multi-chart reasoning；支持 RQ1.1 的 direct lookup、dependent bridge 与 compare-and-aggregate 三类程序 |
+| StrategyQA | [TACL 2021](https://aclanthology.org/2021.tacl-1.21/) | 每题同时保留分解步骤和逐步支持证据，支持公开问题/私有确定性 solver/support fact 的物理分离 |
+
+仍保持 `preprint`：`NL2Dashboard` 与 `Toward a Machine Bertin`。在未找到
+会议官网、ACL Anthology、CVF、IEEE VIS、PMLR 或 OpenReview 正式记录前，
+不得自行升级 venue。
 
 ## 4.4 RCA 与 Observability
 

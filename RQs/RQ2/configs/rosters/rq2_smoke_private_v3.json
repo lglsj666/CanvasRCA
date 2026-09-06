@@ -1,0 +1,35 @@
+{
+  "datasets": {
+    "aiops2022": [
+      {
+        "case_id": "aiops2022_2022-03-20-cloudbed1_000",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-46EA9B460B2C"
+      }
+    ],
+    "aiops2025": [
+      {
+        "case_id": "aiops2025_0419ba04-373",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-B8CEA35848D0"
+      }
+    ],
+    "re2_ob": [
+      {
+        "case_id": "re2_ob_checkoutservice_cpu_1",
+        "dataset": "re2_ob",
+        "opaque_incident_id": "INC-E621AEC961D6"
+      }
+    ]
+  },
+  "schema_version": "CanvasRCARQ2SmokeRosterV3",
+  "seed": 42,
+  "selection": {
+    "label_blind": true,
+    "source_partition": "validation",
+    "uses_old_rq2": false
+  },
+  "source_v1_sha256": "ff0b75517607de384c2042bd8fea47bd5f78291ac4de500a65cc5dc0b9449c95",
+  "status": "qualification_only",
+  "visibility": "evaluator_private"
+}

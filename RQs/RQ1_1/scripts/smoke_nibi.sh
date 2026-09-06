@@ -35,9 +35,11 @@ fi
 
 if [[ ! -f "RQs/RQ1_1/results/$PREPARED/prepared/index.json" ]]; then
   "$PYTHON_BIN" -m RQs.RQ1_1.src.main prepare "$PREPARED" \
-    RQs/RQ1_1/configs/rosters/rq1_1_smoke_private_v1.json
+    RQs/RQ1_1/configs/rosters/rq1_1_smoke_private_v3.json
 fi
 for model in qwen3.8-27b gemma-4-26b-a4b; do
+  # shellcheck disable=SC1091
+  source scripts/vllm_vlm/enable_attention_probe.sh "$model"
   scripts/vllm_vlm/serve_canvasrca_nibi.sh "$model" >"logs/${RUN_ID}_${EXPERIMENT}_${model}_vllm.log" 2>&1 &
   SERVER_PID=$!
   trap 'kill "$SERVER_PID" 2>/dev/null || true; wait "$SERVER_PID" 2>/dev/null || true' EXIT

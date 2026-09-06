@@ -1,0 +1,42 @@
+# SIRCL design space Θ = (a_MET, a_TRC, a_LOG, Seq, Layout, C_G, C_R).
+# Candidate sets per design variable, plus the vanilla start (SIRCL-0) and the
+# locked selected design (SIRCL*). The selection (Algorithm 2) resolves the
+# variables in the order: analyzers -> Seq -> Layout -> C_G -> C_R.
+
+analyzers:
+  metric: [MET-Z, MET-R, MET-S, MET-C]   # z-score@onset / robust-z / severity / marginal-chi2
+  trace:  [TRC-H, TRC-G, TRC-L, TRC-A]   # latency histograms / call-graph / exclusive-latency / support-confidence
+  log:    [LOG-T, LOG-R, LOG-F, LOG-B]   # template-freq / error-rate / error-lines / bad-template-filter
+
+# Modality sequence: any non-empty ordered subset of {MET, TRC, LOG} (15 in all).
+sequence_modalities: [MET, TRC, LOG]
+
+layout: [U-BASE, U-EARLY, S-BASE, S-TOPO, S-GROUP, S-RANK, S-GRAPH, S-MASK]
+
+guidance: [NONE, HEUR]                    # HEUR = literature-derived diagnostic heuristics
+
+reasoning: [NONE, THINK, STEPS, CITE, VERIFY, WALK, TRIAGE, ROT]
+
+# Vanilla starting design.
+sircl_0:
+  a_met: MET-S
+  a_trc: TRC-H
+  a_log: LOG-T
+  seq: [MET, TRC, LOG]
+  layout: U-BASE
+  guidance: NONE
+  reasoning: NONE
+
+# Selected design (output of Algorithm 2), applied unchanged to the test sets.
+sircl_star:
+  a_met: MET-Z
+  a_trc: TRC-L
+  a_log: LOG-R
+  seq: [MET, TRC, LOG]
+  layout: U-BASE
+  guidance: NONE
+  reasoning: VERIFY
+
+# Backbones used for design selection (scores averaged with equal weight).
+selection_backbones: [slm, deepseek]
+significance_level: 0.05

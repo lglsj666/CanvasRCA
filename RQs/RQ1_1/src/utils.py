@@ -58,8 +58,8 @@ def write_json(path: Path, value: Any) -> None:
 class AsyncWriter:
     """Small bounded writer used by inference so persistence does not stall requests."""
 
-    def __init__(self, workers: int = 4):
-        self._pool = ThreadPoolExecutor(max_workers=max(1, min(4, workers)))
+    def __init__(self, workers: int = 8):
+        self._pool = ThreadPoolExecutor(max_workers=max(1, min(8, workers)))
         self._pending: list[Future[None]] = []
 
     def json(self, path: Path, value: Any) -> None:

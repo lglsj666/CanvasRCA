@@ -1,7 +1,7 @@
-schema_version: CanvasRCARQ1_1ConfigV1
-protocol_revision: rq1_1_v3_multimodal_attention_draft
-status: static_qualified_attention_smoke_pending
-execution_enabled: false
+schema_version: CanvasRCARQ1_1ConfigV3
+protocol_revision: rq1_1_v14_full_480_rerun_budget_registration
+status: smoke_qualified_formal_authorized_active_only
+execution_enabled: true
 seed: 42
 
 unified:
@@ -13,7 +13,7 @@ renderer:
   owner: RQ1_1
   inherited_from: RQs/RQ1/src/renderer
   preset: rq0_v6
-  required_version: 13
+  required_version: 14
   overrides:
     topology_edge_key: identity_horizontal
     topology_edge_columns: 2
@@ -45,18 +45,46 @@ external_methods:
 experiments:
   direct_rca:
     task: direct_rca
+    status: active
     model_calls_per_case_arm: 1
-    arms: [T, V, S, LV, MV, TCV, TPV]
+    arms: [T, MV, TCV, LV, TPV, V_MR, V_ML, V_MG, V_RL, V_RG, V_LG, V_MRL, V_MRG, V_MLG, V_RLG, V, C, S, H]
     primary_metric: mrr
   direct_qa:
     task: direct_qa
+    status: active
     model_calls_per_case_arm: 1
-    arms: [L1, L2, L3, L4]
-    reasoning_levels: [1, 2, 3, 4]
-    template_counts: {L1: 4, L2: 12, L3: 24, L4: 24}
+    arms: [L1_T, L1_V, L1_S, L1_PATHV, L1_CONTEXTV,
+           L2_T, L2_V, L2_S, L2_PATHV, L2_CONTEXTV,
+           L3_T, L3_V, L3_S, L3_PATHV, L3_CONTEXTV,
+           L4_T, L4_V, L4_S]
+    perception_difficulties: [1, 2, 3, 4]
+    reasoning_difficulties: [1, 2, 3]
+    reasoning_families: [parallel_direct_lookup, dependent_entity_bridge, compare_and_aggregate]
+    maximum_template_counts: {P1: 12, P2: 36, P3: 72, P4: 72}
+    selection_policy: roster_balanced_visible_eligibility_v1
+    visibility_contract:
+      exclude_metric_label_elision: true
+      exclude_unprinted_entry_or_edge_index: true
+      exclude_missing_or_absent_answer_values: true
+      require_public_support_for_every_step: true
+      require_same_question_across_models_and_conditions: true
+      selection_uses_model_responses: false
+      inferential_unit: case
+    historical_qa_protocol:
+      status: superseded_after_v3_full_corpus_regeneration
+      names: [balanced_positive_extension, visibility_clean_l4_extension]
     primary_metric: complete_chain_accuracy
+  one_stage_counterfactual_rca:
+    task: counterfactual_rca
+    status: qualification_pending_rq2_completion
+    model_calls_per_case_arm: 1
+    arms: [V_FACTUAL, V_TARGETED, V_PLACEBO, V_NEUTRAL]
+    primary_metric: mrr
+    roster_scope: full_480_after_v3_regeneration
   multi_stage_rca:
     task: multi_stage_rca
+    status: abandoned
+    abandonment_scope: future_work_only
     steps: 3
     model_calls_per_step: 2
     model_calls_per_case_arm: 6
@@ -68,47 +96,88 @@ data:
   allowed_datasets: [aegislab, aiops2022, aiops2025, re2_ob, re2_tt]
   smoke_datasets: [re2_ob, aiops2022, aiops2025]
   frozen_source_manifest: RQs/RQ1_1/configs/rosters/case_manifest_480_frozen_v1.json
-  frozen_eval_adapter: RQs/RQ1_1/configs/rosters/rq1_frozen_eval_469_adapter_v1.json
-  private_roster: RQs/RQ1_1/configs/rosters/rq1_frozen_eval_469_private_v1.json
-  public_roster: RQs/RQ1_1/configs/rosters/rq1_frozen_eval_469_public_v1.json
-  exact_counts: {aegislab: 96, aiops2022: 100, aiops2025: 93, re2_ob: 90, re2_tt: 90}
+  private_roster: RQs/RQ1_1/configs/rosters/rq1_frozen_eval_480_private_v3.json
+  public_roster: RQs/RQ1_1/configs/rosters/rq1_frozen_eval_480_public_v3.json
+  roster_status: materialized_from_complete_v3_corpus
+  exact_counts: {aegislab: 100, aiops2022: 100, aiops2025: 100, re2_ob: 90, re2_tt: 90}
   headline_datasets: [aegislab, aiops2022, aiops2025]
   saturated_diagnostic_datasets: [re2_ob]
   final_ood_datasets: [re2_tt]
-  preparation_schema: CanvasRCAProcessedPublicCaseV2
+  preparation_schema: CanvasRCAProcessedPublicCaseV3
   missing_case_policy: fail_closed
 
 runtime:
   models: [qwen3.8-27b, gemma-4-26b-a4b]
-  max_workers: 4
-  request_concurrency: 4
+  max_workers: 8
+  request_concurrency: 36
   default_shard_count: 24
   result_root: RQs/RQ1_1/results
   smoke_call_cap_total: 18
   smoke_timeout_seconds_total: 600
   whole_case_infrastructure_exclusion_maximum: 0.05
   parse_rate_minimum: 0.95
+  major_rq_call_cap: 40000
+  registered_formal_calls_after_v3:
+    direct_rca: 18240
+    direct_qa: 17280
+    one_stage_counterfactual_rca: 3840
+    total: 39360
+
+# Narrow compatibility rules for the 2026-09-05 QA anchor repair and the
+# three-call Direct-RCA attention-completeness repair. A predecessor terminal
+# is reusable only when its complete model-visible request and current private
+# score are exactly reproducible; no merely similar prompt may pass.
+resume_compatibility:
+  direct_qa_predecessor_contract_sha256:
+    - b5bb3acd5766e09693277cab5800219eb33fb5c32973d067643c38c143fbe697
+  direct_rca_predecessor_contract_sha256:
+    - b5bb3acd5766e09693277cab5800219eb33fb5c32973d067643c38c143fbe697
+  policy: exact_model_visible_request_and_current_score_match_only
+
+performance_metrics:
+  schema: CanvasRCAPerformanceInstrumentationV1
+  enabled: true
+  sample_interval_s: 1.0
+  request_metrics: [ttft_s, decode_time_s, tpot_s, receiver_e2e_s, output_tokens_per_s]
+  run_metrics: [attempted_requests_per_s, goodput_requests_per_s, peak_vram_used_bytes,
+                peak_kv_cache_usage_fraction, gpu_utilization_weighted_seconds,
+                estimated_energy_joules]
+  preparation_metrics: [total_s, stage_seconds]
+  prefill_time_policy: unavailable_without_server_phase_trace
+  stream_itl_policy: transport_chunk_proxy_only
+  operational_only: true
 
 smoke_plans:
   direct_rca:
-    re2_ob: [T, V, S]
-    aiops2022: [LV, MV]
-    aiops2025: [TCV, TPV]
-  direct_qa:
-    re2_ob: [L1]
-    aiops2022: [L2]
-    aiops2025: [L3, L4]
-  multi_stage_rca:
     qwen3.8-27b:
-      re2_ob: [V]
-      aiops2022: [T]
-      aiops2025: []
+      re2_ob: [T, C, MV]
+      aiops2022: [LV, V_ML, V_MRG]
+      aiops2025: [TCV, V_MG, V_MLG]
     gemma-4-26b-a4b:
-      re2_ob: [V]
-      aiops2022: [S]
-      aiops2025: [LV]
-    full_arm: V
+      re2_ob: [TPV, V_RL, V_RLG]
+      aiops2022: [V_RG, V_MRL, V]
+      aiops2025: [V_LG, S, H]
     total_calls: 18
+  direct_qa:
+    qwen3.8-27b:
+      re2_ob: [L1_T, L1_V, L1_S]
+      aiops2022: [L1_PATHV, L1_CONTEXTV, L2_T]
+      aiops2025: [L2_V, L2_S, L2_PATHV]
+    gemma-4-26b-a4b:
+      re2_ob: [L2_CONTEXTV, L3_T, L3_V]
+      aiops2022: [L3_S, L3_PATHV, L3_CONTEXTV]
+      aiops2025: [L4_T, L4_V, L4_S]
+    total_calls: 18
+  one_stage_counterfactual_rca:
+    qwen3.8-27b:
+      re2_ob: [V_FACTUAL, V_TARGETED]
+      aiops2022: [V_PLACEBO]
+      aiops2025: [V_NEUTRAL]
+    gemma-4-26b-a4b:
+      re2_ob: [V_FACTUAL]
+      aiops2022: [V_TARGETED, V_PLACEBO]
+      aiops2025: [V_NEUTRAL]
+    total_calls: 8
 
 inference_adapter:
   name: context_safe_output_v1
@@ -122,6 +191,12 @@ analysis:
   effect_size: paired_cohens_dz
   rca_minimum_effect: 0.05
   primary_rca_comparisons: [[V, T], [LV, T], [MV, T], [TCV, T], [TPV, T]]
+  compact_text_comparisons: [[C, T], [V, C]]
   negative_control_comparison: [S, T]
-  multi_stage_direct_comparison: secondary_family
+  hybrid_control_comparison: [H, T]
+  factorial_regions: [M, R, L, G]
+  perception_rca_pairing: [model, opaque_incident_id, mapped_rca_arm]
+  multi_stage_direct_comparison: abandoned
   holm_correction: true
+  counterfactual_primary_metric: cvi
+  counterfactual_minimum_effect: 0.05

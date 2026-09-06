@@ -10,17 +10,18 @@ from __future__ import annotations
 
 import json
 import os
+from collections.abc import Iterator
 from pathlib import Path
-from typing import Any, Dict, Iterator, List, Optional
+from typing import Any
 
+from unified_scripts.sircl_data import DataCase
 from vlmrca.processed import iter_processed_cases, processed_index
-from vlmrca.upstream import DataCase
 
 REPO_ROOT = Path(os.environ.get("CANVASRCA_ROOT", Path.cwd())).expanduser().resolve()
 DEFAULT_MANIFEST = REPO_ROOT / "artifacts" / "segmentation" / "private_manifest.json"
 
 
-def load_manifest(path: Optional[Path] = None, partition: str | None = None) -> Dict[str, List[str]]:
+def load_manifest(path: Path | None = None, partition: str | None = None) -> dict[str, list[str]]:
     """Read the frozen evaluation pool: {dataset_tag: [case_id, ...]}."""
     path = Path(path) if path else DEFAULT_MANIFEST
     if not path.is_file():
@@ -34,7 +35,7 @@ def load_manifest(path: Optional[Path] = None, partition: str | None = None) -> 
         return {k: list(v) for k, v in payload["datasets"].items()}
     partitions = payload.get("partitions") or {}
     selected = [partition] if partition else sorted(partitions)
-    datasets: Dict[str, List[str]] = {}
+    datasets: dict[str, list[str]] = {}
     for name in selected:
         for row in partitions.get(name, ()):
             if "case_id" not in row:
@@ -45,9 +46,9 @@ def load_manifest(path: Optional[Path] = None, partition: str | None = None) -> 
 
 def iter_cases(
     dataset: str,
-    case_ids: Optional[List[str]] = None,
-    limit: Optional[int] = None,
-    manifest_path: Optional[Path] = None,
+    case_ids: list[str] | None = None,
+    limit: int | None = None,
+    manifest_path: Path | None = None,
 ) -> Iterator[DataCase]:
     """
     Yield DataCase objects for a dataset.
@@ -71,14 +72,14 @@ def iter_cases(
 
 def load_cases(
     dataset: str,
-    case_ids: Optional[List[str]] = None,
-    limit: Optional[int] = None,
-    manifest_path: Optional[Path] = None,
-) -> List[DataCase]:
+    case_ids: list[str] | None = None,
+    limit: int | None = None,
+    manifest_path: Path | None = None,
+) -> list[DataCase]:
     return list(iter_cases(dataset, case_ids, limit, manifest_path))
 
 
-def build_manifest(sizes: Optional[Dict[str, int]] = None, seed: int = 42) -> Dict[str, Any]:
+def build_manifest(sizes: dict[str, int] | None = None, seed: int = 42) -> dict[str, Any]:
     """
     Regenerate the evaluation pool with the same seeded sampling the upstream
     experiments used, so the two projects compare on the same cases.
@@ -93,7 +94,7 @@ def build_manifest(sizes: Optional[Dict[str, int]] = None, seed: int = 42) -> Di
         }
     import hashlib
 
-    datasets: Dict[str, List[str]] = {}
+    datasets: dict[str, list[str]] = {}
     for tag, n in sizes.items():
         ids = sorted(processed_index(tag), key=lambda value: hashlib.sha256(f"{seed}:{tag}:{value}".encode()).digest())
         datasets[tag] = sorted(ids[:n])

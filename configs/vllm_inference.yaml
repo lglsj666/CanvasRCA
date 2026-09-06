@@ -1,5 +1,5 @@
-schema_version: CanvasRCAVLLMInferenceConfigV10
-protocol_version: vllm-inference-v10-rq1_1-multimodal-attention
+schema_version: CanvasRCAVLLMInferenceConfigV11
+protocol_version: vllm-inference-v11-rq1_1-scheduler-pipeline
 status: draft_successor_pending_rq1_1_smoke
 effective_date: 2026-08-17
 
@@ -35,7 +35,7 @@ common:
   # Resource allocation is delegated to vLLM and the Slurm GPU allocation.
   gpu_memory_utilization: null
   mm_processor_cache_gb: 0
-  max_num_seqs: 128
+  max_num_seqs: 256
   tensor_parallel_size: 1
   max_images_per_prompt: 8
   max_videos_per_prompt: 0

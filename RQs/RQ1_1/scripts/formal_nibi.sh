@@ -16,6 +16,8 @@ RUN_ID="${3:?}"
 PREPARED_ID="${4:?}"
 SHARD_INDEX="${SLURM_ARRAY_TASK_ID:-${5:-0}}"
 SHARD_COUNT="${CANVASRCA_SHARD_COUNT:-${6:-1}}"
+# shellcheck disable=SC1091
+source scripts/vllm_vlm/enable_attention_probe.sh "$MODEL"
 scripts/vllm_vlm/serve_canvasrca_nibi.sh "$MODEL" >"logs/${RUN_ID}_${EXPERIMENT}_${MODEL}_vllm.log" 2>&1 &
 SERVER_PID=$!
 cleanup() { kill "$SERVER_PID" 2>/dev/null || true; wait "$SERVER_PID" 2>/dev/null || true; }

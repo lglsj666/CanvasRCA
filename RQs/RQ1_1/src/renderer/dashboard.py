@@ -95,9 +95,11 @@ from RQs.RQ1_1.src.renderer.onset import compute_service_onsets, service_level_p
 #      source timestamp; severity-first propagation panels conditionally include
 #      the minimum topology context needed to expose a concrete call edge; trace
 #      percentage formatting normalizes negative zero.
-RENDERER_VERSION = 13
+#  14  selected SIRCL* analyzer readouts: trace-derived public analysis split,
+#      MET-Z pre/current statistics, and TRC-L exclusive-latency/count scores.
+RENDERER_VERSION = 14
 
-# Frozen renderer-v13 geometry shared by source crops, routed views, and the
+# Frozen renderer-v14 geometry shared by source crops, routed views, and the
 # model-visible region map. Keeping these values in one authority prevents a
 # derived representation from silently clipping or relabelling dashboard ink.
 DASHBOARD_SIDE_SPLIT = 0.746
@@ -284,13 +286,13 @@ def opaque_incident_id(case_id: str) -> str:
 
 
 def _attach_metric_display_contract(metric_axes: Sequence[Tuple[Any, Dict[str, Any]]]) -> None:
-    """Record the plot-pixel coordinates exposed by renderer-v13."""
+    """Record the plot-pixel coordinates exposed by renderer-v14."""
 
     for ax, panel in metric_axes:
         values = panel.get("values") or []
         x_values = panel.get("plot_x_rel_s") or []
         if len(values) != 64 or len(x_values) != 64:
-            raise ValueError("renderer-v13 metric display contract requires 64 bins")
+            raise ValueError("renderer-v14 metric display contract requires 64 bins")
         bbox = ax.get_window_extent()
         width, height = max(1, round(bbox.width)), max(1, round(bbox.height))
         normalized = bool(panel.get("normalized"))
@@ -404,7 +406,7 @@ def compile_dashboard(
     if view.metrics_df is not None and not view.metrics_df.empty and "timestamp" in view.metrics_df.columns:
         _t = pd.to_numeric(view.metrics_df["timestamp"], errors="coerce").dropna()
         if len(_t):
-            full_range = (float(_t.iloc[0]), float(_t.iloc[-1]))
+            full_range = (float(_t.min()), float(_t.max()))
     if fault_window is None and full_range is not None:
         # Auxiliary panels still need a split point to show change; fall back to
         # the midpoint of the window when no excursion was detectable.
@@ -412,6 +414,9 @@ def compile_dashboard(
         aux_window: Optional[Tuple[float, float]] = (mid, full_range[1])
     else:
         aux_window = fault_window
+    sircl_window, sircl_window_source = panels.infer_sircl_analysis_window(
+        view.traces_df, full_range, aux_window,
+    )
 
     n_metric = len(chosen)
     cols = max(1, cfg.grid_cols)
@@ -572,6 +577,7 @@ def compile_dashboard(
                     metrics_df=view.metrics_df,
                     series=s,
                     fault_window=fault_window,
+                    analysis_window=sircl_window,
                     normalize=cfg.normalize_panels,
                     annotate_extreme=cfg.annotate_extremes,
                     shade_fault=cfg.shade_fault_window,
@@ -643,7 +649,7 @@ def compile_dashboard(
         elif kind == "logs":
             manifest_panels.append(
                 panels.render_log_panel(
-                    ax, "G1", view.logs_df, fault_window=aux_window,
+                    ax, "G1", view.logs_df, fault_window=sircl_window,
                     full_range=full_range, row_chars=log_row_chars,
                     compact_columns=(cfg.uniform_detail_font_pt > 0),
                     display_labels=display_labels,
@@ -653,8 +659,8 @@ def compile_dashboard(
         elif kind == "traces":
             manifest_panels.append(
                 panels.render_trace_panel(
-                    ax, "R1", view.traces_df, fault_window=aux_window,
-                    full_range=full_range, row_chars=trace_row_chars,
+                    ax, "R1", view.traces_df, fault_window=sircl_window,
+                    full_range=full_range, top_n=6, row_chars=trace_row_chars,
                     compact_columns=(cfg.uniform_detail_font_pt > 0),
                     display_labels=display_labels,
                     typography=typography,
@@ -709,6 +715,14 @@ def compile_dashboard(
     else:
         manifest_fault_window = list(fault_window) if fault_window else None
 
+    if sircl_window and full_range and cfg.relative_time_only:
+        time_unit = panels._unit_for_span(full_range[1] - full_range[0])
+        manifest_sircl_window = [
+            (float(value) - full_range[0]) / time_unit for value in sircl_window
+        ]
+    else:
+        manifest_sircl_window = list(sircl_window) if sircl_window else None
+
     manifest = _json_safe({
         "opaque_incident_id": public_id,
         "renderer_version": RENDERER_VERSION,
@@ -730,6 +744,13 @@ def compile_dashboard(
         "metric_ranker": cfg.ranker,
         "hot_z_threshold": float(panels.HOT_Z),
         "fault_window_rel_s": manifest_fault_window,
+        "sircl_star_analysis": {
+            "split_source": sircl_window_source,
+            "window_rel_s": manifest_sircl_window,
+            "metric_analyzer": "MET-Z",
+            "trace_analyzer": "TRC-L",
+            "log_analyzer": "LOG-R",
+        },
         "service_anomaly_scores": {
             display_labels.get(str(k), str(k)): round(v, 3)
             for k, v in sorted(anomaly.items())
@@ -755,7 +776,7 @@ def _json_safe(obj):
 def crop_dashboard_evidence_regions(
     png: bytes, cfg: DashboardConfig,
 ) -> Tuple[Dict[str, Tuple[bytes, ...]], Dict[str, Any]]:
-    """Crop the registered renderer-v13 dashboard into actual M/R/L/G fragments.
+    """Crop the registered renderer-v14 dashboard into actual M/R/L/G fragments.
 
     The crops copy source pixels only.  In particular, they never redraw a
     telemetry row or substitute serialized text for a graphical panel.  G has
@@ -770,7 +791,7 @@ def crop_dashboard_evidence_regions(
     split = round(source.width * DASHBOARD_SIDE_SPLIT)
     # Keep the propagation readout legend with G.  The row immediately below
     # starts the log table; 0.558 is the whitespace midpoint between those two
-    # renderer-v13 primitives at the frozen geometry.  The earlier 0.542 cut
+    # renderer-v14 primitives at the frozen geometry.  The earlier 0.542 cut
     # clipped the final propagation-omission line and duplicated its tail at
     # the top of L.
     propagation_end = round(base_height * DASHBOARD_PROPAGATION_END)
@@ -787,7 +808,7 @@ def crop_dashboard_evidence_regions(
         pages = []
         for box in region_boxes:
             if box[2] <= box[0] or box[3] <= box[1]:
-                raise ValueError(f"renderer-v13 {region} crop is empty")
+                raise ValueError(f"renderer-v14 {region} crop is empty")
             stream = io.BytesIO()
             source.crop(box).save(stream, format="PNG", optimize=False, compress_level=6)
             pages.append(stream.getvalue())

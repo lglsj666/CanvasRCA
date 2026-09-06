@@ -1,41 +1,318 @@
-schema_version: CanvasRCARQ2ConfigV1
-status: static_nibi_preparation
-execution_enabled: false
+schema_version: CanvasRCARQ2ConfigV12
+protocol_revision: rq2_v12_deterministic_tool_representation_study
+status: smoke_qualified_formal_authorized_rca_only
+execution_enabled: true
 seed: 42
 
 unified:
-  vllm: configs/vllm_inference.yaml
+  vllm: configs/vllm_inference_local.yaml
   segmentation: configs/dataset_segmentation.yaml
   scorer: configs/rca_scorer.yaml
 
-experiment:
-  name: encoding_arrangement_factorial
-  design: full_2_power_4
-  factors:
-    M: [metric_binned_heatmap, metric_small_multiple_lines]
-    G: [topology_node_link_directed, topology_edge_time_adjacency_matrix]
-    A: [cross_source_modality_blocked, cross_source_entity_aligned]
-    O: [entity_order_natural_public_id, entity_order_label_blind_salience]
-  exact_fact_inventory_equality: true
-  inferential_unit: opaque_incident
+solver:
+  role: frozen_rca_actor
+  models: [qwen3.8-27b, gemma-4-26b-a4b]
+  checkpoint_root_env: CANVASRCA_MODEL_ROOT
+  inference_contract: configs/vllm_inference_local.yaml
+  request_adapter: rq1_1_context_safe_output_v1
+  prompt_authority: RQs/RQ2/src/exps.py
+  prompt_protocol: rq2_sircl_star_minimal_adaptation_v1_with_field_dictionary
+  scientific_prompt_parent: RQs/RQ1_1/src/exps.py:SIRCL_STAR_RCA_PROCEDURE
+  scientific_prompt_parent_sha256: ce48089072fbbbaef28e6e0d6fdfe2a4d9db1eb9f7d669835536fa6ab1b1b90f
+  scientific_prompt_sha256: 4eb5dde41a92a57194b8e356ed45c90d958b5a7c8be00de62ee3c2b991419fa3
+  inherited_from_rq1_1: [vllm_runtime, request_adapter, unified_client, scorer, sircl_star_scientific_prompt_wording]
+  not_inherited_from_rq1_1: [dashboard_grammar, experiment_protocol]
+  weights_trainable_in_rq2: false
+
+composer:
+  role: dashboard_composer_slm
+  model_id: qwen3.5-9b
+  served_model_name: Qwen/Qwen3.5-9B
+  model_path: ${CANVASRCA_COMPOSER_MODEL}
+  model_path_env: CANVASRCA_COMPOSER_MODEL
+  execution_in_rq2: false
+  training_in_rq2: false
+  later_training_stages: [tool_grounding_sft, outcome_grounded_rl]
+  optional_intermediate_stage: offline_preference_warm_start
+  arbitrary_pixel_generation: false
+  only_emits_typed_dashboard_actions: true
+
+renderer:
+  owner: RQ2
+  parent: RQs/RQ1_1/src/renderer
+  parent_provenance: RQs/RQ2/configs/provenance/renderer_parent_v14.json
+  preset: rq0_v6
+  required_version: 14
+  typography_baseline_scale: 1.18
+  typography_rule: panel_titles_legends_axes_and_details_must_remain_readable_at_native_resolution
+  overrides:
+    topology_edge_key: identity_horizontal
+    topology_edge_columns: 2
+    uniform_detail_font_pt: 9.5
+    canvas_aspect: 0.76
+    entity_label_mode: case_local_ids
+    show_entity_id_explanation: true
+  baseline_canvas_size: [2048, 1556]
+
+external_methods:
+  denum:
+    repository: https://github.com/gaiusyu/Denum
+    commit: a3a697564e378643461e27ab92ea44b098424c35
+    local_path: packages/Denum
+    runtime_dependency: false
+    graph_schema: DenumReadableLogGraphV1
+    text_schema: DenumLogTextV1
+    visual_schema: DenumLogVisualRowsV1
+    binary_output: false
+    relative_bins: 64
+    visible_template_limit: 8
 
 data:
-  allowed_partitions: [development, independent]
-  forbidden_partitions: [heldout, reserve, re2_tt]
-  development_per_dataset: 20
-  independent_per_dataset: 50
+  smoke_private: RQs/RQ2/configs/rosters/rq2_smoke_private_v3.json
+  development_private: RQs/RQ2/configs/rosters/rq2_development_private_v3.json
+  independent_private: RQs/RQ2/configs/rosters/rq2_independent_private_v3.json
+  downstream_lock_private: RQs/RQ2/configs/rosters/rq2_downstream_lock_private_v3.json
+  bundle: RQs/RQ2/configs/rosters/rq2_rq1_reuse_roster_bundle_v3.json
+  source_rq1_roster: RQs/RQ1_1/configs/rosters/rq1_frozen_eval_480_private_v3.json
+  target_source_manifest: RQs/RQ1_1/configs/rosters/case_manifest_480_frozen_v1.json
+  tool_full_private: RQs/RQ2/configs/rosters/rq2_tool_full_480_private_v3.json
+  roster_status: materialized_from_complete_v3_corpus
+  exact_counts:
+    development: {aegislab: 20, aiops2022: 20, aiops2025: 20}
+    independent: {aegislab: 50, aiops2022: 50, aiops2025: 50}
+    downstream_lock: {aegislab: 30, aiops2022: 30, aiops2025: 30}
+    tool_full: {aegislab: 100, aiops2022: 100, aiops2025: 100, re2_ob: 90, re2_tt: 90}
+  headline_datasets: [aegislab, aiops2022, aiops2025]
+  allowed_formal_partitions: [development, independent, downstream_lock, tool_full]
+  forbidden_formal_partitions: [heldout, reserve]
+  non_headline_reference_datasets: [re2_ob, re2_tt]
+  preparation_schema: CanvasRCAProcessedPublicCaseV3
+  missing_case_policy: fail_closed
+
+design_space:
+  strategy: evidence_selection_then_composite_panel_encoding_then_grid_packing
+  invariant: one_composite_evidence_card_maps_to_exactly_one_equal_fact_silhouette
+  card_schema: EvidenceCardV1
+  silhouette_schema: SilhouetteV1
+  program_schema: DashboardProgramV1
+  factors:
+    panel_composition: [human_composite]
+    metric_encoding: [heatmap, small_multiple_lines, overlay_lines]
+    trace_encoding: [trace_dumbbell, trace_baseline_fault_bars]
+    log_encoding: [template_frequency_timeline, template_time_matrix]
+    topology_encoding: [node_link, adjacency_matrix, edge_table]
+    propagation_encoding: [propagation_rows, propagation_timeline]
+    layout_family: [modality_grouped, entity_grouped, salience_first, topology_centered]
+    entity_order: [stable_id, salience_onset, topology_bfs]
+    footprint_policy: [compact, balanced, detailed]
+    packing_mode: [reflow]
+    coordination_mode: [none, shared_entity, shared_time]
+    metric_scale_policy: [per_card_raw, common_robust]
+    style_skin: [canonical, colorblind]
+  continuous:
+    cell_edge_px: {minimum: 160, maximum: 448, baseline: 256}
+    gutter_px: {minimum: 4, maximum: 32, baseline: 12}
+    raster_scale: {minimum: 0.75, maximum: 1.5, baseline: 1.0}
+    legibility_scale: {minimum: 0.8, maximum: 1.25, baseline: 1.0}
+  dense_evidence:
+    scope: metric_series_only
+    normal_metric_series: 12
+    additional_metric_series: 12
+    metric_series: 24
+    visual_encoding: overlay_lines
+    text_twin: DENSE_TEXT
+    canvas_twin: DENSE_CANVAS
+    selection_rule: inherited_label_blind_renderer_ranking
+    non_metric_evidence: byte_identical_to_normal_full
+  grid_shapes:
+    - {columns: 10, rows: 10}
+    - {columns: 12, rows: 8}
+    - {columns: 16, rows: 6}
+  card_contract:
+    source: one_canonical_public_fact_packet
+    selection_precedes_visual_encoding: true
+    card_fact_partition_exact: true
+    compatible_atomic_facts_may_share_one_evidence_card: true
+    split_one_card_across_silhouettes_forbidden: true
+    merge_distinct_selected_cards_at_render_time_forbidden: true
+    duplicate_card_or_fact_forbidden: true
+    overflow_outside_silhouette_forbidden: true
+    placement_overlap_forbidden: true
+    packing_objective: lexicographic_useful_selection_then_occupancy
+    occupancy_never_overrides_evidence_utility: true
+  footprint_catalog:
+    metric_bundle: [[3, 3], [4, 3], [4, 4]]
+    trace_bundle: [[4, 2], [4, 3], [5, 4]]
+    log_bundle: [[3, 2], [3, 3], [3, 4]]
+    topology_bundle: [[3, 3], [4, 3], [4, 4]]
+  negative_controls:
+    sparse_atomic_control: retained_explicitly_but_excluded_from_d_optimal_default
+  sampling:
+    method: constrained_exact_d_optimal_with_registered_continuous_anchors
+    seed: 42
+    points: 48
+    independent_confirmation_points: 16
+    candidate_pool_size: 2048
+    registered_curve_factors:
+      [cell_edge_px, gutter_px, raster_scale, legibility_scale]
+    cartesian_grid_forbidden: true
+  composer_interface:
+    status: data_and_harness_only_no_training_in_rq2
+    action_order:
+      [select_evidence_cards, select_silhouettes, place_silhouettes,
+       choose_canvas_style, validate_and_render]
+    sft_target: legal_tool_execution_only
+    rl_primary_terminal_outcome: reciprocal_rank
+    token_objective: constrained_budget_not_unbounded_bonus
+    exact_anchor_state_required: true
+    arbitrary_pixels_or_free_text_forbidden: true
+    frozen_solver_required: true
+  content_policies:
+    [FULL,
+     B25_COVERAGE, B25_SALIENCE, B25_DIVERSITY, B25_RANDOM,
+     B50_COVERAGE, B50_SALIENCE, B50_DIVERSITY, B50_RANDOM,
+     B75_COVERAGE, B75_SALIENCE, B75_DIVERSITY, B75_RANDOM,
+     DENSE_M24]
+  transfer_arms:
+    [T_FULL, C_FULL, S_FULL, V0, D_STAR, D_STAR_SKIN, D_STAR_SPATIAL_SHAM,
+     C_STAR_TEXT, C_STAR_SCREENSHOT, C_STAR_CANVAS,
+     C_STAR_COMPACT, DENSE_TEXT, DENSE_COMPACT, DENSE_CANVAS]
+
+experiments:
+  exp_equal_fact_design:
+    tasks: [one_stage_rca]
+    rosters: [development, independent]
+    development_cells: registered_optimal_programs_48
+    independent_cells: frozen_confirmation_programs_16
+    calls_per_case_cell: 1
+    primary_metric: mrr
+  exp_content_budget_twins:
+    tasks: [one_stage_rca]
+    rosters: [independent]
+    policies: 14
+    twins: [text, canvas_reflow]
+    b50_mechanism_controls: [canvas_blank, canvas_alt]
+    calls_per_case: 36
+    primary_metric: mrr
+  exp_downstream_transfer:
+    tasks: [one_stage_rca]
+    rosters: [downstream_lock]
+    arms: [T_FULL, C_FULL, S_FULL, V0, D_STAR, D_STAR_SKIN, D_STAR_SPATIAL_SHAM,
+           C_STAR_TEXT, C_STAR_SCREENSHOT, C_STAR_CANVAS,
+           C_STAR_COMPACT, DENSE_TEXT, DENSE_COMPACT, DENSE_CANVAS]
+    calls_per_case_arm: 1
+    primary_metric: mrr
+  exp_tool_representation:
+    tasks: [one_stage_rca]
+    rosters: [tool_full]
+    tool_profiles: [SIRCL_STAR_FUSED, MET_R_ADAPT, TRC_G_ADAPT, LOG_T_ADAPT]
+    representations: [text, canvas]
+    entity_budget: 8
+    region_row_caps: {M: 10, R: 10, L: 10, G: 28}
+    calls_per_case: 8
+    primary_metric: mrr
+    within_tool_primary_contrast: canvas_minus_text
+    interpretation: deterministic_public_evidence_selection_x_representation
+
+performance_metrics:
+  schema: CanvasRCAPerformanceInstrumentationV1
+  enabled: true
+  sample_interval_s: 1.0
+  request_metrics: [ttft_s, decode_time_s, tpot_s, receiver_e2e_s, output_tokens_per_s]
+  run_metrics: [attempted_requests_per_s, goodput_requests_per_s, peak_vram_used_bytes,
+                peak_kv_cache_usage_fraction, gpu_utilization_weighted_seconds,
+                estimated_energy_joules]
+  preparation_metrics: [total_s, stage_seconds, representation_materialization_s]
+  prefill_time_policy: unavailable_without_server_phase_trace
+  stream_itl_policy: transport_chunk_proxy_only
+  operational_only: true
+
+abandoned_tasks:
+  packed_qa:
+    status: abandoned
+    reason: rq1_1_showed_that_generic_perception_qa_is_not_a_stable_proxy_for_rca
+    code_policy: preserve_for_audit_but_never_schedule_score_select_or_claim_in_rq2
+    existing_artifact_policy: preserve_archived_and_exclude_from_active_analysis
+
+selection:
+  d_star:
+    source: development_only
+    primary: two_model_three_dataset_macro_mrr
+    tie_breakers: [input_tokens, cell_id]
+    mrr_tie_tolerance: 0.01
+  c_star:
+    source: independent_without_downstream_access
+    eligible_policies: deletion_budgets_and_FULL_only
+    excluded_mechanism_policies: [DENSE_M24]
+    maximum_mrr_drop: 0.05
+    dataset_or_model_material_drop: 0.05
+    tie_breakers: [input_token_reduction, mrr, policy_id]
 
 runtime:
-  models: [gemma-4-26b-a4b, qwen3.8-27b]
+  deployment: local_wsl_only
+  slurm_submission_forbidden: true
+  models: [qwen3.8-27b, gemma-4-26b-a4b]
+  max_workers: 8
+  request_concurrency: 36
   result_root: RQs/RQ2/results
-  smoke_call_cap: 18
-  smoke_timeout_seconds: 600
-  gate_call_cap: 36
-  gate_timeout_seconds: 1200
-  parse_rate_minimum: 0.95
+  default_shard_count: 24
+  smoke_call_cap_total: 18
+  smoke_timeout_seconds_total: 600
   whole_case_infrastructure_exclusion_maximum: 0.05
+  parse_rate_minimum: 0.95
+  major_rq_call_cap: 40000
+  registered_formal_calls_after_v3:
+    exp_equal_fact_design: 10560
+    exp_content_budget_twins: 10800
+    exp_downstream_transfer: 2520
+    exp_tool_representation: 7680
+    total: 31560
+
+inference_adapter:
+  name: rq1_1_context_safe_output_v1
+  version: 1
+  max_tokens: 8192
+
+smoke_plans:
+  exp_equal_fact_design:
+    total_calls: 8
+    cells_per_model: 4
+    tasks: [one_stage_rca]
+    space_covering_design_ids: [D000, D012, D024, D047]
+  exp_content_budget_twins:
+    total_calls: 18
+    cells_per_model: 9
+    coverage: staggered_nine_policy_windows_cover_all_fourteen_policies_and_both_rca_twins
+  exp_downstream_transfer:
+    total_calls: 18
+    cells_per_model: 9
+    coverage: staggered_nine_arm_windows_cover_all_fourteen_registered_arms
+  exp_tool_representation:
+    total_calls: 16
+    cells_per_model: 8
+    coverage: both_text_and_canvas_for_all_four_deterministic_tool_profiles
 
 analysis:
   paired_test: wilcoxon_pratt
   effect_size: paired_cohens_dz
   no_confidence_intervals: true
+  minimum_material_mrr_effect: 0.05
+  holm_correction: true
+  inference_unit: case
+  attention_is_diagnostic_not_causal: true
+  response_surface:
+    case_level_coefficients: true
+    continuous_linear_and_quadratic_terms: true
+    registered_interactions:
+      [metric_encoding_x_cell_edge_px, topology_encoding_x_layout_family,
+       footprint_policy_x_grid_shape, cell_edge_px_x_footprint_policy,
+       metric_encoding_x_layout_family, topology_encoding_x_layout_family,
+       coordination_mode_x_layout_family]
+  composer_attribution:
+    checkpoint_deltas: [base_to_sft, sft_to_optional_preference, optional_preference_to_rl]
+    exact_anchor_matched_siblings: true
+    controlled_component_reversions: true
+    ordered_telescoping:
+      [evidence_card_selection, silhouette_encoding, grid_placement, canvas_style]
+    report_interactions_and_unapportioned_residual: true
+    attention_or_correlation_is_not_causal_credit: true

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Submit the frozen six-phase model/experiment queue in its registered order.
+# Submit the active four-phase single-stage model/experiment queue.
 set -euo pipefail
 ROOT="$(git rev-parse --show-toplevel)"
 cd "$ROOT"
@@ -20,7 +20,7 @@ PY
   echo "prepared index missing: $PREPARED_ID" >&2; exit 3;
 }
 dependency=""
-for experiment in direct_rca direct_qa multi_stage_rca; do
+for experiment in direct_rca direct_qa; do
   for model in qwen3.8-27b gemma-4-26b-a4b; do
     args=(--parsable --account="$ACCOUNT" --array="0-$((SHARDS - 1))" --export="ALL,CANVASRCA_SHARD_COUNT=$SHARDS")
     [[ -n "$dependency" ]] && args+=(--dependency="afterok:$dependency")

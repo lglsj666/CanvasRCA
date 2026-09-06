@@ -12,7 +12,7 @@ export CANVASRCA_VLLM_CONFIG="$ROOT/configs/vllm_inference.yaml"
 RUN_ID="${1:?usage: finalize_nibi.sh RUN_ID PREPARED_ID}"
 PREPARED_ID="${2:?}"
 PYTHON_BIN="${CANVASRCA_PYTHON:-python}"
-for experiment in direct_rca direct_qa multi_stage_rca; do
+for experiment in direct_rca direct_qa; do
   "$PYTHON_BIN" -m RQs.RQ1_1.src.main analyse "$RUN_ID" "$experiment"
 done
 "$PYTHON_BIN" -m RQs.RQ1_1.src.main analyse-suite "$RUN_ID"

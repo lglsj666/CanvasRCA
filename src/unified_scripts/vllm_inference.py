@@ -16,7 +16,7 @@ class VLLMInferenceConfig(FrozenConfig):
     """Frozen base recipe with explicit, hash-recorded experiment adapters."""
 
     DEFAULT_PATH = "configs/vllm_inference.yaml"
-    SCHEMA_VERSION = "CanvasRCAVLLMInferenceConfigV10"
+    SCHEMA_VERSION = "CanvasRCAVLLMInferenceConfigV11"
 
     @classmethod
     def load(cls, path=None, *, adapter=None):
@@ -46,7 +46,7 @@ class VLLMInferenceConfig(FrozenConfig):
             "seed": 42,
             "max_model_len": 40960,
             "max_tokens": 16384,
-            "max_num_seqs": 128,
+            "max_num_seqs": 256,
         }
         drift = {key: (common.get(key), value) for key, value in required.items() if common.get(key) != value}
         if drift:
@@ -54,7 +54,7 @@ class VLLMInferenceConfig(FrozenConfig):
         deployment = self.data.get("deployment")
         if not isinstance(deployment, Mapping) or deployment.get("profile") not in {"nibi", "local"}:
             raise ConfigError("vLLM config requires deployment.profile=nibi|local")
-        expected_gpu = None if deployment["profile"] == "nibi" else 0.65
+        expected_gpu = None if deployment["profile"] == "nibi" else 0.75
         if common.get("gpu_memory_utilization", "missing") != expected_gpu:
             raise ConfigError(
                 f"{deployment['profile']} profile requires "

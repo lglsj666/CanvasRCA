@@ -1,0 +1,56 @@
+{
+  "bundle_sha256": "3dd9b00185adcadb75651b060ec1a70ca08543d9d35460250ec55bc65135c1ab",
+  "old_rq2_artifacts_used": false,
+  "pairwise_disjoint": true,
+  "rosters": {
+    "development": {
+      "counts": {
+        "aegislab": 20,
+        "aiops2022": 20,
+        "aiops2025": 20
+      },
+      "path": "RQs/RQ2/configs/rosters/rq2_development_private_v3.json",
+      "roster_sha256": "12be75ddb21ec4e31e38d572c101f6e6121f15667f19fc8d1fab29f1ba04454d",
+      "sha256": "5172b515b841dba7c209652708e72f1f017109bfea776a09fb82c5aa1693b1df",
+      "total": 60
+    },
+    "downstream_lock": {
+      "counts": {
+        "aegislab": 30,
+        "aiops2022": 30,
+        "aiops2025": 30
+      },
+      "path": "RQs/RQ2/configs/rosters/rq2_downstream_lock_private_v3.json",
+      "roster_sha256": "e00a19a6b51638256805e685c28a3850377a94a370a664fbec0f6ee9f728d18a",
+      "sha256": "bdcbea14b8224e8b8745774620e1eadfb5a442dd8ec395c53624c58e9e27a7a2",
+      "total": 90
+    },
+    "independent": {
+      "counts": {
+        "aegislab": 50,
+        "aiops2022": 50,
+        "aiops2025": 50
+      },
+      "path": "RQs/RQ2/configs/rosters/rq2_independent_private_v3.json",
+      "roster_sha256": "8caef5ea4f94232e8baafb9bf4713dac1c8414b808d9648083335e9011d6a0e8",
+      "sha256": "eededf8a385dd424f9ec02f39dfb6b3411925e90f67529839cf33713e1004fc8",
+      "total": 150
+    }
+  },
+  "rq1_headline_coverage": 1.0,
+  "schema_version": "CanvasRCARQ2RQ1ReuseRosterBundleV1",
+  "seed": 42,
+  "source": {
+    "old_rq2_artifacts_used": false,
+    "rq1_cases_reused": true,
+    "rq1_headline_case_count": 300,
+    "rq1_reuse_path": "RQs/RQ1_1/configs/rosters/rq1_frozen_eval_480_private_v3.json",
+    "rq1_reuse_sha256": "83d9e665f5d28cf4d56a60f22fb57b2aeec4d8bd7e4e2e6a429bee2728fae46b",
+    "segmentation_path": "configs/dataset_segmentation.yaml",
+    "segmentation_sha256": "52ff16908335420bbaf98ff12b53996913c9ea2e18f90aa381ebb598dc99744b",
+    "selection_uses_fault_type": false,
+    "selection_uses_labels": false,
+    "selection_uses_model_results": false
+  },
+  "status": "frozen_before_model_execution"
+}

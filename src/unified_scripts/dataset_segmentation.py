@@ -31,20 +31,29 @@ class CaseIndexProvider:
 
 
 class ProcessedDirectoryIndex(CaseIndexProvider):
-    """Index one `_SUCCESS`-marked directory per processed incident."""
+    """Index the sole V3 corpus through its evaluator-private identity manifest."""
 
     def records(self, processed_root: Path, datasets: Sequence[str]) -> list[CaseRecord]:
         records: list[CaseRecord] = []
         for dataset in datasets:
-            root = processed_root / dataset
-            # Some processed datasets add a native split layer (for example,
-            # ``train/<case>/metadata.json``).  Recursive discovery keeps the
-            # unified provider layout-agnostic without changing eligibility.
-            for metadata in sorted(root.rglob("metadata.json")):
-                case_dir = metadata.parent
-                if not (case_dir / "_SUCCESS").is_file() or (case_dir / ".invalid").exists():
+            manifest = processed_root / "private" / dataset / "manifest.jsonl"
+            if not manifest.is_file():
+                raise ConfigError(f"V3 processed manifest is missing: {manifest}")
+            seen: set[str] = set()
+            for line in manifest.read_text(encoding="utf-8").splitlines():
+                if not line.strip():
                     continue
-                records.append(CaseRecord(dataset, case_dir.name, metadata))
+                row = json.loads(line)
+                case_id = str(row["case_id"])
+                opaque = str(row["opaque_incident_id"])
+                if case_id in seen:
+                    raise ConfigError(f"duplicate V3 source case ID: {dataset}/{case_id}")
+                seen.add(case_id)
+                case_dir = processed_root / "public" / dataset / "cases" / opaque
+                metadata = case_dir / "metadata.json"
+                if not metadata.is_file() or not (case_dir / "_SUCCESS").is_file():
+                    raise ConfigError(f"incomplete V3 processed case: {dataset}/{opaque}")
+                records.append(CaseRecord(dataset, case_id, metadata))
         return records
 
 

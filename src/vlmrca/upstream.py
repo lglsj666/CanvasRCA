@@ -88,22 +88,21 @@ except ImportError:
 
     fault_taxonomy = _FaultTaxonomyFallback()
 
-# Loader locations changed between the registered upstream snapshot and the
-# compatible Nibi checkout. Both implementations use the same DataCase/cache
-# contract; keep this named compatibility adapter at the one sanctioned import
-# boundary instead of teaching callers about either upstream layout.
+# The current SIRCL ``src.data`` loaders are the canonical raw->DataCase
+# implementation.  Older checkouts exposed only the baseline copy, which is a
+# compatibility fallback rather than an equally valid preparation path.
 try:  # noqa: E402
-    from src.baselines.dataset_loaders.re2 import RE2Dataset  # type: ignore
-    from src.baselines.dataset_loaders.aegislab import AegisLabDataset  # type: ignore
-    from src.baselines.dataset_loaders.aiops2022 import AIOPS2022Dataset  # type: ignore
-    from src.baselines.dataset_loaders.aiops2025 import AIOPS2025Dataset  # type: ignore
-    DATASET_LOADER_ADAPTER = "baseline_cache_v1"
-except ImportError:  # noqa: E402
     from src.data.re2 import RE2Dataset  # type: ignore
     from src.data.aegislab import AegisLabDataset  # type: ignore
     from src.data.aiops2022 import AIOPS2022Dataset  # type: ignore
     from src.data.aiops2025 import AIOPS2025Dataset  # type: ignore
-    DATASET_LOADER_ADAPTER = "src_data_cache_v1"
+    DATASET_LOADER_ADAPTER = "sircl_src_data_v1"
+except ImportError:  # noqa: E402
+    from src.baselines.dataset_loaders.re2 import RE2Dataset  # type: ignore
+    from src.baselines.dataset_loaders.aegislab import AegisLabDataset  # type: ignore
+    from src.baselines.dataset_loaders.aiops2022 import AIOPS2022Dataset  # type: ignore
+    from src.baselines.dataset_loaders.aiops2025 import AIOPS2025Dataset  # type: ignore
+    DATASET_LOADER_ADAPTER = "legacy_baseline_cache_fallback_v1"
 
 __all__ = [
     "UPSTREAM_ROOT",

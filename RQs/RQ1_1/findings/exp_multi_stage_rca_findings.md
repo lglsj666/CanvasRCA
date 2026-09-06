@@ -1,4 +1,8 @@
 # `multi_stage_rca` findings
 
-Status: attention-enabled successor is statically qualified; bounded dual-model
-smoke and formal execution remain pending. No RQ1.1 efficacy result exists.
+Status: **abandoned for the current paper before successor inference**.
+
+The implementation is retained as future-work provenance, but it is excluded
+from active configuration, smoke, formal queues, statistics, and RQ1.1
+conclusions. The project now studies one-stage RCA with one dashboard image.
+No multi-stage efficacy result is claimed.

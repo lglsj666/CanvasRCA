@@ -115,6 +115,7 @@ class VLMResponse:
     output_tokens: int = 0
     latency_s: float = 0.0
     model_tag: str = ""
+    performance: dict[str, Any] = field(default_factory=dict)
     raw: dict[str, Any] | None = field(default=None, repr=False)
 
     @property
@@ -140,6 +141,7 @@ def call_vlm(
     guided_regex: str | None = None,
     partial_output_dir: Path | None = None,
     partial_metadata: Mapping[str, Any] | None = None,
+    record_performance: bool = False,
 ) -> VLMResponse:
     """
     Send one user turn made of text and image parts, return the reply.
@@ -160,7 +162,7 @@ def call_vlm(
     last: Exception | None = None
     for attempt in range(max_retries):
         try:
-            t0 = time.time()
+            t0 = time.perf_counter()
             if cfg.backend == "mock":
                 resp = _call_mock(parts, cfg, system)
             elif cfg.backend == "bedrock":
@@ -174,6 +176,7 @@ def call_vlm(
                     guided_regex=guided_regex,
                     partial_output_dir=partial_output_dir,
                     partial_metadata=partial_metadata,
+                    record_performance=record_performance,
                 )
             elif cfg.backend == "gemini":
                 resp = _call_gemini(parts, cfg, system)
@@ -181,7 +184,15 @@ def call_vlm(
                 resp = _call_anthropic(parts, cfg, system)
             else:
                 raise VLMError(f"Unknown backend {cfg.backend!r}")
-            resp.latency_s = time.time() - t0
+            resp.latency_s = time.perf_counter() - t0
+            if not resp.performance:
+                resp.performance = {
+                    "schema_version": "CanvasRCARequestPerformanceV1",
+                    "measurement_mode": "non_streaming_e2e_only",
+                    "receiver_e2e_s": resp.latency_s,
+                    "ttft_s": None, "prefill_time_s": None,
+                    "decode_time_s": None, "tpot_s": None,
+                }
             resp.model_tag = cfg.tag
             if not resp.text.strip():
                 # An empty completion is a call failure, not a wrong answer.
@@ -291,6 +302,7 @@ def _call_openai(
     guided_regex: str | None = None,
     partial_output_dir: Path | None = None,
     partial_metadata: Mapping[str, Any] | None = None,
+    record_performance: bool = False,
 ) -> VLMResponse:
     from openai import OpenAI
 
@@ -357,7 +369,7 @@ def _call_openai(
     if extra_body:
         kwargs["extra_body"] = extra_body
 
-    if partial_output_dir is not None:
+    if partial_output_dir is not None or record_performance:
         return _call_openai_streaming(
             client, kwargs, cfg, parts, probe_request_id,
             partial_output_dir, partial_metadata,
@@ -396,19 +408,22 @@ def _call_openai_streaming(
     cfg: VLMConfig,
     parts: list[dict[str, Any]],
     probe_request_id: str,
-    partial_output_dir: Path,
+    partial_output_dir: Path | None,
     metadata: Mapping[str, Any] | None,
 ) -> VLMResponse:
-    """Stream only bounded-smoke calls and persist their partial text.
+    """Stream for timing and optionally persist partial response text.
 
-    The checkpoint is updated at least every 250 ms while tokens arrive.  An
-    external wall-clock supervisor may terminate the runner at any point; the
-    last atomic checkpoint therefore survives even when no SDK response object
-    is ever returned to the caller.
+    When ``partial_output_dir`` is supplied, the checkpoint is updated at
+    least every 250 ms while tokens arrive. An external wall-clock supervisor
+    may terminate the runner at any point; the last atomic checkpoint then
+    survives even when no SDK response object reaches the caller.
     """
 
-    path = partial_output_dir / f"{probe_request_id}.json"
+    from vlmrca.vlm.performance import request_timing_summary
+
+    path = partial_output_dir / f"{probe_request_id}.json" if partial_output_dir else None
     started = time.time()
+    started_perf = time.perf_counter()
     state: dict[str, Any] = {
         "schema_version": "CanvasRCASmokePartialResponseV1",
         "status": "streaming",
@@ -424,13 +439,16 @@ def _call_openai_streaming(
         "usage": {},
         "metadata": dict(metadata or {}),
     }
-    _write_partial(path, state)
+    if path is not None:
+        _write_partial(path, state)
     kwargs = {**kwargs, "stream": True, "stream_options": {"include_usage": True}}
     pieces: list[str] = []
     usage: Any = None
     finish_reason: Any = None
     response_id = probe_request_id
     last_checkpoint = started
+    first_content_perf = last_content_perf = None
+    content_arrivals: list[float] = []
     try:
         for chunk in client.chat.completions.create(**kwargs):
             response_id = str(getattr(chunk, "id", None) or response_id)
@@ -438,13 +456,17 @@ def _call_openai_streaming(
             if choices:
                 delta = getattr(choices[0], "delta", None)
                 content = getattr(delta, "content", None)
-                if isinstance(content, str):
+                if isinstance(content, str) and content:
                     pieces.append(content)
+                    arrival = time.perf_counter() - started_perf
+                    first_content_perf = arrival if first_content_perf is None else first_content_perf
+                    last_content_perf = arrival
+                    content_arrivals.append(arrival)
                 finish_reason = getattr(choices[0], "finish_reason", None) or finish_reason
             usage = getattr(chunk, "usage", None) or usage
             state["chunks_received"] += 1
             now = time.time()
-            if now - last_checkpoint >= 0.25 or finish_reason is not None:
+            if path is not None and (now - last_checkpoint >= 0.25 or finish_reason is not None):
                 state.update(
                     response_request_id=response_id,
                     response_text="".join(pieces),
@@ -463,7 +485,8 @@ def _call_openai_streaming(
             last_update_unix_s=time.time(),
             error=f"{type(error).__name__}: {error}",
         )
-        _write_partial(path, state)
+        if path is not None:
+            _write_partial(path, state)
         raise
 
     usage_dict = usage.model_dump() if hasattr(usage, "model_dump") else {}
@@ -476,10 +499,17 @@ def _call_openai_streaming(
         finish_reason=finish_reason,
         usage=usage_dict,
     )
-    _write_partial(path, state)
+    if path is not None:
+        _write_partial(path, state)
     probe = read_sidecar(response_id) if attention_probe_enabled() else None
     if attention_probe_enabled() and probe is None and os.environ.get("CANVASRCA_ATTENTION_PROBE_REQUIRED") == "1":
         raise VLMError(f"required same-prefill attention sidecar missing for {response_id}")
+    performance = request_timing_summary(
+        request_elapsed_s=time.perf_counter() - started_perf,
+        first_content_s=first_content_perf, last_content_s=last_content_perf,
+        output_tokens=int(usage_dict.get("completion_tokens", 0) or 0),
+        content_arrivals_s=content_arrivals, content_chunks=len(content_arrivals),
+    )
     return VLMResponse(
         text="".join(pieces),
         input_tokens=int(usage_dict.get("prompt_tokens", 0) or 0),
@@ -489,8 +519,9 @@ def _call_openai_streaming(
             "finish_reason": finish_reason,
             "usage": usage_dict,
             "attention_probe": probe,
-            "partial_response_path": str(path),
+            "partial_response_path": str(path) if path is not None else None,
         },
+        performance=performance,
     )
 
 

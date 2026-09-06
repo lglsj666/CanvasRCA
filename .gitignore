@@ -14,6 +14,9 @@ slurm-*.log
 # but never synchronize root-level or RQ-specific results between environments.
 /results/
 /RQs/**/results/
+# Runtime attestations, processing inventories, generated contracts, and other
+# machine-local artifacts are reproducible outputs rather than source files.
+/artifacts/
 # Transient SLURM job-id handoff between submit and the bake-off watcher.
 .bakeoff_jobid
 /dataset
@@ -23,6 +26,20 @@ slurm-*.log
 /tests
 /canvasrca_cache/
 
+# Temporary adapters and audit scripts may live under tmp/, but their generated
+# experiment payloads must never be staged. These rules deliberately target
+# output-directory names rather than ignoring all of tmp/.
+/tmp/**/results/
+/tmp/**/artifacts/
+/tmp/**/prepared/
+/tmp/**/attention/
+/tmp/**/renders/
+/tmp/**/trajectories/
+/tmp/**/conversations/
+/tmp/**/partial_responses/
+/tmp/**/remote_contract/
+/tmp/**/upstream_snapshot/
+
 # Local experiment workspace
 /tmp/rq1_matched_rca_local/
 /tmp/ledger_handoff_rca_remote_completed_20260815/
@@ -30,4 +47,3 @@ slurm-*.log
 
 /eda_cache/
 /logs/
-/artifacts/rq1_1_migration/protected_files.sha256

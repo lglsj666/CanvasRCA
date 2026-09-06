@@ -7,6 +7,7 @@ reached the image.
 
 from __future__ import annotations
 
+import re
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
@@ -90,6 +91,16 @@ def _display_entity(name: Any, display_labels: Optional[Dict[str, str]]) -> str:
     """Resolve an entity's case-local display label without changing semantics."""
     raw = str(name)
     return str((display_labels or {}).get(raw, raw))
+
+
+def _display_free_text(value: Any, display_labels: Optional[Dict[str, str]]) -> str:
+    """Replace entity names embedded inside diagnostic operation text."""
+
+    text = str(value or "")
+    for natural in sorted(display_labels or {}, key=len, reverse=True):
+        if natural:
+            text = re.sub(re.escape(natural), str(display_labels[natural]), text, flags=re.IGNORECASE)
+    return text
 
 
 def _elide(s: str, n: int) -> str:
@@ -219,6 +230,7 @@ def render_metric_panel(
     metrics_df: pd.DataFrame,
     series: ScoredSeries,
     fault_window: Optional[Tuple[float, float]] = None,
+    analysis_window: Optional[Tuple[float, float]] = None,
     normalize: bool = False,
     annotate_extreme: bool = True,
     shade_fault: bool = True,
@@ -239,6 +251,26 @@ def render_metric_panel(
     typo = typography or style.DEFAULT_TYPOGRAPHY
     ts = pd.to_numeric(metrics_df["timestamp"], errors="coerce").astype("float64").to_numpy()
     vals = pd.to_numeric(metrics_df[series.column], errors="coerce").astype("float64").to_numpy()
+    # Selected SIRCL MET-Z statistics, computed before visual binning.
+    met_z: Dict[str, Any] = {
+        "regular_mean": None, "regular_std_dev": None,
+        "current_mean": None, "current_std_dev": None,
+        "deviation_sigma": None, "fluctuating_3sigma": False,
+    }
+    if analysis_window is not None:
+        split, end = map(float, analysis_window)
+        regular = vals[(ts < split) & np.isfinite(ts) & np.isfinite(vals)]
+        current = vals[(ts >= split) & (ts <= end) & np.isfinite(ts) & np.isfinite(vals)]
+        if len(regular) >= 2 and len(current) >= 1:
+            mean0, std0 = float(np.mean(regular)), float(np.std(regular))
+            mean1, std1 = float(np.mean(current)), float(np.std(current))
+            deviation = abs(mean1 - mean0) / std0 if std0 > 0 else None
+            met_z = {
+                "regular_mean": mean0, "regular_std_dev": std0,
+                "current_mean": mean1, "current_std_dev": std1,
+                "deviation_sigma": deviation,
+                "fluctuating_3sigma": bool(deviation is not None and deviation > 3.0),
+            }
 
     # RQ0 serializes the same fixed-width bins represented by image pixels.
     # Median aggregation is deterministic, robust to duplicate timestamps, and
@@ -369,7 +401,14 @@ def render_metric_panel(
         zpart = f"peak {sign}>={Z_CAP:.0f}z (flat baseline)"
     else:
         zpart = f"peak {sign}{abs(series.signed_z):.1f}z"
-    sub = f"{zpart}   {_fmt(series.baseline_mean)} -> {_fmt(series.peak_value)}"
+    if met_z["regular_mean"] is not None:
+        sub = (
+            f"{zpart} peak={_fmt(series.peak_value)}\n"
+            f"MET-Z μ {_fmt(met_z['regular_mean'])}→{_fmt(met_z['current_mean'])}"
+            f" | σ {_fmt(met_z['regular_std_dev'])}→{_fmt(met_z['current_std_dev'])}"
+        )
+    else:
+        sub = f"{zpart}   {_fmt(series.baseline_mean)} -> {_fmt(series.peak_value)}   MET-Z unavailable"
     # Below the axes, not inside them: at 7pt an in-axes annotation sits on top
     # of the data it is describing.
     ax.text(
@@ -424,6 +463,10 @@ def render_metric_panel(
             "signed_z": zpart,
             "baseline": _fmt(series.baseline_mean),
             "peak": _fmt(series.peak_value),
+        },
+        "sircl_met_z": {
+            key: (_fmt(value) if isinstance(value, (int, float)) and not isinstance(value, bool) else value)
+            for key, value in met_z.items()
         },
         "normalized": bool(normalize),
         "n_samples": n_valid,
@@ -1081,6 +1124,74 @@ def _split_by_window(
     return df.loc[~inside], df.loc[inside]
 
 
+def infer_sircl_analysis_window(
+    traces_df: pd.DataFrame,
+    full_range: Optional[Tuple[float, float]],
+    fallback: Optional[Tuple[float, float]],
+    window_seconds: float = 60.0,
+) -> Tuple[Optional[Tuple[float, float]], str]:
+    """Infer the label-blind split used by the selected SIRCL analyzers.
+
+    P90 entry-span latency is measured in overlapping public-time windows; the
+    first value above the leading-window mean plus three standard deviations is
+    the onset.  If traces cannot support that calculation, reuse the already
+    visible telemetry-derived fault window, then the observation midpoint.
+    Root/injection labels are structurally unavailable here.
+    """
+
+    if full_range is None:
+        return fallback, "telemetry_fault_window" if fallback else "missing"
+    lo, hi = map(float, full_range)
+    if not np.isfinite(lo) or not np.isfinite(hi) or hi <= lo:
+        return fallback, "telemetry_fault_window" if fallback else "missing"
+
+    traces = traces_df
+    if traces is not None and not traces.empty and "duration_ms" in traces:
+        ts = resolve_time_seconds(traces, full_range)
+        duration = pd.to_numeric(traces["duration_ms"], errors="coerce")
+        if ts is not None:
+            if "parent_span_id" in traces:
+                parent = traces["parent_span_id"]
+                root = parent.isna() | parent.astype(str).str.strip().str.casefold().isin(
+                    {"", "none", "nan", "null", "0"}
+                )
+                entry_ts, entry_duration = ts.loc[root], duration.loc[root]
+            else:
+                entry_ts, entry_duration = ts, duration
+            if len(entry_ts) < 10 and "service_name" in traces:
+                front = traces["service_name"].astype(str).str.contains("front", case=False, na=False)
+                if int(front.sum()) >= 10:
+                    entry_ts, entry_duration = ts.loc[front], duration.loc[front]
+            valid = np.isfinite(entry_ts) & np.isfinite(entry_duration)
+            t = entry_ts.loc[valid].to_numpy(dtype="float64")
+            latency = entry_duration.loc[valid].to_numpy(dtype="float64")
+            if len(t) >= 10:
+                order = np.argsort(t)
+                t, latency = t[order], latency[order]
+                width = min(float(window_seconds), max((hi - lo) / 4.0, 1.0))
+                starts = np.arange(lo, max(lo, hi - width) + 1e-9, max(width / 2.0, 1.0))
+                values, centres = [], []
+                for start in starts:
+                    keep = (t >= start) & (t < start + width)
+                    if int(keep.sum()) >= 3:
+                        values.append(float(np.percentile(latency[keep], 90)))
+                        centres.append(start + width / 2.0)
+                if len(values) >= 4:
+                    baseline_n = max(2, int(len(values) * 0.3))
+                    baseline = np.asarray(values[:baseline_n], dtype="float64")
+                    mean, std = float(np.mean(baseline)), float(np.std(baseline))
+                    if std == 0:
+                        std = mean * 0.1 if mean > 0 else 1.0
+                    threshold = mean + 3.0 * std
+                    for value, centre in zip(values[baseline_n:], centres[baseline_n:]):
+                        if value > threshold:
+                            return (float(centre), hi), "trace_entry_p90_3sigma"
+
+    if fallback is not None:
+        return (float(fallback[0]), hi), "telemetry_fault_window"
+    return ((lo + hi) / 2.0, hi), "observation_midpoint"
+
+
 def _rate_table(
     pre: pd.DataFrame, during: pd.DataFrame, key: str, top_n: int
 ) -> List[Dict[str, Any]]:
@@ -1231,65 +1342,82 @@ def render_trace_panel(
     display_labels: Optional[Dict[str, str]] = None,
     typography: Optional[style.Typography] = None,
 ) -> Dict[str, Any]:
-    """
-    Per-service span latency before vs during the fault window.
-
-    Absolute p95 mostly reflects which service is intrinsically slow; the delta
-    reflects what the incident did, which is the question being asked.
-    """
+    """Selected SIRCL TRC-L exclusive-latency/count analyzer."""
     typo = typography or style.DEFAULT_TYPOGRAPHY
     ax.set_axis_off()
 
     entries: List[Dict[str, Any]] = []
     n_trace_services = 0
-    if traces_df is not None and not traces_df.empty and "service_name" in traces_df.columns:
+    required = {"service_name", "span_id", "parent_span_id", "duration_ms"}
+    if traces_df is not None and not traces_df.empty and required <= set(traces_df.columns):
         n_trace_services = int(traces_df["service_name"].nunique())
         pre, during = _split_by_window(traces_df, fault_window, full_range)
 
-        def p95(sub):
-            d = pd.to_numeric(sub.get("duration_ms"), errors="coerce")
-            return float(np.nanpercentile(d, 95)) if d.notna().any() else float("nan")
-
-        def err_pct(sub):
-            s = sub.get("status_code")
-            if s is None or not len(sub):
-                return 0.0
-            v = s.astype(str).str.upper()
-            return float((v.str.contains("ERROR") | v.isin(["2", "2.0", "500", "503"])).mean() * 100)
-
-        pre_g = {k: v for k, v in pre.groupby("service_name")} if pre is not None and not pre.empty else {}
-        dur_g = {k: v for k, v in during.groupby("service_name")} if during is not None and not during.empty else {}
-        for svc in sorted(set(pre_g) | set(dur_g)):
-            a, b = pre_g.get(svc), dur_g.get(svc)
-            pa = p95(a) if a is not None else float("nan")
-            pb = p95(b) if b is not None else float("nan")
-            delta = (pb - pa) / pa * 100 if np.isfinite(pa) and np.isfinite(pb) and pa > 0 else float("nan")
-            entries.append(
-                {
-                    "service": str(svc),
-                    "p95_pre_ms": pa,
-                    "p95_during_ms": pb,
-                    "delta_pct": round(delta, 1) if np.isfinite(delta) else None,
-                    "error_pct": round(err_pct(b) if b is not None else 0.0, 2),
-                    "spans": int(len(a) if a is not None else 0) + int(len(b) if b is not None else 0),
-                }
+        def aggregate(frame: pd.DataFrame) -> pd.DataFrame:
+            keys = ["service_name", "operation_name"]
+            if frame is None or frame.empty:
+                return pd.DataFrame(columns=[*keys, "count", "exl_p95", "inl_p95"])
+            work = frame.copy()
+            if "operation_name" not in work:
+                work["operation_name"] = "default"
+            work["operation_name"] = work["operation_name"].fillna("default").astype(str)
+            inclusive = pd.to_numeric(work["duration_ms"], errors="coerce").fillna(0.0)
+            parent_sum = (
+                pd.DataFrame({"parent": work["parent_span_id"].astype(str), "duration": inclusive})
+                .groupby("parent")["duration"].sum()
             )
-        entries.sort(
-            key=lambda e: abs(e["delta_pct"]) if e["delta_pct"] is not None else 0.0,
-            reverse=True,
-        )
-        entries = entries[:top_n]
+            child = work["span_id"].astype(str).map(parent_sum).fillna(0.0)
+            work["_inl"], work["_exl"] = inclusive, (inclusive - child).clip(lower=0.0)
+            return work.groupby(keys).agg(
+                count=("_exl", "size"),
+                exl_p95=("_exl", lambda value: float(np.percentile(value, 95))),
+                inl_p95=("_inl", lambda value: float(np.percentile(value, 95))),
+            ).reset_index()
+
+        base, fault = aggregate(pre), aggregate(during)
+        keys = ["service_name", "operation_name"]
+        merged = fault.merge(base, on=keys, how="left", suffixes=("_fault", "_base")).fillna(0.0)
+        if not merged.empty:
+            count_base = merged["count_base"].astype(float)
+            count_fault = merged["count_fault"].astype(float)
+            exl_base = merged["exl_p95_base"].astype(float)
+            exl_fault = merged["exl_p95_fault"].astype(float)
+            merged["count_lfc"] = np.log2((count_fault + 1.0) / (count_base + 1.0))
+            merged["latency_lfc"] = np.log2((exl_fault + 1.0) / (exl_base + 1.0))
+            usable = (count_base > 0) & (exl_base > 0)
+            merged["rank_score"] = np.where(
+                usable,
+                merged["count_lfc"].clip(lower=0.0) + merged["latency_lfc"].clip(lower=0.0),
+                0.0,
+            )
+            merged = merged[merged["rank_score"] > 0].sort_values(
+                ["rank_score", "service_name", "operation_name"], ascending=[False, True, True]
+            ).head(top_n)
+            for _, row in merged.iterrows():
+                entries.append({
+                    "service": str(row["service_name"]),
+                    "operation": str(row["operation_name"]),
+                    "count_base": int(row["count_base"]),
+                    "count_fault": int(row["count_fault"]),
+                    "exl_p95_base_ms": round(float(row["exl_p95_base"]), 2),
+                    "exl_p95_fault_ms": round(float(row["exl_p95_fault"]), 2),
+                    "inl_p95_fault_ms": round(float(row["inl_p95_fault"]), 2),
+                    "count_lfc": round(float(row["count_lfc"]), 2),
+                    "latency_lfc": round(float(row["latency_lfc"]), 2),
+                    "rank_score": round(float(row["rank_score"]), 2),
+                })
 
     displayed_names = []
     for entry in entries:
         entry["service"] = _display_entity(entry["service"], display_labels)
+        entry["operation"] = _display_free_text(entry["operation"], display_labels)
         displayed_names.append(entry["service"])
     rendered_names = _elide_distinct(displayed_names, row_chars)
     for entry, rendered in zip(entries, rendered_names):
         entry["rendered_service"] = rendered
 
     ax.set_title(
-        f"Trace signals — p95 latency pre/during ms{_shown(entries, n_trace_services)}",
+        f"R — TRC-L exclusive latency + count fold change{_shown(entries, n_trace_services)}",
         fontsize=typo.panel_title,
         color=style.TEXT,
         loc="left",
@@ -1297,25 +1425,24 @@ def render_trace_panel(
     )
 
     if entries:
-        widths = (7, 7, 6, 5) if compact_columns else (9, 9, 8, 6)
-        lines = [
-            f"{'service':<{row_chars}}{'pre':>{widths[0]}}"
-            f"{'during':>{widths[1]}}{'chg%':>{widths[2]}}{'err%':>{widths[3]}}"
-        ]
+        # Two physical lines per logical row keep all registered TRC-L fields
+        # visible inside the narrow R column.  The previous single 64-character
+        # row clipped dC/dX/score beyond the right canvas edge.
+        op_chars = 15
+        lines = [f"{'svc':<5}{'operation':<{op_chars}} {'count b>f':>9} {'ExL b>f':>12}"]
         for e in entries:
-            if e["delta_pct"] is None:
-                d = "n/a"
-            else:
-                rounded_delta = round(float(e["delta_pct"]))
-                d = "0" if rounded_delta == 0 else str(rounded_delta)
+            operation = _elide(e["operation"], op_chars)
             lines.append(
-                f"{e['rendered_service']:<{row_chars}}{_fmt(e['p95_pre_ms']):>{widths[0]}}"
-                f"{_fmt(e['p95_during_ms']):>{widths[1]}}{d:>{widths[2]}}"
-                f"{e['error_pct']:>{widths[3]}.1f}"
+                f"{_elide(e['rendered_service'], 5):<5}{operation:<{op_chars}} "
+                f"{str(e['count_base']) + '>' + str(e['count_fault']):>9} "
+                f"{_fmt(e['exl_p95_base_ms']) + '>' + _fmt(e['exl_p95_fault_ms']):>12}"
+            )
+            lines.append(
+                f"     dC={e['count_lfc']:.1f} dX={e['latency_lfc']:.1f} score={e['rank_score']:.1f}"
             )
         body = "\n".join(lines)
     else:
-        body = "no trace spans available"
+        body = "no TRC-L row with a usable pre-window baseline"
 
     ax.text(
         0.01,
@@ -1327,7 +1454,7 @@ def render_trace_panel(
         va="top",
         ha="left",
         family="DejaVu Sans Mono",
-        linespacing=1.4,
+        linespacing=1.12,
     )
     return {
         "panel_id": panel_id,

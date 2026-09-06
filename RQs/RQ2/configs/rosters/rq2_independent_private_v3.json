@@ -1,0 +1,784 @@
+{
+  "counts": {
+    "aegislab": 50,
+    "aiops2022": 50,
+    "aiops2025": 50
+  },
+  "datasets": {
+    "aegislab": [
+      {
+        "case_id": "aegislab_ts0-ts-order-service-delay-jwmltg",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-FFA0A74A0439"
+      },
+      {
+        "case_id": "aegislab_ts0-ts-order-service-exception-hdgpgm",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-D9ABFB644D29"
+      },
+      {
+        "case_id": "aegislab_ts0-ts-preserve-service-request-replace-method-2hbvml",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-385F3FDBBD1F"
+      },
+      {
+        "case_id": "aegislab_ts0-ts-preserve-service-request-replace-method-48zkx2",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-39B0C8694807"
+      },
+      {
+        "case_id": "aegislab_ts0-ts-preserve-service-response-replace-code-8h9brj",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-B5C0BC6A223E"
+      },
+      {
+        "case_id": "aegislab_ts0-ts-seat-service-response-delay-s2jg62",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-B4C69A1E0459"
+      },
+      {
+        "case_id": "aegislab_ts0-ts-ui-dashboard-response-delay-nqtssr",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-FB637C1175C2"
+      },
+      {
+        "case_id": "aegislab_ts1-ts-auth-service-request-replace-method-mqrzv4",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-C1795BBAEEF2"
+      },
+      {
+        "case_id": "aegislab_ts1-ts-security-service-response-replace-code-q2nwzg",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-3842F45DAA9C"
+      },
+      {
+        "case_id": "aegislab_ts1-ts-ui-dashboard-request-abort-sksx9s",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-CEA641BA3229"
+      },
+      {
+        "case_id": "aegislab_ts1-ts-ui-dashboard-request-replace-method-ztrjsx",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-5DDDA62386B6"
+      },
+      {
+        "case_id": "aegislab_ts1-ts-ui-dashboard-response-replace-code-b2g9ss",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-1A47F4D45593"
+      },
+      {
+        "case_id": "aegislab_ts2-ts-assurance-service-stress-hb5xt4",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-B95CA78A9FA8"
+      },
+      {
+        "case_id": "aegislab_ts2-ts-train-service-loss-j2w694",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-1CFF421E24B8"
+      },
+      {
+        "case_id": "aegislab_ts2-ts-travel-service-stress-fxpb9q",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-39682657768A"
+      },
+      {
+        "case_id": "aegislab_ts2-ts-verification-code-service-container-kill-2lmcml",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-8D7BC30E2DAB"
+      },
+      {
+        "case_id": "aegislab_ts3-ts-basic-service-response-replace-code-qklc4n",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-09BEA9D63577"
+      },
+      {
+        "case_id": "aegislab_ts3-ts-config-service-container-kill-52d5j7",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-A5BE8AEFA87F"
+      },
+      {
+        "case_id": "aegislab_ts3-ts-food-service-response-replace-body-skvngv",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-4C4024E9EF1F"
+      },
+      {
+        "case_id": "aegislab_ts3-ts-order-service-stress-7cjz72",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-D8E048E38FF6"
+      },
+      {
+        "case_id": "aegislab_ts3-ts-station-service-stress-4wtfqh",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-DB6E9CFCBBEA"
+      },
+      {
+        "case_id": "aegislab_ts3-ts-travel2-service-request-replace-method-6sv6lt",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-1EF3346D26B2"
+      },
+      {
+        "case_id": "aegislab_ts3-ts-travel2-service-request-replace-method-nw4p4m",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-6CB07956172F"
+      },
+      {
+        "case_id": "aegislab_ts4-ts-auth-service-corrupt-pldpdm",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-018AC5D486B5"
+      },
+      {
+        "case_id": "aegislab_ts4-ts-basic-service-request-delay-rxfqg2",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-776EE000D01C"
+      },
+      {
+        "case_id": "aegislab_ts4-ts-basic-service-request-replace-method-hpv2qg",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-6C8EA77140FF"
+      },
+      {
+        "case_id": "aegislab_ts4-ts-basic-service-response-abort-94gfnl",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-5C7D6186CEC1"
+      },
+      {
+        "case_id": "aegislab_ts4-ts-config-service-stress-wfgt8h",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-1F5529D2CA5E"
+      },
+      {
+        "case_id": "aegislab_ts4-ts-consign-service-bandwidth-shcm2h",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-6A048DD0C35E"
+      },
+      {
+        "case_id": "aegislab_ts4-ts-route-plan-service-response-delay-c4j9pd",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-34562D2C5CC4"
+      },
+      {
+        "case_id": "aegislab_ts4-ts-seat-service-stress-sh4z62",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-C3512BA15554"
+      },
+      {
+        "case_id": "aegislab_ts4-ts-security-service-partition-bswd45",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-C9BD40E14E88"
+      },
+      {
+        "case_id": "aegislab_ts4-ts-travel-plan-service-exception-rk7zkm",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-491E85FD6009"
+      },
+      {
+        "case_id": "aegislab_ts5-ts-basic-service-request-delay-drlghw",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-332110D70FB3"
+      },
+      {
+        "case_id": "aegislab_ts5-ts-basic-service-request-replace-method-xpvjqz",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-FBCBAA98002C"
+      },
+      {
+        "case_id": "aegislab_ts5-ts-order-other-service-loss-c7wjxn",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-6BD7198BE675"
+      },
+      {
+        "case_id": "aegislab_ts5-ts-order-service-corrupt-475z9v",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-7FCA48559A2E"
+      },
+      {
+        "case_id": "aegislab_ts5-ts-seat-service-loss-5kglkt",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-1FF1DA038ECD"
+      },
+      {
+        "case_id": "aegislab_ts5-ts-seat-service-request-replace-path-qz6dc5",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-A1C6591B0184"
+      },
+      {
+        "case_id": "aegislab_ts5-ts-travel-plan-service-container-kill-4s877v",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-DABDFB89960F"
+      },
+      {
+        "case_id": "aegislab_ts5-ts-travel-service-partition-9pdvpn",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-76E86205A1E4"
+      },
+      {
+        "case_id": "aegislab_ts5-ts-ui-dashboard-partition-hnsw54",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-A195F9A69AFC"
+      },
+      {
+        "case_id": "aegislab_ts5-ts-ui-dashboard-request-replace-method-ppzff4",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-85C93CE3CB89"
+      },
+      {
+        "case_id": "aegislab_ts6-ts-food-service-request-replace-method-n59f6p",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-3948C7715B49"
+      },
+      {
+        "case_id": "aegislab_ts6-ts-travel2-service-request-delay-bnhhtc",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-13F29FFC8DE6"
+      },
+      {
+        "case_id": "aegislab_ts7-ts-assurance-service-stress-lth6xq",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-2901DC0C5EA7"
+      },
+      {
+        "case_id": "aegislab_ts7-ts-price-service-pod-failure-vg4fh6",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-D28AC6CAEFE4"
+      },
+      {
+        "case_id": "aegislab_ts8-ts-station-food-service-container-kill-5nk8jz",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-E196793B7152"
+      },
+      {
+        "case_id": "aegislab_ts8-ts-ui-dashboard-corrupt-5wlgpm",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-331437929E47"
+      },
+      {
+        "case_id": "aegislab_ts9-ts-basic-service-response-delay-hfvbg6",
+        "dataset": "aegislab",
+        "opaque_incident_id": "INC-0BA573DA51CC"
+      }
+    ],
+    "aiops2022": [
+      {
+        "case_id": "aiops2022_2022-03-20-cloudbed1_003",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-6EF79652EA22"
+      },
+      {
+        "case_id": "aiops2022_2022-03-20-cloudbed1_008",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-8AF1B166DB48"
+      },
+      {
+        "case_id": "aiops2022_2022-03-20-cloudbed1_017",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-9AB0165E6803"
+      },
+      {
+        "case_id": "aiops2022_2022-03-20-cloudbed1_022",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-A03DA161313B"
+      },
+      {
+        "case_id": "aiops2022_2022-03-20-cloudbed1_023",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-1E6DCFC0A453"
+      },
+      {
+        "case_id": "aiops2022_2022-03-20-cloudbed1_036",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-F5B2E7B7AD42"
+      },
+      {
+        "case_id": "aiops2022_2022-03-20-cloudbed2_009",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-028FABE30ADE"
+      },
+      {
+        "case_id": "aiops2022_2022-03-20-cloudbed2_010",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-8474ED217050"
+      },
+      {
+        "case_id": "aiops2022_2022-03-20-cloudbed2_012",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-7510715CBA6F"
+      },
+      {
+        "case_id": "aiops2022_2022-03-20-cloudbed2_015",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-ABBF0133EB88"
+      },
+      {
+        "case_id": "aiops2022_2022-03-20-cloudbed3_006",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-C83F01A1BA7F"
+      },
+      {
+        "case_id": "aiops2022_2022-03-20-cloudbed3_010",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-2FF9FCA71E6D"
+      },
+      {
+        "case_id": "aiops2022_2022-03-20-cloudbed3_015",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-F8B9BD5ADA9C"
+      },
+      {
+        "case_id": "aiops2022_2022-03-20-cloudbed3_021",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-E518E9800304"
+      },
+      {
+        "case_id": "aiops2022_2022-03-20-cloudbed3_022",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-DD972245679A"
+      },
+      {
+        "case_id": "aiops2022_2022-03-20-cloudbed3_023",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-1595063C5B11"
+      },
+      {
+        "case_id": "aiops2022_2022-03-20-cloudbed3_025",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-BD30D389E22B"
+      },
+      {
+        "case_id": "aiops2022_2022-03-20-cloudbed3_028",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-0986D6C54EC6"
+      },
+      {
+        "case_id": "aiops2022_2022-03-20-cloudbed3_029",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-358CBE8D4527"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed1_002",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-D639854EA9F7"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed1_003",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-65CE2F2F3440"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed1_006",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-BD1281C405F3"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed1_007",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-7C2B878AC3BB"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed1_025",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-34753C03D9F6"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed1_030",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-6544C7BFF82D"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed1_033",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-FC843F9AD625"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed1_035",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-3292326B0AA6"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed2_014",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-5A5C12F46667"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed2_021",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-B646C4677B96"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed2_024",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-32757906019C"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed2_027",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-4D72A823F397"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed2_028",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-949F57AFA656"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed2_029",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-3D79B00A900E"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed2_040",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-873FE163DCDF"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed2_043",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-AF990A16FDD6"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed3_000",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-2CABCD159021"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed3_003",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-38A22FDFB326"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed3_015",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-9293D99C285C"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed3_021",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-A19BB8DA9651"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed3_023",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-83BCD48B2886"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed3_029",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-93C032432E23"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed3_032",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-3BFC24F5D6E5"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed3_040",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-D0BE36C455CD"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed3_042",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-335A9F3A663E"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed3_045",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-540349CB2170"
+      },
+      {
+        "case_id": "aiops2022_2022-03-21-cloudbed3_049",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-56A429CF3650"
+      },
+      {
+        "case_id": "aiops2022_2022-03-24-cloudbed3_013",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-CD6BD563E846"
+      },
+      {
+        "case_id": "aiops2022_2022-03-24-cloudbed3_018",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-9ACC29B9B330"
+      },
+      {
+        "case_id": "aiops2022_2022-03-24-cloudbed3_033",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-CCCFF766DA4B"
+      },
+      {
+        "case_id": "aiops2022_2022-03-24-cloudbed3_041",
+        "dataset": "aiops2022",
+        "opaque_incident_id": "INC-7D95F2013B97"
+      }
+    ],
+    "aiops2025": [
+      {
+        "case_id": "aiops2025_0419ba04-373",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-B8CEA35848D0"
+      },
+      {
+        "case_id": "aiops2025_099ce7e2-274",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-6DCAE95A54B2"
+      },
+      {
+        "case_id": "aiops2025_0efb9550-160",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-9DDF62CAF256"
+      },
+      {
+        "case_id": "aiops2025_13ebf32d-216",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-8991CE65FDA1"
+      },
+      {
+        "case_id": "aiops2025_146da42a-586",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-92A00B34EECF"
+      },
+      {
+        "case_id": "aiops2025_17ed37a5-494",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-26579BE78F64"
+      },
+      {
+        "case_id": "aiops2025_1ae8a5c3-555",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-881461551C98"
+      },
+      {
+        "case_id": "aiops2025_21950e63-387",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-32D939769758"
+      },
+      {
+        "case_id": "aiops2025_21aa302f-132",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-28E6F5E88478"
+      },
+      {
+        "case_id": "aiops2025_251c4f53-179",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-253A865B0CF8"
+      },
+      {
+        "case_id": "aiops2025_2ff9d8a6-501",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-C1BAEE5AC440"
+      },
+      {
+        "case_id": "aiops2025_3260fa48-316",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-1FDAD91BB9BE"
+      },
+      {
+        "case_id": "aiops2025_33492fcd-575",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-316B59616EA8"
+      },
+      {
+        "case_id": "aiops2025_3da57a36-286",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-E6D8B968F39E"
+      },
+      {
+        "case_id": "aiops2025_3f4b31ee-402",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-D9245047C658"
+      },
+      {
+        "case_id": "aiops2025_4229b9c5-198",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-F328F417F5C9"
+      },
+      {
+        "case_id": "aiops2025_4ab999b7-96",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-1AC00B482121"
+      },
+      {
+        "case_id": "aiops2025_55791019-109",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-AC608AECC5FD"
+      },
+      {
+        "case_id": "aiops2025_5934fe6f-561",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-3F44D7D4B68D"
+      },
+      {
+        "case_id": "aiops2025_5cb1626b-401",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-50AFA840E6F8"
+      },
+      {
+        "case_id": "aiops2025_62e9d294-564",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-DE4C5840855B"
+      },
+      {
+        "case_id": "aiops2025_6add78b2-480",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-77C683F9B6C0"
+      },
+      {
+        "case_id": "aiops2025_6e8c4acb-219",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-9A2362AEABC1"
+      },
+      {
+        "case_id": "aiops2025_725d8034-130",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-7C21112F33BD"
+      },
+      {
+        "case_id": "aiops2025_7984364a-195",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-3D65ABCF1DD8"
+      },
+      {
+        "case_id": "aiops2025_7bd681bb-358",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-BE6A1C89D45F"
+      },
+      {
+        "case_id": "aiops2025_7bdc4b83-164",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-BD033D92F337"
+      },
+      {
+        "case_id": "aiops2025_7d23b182-577",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-7E5014ED408C"
+      },
+      {
+        "case_id": "aiops2025_7e03b07d-188",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-3316B6DBC59B"
+      },
+      {
+        "case_id": "aiops2025_80cdc066-374",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-E324D405FD70"
+      },
+      {
+        "case_id": "aiops2025_87b43d57-223",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-EF768AE9D329"
+      },
+      {
+        "case_id": "aiops2025_8e7a3965-336",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-1B936A4C6354"
+      },
+      {
+        "case_id": "aiops2025_958ecb16-253",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-DCED03AC49C8"
+      },
+      {
+        "case_id": "aiops2025_96fed9c7-427",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-E74124445490"
+      },
+      {
+        "case_id": "aiops2025_a363d826-117",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-8E0FB1B7B3FE"
+      },
+      {
+        "case_id": "aiops2025_ac8cf6cb-553",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-D87134FF9ACF"
+      },
+      {
+        "case_id": "aiops2025_b7177fa5-409",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-8E1DFDBC7F96"
+      },
+      {
+        "case_id": "aiops2025_bc2f1dfa-114",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-BD14EEDA08FA"
+      },
+      {
+        "case_id": "aiops2025_c1e7d172-128",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-3B6FE224D74B"
+      },
+      {
+        "case_id": "aiops2025_c6e9faa0-270",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-493A8D7F2EC5"
+      },
+      {
+        "case_id": "aiops2025_c9832b3e-191",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-2B5B37FB4D11"
+      },
+      {
+        "case_id": "aiops2025_cc62b887-583",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-EDDC755A08F5"
+      },
+      {
+        "case_id": "aiops2025_d32bcd36-104",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-8201EB3924F3"
+      },
+      {
+        "case_id": "aiops2025_d36dd82b-255",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-01874CA0F78F"
+      },
+      {
+        "case_id": "aiops2025_d8a41a9d-264",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-17615889CDA7"
+      },
+      {
+        "case_id": "aiops2025_df11e2f0-229",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-B9652C6DC060"
+      },
+      {
+        "case_id": "aiops2025_e1562aa2-335",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-D573DF313B5A"
+      },
+      {
+        "case_id": "aiops2025_e2750b43-116",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-1E7AE92CAA11"
+      },
+      {
+        "case_id": "aiops2025_eb0c4ea8-182",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-F30D0DDD63EF"
+      },
+      {
+        "case_id": "aiops2025_eba76009-152",
+        "dataset": "aiops2025",
+        "opaque_incident_id": "INC-AC9FBC0EC13D"
+      }
+    ]
+  },
+  "roster_name": "independent",
+  "roster_sha256": "8caef5ea4f94232e8baafb9bf4713dac1c8414b808d9648083335e9011d6a0e8",
+  "schema_version": "CanvasRCARQ2RQ1ReuseRosterV1",
+  "seed": 42,
+  "source": {
+    "old_rq2_artifacts_used": false,
+    "rq1_cases_reused": true,
+    "rq1_headline_case_count": 300,
+    "rq1_reuse_path": "RQs/RQ1_1/configs/rosters/rq1_frozen_eval_480_private_v3.json",
+    "rq1_reuse_sha256": "83d9e665f5d28cf4d56a60f22fb57b2aeec4d8bd7e4e2e6a429bee2728fae46b",
+    "segmentation_path": "configs/dataset_segmentation.yaml",
+    "segmentation_sha256": "52ff16908335420bbaf98ff12b53996913c9ea2e18f90aa381ebb598dc99744b",
+    "selection_uses_fault_type": false,
+    "selection_uses_labels": false,
+    "selection_uses_model_results": false
+  },
+  "status": "frozen_before_model_execution",
+  "total": 150,
+  "visibility": "evaluator_private"
+}

@@ -1,9 +1,9 @@
 """Shared, versioned CanvasRCA experiment contracts.
 
-The three functional modules in this package are the only global entry points
-for inference configuration, dataset segmentation, and RCA scoring.  RQs may
-subclass the public classes or pass a recorded adapter mapping; they must not
-fork silent copies of the global contracts.
+The four functional modules in this package are the only global entry points
+for raw-case processing, inference configuration, dataset segmentation, and
+RCA scoring. RQs may subclass public classes or pass a recorded adapter
+mapping; they must not fork silent copies of the global contracts.
 """
 
 from __future__ import annotations

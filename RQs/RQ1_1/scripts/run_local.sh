@@ -20,14 +20,14 @@ if cfg.get("execution_enabled") is not True:
 PY
   if [[ ! -f "RQs/RQ1_1/results/$PREPARED_ID/prepared/index.json" ]]; then
     RQs/RQ1_1/scripts/prepare_local.sh "$PREPARED_ID" \
-      RQs/RQ1_1/configs/rosters/rq1_frozen_eval_469_private_v1.json 1
+      RQs/RQ1_1/configs/rosters/rq1_frozen_eval_480_private_v3.json 1
   fi
-  for experiment in direct_rca direct_qa multi_stage_rca; do
+  for experiment in direct_rca direct_qa; do
     for model in qwen3.8-27b gemma-4-26b-a4b; do
       "$0" formal-phase "$experiment" "$model" "$RUN_ID" "$PREPARED_ID"
     done
   done
-  for experiment in direct_rca direct_qa multi_stage_rca; do
+  for experiment in direct_rca direct_qa; do
     "$CANVASRCA_PYTHON" -m RQs.RQ1_1.src.main analyse "$RUN_ID" "$experiment"
   done
   "$CANVASRCA_PYTHON" -m RQs.RQ1_1.src.main analyse-suite "$RUN_ID"
@@ -40,6 +40,9 @@ EXPERIMENT="${2:?}"
 MODEL="${3:?}"
 RUN_ID="${4:?}"
 PREPARED_ID="${5:-${RUN_ID}_prepared}"
+# The client and server must share the sidecar identity and directory.
+# shellcheck disable=SC1091
+source scripts/vllm_vlm/enable_attention_probe.sh "$MODEL"
 
 [[ "$MODE" == "formal" || "$MODE" == "formal-phase" || "$MODE" == "smoke-phase" ]] || { echo "MODE must be formal, formal-phase, formal-suite, or smoke-phase" >&2; exit 2; }
 if [[ "$MODE" == "smoke-phase" && "${RQ1_1_LOGICAL_SMOKE_INTERNAL:-0}" != 1 ]]; then

@@ -12,5 +12,14 @@
     "license_file": "LICENSE",
     "repository": "https://github.com/ysymyth/ReAct",
     "role": "method and prompt reference only; not a runtime dependency"
+  },
+  "SIRCL_selected_reference": {
+    "commit": null,
+    "license": "MIT",
+    "license_file": "LICENSE",
+    "repository": "user-supplied sibling checkout ../SIRCL-for-RCL (snapshot vendored below)",
+    "selected_design": "MET-Z + TRC-L + LOG-R; M->R->L; U-BASE; VERIFY",
+    "source_tree_sha256": "720d90baa3e5e718ec6332cafc6ac6301af248799ebc0c0dac4e0380c93ae1bb",
+    "role": "byte-identical selected prompt/analyzer reference; active adaptation replaces label-time splits and preserves CanvasRCA JSON/anonymization/equality rules"
   }
 }

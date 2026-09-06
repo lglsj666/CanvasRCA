@@ -29,7 +29,7 @@ fi
 
 if [[ ! -f "RQs/RQ1_1/results/$PREPARED/prepared/index.json" ]]; then
   "$CANVASRCA_PYTHON" -m RQs.RQ1_1.src.main prepare "$PREPARED" \
-    RQs/RQ1_1/configs/rosters/rq1_1_smoke_private_v1.json
+    RQs/RQ1_1/configs/rosters/rq1_1_smoke_private_v3.json
 fi
 for model in qwen3.8-27b gemma-4-26b-a4b; do
   RQ1_1_LOGICAL_SMOKE_INTERNAL=1 RQs/RQ1_1/scripts/run_local.sh \

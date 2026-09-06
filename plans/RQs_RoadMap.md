@@ -572,13 +572,42 @@ Scorer 必须在以下未见分布上测试：
 
 先证明视觉—文本和拓扑组织有价值。
 
+RQ1.1 的 successor 在完整 M/R/L/G 视觉析因之外加入 equal-fact compact
+typed-text control，用来区分自然语言冗余压缩与真正的空间视觉组织；同时记录
+token、client-observed request timing 与硬件运行指标，但跨硬件结论仍以 token
+为可移植成本尺度。
+
 ---
 
 ## RQ2 — Dashboard design effects
 
-> **RQ2. How do dashboard content, visual encoding, spatial arrangement, and their interactions affect RCA accuracy, evidence grounding, robustness, and cost?**
+> **RQ2. How do evidence selection—including deterministic RCA tools—dashboard content, visual encoding, spatial arrangement, resolution, and their interactions affect one-stage RCA accuracy, evidence grounding, attention allocation, robustness, and cost?**
 
 证明 dashboard 的组件和布局确实影响 RCA。
+
+RQ2 is a clean lineage that reuses all 300 RQ1.1 headline incidents after V3 regeneration for paired
+empirical analysis. The previous RQ2 implementation and roster are superseded;
+the reused incidents are repartitioned into development, independent, and
+downstream-lock roles without consulting labels or model results. Results are
+therefore repeated-exposed design evidence, not fresh heldout confirmation.
+
+RQ2 does not run QA or perception experiments. Their RQ2-local implementation
+is preserved but marked abandoned after RQ1.1 showed that both general QA and
+the stricter root-connected call-graph QA subset were not stable positive
+case-level proxies for RCA. The active RQ2 budget is reserved for one-stage RCA;
+same-call RCA attention remains a correlational diagnostic.
+
+RQ2 downstream transfer repeats the compact-text control at FULL、C* 和 dense
+content levels. Text/Compact/Canvas therefore form an equal-fact mechanism
+comparison rather than attributing every token reduction to visualization.
+
+RQ2 also crosses four deterministic public-evidence selectors—balanced
+SIRCL*, metric-centric, trace/graph-centric, and log-template-centric—with
+exact-fact Text/Canvas twins on the full frozen 480-case manifest. This is a
+one-stage tool-output experiment, not an interactive agent. Within-tool
+Canvas−Text isolates representation; between-tool contrasts measure evidence
+selection. All RQ2 subexperiments share one 40,000-call ceiling; the current
+registration totals 31,560 calls.
 
 ---
 

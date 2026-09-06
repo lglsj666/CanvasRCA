@@ -1,68 +1,52 @@
 """Read-only adapter from the canonical processed dataset into ``DataCase``.
 
 RQ experiments are not allowed to parse raw benchmark files. The processed corpus already
-contains one directory per incident with normalized timestamps/entities and a
-versioned metadata record, but its metric parquet retains three storage shapes:
-long records, entity-wide records, and globally wide records.  This module
-normalizes only that storage shape; it never consults labels while selecting or
-transforming telemetry.
+contains one directory per incident with SIRCL's normalized ``DataCase``
+tables, relative timestamps, and a versioned metadata record.  V3 is already
+in the DataCase storage shape, so this reader must not apply a second lossy
+projection.
 """
 
 from __future__ import annotations
 
 import json
 import os
-from functools import lru_cache
+from collections.abc import Iterator
+from functools import cache
 from pathlib import Path
-from typing import Any, Dict, Iterator, List, Optional
+from typing import Any
 
 import networkx as nx
-import numpy as np
 import pandas as pd
 
-from vlmrca.upstream import DataCase
+from unified_scripts.sircl_data import DataCase
 
 REPO_ROOT = Path(os.environ.get("CANVASRCA_ROOT", Path.cwd())).expanduser().resolve()
 PROCESSED_ROOT = Path(
     os.environ.get("CANVASRCA_PROCESSED_ROOT", REPO_ROOT / "dataset" / "processed")
 ).expanduser().resolve()
 PROCESSED_DATASETS = ("aegislab", "aiops2022", "aiops2025", "re2_ob", "re2_tt")
-
-_METRIC_DESCRIPTOR_COLUMNS = {
-    "time",
-    "timestamp",
-    "timestamp_seconds",
-    "entity_canonical",
-    "object_id",
-    "object_type",
-    "source_path",
-    "source_file",
-    "source_group",
-    "cf",
-    "device",
-    "instance",
-    "kpi_key",
-    "kpi_name",
-    "kubernetes_node",
-    "mountpoint",
-    "namespace",
-    "pod",
-    "sql_type",
-    "type",
+CANONICAL_COLUMNS = {
+    "metrics": frozenset({"timestamp"}),
+    "logs": frozenset({"timestamp", "container_name", "message"}),
+    "traces": frozenset({
+        "timestamp", "span_id", "parent_span_id", "service_name",
+        "operation_name", "duration_ms", "status_code",
+    }),
 }
 
 
-@lru_cache(maxsize=None)
-def processed_index(dataset: str) -> Dict[str, Dict[str, Any]]:
+@cache
+def processed_index(dataset: str) -> dict[str, dict[str, Any]]:
     """Return the processed manifest keyed by case id."""
     if dataset not in PROCESSED_DATASETS:
         raise ValueError(f"unknown processed dataset {dataset!r}")
     path = PROCESSED_ROOT / "private" / dataset / "manifest.jsonl"
     if not path.is_file():
         raise FileNotFoundError(
-            f"canonical CanvasRCAProcessedPublicCaseV2 manifest is missing: {path}"
+            f"canonical CanvasRCAProcessedPublicCaseV3 manifest is missing: {path}"
         )
-    out: Dict[str, Dict[str, Any]] = {}
+    out: dict[str, dict[str, Any]] = {}
     for line in path.read_text(encoding="utf-8").splitlines():
         if line.strip():
             row = json.loads(line)
@@ -70,7 +54,7 @@ def processed_index(dataset: str) -> Dict[str, Dict[str, Any]]:
     return out
 
 
-def _case_dir(dataset: str, row: Dict[str, Any]) -> Path:
+def _case_dir(dataset: str, row: dict[str, Any]) -> Path:
     root = (PROCESSED_ROOT / "public" / dataset).resolve()
     path = (root / str(row["path"])).resolve()
     if root not in path.parents:
@@ -78,158 +62,7 @@ def _case_dir(dataset: str, row: Dict[str, Any]) -> Path:
     return path
 
 
-def _entity_series(df: pd.DataFrame) -> pd.Series:
-    for col in (
-        "entity_canonical",
-        "service_name",
-        "container_name",
-        "cmdb_id",
-        "object_id",
-    ):
-        if col in df.columns:
-            return df[col].fillna("unknown").astype(str)
-    return pd.Series(["unknown"] * len(df), index=df.index, dtype="object")
-
-
-def _metric_timestamp(
-    df: pd.DataFrame, *, allow_row_index_fallback: bool = True
-) -> pd.Series:
-    for col in ("timestamp_seconds", "timestamp", "time"):
-        if col not in df.columns:
-            continue
-        raw = df[col]
-        if pd.api.types.is_numeric_dtype(raw):
-            vals = pd.to_numeric(raw, errors="coerce").astype("float64")
-        else:
-            vals = pd.to_datetime(raw, utc=True, errors="coerce")
-            vals = pd.Series(vals.astype("int64") / 1e9, index=df.index).where(vals.notna())
-        finite = vals[np.isfinite(vals)]
-        if len(finite):
-            return vals
-    if allow_row_index_fallback:
-        return pd.Series(np.arange(len(df), dtype="float64"), index=df.index)
-    return pd.Series(np.nan, index=df.index, dtype="float64")
-
-
-def _wide_metrics(df: pd.DataFrame) -> pd.DataFrame:
-    """Convert any processed metric storage shape into DataCase wide format."""
-    if df.empty:
-        return pd.DataFrame(columns=["timestamp"])
-
-    timestamp = _metric_timestamp(df)
-    entity = _entity_series(df)
-
-    # AegisLab and AIOPS-2022: one metric/value pair per record.
-    if {"metric", "value"}.issubset(df.columns):
-        metric = df["metric"].astype(str)
-        value = pd.to_numeric(df["value"], errors="coerce")
-    elif {"kpi_name", "value"}.issubset(df.columns):
-        metric = df["kpi_name"].astype(str)
-        value = pd.to_numeric(df["value"], errors="coerce")
-    # AIOPS-2025: one entity plus many metric columns per record.
-    elif "entity_canonical" in df.columns:
-        value_cols = [
-            c
-            for c in df.columns
-            if c not in _METRIC_DESCRIPTOR_COLUMNS
-            and pd.api.types.is_numeric_dtype(df[c])
-        ]
-        base = pd.DataFrame({"timestamp": timestamp, "entity": entity})
-        tall = pd.concat([base, df[value_cols]], axis=1).melt(
-            id_vars=["timestamp", "entity"],
-            value_vars=value_cols,
-            var_name="metric",
-            value_name="value",
-        )
-        tall = tall.dropna(subset=["timestamp", "value"])
-        tall["col"] = tall["entity"].astype(str) + "_" + tall["metric"].astype(str)
-        return (
-            tall.pivot_table(
-                index="timestamp", columns="col", values="value", aggfunc="median"
-            )
-            .sort_index()
-            .reset_index()
-            .rename_axis(columns=None)
-        )
-    else:
-        # RE2: already globally wide. Keep numeric facts and normalize its clock.
-        value_cols = [
-            c
-            for c in df.columns
-            if c not in {"time", "timestamp", "timestamp_seconds"}
-            and pd.api.types.is_numeric_dtype(df[c])
-        ]
-        out = df[value_cols].copy()
-        out.insert(0, "timestamp", timestamp.to_numpy())
-        return out.dropna(subset=["timestamp"]).sort_values("timestamp").reset_index(drop=True)
-
-    tall = pd.DataFrame(
-        {
-            "timestamp": timestamp,
-            "entity": entity,
-            "metric": metric,
-            "value": value,
-        }
-    ).dropna(subset=["timestamp", "value"])
-    tall["col"] = tall["entity"].astype(str) + "_" + tall["metric"].astype(str)
-    return (
-        tall.pivot_table(
-            index="timestamp", columns="col", values="value", aggfunc="median"
-        )
-        .sort_index()
-        .reset_index()
-        .rename_axis(columns=None)
-    )
-
-
-def _logs(df: pd.DataFrame) -> pd.DataFrame:
-    if df.empty:
-        return pd.DataFrame(columns=["timestamp", "container_name", "message"])
-    out = pd.DataFrame(index=df.index)
-    out["timestamp"] = _metric_timestamp(df)
-    out["container_name"] = _entity_series(df)
-    message_col = "parsed_message" if "parsed_message" in df.columns else "message"
-    out["message"] = df.get(message_col, pd.Series("", index=df.index)).fillna("").astype(str)
-    if "level" in df.columns:
-        out["level"] = df["level"].fillna("").astype(str)
-    return out.dropna(subset=["timestamp"]).reset_index(drop=True)
-
-
-def _traces(df: pd.DataFrame) -> pd.DataFrame:
-    columns = [
-        "timestamp",
-        "trace_id",
-        "span_id",
-        "parent_span_id",
-        "service_name",
-        "operation_name",
-        "duration_ms",
-        "status_code",
-    ]
-    if df.empty:
-        return pd.DataFrame(columns=columns)
-    out = pd.DataFrame(index=df.index)
-    # A row ordinal is not a time coordinate.  In particular, it previously
-    # turned RE2's all-null stored trace timestamps into plausible-looking
-    # 0..N seconds and corrupted the pre/during split in the trace panel.
-    out["timestamp"] = _metric_timestamp(df, allow_row_index_fallback=False)
-    out["service_name"] = _entity_series(df)
-    aliases = {
-        "trace_id": ("trace_id", "traceID"),
-        "span_id": ("span_id", "spanID"),
-        "parent_span_id": ("parent_span_id", "parentSpanID", "parent_span"),
-        "operation_name": ("operation_name", "operationName", "span_name"),
-        "duration_ms": ("duration_ms",),
-        "status_code": ("status_code", "statusCode", "attr.status_code"),
-    }
-    for target, choices in aliases.items():
-        source = next((c for c in choices if c in df.columns), None)
-        out[target] = df[source] if source else None
-    out["duration_ms"] = pd.to_numeric(out["duration_ms"], errors="coerce")
-    return out.dropna(subset=["timestamp"]).reset_index(drop=True)[columns]
-
-
-def _graph(payload: Dict[str, Any]) -> nx.DiGraph:
+def _graph(payload: dict[str, Any]) -> nx.DiGraph:
     graph = nx.DiGraph()
     for node in payload.get("nodes", []):
         if isinstance(node, dict):
@@ -248,6 +81,38 @@ def _graph(payload: Dict[str, Any]) -> nx.DiGraph:
     return graph
 
 
+def validate_processed_public_case(
+    meta: dict[str, Any],
+    frames: dict[str, pd.DataFrame],
+    graph: nx.DiGraph,
+) -> None:
+    """Fail closed on V3/consumer schema drift instead of silently losing evidence."""
+
+    if meta.get("schema_version") != "CanvasRCAProcessedPublicCaseV3":
+        raise ValueError("processed public case is not V3")
+    retained = dict(meta.get("retained_columns") or {})
+    counts = dict(meta.get("row_counts") or {})
+    for name, frame in frames.items():
+        if int(counts.get(name, -1)) != len(frame):
+            raise ValueError(f"processed {name} row count does not match metadata")
+        if list(map(str, frame.columns)) != list(map(str, retained.get(name) or ())):
+            raise ValueError(f"processed {name} columns do not match retained_columns")
+        missing = CANONICAL_COLUMNS[name] - set(map(str, frame.columns))
+        if not frame.empty and missing:
+            raise ValueError(
+                f"processed {name} misses canonical consumer columns: {sorted(missing)}"
+            )
+    metadata = dict(meta.get("metadata") or {})
+    node_pod = metadata.get("node_pod_map") or {}
+    if not isinstance(node_pod, dict) or any(
+        not isinstance(value, list) for value in node_pod.values()
+    ):
+        raise ValueError("processed node_pod_map must map nodes to pod lists")
+    services = set(map(str, meta.get("services") or ()))
+    if not set(map(str, graph.nodes)).issubset(services):
+        raise ValueError("processed graph nodes are absent from the public service inventory")
+
+
 def load_processed_case(dataset: str, case_id: str) -> DataCase:
     """Load only the public, label-blind half of one processed incident."""
     row = processed_index(dataset).get(case_id)
@@ -255,7 +120,15 @@ def load_processed_case(dataset: str, case_id: str) -> DataCase:
         raise KeyError(f"{case_id!r} is absent from processed {dataset}")
     path = _case_dir(dataset, row)
     meta = json.loads((path / "metadata.json").read_text(encoding="utf-8"))
+    if meta.get("schema_version") != "CanvasRCAProcessedPublicCaseV3":
+        raise ValueError(f"unsupported processed schema for {dataset}/{case_id}")
     graph = _graph(json.loads((path / "graph.json").read_text(encoding="utf-8")))
+    frames = {
+        "metrics": pd.read_parquet(path / "metrics.parquet"),
+        "logs": pd.read_parquet(path / "logs.parquet"),
+        "traces": pd.read_parquet(path / "traces.parquet"),
+    }
+    validate_processed_public_case(meta, frames, graph)
     # The metadata service inventory is part of the processed schema. Include
     # isolated services explicitly; otherwise topology availability would vary
     # with whether a trace edge happened to be observed in this incident.
@@ -266,20 +139,19 @@ def load_processed_case(dataset: str, case_id: str) -> DataCase:
         ground_truth="",
         fault_type="",
         timestamp=float(meta.get("relative_incident_anchor_s") or 0.0),
-        metrics_df=_wide_metrics(pd.read_parquet(path / "metrics.parquet")),
-        logs_df=_logs(pd.read_parquet(path / "logs.parquet")),
-        traces_df=_traces(pd.read_parquet(path / "traces.parquet")),
+        metrics_df=frames["metrics"],
+        logs_df=frames["logs"],
+        traces_df=frames["traces"],
         graph=graph,
         metadata={
             "processed_schema_version": meta.get("schema_version"),
             "processed_path": str(path),
-            "node_pod_map": (meta.get("source_metadata") or {}).get("node_pod_map"),
             **dict(meta.get("metadata") or {}),
         },
     )
 
 
-def load_processed_private(dataset: str, case_id: str) -> Dict[str, Any]:
+def load_processed_private(dataset: str, case_id: str) -> dict[str, Any]:
     """Read evaluator-private identity, labels, and absolute event time."""
     row = processed_index(dataset).get(case_id)
     if row is None:
@@ -293,7 +165,7 @@ def load_processed_private(dataset: str, case_id: str) -> Dict[str, Any]:
 
 
 def iter_processed_cases(
-    dataset: str, case_ids: Optional[List[str]] = None
+    dataset: str, case_ids: list[str] | None = None
 ) -> Iterator[DataCase]:
     ids = case_ids if case_ids is not None else sorted(processed_index(dataset))
     for case_id in ids:
