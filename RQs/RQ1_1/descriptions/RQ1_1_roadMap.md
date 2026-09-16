@@ -44,3 +44,8 @@ Negative, null, or mixed outcomes remain valid; RQ1.1 is not designed to prove
 that images help. A redesign is justified by a concrete
 failure mode—fact inequality, perception failure, tool misuse, or unstable
 scoring—not by the desire for a positive visual result.
+
+Completion status (2026-09-06): Direct RCA, Direct QA, and the one-stage
+counterfactual successor have completed under the clean-V3 authority. The
+counterfactual verifier passed; see its findings file and DD-145. Multi-stage
+RCA remains abandoned.

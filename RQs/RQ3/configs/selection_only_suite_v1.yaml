@@ -1,0 +1,42 @@
+schema: SelectionOnlySuiteV1
+status: implemented_cpu_audited
+anchor_config: RQs/RQ3/configs/tournament_full_candidate_binding_v3.yaml
+anchor_round: round_0016
+anchor_config_hash: 1274c3b7d3b9b6ede22fde046134644678f3e4078aab333d2ff28d3b22aacc36
+display_prompt_runtime_tree_hash: 8fc5deeafc126a54e261127769f756f8563cb8ad09486d9ba3506f8bcb05b8a8
+changed_component: evidence_selection_only
+pending_policies:
+  - diagnostic_cover_v2
+  - log_surprise_v2
+  - trace_self_time_v2
+  - window_change_v2
+  - variance_shift_v2
+  - propagation_frontier_v2
+method_configs:
+  diagnostic_cover_v2: RQs/RQ3/configs/tournament_selection_only_v4.yaml
+  log_surprise_v2: RQs/RQ3/configs/tournament_selection_logs_v4.yaml
+  trace_self_time_v2: RQs/RQ3/configs/tournament_selection_trace_v4.yaml
+  window_change_v2: RQs/RQ3/configs/tournament_selection_window_v4.yaml
+  variance_shift_v2: RQs/RQ3/configs/tournament_selection_variance_v4.yaml
+  propagation_frontier_v2: RQs/RQ3/configs/tournament_selection_frontier_v4.yaml
+legacy_pending_not_scheduled:
+  ranked_v1: predecessor baseline, not a distinct new method
+  ranked_membership_v1: predecessor baseline and native adapter helper
+  coverage_v1: superseded by diagnostic_cover_v2
+  coverage_membership_v1: superseded by diagnostic_cover_v2
+  ranked_hosting_v1: changes evidence compilation, outside selector-only round
+  resource_balance_v1: narrower predecessor of already-run balanced_additive_v1
+  trace_strength_route_v1: modality-dropping route, superseded by trace_self_time_v2
+  trace_only_v1: modality ablation, not a selector-only round
+  trace_graph_v1: modality ablation, not a selector-only round
+  trace_logs_graph_v1: modality ablation, not a selector-only round
+  metz_overview_v1: overlaps existing mean-shift/native methods; superseded by variance/window contrast
+  metz_coverage_overview_v1: superseded by diagnostic_cover_v2
+execution:
+  cohorts: all_unretired_v1
+  models: sequential_qwen_then_gemma
+  no_preliminary_inference_subset: true
+  no_training: true
+  no_attention: true
+  no_automatic_round_registration: true
+  registered_before_each_round: true

@@ -355,12 +355,14 @@
 - **项目用途**：AegisLab/RCABench 来源；复杂传播、层级标签、动态 workload、SLI impact。
 - **实现提醒**：简单 benchmark 上复杂模型可能被规则方法追平。
 
-## P0-18. TORAI: Unsupervised Fine-grained RCA using Multi-Source Telemetry Data
+## P0-18. TORAI: Multi-source Root Cause Analysis for Blind Spots in Microservice Service Call Graph
 
 - **年份/状态**：FSE 2026
 - **论文**：https://arxiv.org/abs/2604.13522
+- **核验**：2026-09-13；[FSE 2026 Research Track 官方记录](https://conf.researchr.org/details/fse-2026/fse-2026-research-papers/64/TORAI-Multi-Source-Root-Cause-Analysis-for-Blind-Spots-in-Microservice-Service-Call-)；作者 Luan Pham、Huong Ha、Xiuzhen Zhang、Hongyu Zhang。方法阅读版本 v1（2026-04-15）；arXiv 当前还提供 v2（2026-04-18）。
+- **官方代码**：[RCAEval](https://github.com/phamquiluan/RCAEval)，论文分支需单独固定。
 - **项目用途**：trace blind spots 和 graph-free multi-source RCA baseline。
-- **实现提醒**：dashboard 必须显式展示 coverage/unknown，而非把缺 trace 画成正常。
+- **实现提醒**：Drain 模板频次只是输入构造；完整方法还包含严重度、聚类、因果排名及细粒度分析。不能把单个频次选择器标成完整 TORAI。公开证据缺失不得伪造成正常观测；模型可见说明遵循当前 RQ 契约，不由文献导航另行增加。
 
 # 4. P1 扩展论文
 
@@ -442,8 +444,9 @@ RCA。
 
 | 论文/项目 | 链接 | 本项目用途 |
 |---|---|---|
-| MicroRCA-Agent | https://arxiv.org/abs/2509.15635 | Drain 日志压缩、trace 异常、node-service-pod LLM RCA |
-| MicroRCA-Agent code | https://github.com/tangpan360/MicroRCA-Agent | 可运行 LLM/Agent RCA baseline |
+| MicroRCA-Agent — technical-report preprint | https://arxiv.org/abs/2509.15635 | Drain、trace status/duration、分层 metrics；2026-09-13 核查：其故障窗口和恢复后 detector 训练不能直接移植到本项目标签盲输入 |
+| MicroRCA-Agent code — inspected, not vendored | https://github.com/tangpan360/MicroRCA-Agent | `src/utils/trace_utils.py` 的状态分组组件已阅读；未建立代码再分发许可。RQ3 自研 observed-status 对照保留原状态值，不将所有非零值解释为错误，不称完整系统复现 |
+| ThinkFL | [TOSEM 2026](https://doi.org/10.1145/3789262), [v2 paper](https://arxiv.org/html/2504.18776v2), [official code](https://github.com/LLM4AIOps/ThinkFL) | Lingzhe Zhang et al.; Crossref publisher metadata verified 2026-09-13 (published 2026-08-21). Tool selection and staged learning, not proof that one metric selector is sufficient. |
 | LATS-RCA | https://arxiv.org/abs/2605.03505 | reflection-guided tree search 和多 Agent RCA |
 | How Far Can RCA Go on Real-World Telemetry? | https://arxiv.org/abs/2607.13548 | 区分 Reasoning Gap 与 Data Ambiguity；Builder/Solver failure 分解 |
 | Lag-Aware RCA | https://conf.researchr.org/details/fse-2026/fse-2026-industry-papers/18/ | propagation lag；避免把上下游症状当同步事件 |
@@ -696,3 +699,172 @@ dashboard representation
 → RL credit assignment
 → Builder–Scorer–Solver co-evolution
 ```
+# 12. RQ3 constrained design search and amortized composition (2026-09-12)
+
+This section informs the search-first RQ3 successor; section 11 is an older
+cross-project roadmap, not the current RQ3 execution contract. Primary-source
+verification and detailed transfer notes:
+`RQs/RQ3/descriptions/RQ3_experiments.md#design-search-literature` in CanvasRCA_nibi.
+
+| Work / verified status | Primary paper and official code | Use and boundary |
+|---|---|---|
+| Penrose — ACM TOG / SIGGRAPH 2020 | [Paper](https://penrose.ink/media/Penrose_SIGGRAPH2020.pdf); [code](https://github.com/penrose/penrose) | Meaning/style separation and constrained numerical layout; it does not guarantee every constraint program is feasible. |
+| Scout — CHI 2020 | [Author paper](https://chenglongwang.org/data/Swearngin_Scout_CHI_2020_v19.pdf) | High-level grouping/order/emphasis; 18-designer study found greater diversity, not a demonstrated RCA-quality gain. Official code not verified. |
+| SAIL — Evolutionary Computation 26(3), 2018 | [Paper](https://arxiv.org/html/1806.05865); [paper-linked code](https://github.com/agaier/sail_ecj2018); [institutional record](https://pub.h-brs.de/frontdoor/index/index/docId/3705) | Quality/diversity exploration with expensive real evaluation; predicted archive utility must not be reported as measured RCA. |
+| GEPA — ICLR 2026 conference | [Proceedings](https://proceedings.iclr.cc/paper_files/paper/2026/hash/0e9e708b6f48e14fd0ac29e167413f76-Abstract-Conference.html); [code](https://github.com/gepa-ai/gepa) | Trace-guided prompt evolution and complementary candidate retention; adaptation, not a substitute for requested SFT+RL or proof of causal credit. |
+| FunSearch — Nature 625, 2024 (online 2023) | [Paper](https://www.nature.com/articles/s41586-023-06924-6) | Search a compact program inside a fixed evaluator harness; its large cheap-evaluation budget cannot transfer directly to 27B RCA. |
+| BOHB — ICML 2018 | [Proceedings](https://proceedings.mlr.press/v80/falkner18a.html) | Budget allocation for hyperparameter search; currently screened, not an implemented BOHB reproduction. |
+| TuRBO — NeurIPS 2019 | [Proceedings](https://proceedings.neurips.cc/paper/2019/hash/6c990b7aca7bc7058f5e98ea909e924b-Abstract.html); [code](https://github.com/uber-research/TuRBO) | Local continuous trust regions; categorical designs and noisy per-case RCA need separate treatment. |
+| LIDA — ACL 2023 System Demonstrations | [Anthology](https://aclanthology.org/2023.acl-demo.11/); [project](https://microsoft.github.io/lida/) | Staged visualization construction and verification; no invented diagnostic pixels. This is demo track, not main track. |
+| diffvg — ACM TOG / SIGGRAPH Asia 2020 | [Author page](https://people.csail.mit.edu/tzumao/diffvg/); [code](https://github.com/BachiLi/diffvg) | Structured vector parameters are more interpretable than arbitrary pixels; sampled RCA RR is not a differentiable raster loss. |
+
+Method provenance: the planned split-tree compiler is project-owned,
+Penrose/Scout-inspired, not their source-code reproduction. SAIL, GEPA and
+TuRBO remain methodological options until an adapter/version and real tests
+exist. No venue or benchmark result implies the RQ3 MRR targets will be reached.
+
+## 12.1 Numerical annotations (verified 2026-09-12)
+
+[Towards Understanding Graphical Perception in Large Multimodal Models](https://arxiv.org/abs/2503.10857)
+— preprint,2025; [official code](https://github.com/microsoft/lmm-graphical-perception).
+Annotation gains depend on density; test RCA directly. Transfer record:
+`CanvasRCA_nibi/RQs/RQ3/descriptions/RQ3_period_annotation_20260912.md`.
+
+
+## 12.2 Fixed-count facet arrangement (verified 2026-09-12)
+
+[Examining Limits of Small Multiples: Frame Quantity Impacts Judgments with Line Graphs](https://content-staging.ieeevis.org/year/2024/paper_v-tvcg-20243372620.html)
+— Hosseinpour et al., IEEE VIS 2024 / TVCG, DOI10.1109/TVCG.2024.3372620.
+**Screening status:** official abstract/metadata and author data links verified;
+OSF full paper unavailable in this review, not yet fully read. Human frame-count
+results motivate controlling plot count, not predicting a two-column VLM gain.
+[Vega-Lite facet documentation](https://vega.github.io/vega-lite/docs/facet.html)
+— official technical reference, fully read; separate data partition, placement,
+headers and scale resolution. SEARCH28 tests fixed-source one/two-column metric
+facets with project-owned rendering. Transfer/protocol record:
+`CanvasRCA_nibi/RQs/RQ3/descriptions/RQ3_metric_facets_20260912.md`.
+
+## 12.3 Representative telemetry selection (verified 2026-09-12)
+
+[Sieve](https://sieve-microservices.github.io/) — Middleware 2017,
+DOI 10.1145/3135974.3135977. Main paper and official analysis README reviewed;
+code and extended report not audited. Controlled workloads and paired software
+versions limit direct transfer to single-incident RCA. Detailed record:
+`CanvasRCA_nibi/RQs/RQ3/descriptions/RQ3_Sieve_review_20260912.md`.
+
+
+## 12.4 Peer-relative anomaly evidence (verified 2026-09-12)
+
+[Fingerpointing Correlated Failures in Replicated Systems](https://www.usenix.org/legacy/event/sysml07/tech/full_papers/pertet/pertet_html/)
+— Soila Pertet, Rajeev Gandhi, Priya Narasimhan; **SysML 2007 workshop**, not
+main-track OSDI. Full primary paper read, including shared-symptom failures.
+Local/global anomaly-signature comparison in replicated Spread/BFT systems
+motivates a peer-relative selection hypothesis, not a proven VLM/RCA gain.
+SEARCH39 uses a new label-blind own-baseline/leave-owner-out median selector;
+it does not reproduce their heuristics, k-means or kNN. Detailed assumptions,
+fixed formula, source limits and experiment contract:
+`CanvasRCA_nibi/RQs/RQ3/descriptions/RQ3_peer_shift_20260912.md`.
+[Prometheus metric types](https://prometheus.io/docs/concepts/metric_types/)
+are a technical source, not a peer-reviewed RCA result: counter semantics must
+be established before rate conversion; a metric-name suffix is insufficient.
+
+## 12.5 Source-faithful RCA selectors (verified 2026-09-13)
+
+- **BARO**, Luan Pham, Huong Ha, Hongyu Zhang, **FSE 2024 research paper**:
+  [proceedings record](https://2024.esec-fse.org/details/fse-2024-research-papers/81/BARO-Robust-Root-Cause-Analysis-for-Microservices-via-Multivariate-Bayesian-Online-C),
+  [paper](https://arxiv.org/abs/2405.09330),
+  [native RobustScorer 0.1.9](https://github.com/phamquiluan/baro/blob/0.1.9/baro/root_cause_analysis.py).
+  RQ3 round 2 reuses this ranking component, not its complete BOCPD pipeline;
+  retains signed maximum and records finite-observation adaptation separately.
+- **Practical Root Cause Localization for Microservice Systems via Trace Analysis**,
+  **IWQoS 2021**:
+  [author paper](https://netman.aiops.org/wp-content/uploads/2021/05/1570705191.pdf),
+  [program](https://duetone.org/iwqos21/iwqos21-program-at-a-glance.pdf),
+  [original code](https://github.com/NetManAIOps/TraceRCA).
+  Abnormal/normal trace coverage and invocation direction motivate complementary
+  trace evidence. Round 3 instead adapts SIRCL's per-operation harmonic-mean
+  component; it is not a reproduction of full TraceRCA.
+
+Paper methods, experiments, ablations and limitations were reviewed; component
+faithfulness and downstream RCA gains require separate checks. Current records:
+`CanvasRCA_nibi/RQs/RQ3/descriptions/RQ3_tournament_BARO_20260913.md` and
+`RQ3_tournament_trace_sc_20260913.md`. No new attention or training is authorized
+by adding these references.
+
+## 12.6 Log-frequency complement (verified 2026-09-13)
+
+TORAI (P0-18) motivates looking beyond trace-visible services, not assuming
+that frequent messages are necessarily diagnostic. Its benchmark and production
+results concern the combined system. RQ3 round 4 reuses SIRCL's existing native
+Drain frequency component and binds its source events exactly to Denum groups;
+it does not reproduce TORAI severity/causal ranking. Unchanged original sources,
+local parser dependencies and six-template selection are separately audited.
+[Drain3 official documentation](https://github.com/logpai/Drain3) describes
+parser configuration and clustering. RQ3 rejects an unregistered cwd config,
+preserves native cluster counts and records explicit fallback fill only for
+insufficient ranked coverage. Transfer contract:
+`CanvasRCA_nibi/RQs/RQ3/descriptions/RQ3_experiments.md#tournament`.
+
+## 12.7 Complementary evidence selection (verified 2026-09-14)
+
+New primary-source reading beyond the prior catalogue:
+
+- **MicroHECL**, Dewei Liu et al., **ICSE 2021 SEIP**:
+  [official track record](https://conf.researchr.org/details/icse-2021/icse-2021-Software-Engineering-in-Practice/35/MicroHECL-High-Efficient-Root-Cause-Localization-in-Large-Scale-Microservice-Systems),
+  [paper](https://arxiv.org/html/2103.01782). Not the main research track.
+- **Log Clustering based Problem Identification for Online Service Systems**,
+  Qingwei Lin et al., **ICSE 2016 Companion**, DOI 10.1145/2889160.2889232:
+  [author paper](https://hongyujohn.github.io/LogClustering_Final.pdf).
+  Do not confuse this with the similarly named CNSM log parser.
+- **Selective review of offline change point detection methods**, Charles
+  Truong, Laurent Oudre and Nicolas Vayatis, **Signal Processing 167 (2020)**,
+  DOI 10.1016/j.sigpro.2019.107299:
+  [author paper](https://www.laurentoudre.fr/publis/TOG-SP-19.pdf),
+  [official ruptures code](https://github.com/deepcharles/ruptures).
+- **Beyond Fault Localization: A Trajectory-Level Study of LLM Agents for
+  Microservice RCA**, Qisheng Lu et al., **preprint**, 2026-08-21:
+  [paper](https://arxiv.org/html/2608.21310). No verified formal venue or
+  released official code was established in this review.
+
+Methods, evaluation context and transfer limits:
+`CanvasRCA_nibi/RQs/RQ3/descriptions/RQ3_experiments.md#selection-only`.
+The catalogue separates diagnostic coverage, variability, window change, local
+latency, log surprise and observed-call frontier. These are project adaptations
+or hypotheses, not six reproduced published RCA systems. Only the new L2 cost
+component is copied from native code; original bytes/license are retained.
+Literature relevance and actual changed inputs are prerequisites, not proof of
+new AC@1 coverage. The current tournament keeps its renderer/layout/prompt fixed.
+
+## 12.8 Incident-local and source-first selection (verified 2026-09-14)
+
+Primary sources added after the first two selection-only catalogues were
+exhausted:
+
+- **PatternMatcher — Identifying Root-Cause Metrics for Incident Diagnosis in
+  Online Service Systems**, ISSRE 2021:
+  [IEEE record](https://ieeexplore.ieee.org/document/9700253/), DOI
+  10.1109/ISSRE52982.2021.00022. It separates coarse anomaly filtering,
+  physically meaningful anomaly-pattern classification and final ranking.
+- **MicroRCA**, NOMS 2020:
+  [IEEE record](https://ieeexplore.ieee.org/document/9110353/), DOI
+  10.1109/NOMS47738.2020.9110353. It combines performance symptoms, resource
+  anomalies and an attributed service/machine graph. Its reported precision
+  and MAP are specific to its injected benchmark, not transferable targets.
+- **Time-Series Anomaly Detection Service at Microsoft**, KDD 2019:
+  [paper](https://arxiv.org/abs/1906.03821),
+  [KDD record](https://www.kdd.org/kdd2019/accepted-papers/view/time-series-anomaly-detection-service-at-microsoft).
+  Spectral residual supplies a learning-free time-series saliency signal; the
+  RQ3 adapter uses that component only, not the paper's SR-CNN system.
+- **MoCE — Mixture-of-Context Aware Experts**, NSDI 2026:
+  [USENIX paper and artifact record](https://www.usenix.org/conference/nsdi26/presentation/harsh).
+  Its expert-as-dataflow-DAG abstraction supports keeping heterogeneous
+  diagnostic hypotheses distinct rather than forcing every signal through one
+  score. RQ3 does not reproduce MoCE or its Internet-scale system.
+
+RQ3 successor policies are project adaptations: `incident_window_pattern_v1`
+uses only the already public, model-visible estimated incident window;
+`source_first_bundle_v1` combines incident-local M, local/exclusive R, log
+burst, onset and call-direction evidence; `spectral_saliency_v1` uses the SR
+component with score-only missing-value interpolation. None reads labels,
+absolute injection time or model outcomes. All retain original selected fact
+values and are hypotheses until full remaining-cohort AC@1 evaluation.

@@ -1,5 +1,20 @@
 # CanvasRCA
 
+## Current status: RQ3.1 planning and data registration (2026-09-15)
+
+RQ1.1 and fixed-anchor RQ2.1 are complete; their authoritative report is the
+single [consolidated findings document](docs/RQ1_1_RQ2_1_findings/findings.md).
+Old RQ2 is abandoned, and the elimination tournament stopped after 38 rounds;
+its sole report is [here](docs/Tournament_Analysis_2026-09-15.md).
+
+The current first-paper direction is RQ3.1: a deterministic contrastive
+evidence compiler for a frozen one-stage RCA Solver. RQ480 is the
+method-development/selection eval set. The newly registered final test contains
+120 cases each from AIOPS-2022, AIOPS-2025 and AegisLab; no RE2 test cases.
+Composer SFT/RL is deferred, all model services are stopped, and no RQ3.1 model
+experiment is currently authorized. See the
+[latest research plan](docs/CanvasRCA_Research_Plan_2026-09-15.md).
+
 **Vision-language root-cause analysis over rendered microservice telemetry
 dashboards.**
 
@@ -10,10 +25,24 @@ text. The study has no precommitted positive
 direction. Labels, source case IDs, fault types, absolute injection times,
 dataset names, paths, and natural entity names are evaluator-private.
 
-The active study is **RQ2**, a clean dashboard-design study built on the
-completed RQ1.1 empirical representation study. Historical RQ1/RQ1.1 results
-and reports remain audit evidence; RQ2 does not rewrite or reuse their model
-outputs.
+The separately registered **RQ3** studies transferable and interpretable dashboard Composer
+learning; it does not train automatically after RQ2.1. The implementation has
+been refined using completed fixed-P0 results and is being smoke-tested,
+then stopped without starting training. RQ1.1 evidence and historical RQ2 reports remain
+preserved. Only a Qwen3.5-9B Composer will be trained, paired with a frozen
+Qwen3.8-27B one-call Solver. All 480 existing evaluation cases remain excluded
+from training, and TrainTicket is held out from Composer training entirely.
+See [the RQ3 contract](RQs/RQ3/descriptions/RQ3_experiments.md).
+The current delivery stops at checks and bounded smokes: full training and
+evaluation are disabled. The budgeted Composer-directory CPU capacity check
+passes on two non-eval AIOPS cases; full pipeline and live smoke qualification
+remain pending. The complete evidence pool stays CPU-side, while candidate
+directory coverage and omissions are recorded explicitly.
+Connected event/window isolation leaves 251 training and 90 validation cases;
+the revised planned budget is 32,472 new local model calls, below the unchanged
+40,000 hard cap. Current authority:
+[RQ3 refinement](RQs/RQ3/descriptions/RQ3_experiments.md),
+[six reviews and live follow-up](RQs/RQ3/descriptions/RQ3_review_20260909.md).
 
 ## RQ1.1 experiments
 
@@ -161,7 +190,6 @@ RQs/RQ1_1/                  completed empirical-study configs, code, and results
 RQs/RQ1_1/src/renderer/     renderer-v14 snapshot with package-local imports
 RQs/RQ2/                    active dashboard-design study and RQ2-local renderer
 packages/                   pinned method-reference source snapshots
-plans/design_decisions.md   consolidated project decisions
 devlog/CONSOLIDATED.md      compact chronological implementation/experiment log
 docs/                       project reports
 ```

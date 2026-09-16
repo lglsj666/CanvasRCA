@@ -23,22 +23,22 @@ slurm-*.log
 /venvs
 /build
 /models
-/tests
 /canvasrca_cache/
 
-# Temporary adapters and audit scripts may live under tmp/, but their generated
-# experiment payloads must never be staged. These rules deliberately target
-# output-directory names rather than ignoring all of tmp/.
-/tmp/**/results/
-/tmp/**/artifacts/
-/tmp/**/prepared/
-/tmp/**/attention/
-/tmp/**/renders/
-/tmp/**/trajectories/
-/tmp/**/conversations/
-/tmp/**/partial_responses/
-/tmp/**/remote_contract/
-/tmp/**/upstream_snapshot/
+# Temporary analysis and recovery work is machine-local.
+/tmp/
+
+# RQ-local generated payloads and large model/runtime state must never be
+# staged, even when a future runner uses a directory outside results/.
+/RQs/**/results/**
+/RQs/**/artifacts/**
+/RQs/**/checkpoints/**
+/RQs/**/models/**
+/RQs/**/attention/**
+/RQs/**/renders/**
+/RQs/**/trajectories/**
+/RQs/**/conversations/**
+/RQs/**/prepared/**
 
 # Local experiment workspace
 /tmp/rq1_matched_rca_local/
@@ -47,3 +47,7 @@ slurm-*.log
 
 /eda_cache/
 /logs/
+
+# Large generated deletion inventory remains local; the small retirement
+# manifest, findings, protected-source hashes and report aggregates are kept.
+/docs/RQ2_retirement_assets/deleted_file_inventory.json

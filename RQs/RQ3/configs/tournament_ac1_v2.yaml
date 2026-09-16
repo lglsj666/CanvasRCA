@@ -1,0 +1,20 @@
+extends: RQs/RQ3/configs/tournament_v1.yaml
+# Only the coverage/stopping policy changes; all model-visible inputs and
+# completed v1 calls retain their original source and configuration snapshots.
+tournament:
+  schema: RQ3EliminationTournamentV2
+  status: registered_ac1_only
+  threshold_datasets: [aegislab, aiops2022, aiops2025, re2_ob, re2_tt]
+  threshold_denominator_cases: 480
+  top1_successes_required: null  # no pooled threshold
+  next_stage: complete
+  completion_policy:
+    schema: GroupedTop1CompletionV1
+    numerator: 4
+    denominator: 5
+    dataset_cases:
+      aegislab: 100
+      aiops2022: 100
+      aiops2025: 100
+      re2_ob: 90
+      re2_tt: 90

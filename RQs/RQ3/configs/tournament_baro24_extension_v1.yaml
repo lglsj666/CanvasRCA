@@ -1,0 +1,5 @@
+extends: RQs/RQ3/configs/tournament_baro24_v1.yaml
+tournament:
+  method_id: BARO019_FINITE_TOP24_untried_extension_v1
+  method_parent: BARO019_FINITE_TOP24_tournament_v1
+  cohort_policy: remaining_cases_not_previously_called_with_parent_method

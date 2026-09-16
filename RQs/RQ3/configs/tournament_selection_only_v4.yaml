@@ -1,0 +1,6 @@
+extends: RQs/RQ3/configs/tournament_full_candidate_binding_v3.yaml
+search:
+  selectors: [diagnostic_cover_v2]
+  selection_only_suite: RQs/RQ3/configs/selection_only_suite_v1.yaml
+tournament:
+  method_id: DIAGNOSTIC_COVER_selection_only_v4

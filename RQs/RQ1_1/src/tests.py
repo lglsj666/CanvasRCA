@@ -78,12 +78,12 @@ def _lines(paths: list[Path]) -> int:
 
 def check_layout() -> dict[str, Any]:
     rq = ROOT / "RQs/RQ1_1"
-    required_dirs = {"configs", "descriptions", "findings", "results", "scripts", "src"}
+    required_dirs = {"configs", "descriptions", "results", "scripts", "src"}
     _assert(required_dirs <= {path.name for path in rq.iterdir() if path.is_dir()}, "RQ1.1 directory layout incomplete")
     descriptions = {path.name for path in (rq / "descriptions").glob("*.md")}
     _assert(descriptions == {"RQ1_1_statement.md", "RQ1_1_experiments.md", "RQ1_1_roadMap.md"}, "descriptions must contain exactly three canonical files")
-    findings = {path.name for path in (rq / "findings").glob("*.md")}
-    _assert(findings == {"exp_direct_rca_findings.md", "exp_direct_qa_findings.md", "exp_multi_stage_rca_findings.md", "exp_one_stage_counterfactual_rca_findings.md"}, "findings must contain exactly one file per experiment")
+    findings = ROOT / "docs/RQ1_1_RQ2_1_findings/findings.md"
+    _assert(findings.is_file(), "consolidated RQ1.1/RQ2.1 findings missing")
     functional = [rq / "src" / name for name in ("main.py", "utils.py", "exps.py", "tests.py", "gates.py")]
     _assert(all(path.is_file() for path in functional) and (rq / "src/__init__.py").is_file(), "functional source files missing")
     _assert(_lines(functional) <= 6000, "RQ1.1 functional Python exceeds 6000 lines")
@@ -159,7 +159,7 @@ def check_config(config: dict[str, Any]) -> dict[str, Any]:
     _assert(specs["direct_qa"].arms == QA_ARMS and len(QA_ARMS) == 18, "direct-QA targeted arms drifted")
     _assert(specs["multi_stage_rca"].steps == 3 and specs["multi_stage_rca"].calls_per_case_arm == 6, "three-step/two-call state machine drifted")
     _assert(specs["multi_stage_rca"].status == "abandoned", "multi-stage RCA re-entered the active protocol")
-    _assert(specs["one_stage_counterfactual_rca"].status == "qualification_pending_rq2_completion", "counterfactual RCA was enabled before RQ2 completion")
+    _assert(specs["one_stage_counterfactual_rca"].status == "active", "counterfactual RCA was not activated after RQ2 completion")
     _assert(config["runtime"]["models"] == ["qwen3.8-27b", "gemma-4-26b-a4b"], "active model list drifted")
     _assert(config["external_methods"]["denum"]["binary_output"] is False, "binary Denum output is prohibited")
     _assert(config["runtime"]["smoke_call_cap_total"] == 18 and config["runtime"]["smoke_timeout_seconds_total"] == 600, "shared smoke bounds drifted")

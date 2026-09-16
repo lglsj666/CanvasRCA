@@ -1,0 +1,5 @@
+extends: RQs/RQ3/configs/tournament_selection_only_v4.yaml
+search:
+  selectors: [trace_self_time_v2]
+tournament:
+  method_id: TRACE_SELF_TIME_selection_only_v4

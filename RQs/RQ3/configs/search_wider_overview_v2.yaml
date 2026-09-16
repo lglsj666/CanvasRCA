@@ -1,0 +1,32 @@
+extends: RQs/RQ3/configs/rq3.yaml
+execution_enabled: false
+delivery_boundary: train_subset_search_only
+harness:
+  entity_identity_policy: public_entity_identity_v2
+  public_membership: true
+solver:
+  attention: "off"
+  candidate_binding: enum_top5_v1
+budget:
+  hard_limit: null
+search:
+  enabled: true
+  stage: development
+  max_batch_calls: 24
+  concurrency: 4
+  wall_seconds: 3600
+  cases_per_dataset: 12
+  case_offset: 6
+  selectors: [node_overview_v1]
+  metric_limit: 8
+  trace_projection: jaeger_us_to_ms_v1
+  render_overrides:
+    trace_axis_policy: labeled_latency_axis_v1
+    metric_row_order: owner_then_metric
+    grid_rows: 12
+    grid_columns: 12
+    cell_edge_px: 320
+  tree_policy: metric_left_stack_v1
+  conditions:
+    - {prompt: evidence_bound_membership_v1, request_profile: card_nonthinking_v1}
+  diagnostic_transport: pure_visual_with_text_candidates

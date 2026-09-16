@@ -1,0 +1,39 @@
+extends: RQs/RQ3/configs/tournament_full_remaining_v3.yaml
+search:
+  selectors: [balanced_additive_v1]
+  metric_limit: 8
+  diagnostic_transport: metric_text_with_rlg_visual_v1
+  conditions:
+    - {prompt: tournament_hybrid_metric_v1, request_profile: card_nonthinking_v1}
+tournament:
+  method_id: METRIC_TEXT_RLG_VISUAL_RESOURCE24_full_remaining_v3
+  coverage_transport:
+    max_text_evidence_modalities: 0
+    min_visual_modalities: 1
+    max_dashboard_images: 1
+    candidate_list_location: text_prompt
+    pure_visual_allowed: true
+  coverage_prompt:
+    schema: RQ3FrozenVisualTemplateV1
+    structure_parent: RQ2_1_P0__V
+    frozen_between_rounds: true
+    text_slots: [task, visual_guide, candidates, closing]
+    image_slots: 1
+    task_file: RQs/RQ3/configs/prompts/tournament_task_v1.txt
+    guide_file: RQs/RQ3/configs/prompts/tournament_guide_v1.txt
+    system_file: RQs/RQ3/configs/prompts/tournament_system_v1.txt
+  transport:
+    max_text_evidence_modalities: 1
+    min_visual_modalities: 3
+    max_dashboard_images: 1
+    candidate_list_location: text_prompt
+    pure_visual_allowed: true
+  prompt:
+    schema: RQ3FrozenHybridMetricTemplateV1
+    structure_parent: RQ3FrozenVisualTemplateV1
+    frozen_between_rounds: true
+    text_slots: [task, visual_guide, metric_evidence, candidates, closing]
+    image_slots: 1
+    task_file: RQs/RQ3/configs/prompts/tournament_task_v1.txt
+    guide_file: RQs/RQ3/configs/prompts/tournament_hybrid_metric_guide_v1.txt
+    system_file: RQs/RQ3/configs/prompts/tournament_system_v1.txt

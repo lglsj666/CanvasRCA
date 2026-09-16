@@ -14,8 +14,6 @@ from dataclasses import dataclass, field, fields, replace
 from pathlib import Path
 from typing import Any, Dict, Optional
 
-from vlmrca.upstream import UPSTREAM_ROOT
-
 _ENV_LINE = re.compile(r'^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*?)\s*$')
 
 
@@ -26,7 +24,13 @@ def load_env(path: Optional[Path] = None, override: bool = False) -> int:
     Both projects share one set of research credentials; duplicating the file
     here would mean two things to rotate and a second chance to commit a secret.
     """
-    path = Path(path) if path else UPSTREAM_ROOT / ".env"
+    # Credentials are optional deployment data, not a reason to import a
+    # sibling project's datasets, prompts and scorer at client import time.
+    root = Path(os.environ.get("CANVASRCA_ROOT", Path.cwd())).expanduser().resolve()
+    credential_root = Path(os.environ.get(
+        "RL_SLM_RCA_ROOT", str(root.parent / "self-evolving-RCA-rwrl")
+    ))
+    path = Path(path) if path else credential_root / ".env"
     if not path.is_file():
         return 0
     n = 0

@@ -1,5 +1,548 @@
 # CanvasRCA Project Rules
 
+## First-paper train/eval/test/unused — 2026-09-15 latest amendment
+
+The first paper does not train SFT/RL models. RQ480 is now explicitly the
+method-development/selection **eval**, not an untouched confirmation set.
+The latest user explicitly supersedes the earlier 480-test target: use **360
+test cases, 120 each AIOPS-2022, AIOPS-2025 and AegisLab**. Include all old
+validation identities (70 per AIOPS), then add 50 each AIOPS and 120 AegisLab.
+Keep historical train 300 and RQ480 identities unchanged; all remaining corpus
+cases become unused. There is no active validation partition. Old excluded
+non-eval cases also become unused but retain overlap/eligibility annotations;
+unused does not mean unseen or safe to train on. All RE2 stay in eval.
+Preserve old manifests/results and known validation exposure; the test is not
+described as wholly untouched. Use deterministic intact event groups and audit
+train/eval/test separation. Methods must be frozen before new test outcomes;
+report the former-validation 140 separately from the added 220. Later training may use RQ480 for
+checkpoint/model evaluation or selection, never optimizer examples; selection
+feedback is validation, not independent test evidence. This role amendment
+does not launch experiments, change historical statuses, overwrite historical data manifests,
+or authorize new data collection. It authorizes a versioned data splitter and
+CPU checks only. See the latest research plan and the consolidated devlog.
+
+## Tournament stopped; analysis delivered — 2026-09-15
+
+The user ended the elimination tournament after 38 committed rounds. This
+supersedes the continuation/threshold instructions below: do not start another
+round, implement/test the proposed X method, or train without a new request.
+Preserve all completed results. The authoritative final coverage and failure
+analysis, including AC@1/3/5, is
+`docs/Tournament_Analysis_2026-09-15.md`; its derived tables are offline,
+label-bearing evaluator artifacts, never model inputs.
+
+## Selection-only tournament successor — 2026-09-14
+
+The latest user narrows future rounds to evidence selection only. Preserve the
+round-16 candidate-bound dashboard, pure-visual transport, prompts, candidates,
+public projection and model recipes. Change only which existing public facts
+are selected, with the same per-case field budgets and membership closure rule.
+Use the pending catalogue `RQs/RQ3/configs/selection_only_suite_v1.yaml`; historical
+display, transport and modality-dropping configurations are not its queue.
+Every actual round still registers and runs ALL unretired cases per model,
+sequentially, with no training or attention. A CPU inspection subset is never
+an inference cohort. See the selection-only decision in RQ3_experiments.md.
+The updated goal allows new selectors and silhouette drawing changes only if
+the pending selectors are exhausted before reaching the stopping thresholds;
+dashboard layout stays fixed. This does not change any completed-round input.
+
+## Tournament transport allowance — historical; superseded for future selection-only rounds
+
+Each successor method may keep all diagnostic evidence in one dashboard PNG or
+move at most one of M/R/L/G into an adjacent text evidence block; the other
+three modalities remain in the single PNG. Candidates and static instructions
+remain text. This supersedes the older tournament-wide pure-vision sentence,
+but does not authorize two or more text evidence modalities, multiple images,
+training, attention collection, private-label access, or a changed RCA task
+structure. Each method still runs every case unretired for that model.
+
+## Tournament resumed by user — latest 2026-09-13
+
+The user explicitly says to resume. This lifts the round-4 pause below.
+Reuse the completed 323-case gallery and registered full remaining cohorts
+(265 per model); do not regenerate it or repeat rounds 1–3. Complete the
+pending CPU/visual and input-integrity checks, then run Qwen and Gemma
+sequentially. Continue full-remaining rounds with 900-second monitoring and
+no work during sleeps. No attention or training during the tournament;
+per-dataset 80% AC@1 union remains the stopping criterion for both models.
+
+## Tournament user pause after round-4 rendering — latest 2026-09-13
+
+The user requests a pause after the fourth round's gallery finishes to use the
+GPU for another task. All 323 unique round-4 PNGs have been generated; no
+round-4 inference has started. Do not start GPU services, inference, training
+or subsequent rounds until the user resumes. Preserve the complete gallery,
+registered Qwen/Gemma cohorts (265 cases each), and all completed round 1–3
+results. Round-4 CPU/visual review and inference are pending. This operational
+pause supersedes the earlier continuous-monitoring instruction, not the
+full-remaining tournament design. See round-4 `PAUSED_20260913.md`.
+
+## Full-remaining tournament reset — latest 2026-09-13 amendment
+
+The tournament itself IS exploration. There is no preliminary model-inference
+subset and no score-based decision whether to expand a method. After CPU and
+visual correctness checks, each new method must include ALL currently unretired
+cases independently for Qwen and Gemma, then finish both models before changing
+method. CPU test fixtures and visual spot checks do not authorize smaller
+inference cohorts. New registration enforces `all_unretired_v1`.
+
+The user explicitly orders deletion of rounds 2–10 and their derived retirement
+state, retaining round 1, canonical data and source code. Restart at round 2
+from the preserved first-round outcomes: Qwen 314 and Gemma 345 unresolved.
+Deleted results are not reusable or evidence of current coverage. Preserve a
+minimal deletion/protection audit, not backups of the deleted responses.
+Use `RQs/RQ3/configs/tournament_full_remaining_v3.yaml` and its method successors.
+The per-dataset 80% AC@1-only stopping rule remains; no training during the
+tournament. This supersedes ALL older small-subset exploration instructions.
+See `RQs/RQ3/descriptions/RQ3_full_remaining_reset_20260913.md`.
+
+## Tournament stops at per-dataset AC@1 coverage — latest 2026-09-13 amendment
+
+Each model finishes the tournament once AC@1 union coverage reaches at least
+80/100 in AIOPS-2022, AIOPS-2025 and AegisLab, and 72/90 in each RE2 dataset.
+**There is no subsequent AC@5 retirement phase.** Both Qwen and Gemma must
+meet all five thresholds. Continue recording successful methods at AC@1/3/5,
+but AC@3/5 do not determine completion. This supersedes the intermediate
+transition amendment immediately below. The successor config is
+`RQs/RQ3/configs/tournament_ac1_v2.yaml`; its immutable completion-policy
+overlay reuses verified rounds 1–9 without rewriting their contracts or calls.
+New method configs inherit this successor. A completed model has an empty
+eligible cohort, while its unresolved cases remain explicitly recorded;
+do not mislabel those cases as solved. Tournament completion never
+automatically launches SFT/RL.
+
+## Tournament threshold amendment — 2026-09-13, per dataset (transition superseded)
+
+The latest user goal replaces the pooled 240/300 primary-case transition.
+For **each model independently**, top-1 union coverage must reach at least
+80% in **every dataset**: AIOPS-2022 80/100, AIOPS-2025 80/100, AegisLab
+80/100, RE2-OB 72/90 and RE2-TT 72/90. Only then does that model switch to
+AC@5 retirement. Both models must finish. RE2 now participates in the
+transition requirement; neither averaging datasets nor combining models
+can satisfy it. This supersedes the threshold statements below.
+
+Preserve original method registrations, responses and AC@1/3/5 success maps.
+Adopt a versioned coverage-policy successor without rewriting historical
+contracts or making new requests for completed inputs. The in-flight round 9
+keeps its frozen evidence, prompt, recipe and records; transition-policy
+migration occurs at its verified completion boundary. No training is authorized
+by this amendment. Record the migration and per-dataset counts explicitly.
+
+## RQ3 adaptive elimination tournament — 2026-09-12 (current authority)
+
+The user's 2026-09-13 goal amendment temporarily raises the RQ3 functional
+source-line limit to **10,000**, superseding the 6,000-line limit for RQ3 only.
+Keep the existing module layout and RQ-local renderer exception; this does not
+raise another RQ's limit or authorize training during the tournament.
+
+The latest user amendment requires both Qwen3.8-27B and Gemma-4-26B-A4B-it
+in the tournament. Run them sequentially for each registered method, with
+separate model-specific success/retirement sets and the same public inputs
+where their eligible cases overlap. Both must finish before the tournament is
+complete; one model's success never retires a case for the other. Existing
+model-specific recipes remain distinct. Prioritize evidence-selection methods
+from related work, faithfully adapted and audited, in subsequent rounds.
+
+The latest user goal authorizes an adaptive RQ480 discovery tournament,
+superseding the train-only/deferred-evaluation boundary below. Start with one
+frozen, previously explored method on all 480 cases, then run changed methods
+only on cases not yet retired. The final user correction sets the AC@1 union
+threshold to **80% of the 300 non-RE2 cases (240 cases)**. Earlier 75% and 70%
+interpretations are superseded; neither was used to retire a case. At that
+threshold switch to AC@5 retirement. Save all per-case successful method IDs
+at AC@1/3/5 and full immutable inputs/outputs; no correctness retries or labels
+in model-visible inputs. This is adaptive discovery/union coverage, not the
+accuracy of a single deployed method or untouched evaluation.
+
+Updated post-SFT/RL objectives are **AIOPS-2022 MRR >0.65, AIOPS-2025 MRR
+>0.65, and 480-case overall MRR >0.75**, with Composer plus Solver token cost
+reported. RQ480 and TrainTicket remain excluded from optimizer training;
+adaptive exposure must remain explicit in later performance interpretation.
+Preserve all old results, processed data, checkpoints and source snapshots.
+Use local, unquantized models and exactly one real diagnostic PNG; collect no
+new attention. The latest user amendment restores pure-visual diagnostic
+evidence, superseding the intervening one-text-modality permission. All selected
+M/R/L/G evidence is in that PNG; candidates and global instructions stay in the
+prompt. Choose a template structure from the RQ1.1/RQ2.1 visual arms before the
+first tournament call, then keep that structure fixed across rounds. Evidence
+and public candidate policies may vary, but do not tune the RCA procedure.
+Register the successor explicitly; do not rewrite SEARCH22's original prompts.
+Stable monitoring
+is every 600 seconds, with no work during sleeps. Register each round before
+calling models. Tournament completion does not automatically make the old
+training lifecycle compatible. Protocol: `RQs/RQ3/descriptions/RQ3_experiments.md#tournament`.
+
+The tournament itself performs no model training. Use the existing `tools`
+environment for CPU preparation/rendering/analysis and `infer` for local vLLM;
+do not launch SFT/RL or update the 9B/27B checkpoints during this stage. CPU
+unit tests that require PyTorch may use the existing `train` environment with
+CUDA disabled; these synthetic tests are not model training or qualification.
+
+## RQ3 search resumed; RQ480 evaluation deferred — 2026-09-12
+
+The latest user instruction resumes train-only exploration toward the unchanged
+research targets. It supersedes the pause below and defers the intervening
+request to evaluate the typed-overview method on RQ480. No RQ480 calls were
+started for that request. Continue bounded, versioned training-subset searches
+and their full artifact reviews; do not use eval answers for tuning or launch
+the old training lifecycle. Preserve all existing results and checkpoints.
+The later same-day goal amendment changes stable search monitoring from
+1,200 to 600 seconds; do no other work during monitoring sleeps.
+
+## RQ3 search user pause — 2026-09-12
+
+The latest user instruction pauses all exploration and requests a complete
+method/result recap. SEARCH37 is complete and preserved. SEARCH38's CPU tests
+passed but its preview-only process was stopped before any model call; keep its
+partial gallery. No model/training/formal run or automatic continuation is
+authorized until the user resumes. This supersedes the search-first execution
+continuation below, not its research objective or data-protection rules.
+Pause evidence: `RQs/RQ3/results/search_first_v1/PAUSED_20260912.md`.
+
+## RQ3 search-first pipeline successor — 2026-09-12
+
+Latest same-day amendment: new RQ3 exploration and training collect **no
+attention**. Preserve old attention artifacts and historical contracts. The
+successor main path is strictly visual for diagnostic evidence: diagnostic
+facts are painted in the single image. The candidate entity list stays in the
+prompt, NOT the image, alongside static task/format/reading instructions.
+Candidate-list policies may be explored using public metadata only, never
+private roots; record coverage and keep case-local IDs consistent with the image.
+First search on small training subsets and validate a shortlist.
+Freeze the candidate policy/version before the authorized complete 480-case
+pre-training eval. If it meets the target, proceed to small SFT/RL tests, then
+freeze the training recipe before full SFT/RL. Evaluation answers never enter
+model inputs or training. Preserve failed eval outcomes; do not repeatedly
+retune on their case-level answers or call an already exposed set untouched.
+
+The latest user goal supersedes the stop-after-BASE/SFT boundary below. First
+develop and test evidence selection, visual encoding, continuous composition
+and Solver-prompt/configuration combinations on small isolated development
+subsets; then perform Composer SFT and actual RCA-utility RL. Do not restart
+the old full lifecycle automatically. RQ3-local successor source, renderer,
+prompts and inference-profile changes are authorized, but must be versioned
+and qualified; do not change earlier RQs or the shared default Solver recipe.
+Preserve the completed SFT checkpoint, old results, processed corpus, RQ480,
+TrainTicket training holdout and connected event/window isolation.
+
+The unchanged scorer and private-label boundary remain mandatory. The user
+explicitly removed the RQ3-wide 40,000-call cap on 2026-09-12. Preserve consumed
+call records; use bounded small representative search batches, with durable
+method/input/output/cost/failure records for every attempt. Do not interpret
+the uncapped total as a reason for full-dataset grid searches. Final targets after
+SFT+RL are AIOPS-2022 MRR >0.54, AIOPS-2025 MRR >0.54 and overall MRR >0.65;
+they are measured objectives, not guaranteed outcomes. Freeze the selected
+pipeline before using the 480 eval cases. Stable running experiments are
+checked every 600 seconds, with no other work during monitoring sleeps.
+Current design and execution authority:
+`RQs/RQ3/descriptions/RQ3_experiments.md#search-first`.
+
+The same-day user refinement defines four card/silhouette families: one
+modality, one chronological interval/snapshot (with a large order index), one
+case's selected abnormal evidence, or an explicit evidence combination. Each
+card corresponds to exactly one silhouette and vice versa; mixed-modality
+content is permitted inside a single card. Old per-modality-only card typing
+does not constrain the RQ3 successor. Preserve fact binding and source-time
+semantics; do not assign untimed case-wide statistics to a fabricated instant.
+
+## RQ3 paired BASE/SFT comparison first — 2026-09-11
+
+Completion: all 140 BASE calls and 280 paired CPU program checks completed.
+Using the same current renderer, BASE constructed 71/140 dashboards and SFT
+135/140; this is tool/render validity, not RCA performance. Original SFT
+responses were reused unchanged. Owned services stopped normally. See
+`RQs/RQ3/results/base_sft_comparison_v1/report.md`. No follow-on is running.
+
+Latest user override: STOP after this comparison and its report. Do not resume
+failure diagnosis, renderer repair, training, RL or full evaluation until the
+user gives a new instruction. This supersedes the continuation sentence below
+and the older full-RQ3 goal for the current execution boundary.
+
+The user prioritizes a matched training-effect comparison before further SFT
+failure diagnosis or layout repair. Freeze the current renderer and preserve
+all old artifacts. Reuse the 140 completed SFT responses; run BASE on their
+exact original system/user messages, per-case seeds and decoding recipe, then
+score both with the same current renderer. This is a Composer-only diagnostic,
+not Solver/RL/eval execution or qualification of the new capacity-aware input.
+Use a separately scoped script/manifest and resumable call accounting; never
+replace old records with replay results. After the comparison, report the
+paired results and then return to the requested failure/renderer work.
+Protocol: `RQs/RQ3/descriptions/RQ3_BASE_SFT_comparison_20260911.md`.
+
+## RQ3 SFT-failure diagnostic successor — 2026-09-11
+
+The latest user goal requests investigating SFT failures and making dashboard
+generation reliable and non-overlapping, then finishing RQ3 after checks pass.
+Preserve the completed step-320 SFT and original 140-case validation. Those
+results are not overwritten by CPU re-execution under a corrected renderer.
+The forward metric-label height fix changes no Composer input or model recipe;
+its exact compatibility proof preserves preparation, not Solver qualification.
+Log-card capacity/constraint visibility remain unresolved. Do not launch the
+old activation into RL or evaluation while these repairs are unqualified.
+Future stable formal monitoring is every 1,200 seconds with an hourly new-case
+audit and no work during sleeps. See the current RQ3 experiment contract and
+`RQs/RQ3/results/readable_layout_repair_v1/` for evidence and remaining work.
+
+## RQ3 SFT-format validation only — 2026-09-11
+
+Completion update: all 140 Composer validation cases finished at 20:11:50 UTC.
+Complete artifact audit passed; 140/140 JSON syntax, 136/140 schema/binding,
+110/140 actual rendering success. Owned GPU services stopped automatically.
+This phase is complete; await user authorization for any subsequent phase.
+Evidence: `RQs/RQ3/results/formal_balanced_v1/logs/sft_validation_20260911.md`.
+
+The user now authorizes the existing 140-case SFT Composer validation phase:
+AIOPS-2022 and AIOPS-2025, 70 validation cases each, final SFT checkpoint 320.
+Run `RQs/RQ3/scripts/validate_sft_local.py` locally, retaining registered call
+keys, prompts, sampling, adapter hashes and resumable records. This phase uses
+the previously qualified 9B LoRA-serving route and CPU rendering checks only.
+It does not authorize Solver calls, the pending renderer-only Solver follow-up,
+RL, imitation, another SFT run or 480-case evaluation. Do not launch the full
+lifecycle supervisor. On interruption, preserve completed responses and only
+finish missing work; on completion, stop the owned server and await the user.
+See `RQs/RQ3/descriptions/RQ3_SFT_validation_20260911.md`.
+
+## RQ3 stop after current SFT — 2026-09-11 16:19 UTC
+
+Completion update: SFT exited normally at 2026-09-11 17:50:59 UTC after update
+320/320 (9,600/9,600 scheduled examples). Final checkpoint hashes, CPU-loaded
+optimizer/RNG state and native completed-resume detection passed. No downstream
+phase is running. Work is now paused as requested; do not restart qualification,
+validation, RL or eval without new user authorization. Evidence:
+`RQs/RQ3/results/formal_balanced_v1/SFT_COMPLETION_REVIEW.md`.
+
+The user's latest instruction supersedes the full-lifecycle continuation below:
+allow the current format SFT to finish, verify its durable final checkpoint and
+process exit, then stop and wait for further instructions. Do not launch the
+pending renderer qualification, validation, RL, imitation or final evaluation.
+The active wrapper runs only SFT and has no automatic next-stage command.
+Preserve all checkpoints under the rolling retention rule and all preparations.
+This is a post-SFT pause, not an instruction to interrupt the current update.
+
+## RQ3 resumed authorization — 2026-09-11
+
+The user explicitly authorizes resuming the complete registered RQ3 lifecycle.
+This supersedes the user-pause instructions below. Restore the newest verified
+full checkpoint, never a hardcoded historical step; the observed restart point
+was SFT update 78. Preserve latest-plus-every-20 retention and all preparations.
+The already-qualified, unchanged SFT path may resume now. Complete the pending
+bounded renderer-only Solver follow-ups before refreshing forward activation
+and advancing to validation/RL/eval. Do not bypass that scientific boundary.
+Monitor stable formal work every 1,200 seconds and inspect one newly completed
+case each 3,600 seconds, with no other work during sleeps. Continue until all
+registered RQ3 work and final artifact/analysis checks are complete.
+
+## RQ3 user pause — 2026-09-10 16:00 UTC
+
+The user explicitly paused current execution. RQ3 SFT and its supervisor have
+stopped safely at the verified step-78 checkpoint (2,340/9,600 examples).
+Do not restart training, qualification, formal inference or automatic monitoring
+until the user authorizes resumption. Preserve preparations and the retained
+checkpoints under the rolling policy below.
+The full goal is unfinished. Resume context and the outstanding forward-renderer
+qualification are recorded in
+`RQs/RQ3/results/formal_balanced_v1/PAUSED_BY_USER.md`.
+
+## RQ3 rolling checkpoint retention — 2026-09-10 (DD-151)
+
+At every completed optimizer update, durably save the complete latest adapter,
+optimizer and RNG state before removing its non-periodic predecessor. Keep
+every positive multiple of 20 updates plus the latest complete checkpoint, for
+SFT, imitation and each RL branch independently. Do not overwrite the sole
+latest checkpoint in place. RL pruning follows durable phase commit; preserve
+small phase-referenced markers and one validation-best inference-only adapter,
+not its historical optimizer state. Validation schedule and model selection
+are unchanged. This storage change does not authorize resuming execution.
+
+## RQ3 execution authorization — 2026-09-10
+
+The active user goal now authorizes completing the balanced 150/70 data
+extension, CPU repairs/rechecks, bounded repair qualification, then full RQ3
+SFT/RL/evaluation only after all prerequisites pass. This supersedes the earlier
+post-smoke stopping boundary, not data isolation, model recipes or the 40,000
+call cap. Preserve original failed smoke artifacts and consumed calls. Repair
+qualification gets a newly recorded bounded window, never a reset of historical
+results. Each experiment's cumulative smoke calls remain within 18.
+Monitor smoke every 600 seconds; stable formal work every 1,200 seconds and
+audit one newly completed case every 3,600 seconds. Do no other work during
+monitoring sleeps. All registered RQ3 experiments must finish before completion
+is claimed. Keep execution disabled until actual prerequisites are established.
+
+## RQ3 balanced-data and budget override — 2026-09-10 (DD-150)
+
+The user now adopts **150 train and 70 validation per AIOPS dataset**:
+300 train / 140 validation total. This supersedes earlier future split targets,
+including the interrupted 210/70 amendment; historical manifests keep their
+actual counts. Preserve all 480 eval identities, TrainTicket training holdout,
+and connected event/window isolation. Never silently reduce just one dataset
+or split an overlap group to fill quotas. The enlarged AIOPS-2022 split is now
+materialized after all 241 May events passed canonical V3 processing and source
+verification. The 300-train/140-validation registration lives under
+`RQs/RQ3/results/registration_balanced_v3/`; old manifests remain historical.
+
+Keep three RL traversals, all three branches and four validation checkpoints,
+the complete eval/attribution design, and all model settings unchanged. Planned
+generation is **38,000**; **2,000** are reserved for all past/future smoke,
+retries and necessary repair within the unchanged **40,000** hard cap.
+Budget readiness is not experiment readiness. Execution remains disabled;
+this amendment launches no preparation, smoke, SFT, RL or formal evaluation.
+Details: `RQs/RQ3/descriptions/RQ3_experiments.md`.
+
+## RQ3 qualification-only update — 2026-09-09
+
+RQ2.1 fixed-anchor inference and final analysis are complete. Preserve outputs.
+For RQ3, form full connected event/window groups before excluding groups that
+contain eval. Actual isolated counts are 251 train (21 AIOPS-2022, 230 AIOPS-2025)
+and 90 validation (20/70), with all 480 eval and all TrainTicket/RE2 excluded
+from training/smokes. Earlier RQ3 direct-overlap CPU splits/previews are obsolete;
+no model was trained on them. Planned calls shrink to 32,472; hard cap stays
+40,000 including local Composer/Solver attempts, not monetary billing.
+Complete distinct reviews and bounded inference smokes, then STOP. Training
+and formal RQ3 remain disabled. Shared model projections and previous RQs do
+not change. Current detailed protocol is the 2026-09-09 refinement in
+`RQs/RQ3/descriptions/RQ3_experiments.md`.
+
+## RQ2.1 fixed-anchor override — 2026-09-09
+
+The user replaces sequential champion selection with independent fixed-anchor
+studies: selection varies P at S0/D0; silhouette varies S at P0/D0; composition
+varies D at P0/S0. No champion or champion cube controls execution. All five
+datasets and all 480 cases remain evaluated; earlier selection/report roles
+are historical strata, not gates for choosing a new design. This supersedes
+the champion and RE2-exclusion instructions below for RQ2.1 only.
+
+Preserve completed evidence-selection results and canonical/parent preparation.
+The user authorizes deletion of the P_TRACE_SC formal silhouette output tree,
+after recording ownership/counts, and rerunning those targets under P0. Keep
+initiated-call accounting, including deleted outputs' calls. New follow-up
+results use the `formal_p0_v2` namespaces. The revised planned formal ceiling
+is 35,520; the unchanged aggregate ceiling is 39,999 including prior calls.
+
+The user explicitly waives another RQ2.1 smoke for this baseline-only amendment.
+Verify unchanged scientific input/compiler/renderer/model/scoring functions and
+the fixed-arm dispatch with static/CPU checks; retain original smoke evidence
+without claiming new live qualification. Run silhouette Qwen then Gemma,
+followed by composition Qwen then Gemma. Direct assistant monitoring is every
+900 seconds with one new completed-case audit every 3,600 seconds; do nothing
+during monitoring sleeps. Do not launch RQ1.1 reruns or RQ3 training.
+
+After RQ2.1 completes, use its results and RQ1.1 findings to refine RQ3, perform
+three distinct logic reviews and three distinct bug/syntax reviews, then its
+bounded smokes. Inspect each smoke's full inputs, outputs and conversations.
+Stop after RQ3 smoke review; no long SFT, RL or formal RQ3 execution is authorized.
+
+## RQ2.1 override — 2026-09-07
+
+The 2026-09-08 user instruction supersedes the earlier pre-smoke review hold:
+run all three bounded smokes, inspect their complete artifacts, repair demonstrated
+issues, then enable formal execution only after every qualification passes.
+Continue the RQ2.1 formal suite and direct assistant monitoring until completion.
+This authorizes neither the abandoned RQ2 nor RQ3 training.
+
+The user-approved contract in `RQs/RQ2_1/descriptions/` supersedes all earlier
+RQ2 execution and preservation instructions. RQ2 is abandoned in its entirety;
+retain its source, findings and report dependencies but remove its owned
+generated results/preparation after the retirement audit and scoped inventory.
+Preserve all RQ1.1, the canonical V3 corpus, RQ480, models, unified inference
+recipes and RQ3 source. RQ3 remains separately disabled.
+
+RQ2.1 reuses the 480 RQ1.1 cases and the original direct-RCA T/V records as
+read-only bridge references. It runs selection, silhouette and composition
+experiments, no QA, training or multi-stage RCA. Grouped 30-per-primary-dataset
+selection cases choose shared champions; other outcomes remain sealed until
+selection is over. This is repeated-exposed evaluation, not fresh confirmation.
+Use the same public analysis window, numeric anonymity, source precision,
+granularity-aware scoring and `context_safe_output_v1` 8,192 output-token
+request adapter. Never replace this with the global 16,384 ceiling.
+
+The five RQ2.1 modules plus `__init__.py` obey the 6,000-source-line rule.
+`RQs/RQ2_1/src/renderer/` is an explicit RQ-local inherited-renderer exception;
+vendored native algorithms live under `packages/` with license and provenance.
+No external SIRCL runtime dependency, global renderer or dormant old dispatcher
+is allowed. Copy provenance precedes modifications.
+
+Three experiment smokes each share at most 18 calls and 600 seconds across
+sequential Qwen/Gemma phases, including startup/switching/persistence. Their
+cases are one from each primary dataset's selection set, explicitly replacing
+the older RE2 smoke requirement. The RQ2.1-wide hard cap is 39,999 initiated
+calls including smoke and retries; formal planned maximum is 39,360. The
+2026-09-08 density amendment adds only `S_DENSITY_COMPACT` versus the reusable
+S0 baseline inside the existing silhouette experiment: 960 additional calls,
+at most 54 smoke calls overall, and 585 calls reserved for retries/repair.
+Evidence, encoding, card footprints, prompt and model recipes stay fixed;
+only safe internal whitespace is compacted. No fourth smoke is registered.
+All three
+smokes and reviews must pass before formal execution. Timeout-only passage
+must report actual live coverage, not claim unexecuted paths passed.
+
+The user subsequently authorized a one-time repaired-overlay supplement:
+at most two additional silhouette calls (one per model), together within
+600 seconds. Preserve the original smoke and its failed visual review.
+The three initial smokes initiated 52 calls, so this supplement can bring
+their actual total to 54 without changing the RQ-wide 39,999-call cap.
+This is not a general exemption from the per-experiment 18-call smoke rule.
+
+Run locally, sequential models, up to eight core-pinned CPU workers, 36
+concurrent requests and unchanged 256 scheduler capacity. Preserve image/text
+attention from the same call. Monitor smoke every 600 seconds; stable formal
+every 900 seconds, with one new case audit per hour. No other work during
+monitoring sleep. Formal execution follows qualification under the resumed
+authorization above. It never authorizes automatic RQ3 training.
+
+RQ2.1 uses locally deployed open-weight models only: no Nibi jobs and no paid
+remote inference service. Its SQLite call register tracks completed requests,
+recovery, deduplication and the user-set call-count limit; it is not billing.
+
+Keep Solver-facing dashboards and prompts focused on diagnostic evidence and
+necessary reading instructions. Do not automatically expose internal QA/debug
+annotations or add explanations of implementation details (such as missing-bin
+crosses). Retain source-data and integrity diagnostics offline, without changing
+source values or manufacturing observations. Do not add model-facing clutter
+merely because an internal check records it.
+
+## RQ3 override — 2026-09-07
+
+The user-approved RQ3 contract in `RQs/RQ3/descriptions/` supersedes the older
+future-only Composer/RL roadmap for this RQ. Train only Qwen3.5-9B as a
+dashboard Composer; keep Qwen3.8-27B as the frozen one-call Solver. Its
+existing unified inference projection and the Gemma recipe must not change.
+The new 9B recipe is RQ3-local. Renderer code is an RQ3-local byte-inherited
+RQ2 snapshot before explicitly recorded correctness/interface adaptations.
+
+All 480 eval cases and their event/window overlaps are forbidden in SFT,
+rollout/reward, validation, checkpoint or hyperparameter selection. Exclude
+all AegisLab and RE2-TT from those activities because TrainTicket is held out
+from this Composer training. Evaluation still includes both datasets.
+Use only isolated AIOPS training/validation cases for RQ3 smokes; this is an
+explicit override of the older RE2-inclusive smoke-selection rule.
+
+Each experiment has one logical smoke with at most 18 aggregate 9B+27B calls
+and 600 seconds from supervisor start. Monitor live smoke every 600 seconds,
+doing no other work while waiting. Count every initiated call, including
+retries, against the RQ3-wide 40,000-call hard limit. Never silently truncate
+a catalogue, substitute a default dashboard, or relabel a failed preflight
+as timeout-only success.
+
+The user subsequently authorized **DD-148's budgeted catalogue**. Keep the
+complete eligible evidence pool CPU-side; the model-visible directory is an
+explicit, deterministic, label-blind shortlist with recorded omissions and
+coverage. It is not a lossless view of every card. Target at most 16,384 whole
+Composer-chat input tokens, reserve the unchanged 4,096 output tokens plus
+1,024 guard tokens, and enforce the smaller limit if model context is reduced.
+The actual tokenizer and chat template must count instructions, JSON schema,
+candidates and directory together. Never crop serialized requests, silently
+drop evidence from selected cards, or shrink the output budget to make them
+fit. All learned policies use this same directory. Only advertised card IDs
+are selectable; the renderer retrieves their complete original payloads.
+This amendment changes no 27B Solver setting and authorizes no full run.
+
+Current authorization ends after implementation, checks and bounded smokes.
+Do not begin long SFT, RL, or formal evaluation automatically. Keep
+`RQs/RQ3/configs/rq3.yaml` execution disabled and preserve RQ1.1/RQ2 sources,
+reports, processed data and valid results. The five functional RQ3 modules
+plus `__init__.py` follow the existing 6,000-line limit; its local inherited
+renderer is the explicit directory exception.
+
 CanvasRCA studies whether vision-language models can diagnose microservice
 incidents from rendered telemetry dashboards. The dashboard is an experimental
 representation, not decoration. Scientific claims must distinguish visual
@@ -37,13 +580,12 @@ src/cli/                    shared project-wide Python entry points
 scripts/                    shared shell entry points only
 RQs/RQx/configs/            RQ-specific configuration only
 RQs/RQx/descriptions/       exactly three canonical RQ documents
-RQs/RQx/findings/           one finding document per experiment
+docs/RQ1_1_RQ2_1_findings/ one consolidated RQ1.1/RQ2.1 findings document and assets
 RQs/RQx/scripts/            RQ-specific shell entry points only
 RQs/RQx/src/                compact RQ-specific Python package
 RQs/RQ1_1/src/renderer/     active provisional renderer inherited from RQ1
 RQs/RQx/results/            RQ-specific generated artifacts
-requirements/               Nibi dependency sets
-plans/design_decisions.md   project-wide decisions and supersessions
+requirements/               environment dependency sets
 devlog/CONSOLIDATED.md      compact chronological implementation/experiment log
 docs/                       project-wide reports and deployment notes
 build/                      generated build artifacts only
@@ -99,8 +641,9 @@ RQ result root, never as a fourth file in `configs/`.
 
 ## Required RQ structure
 
-Every `RQs/RQx/` directory has `configs/`, `descriptions/`, `findings/`,
-`scripts/`, `src/`, and `results/`.
+Every active `RQs/RQx/` directory has `configs/`, `descriptions/`, `scripts/`,
+`src/`, and `results/`. Completed RQ1.1/RQ2.1 conclusions are the explicit
+exception: they share the single consolidated findings folder under `docs/`.
 
 ### Descriptions
 
@@ -248,42 +791,12 @@ optional RL-SLM-RCA sibling checkout. Never modify that sibling from this
 project and never insert its path elsewhere. Deployment paths are supplied by
 `RL_SLM_RCA_ROOT`.
 
-## Historical Nibi build material (inactive)
+## Local-only execution
 
-**Current deployment authority (DD-118):** the `CanvasRCA_nibi` worktree name
-is historical. All new preparation, smoke, formal inference, analysis, and
-training run only on local WSL and launch directly without Slurm. The Nibi
-material below is retained solely for historical provenance and must not be
-used to submit a new job unless a later explicit user decision supersedes
-DD-118.
-
-The remaining paragraphs in this section describe historical provenance only;
-their imperative wording is not authorization for a successor run. Nibi used
-Slurm, Lmod modules, Alliance-provided Python wheels, and H100 GPUs.
-Use `scripts/build_nibi.sh` to create the project virtual environment. The build
-is wheelhouse-first: use `virtualenv --no-download` and `pip --no-index` where
-available. Compute jobs must not assume that PyPI is reachable.
-
-The exact vLLM stack may require a staged compatible wheel bundle or an
-approved Apptainer image. Docker is not an available cluster runtime. Never
-silently resolve a different vLLM, Torch, Transformers, or xgrammar version to
-make installation easier; update the global config and decision record if the
-runtime must change.
-
-Historical heavy work used Slurm. Archived shell job files may contain `#SBATCH` directives but
-must retain the `.sh` extension. One full H100 request uses the cluster's H100
-resource name and should pair the GPU with an appropriate CPU/RAM request.
-Record the allocated GPU model, count, CPU count, RAM, job ID, module list,
-environment hash, and termination reason.
-
-All Nibi CanvasRCA jobs for this allocation must be submitted with the base
-Slurm account `def-jacobsen` (for example through
-`SBATCH_ACCOUNT=def-jacobsen`). Nibi records an accepted GPU job under the
-derived account name `def-jacobsen_gpu`; verify that exact account immediately
-after every submission. Do not use `rrg-jacobsen-ab` or
-`rrg-jacobsen-ab_gpu` for CanvasRCA work. If an incorrect-account job has not
-started, cancel it and resubmit the same unit under `def-jacobsen`; never repeat
-a completed model call solely to change accounting metadata.
+The `_nibi` worktree name is historical. All new preparation, smoke, formal
+inference, analysis and training run directly on local WSL. Do not submit Slurm
+jobs or select a cluster inference profile. Historical cluster scripts may
+remain as source provenance, but they are not current execution instructions.
 
 ## Unified vLLM inference policy
 
@@ -294,9 +807,9 @@ deployment projection of the unified RQ1.1 recipe:
   `scripts/vllm_vlm/serve_canvasrca_local.sh` after sourcing
   `scripts/env_local.sh`.
 
-`configs/vllm_inference.yaml` and the Nibi launcher are retained only to
-interpret historical artifacts. They must not be selected for a new run while
-DD-118 is active.
+`configs/vllm_inference.yaml` and any historical cluster launcher are retained
+only to interpret historical artifacts. They must not be selected for a new
+run under the local-only policy.
 
 `CANVASRCA_VLLM_CONFIG` is the only authorized profile selector. Never infer a
 profile from a hostname and never copy model-specific sampling or processor
@@ -336,8 +849,8 @@ gates. A runner skips an earlier target after validating its record hash,
 self-consistent call key, model/experiment identity, and completed terminal
 status; it does not require a matching freeze or compatibility manifest.
 Infrastructure errors are not completed outcomes and must be rerun from the
-beginning. Removing this gate is status-preserving: every Nibi record already
-accepted as completed remains valid.
+beginning. Removing this gate is status-preserving: every historical record
+already accepted as completed remains valid.
 
 Qwen uses the official `Qwen/Qwen3.8-27B` checkpoint at revision
 `1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0`, stored by default at
@@ -357,27 +870,17 @@ whitespace disabled. This prevents an otherwise schema-valid decoder path from
 sampling unbounded spaces or newlines between JSON tokens. Gemma additionally
 uses `max_soft_tokens=1120` and chunked prefill enabled.
 
-For Nibi, `gpu_memory_utilization` is `null`. The launcher must omit
-`--gpu-memory-utilization`; there is no CanvasRCA-imposed VRAM fraction cap.
-This does not claim physically unlimited memory: vLLM, the model, the context,
-and the Slurm allocation retain their intrinsic limits. OOM or preemption is an
-infrastructure outcome, never a model-quality score.
-
 For local WSL, `gpu_memory_utilization` is exactly `0.75`. The local profile
 uses `/home/lglsj/CanvasRCA/venvs/infer/` and the Qwen3.8/Gemma checkpoints
-under `/home/lglsj/CanvasRCA/models/`; these deployment paths must not be
-written into the Nibi profile. Apart from deployment paths and this operational
-VRAM fraction, the two profiles must be structurally identical, including
+under `/home/lglsj/CanvasRCA/models/`. Record the exact local profile,
 checkpoint identity/revision, BF16 precision, context/output limits,
 temperature, top-p, seed, thinking/template kwargs, xgrammar, image processor,
-chunked prefill, prefix caching, scheduler capacity, and request timeouts. A
-static parity check must fail on any additional difference. The VRAM fraction
-is recorded for reproducibility and is not itself a scientific variable.
-Local WSL never submits a Slurm job and must not call `sbatch`; launch it
-directly with `scripts/vllm_vlm/serve_canvasrca_local.sh` or
+chunked prefill, prefix caching, scheduler capacity, request timeouts and VRAM
+fraction. The VRAM fraction is operational metadata, not a scientific variable.
+Local WSL never submits a Slurm job; launch directly with
+`scripts/vllm_vlm/serve_canvasrca_local.sh` or
 `RQs/RQ1_1/scripts/run_local.sh`, using `nohup`/ordinary shell backgrounding
-only when persistence is needed. `#SBATCH`, account, array, dependency, and job
-submission logic belongs exclusively to Nibi entry points.
+only when persistence is needed.
 Local canonical V3 preparation runs directly through
 `RQs/RQ1_1/scripts/prepare_local.sh` and writes under
 `build/local_processed_v3/`; it must not read a retired V2 or single-layer
@@ -644,9 +1147,7 @@ artifacts. Record the evidence and the smallest necessary rerun scope before
 submitting an authorized rerun.
 
 All new long runs execute locally as ordinary background processes and must
-never submit a Slurm job. The archived Nibi profile remains interpretable by a
-content-addressed call key but is not executable while DD-118 is active.
-Pre-render CPU artifacts before allocating a GPU.
+never submit a Slurm job. Pre-render CPU artifacts before allocating a GPU.
 RQ1.1 does not reuse historical RQ1 preparation or inference records. Its
 formal order is `direct_rca`, then `direct_qa`. For each
 experiment, run Qwen3.8 to completion and verification before Gemma; do not
@@ -656,9 +1157,8 @@ The later `one_stage_counterfactual_rca` successor runs only after the active
 RQ2 formal suite and its own qualification are complete; it uses a new result
 and prepared-artifact namespace and never resumes into the earlier RQ1.1 runs.
 
-Historical RQ1.1 Nibi GPU jobs requested one H100, four CPUs, 100 GB RAM, and at most one
-day. Their shards remain resumable only as historical provenance; successor local work is resumable by content-addressed target. Refill eligible work
-only from the one active experiment, complete Qwen3.8 before starting Gemma,
+Successor local work is resumable by content-addressed target. Refill eligible
+work only from the one active experiment, complete Qwen3.8 before starting Gemma,
 and do not overlap the two models. Cross-experiment fill remains forbidden
 until both models for the current experiment are complete and verified. A
 registered scheduler or payload timeout resubmits the same unit, skips only
@@ -781,14 +1281,14 @@ responses, prompts, truncations, and accounting for hidden problems. Record a
 hidden issue without halting routine progress. If it is safely fixable, fix it
 and continue; stop only when the problem is material and cannot be resolved.
 
-The worktree retains the Nibi profile only for historical reproducibility;
-DD-118 forbids switching a new run back to it. The local profile may change
-only deployment paths and `gpu_memory_utilization`; it must
+The local-only execution policy forbids switching a new run to a cluster
+profile. The local profile may change only deployment paths and
+`gpu_memory_utilization`; it must
 not rewrite prompts, renderer, arms, scorer, roster semantics, model-specific
 inference fields, or prepared evidence. Local smokes and gates remain subject
 to the same aggregate call and timeout bounds above. Hardware/runtime metadata
-must identify local WSL rather than Nibi; a local artifact must never be
-represented as a Nibi job.
+must identify local WSL; a local artifact must never be represented as a
+cluster job.
 
 ## Monitoring and decisions
 
@@ -797,18 +1297,10 @@ Monitor a new local heavy job frequently until stable, then poll it once every
 high-frequency poll a healthy long run.
 
 Every material project, protocol, implementation, validity, or next-step
-decision is recorded with its evidence and reason. Cross-project decisions go
-to `plans/design_decisions.md`; RQ-specific protocol decisions go to the three
-canonical description files; final experiment conclusions go to the single
-matching findings file. Supersede an older decision explicitly rather than
-silently changing policy. `plans/design_decisions.md` is a compact register of
-current operative decisions, not a chronological transcript: when several
-decisions concern one topic, fold the necessary context, evidence,
-consequences, and revisit conditions into the newest authority and remove the
-superseded duplicate entries. A route that was adopted and later rolled back
-must remain once in the compact register with the rollback reason and current
-consequence. Keep an old-ID-to-current-authority lineage when artifacts cite
-old IDs. Consolidate session history into `devlog/CONSOLIDATED.md` under the
-same rule: merge repetition, but do not erase reversals, validity changes, or
-their reasons. Full detail remains recoverable from Git history, findings, and
-immutable experiment artifacts.
+decision is recorded with its evidence and reason. The latest project-wide
+authority belongs in the current research plan and `devlog/CONSOLIDATED.md`;
+RQ-specific protocols remain in the three canonical description files. Final
+RQ1.1/RQ2.1 conclusions live in the single consolidated findings folder.
+Supersede older policy explicitly, retain important reversals and validity
+changes once, and rely on Git history plus immutable experiment artifacts for
+discarded detail.

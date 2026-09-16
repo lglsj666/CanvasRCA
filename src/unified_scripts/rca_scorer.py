@@ -82,6 +82,29 @@ class RCAScorer:
         return self.score([str(value) for value in services], accepted).as_dict()
 
 
+def score_bound_response(response, candidates, numeric_to_natural, accepted, schema, scorer):
+    """Private evaluator: validate an unchanged reply and score bound candidate IDs.
+
+    Invalid model outputs remain zero-score outcomes; never repair IDs or ranks.
+    A missing private candidate binding is an infrastructure error, not a miss.
+    """
+    import jsonschema
+    if len(candidates)!=len(set(candidates)) or not set(candidates)<=set(numeric_to_natural):
+        raise ValueError('candidate/private binding incomplete')
+    predictions=[]; error=None
+    try:
+        answer=json.loads(response)
+        jsonschema.validate(answer,schema)
+        ids=answer['services']
+        if len(ids)!=len(set(ids)) or any(v not in candidates for v in ids):
+            raise ValueError('unknown/duplicate entity')
+        predictions=[numeric_to_natural[v] for v in ids]
+    except (ValueError,KeyError,jsonschema.ValidationError) as exc:
+        error=str(exc)
+    return {'status':'model_failure' if error else 'complete','error':error,
+            'metrics':scorer.score(predictions,accepted).as_dict()}
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("prediction", type=Path)

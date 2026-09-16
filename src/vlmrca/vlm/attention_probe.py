@@ -368,7 +368,7 @@ def _capture(layer: Any, query: Any, key: Any, value: Any) -> None:
                         v[cursor:cursor + count].index_select(0, visual_index).detach()
                     )
             final_position = prompt_len - 1
-            if absolute_start <= final_position < absolute_end and state["keys"]:
+            if absolute_start <= final_position < absolute_end and state["keys"] and not state.get("payload"):
                 all_keys = torch.cat(state["keys"], dim=0)
                 rows = sorted(
                     zip(state["positions"], state["token_ids"], range(len(state["positions"])), strict=True),

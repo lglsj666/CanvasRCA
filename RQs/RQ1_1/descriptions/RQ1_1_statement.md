@@ -45,6 +45,10 @@ reasoning from answer accuracy alone. This successor uses only the frozen
 RQ1.1 renderer-v14, prompt, evidence packet, model recipes, scorer, and roster;
 it has no dependency on any RQ2 dashboard design.
 
+RQ2 completed on 2026-09-06. This successor then passed its bounded smoke and
+completed its full two-model formal run and verifier without changing its
+scientific input, inference, scoring, or analysis contract.
+
 All active RQ1.1 experiments reuse the complete frozen 480-case identity
 manifest after lossless V3 regeneration. Direct RCA, Direct QA, and the
 one-stage counterfactual successor together require 39,360 calls. The 40,000

@@ -1,0 +1,9 @@
+extends: RQs/RQ3/configs/tournament_v1.yaml
+delivery_boundary: tournament_qualification_only
+search:
+  stage: qualification
+  max_batch_calls: 9
+  wall_seconds: 600
+  cases_per_dataset: 2
+  case_offset: 0
+  cohort_total: 3

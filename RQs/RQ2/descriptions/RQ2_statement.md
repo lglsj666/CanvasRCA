@@ -107,3 +107,9 @@ budget, and creates no extra inference calls.
 RQ2 as a whole—not each subexperiment separately—has a 40,000-call ceiling.
 The registered design, content, transfer, and tool studies require at most
 31,560 calls after the 480-case V3 roster is regenerated.
+# Historical RQ2 — abandoned / superseded by RQ2.1
+
+The previous protocol below is retained, not executable. All old RQ2 studies
+are abandoned by the 2026-09-07 user decision. See
+`../findings/exp_retirement_audit_findings.md` for failure mechanisms and
+`../../RQ2_1/descriptions/RQ2_1_experiments.md` for the successor contract.

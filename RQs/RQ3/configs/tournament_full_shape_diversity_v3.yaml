@@ -1,0 +1,7 @@
+extends: RQs/RQ3/configs/tournament_full_remaining_v3.yaml
+search:
+  selectors: [shape_diversity_v1]
+  relevance_weight: 0.75
+  metric_limit: 24
+tournament:
+  method_id: SHAPE_DIVERSITY075_TOP24_full_remaining_v3

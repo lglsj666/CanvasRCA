@@ -1,0 +1,52 @@
+[
+  {
+    "round": 11,
+    "model": "qwen3.8-27b",
+    "case": "INC-90722DCD5A51",
+    "comment": "R10和R11均有node 6351的load、free memory、write await三条M。R10优先pod，R11两个模型改为node 6351。支持“证据本来在，但未被优先采用”；reason中关于node到pod的因果关系仍不能由名称分组自动证明。",
+    "response": "{\"services\": [\"6351\", \"3630\", \"43911\", \"51841\", \"87736\"], \"reason\": \"Node 6351 is the root cause, verified by a sustained >3σ mean shift in system.io.w_await [M31] and system.mem.free [M32] starting at b32 (within the +20m to +39m fault window), which temporally precedes the latency increases in its downstream caller pods 43911 [M08] and 51841 [M03]. This origin is confirmed by the G topology showing 43911 and 51841 as callers to services affected by the node's I/O bottleneck, ruling out the alternative hypothesis that the pod-level Istio metrics were an independent primary failure.\", \"confidence\": \"high\"}",
+    "conversation": "RQs/RQ3/results/tournament_v1/round_0011_full_metric_text_rlg_v3/qwen3.8-27b/conversations/90b44afb121e652cd69d6bab939388c15f7615efa5889cd27dd3c313a474500e.md",
+    "png": "RQs/RQ3/results/tournament_v1/round_0011_full_metric_text_rlg_v3/gallery/INC-90722DCD5A51/balanced_additive_v1__tournament_hybrid_metric_v1__card_nonthinking_v1.png",
+    "packet": "RQs/RQ3/results/tournament_v1/round_0011_full_metric_text_rlg_v3/gallery/INC-90722DCD5A51/balanced_additive_v1__tournament_hybrid_metric_v1__card_nonthinking_v1.packet.json"
+  },
+  {
+    "round": 35,
+    "model": "qwen3.8-27b",
+    "case": "INC-11AFCDDD7B6E",
+    "comment": "R34没有root-owned M/R/L，R35选中22条根因家族M、4条R、2条L；Qwen由前五外变Top1。Trace count显著下降但exclusive latency接近不变，提示吞吐/连接类证据而非只看耗时。公开reason把服务家族成员排序成功，不等于证明某一个pod是物理起点。",
+    "response": "{\"services\": [\"44405\", \"63729\", \"94689\", \"140\", \"308\"], \"reason\": \"Pod 44405 is the root cause, as it has the earliest anomaly onset (22.2 min) with a high z-score of 6.11 [EC03] and exhibits significant metric fluctuations such as a drop in container_cpu_system_seconds [EC01/M09]. This local fault propagates to other pods in service 140, causing a massive volume drop in request counts for operations like ListProducts and GetProduct [EC01/R], while downstream service 308 shows no corresponding error rate increase, confirming the origin is upstream at 44405.\", \"confidence\": \"high\"}",
+    "conversation": "RQs/RQ3/results/tournament_v1/round_0035_graph_diffusion_v7/qwen3.8-27b/conversations/e3001c8c31b381e59f33b1f7afc54e74f906fdbe54f4c8882e9fbfd382c244cd.md",
+    "png": "RQs/RQ3/results/tournament_v1/round_0035_graph_diffusion_v7/gallery/INC-11AFCDDD7B6E/graph_diffusion_v1__tournament_frozen_v1__card_nonthinking_v1.png",
+    "packet": "RQs/RQ3/results/tournament_v1/round_0035_graph_diffusion_v7/gallery/INC-11AFCDDD7B6E/graph_diffusion_v1__tournament_frozen_v1__card_nonthinking_v1.packet.json"
+  },
+  {
+    "round": 38,
+    "model": "gemma-4-26b-a4b",
+    "case": "INC-27CBD1F8668A",
+    "comment": "预测12949按原scorer正确；然而367确实在候选中，reason却说不是合法候选；M216属于55408，不属于12949；图中没有Trace条目/调用边，reason却引用Trace并把service 343与其pod成员关系说成依赖关系。这是实体绑定与证据编造的具体例子，不能因为AC1=1就把解释当训练真值。",
+    "response": "{\"services\": [\"12949\", \"55408\", \"343\", \"534\", \"523\"], \"reason\": \"The earliest onset at 18.3m is attributed to service 367 via metric M, but 367 is not a valid service candidate; however, pod 12949 shows a massive RTT spike [M216/EC03] at the same time. Testing 12949 against the topology, it is a dependency of service 343, and the trace latency for service 343 [EC01] aligns with the onset of the pod 12949 metric anomaly. Service 534 and 523 show subsequent symptom-driven onset [EC10].\", \"confidence\": \"high\"}",
+    "conversation": "RQs/RQ3/results/tournament_v1/round_0038_sustained_tail_v8/gemma-4-26b-a4b/conversations/4405c64aaf1cea7491f40b459f48c5d4c1d63789a5ef125a51ac60c905e64416.md",
+    "png": "RQs/RQ3/results/tournament_v1/round_0038_sustained_tail_v8/gallery/INC-27CBD1F8668A/sustained_tail_v1__tournament_frozen_v1__card_nonthinking_v1.png",
+    "packet": "RQs/RQ3/results/tournament_v1/round_0038_sustained_tail_v8/gallery/INC-27CBD1F8668A/sustained_tail_v1__tournament_frozen_v1__card_nonthinking_v1.packet.json"
+  },
+  {
+    "round": 38,
+    "model": "qwen3.8-27b",
+    "case": "INC-1FDAD91BB9BE",
+    "comment": "可接受根因tidb-tidb / tidb-tidb-0对应314；公共池有4条root-owned M、无R/L。本轮root-owned M/R/L均为0，模型重复选择156等其他实体。历史某轮出现过根因M也不意味着每一轮都保住了有效证据，必须同时看“曾经有”与“当前有没有”。",
+    "response": "{\"services\": [\"156\", \"240\", \"701\", \"348\", \"2377\"], \"reason\": \"MET-Z on M109 (EC06) shows a sustained drop in pod_cpu_usage for pod 63084, and TRC-L indicates an exclusive-latency increase for the owning service 156. Topology G confirms that service 240 calls 156, making 156 the upstream origin of the downstream latency symptoms observed in 240.\", \"confidence\": \"high\"}",
+    "conversation": "RQs/RQ3/results/tournament_v1/round_0038_sustained_tail_v8/qwen3.8-27b/conversations/9ee977d7d03287edbcd4b1d31868b9ba0775c5982913df97189827074855c295.md",
+    "png": "RQs/RQ3/results/tournament_v1/round_0038_sustained_tail_v8/gallery/INC-1FDAD91BB9BE/sustained_tail_v1__tournament_frozen_v1__card_nonthinking_v1.png",
+    "packet": "RQs/RQ3/results/tournament_v1/round_0038_sustained_tail_v8/gallery/INC-1FDAD91BB9BE/sustained_tail_v1__tournament_frozen_v1__card_nonthinking_v1.packet.json"
+  },
+  {
+    "round": 33,
+    "model": "gemma-4-26b-a4b",
+    "case": "INC-DB6E9CFCBBEA",
+    "comment": "根因ts-station-service；成功输入仍是4条root-owned M、0条root-owned R/L。ready从1到0、restarts从0到1、memory和请求耗时构成可读证据；改变的是别处日志上下文与竞争关系。不能把此成功解释成“日志直接定位了根因”。",
+    "response": "{\"services\": [\"896\", \"166\", \"103\", \"215\", \"374\"], \"reason\": \"Service 896 shows the earliest anomaly onset at rank 2 [G] and exhibits a massive increase in request duration p90 [M08/EC07] and error counts [L11113/EC03] while its exclusive latency remains stable [R166/EC01]. Testing 896 against service 166 via [G] shows 166 is a callee of 896, and 166's latency spike [R166] is a downstream consequence of the upstream error burst in 896.\", \"confidence\": \"high\"}",
+    "conversation": "RQs/RQ3/results/tournament_v1/round_0033_log_balance_v7/gemma-4-26b-a4b/conversations/d3fc86da2c4615c7a117b5c0f9a97e91635c21778ab7efc445dbc0ab6e594a16.md",
+    "png": "RQs/RQ3/results/tournament_v1/round_0033_log_balance_v7/gallery/INC-DB6E9CFCBBEA/log_balance_v1__tournament_frozen_v1__card_nonthinking_v1.png",
+    "packet": "RQs/RQ3/results/tournament_v1/round_0033_log_balance_v7/gallery/INC-DB6E9CFCBBEA/log_balance_v1__tournament_frozen_v1__card_nonthinking_v1.packet.json"
+  }
+]

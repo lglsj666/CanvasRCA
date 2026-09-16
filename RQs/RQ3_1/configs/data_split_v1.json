@@ -1,0 +1,58 @@
+{
+  "schema_version": "RQ31DataSplitConfigV1",
+  "seed": 42,
+  "processed_root": "build/local_processed_v3",
+  "partitions": ["train", "eval", "test", "unused"],
+  "targets": {
+    "aiops_unused_supplement": 50,
+    "aegislab_test": 120,
+    "test": {
+      "aegislab": 120,
+      "aiops2022": 120,
+      "aiops2025": 120,
+      "re2_ob": 0,
+      "re2_tt": 0
+    }
+  },
+  "group_policy": {
+    "shared_functions": ["connected_row_groups", "allocate_intact_groups"],
+    "relation": "same_nonempty_event_alias_or_same_source_overlapping_closed_windows",
+    "seed_selection": "stable_hash_seed42_complete_groups",
+    "aegislab_source": "env_namespace_plus_normal_abnormal_collection_envelope_with_unique_datapack_file_identity_audit",
+    "aegislab_event_alias": "injection_id"
+  },
+  "sources": {
+    "balanced_v3_split": {
+      "path": "RQs/RQ3/results/registration_balanced_v3/private/split.json",
+      "sha256": "41d64fdbc20e53fe1c1242b925c03bfb209a663d7f2a0f505dadbbb34cf01010"
+    },
+    "rq480_roster": {
+      "path": "RQs/RQ1_1/configs/rosters/case_manifest_480_frozen_v1.json",
+      "sha256": "6dbfcc80fb4a875d2f53a7085b703d099e8210b472c5312e5da8a07ee408df48"
+    },
+    "shared_segmentation": {
+      "path": "src/unified_scripts/dataset_segmentation.py",
+      "sha256": "07312aee7822c00be3602cdb2fa3c8946fbff2f6d19d1ac06831a32e5a1156be"
+    },
+    "manifest_aegislab": {
+      "path": "build/local_processed_v3/private/aegislab/manifest.jsonl",
+      "sha256": "e609debcc20e45b1c2cdcc665009ff06103f8a486f54a7976948a3953fd4e02a"
+    },
+    "manifest_aiops2022": {
+      "path": "build/local_processed_v3/private/aiops2022/manifest.jsonl",
+      "sha256": "ca450e4cccf51f85f18ab18666a811b75eb8da243703c76dde90dee5955527e6"
+    },
+    "manifest_aiops2025": {
+      "path": "build/local_processed_v3/private/aiops2025/manifest.jsonl",
+      "sha256": "3e89c620875ddca31222bca3f7b9168ab7bed2168a7610e2fdd7b0db308260c9"
+    },
+    "manifest_re2_ob": {
+      "path": "build/local_processed_v3/private/re2_ob/manifest.jsonl",
+      "sha256": "8f1f34d63fcb71fd46c382fb7a9eb13ec6a99e210f14451a4ce90d86040ec776"
+    },
+    "manifest_re2_tt": {
+      "path": "build/local_processed_v3/private/re2_tt/manifest.jsonl",
+      "sha256": "69735204e5aa65786795826b900a6dc357bc2f36a29bf7f39fd18ed4d8a24500"
+    }
+  }
+}

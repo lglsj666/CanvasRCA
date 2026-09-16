@@ -1,0 +1,6 @@
+extends: RQs/RQ3/configs/tournament_full_candidate_binding_v3.yaml
+search:
+  selectors: [rank_band_rescue_v1]
+  selection_only_suite: RQs/RQ3/configs/selection_only_suite_v5.yaml
+tournament:
+  method_id: RANK_BAND_RESCUE_selection_only_v8

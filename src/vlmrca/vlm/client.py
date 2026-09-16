@@ -56,6 +56,26 @@ def _openai_messages(parts, system):
     return messages
 
 
+def _template_kwargs(cfg: VLMConfig) -> dict[str, Any]:
+    """Use the same explicit template override for token preflight and generation."""
+    base = {"enable_thinking": cfg.thinking} if cfg.thinking_via_template else {}
+    if cfg.thinking_via_template and cfg.tag == "qwen3.8-27b":
+        base["preserve_thinking"] = False
+    override = cfg.extra.get("extra_body", {}).get("chat_template_kwargs", base)
+    if not isinstance(override, dict):
+        raise ValueError("chat_template_kwargs must be a mapping")
+    return dict(override)
+
+
+def _reasoning_text(message: Any) -> str:
+    """Read current vLLM and older compatible reasoning fields without duplication."""
+    values = [getattr(message, key, None) for key in ("reasoning", "reasoning_content")]
+    values = [value for value in values if isinstance(value, str) and value]
+    if len(set(values)) > 1:
+        raise VLMError("conflicting reasoning aliases in provider response")
+    return values[0] if values else ""
+
+
 def count_vllm_prompt_tokens(
     parts: list[dict[str, Any]],
     model: str | VLMConfig,
@@ -84,10 +104,8 @@ def count_vllm_prompt_tokens(
     )
     messages = _openai_messages(counted_parts, system)
     payload: dict[str, Any] = {"model": cfg.model_id, "messages": messages}
-    if cfg.thinking_via_template:
-        payload["chat_template_kwargs"] = {"enable_thinking": cfg.thinking}
-        if cfg.tag == "qwen3.8-27b":
-            payload["chat_template_kwargs"]["preserve_thinking"] = False
+    if template_kwargs := _template_kwargs(cfg):
+        payload["chat_template_kwargs"] = template_kwargs
     endpoint = base_url.rstrip("/")
     endpoint = endpoint.removesuffix("/v1")
     request = urllib.request.Request(
@@ -142,6 +160,7 @@ def call_vlm(
     partial_output_dir: Path | None = None,
     partial_metadata: Mapping[str, Any] | None = None,
     record_performance: bool = False,
+    allow_empty_completion: bool = False,
 ) -> VLMResponse:
     """
     Send one user turn made of text and image parts, return the reply.
@@ -194,7 +213,7 @@ def call_vlm(
                     "decode_time_s": None, "tpot_s": None,
                 }
             resp.model_tag = cfg.tag
-            if not resp.text.strip():
+            if not resp.text.strip() and not allow_empty_completion:
                 # An empty completion is a call failure, not a wrong answer.
                 # Scoring it as 0 silently depresses the metric and hides the
                 # cause (usually the output budget consumed by a reasoning
@@ -311,6 +330,10 @@ def _call_openai(
     if base_url and not api_key:
         api_key = "EMPTY"  # vLLM ignores the key but the SDK requires one
     client_kwargs: dict[str, Any] = {"api_key": api_key}
+    # RQ-specific accounting may disable SDK-internal retries so every actual
+    # request is registered by its caller. Preserve the SDK default elsewhere.
+    if "CANVASRCA_SDK_MAX_RETRIES" in os.environ:
+        client_kwargs["max_retries"] = int(os.environ["CANVASRCA_SDK_MAX_RETRIES"])
     if base_url:
         client_kwargs["base_url"] = base_url
     if cfg.request_timeout_s is not None:
@@ -353,10 +376,7 @@ def _call_openai(
     if cfg.thinking_via_template:
         # Current Qwen and Gemma templates expose enable_thinking. Keep it an
         # explicit request field rather than relying on a checkpoint default.
-        template_kwargs = {"enable_thinking": cfg.thinking}
-        if cfg.tag == "qwen3.8-27b":
-            template_kwargs["preserve_thinking"] = False
-        kwargs.setdefault("extra_body", {})["chat_template_kwargs"] = template_kwargs
+        kwargs.setdefault("extra_body", {})["chat_template_kwargs"] = _template_kwargs(cfg)
     if attention_probe_enabled():
         # vLLM carries this identifier through the engine. It joins the
         # original-prefill sidecar to the normal response without a replay.
@@ -389,6 +409,7 @@ def _call_openai(
             "finish_reason": out.choices[0].finish_reason,
             "usage": u.model_dump() if hasattr(u, "model_dump") else {},
             "attention_probe": probe,
+            "reasoning_text": _reasoning_text(out.choices[0].message),
         },
     )
 
@@ -432,6 +453,8 @@ def _call_openai_streaming(
         "model": cfg.tag,
         "response_text": "",
         "response_chars": 0,
+        "reasoning_text": "",
+        "reasoning_chars": 0,
         "chunks_received": 0,
         "started_unix_s": started,
         "last_update_unix_s": started,
@@ -443,22 +466,34 @@ def _call_openai_streaming(
         _write_partial(path, state)
     kwargs = {**kwargs, "stream": True, "stream_options": {"include_usage": True}}
     pieces: list[str] = []
+    reasoning_pieces: list[str] = []
     usage: Any = None
     finish_reason: Any = None
     response_id = probe_request_id
     last_checkpoint = started
     first_content_perf = last_content_perf = None
+    first_answer_perf = first_reasoning_perf = None
     content_arrivals: list[float] = []
+    sampled_logprobs: list[dict[str, Any]] = []
     try:
         for chunk in client.chat.completions.create(**kwargs):
             response_id = str(getattr(chunk, "id", None) or response_id)
             choices = list(getattr(chunk, "choices", None) or [])
             if choices:
+                logprobs = getattr(choices[0], "logprobs", None)
+                for token in getattr(logprobs, "content", None) or ():
+                    sampled_logprobs.append(token.model_dump())
                 delta = getattr(choices[0], "delta", None)
                 content = getattr(delta, "content", None)
+                reasoning = _reasoning_text(delta)
+                arrival = time.perf_counter() - started_perf
+                if reasoning:
+                    reasoning_pieces.append(reasoning)
+                    first_reasoning_perf = arrival if first_reasoning_perf is None else first_reasoning_perf
                 if isinstance(content, str) and content:
                     pieces.append(content)
-                    arrival = time.perf_counter() - started_perf
+                    first_answer_perf = arrival if first_answer_perf is None else first_answer_perf
+                if reasoning or (isinstance(content, str) and content):
                     first_content_perf = arrival if first_content_perf is None else first_content_perf
                     last_content_perf = arrival
                     content_arrivals.append(arrival)
@@ -471,6 +506,8 @@ def _call_openai_streaming(
                     response_request_id=response_id,
                     response_text="".join(pieces),
                     response_chars=sum(map(len, pieces)),
+                    reasoning_text="".join(reasoning_pieces),
+                    reasoning_chars=sum(map(len, reasoning_pieces)),
                     last_update_unix_s=now,
                     finish_reason=finish_reason,
                 )
@@ -482,6 +519,8 @@ def _call_openai_streaming(
             response_request_id=response_id,
             response_text="".join(pieces),
             response_chars=sum(map(len, pieces)),
+            reasoning_text="".join(reasoning_pieces),
+            reasoning_chars=sum(map(len, reasoning_pieces)),
             last_update_unix_s=time.time(),
             error=f"{type(error).__name__}: {error}",
         )
@@ -495,10 +534,14 @@ def _call_openai_streaming(
         response_request_id=response_id,
         response_text="".join(pieces),
         response_chars=sum(map(len, pieces)),
+        reasoning_text="".join(reasoning_pieces),
+        reasoning_chars=sum(map(len, reasoning_pieces)),
         last_update_unix_s=time.time(),
         finish_reason=finish_reason,
         usage=usage_dict,
     )
+    if kwargs.get("logprobs"):
+        state["sampled_logprobs"] = sampled_logprobs
     if path is not None:
         _write_partial(path, state)
     probe = read_sidecar(response_id) if attention_probe_enabled() else None
@@ -510,6 +553,10 @@ def _call_openai_streaming(
         output_tokens=int(usage_dict.get("completion_tokens", 0) or 0),
         content_arrivals_s=content_arrivals, content_chunks=len(content_arrivals),
     )
+    performance.update(
+        output_timing_scope="reasoning_and_answer" if reasoning_pieces else "answer",
+        first_answer_s=first_answer_perf, first_reasoning_s=first_reasoning_perf,
+    )
     return VLMResponse(
         text="".join(pieces),
         input_tokens=int(usage_dict.get("prompt_tokens", 0) or 0),
@@ -520,6 +567,8 @@ def _call_openai_streaming(
             "usage": usage_dict,
             "attention_probe": probe,
             "partial_response_path": str(path) if path is not None else None,
+            "reasoning_text": "".join(reasoning_pieces),
+            **({"sampled_logprobs": sampled_logprobs} if kwargs.get("logprobs") else {}),
         },
         performance=performance,
     )

@@ -19,3 +19,9 @@
 17. Cross a small set of deterministic, label-blind RCA evidence selectors with exact-fact Text/Canvas twins. Interpret within-tool Canvas−Text as representation and between-tool differences as evidence-selection effects; do not describe the selectors as interactive agents or exact reproductions of upstream systems.
 18. Reuse the complete frozen RQ1.1 480-case manifest after V3 regeneration. Keep AegisLab/AIOPS as headline strata and RE2-OB/RE2-TT as saturated-reference/OOD strata.
 19. Enforce one aggregate ceiling of 40,000 model calls across all RQ2 subexperiments. A new subexperiment must fit inside the remaining RQ2 budget rather than receiving a fresh 40,000-call allowance.
+# Historical RQ2 — abandoned / superseded by RQ2.1
+
+The previous protocol below is retained, not executable. All old RQ2 studies
+are abandoned by the 2026-09-07 user decision. See
+`../findings/exp_retirement_audit_findings.md` for failure mechanisms and
+`../../RQ2_1/descriptions/RQ2_1_experiments.md` for the successor contract.

@@ -330,11 +330,12 @@ does not by itself show factual-image accuracy gain or correct causal-chain
 recovery. The registered minimum effect is +0.05 with paired Pratt-Wilcoxon
 testing.
 
-This experiment remains `qualification_pending_rq2_completion`. Its code and
-tests may be prepared while RQ2 runs, but no test, smoke or model call begins
-until RQ2 is complete. It then receives one shared two-model smoke of eight
-planned calls (within 18 calls and 600 seconds), artifact verification, and
-only after passage a new resumable formal result root.
+RQ2 completed and passed its four formal artifact verifiers on 2026-09-06, so
+this experiment is now `active` for its previously registered qualification.
+It receives one shared two-model smoke of eight planned calls (within 18 calls
+and 600 seconds), artifact verification, and only after passage a new
+resumable formal result root. This status change does not alter its renderer,
+prompt, preparation, roster, model recipes, scorer, arms, or analysis.
 
 ## Attention and token efficiency
 
@@ -412,8 +413,11 @@ The bounded dual-model successor smokes `rq1_1_direct_rca_smoke_v4` and
 rate 1.0, zero infrastructure errors, no truncation, and passing post-hoc
 verification. Completed conversations, prompts, raw responses,
 attention/performance accounting, and persistence were manually inspected.
-This qualifies only Direct RCA and Direct QA. Counterfactual RCA remains
-deferred until RQ2 is complete, and multi-stage RCA remains abandoned.
+This qualified only Direct RCA and Direct QA at that point. RQ2 subsequently
+completed on 2026-09-06; counterfactual RCA then passed its separate bounded
+qualification and completed 3,840/3,840 formal trajectories with a passing
+verifier. Multi-stage RCA remains abandoned. Final counterfactual results are
+in `../../../docs/RQ1_1_RQ2_1_findings/findings.md`.
 
 Direct-QA R1 questions never refer to a representation-specific first row or
 first edge. Trace anchors use a unique displayed ExL-p95/rank-score pair;
@@ -422,3 +426,37 @@ a static invariance test. The 2026-09-05 repair changed only the small QA
 schedule sidecars. Existing Direct-RCA results remain untouched. A predecessor
 Direct-QA terminal is retained only if its complete model-visible request and
 current private score reproduce exactly; every changed matched group is rerun.
+
+## 2026-09-11 post-hoc QA measurement revision (no inference change)
+
+The user authorized `RQ11QASemanticRescoreV1` as a separate offline endpoint:
+all regional answers correct, without requiring the R3 `overall` field.
+Explicit aggregation correctness remains a separate sensitivity measure. Exact
+and compact-display measurement answers are accepted in every representation;
+IDs/counts/direction are not approximately matched. Unambiguous formatting,
+directed neighbor sets, and the numeric/lexical ambiguity of an unqualified
+"smallest ID" are handled deterministically from existing question/evidence.
+Original trajectories, hashes, questions, strict scores and RCA scores remain
+unchanged. Existing whole-case infrastructure exclusions apply to both models;
+no new question exclusions are introduced. This is post-hoc measurement repair,
+not a replacement preregistration or proof of the omitted aggregation step.
+Protocol, per-record decisions and QA–RCA reanalysis are in
+`../results/qa_semantic_rescore_v1/`; the readable report is
+`../../../docs/RQ1_1_QA_rescore_2026-09-11.md`.
+
+### Authorized offline revision V2 — 2026-09-11
+
+The user authorizes repairing residual v1 false negatives: exact/display Trace
+maximum winners, known field-specific measurement captions, labelled topology
+neighbor separators and region-local parsing failures. Add field-specific unit
+and numeric-range checks; optional aggregation must agree with the supplied
+regional answers. Keep v1 and original inference untouched. This supersedes
+v1 as the current measurement implementation only after regression and full
+rescoring verification. Rules: `../results/qa_semantic_rescore_v2/protocol.md`.
+No inference, training, input modification or new exclusion is authorized.
+
+Completion: V2 regression and full offline verification passed (63 CPU tests,
+17,280 QA hashes, 480 packets, 1,900 questions; all V1 bytes preserved).
+V2 is the current semantic measurement authority; inference and original strict
+scoring remain historical source facts. Report:
+`../../../docs/RQ1_1_QA_rescore_v2_2026-09-11.md`.

@@ -1,0 +1,1437 @@
+model,dataset,dimension,value,n,covered,coverage,late_covered,ever_top5
+qwen3.8-27b,aiops2022,fault_type,k8s容器cpu负载,9,9,1.0,0,9
+qwen3.8-27b,aiops2022,fault_type,k8s容器内存负载,8,6,0.75,0,7
+qwen3.8-27b,aiops2022,fault_type,k8s容器写io负载,4,3,0.75,0,4
+qwen3.8-27b,aiops2022,fault_type,k8s容器网络丢包,9,6,0.6666666666666666,1,7
+qwen3.8-27b,aiops2022,fault_type,k8s容器网络延迟,10,7,0.7,3,9
+qwen3.8-27b,aiops2022,fault_type,k8s容器网络资源包损坏,10,8,0.8,1,10
+qwen3.8-27b,aiops2022,fault_type,k8s容器网络资源包重复发送,7,3,0.42857142857142855,2,6
+qwen3.8-27b,aiops2022,fault_type,k8s容器读io负载,9,9,1.0,2,9
+qwen3.8-27b,aiops2022,fault_type,k8s容器进程中止,5,3,0.6,0,5
+qwen3.8-27b,aiops2022,fault_type,node 内存消耗,5,1,0.2,0,4
+qwen3.8-27b,aiops2022,fault_type,node 磁盘写IO消耗,6,5,0.8333333333333334,1,6
+qwen3.8-27b,aiops2022,fault_type,node 磁盘空间消耗,5,4,0.8,0,5
+qwen3.8-27b,aiops2022,fault_type,node 磁盘读IO消耗,5,1,0.2,0,5
+qwen3.8-27b,aiops2022,fault_type,node节点CPU故障,5,2,0.4,1,4
+qwen3.8-27b,aiops2022,fault_type,node节点CPU爬升,3,2,0.6666666666666666,0,2
+qwen3.8-27b,aiops2022,root_granularity,node,29,15,0.5172413793103449,2,26
+qwen3.8-27b,aiops2022,root_granularity,pod,38,27,0.7105263157894737,1,33
+qwen3.8-27b,aiops2022,root_granularity,service,33,27,0.8181818181818182,8,33
+qwen3.8-27b,aiops2022,accepted,adservice,2,2,1.0,0,2
+qwen3.8-27b,aiops2022,accepted,adservice-0,1,1,1.0,0,1
+qwen3.8-27b,aiops2022,accepted,adservice-1,3,1,0.3333333333333333,0,2
+qwen3.8-27b,aiops2022,accepted,adservice2-0,1,1,1.0,0,1
+qwen3.8-27b,aiops2022,accepted,cartservice,5,5,1.0,3,5
+qwen3.8-27b,aiops2022,accepted,cartservice-0,2,1,0.5,0,2
+qwen3.8-27b,aiops2022,accepted,cartservice2-0,1,0,0.0,0,0
+qwen3.8-27b,aiops2022,accepted,checkoutservice,4,3,0.75,0,4
+qwen3.8-27b,aiops2022,accepted,checkoutservice-0,2,2,1.0,0,2
+qwen3.8-27b,aiops2022,accepted,checkoutservice-1,2,1,0.5,0,2
+qwen3.8-27b,aiops2022,accepted,currencyservice,2,2,1.0,0,2
+qwen3.8-27b,aiops2022,accepted,currencyservice-0,1,0,0.0,0,0
+qwen3.8-27b,aiops2022,accepted,currencyservice-1,2,1,0.5,0,2
+qwen3.8-27b,aiops2022,accepted,currencyservice-2,2,1,0.5,0,2
+qwen3.8-27b,aiops2022,accepted,emailservice,4,2,0.5,0,4
+qwen3.8-27b,aiops2022,accepted,emailservice-1,2,1,0.5,0,2
+qwen3.8-27b,aiops2022,accepted,frontend,3,3,1.0,2,3
+qwen3.8-27b,aiops2022,accepted,frontend-0,1,1,1.0,0,1
+qwen3.8-27b,aiops2022,accepted,frontend-1,1,1,1.0,0,1
+qwen3.8-27b,aiops2022,accepted,frontend-2,1,1,1.0,0,1
+qwen3.8-27b,aiops2022,accepted,frontend2-0,1,1,1.0,0,1
+qwen3.8-27b,aiops2022,accepted,node-1,3,0,0.0,0,2
+qwen3.8-27b,aiops2022,accepted,node-2,3,2,0.6666666666666666,0,3
+qwen3.8-27b,aiops2022,accepted,node-3,4,1,0.25,0,3
+qwen3.8-27b,aiops2022,accepted,node-4,4,3,0.75,1,4
+qwen3.8-27b,aiops2022,accepted,node-5,8,4,0.5,0,8
+qwen3.8-27b,aiops2022,accepted,node-6,7,5,0.7142857142857143,1,6
+qwen3.8-27b,aiops2022,accepted,paymentservice,1,0,0.0,0,1
+qwen3.8-27b,aiops2022,accepted,productcatalogservice,4,4,1.0,2,4
+qwen3.8-27b,aiops2022,accepted,productcatalogservice-0,3,3,1.0,0,3
+qwen3.8-27b,aiops2022,accepted,productcatalogservice-1,3,2,0.6666666666666666,0,2
+qwen3.8-27b,aiops2022,accepted,productcatalogservice-2,2,2,1.0,0,2
+qwen3.8-27b,aiops2022,accepted,productcatalogservice2-0,1,1,1.0,0,1
+qwen3.8-27b,aiops2022,accepted,recommendationservice,4,4,1.0,0,4
+qwen3.8-27b,aiops2022,accepted,recommendationservice-2,1,1,1.0,0,1
+qwen3.8-27b,aiops2022,accepted,recommendationservice2-0,1,1,1.0,0,1
+qwen3.8-27b,aiops2022,accepted,shippingservice,4,2,0.5,1,4
+qwen3.8-27b,aiops2022,accepted,shippingservice-0,1,1,1.0,0,1
+qwen3.8-27b,aiops2022,accepted,shippingservice-1,2,1,0.5,1,1
+qwen3.8-27b,aiops2022,accepted,shippingservice2-0,1,1,1.0,0,1
+qwen3.8-27b,aiops2025,fault_type,code error,2,1,0.5,1,2
+qwen3.8-27b,aiops2025,fault_type,cpu stress,8,6,0.75,0,8
+qwen3.8-27b,aiops2025,fault_type,dns error,5,3,0.6,2,4
+qwen3.8-27b,aiops2025,fault_type,io fault,5,4,0.8,0,5
+qwen3.8-27b,aiops2025,fault_type,jvm cpu,3,3,1.0,0,3
+qwen3.8-27b,aiops2025,fault_type,jvm exception,5,3,0.6,1,5
+qwen3.8-27b,aiops2025,fault_type,jvm gc,2,1,0.5,0,2
+qwen3.8-27b,aiops2025,fault_type,jvm latency,5,5,1.0,0,5
+qwen3.8-27b,aiops2025,fault_type,memory stress,6,5,0.8333333333333334,1,6
+qwen3.8-27b,aiops2025,fault_type,network corrupt,7,7,1.0,0,7
+qwen3.8-27b,aiops2025,fault_type,network delay,7,6,0.8571428571428571,2,7
+qwen3.8-27b,aiops2025,fault_type,network loss,5,5,1.0,0,5
+qwen3.8-27b,aiops2025,fault_type,node cpu stress,6,2,0.3333333333333333,0,5
+qwen3.8-27b,aiops2025,fault_type,node disk fill,4,2,0.5,2,3
+qwen3.8-27b,aiops2025,fault_type,node memory stress,12,6,0.5,0,11
+qwen3.8-27b,aiops2025,fault_type,pod failure,13,5,0.38461538461538464,1,9
+qwen3.8-27b,aiops2025,fault_type,pod kill,2,2,1.0,0,2
+qwen3.8-27b,aiops2025,fault_type,target port misconfig,3,1,0.3333333333333333,0,3
+qwen3.8-27b,aiops2025,root_granularity,node,22,10,0.45454545454545453,2,19
+qwen3.8-27b,aiops2025,root_granularity,pod|service,22,17,0.7727272727272727,3,21
+qwen3.8-27b,aiops2025,root_granularity,service,43,34,0.7906976744186046,4,43
+qwen3.8-27b,aiops2025,root_granularity,service|unknown,13,6,0.46153846153846156,1,9
+qwen3.8-27b,aiops2025,accepted,adservice,10,8,0.8,0,10
+qwen3.8-27b,aiops2025,accepted,adservice-0|adservice,4,4,1.0,1,4
+qwen3.8-27b,aiops2025,accepted,adservice-1|adservice,1,1,1.0,0,1
+qwen3.8-27b,aiops2025,accepted,adservice-2|adservice,2,0,0.0,0,2
+qwen3.8-27b,aiops2025,accepted,cartservice,2,2,1.0,0,2
+qwen3.8-27b,aiops2025,accepted,cartservice|redis-cart|redis-cart-0,1,1,1.0,0,1
+qwen3.8-27b,aiops2025,accepted,checkoutservice,3,1,0.3333333333333333,0,3
+qwen3.8-27b,aiops2025,accepted,checkoutservice-0|checkoutservice,3,2,0.6666666666666666,1,3
+qwen3.8-27b,aiops2025,accepted,checkoutservice-1|checkoutservice,1,1,1.0,1,1
+qwen3.8-27b,aiops2025,accepted,checkoutservice-2|checkoutservice,2,1,0.5,0,1
+qwen3.8-27b,aiops2025,accepted,checkoutservice|cartservice,1,0,0.0,0,1
+qwen3.8-27b,aiops2025,accepted,checkoutservice|currencyservice,1,1,1.0,0,1
+qwen3.8-27b,aiops2025,accepted,checkoutservice|emailservice,1,1,1.0,1,1
+qwen3.8-27b,aiops2025,accepted,checkoutservice|paymentservice,2,2,1.0,0,2
+qwen3.8-27b,aiops2025,accepted,checkoutservice|productcatalogservice,2,2,1.0,1,2
+qwen3.8-27b,aiops2025,accepted,checkoutservice|shippingservice,1,1,1.0,0,1
+qwen3.8-27b,aiops2025,accepted,currencyservice,2,2,1.0,0,2
+qwen3.8-27b,aiops2025,accepted,currencyservice-2|currencyservice,1,1,1.0,0,1
+qwen3.8-27b,aiops2025,accepted,emailservice,2,2,1.0,1,2
+qwen3.8-27b,aiops2025,accepted,emailservice-2|emailservice,1,0,0.0,0,1
+qwen3.8-27b,aiops2025,accepted,frontend,1,1,1.0,1,1
+qwen3.8-27b,aiops2025,accepted,frontend|cartservice,4,4,1.0,0,4
+qwen3.8-27b,aiops2025,accepted,frontend|checkoutservice,2,2,1.0,0,2
+qwen3.8-27b,aiops2025,accepted,frontend|currencyservice,1,1,1.0,0,1
+qwen3.8-27b,aiops2025,accepted,frontend|recommendationservice,2,2,1.0,0,2
+qwen3.8-27b,aiops2025,accepted,node-1,3,2,0.6666666666666666,0,3
+qwen3.8-27b,aiops2025,accepted,node-3,3,0,0.0,0,2
+qwen3.8-27b,aiops2025,accepted,node-4,1,1,1.0,0,1
+qwen3.8-27b,aiops2025,accepted,node-5,4,2,0.5,1,4
+qwen3.8-27b,aiops2025,accepted,node-6,5,2,0.4,0,4
+qwen3.8-27b,aiops2025,accepted,node-7,2,1,0.5,0,1
+qwen3.8-27b,aiops2025,accepted,node-8,4,2,0.5,1,4
+qwen3.8-27b,aiops2025,accepted,paymentservice,1,1,1.0,0,1
+qwen3.8-27b,aiops2025,accepted,productcatalogservice-0|productcatalogservice,1,1,1.0,0,1
+qwen3.8-27b,aiops2025,accepted,productcatalogservice-2|productcatalogservice,2,2,1.0,0,2
+qwen3.8-27b,aiops2025,accepted,recommendationservice,1,0,0.0,0,1
+qwen3.8-27b,aiops2025,accepted,recommendationservice|productcatalogservice,1,1,1.0,0,1
+qwen3.8-27b,aiops2025,accepted,shippingservice,3,0,0.0,0,3
+qwen3.8-27b,aiops2025,accepted,shippingservice-0|shippingservice,2,2,1.0,0,2
+qwen3.8-27b,aiops2025,accepted,shippingservice-1|shippingservice,1,1,1.0,0,1
+qwen3.8-27b,aiops2025,accepted,tidb-tidb|tidb-tidb-0,3,0,0.0,0,0
+qwen3.8-27b,aiops2025,accepted,tidb-tikv|tidb-tikv-0,10,6,0.6,1,9
+qwen3.8-27b,aegislab,fault_type,ContainerKill,8,8,1.0,0,8
+qwen3.8-27b,aegislab,fault_type,HTTPRequestAbort,6,5,0.8333333333333334,0,6
+qwen3.8-27b,aegislab,fault_type,HTTPRequestDelay,7,5,0.7142857142857143,0,7
+qwen3.8-27b,aegislab,fault_type,HTTPRequestReplaceMethod,15,13,0.8666666666666667,2,15
+qwen3.8-27b,aegislab,fault_type,HTTPRequestReplacePath,1,0,0.0,0,1
+qwen3.8-27b,aegislab,fault_type,HTTPResponseAbort,3,3,1.0,1,3
+qwen3.8-27b,aegislab,fault_type,HTTPResponseDelay,7,6,0.8571428571428571,0,7
+qwen3.8-27b,aegislab,fault_type,HTTPResponseReplaceBody,2,2,1.0,0,2
+qwen3.8-27b,aegislab,fault_type,HTTPResponseReplaceCode,13,11,0.8461538461538461,0,13
+qwen3.8-27b,aegislab,fault_type,JVMException,3,3,1.0,0,3
+qwen3.8-27b,aegislab,fault_type,JVMLatency,1,1,1.0,0,1
+qwen3.8-27b,aegislab,fault_type,JVMMemoryStress,14,14,1.0,0,14
+qwen3.8-27b,aegislab,fault_type,JVMReturn,2,2,1.0,0,2
+qwen3.8-27b,aegislab,fault_type,NetworkBandwidth,2,2,1.0,0,2
+qwen3.8-27b,aegislab,fault_type,NetworkCorrupt,3,2,0.6666666666666666,0,3
+qwen3.8-27b,aegislab,fault_type,NetworkDelay,1,1,1.0,0,1
+qwen3.8-27b,aegislab,fault_type,NetworkLoss,3,1,0.3333333333333333,0,3
+qwen3.8-27b,aegislab,fault_type,NetworkPartition,6,5,0.8333333333333334,0,6
+qwen3.8-27b,aegislab,fault_type,PodFailure,2,2,1.0,0,2
+qwen3.8-27b,aegislab,fault_type,PodKill,1,1,1.0,0,1
+qwen3.8-27b,aegislab,root_granularity,service,100,87,0.87,3,100
+qwen3.8-27b,aegislab,accepted,mysql|ts-auth-service,1,0,0.0,0,1
+qwen3.8-27b,aegislab,accepted,mysql|ts-consign-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,mysql|ts-order-other-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-assurance-service,3,3,1.0,0,3
+qwen3.8-27b,aegislab,accepted,ts-auth-service,2,2,1.0,0,2
+qwen3.8-27b,aegislab,accepted,ts-auth-service|ts-verification-code-service,2,1,0.5,0,2
+qwen3.8-27b,aegislab,accepted,ts-basic-service|ts-price-service,5,4,0.8,1,5
+qwen3.8-27b,aegislab,accepted,ts-basic-service|ts-route-service,4,4,1.0,0,4
+qwen3.8-27b,aegislab,accepted,ts-basic-service|ts-station-service,3,2,0.6666666666666666,0,3
+qwen3.8-27b,aegislab,accepted,ts-basic-service|ts-train-service,3,3,1.0,0,3
+qwen3.8-27b,aegislab,accepted,ts-config-service,2,2,1.0,0,2
+qwen3.8-27b,aegislab,accepted,ts-consign-price-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-consign-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-consign-service|mysql,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-food-service|ts-station-food-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-food-service|ts-travel-service,1,1,1.0,1,1
+qwen3.8-27b,aegislab,accepted,ts-inside-payment-service,2,2,1.0,0,2
+qwen3.8-27b,aegislab,accepted,ts-order-other-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-order-other-service|ts-security-service,1,0,0.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-order-service,3,3,1.0,0,3
+qwen3.8-27b,aegislab,accepted,ts-order-service|mysql,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-order-service|ts-security-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-preserve-service|ts-basic-service,2,2,1.0,0,2
+qwen3.8-27b,aegislab,accepted,ts-preserve-service|ts-contacts-service,2,2,1.0,0,2
+qwen3.8-27b,aegislab,accepted,ts-preserve-service|ts-seat-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-preserve-service|ts-travel-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-price-service,2,2,1.0,0,2
+qwen3.8-27b,aegislab,accepted,ts-route-plan-service|ts-travel-service,3,3,1.0,0,3
+qwen3.8-27b,aegislab,accepted,ts-route-plan-service|ts-travel2-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-route-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-seat-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-seat-service|ts-config-service,4,2,0.5,0,4
+qwen3.8-27b,aegislab,accepted,ts-seat-service|ts-order-other-service,1,0,0.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-security-service,2,2,1.0,0,2
+qwen3.8-27b,aegislab,accepted,ts-security-service|ts-order-other-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-security-service|ts-preserve-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-station-food-service,2,2,1.0,0,2
+qwen3.8-27b,aegislab,accepted,ts-station-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-train-service|mysql,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-travel-plan-service,2,2,1.0,0,2
+qwen3.8-27b,aegislab,accepted,ts-travel-plan-service|ts-route-plan-service,2,2,1.0,0,2
+qwen3.8-27b,aegislab,accepted,ts-travel-service,2,2,1.0,0,2
+qwen3.8-27b,aegislab,accepted,ts-travel-service|ts-basic-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-travel-service|ts-preserve-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-travel-service|ts-route-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-travel-service|ts-seat-service,2,2,1.0,0,2
+qwen3.8-27b,aegislab,accepted,ts-travel2-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-travel2-service|ts-basic-service,1,0,0.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-travel2-service|ts-route-service,1,0,0.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-travel2-service|ts-seat-service,3,3,1.0,0,3
+qwen3.8-27b,aegislab,accepted,ts-ui-dashboard|ts-assurance-service,2,2,1.0,0,2
+qwen3.8-27b,aegislab,accepted,ts-ui-dashboard|ts-consign-service,1,0,0.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-ui-dashboard|ts-food-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-ui-dashboard|ts-order-service,2,1,0.5,1,2
+qwen3.8-27b,aegislab,accepted,ts-ui-dashboard|ts-preserve-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-ui-dashboard|ts-route-service,1,0,0.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-ui-dashboard|ts-train-service,2,2,1.0,0,2
+qwen3.8-27b,aegislab,accepted,ts-ui-dashboard|ts-travel-plan-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-ui-dashboard|ts-travel-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-ui-dashboard|ts-travel2-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-user-service,1,1,1.0,0,1
+qwen3.8-27b,aegislab,accepted,ts-verification-code-service,1,1,1.0,0,1
+qwen3.8-27b,re2_ob,fault_type,cpu,15,15,1.0,0,15
+qwen3.8-27b,re2_ob,fault_type,delay,15,11,0.7333333333333333,2,15
+qwen3.8-27b,re2_ob,fault_type,disk,15,15,1.0,0,15
+qwen3.8-27b,re2_ob,fault_type,loss,15,14,0.9333333333333333,1,15
+qwen3.8-27b,re2_ob,fault_type,mem,15,15,1.0,1,15
+qwen3.8-27b,re2_ob,fault_type,socket,15,15,1.0,0,15
+qwen3.8-27b,re2_ob,root_granularity,service,90,85,0.9444444444444444,4,90
+qwen3.8-27b,re2_ob,accepted,checkoutservice,18,18,1.0,2,18
+qwen3.8-27b,re2_ob,accepted,currencyservice,18,18,1.0,1,18
+qwen3.8-27b,re2_ob,accepted,emailservice,18,18,1.0,0,18
+qwen3.8-27b,re2_ob,accepted,productcatalogservice,18,14,0.7777777777777778,1,18
+qwen3.8-27b,re2_ob,accepted,recommendationservice,18,17,0.9444444444444444,0,18
+qwen3.8-27b,re2_tt,fault_type,cpu,15,15,1.0,2,15
+qwen3.8-27b,re2_tt,fault_type,delay,15,14,0.9333333333333333,1,15
+qwen3.8-27b,re2_tt,fault_type,disk,15,15,1.0,0,15
+qwen3.8-27b,re2_tt,fault_type,loss,15,14,0.9333333333333333,2,15
+qwen3.8-27b,re2_tt,fault_type,mem,15,15,1.0,3,15
+qwen3.8-27b,re2_tt,fault_type,socket,15,13,0.8666666666666667,3,15
+qwen3.8-27b,re2_tt,root_granularity,service,90,86,0.9555555555555556,11,90
+qwen3.8-27b,re2_tt,accepted,ts-auth-service,18,18,1.0,3,18
+qwen3.8-27b,re2_tt,accepted,ts-order-service,18,16,0.8888888888888888,1,18
+qwen3.8-27b,re2_tt,accepted,ts-route-service,18,17,0.9444444444444444,4,18
+qwen3.8-27b,re2_tt,accepted,ts-train-service,18,17,0.9444444444444444,1,18
+qwen3.8-27b,re2_tt,accepted,ts-travel-service,18,18,1.0,2,18
+qwen3.8-27b,aiops_combined,fault_type,code error,2,1,0.5,1,2
+qwen3.8-27b,aiops_combined,fault_type,cpu stress,8,6,0.75,0,8
+qwen3.8-27b,aiops_combined,fault_type,dns error,5,3,0.6,2,4
+qwen3.8-27b,aiops_combined,fault_type,io fault,5,4,0.8,0,5
+qwen3.8-27b,aiops_combined,fault_type,jvm cpu,3,3,1.0,0,3
+qwen3.8-27b,aiops_combined,fault_type,jvm exception,5,3,0.6,1,5
+qwen3.8-27b,aiops_combined,fault_type,jvm gc,2,1,0.5,0,2
+qwen3.8-27b,aiops_combined,fault_type,jvm latency,5,5,1.0,0,5
+qwen3.8-27b,aiops_combined,fault_type,k8s容器cpu负载,9,9,1.0,0,9
+qwen3.8-27b,aiops_combined,fault_type,k8s容器内存负载,8,6,0.75,0,7
+qwen3.8-27b,aiops_combined,fault_type,k8s容器写io负载,4,3,0.75,0,4
+qwen3.8-27b,aiops_combined,fault_type,k8s容器网络丢包,9,6,0.6666666666666666,1,7
+qwen3.8-27b,aiops_combined,fault_type,k8s容器网络延迟,10,7,0.7,3,9
+qwen3.8-27b,aiops_combined,fault_type,k8s容器网络资源包损坏,10,8,0.8,1,10
+qwen3.8-27b,aiops_combined,fault_type,k8s容器网络资源包重复发送,7,3,0.42857142857142855,2,6
+qwen3.8-27b,aiops_combined,fault_type,k8s容器读io负载,9,9,1.0,2,9
+qwen3.8-27b,aiops_combined,fault_type,k8s容器进程中止,5,3,0.6,0,5
+qwen3.8-27b,aiops_combined,fault_type,memory stress,6,5,0.8333333333333334,1,6
+qwen3.8-27b,aiops_combined,fault_type,network corrupt,7,7,1.0,0,7
+qwen3.8-27b,aiops_combined,fault_type,network delay,7,6,0.8571428571428571,2,7
+qwen3.8-27b,aiops_combined,fault_type,network loss,5,5,1.0,0,5
+qwen3.8-27b,aiops_combined,fault_type,node cpu stress,6,2,0.3333333333333333,0,5
+qwen3.8-27b,aiops_combined,fault_type,node disk fill,4,2,0.5,2,3
+qwen3.8-27b,aiops_combined,fault_type,node memory stress,12,6,0.5,0,11
+qwen3.8-27b,aiops_combined,fault_type,node 内存消耗,5,1,0.2,0,4
+qwen3.8-27b,aiops_combined,fault_type,node 磁盘写IO消耗,6,5,0.8333333333333334,1,6
+qwen3.8-27b,aiops_combined,fault_type,node 磁盘空间消耗,5,4,0.8,0,5
+qwen3.8-27b,aiops_combined,fault_type,node 磁盘读IO消耗,5,1,0.2,0,5
+qwen3.8-27b,aiops_combined,fault_type,node节点CPU故障,5,2,0.4,1,4
+qwen3.8-27b,aiops_combined,fault_type,node节点CPU爬升,3,2,0.6666666666666666,0,2
+qwen3.8-27b,aiops_combined,fault_type,pod failure,13,5,0.38461538461538464,1,9
+qwen3.8-27b,aiops_combined,fault_type,pod kill,2,2,1.0,0,2
+qwen3.8-27b,aiops_combined,fault_type,target port misconfig,3,1,0.3333333333333333,0,3
+qwen3.8-27b,aiops_combined,root_granularity,node,51,25,0.49019607843137253,4,45
+qwen3.8-27b,aiops_combined,root_granularity,pod,38,27,0.7105263157894737,1,33
+qwen3.8-27b,aiops_combined,root_granularity,pod|service,22,17,0.7727272727272727,3,21
+qwen3.8-27b,aiops_combined,root_granularity,service,76,61,0.8026315789473685,12,76
+qwen3.8-27b,aiops_combined,root_granularity,service|unknown,13,6,0.46153846153846156,1,9
+qwen3.8-27b,aiops_combined,accepted,adservice,12,10,0.8333333333333334,0,12
+qwen3.8-27b,aiops_combined,accepted,adservice-0,1,1,1.0,0,1
+qwen3.8-27b,aiops_combined,accepted,adservice-0|adservice,4,4,1.0,1,4
+qwen3.8-27b,aiops_combined,accepted,adservice-1,3,1,0.3333333333333333,0,2
+qwen3.8-27b,aiops_combined,accepted,adservice-1|adservice,1,1,1.0,0,1
+qwen3.8-27b,aiops_combined,accepted,adservice-2|adservice,2,0,0.0,0,2
+qwen3.8-27b,aiops_combined,accepted,adservice2-0,1,1,1.0,0,1
+qwen3.8-27b,aiops_combined,accepted,cartservice,7,7,1.0,3,7
+qwen3.8-27b,aiops_combined,accepted,cartservice-0,2,1,0.5,0,2
+qwen3.8-27b,aiops_combined,accepted,cartservice2-0,1,0,0.0,0,0
+qwen3.8-27b,aiops_combined,accepted,cartservice|redis-cart|redis-cart-0,1,1,1.0,0,1
+qwen3.8-27b,aiops_combined,accepted,checkoutservice,7,4,0.5714285714285714,0,7
+qwen3.8-27b,aiops_combined,accepted,checkoutservice-0,2,2,1.0,0,2
+qwen3.8-27b,aiops_combined,accepted,checkoutservice-0|checkoutservice,3,2,0.6666666666666666,1,3
+qwen3.8-27b,aiops_combined,accepted,checkoutservice-1,2,1,0.5,0,2
+qwen3.8-27b,aiops_combined,accepted,checkoutservice-1|checkoutservice,1,1,1.0,1,1
+qwen3.8-27b,aiops_combined,accepted,checkoutservice-2|checkoutservice,2,1,0.5,0,1
+qwen3.8-27b,aiops_combined,accepted,checkoutservice|cartservice,1,0,0.0,0,1
+qwen3.8-27b,aiops_combined,accepted,checkoutservice|currencyservice,1,1,1.0,0,1
+qwen3.8-27b,aiops_combined,accepted,checkoutservice|emailservice,1,1,1.0,1,1
+qwen3.8-27b,aiops_combined,accepted,checkoutservice|paymentservice,2,2,1.0,0,2
+qwen3.8-27b,aiops_combined,accepted,checkoutservice|productcatalogservice,2,2,1.0,1,2
+qwen3.8-27b,aiops_combined,accepted,checkoutservice|shippingservice,1,1,1.0,0,1
+qwen3.8-27b,aiops_combined,accepted,currencyservice,4,4,1.0,0,4
+qwen3.8-27b,aiops_combined,accepted,currencyservice-0,1,0,0.0,0,0
+qwen3.8-27b,aiops_combined,accepted,currencyservice-1,2,1,0.5,0,2
+qwen3.8-27b,aiops_combined,accepted,currencyservice-2,2,1,0.5,0,2
+qwen3.8-27b,aiops_combined,accepted,currencyservice-2|currencyservice,1,1,1.0,0,1
+qwen3.8-27b,aiops_combined,accepted,emailservice,6,4,0.6666666666666666,1,6
+qwen3.8-27b,aiops_combined,accepted,emailservice-1,2,1,0.5,0,2
+qwen3.8-27b,aiops_combined,accepted,emailservice-2|emailservice,1,0,0.0,0,1
+qwen3.8-27b,aiops_combined,accepted,frontend,4,4,1.0,3,4
+qwen3.8-27b,aiops_combined,accepted,frontend-0,1,1,1.0,0,1
+qwen3.8-27b,aiops_combined,accepted,frontend-1,1,1,1.0,0,1
+qwen3.8-27b,aiops_combined,accepted,frontend-2,1,1,1.0,0,1
+qwen3.8-27b,aiops_combined,accepted,frontend2-0,1,1,1.0,0,1
+qwen3.8-27b,aiops_combined,accepted,frontend|cartservice,4,4,1.0,0,4
+qwen3.8-27b,aiops_combined,accepted,frontend|checkoutservice,2,2,1.0,0,2
+qwen3.8-27b,aiops_combined,accepted,frontend|currencyservice,1,1,1.0,0,1
+qwen3.8-27b,aiops_combined,accepted,frontend|recommendationservice,2,2,1.0,0,2
+qwen3.8-27b,aiops_combined,accepted,node-1,6,2,0.3333333333333333,0,5
+qwen3.8-27b,aiops_combined,accepted,node-2,3,2,0.6666666666666666,0,3
+qwen3.8-27b,aiops_combined,accepted,node-3,7,1,0.14285714285714285,0,5
+qwen3.8-27b,aiops_combined,accepted,node-4,5,4,0.8,1,5
+qwen3.8-27b,aiops_combined,accepted,node-5,12,6,0.5,1,12
+qwen3.8-27b,aiops_combined,accepted,node-6,12,7,0.5833333333333334,1,10
+qwen3.8-27b,aiops_combined,accepted,node-7,2,1,0.5,0,1
+qwen3.8-27b,aiops_combined,accepted,node-8,4,2,0.5,1,4
+qwen3.8-27b,aiops_combined,accepted,paymentservice,2,1,0.5,0,2
+qwen3.8-27b,aiops_combined,accepted,productcatalogservice,4,4,1.0,2,4
+qwen3.8-27b,aiops_combined,accepted,productcatalogservice-0,3,3,1.0,0,3
+qwen3.8-27b,aiops_combined,accepted,productcatalogservice-0|productcatalogservice,1,1,1.0,0,1
+qwen3.8-27b,aiops_combined,accepted,productcatalogservice-1,3,2,0.6666666666666666,0,2
+qwen3.8-27b,aiops_combined,accepted,productcatalogservice-2,2,2,1.0,0,2
+qwen3.8-27b,aiops_combined,accepted,productcatalogservice-2|productcatalogservice,2,2,1.0,0,2
+qwen3.8-27b,aiops_combined,accepted,productcatalogservice2-0,1,1,1.0,0,1
+qwen3.8-27b,aiops_combined,accepted,recommendationservice,5,4,0.8,0,5
+qwen3.8-27b,aiops_combined,accepted,recommendationservice-2,1,1,1.0,0,1
+qwen3.8-27b,aiops_combined,accepted,recommendationservice2-0,1,1,1.0,0,1
+qwen3.8-27b,aiops_combined,accepted,recommendationservice|productcatalogservice,1,1,1.0,0,1
+qwen3.8-27b,aiops_combined,accepted,shippingservice,7,2,0.2857142857142857,1,7
+qwen3.8-27b,aiops_combined,accepted,shippingservice-0,1,1,1.0,0,1
+qwen3.8-27b,aiops_combined,accepted,shippingservice-0|shippingservice,2,2,1.0,0,2
+qwen3.8-27b,aiops_combined,accepted,shippingservice-1,2,1,0.5,1,1
+qwen3.8-27b,aiops_combined,accepted,shippingservice-1|shippingservice,1,1,1.0,0,1
+qwen3.8-27b,aiops_combined,accepted,shippingservice2-0,1,1,1.0,0,1
+qwen3.8-27b,aiops_combined,accepted,tidb-tidb|tidb-tidb-0,3,0,0.0,0,0
+qwen3.8-27b,aiops_combined,accepted,tidb-tikv|tidb-tikv-0,10,6,0.6,1,9
+qwen3.8-27b,primary,fault_type,ContainerKill,8,8,1.0,0,8
+qwen3.8-27b,primary,fault_type,HTTPRequestAbort,6,5,0.8333333333333334,0,6
+qwen3.8-27b,primary,fault_type,HTTPRequestDelay,7,5,0.7142857142857143,0,7
+qwen3.8-27b,primary,fault_type,HTTPRequestReplaceMethod,15,13,0.8666666666666667,2,15
+qwen3.8-27b,primary,fault_type,HTTPRequestReplacePath,1,0,0.0,0,1
+qwen3.8-27b,primary,fault_type,HTTPResponseAbort,3,3,1.0,1,3
+qwen3.8-27b,primary,fault_type,HTTPResponseDelay,7,6,0.8571428571428571,0,7
+qwen3.8-27b,primary,fault_type,HTTPResponseReplaceBody,2,2,1.0,0,2
+qwen3.8-27b,primary,fault_type,HTTPResponseReplaceCode,13,11,0.8461538461538461,0,13
+qwen3.8-27b,primary,fault_type,JVMException,3,3,1.0,0,3
+qwen3.8-27b,primary,fault_type,JVMLatency,1,1,1.0,0,1
+qwen3.8-27b,primary,fault_type,JVMMemoryStress,14,14,1.0,0,14
+qwen3.8-27b,primary,fault_type,JVMReturn,2,2,1.0,0,2
+qwen3.8-27b,primary,fault_type,NetworkBandwidth,2,2,1.0,0,2
+qwen3.8-27b,primary,fault_type,NetworkCorrupt,3,2,0.6666666666666666,0,3
+qwen3.8-27b,primary,fault_type,NetworkDelay,1,1,1.0,0,1
+qwen3.8-27b,primary,fault_type,NetworkLoss,3,1,0.3333333333333333,0,3
+qwen3.8-27b,primary,fault_type,NetworkPartition,6,5,0.8333333333333334,0,6
+qwen3.8-27b,primary,fault_type,PodFailure,2,2,1.0,0,2
+qwen3.8-27b,primary,fault_type,PodKill,1,1,1.0,0,1
+qwen3.8-27b,primary,fault_type,code error,2,1,0.5,1,2
+qwen3.8-27b,primary,fault_type,cpu stress,8,6,0.75,0,8
+qwen3.8-27b,primary,fault_type,dns error,5,3,0.6,2,4
+qwen3.8-27b,primary,fault_type,io fault,5,4,0.8,0,5
+qwen3.8-27b,primary,fault_type,jvm cpu,3,3,1.0,0,3
+qwen3.8-27b,primary,fault_type,jvm exception,5,3,0.6,1,5
+qwen3.8-27b,primary,fault_type,jvm gc,2,1,0.5,0,2
+qwen3.8-27b,primary,fault_type,jvm latency,5,5,1.0,0,5
+qwen3.8-27b,primary,fault_type,k8s容器cpu负载,9,9,1.0,0,9
+qwen3.8-27b,primary,fault_type,k8s容器内存负载,8,6,0.75,0,7
+qwen3.8-27b,primary,fault_type,k8s容器写io负载,4,3,0.75,0,4
+qwen3.8-27b,primary,fault_type,k8s容器网络丢包,9,6,0.6666666666666666,1,7
+qwen3.8-27b,primary,fault_type,k8s容器网络延迟,10,7,0.7,3,9
+qwen3.8-27b,primary,fault_type,k8s容器网络资源包损坏,10,8,0.8,1,10
+qwen3.8-27b,primary,fault_type,k8s容器网络资源包重复发送,7,3,0.42857142857142855,2,6
+qwen3.8-27b,primary,fault_type,k8s容器读io负载,9,9,1.0,2,9
+qwen3.8-27b,primary,fault_type,k8s容器进程中止,5,3,0.6,0,5
+qwen3.8-27b,primary,fault_type,memory stress,6,5,0.8333333333333334,1,6
+qwen3.8-27b,primary,fault_type,network corrupt,7,7,1.0,0,7
+qwen3.8-27b,primary,fault_type,network delay,7,6,0.8571428571428571,2,7
+qwen3.8-27b,primary,fault_type,network loss,5,5,1.0,0,5
+qwen3.8-27b,primary,fault_type,node cpu stress,6,2,0.3333333333333333,0,5
+qwen3.8-27b,primary,fault_type,node disk fill,4,2,0.5,2,3
+qwen3.8-27b,primary,fault_type,node memory stress,12,6,0.5,0,11
+qwen3.8-27b,primary,fault_type,node 内存消耗,5,1,0.2,0,4
+qwen3.8-27b,primary,fault_type,node 磁盘写IO消耗,6,5,0.8333333333333334,1,6
+qwen3.8-27b,primary,fault_type,node 磁盘空间消耗,5,4,0.8,0,5
+qwen3.8-27b,primary,fault_type,node 磁盘读IO消耗,5,1,0.2,0,5
+qwen3.8-27b,primary,fault_type,node节点CPU故障,5,2,0.4,1,4
+qwen3.8-27b,primary,fault_type,node节点CPU爬升,3,2,0.6666666666666666,0,2
+qwen3.8-27b,primary,fault_type,pod failure,13,5,0.38461538461538464,1,9
+qwen3.8-27b,primary,fault_type,pod kill,2,2,1.0,0,2
+qwen3.8-27b,primary,fault_type,target port misconfig,3,1,0.3333333333333333,0,3
+qwen3.8-27b,primary,root_granularity,node,51,25,0.49019607843137253,4,45
+qwen3.8-27b,primary,root_granularity,pod,38,27,0.7105263157894737,1,33
+qwen3.8-27b,primary,root_granularity,pod|service,22,17,0.7727272727272727,3,21
+qwen3.8-27b,primary,root_granularity,service,176,148,0.8409090909090909,15,176
+qwen3.8-27b,primary,root_granularity,service|unknown,13,6,0.46153846153846156,1,9
+qwen3.8-27b,primary,accepted,adservice,12,10,0.8333333333333334,0,12
+qwen3.8-27b,primary,accepted,adservice-0,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,adservice-0|adservice,4,4,1.0,1,4
+qwen3.8-27b,primary,accepted,adservice-1,3,1,0.3333333333333333,0,2
+qwen3.8-27b,primary,accepted,adservice-1|adservice,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,adservice-2|adservice,2,0,0.0,0,2
+qwen3.8-27b,primary,accepted,adservice2-0,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,cartservice,7,7,1.0,3,7
+qwen3.8-27b,primary,accepted,cartservice-0,2,1,0.5,0,2
+qwen3.8-27b,primary,accepted,cartservice2-0,1,0,0.0,0,0
+qwen3.8-27b,primary,accepted,cartservice|redis-cart|redis-cart-0,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,checkoutservice,7,4,0.5714285714285714,0,7
+qwen3.8-27b,primary,accepted,checkoutservice-0,2,2,1.0,0,2
+qwen3.8-27b,primary,accepted,checkoutservice-0|checkoutservice,3,2,0.6666666666666666,1,3
+qwen3.8-27b,primary,accepted,checkoutservice-1,2,1,0.5,0,2
+qwen3.8-27b,primary,accepted,checkoutservice-1|checkoutservice,1,1,1.0,1,1
+qwen3.8-27b,primary,accepted,checkoutservice-2|checkoutservice,2,1,0.5,0,1
+qwen3.8-27b,primary,accepted,checkoutservice|cartservice,1,0,0.0,0,1
+qwen3.8-27b,primary,accepted,checkoutservice|currencyservice,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,checkoutservice|emailservice,1,1,1.0,1,1
+qwen3.8-27b,primary,accepted,checkoutservice|paymentservice,2,2,1.0,0,2
+qwen3.8-27b,primary,accepted,checkoutservice|productcatalogservice,2,2,1.0,1,2
+qwen3.8-27b,primary,accepted,checkoutservice|shippingservice,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,currencyservice,4,4,1.0,0,4
+qwen3.8-27b,primary,accepted,currencyservice-0,1,0,0.0,0,0
+qwen3.8-27b,primary,accepted,currencyservice-1,2,1,0.5,0,2
+qwen3.8-27b,primary,accepted,currencyservice-2,2,1,0.5,0,2
+qwen3.8-27b,primary,accepted,currencyservice-2|currencyservice,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,emailservice,6,4,0.6666666666666666,1,6
+qwen3.8-27b,primary,accepted,emailservice-1,2,1,0.5,0,2
+qwen3.8-27b,primary,accepted,emailservice-2|emailservice,1,0,0.0,0,1
+qwen3.8-27b,primary,accepted,frontend,4,4,1.0,3,4
+qwen3.8-27b,primary,accepted,frontend-0,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,frontend-1,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,frontend-2,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,frontend2-0,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,frontend|cartservice,4,4,1.0,0,4
+qwen3.8-27b,primary,accepted,frontend|checkoutservice,2,2,1.0,0,2
+qwen3.8-27b,primary,accepted,frontend|currencyservice,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,frontend|recommendationservice,2,2,1.0,0,2
+qwen3.8-27b,primary,accepted,mysql|ts-auth-service,1,0,0.0,0,1
+qwen3.8-27b,primary,accepted,mysql|ts-consign-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,mysql|ts-order-other-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,node-1,6,2,0.3333333333333333,0,5
+qwen3.8-27b,primary,accepted,node-2,3,2,0.6666666666666666,0,3
+qwen3.8-27b,primary,accepted,node-3,7,1,0.14285714285714285,0,5
+qwen3.8-27b,primary,accepted,node-4,5,4,0.8,1,5
+qwen3.8-27b,primary,accepted,node-5,12,6,0.5,1,12
+qwen3.8-27b,primary,accepted,node-6,12,7,0.5833333333333334,1,10
+qwen3.8-27b,primary,accepted,node-7,2,1,0.5,0,1
+qwen3.8-27b,primary,accepted,node-8,4,2,0.5,1,4
+qwen3.8-27b,primary,accepted,paymentservice,2,1,0.5,0,2
+qwen3.8-27b,primary,accepted,productcatalogservice,4,4,1.0,2,4
+qwen3.8-27b,primary,accepted,productcatalogservice-0,3,3,1.0,0,3
+qwen3.8-27b,primary,accepted,productcatalogservice-0|productcatalogservice,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,productcatalogservice-1,3,2,0.6666666666666666,0,2
+qwen3.8-27b,primary,accepted,productcatalogservice-2,2,2,1.0,0,2
+qwen3.8-27b,primary,accepted,productcatalogservice-2|productcatalogservice,2,2,1.0,0,2
+qwen3.8-27b,primary,accepted,productcatalogservice2-0,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,recommendationservice,5,4,0.8,0,5
+qwen3.8-27b,primary,accepted,recommendationservice-2,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,recommendationservice2-0,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,recommendationservice|productcatalogservice,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,shippingservice,7,2,0.2857142857142857,1,7
+qwen3.8-27b,primary,accepted,shippingservice-0,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,shippingservice-0|shippingservice,2,2,1.0,0,2
+qwen3.8-27b,primary,accepted,shippingservice-1,2,1,0.5,1,1
+qwen3.8-27b,primary,accepted,shippingservice-1|shippingservice,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,shippingservice2-0,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,tidb-tidb|tidb-tidb-0,3,0,0.0,0,0
+qwen3.8-27b,primary,accepted,tidb-tikv|tidb-tikv-0,10,6,0.6,1,9
+qwen3.8-27b,primary,accepted,ts-assurance-service,3,3,1.0,0,3
+qwen3.8-27b,primary,accepted,ts-auth-service,2,2,1.0,0,2
+qwen3.8-27b,primary,accepted,ts-auth-service|ts-verification-code-service,2,1,0.5,0,2
+qwen3.8-27b,primary,accepted,ts-basic-service|ts-price-service,5,4,0.8,1,5
+qwen3.8-27b,primary,accepted,ts-basic-service|ts-route-service,4,4,1.0,0,4
+qwen3.8-27b,primary,accepted,ts-basic-service|ts-station-service,3,2,0.6666666666666666,0,3
+qwen3.8-27b,primary,accepted,ts-basic-service|ts-train-service,3,3,1.0,0,3
+qwen3.8-27b,primary,accepted,ts-config-service,2,2,1.0,0,2
+qwen3.8-27b,primary,accepted,ts-consign-price-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-consign-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-consign-service|mysql,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-food-service|ts-station-food-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-food-service|ts-travel-service,1,1,1.0,1,1
+qwen3.8-27b,primary,accepted,ts-inside-payment-service,2,2,1.0,0,2
+qwen3.8-27b,primary,accepted,ts-order-other-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-order-other-service|ts-security-service,1,0,0.0,0,1
+qwen3.8-27b,primary,accepted,ts-order-service,3,3,1.0,0,3
+qwen3.8-27b,primary,accepted,ts-order-service|mysql,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-order-service|ts-security-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-preserve-service|ts-basic-service,2,2,1.0,0,2
+qwen3.8-27b,primary,accepted,ts-preserve-service|ts-contacts-service,2,2,1.0,0,2
+qwen3.8-27b,primary,accepted,ts-preserve-service|ts-seat-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-preserve-service|ts-travel-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-price-service,2,2,1.0,0,2
+qwen3.8-27b,primary,accepted,ts-route-plan-service|ts-travel-service,3,3,1.0,0,3
+qwen3.8-27b,primary,accepted,ts-route-plan-service|ts-travel2-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-route-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-seat-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-seat-service|ts-config-service,4,2,0.5,0,4
+qwen3.8-27b,primary,accepted,ts-seat-service|ts-order-other-service,1,0,0.0,0,1
+qwen3.8-27b,primary,accepted,ts-security-service,2,2,1.0,0,2
+qwen3.8-27b,primary,accepted,ts-security-service|ts-order-other-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-security-service|ts-preserve-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-station-food-service,2,2,1.0,0,2
+qwen3.8-27b,primary,accepted,ts-station-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-train-service|mysql,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-travel-plan-service,2,2,1.0,0,2
+qwen3.8-27b,primary,accepted,ts-travel-plan-service|ts-route-plan-service,2,2,1.0,0,2
+qwen3.8-27b,primary,accepted,ts-travel-service,2,2,1.0,0,2
+qwen3.8-27b,primary,accepted,ts-travel-service|ts-basic-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-travel-service|ts-preserve-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-travel-service|ts-route-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-travel-service|ts-seat-service,2,2,1.0,0,2
+qwen3.8-27b,primary,accepted,ts-travel2-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-travel2-service|ts-basic-service,1,0,0.0,0,1
+qwen3.8-27b,primary,accepted,ts-travel2-service|ts-route-service,1,0,0.0,0,1
+qwen3.8-27b,primary,accepted,ts-travel2-service|ts-seat-service,3,3,1.0,0,3
+qwen3.8-27b,primary,accepted,ts-ui-dashboard|ts-assurance-service,2,2,1.0,0,2
+qwen3.8-27b,primary,accepted,ts-ui-dashboard|ts-consign-service,1,0,0.0,0,1
+qwen3.8-27b,primary,accepted,ts-ui-dashboard|ts-food-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-ui-dashboard|ts-order-service,2,1,0.5,1,2
+qwen3.8-27b,primary,accepted,ts-ui-dashboard|ts-preserve-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-ui-dashboard|ts-route-service,1,0,0.0,0,1
+qwen3.8-27b,primary,accepted,ts-ui-dashboard|ts-train-service,2,2,1.0,0,2
+qwen3.8-27b,primary,accepted,ts-ui-dashboard|ts-travel-plan-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-ui-dashboard|ts-travel-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-ui-dashboard|ts-travel2-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-user-service,1,1,1.0,0,1
+qwen3.8-27b,primary,accepted,ts-verification-code-service,1,1,1.0,0,1
+qwen3.8-27b,all,fault_type,ContainerKill,8,8,1.0,0,8
+qwen3.8-27b,all,fault_type,HTTPRequestAbort,6,5,0.8333333333333334,0,6
+qwen3.8-27b,all,fault_type,HTTPRequestDelay,7,5,0.7142857142857143,0,7
+qwen3.8-27b,all,fault_type,HTTPRequestReplaceMethod,15,13,0.8666666666666667,2,15
+qwen3.8-27b,all,fault_type,HTTPRequestReplacePath,1,0,0.0,0,1
+qwen3.8-27b,all,fault_type,HTTPResponseAbort,3,3,1.0,1,3
+qwen3.8-27b,all,fault_type,HTTPResponseDelay,7,6,0.8571428571428571,0,7
+qwen3.8-27b,all,fault_type,HTTPResponseReplaceBody,2,2,1.0,0,2
+qwen3.8-27b,all,fault_type,HTTPResponseReplaceCode,13,11,0.8461538461538461,0,13
+qwen3.8-27b,all,fault_type,JVMException,3,3,1.0,0,3
+qwen3.8-27b,all,fault_type,JVMLatency,1,1,1.0,0,1
+qwen3.8-27b,all,fault_type,JVMMemoryStress,14,14,1.0,0,14
+qwen3.8-27b,all,fault_type,JVMReturn,2,2,1.0,0,2
+qwen3.8-27b,all,fault_type,NetworkBandwidth,2,2,1.0,0,2
+qwen3.8-27b,all,fault_type,NetworkCorrupt,3,2,0.6666666666666666,0,3
+qwen3.8-27b,all,fault_type,NetworkDelay,1,1,1.0,0,1
+qwen3.8-27b,all,fault_type,NetworkLoss,3,1,0.3333333333333333,0,3
+qwen3.8-27b,all,fault_type,NetworkPartition,6,5,0.8333333333333334,0,6
+qwen3.8-27b,all,fault_type,PodFailure,2,2,1.0,0,2
+qwen3.8-27b,all,fault_type,PodKill,1,1,1.0,0,1
+qwen3.8-27b,all,fault_type,code error,2,1,0.5,1,2
+qwen3.8-27b,all,fault_type,cpu,30,30,1.0,2,30
+qwen3.8-27b,all,fault_type,cpu stress,8,6,0.75,0,8
+qwen3.8-27b,all,fault_type,delay,30,25,0.8333333333333334,3,30
+qwen3.8-27b,all,fault_type,disk,30,30,1.0,0,30
+qwen3.8-27b,all,fault_type,dns error,5,3,0.6,2,4
+qwen3.8-27b,all,fault_type,io fault,5,4,0.8,0,5
+qwen3.8-27b,all,fault_type,jvm cpu,3,3,1.0,0,3
+qwen3.8-27b,all,fault_type,jvm exception,5,3,0.6,1,5
+qwen3.8-27b,all,fault_type,jvm gc,2,1,0.5,0,2
+qwen3.8-27b,all,fault_type,jvm latency,5,5,1.0,0,5
+qwen3.8-27b,all,fault_type,k8s容器cpu负载,9,9,1.0,0,9
+qwen3.8-27b,all,fault_type,k8s容器内存负载,8,6,0.75,0,7
+qwen3.8-27b,all,fault_type,k8s容器写io负载,4,3,0.75,0,4
+qwen3.8-27b,all,fault_type,k8s容器网络丢包,9,6,0.6666666666666666,1,7
+qwen3.8-27b,all,fault_type,k8s容器网络延迟,10,7,0.7,3,9
+qwen3.8-27b,all,fault_type,k8s容器网络资源包损坏,10,8,0.8,1,10
+qwen3.8-27b,all,fault_type,k8s容器网络资源包重复发送,7,3,0.42857142857142855,2,6
+qwen3.8-27b,all,fault_type,k8s容器读io负载,9,9,1.0,2,9
+qwen3.8-27b,all,fault_type,k8s容器进程中止,5,3,0.6,0,5
+qwen3.8-27b,all,fault_type,loss,30,28,0.9333333333333333,3,30
+qwen3.8-27b,all,fault_type,mem,30,30,1.0,4,30
+qwen3.8-27b,all,fault_type,memory stress,6,5,0.8333333333333334,1,6
+qwen3.8-27b,all,fault_type,network corrupt,7,7,1.0,0,7
+qwen3.8-27b,all,fault_type,network delay,7,6,0.8571428571428571,2,7
+qwen3.8-27b,all,fault_type,network loss,5,5,1.0,0,5
+qwen3.8-27b,all,fault_type,node cpu stress,6,2,0.3333333333333333,0,5
+qwen3.8-27b,all,fault_type,node disk fill,4,2,0.5,2,3
+qwen3.8-27b,all,fault_type,node memory stress,12,6,0.5,0,11
+qwen3.8-27b,all,fault_type,node 内存消耗,5,1,0.2,0,4
+qwen3.8-27b,all,fault_type,node 磁盘写IO消耗,6,5,0.8333333333333334,1,6
+qwen3.8-27b,all,fault_type,node 磁盘空间消耗,5,4,0.8,0,5
+qwen3.8-27b,all,fault_type,node 磁盘读IO消耗,5,1,0.2,0,5
+qwen3.8-27b,all,fault_type,node节点CPU故障,5,2,0.4,1,4
+qwen3.8-27b,all,fault_type,node节点CPU爬升,3,2,0.6666666666666666,0,2
+qwen3.8-27b,all,fault_type,pod failure,13,5,0.38461538461538464,1,9
+qwen3.8-27b,all,fault_type,pod kill,2,2,1.0,0,2
+qwen3.8-27b,all,fault_type,socket,30,28,0.9333333333333333,3,30
+qwen3.8-27b,all,fault_type,target port misconfig,3,1,0.3333333333333333,0,3
+qwen3.8-27b,all,root_granularity,node,51,25,0.49019607843137253,4,45
+qwen3.8-27b,all,root_granularity,pod,38,27,0.7105263157894737,1,33
+qwen3.8-27b,all,root_granularity,pod|service,22,17,0.7727272727272727,3,21
+qwen3.8-27b,all,root_granularity,service,356,319,0.8960674157303371,30,356
+qwen3.8-27b,all,root_granularity,service|unknown,13,6,0.46153846153846156,1,9
+qwen3.8-27b,all,accepted,adservice,12,10,0.8333333333333334,0,12
+qwen3.8-27b,all,accepted,adservice-0,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,adservice-0|adservice,4,4,1.0,1,4
+qwen3.8-27b,all,accepted,adservice-1,3,1,0.3333333333333333,0,2
+qwen3.8-27b,all,accepted,adservice-1|adservice,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,adservice-2|adservice,2,0,0.0,0,2
+qwen3.8-27b,all,accepted,adservice2-0,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,cartservice,7,7,1.0,3,7
+qwen3.8-27b,all,accepted,cartservice-0,2,1,0.5,0,2
+qwen3.8-27b,all,accepted,cartservice2-0,1,0,0.0,0,0
+qwen3.8-27b,all,accepted,cartservice|redis-cart|redis-cart-0,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,checkoutservice,25,22,0.88,2,25
+qwen3.8-27b,all,accepted,checkoutservice-0,2,2,1.0,0,2
+qwen3.8-27b,all,accepted,checkoutservice-0|checkoutservice,3,2,0.6666666666666666,1,3
+qwen3.8-27b,all,accepted,checkoutservice-1,2,1,0.5,0,2
+qwen3.8-27b,all,accepted,checkoutservice-1|checkoutservice,1,1,1.0,1,1
+qwen3.8-27b,all,accepted,checkoutservice-2|checkoutservice,2,1,0.5,0,1
+qwen3.8-27b,all,accepted,checkoutservice|cartservice,1,0,0.0,0,1
+qwen3.8-27b,all,accepted,checkoutservice|currencyservice,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,checkoutservice|emailservice,1,1,1.0,1,1
+qwen3.8-27b,all,accepted,checkoutservice|paymentservice,2,2,1.0,0,2
+qwen3.8-27b,all,accepted,checkoutservice|productcatalogservice,2,2,1.0,1,2
+qwen3.8-27b,all,accepted,checkoutservice|shippingservice,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,currencyservice,22,22,1.0,1,22
+qwen3.8-27b,all,accepted,currencyservice-0,1,0,0.0,0,0
+qwen3.8-27b,all,accepted,currencyservice-1,2,1,0.5,0,2
+qwen3.8-27b,all,accepted,currencyservice-2,2,1,0.5,0,2
+qwen3.8-27b,all,accepted,currencyservice-2|currencyservice,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,emailservice,24,22,0.9166666666666666,1,24
+qwen3.8-27b,all,accepted,emailservice-1,2,1,0.5,0,2
+qwen3.8-27b,all,accepted,emailservice-2|emailservice,1,0,0.0,0,1
+qwen3.8-27b,all,accepted,frontend,4,4,1.0,3,4
+qwen3.8-27b,all,accepted,frontend-0,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,frontend-1,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,frontend-2,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,frontend2-0,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,frontend|cartservice,4,4,1.0,0,4
+qwen3.8-27b,all,accepted,frontend|checkoutservice,2,2,1.0,0,2
+qwen3.8-27b,all,accepted,frontend|currencyservice,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,frontend|recommendationservice,2,2,1.0,0,2
+qwen3.8-27b,all,accepted,mysql|ts-auth-service,1,0,0.0,0,1
+qwen3.8-27b,all,accepted,mysql|ts-consign-service,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,mysql|ts-order-other-service,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,node-1,6,2,0.3333333333333333,0,5
+qwen3.8-27b,all,accepted,node-2,3,2,0.6666666666666666,0,3
+qwen3.8-27b,all,accepted,node-3,7,1,0.14285714285714285,0,5
+qwen3.8-27b,all,accepted,node-4,5,4,0.8,1,5
+qwen3.8-27b,all,accepted,node-5,12,6,0.5,1,12
+qwen3.8-27b,all,accepted,node-6,12,7,0.5833333333333334,1,10
+qwen3.8-27b,all,accepted,node-7,2,1,0.5,0,1
+qwen3.8-27b,all,accepted,node-8,4,2,0.5,1,4
+qwen3.8-27b,all,accepted,paymentservice,2,1,0.5,0,2
+qwen3.8-27b,all,accepted,productcatalogservice,22,18,0.8181818181818182,3,22
+qwen3.8-27b,all,accepted,productcatalogservice-0,3,3,1.0,0,3
+qwen3.8-27b,all,accepted,productcatalogservice-0|productcatalogservice,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,productcatalogservice-1,3,2,0.6666666666666666,0,2
+qwen3.8-27b,all,accepted,productcatalogservice-2,2,2,1.0,0,2
+qwen3.8-27b,all,accepted,productcatalogservice-2|productcatalogservice,2,2,1.0,0,2
+qwen3.8-27b,all,accepted,productcatalogservice2-0,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,recommendationservice,23,21,0.9130434782608695,0,23
+qwen3.8-27b,all,accepted,recommendationservice-2,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,recommendationservice2-0,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,recommendationservice|productcatalogservice,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,shippingservice,7,2,0.2857142857142857,1,7
+qwen3.8-27b,all,accepted,shippingservice-0,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,shippingservice-0|shippingservice,2,2,1.0,0,2
+qwen3.8-27b,all,accepted,shippingservice-1,2,1,0.5,1,1
+qwen3.8-27b,all,accepted,shippingservice-1|shippingservice,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,shippingservice2-0,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,tidb-tidb|tidb-tidb-0,3,0,0.0,0,0
+qwen3.8-27b,all,accepted,tidb-tikv|tidb-tikv-0,10,6,0.6,1,9
+qwen3.8-27b,all,accepted,ts-assurance-service,3,3,1.0,0,3
+qwen3.8-27b,all,accepted,ts-auth-service,20,20,1.0,3,20
+qwen3.8-27b,all,accepted,ts-auth-service|ts-verification-code-service,2,1,0.5,0,2
+qwen3.8-27b,all,accepted,ts-basic-service|ts-price-service,5,4,0.8,1,5
+qwen3.8-27b,all,accepted,ts-basic-service|ts-route-service,4,4,1.0,0,4
+qwen3.8-27b,all,accepted,ts-basic-service|ts-station-service,3,2,0.6666666666666666,0,3
+qwen3.8-27b,all,accepted,ts-basic-service|ts-train-service,3,3,1.0,0,3
+qwen3.8-27b,all,accepted,ts-config-service,2,2,1.0,0,2
+qwen3.8-27b,all,accepted,ts-consign-price-service,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-consign-service,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-consign-service|mysql,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-food-service|ts-station-food-service,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-food-service|ts-travel-service,1,1,1.0,1,1
+qwen3.8-27b,all,accepted,ts-inside-payment-service,2,2,1.0,0,2
+qwen3.8-27b,all,accepted,ts-order-other-service,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-order-other-service|ts-security-service,1,0,0.0,0,1
+qwen3.8-27b,all,accepted,ts-order-service,21,19,0.9047619047619048,1,21
+qwen3.8-27b,all,accepted,ts-order-service|mysql,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-order-service|ts-security-service,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-preserve-service|ts-basic-service,2,2,1.0,0,2
+qwen3.8-27b,all,accepted,ts-preserve-service|ts-contacts-service,2,2,1.0,0,2
+qwen3.8-27b,all,accepted,ts-preserve-service|ts-seat-service,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-preserve-service|ts-travel-service,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-price-service,2,2,1.0,0,2
+qwen3.8-27b,all,accepted,ts-route-plan-service|ts-travel-service,3,3,1.0,0,3
+qwen3.8-27b,all,accepted,ts-route-plan-service|ts-travel2-service,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-route-service,19,18,0.9473684210526315,4,19
+qwen3.8-27b,all,accepted,ts-seat-service,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-seat-service|ts-config-service,4,2,0.5,0,4
+qwen3.8-27b,all,accepted,ts-seat-service|ts-order-other-service,1,0,0.0,0,1
+qwen3.8-27b,all,accepted,ts-security-service,2,2,1.0,0,2
+qwen3.8-27b,all,accepted,ts-security-service|ts-order-other-service,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-security-service|ts-preserve-service,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-station-food-service,2,2,1.0,0,2
+qwen3.8-27b,all,accepted,ts-station-service,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-train-service,18,17,0.9444444444444444,1,18
+qwen3.8-27b,all,accepted,ts-train-service|mysql,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-travel-plan-service,2,2,1.0,0,2
+qwen3.8-27b,all,accepted,ts-travel-plan-service|ts-route-plan-service,2,2,1.0,0,2
+qwen3.8-27b,all,accepted,ts-travel-service,20,20,1.0,2,20
+qwen3.8-27b,all,accepted,ts-travel-service|ts-basic-service,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-travel-service|ts-preserve-service,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-travel-service|ts-route-service,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-travel-service|ts-seat-service,2,2,1.0,0,2
+qwen3.8-27b,all,accepted,ts-travel2-service,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-travel2-service|ts-basic-service,1,0,0.0,0,1
+qwen3.8-27b,all,accepted,ts-travel2-service|ts-route-service,1,0,0.0,0,1
+qwen3.8-27b,all,accepted,ts-travel2-service|ts-seat-service,3,3,1.0,0,3
+qwen3.8-27b,all,accepted,ts-ui-dashboard|ts-assurance-service,2,2,1.0,0,2
+qwen3.8-27b,all,accepted,ts-ui-dashboard|ts-consign-service,1,0,0.0,0,1
+qwen3.8-27b,all,accepted,ts-ui-dashboard|ts-food-service,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-ui-dashboard|ts-order-service,2,1,0.5,1,2
+qwen3.8-27b,all,accepted,ts-ui-dashboard|ts-preserve-service,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-ui-dashboard|ts-route-service,1,0,0.0,0,1
+qwen3.8-27b,all,accepted,ts-ui-dashboard|ts-train-service,2,2,1.0,0,2
+qwen3.8-27b,all,accepted,ts-ui-dashboard|ts-travel-plan-service,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-ui-dashboard|ts-travel-service,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-ui-dashboard|ts-travel2-service,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-user-service,1,1,1.0,0,1
+qwen3.8-27b,all,accepted,ts-verification-code-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2022,fault_type,k8s容器cpu负载,9,9,1.0,0,9
+gemma-4-26b-a4b,aiops2022,fault_type,k8s容器内存负载,8,8,1.0,3,8
+gemma-4-26b-a4b,aiops2022,fault_type,k8s容器写io负载,4,4,1.0,0,4
+gemma-4-26b-a4b,aiops2022,fault_type,k8s容器网络丢包,9,8,0.8888888888888888,0,8
+gemma-4-26b-a4b,aiops2022,fault_type,k8s容器网络延迟,10,6,0.6,0,10
+gemma-4-26b-a4b,aiops2022,fault_type,k8s容器网络资源包损坏,10,9,0.9,1,10
+gemma-4-26b-a4b,aiops2022,fault_type,k8s容器网络资源包重复发送,7,4,0.5714285714285714,3,6
+gemma-4-26b-a4b,aiops2022,fault_type,k8s容器读io负载,9,8,0.8888888888888888,2,9
+gemma-4-26b-a4b,aiops2022,fault_type,k8s容器进程中止,5,4,0.8,0,5
+gemma-4-26b-a4b,aiops2022,fault_type,node 内存消耗,5,0,0.0,0,4
+gemma-4-26b-a4b,aiops2022,fault_type,node 磁盘写IO消耗,6,2,0.3333333333333333,0,6
+gemma-4-26b-a4b,aiops2022,fault_type,node 磁盘空间消耗,5,4,0.8,1,5
+gemma-4-26b-a4b,aiops2022,fault_type,node 磁盘读IO消耗,5,1,0.2,0,4
+gemma-4-26b-a4b,aiops2022,fault_type,node节点CPU故障,5,3,0.6,0,5
+gemma-4-26b-a4b,aiops2022,fault_type,node节点CPU爬升,3,1,0.3333333333333333,1,2
+gemma-4-26b-a4b,aiops2022,root_granularity,node,29,11,0.3793103448275862,2,26
+gemma-4-26b-a4b,aiops2022,root_granularity,pod,38,32,0.8421052631578947,3,37
+gemma-4-26b-a4b,aiops2022,root_granularity,service,33,28,0.8484848484848485,6,32
+gemma-4-26b-a4b,aiops2022,accepted,adservice,2,2,1.0,0,2
+gemma-4-26b-a4b,aiops2022,accepted,adservice-0,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2022,accepted,adservice-1,3,2,0.6666666666666666,0,3
+gemma-4-26b-a4b,aiops2022,accepted,adservice2-0,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2022,accepted,cartservice,5,5,1.0,1,5
+gemma-4-26b-a4b,aiops2022,accepted,cartservice-0,2,2,1.0,1,2
+gemma-4-26b-a4b,aiops2022,accepted,cartservice2-0,1,0,0.0,0,1
+gemma-4-26b-a4b,aiops2022,accepted,checkoutservice,4,4,1.0,0,4
+gemma-4-26b-a4b,aiops2022,accepted,checkoutservice-0,2,2,1.0,0,2
+gemma-4-26b-a4b,aiops2022,accepted,checkoutservice-1,2,1,0.5,0,2
+gemma-4-26b-a4b,aiops2022,accepted,currencyservice,2,1,0.5,1,2
+gemma-4-26b-a4b,aiops2022,accepted,currencyservice-0,1,0,0.0,0,0
+gemma-4-26b-a4b,aiops2022,accepted,currencyservice-1,2,1,0.5,0,2
+gemma-4-26b-a4b,aiops2022,accepted,currencyservice-2,2,2,1.0,0,2
+gemma-4-26b-a4b,aiops2022,accepted,emailservice,4,4,1.0,1,4
+gemma-4-26b-a4b,aiops2022,accepted,emailservice-1,2,2,1.0,0,2
+gemma-4-26b-a4b,aiops2022,accepted,frontend,3,3,1.0,0,3
+gemma-4-26b-a4b,aiops2022,accepted,frontend-0,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2022,accepted,frontend-1,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2022,accepted,frontend-2,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2022,accepted,frontend2-0,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2022,accepted,node-1,3,1,0.3333333333333333,0,3
+gemma-4-26b-a4b,aiops2022,accepted,node-2,3,1,0.3333333333333333,1,2
+gemma-4-26b-a4b,aiops2022,accepted,node-3,4,1,0.25,0,3
+gemma-4-26b-a4b,aiops2022,accepted,node-4,4,2,0.5,1,4
+gemma-4-26b-a4b,aiops2022,accepted,node-5,8,2,0.25,0,7
+gemma-4-26b-a4b,aiops2022,accepted,node-6,7,4,0.5714285714285714,0,7
+gemma-4-26b-a4b,aiops2022,accepted,paymentservice,1,1,1.0,1,1
+gemma-4-26b-a4b,aiops2022,accepted,productcatalogservice,4,3,0.75,2,4
+gemma-4-26b-a4b,aiops2022,accepted,productcatalogservice-0,3,3,1.0,0,3
+gemma-4-26b-a4b,aiops2022,accepted,productcatalogservice-1,3,3,1.0,0,3
+gemma-4-26b-a4b,aiops2022,accepted,productcatalogservice-2,2,2,1.0,1,2
+gemma-4-26b-a4b,aiops2022,accepted,productcatalogservice2-0,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2022,accepted,recommendationservice,4,3,0.75,0,4
+gemma-4-26b-a4b,aiops2022,accepted,recommendationservice-2,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2022,accepted,recommendationservice2-0,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2022,accepted,shippingservice,4,2,0.5,0,3
+gemma-4-26b-a4b,aiops2022,accepted,shippingservice-0,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2022,accepted,shippingservice-1,2,1,0.5,1,2
+gemma-4-26b-a4b,aiops2022,accepted,shippingservice2-0,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2025,fault_type,code error,2,1,0.5,0,2
+gemma-4-26b-a4b,aiops2025,fault_type,cpu stress,8,6,0.75,0,8
+gemma-4-26b-a4b,aiops2025,fault_type,dns error,5,5,1.0,3,5
+gemma-4-26b-a4b,aiops2025,fault_type,io fault,5,4,0.8,1,5
+gemma-4-26b-a4b,aiops2025,fault_type,jvm cpu,3,3,1.0,0,3
+gemma-4-26b-a4b,aiops2025,fault_type,jvm exception,5,5,1.0,1,5
+gemma-4-26b-a4b,aiops2025,fault_type,jvm gc,2,1,0.5,0,2
+gemma-4-26b-a4b,aiops2025,fault_type,jvm latency,5,5,1.0,0,5
+gemma-4-26b-a4b,aiops2025,fault_type,memory stress,6,6,1.0,2,6
+gemma-4-26b-a4b,aiops2025,fault_type,network corrupt,7,7,1.0,0,7
+gemma-4-26b-a4b,aiops2025,fault_type,network delay,7,7,1.0,2,7
+gemma-4-26b-a4b,aiops2025,fault_type,network loss,5,5,1.0,0,5
+gemma-4-26b-a4b,aiops2025,fault_type,node cpu stress,6,2,0.3333333333333333,2,4
+gemma-4-26b-a4b,aiops2025,fault_type,node disk fill,4,2,0.5,0,3
+gemma-4-26b-a4b,aiops2025,fault_type,node memory stress,12,7,0.5833333333333334,3,10
+gemma-4-26b-a4b,aiops2025,fault_type,pod failure,13,5,0.38461538461538464,2,7
+gemma-4-26b-a4b,aiops2025,fault_type,pod kill,2,2,1.0,0,2
+gemma-4-26b-a4b,aiops2025,fault_type,target port misconfig,3,1,0.3333333333333333,0,3
+gemma-4-26b-a4b,aiops2025,root_granularity,node,22,11,0.5,5,17
+gemma-4-26b-a4b,aiops2025,root_granularity,pod|service,22,20,0.9090909090909091,6,22
+gemma-4-26b-a4b,aiops2025,root_granularity,service,43,38,0.8837209302325582,4,43
+gemma-4-26b-a4b,aiops2025,root_granularity,service|unknown,13,5,0.38461538461538464,1,7
+gemma-4-26b-a4b,aiops2025,accepted,adservice,10,9,0.9,1,10
+gemma-4-26b-a4b,aiops2025,accepted,adservice-0|adservice,4,4,1.0,0,4
+gemma-4-26b-a4b,aiops2025,accepted,adservice-1|adservice,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2025,accepted,adservice-2|adservice,2,1,0.5,0,2
+gemma-4-26b-a4b,aiops2025,accepted,cartservice,2,2,1.0,0,2
+gemma-4-26b-a4b,aiops2025,accepted,cartservice|redis-cart|redis-cart-0,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2025,accepted,checkoutservice,3,2,0.6666666666666666,1,3
+gemma-4-26b-a4b,aiops2025,accepted,checkoutservice-0|checkoutservice,3,3,1.0,1,3
+gemma-4-26b-a4b,aiops2025,accepted,checkoutservice-1|checkoutservice,1,1,1.0,1,1
+gemma-4-26b-a4b,aiops2025,accepted,checkoutservice-2|checkoutservice,2,2,1.0,1,2
+gemma-4-26b-a4b,aiops2025,accepted,checkoutservice|cartservice,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2025,accepted,checkoutservice|currencyservice,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2025,accepted,checkoutservice|emailservice,1,1,1.0,1,1
+gemma-4-26b-a4b,aiops2025,accepted,checkoutservice|paymentservice,2,2,1.0,0,2
+gemma-4-26b-a4b,aiops2025,accepted,checkoutservice|productcatalogservice,2,2,1.0,1,2
+gemma-4-26b-a4b,aiops2025,accepted,checkoutservice|shippingservice,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2025,accepted,currencyservice,2,2,1.0,0,2
+gemma-4-26b-a4b,aiops2025,accepted,currencyservice-2|currencyservice,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2025,accepted,emailservice,2,2,1.0,0,2
+gemma-4-26b-a4b,aiops2025,accepted,emailservice-2|emailservice,1,1,1.0,1,1
+gemma-4-26b-a4b,aiops2025,accepted,frontend,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2025,accepted,frontend|cartservice,4,4,1.0,0,4
+gemma-4-26b-a4b,aiops2025,accepted,frontend|checkoutservice,2,2,1.0,0,2
+gemma-4-26b-a4b,aiops2025,accepted,frontend|currencyservice,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2025,accepted,frontend|recommendationservice,2,2,1.0,0,2
+gemma-4-26b-a4b,aiops2025,accepted,node-1,3,2,0.6666666666666666,1,2
+gemma-4-26b-a4b,aiops2025,accepted,node-3,3,1,0.3333333333333333,1,2
+gemma-4-26b-a4b,aiops2025,accepted,node-4,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2025,accepted,node-5,4,1,0.25,0,4
+gemma-4-26b-a4b,aiops2025,accepted,node-6,5,3,0.6,2,4
+gemma-4-26b-a4b,aiops2025,accepted,node-7,2,1,0.5,1,1
+gemma-4-26b-a4b,aiops2025,accepted,node-8,4,2,0.5,0,3
+gemma-4-26b-a4b,aiops2025,accepted,paymentservice,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2025,accepted,productcatalogservice-0|productcatalogservice,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2025,accepted,productcatalogservice-2|productcatalogservice,2,2,1.0,1,2
+gemma-4-26b-a4b,aiops2025,accepted,recommendationservice,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2025,accepted,recommendationservice|productcatalogservice,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops2025,accepted,shippingservice,3,0,0.0,0,3
+gemma-4-26b-a4b,aiops2025,accepted,shippingservice-0|shippingservice,2,1,0.5,0,2
+gemma-4-26b-a4b,aiops2025,accepted,shippingservice-1|shippingservice,1,1,1.0,1,1
+gemma-4-26b-a4b,aiops2025,accepted,tidb-tidb|tidb-tidb-0,3,0,0.0,0,0
+gemma-4-26b-a4b,aiops2025,accepted,tidb-tikv|tidb-tikv-0,10,5,0.5,1,7
+gemma-4-26b-a4b,aegislab,fault_type,ContainerKill,8,8,1.0,0,8
+gemma-4-26b-a4b,aegislab,fault_type,HTTPRequestAbort,6,6,1.0,0,6
+gemma-4-26b-a4b,aegislab,fault_type,HTTPRequestDelay,7,6,0.8571428571428571,0,7
+gemma-4-26b-a4b,aegislab,fault_type,HTTPRequestReplaceMethod,15,14,0.9333333333333333,1,15
+gemma-4-26b-a4b,aegislab,fault_type,HTTPRequestReplacePath,1,0,0.0,0,1
+gemma-4-26b-a4b,aegislab,fault_type,HTTPResponseAbort,3,2,0.6666666666666666,0,3
+gemma-4-26b-a4b,aegislab,fault_type,HTTPResponseDelay,7,6,0.8571428571428571,1,7
+gemma-4-26b-a4b,aegislab,fault_type,HTTPResponseReplaceBody,2,2,1.0,0,2
+gemma-4-26b-a4b,aegislab,fault_type,HTTPResponseReplaceCode,13,12,0.9230769230769231,1,13
+gemma-4-26b-a4b,aegislab,fault_type,JVMException,3,3,1.0,0,3
+gemma-4-26b-a4b,aegislab,fault_type,JVMLatency,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,fault_type,JVMMemoryStress,14,14,1.0,1,14
+gemma-4-26b-a4b,aegislab,fault_type,JVMReturn,2,2,1.0,0,2
+gemma-4-26b-a4b,aegislab,fault_type,NetworkBandwidth,2,2,1.0,0,2
+gemma-4-26b-a4b,aegislab,fault_type,NetworkCorrupt,3,3,1.0,1,3
+gemma-4-26b-a4b,aegislab,fault_type,NetworkDelay,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,fault_type,NetworkLoss,3,3,1.0,1,3
+gemma-4-26b-a4b,aegislab,fault_type,NetworkPartition,6,6,1.0,0,6
+gemma-4-26b-a4b,aegislab,fault_type,PodFailure,2,2,1.0,0,2
+gemma-4-26b-a4b,aegislab,fault_type,PodKill,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,root_granularity,service,100,94,0.94,6,100
+gemma-4-26b-a4b,aegislab,accepted,mysql|ts-auth-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,mysql|ts-consign-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,mysql|ts-order-other-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-assurance-service,3,3,1.0,0,3
+gemma-4-26b-a4b,aegislab,accepted,ts-auth-service,2,2,1.0,0,2
+gemma-4-26b-a4b,aegislab,accepted,ts-auth-service|ts-verification-code-service,2,2,1.0,0,2
+gemma-4-26b-a4b,aegislab,accepted,ts-basic-service|ts-price-service,5,3,0.6,0,5
+gemma-4-26b-a4b,aegislab,accepted,ts-basic-service|ts-route-service,4,4,1.0,1,4
+gemma-4-26b-a4b,aegislab,accepted,ts-basic-service|ts-station-service,3,2,0.6666666666666666,0,3
+gemma-4-26b-a4b,aegislab,accepted,ts-basic-service|ts-train-service,3,3,1.0,0,3
+gemma-4-26b-a4b,aegislab,accepted,ts-config-service,2,2,1.0,0,2
+gemma-4-26b-a4b,aegislab,accepted,ts-consign-price-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-consign-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-consign-service|mysql,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-food-service|ts-station-food-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-food-service|ts-travel-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-inside-payment-service,2,2,1.0,0,2
+gemma-4-26b-a4b,aegislab,accepted,ts-order-other-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-order-other-service|ts-security-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-order-service,3,3,1.0,0,3
+gemma-4-26b-a4b,aegislab,accepted,ts-order-service|mysql,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-order-service|ts-security-service,1,1,1.0,1,1
+gemma-4-26b-a4b,aegislab,accepted,ts-preserve-service|ts-basic-service,2,2,1.0,0,2
+gemma-4-26b-a4b,aegislab,accepted,ts-preserve-service|ts-contacts-service,2,2,1.0,0,2
+gemma-4-26b-a4b,aegislab,accepted,ts-preserve-service|ts-seat-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-preserve-service|ts-travel-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-price-service,2,2,1.0,0,2
+gemma-4-26b-a4b,aegislab,accepted,ts-route-plan-service|ts-travel-service,3,3,1.0,0,3
+gemma-4-26b-a4b,aegislab,accepted,ts-route-plan-service|ts-travel2-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-route-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-seat-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-seat-service|ts-config-service,4,3,0.75,1,4
+gemma-4-26b-a4b,aegislab,accepted,ts-seat-service|ts-order-other-service,1,1,1.0,1,1
+gemma-4-26b-a4b,aegislab,accepted,ts-security-service,2,2,1.0,0,2
+gemma-4-26b-a4b,aegislab,accepted,ts-security-service|ts-order-other-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-security-service|ts-preserve-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-station-food-service,2,2,1.0,0,2
+gemma-4-26b-a4b,aegislab,accepted,ts-station-service,1,1,1.0,1,1
+gemma-4-26b-a4b,aegislab,accepted,ts-train-service|mysql,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-travel-plan-service,2,2,1.0,0,2
+gemma-4-26b-a4b,aegislab,accepted,ts-travel-plan-service|ts-route-plan-service,2,2,1.0,0,2
+gemma-4-26b-a4b,aegislab,accepted,ts-travel-service,2,2,1.0,0,2
+gemma-4-26b-a4b,aegislab,accepted,ts-travel-service|ts-basic-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-travel-service|ts-preserve-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-travel-service|ts-route-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-travel-service|ts-seat-service,2,2,1.0,0,2
+gemma-4-26b-a4b,aegislab,accepted,ts-travel2-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-travel2-service|ts-basic-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-travel2-service|ts-route-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-travel2-service|ts-seat-service,3,3,1.0,0,3
+gemma-4-26b-a4b,aegislab,accepted,ts-ui-dashboard|ts-assurance-service,2,2,1.0,0,2
+gemma-4-26b-a4b,aegislab,accepted,ts-ui-dashboard|ts-consign-service,1,0,0.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-ui-dashboard|ts-food-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-ui-dashboard|ts-order-service,2,2,1.0,1,2
+gemma-4-26b-a4b,aegislab,accepted,ts-ui-dashboard|ts-preserve-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-ui-dashboard|ts-route-service,1,0,0.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-ui-dashboard|ts-train-service,2,2,1.0,0,2
+gemma-4-26b-a4b,aegislab,accepted,ts-ui-dashboard|ts-travel-plan-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-ui-dashboard|ts-travel-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-ui-dashboard|ts-travel2-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-user-service,1,1,1.0,0,1
+gemma-4-26b-a4b,aegislab,accepted,ts-verification-code-service,1,1,1.0,0,1
+gemma-4-26b-a4b,re2_ob,fault_type,cpu,15,15,1.0,0,15
+gemma-4-26b-a4b,re2_ob,fault_type,delay,15,13,0.8666666666666667,0,15
+gemma-4-26b-a4b,re2_ob,fault_type,disk,15,15,1.0,0,15
+gemma-4-26b-a4b,re2_ob,fault_type,loss,15,15,1.0,1,15
+gemma-4-26b-a4b,re2_ob,fault_type,mem,15,15,1.0,0,15
+gemma-4-26b-a4b,re2_ob,fault_type,socket,15,15,1.0,1,15
+gemma-4-26b-a4b,re2_ob,root_granularity,service,90,88,0.9777777777777777,2,90
+gemma-4-26b-a4b,re2_ob,accepted,checkoutservice,18,18,1.0,0,18
+gemma-4-26b-a4b,re2_ob,accepted,currencyservice,18,17,0.9444444444444444,2,18
+gemma-4-26b-a4b,re2_ob,accepted,emailservice,18,17,0.9444444444444444,0,18
+gemma-4-26b-a4b,re2_ob,accepted,productcatalogservice,18,18,1.0,0,18
+gemma-4-26b-a4b,re2_ob,accepted,recommendationservice,18,18,1.0,0,18
+gemma-4-26b-a4b,re2_tt,fault_type,cpu,15,15,1.0,0,15
+gemma-4-26b-a4b,re2_tt,fault_type,delay,15,14,0.9333333333333333,1,15
+gemma-4-26b-a4b,re2_tt,fault_type,disk,15,15,1.0,0,15
+gemma-4-26b-a4b,re2_tt,fault_type,loss,15,14,0.9333333333333333,1,15
+gemma-4-26b-a4b,re2_tt,fault_type,mem,15,15,1.0,1,15
+gemma-4-26b-a4b,re2_tt,fault_type,socket,15,14,0.9333333333333333,0,15
+gemma-4-26b-a4b,re2_tt,root_granularity,service,90,87,0.9666666666666667,3,90
+gemma-4-26b-a4b,re2_tt,accepted,ts-auth-service,18,18,1.0,1,18
+gemma-4-26b-a4b,re2_tt,accepted,ts-order-service,18,18,1.0,0,18
+gemma-4-26b-a4b,re2_tt,accepted,ts-route-service,18,17,0.9444444444444444,0,18
+gemma-4-26b-a4b,re2_tt,accepted,ts-train-service,18,16,0.8888888888888888,0,18
+gemma-4-26b-a4b,re2_tt,accepted,ts-travel-service,18,18,1.0,2,18
+gemma-4-26b-a4b,aiops_combined,fault_type,code error,2,1,0.5,0,2
+gemma-4-26b-a4b,aiops_combined,fault_type,cpu stress,8,6,0.75,0,8
+gemma-4-26b-a4b,aiops_combined,fault_type,dns error,5,5,1.0,3,5
+gemma-4-26b-a4b,aiops_combined,fault_type,io fault,5,4,0.8,1,5
+gemma-4-26b-a4b,aiops_combined,fault_type,jvm cpu,3,3,1.0,0,3
+gemma-4-26b-a4b,aiops_combined,fault_type,jvm exception,5,5,1.0,1,5
+gemma-4-26b-a4b,aiops_combined,fault_type,jvm gc,2,1,0.5,0,2
+gemma-4-26b-a4b,aiops_combined,fault_type,jvm latency,5,5,1.0,0,5
+gemma-4-26b-a4b,aiops_combined,fault_type,k8s容器cpu负载,9,9,1.0,0,9
+gemma-4-26b-a4b,aiops_combined,fault_type,k8s容器内存负载,8,8,1.0,3,8
+gemma-4-26b-a4b,aiops_combined,fault_type,k8s容器写io负载,4,4,1.0,0,4
+gemma-4-26b-a4b,aiops_combined,fault_type,k8s容器网络丢包,9,8,0.8888888888888888,0,8
+gemma-4-26b-a4b,aiops_combined,fault_type,k8s容器网络延迟,10,6,0.6,0,10
+gemma-4-26b-a4b,aiops_combined,fault_type,k8s容器网络资源包损坏,10,9,0.9,1,10
+gemma-4-26b-a4b,aiops_combined,fault_type,k8s容器网络资源包重复发送,7,4,0.5714285714285714,3,6
+gemma-4-26b-a4b,aiops_combined,fault_type,k8s容器读io负载,9,8,0.8888888888888888,2,9
+gemma-4-26b-a4b,aiops_combined,fault_type,k8s容器进程中止,5,4,0.8,0,5
+gemma-4-26b-a4b,aiops_combined,fault_type,memory stress,6,6,1.0,2,6
+gemma-4-26b-a4b,aiops_combined,fault_type,network corrupt,7,7,1.0,0,7
+gemma-4-26b-a4b,aiops_combined,fault_type,network delay,7,7,1.0,2,7
+gemma-4-26b-a4b,aiops_combined,fault_type,network loss,5,5,1.0,0,5
+gemma-4-26b-a4b,aiops_combined,fault_type,node cpu stress,6,2,0.3333333333333333,2,4
+gemma-4-26b-a4b,aiops_combined,fault_type,node disk fill,4,2,0.5,0,3
+gemma-4-26b-a4b,aiops_combined,fault_type,node memory stress,12,7,0.5833333333333334,3,10
+gemma-4-26b-a4b,aiops_combined,fault_type,node 内存消耗,5,0,0.0,0,4
+gemma-4-26b-a4b,aiops_combined,fault_type,node 磁盘写IO消耗,6,2,0.3333333333333333,0,6
+gemma-4-26b-a4b,aiops_combined,fault_type,node 磁盘空间消耗,5,4,0.8,1,5
+gemma-4-26b-a4b,aiops_combined,fault_type,node 磁盘读IO消耗,5,1,0.2,0,4
+gemma-4-26b-a4b,aiops_combined,fault_type,node节点CPU故障,5,3,0.6,0,5
+gemma-4-26b-a4b,aiops_combined,fault_type,node节点CPU爬升,3,1,0.3333333333333333,1,2
+gemma-4-26b-a4b,aiops_combined,fault_type,pod failure,13,5,0.38461538461538464,2,7
+gemma-4-26b-a4b,aiops_combined,fault_type,pod kill,2,2,1.0,0,2
+gemma-4-26b-a4b,aiops_combined,fault_type,target port misconfig,3,1,0.3333333333333333,0,3
+gemma-4-26b-a4b,aiops_combined,root_granularity,node,51,22,0.43137254901960786,7,43
+gemma-4-26b-a4b,aiops_combined,root_granularity,pod,38,32,0.8421052631578947,3,37
+gemma-4-26b-a4b,aiops_combined,root_granularity,pod|service,22,20,0.9090909090909091,6,22
+gemma-4-26b-a4b,aiops_combined,root_granularity,service,76,66,0.868421052631579,10,75
+gemma-4-26b-a4b,aiops_combined,root_granularity,service|unknown,13,5,0.38461538461538464,1,7
+gemma-4-26b-a4b,aiops_combined,accepted,adservice,12,11,0.9166666666666666,1,12
+gemma-4-26b-a4b,aiops_combined,accepted,adservice-0,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops_combined,accepted,adservice-0|adservice,4,4,1.0,0,4
+gemma-4-26b-a4b,aiops_combined,accepted,adservice-1,3,2,0.6666666666666666,0,3
+gemma-4-26b-a4b,aiops_combined,accepted,adservice-1|adservice,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops_combined,accepted,adservice-2|adservice,2,1,0.5,0,2
+gemma-4-26b-a4b,aiops_combined,accepted,adservice2-0,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops_combined,accepted,cartservice,7,7,1.0,1,7
+gemma-4-26b-a4b,aiops_combined,accepted,cartservice-0,2,2,1.0,1,2
+gemma-4-26b-a4b,aiops_combined,accepted,cartservice2-0,1,0,0.0,0,1
+gemma-4-26b-a4b,aiops_combined,accepted,cartservice|redis-cart|redis-cart-0,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops_combined,accepted,checkoutservice,7,6,0.8571428571428571,1,7
+gemma-4-26b-a4b,aiops_combined,accepted,checkoutservice-0,2,2,1.0,0,2
+gemma-4-26b-a4b,aiops_combined,accepted,checkoutservice-0|checkoutservice,3,3,1.0,1,3
+gemma-4-26b-a4b,aiops_combined,accepted,checkoutservice-1,2,1,0.5,0,2
+gemma-4-26b-a4b,aiops_combined,accepted,checkoutservice-1|checkoutservice,1,1,1.0,1,1
+gemma-4-26b-a4b,aiops_combined,accepted,checkoutservice-2|checkoutservice,2,2,1.0,1,2
+gemma-4-26b-a4b,aiops_combined,accepted,checkoutservice|cartservice,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops_combined,accepted,checkoutservice|currencyservice,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops_combined,accepted,checkoutservice|emailservice,1,1,1.0,1,1
+gemma-4-26b-a4b,aiops_combined,accepted,checkoutservice|paymentservice,2,2,1.0,0,2
+gemma-4-26b-a4b,aiops_combined,accepted,checkoutservice|productcatalogservice,2,2,1.0,1,2
+gemma-4-26b-a4b,aiops_combined,accepted,checkoutservice|shippingservice,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops_combined,accepted,currencyservice,4,3,0.75,1,4
+gemma-4-26b-a4b,aiops_combined,accepted,currencyservice-0,1,0,0.0,0,0
+gemma-4-26b-a4b,aiops_combined,accepted,currencyservice-1,2,1,0.5,0,2
+gemma-4-26b-a4b,aiops_combined,accepted,currencyservice-2,2,2,1.0,0,2
+gemma-4-26b-a4b,aiops_combined,accepted,currencyservice-2|currencyservice,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops_combined,accepted,emailservice,6,6,1.0,1,6
+gemma-4-26b-a4b,aiops_combined,accepted,emailservice-1,2,2,1.0,0,2
+gemma-4-26b-a4b,aiops_combined,accepted,emailservice-2|emailservice,1,1,1.0,1,1
+gemma-4-26b-a4b,aiops_combined,accepted,frontend,4,4,1.0,0,4
+gemma-4-26b-a4b,aiops_combined,accepted,frontend-0,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops_combined,accepted,frontend-1,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops_combined,accepted,frontend-2,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops_combined,accepted,frontend2-0,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops_combined,accepted,frontend|cartservice,4,4,1.0,0,4
+gemma-4-26b-a4b,aiops_combined,accepted,frontend|checkoutservice,2,2,1.0,0,2
+gemma-4-26b-a4b,aiops_combined,accepted,frontend|currencyservice,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops_combined,accepted,frontend|recommendationservice,2,2,1.0,0,2
+gemma-4-26b-a4b,aiops_combined,accepted,node-1,6,3,0.5,1,5
+gemma-4-26b-a4b,aiops_combined,accepted,node-2,3,1,0.3333333333333333,1,2
+gemma-4-26b-a4b,aiops_combined,accepted,node-3,7,2,0.2857142857142857,1,5
+gemma-4-26b-a4b,aiops_combined,accepted,node-4,5,3,0.6,1,5
+gemma-4-26b-a4b,aiops_combined,accepted,node-5,12,3,0.25,0,11
+gemma-4-26b-a4b,aiops_combined,accepted,node-6,12,7,0.5833333333333334,2,11
+gemma-4-26b-a4b,aiops_combined,accepted,node-7,2,1,0.5,1,1
+gemma-4-26b-a4b,aiops_combined,accepted,node-8,4,2,0.5,0,3
+gemma-4-26b-a4b,aiops_combined,accepted,paymentservice,2,2,1.0,1,2
+gemma-4-26b-a4b,aiops_combined,accepted,productcatalogservice,4,3,0.75,2,4
+gemma-4-26b-a4b,aiops_combined,accepted,productcatalogservice-0,3,3,1.0,0,3
+gemma-4-26b-a4b,aiops_combined,accepted,productcatalogservice-0|productcatalogservice,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops_combined,accepted,productcatalogservice-1,3,3,1.0,0,3
+gemma-4-26b-a4b,aiops_combined,accepted,productcatalogservice-2,2,2,1.0,1,2
+gemma-4-26b-a4b,aiops_combined,accepted,productcatalogservice-2|productcatalogservice,2,2,1.0,1,2
+gemma-4-26b-a4b,aiops_combined,accepted,productcatalogservice2-0,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops_combined,accepted,recommendationservice,5,4,0.8,0,5
+gemma-4-26b-a4b,aiops_combined,accepted,recommendationservice-2,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops_combined,accepted,recommendationservice2-0,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops_combined,accepted,recommendationservice|productcatalogservice,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops_combined,accepted,shippingservice,7,2,0.2857142857142857,0,6
+gemma-4-26b-a4b,aiops_combined,accepted,shippingservice-0,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops_combined,accepted,shippingservice-0|shippingservice,2,1,0.5,0,2
+gemma-4-26b-a4b,aiops_combined,accepted,shippingservice-1,2,1,0.5,1,2
+gemma-4-26b-a4b,aiops_combined,accepted,shippingservice-1|shippingservice,1,1,1.0,1,1
+gemma-4-26b-a4b,aiops_combined,accepted,shippingservice2-0,1,1,1.0,0,1
+gemma-4-26b-a4b,aiops_combined,accepted,tidb-tidb|tidb-tidb-0,3,0,0.0,0,0
+gemma-4-26b-a4b,aiops_combined,accepted,tidb-tikv|tidb-tikv-0,10,5,0.5,1,7
+gemma-4-26b-a4b,primary,fault_type,ContainerKill,8,8,1.0,0,8
+gemma-4-26b-a4b,primary,fault_type,HTTPRequestAbort,6,6,1.0,0,6
+gemma-4-26b-a4b,primary,fault_type,HTTPRequestDelay,7,6,0.8571428571428571,0,7
+gemma-4-26b-a4b,primary,fault_type,HTTPRequestReplaceMethod,15,14,0.9333333333333333,1,15
+gemma-4-26b-a4b,primary,fault_type,HTTPRequestReplacePath,1,0,0.0,0,1
+gemma-4-26b-a4b,primary,fault_type,HTTPResponseAbort,3,2,0.6666666666666666,0,3
+gemma-4-26b-a4b,primary,fault_type,HTTPResponseDelay,7,6,0.8571428571428571,1,7
+gemma-4-26b-a4b,primary,fault_type,HTTPResponseReplaceBody,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,fault_type,HTTPResponseReplaceCode,13,12,0.9230769230769231,1,13
+gemma-4-26b-a4b,primary,fault_type,JVMException,3,3,1.0,0,3
+gemma-4-26b-a4b,primary,fault_type,JVMLatency,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,fault_type,JVMMemoryStress,14,14,1.0,1,14
+gemma-4-26b-a4b,primary,fault_type,JVMReturn,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,fault_type,NetworkBandwidth,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,fault_type,NetworkCorrupt,3,3,1.0,1,3
+gemma-4-26b-a4b,primary,fault_type,NetworkDelay,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,fault_type,NetworkLoss,3,3,1.0,1,3
+gemma-4-26b-a4b,primary,fault_type,NetworkPartition,6,6,1.0,0,6
+gemma-4-26b-a4b,primary,fault_type,PodFailure,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,fault_type,PodKill,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,fault_type,code error,2,1,0.5,0,2
+gemma-4-26b-a4b,primary,fault_type,cpu stress,8,6,0.75,0,8
+gemma-4-26b-a4b,primary,fault_type,dns error,5,5,1.0,3,5
+gemma-4-26b-a4b,primary,fault_type,io fault,5,4,0.8,1,5
+gemma-4-26b-a4b,primary,fault_type,jvm cpu,3,3,1.0,0,3
+gemma-4-26b-a4b,primary,fault_type,jvm exception,5,5,1.0,1,5
+gemma-4-26b-a4b,primary,fault_type,jvm gc,2,1,0.5,0,2
+gemma-4-26b-a4b,primary,fault_type,jvm latency,5,5,1.0,0,5
+gemma-4-26b-a4b,primary,fault_type,k8s容器cpu负载,9,9,1.0,0,9
+gemma-4-26b-a4b,primary,fault_type,k8s容器内存负载,8,8,1.0,3,8
+gemma-4-26b-a4b,primary,fault_type,k8s容器写io负载,4,4,1.0,0,4
+gemma-4-26b-a4b,primary,fault_type,k8s容器网络丢包,9,8,0.8888888888888888,0,8
+gemma-4-26b-a4b,primary,fault_type,k8s容器网络延迟,10,6,0.6,0,10
+gemma-4-26b-a4b,primary,fault_type,k8s容器网络资源包损坏,10,9,0.9,1,10
+gemma-4-26b-a4b,primary,fault_type,k8s容器网络资源包重复发送,7,4,0.5714285714285714,3,6
+gemma-4-26b-a4b,primary,fault_type,k8s容器读io负载,9,8,0.8888888888888888,2,9
+gemma-4-26b-a4b,primary,fault_type,k8s容器进程中止,5,4,0.8,0,5
+gemma-4-26b-a4b,primary,fault_type,memory stress,6,6,1.0,2,6
+gemma-4-26b-a4b,primary,fault_type,network corrupt,7,7,1.0,0,7
+gemma-4-26b-a4b,primary,fault_type,network delay,7,7,1.0,2,7
+gemma-4-26b-a4b,primary,fault_type,network loss,5,5,1.0,0,5
+gemma-4-26b-a4b,primary,fault_type,node cpu stress,6,2,0.3333333333333333,2,4
+gemma-4-26b-a4b,primary,fault_type,node disk fill,4,2,0.5,0,3
+gemma-4-26b-a4b,primary,fault_type,node memory stress,12,7,0.5833333333333334,3,10
+gemma-4-26b-a4b,primary,fault_type,node 内存消耗,5,0,0.0,0,4
+gemma-4-26b-a4b,primary,fault_type,node 磁盘写IO消耗,6,2,0.3333333333333333,0,6
+gemma-4-26b-a4b,primary,fault_type,node 磁盘空间消耗,5,4,0.8,1,5
+gemma-4-26b-a4b,primary,fault_type,node 磁盘读IO消耗,5,1,0.2,0,4
+gemma-4-26b-a4b,primary,fault_type,node节点CPU故障,5,3,0.6,0,5
+gemma-4-26b-a4b,primary,fault_type,node节点CPU爬升,3,1,0.3333333333333333,1,2
+gemma-4-26b-a4b,primary,fault_type,pod failure,13,5,0.38461538461538464,2,7
+gemma-4-26b-a4b,primary,fault_type,pod kill,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,fault_type,target port misconfig,3,1,0.3333333333333333,0,3
+gemma-4-26b-a4b,primary,root_granularity,node,51,22,0.43137254901960786,7,43
+gemma-4-26b-a4b,primary,root_granularity,pod,38,32,0.8421052631578947,3,37
+gemma-4-26b-a4b,primary,root_granularity,pod|service,22,20,0.9090909090909091,6,22
+gemma-4-26b-a4b,primary,root_granularity,service,176,160,0.9090909090909091,16,175
+gemma-4-26b-a4b,primary,root_granularity,service|unknown,13,5,0.38461538461538464,1,7
+gemma-4-26b-a4b,primary,accepted,adservice,12,11,0.9166666666666666,1,12
+gemma-4-26b-a4b,primary,accepted,adservice-0,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,adservice-0|adservice,4,4,1.0,0,4
+gemma-4-26b-a4b,primary,accepted,adservice-1,3,2,0.6666666666666666,0,3
+gemma-4-26b-a4b,primary,accepted,adservice-1|adservice,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,adservice-2|adservice,2,1,0.5,0,2
+gemma-4-26b-a4b,primary,accepted,adservice2-0,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,cartservice,7,7,1.0,1,7
+gemma-4-26b-a4b,primary,accepted,cartservice-0,2,2,1.0,1,2
+gemma-4-26b-a4b,primary,accepted,cartservice2-0,1,0,0.0,0,1
+gemma-4-26b-a4b,primary,accepted,cartservice|redis-cart|redis-cart-0,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,checkoutservice,7,6,0.8571428571428571,1,7
+gemma-4-26b-a4b,primary,accepted,checkoutservice-0,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,accepted,checkoutservice-0|checkoutservice,3,3,1.0,1,3
+gemma-4-26b-a4b,primary,accepted,checkoutservice-1,2,1,0.5,0,2
+gemma-4-26b-a4b,primary,accepted,checkoutservice-1|checkoutservice,1,1,1.0,1,1
+gemma-4-26b-a4b,primary,accepted,checkoutservice-2|checkoutservice,2,2,1.0,1,2
+gemma-4-26b-a4b,primary,accepted,checkoutservice|cartservice,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,checkoutservice|currencyservice,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,checkoutservice|emailservice,1,1,1.0,1,1
+gemma-4-26b-a4b,primary,accepted,checkoutservice|paymentservice,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,accepted,checkoutservice|productcatalogservice,2,2,1.0,1,2
+gemma-4-26b-a4b,primary,accepted,checkoutservice|shippingservice,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,currencyservice,4,3,0.75,1,4
+gemma-4-26b-a4b,primary,accepted,currencyservice-0,1,0,0.0,0,0
+gemma-4-26b-a4b,primary,accepted,currencyservice-1,2,1,0.5,0,2
+gemma-4-26b-a4b,primary,accepted,currencyservice-2,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,accepted,currencyservice-2|currencyservice,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,emailservice,6,6,1.0,1,6
+gemma-4-26b-a4b,primary,accepted,emailservice-1,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,accepted,emailservice-2|emailservice,1,1,1.0,1,1
+gemma-4-26b-a4b,primary,accepted,frontend,4,4,1.0,0,4
+gemma-4-26b-a4b,primary,accepted,frontend-0,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,frontend-1,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,frontend-2,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,frontend2-0,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,frontend|cartservice,4,4,1.0,0,4
+gemma-4-26b-a4b,primary,accepted,frontend|checkoutservice,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,accepted,frontend|currencyservice,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,frontend|recommendationservice,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,accepted,mysql|ts-auth-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,mysql|ts-consign-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,mysql|ts-order-other-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,node-1,6,3,0.5,1,5
+gemma-4-26b-a4b,primary,accepted,node-2,3,1,0.3333333333333333,1,2
+gemma-4-26b-a4b,primary,accepted,node-3,7,2,0.2857142857142857,1,5
+gemma-4-26b-a4b,primary,accepted,node-4,5,3,0.6,1,5
+gemma-4-26b-a4b,primary,accepted,node-5,12,3,0.25,0,11
+gemma-4-26b-a4b,primary,accepted,node-6,12,7,0.5833333333333334,2,11
+gemma-4-26b-a4b,primary,accepted,node-7,2,1,0.5,1,1
+gemma-4-26b-a4b,primary,accepted,node-8,4,2,0.5,0,3
+gemma-4-26b-a4b,primary,accepted,paymentservice,2,2,1.0,1,2
+gemma-4-26b-a4b,primary,accepted,productcatalogservice,4,3,0.75,2,4
+gemma-4-26b-a4b,primary,accepted,productcatalogservice-0,3,3,1.0,0,3
+gemma-4-26b-a4b,primary,accepted,productcatalogservice-0|productcatalogservice,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,productcatalogservice-1,3,3,1.0,0,3
+gemma-4-26b-a4b,primary,accepted,productcatalogservice-2,2,2,1.0,1,2
+gemma-4-26b-a4b,primary,accepted,productcatalogservice-2|productcatalogservice,2,2,1.0,1,2
+gemma-4-26b-a4b,primary,accepted,productcatalogservice2-0,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,recommendationservice,5,4,0.8,0,5
+gemma-4-26b-a4b,primary,accepted,recommendationservice-2,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,recommendationservice2-0,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,recommendationservice|productcatalogservice,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,shippingservice,7,2,0.2857142857142857,0,6
+gemma-4-26b-a4b,primary,accepted,shippingservice-0,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,shippingservice-0|shippingservice,2,1,0.5,0,2
+gemma-4-26b-a4b,primary,accepted,shippingservice-1,2,1,0.5,1,2
+gemma-4-26b-a4b,primary,accepted,shippingservice-1|shippingservice,1,1,1.0,1,1
+gemma-4-26b-a4b,primary,accepted,shippingservice2-0,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,tidb-tidb|tidb-tidb-0,3,0,0.0,0,0
+gemma-4-26b-a4b,primary,accepted,tidb-tikv|tidb-tikv-0,10,5,0.5,1,7
+gemma-4-26b-a4b,primary,accepted,ts-assurance-service,3,3,1.0,0,3
+gemma-4-26b-a4b,primary,accepted,ts-auth-service,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,accepted,ts-auth-service|ts-verification-code-service,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,accepted,ts-basic-service|ts-price-service,5,3,0.6,0,5
+gemma-4-26b-a4b,primary,accepted,ts-basic-service|ts-route-service,4,4,1.0,1,4
+gemma-4-26b-a4b,primary,accepted,ts-basic-service|ts-station-service,3,2,0.6666666666666666,0,3
+gemma-4-26b-a4b,primary,accepted,ts-basic-service|ts-train-service,3,3,1.0,0,3
+gemma-4-26b-a4b,primary,accepted,ts-config-service,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,accepted,ts-consign-price-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-consign-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-consign-service|mysql,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-food-service|ts-station-food-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-food-service|ts-travel-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-inside-payment-service,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,accepted,ts-order-other-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-order-other-service|ts-security-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-order-service,3,3,1.0,0,3
+gemma-4-26b-a4b,primary,accepted,ts-order-service|mysql,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-order-service|ts-security-service,1,1,1.0,1,1
+gemma-4-26b-a4b,primary,accepted,ts-preserve-service|ts-basic-service,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,accepted,ts-preserve-service|ts-contacts-service,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,accepted,ts-preserve-service|ts-seat-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-preserve-service|ts-travel-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-price-service,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,accepted,ts-route-plan-service|ts-travel-service,3,3,1.0,0,3
+gemma-4-26b-a4b,primary,accepted,ts-route-plan-service|ts-travel2-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-route-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-seat-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-seat-service|ts-config-service,4,3,0.75,1,4
+gemma-4-26b-a4b,primary,accepted,ts-seat-service|ts-order-other-service,1,1,1.0,1,1
+gemma-4-26b-a4b,primary,accepted,ts-security-service,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,accepted,ts-security-service|ts-order-other-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-security-service|ts-preserve-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-station-food-service,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,accepted,ts-station-service,1,1,1.0,1,1
+gemma-4-26b-a4b,primary,accepted,ts-train-service|mysql,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-travel-plan-service,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,accepted,ts-travel-plan-service|ts-route-plan-service,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,accepted,ts-travel-service,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,accepted,ts-travel-service|ts-basic-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-travel-service|ts-preserve-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-travel-service|ts-route-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-travel-service|ts-seat-service,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,accepted,ts-travel2-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-travel2-service|ts-basic-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-travel2-service|ts-route-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-travel2-service|ts-seat-service,3,3,1.0,0,3
+gemma-4-26b-a4b,primary,accepted,ts-ui-dashboard|ts-assurance-service,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,accepted,ts-ui-dashboard|ts-consign-service,1,0,0.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-ui-dashboard|ts-food-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-ui-dashboard|ts-order-service,2,2,1.0,1,2
+gemma-4-26b-a4b,primary,accepted,ts-ui-dashboard|ts-preserve-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-ui-dashboard|ts-route-service,1,0,0.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-ui-dashboard|ts-train-service,2,2,1.0,0,2
+gemma-4-26b-a4b,primary,accepted,ts-ui-dashboard|ts-travel-plan-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-ui-dashboard|ts-travel-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-ui-dashboard|ts-travel2-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-user-service,1,1,1.0,0,1
+gemma-4-26b-a4b,primary,accepted,ts-verification-code-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,fault_type,ContainerKill,8,8,1.0,0,8
+gemma-4-26b-a4b,all,fault_type,HTTPRequestAbort,6,6,1.0,0,6
+gemma-4-26b-a4b,all,fault_type,HTTPRequestDelay,7,6,0.8571428571428571,0,7
+gemma-4-26b-a4b,all,fault_type,HTTPRequestReplaceMethod,15,14,0.9333333333333333,1,15
+gemma-4-26b-a4b,all,fault_type,HTTPRequestReplacePath,1,0,0.0,0,1
+gemma-4-26b-a4b,all,fault_type,HTTPResponseAbort,3,2,0.6666666666666666,0,3
+gemma-4-26b-a4b,all,fault_type,HTTPResponseDelay,7,6,0.8571428571428571,1,7
+gemma-4-26b-a4b,all,fault_type,HTTPResponseReplaceBody,2,2,1.0,0,2
+gemma-4-26b-a4b,all,fault_type,HTTPResponseReplaceCode,13,12,0.9230769230769231,1,13
+gemma-4-26b-a4b,all,fault_type,JVMException,3,3,1.0,0,3
+gemma-4-26b-a4b,all,fault_type,JVMLatency,1,1,1.0,0,1
+gemma-4-26b-a4b,all,fault_type,JVMMemoryStress,14,14,1.0,1,14
+gemma-4-26b-a4b,all,fault_type,JVMReturn,2,2,1.0,0,2
+gemma-4-26b-a4b,all,fault_type,NetworkBandwidth,2,2,1.0,0,2
+gemma-4-26b-a4b,all,fault_type,NetworkCorrupt,3,3,1.0,1,3
+gemma-4-26b-a4b,all,fault_type,NetworkDelay,1,1,1.0,0,1
+gemma-4-26b-a4b,all,fault_type,NetworkLoss,3,3,1.0,1,3
+gemma-4-26b-a4b,all,fault_type,NetworkPartition,6,6,1.0,0,6
+gemma-4-26b-a4b,all,fault_type,PodFailure,2,2,1.0,0,2
+gemma-4-26b-a4b,all,fault_type,PodKill,1,1,1.0,0,1
+gemma-4-26b-a4b,all,fault_type,code error,2,1,0.5,0,2
+gemma-4-26b-a4b,all,fault_type,cpu,30,30,1.0,0,30
+gemma-4-26b-a4b,all,fault_type,cpu stress,8,6,0.75,0,8
+gemma-4-26b-a4b,all,fault_type,delay,30,27,0.9,1,30
+gemma-4-26b-a4b,all,fault_type,disk,30,30,1.0,0,30
+gemma-4-26b-a4b,all,fault_type,dns error,5,5,1.0,3,5
+gemma-4-26b-a4b,all,fault_type,io fault,5,4,0.8,1,5
+gemma-4-26b-a4b,all,fault_type,jvm cpu,3,3,1.0,0,3
+gemma-4-26b-a4b,all,fault_type,jvm exception,5,5,1.0,1,5
+gemma-4-26b-a4b,all,fault_type,jvm gc,2,1,0.5,0,2
+gemma-4-26b-a4b,all,fault_type,jvm latency,5,5,1.0,0,5
+gemma-4-26b-a4b,all,fault_type,k8s容器cpu负载,9,9,1.0,0,9
+gemma-4-26b-a4b,all,fault_type,k8s容器内存负载,8,8,1.0,3,8
+gemma-4-26b-a4b,all,fault_type,k8s容器写io负载,4,4,1.0,0,4
+gemma-4-26b-a4b,all,fault_type,k8s容器网络丢包,9,8,0.8888888888888888,0,8
+gemma-4-26b-a4b,all,fault_type,k8s容器网络延迟,10,6,0.6,0,10
+gemma-4-26b-a4b,all,fault_type,k8s容器网络资源包损坏,10,9,0.9,1,10
+gemma-4-26b-a4b,all,fault_type,k8s容器网络资源包重复发送,7,4,0.5714285714285714,3,6
+gemma-4-26b-a4b,all,fault_type,k8s容器读io负载,9,8,0.8888888888888888,2,9
+gemma-4-26b-a4b,all,fault_type,k8s容器进程中止,5,4,0.8,0,5
+gemma-4-26b-a4b,all,fault_type,loss,30,29,0.9666666666666667,2,30
+gemma-4-26b-a4b,all,fault_type,mem,30,30,1.0,1,30
+gemma-4-26b-a4b,all,fault_type,memory stress,6,6,1.0,2,6
+gemma-4-26b-a4b,all,fault_type,network corrupt,7,7,1.0,0,7
+gemma-4-26b-a4b,all,fault_type,network delay,7,7,1.0,2,7
+gemma-4-26b-a4b,all,fault_type,network loss,5,5,1.0,0,5
+gemma-4-26b-a4b,all,fault_type,node cpu stress,6,2,0.3333333333333333,2,4
+gemma-4-26b-a4b,all,fault_type,node disk fill,4,2,0.5,0,3
+gemma-4-26b-a4b,all,fault_type,node memory stress,12,7,0.5833333333333334,3,10
+gemma-4-26b-a4b,all,fault_type,node 内存消耗,5,0,0.0,0,4
+gemma-4-26b-a4b,all,fault_type,node 磁盘写IO消耗,6,2,0.3333333333333333,0,6
+gemma-4-26b-a4b,all,fault_type,node 磁盘空间消耗,5,4,0.8,1,5
+gemma-4-26b-a4b,all,fault_type,node 磁盘读IO消耗,5,1,0.2,0,4
+gemma-4-26b-a4b,all,fault_type,node节点CPU故障,5,3,0.6,0,5
+gemma-4-26b-a4b,all,fault_type,node节点CPU爬升,3,1,0.3333333333333333,1,2
+gemma-4-26b-a4b,all,fault_type,pod failure,13,5,0.38461538461538464,2,7
+gemma-4-26b-a4b,all,fault_type,pod kill,2,2,1.0,0,2
+gemma-4-26b-a4b,all,fault_type,socket,30,29,0.9666666666666667,1,30
+gemma-4-26b-a4b,all,fault_type,target port misconfig,3,1,0.3333333333333333,0,3
+gemma-4-26b-a4b,all,root_granularity,node,51,22,0.43137254901960786,7,43
+gemma-4-26b-a4b,all,root_granularity,pod,38,32,0.8421052631578947,3,37
+gemma-4-26b-a4b,all,root_granularity,pod|service,22,20,0.9090909090909091,6,22
+gemma-4-26b-a4b,all,root_granularity,service,356,335,0.9410112359550562,21,355
+gemma-4-26b-a4b,all,root_granularity,service|unknown,13,5,0.38461538461538464,1,7
+gemma-4-26b-a4b,all,accepted,adservice,12,11,0.9166666666666666,1,12
+gemma-4-26b-a4b,all,accepted,adservice-0,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,adservice-0|adservice,4,4,1.0,0,4
+gemma-4-26b-a4b,all,accepted,adservice-1,3,2,0.6666666666666666,0,3
+gemma-4-26b-a4b,all,accepted,adservice-1|adservice,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,adservice-2|adservice,2,1,0.5,0,2
+gemma-4-26b-a4b,all,accepted,adservice2-0,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,cartservice,7,7,1.0,1,7
+gemma-4-26b-a4b,all,accepted,cartservice-0,2,2,1.0,1,2
+gemma-4-26b-a4b,all,accepted,cartservice2-0,1,0,0.0,0,1
+gemma-4-26b-a4b,all,accepted,cartservice|redis-cart|redis-cart-0,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,checkoutservice,25,24,0.96,1,25
+gemma-4-26b-a4b,all,accepted,checkoutservice-0,2,2,1.0,0,2
+gemma-4-26b-a4b,all,accepted,checkoutservice-0|checkoutservice,3,3,1.0,1,3
+gemma-4-26b-a4b,all,accepted,checkoutservice-1,2,1,0.5,0,2
+gemma-4-26b-a4b,all,accepted,checkoutservice-1|checkoutservice,1,1,1.0,1,1
+gemma-4-26b-a4b,all,accepted,checkoutservice-2|checkoutservice,2,2,1.0,1,2
+gemma-4-26b-a4b,all,accepted,checkoutservice|cartservice,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,checkoutservice|currencyservice,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,checkoutservice|emailservice,1,1,1.0,1,1
+gemma-4-26b-a4b,all,accepted,checkoutservice|paymentservice,2,2,1.0,0,2
+gemma-4-26b-a4b,all,accepted,checkoutservice|productcatalogservice,2,2,1.0,1,2
+gemma-4-26b-a4b,all,accepted,checkoutservice|shippingservice,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,currencyservice,22,20,0.9090909090909091,3,22
+gemma-4-26b-a4b,all,accepted,currencyservice-0,1,0,0.0,0,0
+gemma-4-26b-a4b,all,accepted,currencyservice-1,2,1,0.5,0,2
+gemma-4-26b-a4b,all,accepted,currencyservice-2,2,2,1.0,0,2
+gemma-4-26b-a4b,all,accepted,currencyservice-2|currencyservice,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,emailservice,24,23,0.9583333333333334,1,24
+gemma-4-26b-a4b,all,accepted,emailservice-1,2,2,1.0,0,2
+gemma-4-26b-a4b,all,accepted,emailservice-2|emailservice,1,1,1.0,1,1
+gemma-4-26b-a4b,all,accepted,frontend,4,4,1.0,0,4
+gemma-4-26b-a4b,all,accepted,frontend-0,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,frontend-1,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,frontend-2,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,frontend2-0,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,frontend|cartservice,4,4,1.0,0,4
+gemma-4-26b-a4b,all,accepted,frontend|checkoutservice,2,2,1.0,0,2
+gemma-4-26b-a4b,all,accepted,frontend|currencyservice,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,frontend|recommendationservice,2,2,1.0,0,2
+gemma-4-26b-a4b,all,accepted,mysql|ts-auth-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,mysql|ts-consign-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,mysql|ts-order-other-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,node-1,6,3,0.5,1,5
+gemma-4-26b-a4b,all,accepted,node-2,3,1,0.3333333333333333,1,2
+gemma-4-26b-a4b,all,accepted,node-3,7,2,0.2857142857142857,1,5
+gemma-4-26b-a4b,all,accepted,node-4,5,3,0.6,1,5
+gemma-4-26b-a4b,all,accepted,node-5,12,3,0.25,0,11
+gemma-4-26b-a4b,all,accepted,node-6,12,7,0.5833333333333334,2,11
+gemma-4-26b-a4b,all,accepted,node-7,2,1,0.5,1,1
+gemma-4-26b-a4b,all,accepted,node-8,4,2,0.5,0,3
+gemma-4-26b-a4b,all,accepted,paymentservice,2,2,1.0,1,2
+gemma-4-26b-a4b,all,accepted,productcatalogservice,22,21,0.9545454545454546,2,22
+gemma-4-26b-a4b,all,accepted,productcatalogservice-0,3,3,1.0,0,3
+gemma-4-26b-a4b,all,accepted,productcatalogservice-0|productcatalogservice,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,productcatalogservice-1,3,3,1.0,0,3
+gemma-4-26b-a4b,all,accepted,productcatalogservice-2,2,2,1.0,1,2
+gemma-4-26b-a4b,all,accepted,productcatalogservice-2|productcatalogservice,2,2,1.0,1,2
+gemma-4-26b-a4b,all,accepted,productcatalogservice2-0,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,recommendationservice,23,22,0.9565217391304348,0,23
+gemma-4-26b-a4b,all,accepted,recommendationservice-2,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,recommendationservice2-0,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,recommendationservice|productcatalogservice,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,shippingservice,7,2,0.2857142857142857,0,6
+gemma-4-26b-a4b,all,accepted,shippingservice-0,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,shippingservice-0|shippingservice,2,1,0.5,0,2
+gemma-4-26b-a4b,all,accepted,shippingservice-1,2,1,0.5,1,2
+gemma-4-26b-a4b,all,accepted,shippingservice-1|shippingservice,1,1,1.0,1,1
+gemma-4-26b-a4b,all,accepted,shippingservice2-0,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,tidb-tidb|tidb-tidb-0,3,0,0.0,0,0
+gemma-4-26b-a4b,all,accepted,tidb-tikv|tidb-tikv-0,10,5,0.5,1,7
+gemma-4-26b-a4b,all,accepted,ts-assurance-service,3,3,1.0,0,3
+gemma-4-26b-a4b,all,accepted,ts-auth-service,20,20,1.0,1,20
+gemma-4-26b-a4b,all,accepted,ts-auth-service|ts-verification-code-service,2,2,1.0,0,2
+gemma-4-26b-a4b,all,accepted,ts-basic-service|ts-price-service,5,3,0.6,0,5
+gemma-4-26b-a4b,all,accepted,ts-basic-service|ts-route-service,4,4,1.0,1,4
+gemma-4-26b-a4b,all,accepted,ts-basic-service|ts-station-service,3,2,0.6666666666666666,0,3
+gemma-4-26b-a4b,all,accepted,ts-basic-service|ts-train-service,3,3,1.0,0,3
+gemma-4-26b-a4b,all,accepted,ts-config-service,2,2,1.0,0,2
+gemma-4-26b-a4b,all,accepted,ts-consign-price-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-consign-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-consign-service|mysql,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-food-service|ts-station-food-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-food-service|ts-travel-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-inside-payment-service,2,2,1.0,0,2
+gemma-4-26b-a4b,all,accepted,ts-order-other-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-order-other-service|ts-security-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-order-service,21,21,1.0,0,21
+gemma-4-26b-a4b,all,accepted,ts-order-service|mysql,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-order-service|ts-security-service,1,1,1.0,1,1
+gemma-4-26b-a4b,all,accepted,ts-preserve-service|ts-basic-service,2,2,1.0,0,2
+gemma-4-26b-a4b,all,accepted,ts-preserve-service|ts-contacts-service,2,2,1.0,0,2
+gemma-4-26b-a4b,all,accepted,ts-preserve-service|ts-seat-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-preserve-service|ts-travel-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-price-service,2,2,1.0,0,2
+gemma-4-26b-a4b,all,accepted,ts-route-plan-service|ts-travel-service,3,3,1.0,0,3
+gemma-4-26b-a4b,all,accepted,ts-route-plan-service|ts-travel2-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-route-service,19,18,0.9473684210526315,0,19
+gemma-4-26b-a4b,all,accepted,ts-seat-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-seat-service|ts-config-service,4,3,0.75,1,4
+gemma-4-26b-a4b,all,accepted,ts-seat-service|ts-order-other-service,1,1,1.0,1,1
+gemma-4-26b-a4b,all,accepted,ts-security-service,2,2,1.0,0,2
+gemma-4-26b-a4b,all,accepted,ts-security-service|ts-order-other-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-security-service|ts-preserve-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-station-food-service,2,2,1.0,0,2
+gemma-4-26b-a4b,all,accepted,ts-station-service,1,1,1.0,1,1
+gemma-4-26b-a4b,all,accepted,ts-train-service,18,16,0.8888888888888888,0,18
+gemma-4-26b-a4b,all,accepted,ts-train-service|mysql,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-travel-plan-service,2,2,1.0,0,2
+gemma-4-26b-a4b,all,accepted,ts-travel-plan-service|ts-route-plan-service,2,2,1.0,0,2
+gemma-4-26b-a4b,all,accepted,ts-travel-service,20,20,1.0,2,20
+gemma-4-26b-a4b,all,accepted,ts-travel-service|ts-basic-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-travel-service|ts-preserve-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-travel-service|ts-route-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-travel-service|ts-seat-service,2,2,1.0,0,2
+gemma-4-26b-a4b,all,accepted,ts-travel2-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-travel2-service|ts-basic-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-travel2-service|ts-route-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-travel2-service|ts-seat-service,3,3,1.0,0,3
+gemma-4-26b-a4b,all,accepted,ts-ui-dashboard|ts-assurance-service,2,2,1.0,0,2
+gemma-4-26b-a4b,all,accepted,ts-ui-dashboard|ts-consign-service,1,0,0.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-ui-dashboard|ts-food-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-ui-dashboard|ts-order-service,2,2,1.0,1,2
+gemma-4-26b-a4b,all,accepted,ts-ui-dashboard|ts-preserve-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-ui-dashboard|ts-route-service,1,0,0.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-ui-dashboard|ts-train-service,2,2,1.0,0,2
+gemma-4-26b-a4b,all,accepted,ts-ui-dashboard|ts-travel-plan-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-ui-dashboard|ts-travel-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-ui-dashboard|ts-travel2-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-user-service,1,1,1.0,0,1
+gemma-4-26b-a4b,all,accepted,ts-verification-code-service,1,1,1.0,0,1

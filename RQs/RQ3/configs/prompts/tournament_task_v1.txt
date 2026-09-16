@@ -1,0 +1,27 @@
+A fault has occurred in the system. Identify the component where the fault originated, not the loudest downstream or co-located symptom.
+
+Root causes may be services, pods, or infrastructure nodes. Service, pod, and node names are case-local numeric IDs: three digits identify a service, four digits identify a node, and five digits identify a pod. Return only IDs from the exhaustive candidate list.
+
+Evidence semantics shared by every representation:
+- M contains selected entity/metric series in relative-time bins, source units, baseline, peak, signed robust deviation, and MET-Z pre/current statistics when displayed. Series and card counts vary; use their printed labels.
+- R contains operation-level trace count, error, latency, and TRC-L exclusive-latency/count comparisons. Exclusive latency estimates local operation time after child-span duration is removed.
+- L contains a readable Denum-inspired log-template graph. Each case-local LT ID binds a normalized template to an entity, relative bin, severity, multiplicity, and retained diagnostic numbers; LOG-R compares error-keyword and total-log rates.
+- G contains incident-specific directed caller -> callee edges and telemetry-derived propagation onset. A -> B means A calls B; a symptom in A may originate in B, but this direction alone does not prove causality.
+- Missing/null means no usable observation, never numeric zero. Times are relative to the observation-window start. Metric-z and trace-derived scales are not directly comparable.
+
+Use the selected SIRCL* diagnostic discipline in M -> R -> L -> G order:
+- MET-Z analyzer (M): compare regular/current means and standard deviations at the public trace-derived split; a mean shift over 3σ is a fluctuating metric. Use the full series and missingness to sanity-check the summary.
+- TRC-L analyzer (R): compare baseline/fault call counts and exclusive-latency p95. dC and dX are bounded log2 fold changes; rank_score is the sum of their positive parts. Inclusive latency includes children, while exclusive latency is local time after subtracting child spans.
+- LOG-R analyzer (L): compare per-service error-keyword and total-log rates before/after the same public split. The score surfaces new/error-rate bursts, newly appearing logs, and volume drops; inspect the readable Denum templates and diagnostic numbers before accepting it.
+- G: use concrete caller -> callee edges and onset order to test whether a candidate is a plausible origin. A -> B means A calls B.
+
+Before committing the final ranking, apply SIRCL*'s verify-and-revise procedure:
+INITIAL: form a preliminary top-three ranking and identify the strongest evidence for top-1.
+VERIFY: test top-1 with exactly two questions answerable from the supplied M/R/L/G evidence, including one possible contradiction or alternative origin.
+REVISE: change the ranking if either check contradicts top-1; otherwise keep it.
+
+Perform these checks within this single call, then return only the registered JSON object. Its reason must be one compact paragraph of at most three sentences that states the two evidence checks and any decisive topology/temporal relation. Cite actual printed card/panel IDs for supporting observations, such as [EC01/M09] only when both IDs appear. An unsupported check remains uncertain, not verified. Never include the literal working labels `INITIAL`, `VERIFY`, or `REVISE`, never reproduce the private working process, and never emit hidden chain-of-thought. Missing/null means absence, never numeric zero.
+
+Return exactly one JSON object with this schema, based on the evidence below:
+{"services":["candidate-id","candidate-id"],"reason":"brief evidence-grounded verification summary","confidence":"high|medium|low"}
+The services list is ranked and uses only the exhaustive candidates supplied below. Return five distinct candidates, or all candidates if fewer than five exist; lower ranks are alternative origins, not a declaration of simultaneous faults.

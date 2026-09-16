@@ -1,0 +1,71 @@
+{
+  "adaptation_status": "local adapters implemented; original-versus-adapter CPU differential tests passed; no model calls",
+  "baro": {
+    "commit": "0c270feae637f000a72edf33a8cd1423672b2c95",
+    "files": [
+      {
+        "bytes": 1066,
+        "path": "packages/rq21_native/baro_original/LICENSE",
+        "sha256": "9f2c6bb71f29569d5547e52b207bdf10743fbc1943fbe3b5ae200041f3d787e6"
+      },
+      {
+        "bytes": 7257,
+        "path": "packages/rq21_native/baro_original/root_cause_analysis.py",
+        "sha256": "ce3bc6c6b8f9935f926a90ee83ef1fa36d3f82677af3e815bed2cb75711c2e8e"
+      },
+      {
+        "bytes": 6726,
+        "path": "packages/rq21_native/baro_original/utility.py",
+        "sha256": "e810686a9eff2a299f87f0a4a6af3714bf6401be5e08803b8f874ad76755a849"
+      }
+    ],
+    "license": "MIT",
+    "repository": "https://github.com/phamquiluan/baro",
+    "tag": "0.1.9",
+    "tag_object": "861ef2e09950e47574fbd3518a119cfbed6f9f82"
+  },
+  "schema": "RQ21NativeSourcesV1",
+  "sircl": {
+    "files": [
+      {
+        "byte_equal": true,
+        "sha256": "0882c9dc1ac2bdbfa434b3a51e7d73570dca3aba2dd3f98cbc0ec3915b4d5b38",
+        "source_relative": "src/evaluation/scoring.py",
+        "target": "packages/rq21_native/sircl_original/scoring.py"
+      },
+      {
+        "byte_equal": true,
+        "sha256": "4adb48ca2b42a6a88bfb9ea7e2b830675e134e2873a2d7271bfdf5576aa64897",
+        "source_relative": "src/tools/extractors/_timestamps.py",
+        "target": "packages/rq21_native/sircl_original/extractors/_timestamps.py"
+      },
+      {
+        "byte_equal": true,
+        "sha256": "3e6ce96809dd55865617b724b8fcb66fdc5303caf5f4710c46f5e21d7965665c",
+        "source_relative": "src/tools/extractors/drain_parser.py",
+        "target": "packages/rq21_native/sircl_original/extractors/drain_parser.py"
+      },
+      {
+        "byte_equal": true,
+        "sha256": "b69f7a2ff6c58960807da35dbcd2db419e816e0c9a4219205b7a2e77cf76842c",
+        "source_relative": "src/tools/extractors/log_template_freq.py",
+        "target": "packages/rq21_native/sircl_original/extractors/log_template_freq.py"
+      },
+      {
+        "byte_equal": true,
+        "sha256": "5de40894ee680e03fd74c958c22fea932792da6113df1a4de58016bccd8ea98a",
+        "source_relative": "src/tools/extractors/tracerca_scorer.py",
+        "target": "packages/rq21_native/sircl_original/extractors/tracerca_scorer.py"
+      },
+      {
+        "byte_equal": true,
+        "sha256": "37489f2c0c9f8f699e43da9af2224e4bf6175b9a495afab8d8ea5c91a6e93d08",
+        "source_relative": "handover/rca_feature_tools/metrics_ma.py",
+        "target": "packages/rq21_native/sircl_original/metrics/metrics_ma.py"
+      }
+    ],
+    "license": "not provided in selected checkout; distribution permission unverified",
+    "source": "user-provided RL-SLM-RCA-main",
+    "source_env": "SIRCL_SOURCE"
+  }
+}

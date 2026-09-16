@@ -1,0 +1,65 @@
+{
+  "schema": "QAReportMergeV2",
+  "source_inventory": [
+    {
+      "source": "RQs/RQ1_1/results/qa_semantic_rescore_v2/per_record.csv",
+      "destination": "docs/RQ1_1_RQ2_1_Findings_2026-09-11_assets/qa_semantic_v2_per_record.csv",
+      "sha256": "fe0c0f8eddc1bc192c525cee503c5da5df90707b29231894a1e2b062969d81c6"
+    },
+    {
+      "source": "RQs/RQ1_1/results/qa_semantic_rescore_v2/by_level_condition.csv",
+      "destination": "docs/RQ1_1_RQ2_1_Findings_2026-09-11_assets/qa_semantic_v2_by_level_condition.csv",
+      "sha256": "c937a23e36feabd5c520dce712f9f3db6421d40a366c0d79483ec6ee84dc3a87"
+    },
+    {
+      "source": "RQs/RQ1_1/results/qa_semantic_rescore_v2/by_reasoning.csv",
+      "destination": "docs/RQ1_1_RQ2_1_Findings_2026-09-11_assets/qa_semantic_v2_by_reasoning.csv",
+      "sha256": "ffb3fb4c15db147cd054b514033fe70f5a546587766c8ff77dd7f7f644341708"
+    },
+    {
+      "source": "RQs/RQ1_1/results/qa_semantic_rescore_v2/by_region.csv",
+      "destination": "docs/RQ1_1_RQ2_1_Findings_2026-09-11_assets/qa_semantic_v2_by_region.csv",
+      "sha256": "be2a38670b445d2c3b6f7c980648387f015417d2df37b60be6a7c673c6d3cbae"
+    },
+    {
+      "source": "RQs/RQ1_1/results/qa_semantic_rescore_v2/by_fault.csv",
+      "destination": "docs/RQ1_1_RQ2_1_Findings_2026-09-11_assets/qa_semantic_v2_by_fault.csv",
+      "sha256": "3cc865a63f0ec02820c1407a6739dae07f3bbd95897cae013c92c71643488789"
+    },
+    {
+      "source": "RQs/RQ1_1/results/qa_semantic_rescore_v2/paired_effects.csv",
+      "destination": "docs/RQ1_1_RQ2_1_Findings_2026-09-11_assets/qa_semantic_v2_paired_effects.csv",
+      "sha256": "19ea5f64ce7a37bee854866ac04f730c91b9f643c0e51d15d858eda851efd5b9"
+    },
+    {
+      "source": "RQs/RQ1_1/results/qa_semantic_rescore_v2/qa_rca_correlations.csv",
+      "destination": "docs/RQ1_1_RQ2_1_Findings_2026-09-11_assets/qa_semantic_v2_qa_rca_correlations.csv",
+      "sha256": "b401b6ab158cfe23255a09a4c4e795fe30570c8c81d16be6f2dae3137e6abcf8"
+    },
+    {
+      "source": "RQs/RQ1_1/results/qa_semantic_rescore_v2/v1_v2_totals.csv",
+      "destination": "docs/RQ1_1_RQ2_1_Findings_2026-09-11_assets/qa_semantic_v2_v1_v2_totals.csv",
+      "sha256": "72ea84f53bde23d7c73b1117b992ccd902db1ff1120a394a7fec020afc89c3f5"
+    },
+    {
+      "source": "RQs/RQ1_1/results/qa_semantic_rescore_v2/revision_summary.json",
+      "destination": "docs/RQ1_1_RQ2_1_Findings_2026-09-11_assets/qa_semantic_v2_revision_summary.json",
+      "sha256": "41b0fc0677472477700c9a42fa96d40e860548c2c0994588ea6db5b2f511bf23"
+    },
+    {
+      "source": "RQs/RQ1_1/results/qa_semantic_rescore_v2/verification.json",
+      "destination": "docs/RQ1_1_RQ2_1_Findings_2026-09-11_assets/qa_semantic_v2_verification.json",
+      "sha256": "4c5c2f7020699084cfa52ff37ebbf47e5e05908f6049288929c6328d59e55e1f"
+    },
+    {
+      "source": "docs/RQ1_1_QA_rescore_v2_2026-09-11_assets/qa_rescored.png",
+      "destination": "docs/RQ1_1_RQ2_1_Findings_2026-09-11_assets/08_qa_semantic_v2.png",
+      "sha256": "4e10d81f3ac1854fead92ad598ab9a6134fef429347ea7d9e1b2006ecc51d289"
+    }
+  ],
+  "membership_mask_source": "docs/RQ1and2Findings_assets/qa_format_diagnostics_per_record.csv",
+  "membership_mask_sha256": "b171b59721c0e9c05d9311aa8e0f2ae67a05eb537c596a90e9f66f9c9d6cf9d3",
+  "root_subset_membership_unchanged": true,
+  "joined_records": 16824,
+  "model_calls": 0
+}

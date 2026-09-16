@@ -1,0 +1,94 @@
+schema: CanvasRCARQ21ConfigV1
+version: 3
+status: fixed_anchor_formal_authorized
+execution_enabled: true
+smoke_authorized: true
+fixed_anchor:
+  policy: P0
+  silhouette: S0
+  composition: D0
+  cube_enabled: false
+  smoke_waiver: user_2026_09_09_fixed_anchor_only
+formal_order: [exp_silhouette_encoding, exp_canvas_composition]
+formal_scopes:
+  exp_evidence_selection: exp_evidence_selection_formal_v1
+  exp_silhouette_encoding: exp_silhouette_encoding_formal_p0_v2
+  exp_canvas_composition: exp_canvas_composition_formal_p0_v2
+seed: 42
+unified:
+  vllm: configs/vllm_inference_local.yaml
+  segmentation: configs/dataset_segmentation.yaml
+  scorer: configs/rca_scorer.yaml
+data:
+  processed_root: build/local_processed_v3
+  rq480: RQs/RQ1_1/configs/rosters/case_manifest_480_frozen_v1.json
+  parent_prepared: RQs/RQ1_1/results/rq1_1_v3_rq480_prepared_balanced_v1
+  parent_results: RQs/RQ1_1/results/rq1_1_v3_formal_480_v1
+  selection_per_primary: 30
+  repeated_exposed: true
+parent:
+  config: RQs/RQ1_1/configs/rq1.yaml
+  selector: R1-PanelSelect-v14
+  silhouette: S0
+  composition: D0
+  renderer_version: 14
+request_adapter:
+  name: context_safe_output_v1
+  max_tokens: 8192
+  input_limit: 32768
+  max_images: 1
+models: [qwen3.8-27b, gemma-4-26b-a4b]
+policies: [P0, P_SIGMA, P_BARO_RS, P_TRACE_SC, P_LOG_FREQ, P_COVERAGE, P_DIVERSITY, P_RANDOM]
+silhouettes: [S0, S_M_HEATMAP, S_M_TIME_BARS, S_M_OVERLAY, S_R_PAIRED_BARS, S_R_DUMBBELL, S_L_MATRIX, S_G_MATRIX, S_G_LAYERED, S_TABLE, S_COMPACT_MIX, S_DENSITY_COMPACT]
+silhouette_density:
+  baseline: S0
+  gap_scale: 0.5
+  minimum_gap_px: 6
+compositions: [D0, D_COMPACT, D_AIRY, D_ENTITY, D_TOPOLOGY_CENTER, D_ONSET_ORDER, D_LANDSCAPE, D_PORTRAIT, D_SCALE_075, D_SCALE_125, D_SCALE_150]
+experiments:
+  exp_evidence_selection: {task: one_stage_rca, formal_call_max: 15360}
+  exp_silhouette_encoding: {task: one_stage_rca, formal_call_max: 10560}
+  exp_canvas_composition: {task: one_stage_rca, formal_call_max: 9600}
+selection:
+  m_series: 12
+  m_bins: 64
+  other_region_capacity: exact_parent_per_case
+  native_shortlist_fill: parent_order
+  native_error_fallback: forbidden
+  diversity_lambda: 0.5
+  shared_vision_champion: false
+  macro_axes: [model, primary_dataset]
+  veto_drop: 0.05
+  mrr_tie: 0.01
+  tie_break: [relative_input_plus_output_tokens, parent_distance, lexical_id]
+budgets:
+  formal_calls: 35520
+  total_initiated_calls: 39999
+  smoke_calls_per_experiment: 18
+  smoke_seconds_per_experiment: 600
+  reserved_repair_calls: 4425
+scheduler:
+  cpu_workers: 8
+  physical_core_pinning: true
+  request_concurrency: 36
+  attention_workers: 8
+  min_free_disk_gb: 25
+  model_order: [qwen3.8-27b, gemma-4-26b-a4b]
+  smoke_monitor_seconds: 600
+  formal_monitor_seconds: 900
+  audit_seconds: 3600
+statistics:
+  primary: MRR
+  test: wilcoxon_pratt
+  effect_size: paired_cohens_dz
+  adjustment: holm
+  confidence_intervals: false
+  meaningful_delta: 0.05
+  alpha: 0.05
+  max_whole_case_exclusion: 0.05
+  minimum_parse_rate: 0.95
+attention:
+  enabled: true
+  answer_fields: [services]
+  extra_model_calls: 0
+  normalization: exact_processor_geometry_overlap_density

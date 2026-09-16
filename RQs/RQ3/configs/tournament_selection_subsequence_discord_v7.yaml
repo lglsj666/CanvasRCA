@@ -1,0 +1,6 @@
+extends: RQs/RQ3/configs/tournament_full_candidate_binding_v3.yaml
+search:
+  selectors: [subsequence_discord_v1]
+  selection_only_suite: RQs/RQ3/configs/selection_only_suite_v4.yaml
+tournament:
+  method_id: SUBSEQUENCE_DISCORD_selection_only_v7

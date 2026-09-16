@@ -1,0 +1,117 @@
+schema_version: RQ3ExperimentConfigV1
+execution_enabled: false
+delivery_boundary: full_rq3_after_cpu_and_bounded_qualification
+seed: 42
+checkpoint_interval_updates: 20
+processed_root: build/local_processed_v3
+eval_roster: RQs/RQ1_1/configs/rosters/case_manifest_480_frozen_v1.json
+unified:
+  segmentation: configs/dataset_segmentation.yaml
+  inference: configs/vllm_inference_local.yaml
+  scorer: configs/rca_scorer.yaml
+data:
+  allowed_training_datasets: [aiops2022, aiops2025]
+  training_held_out_application: TrainTicket
+  excluded_training_datasets: [aegislab, re2_tt, re2_ob]
+  targets:
+    aiops2022: {train: 150, validation: 70}
+    aiops2025: {train: 150, validation: 70}
+  group_policy: connected_overlapping_windows_or_event_aliases
+  shortage_policy: fail_until_exact_balanced_counts
+  materialization_status: balanced_v3_split_verified_20260910
+composer:
+  model_path: /home/lglsj/Downloads/self-evolving-RCA-updated/models/Qwen3.5-9B
+  model_path_env: CANVASRCA_COMPOSER_MODEL
+  served_model_name: CanvasRCA/Qwen3.5-9B-Composer
+  dtype: bfloat16
+  quantization: null
+  max_model_len: 40960
+  max_tokens: 4096
+  temperature: 1.0
+  top_p: 1.0
+  top_k: -1
+  min_p: 0.0
+  enable_thinking: false
+  grammar: null
+  logprob_policy: full_support_categorical_no_grammar_no_nucleus_mask
+solver:
+  tag: qwen3.8-27b
+  request_adapter: context_safe_output_v1
+  attention: required_same_call
+  max_images: 1
+harness:
+  catalog_policy: budgeted_region_entity_catalog_v2
+  catalog_input_token_target: 16384
+  catalog_context_guard_tokens: 1024
+  catalog_max_cards: 192
+  catalog_preview_tokens: 80
+  catalog_exploration_every: 4
+  min_cards: 1
+  max_cards: 12
+  metric_bundle_size: 4
+  trace_bundle_size: 4
+  log_bundle_size: 2
+  topology_edge_bundle_size: 12
+  raster_scales: [0.75, 0.80, 0.85, 0.90, 0.95, 1.00, 1.05, 1.10, 1.15, 1.20, 1.25, 1.30, 1.35, 1.40, 1.45, 1.50]
+  grids: [[12, 8], [12, 12], [18, 12]]
+  invalid_program_policy: record_failure_no_default_canvas
+sft:
+  examples_per_case: 16
+  epochs: 2
+  learning_rate: 0.0001
+  lora_rank: 16
+  lora_alpha: 32
+  lora_dropout: 0.0
+  gradient_clip: 1.0
+  gradient_checkpointing: true
+  train_language_linear_layers_only: true
+  attention_implementation: flash_attention_2_if_supported
+rl:
+  algorithm: RLOO
+  implementation_reference: trl==0.29.1
+  group_size: 4
+  traversals: 3
+  case_groups_per_update: 30
+  optimization_passes: 1
+  learning_rate: 0.000001
+  kl_coefficient: 0.01
+  reference: frozen_SFT
+  cost_coefficient: 0.02
+  cost_clip: 2.0
+  invalid_program_reward: -1.0
+  branches: {RL_COST_42: 42, RL_COST_43: 43, RL_RR_42: 42}
+  validation_fractions: [0.25, 0.50, 0.75, 1.0]
+  dataset_aggregation: equal_macro
+experiments:
+  exp_composer_learning:
+    policies: [BASE, SFT, IMITATION, RL_COST_42, RL_COST_43, RL_RR_42]
+  exp_frozen_solver_generalization:
+    fixed: [T_FIXED, C_FIXED, TPV_FIXED, D_FIXED]
+    learned: [BASE, SFT, IMITATION, RL_COST_42, RL_COST_43, RL_RR_42]
+  exp_selection_design_attribution:
+    pairs: [U00, U10, U01, U11, TextTwin, ScreenshotTwin]
+    local_interventions: [encoding, layout, resolution, wrong_case_design, hash_random, reanonymize, identical_repeat]
+    local_cases_per_primary_dataset: 40
+budget:
+  hard_limit: 40000
+  planned: 38000
+  reserve: 2000
+  status: ready
+  includes: [composer, solver, retry, failed_request, smoke]
+smoke:
+  aggregate_call_limit: 18
+  aggregate_wall_seconds: 600
+  allowed_datasets: [aiops2022, aiops2025]
+  allowed_partitions: [train, validation]
+  timeout_only_passes: true
+  max_cases: 3
+  monitoring_seconds: 600
+statistics:
+  unit: case
+  test: wilcoxon_pratt
+  effect_size: paired_cohens_dz
+  correction: holm
+  confidence_intervals: false
+  material_mrr_delta: 0.05
+  incomplete_parse_below: 0.95
+  maximum_whole_case_infrastructure_exclusion: 0.05

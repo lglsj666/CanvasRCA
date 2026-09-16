@@ -1,0 +1,80 @@
+extends: RQs/RQ3/configs/rq3.yaml
+execution_enabled: false
+delivery_boundary: adaptive_tournament_before_successor_training
+harness:
+  entity_identity_policy: public_entity_identity_v2
+  public_membership: true
+solver:
+  attention: "off"
+  candidate_binding: enum_top5_v1
+  prompt_template: rq21_visual_structure_v1
+budget:
+  hard_limit: null
+search:
+  enabled: true
+  stage: tournament
+  max_batch_calls: 480
+  concurrency: 4
+  wall_seconds: 86400
+  selectors: [node_overview_v1]
+  metric_limit: 8
+  trace_projection: jaeger_us_to_ms_v1
+  render_overrides:
+    trace_axis_policy: labeled_latency_axis_v1
+    metric_row_order: owner_then_metric
+    metric_label_policy: typed_owner_v1
+    card_label_policy: visible_id_v1
+    grid_rows: 12
+    grid_columns: 12
+    cell_edge_px: 320
+  tree_policy: metric_left_stack_v1
+  conditions:
+    - {prompt: tournament_frozen_v1, request_profile: card_nonthinking_v1}
+  diagnostic_transport: pure_visual_with_text_candidates
+tournament:
+  schema: RQ3EliminationTournamentV1
+  models: [qwen3.8-27b, gemma-4-26b-a4b]
+  model_request_profiles:
+    qwen3.8-27b: card_nonthinking_v1
+    gemma-4-26b-a4b: legacy_v1
+  retirement_scope: per_model
+  status: registered_adapter_pending
+  roster: RQs/RQ1_1/configs/rosters/case_manifest_480_frozen_v1.json
+  prepared_pool_manifest: RQs/RQ3/results/tournament_v1/pools/verification_v1.json
+  cases: 480
+  threshold_datasets: [aegislab, aiops2022, aiops2025]
+  threshold_denominator_cases: 300
+  top1_threshold_numerator: 4
+  top1_threshold_denominator: 5
+  top1_successes_required: 240
+  next_stage: ac_at_5
+  success_levels: [1, 3, 5]
+  score_contract: unified_granularity_aware
+  retired_cases_repeated: false
+  transport:
+    max_text_evidence_modalities: 0
+    min_visual_modalities: 1
+    max_dashboard_images: 1
+    candidate_list_location: text_prompt
+    pure_visual_allowed: true
+  prompt:
+    schema: RQ3FrozenVisualTemplateV1
+    structure_parent: RQ2_1_P0__V
+    frozen_between_rounds: true
+    text_slots: [task, visual_guide, candidates, closing]
+    image_slots: 1
+    task_file: RQs/RQ3/configs/prompts/tournament_task_v1.txt
+    guide_file: RQs/RQ3/configs/prompts/tournament_guide_v1.txt
+    system_file: RQs/RQ3/configs/prompts/tournament_system_v1.txt
+  first_method:
+    id: SEARCH22_typed_overview_template_successor_v1
+    config: RQs/RQ3/configs/search_typed_overview_v1.yaml
+    selection_evidence: RQs/RQ3/results/search_first_v1/typed_overview_development_v1/summary.json
+  monitor_seconds: 600
+  optimizer_eval_overlap_allowed: false
+  training_heldout_application: TrainTicket
+  post_training_targets:
+    comparison: strictly_greater
+    aiops2022_mrr: 0.65
+    aiops2025_mrr: 0.65
+    overall_480_mrr: 0.75

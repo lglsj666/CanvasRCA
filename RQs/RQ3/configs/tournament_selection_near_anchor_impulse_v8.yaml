@@ -1,0 +1,6 @@
+extends: RQs/RQ3/configs/tournament_full_candidate_binding_v3.yaml
+search:
+  selectors: [near_anchor_impulse_v1]
+  selection_only_suite: RQs/RQ3/configs/selection_only_suite_v5.yaml
+tournament:
+  method_id: NEAR_ANCHOR_IMPULSE_selection_only_v8

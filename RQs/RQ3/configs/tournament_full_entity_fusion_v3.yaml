@@ -1,0 +1,7 @@
+extends: RQs/RQ3/configs/tournament_full_remaining_v3.yaml
+search:
+  selectors: [cross_source_membership_v1]
+  metric_limit: 24
+  grouping_policy: cross_owner_joint_v2
+tournament:
+  method_id: ENTITY_CROSS_SOURCE_FUSION24_full_remaining_v3

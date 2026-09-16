@@ -1,0 +1,236 @@
+{
+  "exp_canvas_composition": {
+    "gemma-4-26b-a4b": [
+      {
+        "arm": "D_SCALE_125",
+        "case": "INC-8E91494BF92F"
+      },
+      {
+        "arm": "D_SCALE_150",
+        "case": "INC-358CBE8D4527"
+      },
+      {
+        "arm": "D0",
+        "case": "INC-01874CA0F78F"
+      },
+      {
+        "arm": "D_COMPACT",
+        "case": "INC-8E91494BF92F"
+      },
+      {
+        "arm": "D_AIRY",
+        "case": "INC-358CBE8D4527"
+      },
+      {
+        "arm": "D_ENTITY",
+        "case": "INC-01874CA0F78F"
+      },
+      {
+        "arm": "D_TOPOLOGY_CENTER",
+        "case": "INC-8E91494BF92F"
+      },
+      {
+        "arm": "D_ONSET_ORDER",
+        "case": "INC-358CBE8D4527"
+      },
+      {
+        "arm": "D_LANDSCAPE",
+        "case": "INC-01874CA0F78F"
+      }
+    ],
+    "qwen3.8-27b": [
+      {
+        "arm": "D0",
+        "case": "INC-8E91494BF92F"
+      },
+      {
+        "arm": "D_COMPACT",
+        "case": "INC-358CBE8D4527"
+      },
+      {
+        "arm": "D_AIRY",
+        "case": "INC-01874CA0F78F"
+      },
+      {
+        "arm": "D_ENTITY",
+        "case": "INC-8E91494BF92F"
+      },
+      {
+        "arm": "D_TOPOLOGY_CENTER",
+        "case": "INC-358CBE8D4527"
+      },
+      {
+        "arm": "D_ONSET_ORDER",
+        "case": "INC-01874CA0F78F"
+      },
+      {
+        "arm": "D_LANDSCAPE",
+        "case": "INC-8E91494BF92F"
+      },
+      {
+        "arm": "D_PORTRAIT",
+        "case": "INC-358CBE8D4527"
+      },
+      {
+        "arm": "D_SCALE_075",
+        "case": "INC-01874CA0F78F"
+      }
+    ]
+  },
+  "exp_evidence_selection": {
+    "gemma-4-26b-a4b": [
+      {
+        "arm": "P_LOG_FREQ__V",
+        "case": "INC-8E91494BF92F"
+      },
+      {
+        "arm": "P_COVERAGE__T",
+        "case": "INC-358CBE8D4527"
+      },
+      {
+        "arm": "P_COVERAGE__V",
+        "case": "INC-01874CA0F78F"
+      },
+      {
+        "arm": "P_DIVERSITY__T",
+        "case": "INC-8E91494BF92F"
+      },
+      {
+        "arm": "P_DIVERSITY__V",
+        "case": "INC-358CBE8D4527"
+      },
+      {
+        "arm": "P_RANDOM__T",
+        "case": "INC-01874CA0F78F"
+      },
+      {
+        "arm": "P_RANDOM__V",
+        "case": "INC-8E91494BF92F"
+      },
+      {
+        "arm": "P0__T",
+        "case": "INC-358CBE8D4527"
+      },
+      {
+        "arm": "P0__V",
+        "case": "INC-01874CA0F78F"
+      }
+    ],
+    "qwen3.8-27b": [
+      {
+        "arm": "P0__T",
+        "case": "INC-8E91494BF92F"
+      },
+      {
+        "arm": "P0__V",
+        "case": "INC-358CBE8D4527"
+      },
+      {
+        "arm": "P_SIGMA__T",
+        "case": "INC-01874CA0F78F"
+      },
+      {
+        "arm": "P_SIGMA__V",
+        "case": "INC-8E91494BF92F"
+      },
+      {
+        "arm": "P_BARO_RS__T",
+        "case": "INC-358CBE8D4527"
+      },
+      {
+        "arm": "P_BARO_RS__V",
+        "case": "INC-01874CA0F78F"
+      },
+      {
+        "arm": "P_TRACE_SC__T",
+        "case": "INC-8E91494BF92F"
+      },
+      {
+        "arm": "P_TRACE_SC__V",
+        "case": "INC-358CBE8D4527"
+      },
+      {
+        "arm": "P_LOG_FREQ__T",
+        "case": "INC-01874CA0F78F"
+      }
+    ]
+  },
+  "exp_silhouette_encoding": {
+    "gemma-4-26b-a4b": [
+      {
+        "arm": "S_TABLE",
+        "case": "INC-8E91494BF92F"
+      },
+      {
+        "arm": "S_COMPACT_MIX",
+        "case": "INC-358CBE8D4527"
+      },
+      {
+        "arm": "S_DENSITY_COMPACT",
+        "case": "INC-01874CA0F78F"
+      },
+      {
+        "arm": "S0",
+        "case": "INC-8E91494BF92F"
+      },
+      {
+        "arm": "S_M_HEATMAP",
+        "case": "INC-358CBE8D4527"
+      },
+      {
+        "arm": "S_M_TIME_BARS",
+        "case": "INC-01874CA0F78F"
+      },
+      {
+        "arm": "S_M_OVERLAY",
+        "case": "INC-8E91494BF92F"
+      },
+      {
+        "arm": "S_R_PAIRED_BARS",
+        "case": "INC-358CBE8D4527"
+      },
+      {
+        "arm": "S_R_DUMBBELL",
+        "case": "INC-01874CA0F78F"
+      }
+    ],
+    "qwen3.8-27b": [
+      {
+        "arm": "S0",
+        "case": "INC-8E91494BF92F"
+      },
+      {
+        "arm": "S_M_HEATMAP",
+        "case": "INC-358CBE8D4527"
+      },
+      {
+        "arm": "S_M_TIME_BARS",
+        "case": "INC-01874CA0F78F"
+      },
+      {
+        "arm": "S_M_OVERLAY",
+        "case": "INC-8E91494BF92F"
+      },
+      {
+        "arm": "S_R_PAIRED_BARS",
+        "case": "INC-358CBE8D4527"
+      },
+      {
+        "arm": "S_R_DUMBBELL",
+        "case": "INC-01874CA0F78F"
+      },
+      {
+        "arm": "S_L_MATRIX",
+        "case": "INC-8E91494BF92F"
+      },
+      {
+        "arm": "S_G_MATRIX",
+        "case": "INC-358CBE8D4527"
+      },
+      {
+        "arm": "S_G_LAYERED",
+        "case": "INC-01874CA0F78F"
+      }
+    ]
+  }
+}

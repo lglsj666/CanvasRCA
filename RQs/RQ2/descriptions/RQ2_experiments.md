@@ -21,7 +21,7 @@ attention collection remains mandatory and occurs in the original call.
 
 ### Common SIRCL* RCA prompt
 
-All three active experiments use the same RQ2-local RCA prompt. Its parent is
+All four active experiments use the same RQ2-local RCA prompt. Its parent is
 the selected SIRCL* adaptation used by RQ1.1, and its parent UTF-8 SHA256 is
 `ce48089072fbbbaef28e6e0d6fdfe2a4d9db1eb9f7d669835536fa6ab1b1b90f`.
 RQ2 does not import that prompt at runtime. Instead, the local copy makes
@@ -325,3 +325,9 @@ and no infrastructure error or truncation occurred. Completed conversations,
 prompts, raw responses, attention/performance accounting, and persistence were
 manually inspected. These smokes contain RCA only and do not reactivate the
 abandoned packed-QA task.
+# Historical RQ2 — abandoned / superseded by RQ2.1
+
+The previous protocol below is retained, not executable. All old RQ2 studies
+are abandoned by the 2026-09-07 user decision. See
+`../findings/exp_retirement_audit_findings.md` for failure mechanisms and
+`../../RQ2_1/descriptions/RQ2_1_experiments.md` for the successor contract.

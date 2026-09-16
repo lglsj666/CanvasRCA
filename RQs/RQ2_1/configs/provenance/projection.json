@@ -1,0 +1,11 @@
+{
+  "schema": "RQ21ProjectionExtractionV1",
+  "source": "RQs/RQ1_1/src/renderer/panels.py",
+  "target": "RQs/RQ2_1/src/renderer/projection.py",
+  "metric_computation_sha256": "5aad2f3754e411f23db9b9d93e606ffe3433520ffd3618a91776fc75835b2acb",
+  "trace_computation_sha256": "1c593daacd8cfbebc02e826f9e53f884e3831e8592f7d73a5ff875c8b084b388",
+  "adaptation": [
+    "Extract pure statistics before drawing; keep numeric algorithms unchanged.",
+    "Return all operations before selection; retain zero-score rows for native selection eligibility."
+  ]
+}

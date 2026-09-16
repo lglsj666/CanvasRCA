@@ -1,0 +1,52 @@
+schema: SelectionOnlySuiteV5
+status: qualified_for_registered_tournament_execution
+static_review: RQs/RQ3/results/selection_only_review_20260915/successor_v5_static/review.json
+execution_authorized: true
+authorization_note: User explicitly instructed the elimination tournament to continue through completion.
+anchor_config: RQs/RQ3/configs/tournament_full_candidate_binding_v3.yaml
+anchor_round: round_0016
+anchor_config_hash: 1274c3b7d3b9b6ede22fde046134644678f3e4078aab333d2ff28d3b22aacc36
+display_prompt_runtime_tree_hash: 8fc5deeafc126a54e261127769f756f8563cb8ad09486d9ba3506f8bcb05b8a8
+changed_component: evidence_selection_only
+design: RQs/RQ3/descriptions/RQ3_experiments.md#selection-successor-v5
+cpu_audit:
+  path: RQs/RQ3/results/selection_only_review_20260915/successor_v5_qualified/summary.json
+  sha256: d447425ab3517742f8908f4979db58c50143f1b2f064d2fafd6a02963253b4a6
+  status: passed
+  cases: 104
+  model_calls: 0
+pending_policies:
+  - near_anchor_impulse_v1
+  - sustained_tail_v1
+  - rank_band_rescue_v1
+  - candidate_round_robin_v1
+  - metric_family_portfolio_v1
+  - topology_separator_v1
+  - lagged_source_v1
+  - peer_residual_v1
+method_configs:
+  near_anchor_impulse_v1: RQs/RQ3/configs/tournament_selection_near_anchor_impulse_v8.yaml
+  sustained_tail_v1: RQs/RQ3/configs/tournament_selection_sustained_tail_v8.yaml
+  rank_band_rescue_v1: RQs/RQ3/configs/tournament_selection_rank_band_rescue_v8.yaml
+  candidate_round_robin_v1: RQs/RQ3/configs/tournament_selection_candidate_round_robin_v8.yaml
+  metric_family_portfolio_v1: RQs/RQ3/configs/tournament_selection_metric_family_portfolio_v8.yaml
+  topology_separator_v1: RQs/RQ3/configs/tournament_selection_topology_separator_v8.yaml
+  lagged_source_v1: RQs/RQ3/configs/tournament_selection_lagged_source_v8.yaml
+  peer_residual_v1: RQs/RQ3/configs/tournament_selection_peer_residual_v8.yaml
+sources:
+  near_anchor_impulse_v1: "PatternMatcher incident-local change; project selector, not a full-system reproduction"
+  sustained_tail_v1: "robust persistence and tail-risk profile; project-original selector"
+  rank_band_rescue_v1: "coverage-oriented middle-rank rescue; project-original selector"
+  candidate_round_robin_v1: "candidate-fair heterogeneous portfolio; project-original selector"
+  metric_family_portfolio_v1: "resource and symptom family portfolio; project-original selector"
+  topology_separator_v1: "MicroHECL-style propagation context plus graph betweenness; project selector"
+  lagged_source_v1: "lag-aware callee-to-caller propagation; project selector"
+  peer_residual_v1: "Sieve-style same-KPI peer residual; project selector"
+execution:
+  cohorts: all_unretired_v1
+  models: sequential_qwen_then_gemma
+  no_preliminary_inference_subset: true
+  no_training: true
+  no_attention: true
+  no_automatic_round_registration: true
+  registered_before_each_round: true

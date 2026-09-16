@@ -21,12 +21,13 @@ from dataclasses import replace
 from datetime import date, datetime
 from pathlib import Path
 from typing import Any
+from functools import lru_cache
 
 import networkx as nx
 import numpy as np
 import pandas as pd
 import pyarrow as pa
-from pyarrow import ipc
+from pyarrow import ipc, parquet as pq
 
 from .sircl_data import (
     AegisLabDataset,
@@ -91,8 +92,27 @@ def _canonical_json(value: Any) -> bytes:
 
 
 def _write_json(path: Path, payload: Any) -> None:
+    _atomic_bytes(path, _canonical_json(payload) + b"\n")
+
+
+def _atomic_bytes(path: Path, payload: bytes) -> None:
+    """Publish a durable complete file; a crash never exposes half a JSON."""
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_bytes(_canonical_json(payload) + b"\n")
+    pending = path.with_name(f".{path.name}.pending.{os.getpid()}")
+    with pending.open("wb") as stream:
+        stream.write(payload)
+        stream.flush()
+        os.fsync(stream.fileno())
+    os.replace(pending, path)
+    _fsync_directory(path.parent)
+
+
+def _fsync_directory(path: Path) -> None:
+    fd = os.open(path, os.O_RDONLY | os.O_DIRECTORY)
+    try:
+        os.fsync(fd)
+    finally:
+        os.close(fd)
 
 
 def canonical_frame_bytes(frame: pd.DataFrame) -> bytes:
@@ -148,6 +168,353 @@ def _loader(dataset: str, raw_root: Path):
     if dataset == "re2_tt":
         return RE2Dataset(str(raw_root), system="TT")
     raise ValueError(f"unsupported dataset: {dataset}")
+
+
+class AIOPS2022MayDataset(AIOPS2022Dataset):
+    """Explicit May-release index adapter; native telemetry algorithms unchanged.
+
+    The original challenge test release has column-oriented JSON labels and
+    date/cloudbed directories, not March's CSV labels and tar directories.
+    This adapter only adds index/source identity support. No external repository
+    or ground-truth-derived evidence selection is involved.
+    """
+    def _build_index(self):
+        if self._cases_index is not None:
+            return self._cases_index
+        paths = sorted(self.gt_root.glob("groundtruth-2022-05-*.json"))
+        if not paths:
+            raise FileNotFoundError(f"May JSON labels absent from {self.gt_root}")
+        entries = []
+        for path in paths:
+            day = path.stem.removeprefix("groundtruth-")
+            cloudbed = self.data_root / day / "cloudbed"
+            if not cloudbed.is_dir() or cloudbed.is_symlink():
+                raise ValueError(f"missing/linked May cloudbed: {day}")
+            payload = json.loads(path.read_text())
+            required = ("timestamp", "level", "cmdb_id", "failure_type")
+            if any(not isinstance(payload.get(k), list) for k in required):
+                raise ValueError("May labels must have four column lists")
+            n = len(payload["timestamp"])
+            if not n or any(len(payload[k]) != n for k in required):
+                raise ValueError("May label column lengths differ or are empty")
+            for i in range(n):
+                stamp = float(payload["timestamp"][i])
+                if not math.isfinite(stamp) or not 1e9 < stamp < 1e10:
+                    raise ValueError("May event clock must be finite epoch seconds")
+                if any(not isinstance(payload[k][i], str) or not payload[k][i].strip() for k in required[1:]):
+                    raise ValueError("May event label/identity is empty")
+                entries.append({"case_id": f"aiops2022_{day}-cloudbed-may_{i:03d}",
+                                **{k: payload[k][i] for k in required},
+                                "timestamp": stamp, "cloudbed_dir": cloudbed,
+                                "gt_file": path, "source_identity": f"{day}-cloudbed-may"})
+        if len({row["case_id"] for row in entries}) != len(entries):
+            raise ValueError("duplicate May event identity")
+        self._cases_index = entries
+        return entries
+
+    def load_case(self, entry):
+        case = super().load_case(entry)
+        case.metadata = {**case.metadata, "cloudbed": entry["source_identity"],
+                         "source_release": "aiops2022_may_json_v1"}
+        return case
+
+
+class _WindowCSVReader:
+    """Process-local pandas facade for native loader CSV reads.
+
+    Each unchanged CSV is parsed once to a lossless Parquet cache, then window
+    predicates reduce subsequent I/O. The source timestamps, values and column
+    types are retained; the native loader still performs its original filters,
+    transforms and graph construction. Use only in a dedicated single-threaded
+    processing worker, never patch the actual pandas module.
+    """
+    def __init__(self, root, cache, lower, upper):
+        self.root, self.cache = Path(root).resolve(), Path(cache)
+        self.lower, self.upper = lower, upper
+        self.errors = []
+
+    def __getattr__(self, name):
+        return getattr(pd, name)
+
+    @staticmethod
+    @lru_cache(maxsize=512)
+    def _verified(path, size, mtime):
+        target = Path(path)
+        meta = json.loads(target.with_suffix(".json").read_text())
+        with target.open("rb") as stream:
+            if hashlib.file_digest(stream, "sha256").hexdigest() != meta["sha256"]:
+                raise ValueError("source CSV cache checksum mismatch")
+        return meta
+
+    def read_csv(self, path, **kwargs):
+        try:
+            path = Path(path).resolve()
+            relative = path.relative_to(self.root)
+            if kwargs != {"low_memory": False}:
+                raise ValueError("unregistered native CSV reader arguments")
+            stat = path.stat()
+            key = hashlib.sha256(_canonical_json({"source": str(path), "size": stat.st_size,
+                    "mtime_ns": stat.st_mtime_ns, "schema": "NativeWindowCSVCacheV1"})).hexdigest()
+            target = self.cache / f"{key}.parquet"
+            meta_path = target.with_suffix(".json")
+            if not target.exists() or not meta_path.exists():
+                frame = pd.read_csv(path, **kwargs)
+                if "timestamp" not in frame or not pd.api.types.is_numeric_dtype(frame["timestamp"]):
+                    raise ValueError(f"non-numeric/missing source timestamp: {relative}")
+                clock = pd.to_numeric(frame["timestamp"], errors="coerce")
+                unit = 1000. if relative.parts[0] == "trace" and clock.median() > 1e12 else 1.
+                # Preserve the native dataframe schema and order, including nulls.
+                self.cache.mkdir(parents=True, exist_ok=True)
+                pending = target.with_suffix(f".partial.{os.getpid()}")
+                frame.to_parquet(pending, index=False, compression="zstd", row_group_size=100000)
+                with pending.open("rb") as stream:
+                    os.fsync(stream.fileno())
+                    digest = hashlib.file_digest(stream, "sha256").hexdigest()
+                os.replace(pending, target)
+                with path.open("rb") as stream:
+                    source_hash = hashlib.file_digest(stream, "sha256").hexdigest()
+                _write_json(meta_path, {"sha256": digest, "source_sha256": source_hash,
+                            "unit": unit, "columns": list(frame.columns), "rows": len(frame)})
+                del frame
+            st = target.stat()
+            meta = self._verified(str(target), st.st_size, st.st_mtime_ns)
+            scale = meta["unit"]
+            clock_type = pq.read_schema(target).field("timestamp").type
+            lower, upper = self.lower*scale, self.upper*scale
+            if pa.types.is_integer(clock_type):
+                # Arrow's floating predicate/statistics promotion can attempt
+                # an unsafe int64->float32 cast for epoch seconds. Keep integer
+                # clocks integer; ceil/floor preserves the inclusive window.
+                lower, upper = math.ceil(lower), math.floor(upper)
+            elif not pa.types.is_floating(clock_type):
+                raise ValueError("unsupported cached timestamp type")
+            return pd.read_parquet(target, filters=[("timestamp", ">=", pa.scalar(lower,type=clock_type)),
+                                                    ("timestamp", "<=", pa.scalar(upper,type=clock_type))])
+        except Exception as exc:
+            # Native loaders log/skip CSV exceptions. Never let that turn a
+            # corrupt new source into apparently legitimate missing telemetry.
+            self.errors.append(f"{path}: {type(exc).__name__}: {exc}")
+            raise
+
+
+def load_may_window(loader, entry, cache_root):
+    """Run the byte-preserved native transforms over a windowed CSV backend."""
+    from .sircl_data import aiops2022 as native
+    facade = _WindowCSVReader(entry["cloudbed_dir"], cache_root,
+                             entry["timestamp"]-loader.window_sec,
+                             entry["timestamp"]+loader.window_sec)
+    original = native.pd
+    # No global pandas monkey patch; only the dedicated vendor module's reader.
+    native.pd = facade
+    try:
+        case = loader.load_case(entry)
+        if facade.errors:
+            raise RuntimeError(f"source-read failures: {facade.errors[:3]}")
+        if any(frame.empty for frame in (case.metrics_df, case.logs_df, case.traces_df)):
+            raise ValueError("May source unexpectedly has an empty telemetry modality")
+        return case
+    finally:
+        native.pd = original
+
+
+def _verify_may_pair(source_id, public, private):
+    """Validate complete per-case bytes before reuse or crash recovery."""
+    opaque = _opaque(source_id, "aiops2022")
+    if public.is_symlink() or private.is_symlink():
+        raise ValueError("linked May case artifacts are not eligible for recovery")
+    label = json.loads(private.read_bytes())
+    if (label.get("schema_version") != PRIVATE_SCHEMA or label.get("source_case_id") != source_id
+            or label.get("opaque_incident_id") != opaque or label.get("dataset") != "aiops2022"):
+        raise ValueError("May private identity mismatch")
+    if (public / "_SUCCESS").read_text().strip() != PUBLIC_SCHEMA:
+        raise ValueError("May case is not committed")
+    metadata = json.loads((public / "metadata.json").read_bytes())
+    if metadata.get("schema_version") != PUBLIC_SCHEMA or metadata.get("opaque_incident_id") != opaque:
+        raise ValueError("May public identity mismatch")
+    observed = _read_public_case(source_id, "aiops2022", public)
+    if canonical_case_sha256(observed) != label["public_projection_sha256"]:
+        raise ValueError("May public projection checksum mismatch")
+    return label
+
+
+def _recover_may_commit(source_id, output_root):
+    """Finish only a verified May public/private pair interrupted at rename.
+
+    Incomplete staging files remain unselected. Never delete an existing case
+    or reinterpret an incompatible final artifact as an ordinary cache miss.
+    """
+    if not source_id.startswith("aiops2022_2022-05-") or "-cloudbed-may_" not in source_id:
+        raise ValueError("recovery is restricted to the explicit May release")
+    opaque = _opaque(source_id, "aiops2022")
+    public = output_root / "public" / "aiops2022" / "cases" / opaque
+    private = output_root / "private" / "aiops2022" / "cases" / f"{opaque}.json"
+    if public.exists() and private.exists():
+        return _verify_may_pair(source_id, public, private)
+    public_candidates = [public] if public.exists() else sorted(public.parent.glob(f".{opaque}.tmp.*"))
+    private_candidates = [private] if private.exists() else sorted(private.parent.glob(f".{opaque}.tmp.*.json"))
+    pairs = []
+    for candidate_public in public_candidates:
+        for candidate_private in private_candidates:
+            # Staging generations must match if neither side was published.
+            if candidate_public != public and candidate_private != private:
+                if candidate_public.name + ".json" != candidate_private.name:
+                    continue
+            try:
+                label = _verify_may_pair(source_id, candidate_public, candidate_private)
+            except (OSError, ValueError, KeyError):
+                continue
+            pairs.append((candidate_public, candidate_private, label))
+    if not pairs:
+        if public.exists() or private.exists():
+            raise ValueError("incomplete May publication has no verified matching staged pair")
+        return None
+    if len({p[2]["sircl_datacase_sha256"] for p in pairs}) != 1:
+        raise ValueError("conflicting staged May generations")
+    candidate_public, candidate_private, label = pairs[0]
+    if candidate_public != public:
+        os.replace(candidate_public, public)
+        _fsync_directory(public.parent)
+    if candidate_private != private:
+        os.replace(candidate_private, private)
+        _fsync_directory(private.parent)
+    return label
+
+
+def _may_worker(task):
+    """One day per process, pinned to a distinct physical core; resumable cases."""
+    raw_root, output_root, cache_root, day, cpu, parity_count = task
+    os.sched_setaffinity(0, {cpu})
+    os.environ.pop("EDA_CACHE_DIR", None)
+    os.environ.pop("SCRATCH", None)
+    loader = AIOPS2022MayDataset(raw_root)
+    entries = [e for e in loader._build_index() if e["source_identity"] == day]
+    records, audits = [], []
+    output_root, cache_root = Path(output_root), Path(cache_root)
+    audit_root = output_root / "private" / "aiops2022" / "may_audit"
+    for position, entry in enumerate(entries, 1):
+        identity = entry["case_id"]
+        recovered = _recover_may_commit(identity, output_root)
+        existing = _existing_processed_record(identity, "aiops2022", output_root)
+        if existing is not None:
+            audit_path = audit_root / f"{existing['opaque_incident_id']}.json"
+            audit = json.loads(audit_path.read_bytes()) if audit_path.exists() else {}
+            if position <= parity_count and audit.get("native_csv_byte_parity") is not True:
+                expected = loader.load_case(entry)
+                if canonical_case_sha256(expected) != recovered["sircl_datacase_sha256"]:
+                    raise ValueError("resumed May native parity mismatch")
+                audit["native_csv_byte_parity"] = True
+                del expected
+            audit.update(case_id=identity, opaque_incident_id=existing["opaque_incident_id"],
+                         datacase_sha256=recovered["sircl_datacase_sha256"], public_round_trip=True)
+            _write_json(audit_path, audit)
+            audits.append(audit)
+            records.append(existing)
+            print(f"[may] {day} {position}/{len(entries)} reused {identity}", flush=True)
+            continue
+        print(f"[may] {day} {position}/{len(entries)} loading {identity}", flush=True)
+        observed = load_may_window(loader, entry, cache_root)
+        digest = canonical_case_sha256(observed)
+        parity = None
+        if position <= parity_count:
+            # Same source event through the unmodified native CSV path and
+            # the cached window path; compare complete canonical DataCase bytes.
+            expected = loader.load_case(entry)
+            parity = canonical_case_sha256(expected) == digest
+            if not parity:
+                raise ValueError(f"May cached/native byte mismatch: {identity}")
+            del expected
+        record = _process_case(observed, "aiops2022", output_root)
+        reloaded = _read_public_case(identity, "aiops2022", output_root / "public" / "aiops2022" / record["path"])
+        if canonical_case_sha256(reloaded) != canonical_case_sha256(_public_projection(observed)):
+            raise ValueError(f"May public semantic round-trip mismatch: {identity}")
+        audit = {"case_id": identity, "opaque_incident_id": record["opaque_incident_id"],
+                 "datacase_sha256": digest, "native_csv_byte_parity": parity,
+                 "public_round_trip": True,
+                 "rows": {k: len(getattr(observed, f"{k}_df")) for k in ("metrics", "logs", "traces")}}
+        _write_json(audit_root / f"{record['opaque_incident_id']}.json", audit)
+        records.append(record); audits.append(audit)
+        del observed, reloaded
+        print(f"[may] {day} {position}/{len(entries)} committed {identity}", flush=True)
+    return {"records": records, "audits": audits, "day": day}
+
+
+def process_may_dataset(raw_root, output_root, cache_root, *, workers=2):
+    """Append the complete May source without rewriting old case artifacts.
+
+    All cases commit individually. The combined manifest publishes atomically
+    only after the entire release succeeds; interrupted runs reuse completions.
+    Two workers bound peak RSS for the multi-GB source log CSVs on local WSL.
+    """
+    import fcntl
+    import multiprocessing as mp
+    from concurrent.futures import ProcessPoolExecutor, as_completed
+    if workers not in (1, 2):
+        raise ValueError("May full-CSV parsing is bounded to at most two workers")
+    verify_vendored_sources()
+    raw_root, output_root, cache_root = map(Path, (raw_root, output_root, cache_root))
+    if output_root.resolve().is_relative_to(raw_root.resolve()) or cache_root.resolve().is_relative_to(raw_root.resolve()):
+        raise ValueError("raw dataset is read-only; outputs/cache must be elsewhere")
+    loader = AIOPS2022MayDataset(str(raw_root)); entries = loader._build_index()
+    days = sorted({e["source_identity"] for e in entries})
+    private = output_root / "private" / "aiops2022"
+    private.mkdir(parents=True, exist_ok=True)
+    manifest = private / "manifest.jsonl"
+    cores, seen = [], set()
+    for cpu in sorted(os.sched_getaffinity(0)):
+        topology = Path(f"/sys/devices/system/cpu/cpu{cpu}/topology")
+        pair = tuple((topology / name).read_text().strip() for name in ("physical_package_id", "core_id"))
+        if pair not in seen:
+            seen.add(pair); cores.append(cpu)
+    if len(cores) < workers:
+        raise ValueError("insufficient distinct physical cores")
+    with (private / ".may-extension.lock").open("a") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        old_bytes = manifest.read_bytes() if manifest.exists() else b""
+        if old_bytes and not old_bytes.endswith(b"\n"):
+            raise ValueError("existing corpus manifest lacks a complete line terminator")
+        old_rows = [json.loads(line) for line in old_bytes.splitlines() if line.strip()]
+        if len({r["case_id"] for r in old_rows}) != len(old_rows):
+            raise ValueError("duplicate identities in existing corpus manifest")
+        snapshot = private / "manifest_before_may_extension.jsonl"
+        if not snapshot.exists():
+            _atomic_bytes(snapshot, old_bytes)
+        # Fixed lanes pin each simultaneous day worker to a separate physical
+        # core, even when one day finishes before another.
+        lanes = [days[i::workers] for i in range(workers)]
+        results = []
+        with ProcessPoolExecutor(max_workers=workers, mp_context=mp.get_context("spawn")) as pool:
+            pending = {pool.submit(_may_lane, str(raw_root), str(output_root), str(cache_root),
+                       lane, cores[i], days[0]): i for i, lane in enumerate(lanes) if lane}
+            for future in as_completed(pending):
+                results.extend(future.result())
+        if manifest.exists() and manifest.read_bytes() != old_bytes:
+            raise ValueError("corpus manifest changed during May extension")
+        combined = {row["case_id"]: row for row in old_rows}
+        for result in results:
+            for row in result["records"]:
+                previous = combined.get(row["case_id"])
+                if previous is not None and previous != row:
+                    raise ValueError("May identity collides with an incompatible existing case")
+                combined[row["case_id"]] = row
+        if not {e["case_id"] for e in entries} <= set(combined):
+            raise ValueError("May processing is incomplete")
+        added = [row for key, row in sorted(combined.items()) if key not in {r["case_id"] for r in old_rows}]
+        _atomic_bytes(manifest, old_bytes + b"".join(_canonical_json(r)+b"\n" for r in added))
+        summary = {"schema_version": "AIOPS2022MayExtensionV1", "release_cases": len(entries),
+                   "total_manifest_cases": len(combined), "added_cases": len(added),
+                   "loader_adapter": "aiops2022_may_json_index_native_telemetry_v1",
+                   "vendor_sha256": loader_source_tree_sha256(),
+                   "processor_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+                   "previous_manifest_sha256": hashlib.sha256(old_bytes).hexdigest(),
+                   "manifest_sha256": hashlib.sha256(manifest.read_bytes()).hexdigest(),
+                   "workers": workers, "physical_cpus": cores[:workers], "complete": True}
+        _write_json(private / "may_extension_summary.json", summary)
+        return summary
+
+
+def _may_lane(raw_root, output_root, cache_root, days, cpu, parity_day):
+    return [_may_worker((raw_root, output_root, cache_root, day, cpu, 2 if day == parity_day else 0))
+            for day in days]
 
 
 def loader_source_tree_sha256() -> str:
@@ -368,8 +735,16 @@ def _process_case(case: DataCase, dataset: str, output_root: Path) -> dict[str, 
     )
     private_final.parent.mkdir(parents=True, exist_ok=True)
     public_final.parent.mkdir(parents=True, exist_ok=True)
+    # Flush complete staging data before either half becomes externally visible.
+    # The May adapter can reconcile a power interruption between these renames.
+    for file in public_tmp.iterdir():
+        with file.open("rb") as stream:
+            os.fsync(stream.fileno())
+    _fsync_directory(public_tmp)
     os.replace(public_tmp, public_final)
+    _fsync_directory(public_final.parent)
     os.replace(private_tmp, private_final)
+    _fsync_directory(private_final.parent)
     return {"case_id": source_id, "opaque_incident_id": opaque, "path": f"cases/{opaque}"}
 
 
@@ -524,8 +899,15 @@ def main(argv: Iterable[str] | None = None) -> int:
     )
     parser.add_argument("--parity-check", action="store_true")
     parser.add_argument("--parity-report", type=Path)
+    parser.add_argument("--aiops2022-may", action="store_true", help="append the complete May JSON-label release")
+    parser.add_argument("--may-cache-root", type=Path)
+    parser.add_argument("--workers", type=int, default=2)
     args = parser.parse_args(argv)
-    if args.parity_check:
+    if args.aiops2022_may:
+        if args.dataset != "aiops2022" or not args.all_cases or args.parity_check or not args.may_cache_root:
+            parser.error("May extension requires aiops2022, --all-cases and --may-cache-root; no roster/parity mode")
+        result = process_may_dataset(args.raw_root, args.output_root, args.may_cache_root, workers=args.workers)
+    elif args.parity_check:
         result = parity_check_dataset(args.dataset, args.raw_root, args.output_root)
         if args.parity_report:
             _write_json(args.parity_report, result)

@@ -1,0 +1,1381 @@
+[
+  {
+    "round": 1,
+    "method": "SEARCH22_typed_overview_template_successor_v1",
+    "selector": "node_overview_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0001_unitfix_v2",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selectors": [
+        "node_overview_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 2,
+    "method": "BARO019_FINITE_TOP24_full_remaining_v3",
+    "selector": "baro_native24_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0002_full_baro_v3",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "max_batch_calls": 480,
+      "metric_limit": 24,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selectors": [
+        "baro_native24_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 3,
+    "method": "SIRCL_TRACE_SC8_full_remaining_v3",
+    "selector": "sircl_trace_sc8_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0003_full_trace_sc_v3",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selectors": [
+        "sircl_trace_sc8_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 4,
+    "method": "SIRCL_DRAIN_FREQ6_full_remaining_v3",
+    "selector": "sircl_log_freq6_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0004_full_log_freq_v3",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selectors": [
+        "sircl_log_freq6_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 5,
+    "method": "SIRCL_MA_3SIGMA_TOP24_full_remaining_v3",
+    "selector": "sircl_ma24_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0005_full_ma_v3",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "max_batch_calls": 480,
+      "metric_limit": 24,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selectors": [
+        "sircl_ma24_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 6,
+    "method": "PUBLIC_TRACE_STATUS6_full_remaining_v3",
+    "selector": "node_overview_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0006_full_trace_status_v3",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selectors": [
+        "node_overview_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "trace_status_projection": "public_status6_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 7,
+    "method": "SHAPE_DIVERSITY075_TOP24_full_remaining_v3",
+    "selector": "shape_diversity_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0007_full_shape_diversity_v3",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "max_batch_calls": 480,
+      "metric_limit": 24,
+      "relevance_weight": 0.75,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selectors": [
+        "shape_diversity_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 8,
+    "method": "ENTITY_CROSS_SOURCE_FUSION24_full_remaining_v3",
+    "selector": "cross_source_membership_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0008_full_entity_fusion_v3",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "grouping_policy": "cross_owner_joint_v2",
+      "max_batch_calls": 480,
+      "metric_limit": 24,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selectors": [
+        "cross_source_membership_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 9,
+    "method": "PEER_SHIFT_HALF_NATIVE_TOP24_full_remaining_v3",
+    "selector": "peer_shift_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0009_full_peer_shift_v3",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "max_batch_calls": 480,
+      "metric_limit": 24,
+      "relevance_weight": 0.5,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selectors": [
+        "peer_shift_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 10,
+    "method": "RESOURCE_FAMILY_NODE_SERVICE_ADDITIVE_full_remaining_v3",
+    "selector": "balanced_additive_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0010_full_resource_family_v3",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selectors": [
+        "balanced_additive_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 11,
+    "method": "METRIC_TEXT_RLG_VISUAL_RESOURCE24_full_remaining_v3",
+    "selector": "balanced_additive_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0011_full_metric_text_rlg_v3",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_hybrid_metric_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "metric_text_with_rlg_visual_v1",
+      "enabled": true,
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selectors": [
+        "balanced_additive_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 12,
+    "method": "TRACE_TEXT_MLG_VISUAL_RESOURCE24_full_remaining_v3",
+    "selector": "balanced_additive_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0012_full_trace_text_mlg_v3",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_hybrid_trace_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "trace_text_with_mlg_visual_v1",
+      "enabled": true,
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selectors": [
+        "balanced_additive_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 13,
+    "method": "LOG_TEXT_MRG_VISUAL_RESOURCE24_full_remaining_v3",
+    "selector": "balanced_additive_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0013_full_log_text_mrg_v3",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_hybrid_log_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "log_text_with_mrg_visual_v1",
+      "enabled": true,
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selectors": [
+        "balanced_additive_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 14,
+    "method": "LOCAL_CONTRAST_TRACE_RESOURCE_TOP24_full_remaining_v3",
+    "selector": "local_contrast_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0014_full_local_contrast_v3",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "max_batch_calls": 480,
+      "metric_limit": 24,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selectors": [
+        "local_contrast_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 15,
+    "method": "TOPOLOGY_TEXT_MRL_VISUAL_RESOURCE24_full_remaining_v3",
+    "selector": "balanced_additive_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0015_full_topology_text_mrl_v3",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_hybrid_topology_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "topology_text_with_mrl_visual_v1",
+      "enabled": true,
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selectors": [
+        "balanced_additive_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 16,
+    "method": "CANDIDATE_BINDING_CARDS_RESOURCE24_full_remaining_v3",
+    "selector": "balanced_additive_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0016_full_candidate_binding_v3",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "grouping_policy": "candidate_binding_cards_v3",
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selectors": [
+        "balanced_additive_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 17,
+    "method": "DIAGNOSTIC_COVER_selection_only_v4",
+    "selector": "diagnostic_cover_v2",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0017_diagnostic_cover_v4",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "grouping_policy": "candidate_binding_cards_v3",
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selection_only_suite": "RQs/RQ3/configs/selection_only_suite_v1.yaml",
+      "selectors": [
+        "diagnostic_cover_v2"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 18,
+    "method": "LOG_SURPRISE_selection_only_v4",
+    "selector": "log_surprise_v2",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0018_log_surprise_v4",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "grouping_policy": "candidate_binding_cards_v3",
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selection_only_suite": "RQs/RQ3/configs/selection_only_suite_v1.yaml",
+      "selectors": [
+        "log_surprise_v2"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 19,
+    "method": "TRACE_SELF_TIME_selection_only_v4",
+    "selector": "trace_self_time_v2",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0019_trace_self_time_v4",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "grouping_policy": "candidate_binding_cards_v3",
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selection_only_suite": "RQs/RQ3/configs/selection_only_suite_v1.yaml",
+      "selectors": [
+        "trace_self_time_v2"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 20,
+    "method": "WINDOW_CHANGE_selection_only_v4",
+    "selector": "window_change_v2",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0020_window_change_v4",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "grouping_policy": "candidate_binding_cards_v3",
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selection_only_suite": "RQs/RQ3/configs/selection_only_suite_v1.yaml",
+      "selectors": [
+        "window_change_v2"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 21,
+    "method": "VARIANCE_SHIFT_selection_only_v4",
+    "selector": "variance_shift_v2",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0021_variance_shift_v4",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "grouping_policy": "candidate_binding_cards_v3",
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selection_only_suite": "RQs/RQ3/configs/selection_only_suite_v1.yaml",
+      "selectors": [
+        "variance_shift_v2"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 22,
+    "method": "PROPAGATION_FRONTIER_selection_only_v4",
+    "selector": "propagation_frontier_v2",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0022_propagation_frontier_v4",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "grouping_policy": "candidate_binding_cards_v3",
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selection_only_suite": "RQs/RQ3/configs/selection_only_suite_v1.yaml",
+      "selectors": [
+        "propagation_frontier_v2"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 23,
+    "method": "HETEROGENEOUS_CONSENSUS_selection_only_v5",
+    "selector": "heterogeneous_consensus_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0023_heterogeneous_consensus_v5",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "grouping_policy": "candidate_binding_cards_v3",
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selection_only_suite": "RQs/RQ3/configs/selection_only_suite_v2.yaml",
+      "selectors": [
+        "heterogeneous_consensus_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 24,
+    "method": "TEMPORAL_EPISODE_COVER_selection_only_v5",
+    "selector": "temporal_episode_cover_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0024_temporal_episode_cover_v5",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "grouping_policy": "candidate_binding_cards_v3",
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selection_only_suite": "RQs/RQ3/configs/selection_only_suite_v2.yaml",
+      "selectors": [
+        "temporal_episode_cover_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 25,
+    "method": "COUNTER_RATE_CHANGE_selection_only_v5",
+    "selector": "counter_rate_change_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0025_counter_rate_change_v5",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "grouping_policy": "candidate_binding_cards_v3",
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selection_only_suite": "RQs/RQ3/configs/selection_only_suite_v2.yaml",
+      "selectors": [
+        "counter_rate_change_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 26,
+    "method": "INCIDENT_WINDOW_PATTERN_selection_only_v6",
+    "selector": "incident_window_pattern_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0026_incident_window_pattern_v6",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "grouping_policy": "candidate_binding_cards_v3",
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selection_only_suite": "RQs/RQ3/configs/selection_only_suite_v3.yaml",
+      "selectors": [
+        "incident_window_pattern_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 27,
+    "method": "SOURCE_FIRST_BUNDLE_selection_only_v6",
+    "selector": "source_first_bundle_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0027_source_first_bundle_v6",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "grouping_policy": "candidate_binding_cards_v3",
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selection_only_suite": "RQs/RQ3/configs/selection_only_suite_v3.yaml",
+      "selectors": [
+        "source_first_bundle_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 28,
+    "method": "SPECTRAL_SALIENCY_selection_only_v6",
+    "selector": "spectral_saliency_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0028_spectral_saliency_v6",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "grouping_policy": "candidate_binding_cards_v3",
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selection_only_suite": "RQs/RQ3/configs/selection_only_suite_v3.yaml",
+      "selectors": [
+        "spectral_saliency_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 29,
+    "method": "CONDITIONAL_RESIDUAL_selection_only_v7",
+    "selector": "conditional_residual_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0029_conditional_residual_v7",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "grouping_policy": "candidate_binding_cards_v3",
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selection_only_suite": "RQs/RQ3/configs/selection_only_suite_v4.yaml",
+      "selectors": [
+        "conditional_residual_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 30,
+    "method": "LOWRANK_SPARSE_selection_only_v7",
+    "selector": "lowrank_sparse_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0030_lowrank_sparse_v7",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "grouping_policy": "candidate_binding_cards_v3",
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selection_only_suite": "RQs/RQ3/configs/selection_only_suite_v4.yaml",
+      "selectors": [
+        "lowrank_sparse_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 31,
+    "method": "SUBSEQUENCE_DISCORD_selection_only_v7",
+    "selector": "subsequence_discord_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0031_subsequence_discord_v7",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "grouping_policy": "candidate_binding_cards_v3",
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selection_only_suite": "RQs/RQ3/configs/selection_only_suite_v4.yaml",
+      "selectors": [
+        "subsequence_discord_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 32,
+    "method": "KERNEL_DISTRIBUTION_selection_only_v7",
+    "selector": "kernel_distribution_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0032_kernel_distribution_v7",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "grouping_policy": "candidate_binding_cards_v3",
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selection_only_suite": "RQs/RQ3/configs/selection_only_suite_v4.yaml",
+      "selectors": [
+        "kernel_distribution_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 33,
+    "method": "LOG_BALANCE_selection_only_v7",
+    "selector": "log_balance_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0033_log_balance_v7",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "grouping_policy": "candidate_binding_cards_v3",
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selection_only_suite": "RQs/RQ3/configs/selection_only_suite_v4.yaml",
+      "selectors": [
+        "log_balance_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 34,
+    "method": "OPERATION_MIX_selection_only_v7",
+    "selector": "operation_mix_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0034_operation_mix_v7",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "grouping_policy": "candidate_binding_cards_v3",
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selection_only_suite": "RQs/RQ3/configs/selection_only_suite_v4.yaml",
+      "selectors": [
+        "operation_mix_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 35,
+    "method": "GRAPH_DIFFUSION_selection_only_v7",
+    "selector": "graph_diffusion_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0035_graph_diffusion_v7",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "grouping_policy": "candidate_binding_cards_v3",
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selection_only_suite": "RQs/RQ3/configs/selection_only_suite_v4.yaml",
+      "selectors": [
+        "graph_diffusion_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 36,
+    "method": "ADDITIVE_RIPPLE_selection_only_v7",
+    "selector": "additive_ripple_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0036_additive_ripple_v7",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "grouping_policy": "candidate_binding_cards_v3",
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selection_only_suite": "RQs/RQ3/configs/selection_only_suite_v4.yaml",
+      "selectors": [
+        "additive_ripple_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 37,
+    "method": "NEAR_ANCHOR_IMPULSE_selection_only_v8",
+    "selector": "near_anchor_impulse_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0037_near_anchor_impulse_v8",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "grouping_policy": "candidate_binding_cards_v3",
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selection_only_suite": "RQs/RQ3/configs/selection_only_suite_v5.yaml",
+      "selectors": [
+        "near_anchor_impulse_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  },
+  {
+    "round": 38,
+    "method": "SUSTAINED_TAIL_selection_only_v8",
+    "selector": "sustained_tail_v1",
+    "directory": "RQs/RQ3/results/tournament_v1/round_0038_sustained_tail_v8",
+    "search": {
+      "concurrency": 4,
+      "conditions": [
+        {
+          "prompt": "tournament_frozen_v1",
+          "request_profile": "card_nonthinking_v1"
+        }
+      ],
+      "diagnostic_transport": "pure_visual_with_text_candidates",
+      "enabled": true,
+      "grouping_policy": "candidate_binding_cards_v3",
+      "max_batch_calls": 480,
+      "metric_limit": 8,
+      "render_overrides": {
+        "card_label_policy": "visible_id_v1",
+        "cell_edge_px": 320,
+        "grid_columns": 12,
+        "grid_rows": 12,
+        "metric_label_policy": "typed_owner_v1",
+        "metric_row_order": "owner_then_metric",
+        "trace_axis_policy": "labeled_latency_axis_v1"
+      },
+      "selection_only_suite": "RQs/RQ3/configs/selection_only_suite_v5.yaml",
+      "selectors": [
+        "sustained_tail_v1"
+      ],
+      "stage": "tournament",
+      "trace_projection": "jaeger_us_to_ms_v1",
+      "tree_policy": "metric_left_stack_v1",
+      "wall_seconds": 86400
+    }
+  }
+]

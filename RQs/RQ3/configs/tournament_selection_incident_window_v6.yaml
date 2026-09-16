@@ -1,0 +1,6 @@
+extends: RQs/RQ3/configs/tournament_full_candidate_binding_v3.yaml
+search:
+  selectors: [incident_window_pattern_v1]
+  selection_only_suite: RQs/RQ3/configs/selection_only_suite_v3.yaml
+tournament:
+  method_id: INCIDENT_WINDOW_PATTERN_selection_only_v6

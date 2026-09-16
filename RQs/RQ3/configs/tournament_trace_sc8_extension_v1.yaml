@@ -1,0 +1,5 @@
+extends: RQs/RQ3/configs/tournament_trace_sc8_v1.yaml
+tournament:
+  method_id: SIRCL_TRACE_SC8_untried_extension_v1
+  method_parent: SIRCL_TRACE_SC8_tournament_v1
+  cohort_policy: remaining_cases_not_previously_called_with_parent_method

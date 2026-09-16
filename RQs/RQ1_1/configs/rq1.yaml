@@ -76,7 +76,7 @@ experiments:
     primary_metric: complete_chain_accuracy
   one_stage_counterfactual_rca:
     task: counterfactual_rca
-    status: qualification_pending_rq2_completion
+    status: active
     model_calls_per_case_arm: 1
     arms: [V_FACTUAL, V_TARGETED, V_PLACEBO, V_NEUTRAL]
     primary_metric: mrr

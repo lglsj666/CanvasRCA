@@ -2,6 +2,48 @@
 
 from __future__ import annotations
 
+
+def connected_row_groups(rows, is_related):
+    """Stable transitive groups under a caller-supplied symmetric relation."""
+    from collections import defaultdict
+    parent = list(range(len(rows)))
+
+    def find(i):
+        while parent[i] != i:
+            parent[i] = parent[parent[i]]
+            i = parent[i]
+        return i
+
+    for i, row in enumerate(rows):
+        for j in range(i):
+            if is_related(row, rows[j]):
+                parent[find(i)] = find(j)
+    groups = defaultdict(list)
+    for i, row in enumerate(rows):
+        groups[find(i)].append(row)
+    return list(groups.values())
+
+
+def allocate_intact_groups(groups, train_target, validation_target, seed=42):
+    """Deterministic joint bounded subset-sum; groups are never split."""
+    from unified_scripts import stable_hash
+    groups = sorted(groups, key=lambda g: stable_hash([seed, sorted(r["case_id"] for r in g)]))
+    states = {(0, 0): ()}
+    for group in groups:
+        n = len(group)
+        nxt = {}
+        for (tr, va), choices in sorted(states.items()):
+            for choice, key in (("train", (tr+n, va)), ("validation", (tr, va+n)), ("unused", (tr, va))):
+                if key[0] <= train_target and key[1] <= validation_target:
+                    nxt.setdefault(key, (*choices, choice))
+        states = nxt
+    key = max(states, key=lambda x: (sum(x), x[1], x[0]))
+    out = {"train": [], "validation": [], "unused": []}
+    for group, partition in zip(groups, states[key], strict=True):
+        group_id = stable_hash(sorted(r["case_id"] for r in group))
+        out[partition].extend({**r, "leakage_group": group_id} for r in group)
+    return out
+
 import argparse
 import hashlib
 import json
