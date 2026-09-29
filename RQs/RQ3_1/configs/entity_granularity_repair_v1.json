@@ -1,0 +1,39 @@
+{
+  "schema_version": "RQ31EntityGranularityRepairV1",
+  "repair_id": "authoritative_node_pod_metadata_20260919",
+  "reason": "Public node_pod_map values are authoritative pods; a legacy deployment-name regex misclassified short ReplicaSet hashes as services.",
+  "eval_opaque_incident_ids": [
+    "INC-2901DC0C5EA7",
+    "INC-385F3FDBBD1F",
+    "INC-3C072440A74A",
+    "INC-B4C69A1E0459",
+    "INC-D28AC6CAEFE4",
+    "INC-DD1A8BB11CC7",
+    "INC-E92A6FFD9DC0",
+    "INC-FFA0A74A0439"
+  ],
+  "test_opaque_incident_ids": [
+    "INC-2B928A163E6E",
+    "INC-F184BD9ED1EA"
+  ],
+  "experiments": [
+    "exp_contrastive_rca_effectiveness",
+    "exp_visual_diagnostic_mechanisms",
+    "exp_table_screenshot",
+    "exp_replicate_stability",
+    "exp_transfer_and_diagnostic_robustness",
+    "exp_budget_curve",
+    "exp_redundant_load"
+  ],
+  "expected_retired_calls": {
+    "exp_contrastive_rca_effectiveness": 240,
+    "exp_visual_diagnostic_mechanisms": 16,
+    "exp_table_screenshot": 4,
+    "exp_replicate_stability": 24,
+    "exp_transfer_and_diagnostic_robustness": 16,
+    "exp_budget_curve": 24,
+    "exp_redundant_load": 24
+  },
+  "old_outputs_remain_spent_calls": true,
+  "unaffected_eval_cases_are_not_rerun": true
+}

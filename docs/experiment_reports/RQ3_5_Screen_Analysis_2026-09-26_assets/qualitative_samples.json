@@ -1,0 +1,2815 @@
+[
+  {
+    "case": "INC-6A048DD0C35E",
+    "dataset": "aegislab",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "type": "repair",
+    "contrast": "E_S_D_P-E_P_D_P",
+    "root": [
+      "mysql",
+      "ts-consign-service"
+    ],
+    "root_ids": {
+      "mysql": "449",
+      "ts-consign-service": "807"
+    },
+    "fault_type": "NetworkBandwidth",
+    "records": [
+      {
+        "arm": "E_P_D_P",
+        "metrics": {
+          "mrr": 0.5,
+          "ac@1": 0.0,
+          "ac@3": 1.0,
+          "ac@5": 1.0,
+          "avg@3": 0.6666666666666666,
+          "avg@5": 0.8
+        },
+        "response": "{\"services\": [\"716\", \"807\", \"802\"], \"reason\": \"Service 716 is the top candidate as it exhibits the earliest onset (+4.8m) and highest severity (z=90.17) in the propagation analysis. Its metrics show a distinct spike in CPU usage (container.cpu.usage peak ~0.087 vs baseline ~0.005) and memory at the start of the fault window, which is consistent with a resource exhaustion or hot-loop origin. The call graph topology is sparse in the provided G-section (only showing edges for services 134, 465, 518, 678, 769, 921), but the propagation metadata explicitly ranks 716 as rank 1 based on M evidence. Services 807 and 802 show extreme latency fold-changes in the R evidence (12.02 and 6.34 log2) but have later onsets and lower z-scores in the propagation analysis, suggesting they are downstream victims of the resource contention or latency induced by the 716 incident or its upstream dependencies not fully detailed in the limited G-edges. The initial hypothesis of 716 is supported by the earliest temporal signature and dominant metric anomaly.\", \"confidence\": \"medium\"}",
+        "prompt": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/qwen3.8-27b/prompts/dc67848f277195bb8930de8ca35c935abd7c9e1f67452cf59140bcb9a36f299e.json",
+        "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/qwen3.8-27b/conversations/dc67848f277195bb8930de8ca35c935abd7c9e1f67452cf59140bcb9a36f299e.md",
+        "audit": {
+          "status": "partial_literal_audit",
+          "contract_errors": [],
+          "claims": [
+            {
+              "kind": "type",
+              "entity": "716",
+              "entity_type": "service",
+              "quote": "Service 716",
+              "span": [
+                0,
+                11
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            },
+            {
+              "kind": "display_number",
+              "quantity": "onset:716",
+              "value": "+4.8",
+              "unit": "minutes",
+              "quote": "Service 716 is the top candidate as it exhibits the earliest onset (+4.8m",
+              "span": [
+                0,
+                73
+              ],
+              "review_required": true,
+              "caveat": "Check metric-vs-entity onset, negation, coreference and rounding before confirmation",
+              "check": {
+                "verdict": "compatible_display",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 3,
+                    "compiled_part": 3,
+                    "line": 33,
+                    "text": "Topology evidence; field=propagation_service; entities=[\"716\"]; bins=[]; unit=\"displayed_minutes_and_z_source\"; evidence_source_display=\"M\" onset_rel_min_display=\"+4.8m\" rank=1 service=\"716\" severity_z_display=\"90.17\""
+                  }
+                ]
+              }
+            }
+          ],
+          "review_required": true,
+          "reason_characters": 1000,
+          "quantities_compiled": 14,
+          "relations_compiled": 8,
+          "base_status": "sat",
+          "unparsed_claim_coverage": "unknown_not_zero",
+          "image_provenance": "text_only"
+        }
+      },
+      {
+        "arm": "E_S_D_P",
+        "metrics": {
+          "mrr": 1.0,
+          "ac@1": 1.0,
+          "ac@3": 1.0,
+          "ac@5": 1.0,
+          "avg@3": 1.0,
+          "avg@5": 1.0
+        },
+        "response": "{\"services\": [\"807\", \"802\", \"132\"], \"reason\": \"Service 807 exhibits the most severe latency anomaly (rank_score 11.95) on operation 'SELECT ConsignRecord' (ExL p95 ~30s), indicating a local database or lock contention issue that acts as a hard timeout. This is consistent with its role as a callee for entry service 553. Service 802 shows significant latency (6.27) but lower magnitude. The log evidence is dominated by volume drops in infrastructure nodes (e.g., 90435 on 2673) rather than application errors, suggesting the primary fault is performance degradation in the data access layer of 807 propagating upstream.\", \"confidence\": \"high\"}",
+        "prompt": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/qwen3.8-27b/prompts/699f407e7e9a2eb8106418a72d3e857ce656edeed730df8d3ad89ae26b28560d.json",
+        "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/qwen3.8-27b/conversations/699f407e7e9a2eb8106418a72d3e857ce656edeed730df8d3ad89ae26b28560d.md",
+        "audit": {
+          "status": "partial_literal_audit",
+          "contract_errors": [],
+          "claims": [
+            {
+              "kind": "type",
+              "entity": "807",
+              "entity_type": "service",
+              "quote": "Service 807",
+              "span": [
+                0,
+                11
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "553",
+              "entity_type": "service",
+              "quote": "service 553",
+              "span": [
+                261,
+                272
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "802",
+              "entity_type": "service",
+              "quote": "Service 802",
+              "span": [
+                274,
+                285
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            }
+          ],
+          "review_required": true,
+          "reason_characters": 573,
+          "quantities_compiled": 0,
+          "relations_compiled": 0,
+          "base_status": "sat",
+          "unparsed_claim_coverage": "unknown_not_zero",
+          "image_provenance": "text_only"
+        }
+      }
+    ],
+    "packs": []
+  },
+  {
+    "case": "INC-9ACC29B9B330",
+    "dataset": "aiops2022",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "type": "break",
+    "contrast": "E_S_D_P-E_P_D_P",
+    "root": [
+      "node-6"
+    ],
+    "root_ids": {
+      "node-6": "5529"
+    },
+    "fault_type": "node 磁盘写IO消耗",
+    "records": [
+      {
+        "arm": "E_P_D_P",
+        "metrics": {
+          "mrr": 1.0,
+          "ac@1": 1.0,
+          "ac@3": 1.0,
+          "ac@5": 1.0,
+          "avg@3": 1.0,
+          "avg@5": 1.0
+        },
+        "response": "{\"services\": [\"5529\", \"863\", \"24106\", \"237\", \"327\"], \"reason\": \"Service 5529 exhibits the earliest and most severe metric anomalies (onset +20.0m, z-score 456.2) with significant spikes in system I/O metrics (await, util, write seconds) starting at bin 32, which precedes the fault window start (+29.0m). This aligns with its Rank 1 in propagation onset. In the topology, service 237 calls 863, and trace evidence shows a latency increase in operation 'hipstershop.863/ShipOrder' (service 24106) and downstream services like 36609/86055. The combination of early, high-severity I/O degradation on 5529 and downstream latency propagation makes 5529 the likely origin. No evidence contradicts this; 863 is a downstream symptom.\", \"confidence\": \"high\"}",
+        "prompt": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/qwen3.8-27b/prompts/bab5c05322999eb90f954652979a0972801cbf351693f8c2f3cdca974f06492a.json",
+        "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/qwen3.8-27b/conversations/bab5c05322999eb90f954652979a0972801cbf351693f8c2f3cdca974f06492a.md",
+        "audit": {
+          "status": "partial_literal_audit",
+          "contract_errors": [],
+          "claims": [
+            {
+              "kind": "type",
+              "entity": "5529",
+              "entity_type": "service",
+              "quote": "Service 5529",
+              "span": [
+                0,
+                12
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "refuted",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "node"
+              }
+            },
+            {
+              "kind": "display_number",
+              "quantity": "onset:5529",
+              "value": "+20.0",
+              "unit": "minutes",
+              "quote": "Service 5529 exhibits the earliest and most severe metric anomalies (onset +20.0m",
+              "span": [
+                0,
+                81
+              ],
+              "review_required": true,
+              "caveat": "Check metric-vs-entity onset, negation, coreference and rounding before confirmation",
+              "check": {
+                "verdict": "compatible_display",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 3,
+                    "compiled_part": 3,
+                    "line": 23,
+                    "text": "Topology evidence; field=propagation_service; entities=[\"5529\"]; bins=[]; unit=\"displayed_minutes_and_z_source\"; evidence_source_display=\"M\" onset_rel_min_display=\"+20.0m\" rank=1 service=\"5529\" severity_z_display=\"456.2\""
+                  }
+                ]
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "237",
+              "entity_type": "service",
+              "quote": "service 237",
+              "span": [
+                308,
+                319
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "24106",
+              "entity_type": "service",
+              "quote": "service 24106",
+              "span": [
+                417,
+                430
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "refuted",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "pod"
+              }
+            },
+            {
+              "kind": "relation",
+              "relation": "calls",
+              "left": "237",
+              "right": "863",
+              "quote": "237 calls 863",
+              "span": [
+                316,
+                329
+              ],
+              "review_required": true,
+              "caveat": "Literal positive reading only; inspect negation and hypothetical context",
+              "check": {
+                "verdict": "unknown",
+                "sources": [],
+                "reason": "Unobserved is not false"
+              }
+            }
+          ],
+          "review_required": true,
+          "reason_characters": 661,
+          "quantities_compiled": 14,
+          "relations_compiled": 2,
+          "base_status": "sat",
+          "unparsed_claim_coverage": "unknown_not_zero",
+          "image_provenance": "text_only"
+        }
+      },
+      {
+        "arm": "E_S_D_P",
+        "metrics": {
+          "mrr": 0.5,
+          "ac@1": 0.0,
+          "ac@3": 1.0,
+          "ac@5": 1.0,
+          "avg@3": 0.6666666666666666,
+          "avg@5": 0.8
+        },
+        "response": "{\"services\": [\"76890\", \"5529\", \"1435\"], \"reason\": \"Service 76890 (pod) is the primary suspect. MET-Z metrics show a drastic deviation: container_fs_usage_MB dropped from ~120.57 MB to ~89.34 MB with std dev increasing from 1.64 to 17.97 (a >3σ shift indicating instability/reset). NODE 5529, which is co-located with the entry point 53043 (based on exclusion of other hosting nodes 4914/8734/1435), shows massive I/O anomalies: system.io.util shifted from mean 0.03 to 10.93 (>>3σ) and system.io.await from 0.11 to 21.56 (>>3σ), suggesting node-level I/O saturation or failure impacting pods. Service 76890 is called by 53043 and 95833. While 76890's own span data is not explicitly listed in the top anomalies, the combined signal of a pod-level filesystem/instance reset (76890) and a host-level I/O bottleneck (5529) points to an infrastructure/pod origin. Other services show only minor latency increases in TRC-L (rank_scores < 1.0) and no significant error logs (LOG-R scores < 1.0), indicating they are likely experiencing downstream symptoms or normal traffic variance rather than being the root cause. The 'loud' symptoms in latency are diffuse and low-magnitude, contrasting sharply with the extreme metric spikes in 76890 and 5529.\", \"confidence\": \"medium\"}",
+        "prompt": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/qwen3.8-27b/prompts/fabf0f5ccc1767de0ccf3c651e908b4ac49b4f464307e1f8a07c131af635787c.json",
+        "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/qwen3.8-27b/conversations/fabf0f5ccc1767de0ccf3c651e908b4ac49b4f464307e1f8a07c131af635787c.md",
+        "audit": {
+          "status": "partial_literal_audit",
+          "contract_errors": [],
+          "claims": [
+            {
+              "kind": "type",
+              "entity": "76890",
+              "entity_type": "service",
+              "quote": "Service 76890",
+              "span": [
+                0,
+                13
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "refuted",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "pod"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "5529",
+              "entity_type": "node",
+              "quote": "NODE 5529",
+              "span": [
+                230,
+                239
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "node"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "76890",
+              "entity_type": "service",
+              "quote": "Service 76890",
+              "span": [
+                542,
+                555
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "refuted",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "pod"
+              }
+            }
+          ],
+          "review_required": true,
+          "reason_characters": 1191,
+          "quantities_compiled": 0,
+          "relations_compiled": 0,
+          "base_status": "sat",
+          "unparsed_claim_coverage": "unknown_not_zero",
+          "image_provenance": "text_only"
+        }
+      }
+    ],
+    "packs": [
+      {
+        "case": "INC-9ACC29B9B330",
+        "dataset": "aiops2022",
+        "id": "2f4f99f7db4209ebe01b7ce9994e6fb7405ab8fae144bfec8ee260f5256297da",
+        "entity": "76868",
+        "entry": "53043",
+        "family": "request",
+        "x": "local duration above reference p95 4.5873 ms",
+        "y": "entry duration above reference p95 71.4497 ms",
+        "operation": "hipstershop.ProductCatalogService/GetProduct",
+        "counts": [
+          53,
+          60,
+          354,
+          1388
+        ],
+        "a": 53,
+        "b": 60,
+        "c": 354,
+        "d": 1388,
+        "delta": 0.2658118529205572,
+        "min_group": 113,
+        "same_entity_entry": false,
+        "root_local": false,
+        "root_entry": false
+      },
+      {
+        "case": "INC-9ACC29B9B330",
+        "dataset": "aiops2022",
+        "id": "6cfd40d4852ec5e1293eff57d3c42b8f34a95815ce2669115e569045a8517358",
+        "entity": "53043",
+        "entry": "53043",
+        "family": "request",
+        "x": "local duration above reference p95 2.23355 ms",
+        "y": "entry duration above reference p95 71.4497 ms",
+        "operation": "hipstershop.CurrencyService/Convert",
+        "counts": [
+          14,
+          23,
+          250,
+          1568
+        ],
+        "a": 14,
+        "b": 23,
+        "c": 250,
+        "d": 1568,
+        "delta": 0.24086462700324088,
+        "min_group": 37,
+        "same_entity_entry": true,
+        "root_local": false,
+        "root_entry": false
+      },
+      {
+        "case": "INC-9ACC29B9B330",
+        "dataset": "aiops2022",
+        "id": "4f5dca1611739e3b9341759315ff73d0042d989468e316fc236ef6b73232f4e3",
+        "entity": "79149",
+        "entry": "79149",
+        "family": "request",
+        "x": "local duration above reference p95 2.5269 ms",
+        "y": "entry duration above reference p95 61.1975 ms",
+        "operation": "hipstershop.CurrencyService/Convert",
+        "counts": [
+          6,
+          5,
+          56,
+          345
+        ],
+        "a": 6,
+        "b": 5,
+        "c": 56,
+        "d": 345,
+        "delta": 0.40580367263659034,
+        "min_group": 11,
+        "same_entity_entry": true,
+        "root_local": false,
+        "root_entry": false
+      },
+      {
+        "case": "INC-9ACC29B9B330",
+        "dataset": "aiops2022",
+        "id": "d4dde3145ca87e6ff4faeda6faf5af528175c9d5968ab2c0d6a0c062fa6cf3d7",
+        "entity": "53043",
+        "entry": "53043",
+        "family": "request",
+        "x": "local duration above reference p95 4.84835 ms",
+        "y": "entry duration above reference p95 71.4497 ms",
+        "operation": "hipstershop.AdService/GetAds",
+        "counts": [
+          5,
+          14,
+          54,
+          1314
+        ],
+        "a": 5,
+        "b": 14,
+        "c": 54,
+        "d": 1314,
+        "delta": 0.22368421052631576,
+        "min_group": 19,
+        "same_entity_entry": true,
+        "root_local": false,
+        "root_entry": false
+      }
+    ]
+  },
+  {
+    "case": "INC-E324D405FD70",
+    "dataset": "aiops2025",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "type": "repair",
+    "contrast": "E_S_D_P-E_P_D_P",
+    "root": [
+      "checkoutservice",
+      "shippingservice"
+    ],
+    "root_ids": {
+      "checkoutservice": "354",
+      "shippingservice": "487"
+    },
+    "fault_type": "network corrupt",
+    "records": [
+      {
+        "arm": "E_P_D_P",
+        "metrics": {
+          "mrr": 0.0,
+          "ac@1": 0.0,
+          "ac@3": 0.0,
+          "ac@5": 0.0,
+          "avg@3": 0.0,
+          "avg@5": 0.0
+        },
+        "response": "{\"services\": [\"632\", \"168\", \"5970\", \"187\", \"257\"], \"reason\": \"Service 632 shows the earliest onset of significant metric deviation (MET-Z rank 1, onset +20.0m) with the highest severity (z=999). While service 168 also shows high severity, its onset (+23.0m) is later. Other services like 487 and 42724 show extreme latency spikes but appear downstream or exhibit later onsets in the propagation chain. Service 632 is the plausible origin based on the temporal sequence of metric shifts.\", \"confidence\": \"medium\"}",
+        "prompt": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/gemma-4-26b-a4b/prompts/3f548123d1c4d60012fade6bc23a1eb54313186076bad0d682243b0151c289a7.json",
+        "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/gemma-4-26b-a4b/conversations/3f548123d1c4d60012fade6bc23a1eb54313186076bad0d682243b0151c289a7.md",
+        "audit": {
+          "status": "partial_literal_audit",
+          "contract_errors": [],
+          "claims": [
+            {
+              "kind": "type",
+              "entity": "632",
+              "entity_type": "service",
+              "quote": "Service 632",
+              "span": [
+                0,
+                11
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            },
+            {
+              "kind": "display_number",
+              "quantity": "onset:632",
+              "value": "+20.0",
+              "unit": "minutes",
+              "quote": "Service 632 shows the earliest onset of significant metric deviation (MET-Z rank 1, onset +20.0m",
+              "span": [
+                0,
+                96
+              ],
+              "review_required": true,
+              "caveat": "Check metric-vs-entity onset, negation, coreference and rounding before confirmation",
+              "check": {
+                "verdict": "compatible_display",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 3,
+                    "compiled_part": 3,
+                    "line": 36,
+                    "text": "Topology evidence; field=propagation_service; entities=[\"632\"]; bins=[]; unit=\"displayed_minutes_and_z_source\"; evidence_source_display=\"M\" onset_rel_min_display=\"+20.0m\" rank=1 service=\"632\" severity_z_display=\"999\""
+                  }
+                ]
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "168",
+              "entity_type": "service",
+              "quote": "service 168",
+              "span": [
+                139,
+                150
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            },
+            {
+              "kind": "display_number",
+              "quantity": "onset:168",
+              "value": "+23.0",
+              "unit": "minutes",
+              "quote": "service 168 also shows high severity, its onset (+23.0m",
+              "span": [
+                139,
+                194
+              ],
+              "review_required": true,
+              "caveat": "Check metric-vs-entity onset, negation, coreference and rounding before confirmation",
+              "check": {
+                "verdict": "compatible_display",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 3,
+                    "compiled_part": 3,
+                    "line": 35,
+                    "text": "Topology evidence; field=propagation_service; entities=[\"168\"]; bins=[]; unit=\"displayed_minutes_and_z_source\"; evidence_source_display=\"M\" onset_rel_min_display=\"+23.0m\" rank=3 service=\"168\" severity_z_display=\"999\""
+                  }
+                ]
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "632",
+              "entity_type": "service",
+              "quote": "Service 632",
+              "span": [
+                340,
+                351
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            }
+          ],
+          "review_required": true,
+          "reason_characters": 424,
+          "quantities_compiled": 8,
+          "relations_compiled": 6,
+          "base_status": "sat",
+          "unparsed_claim_coverage": "unknown_not_zero",
+          "image_provenance": "text_only"
+        }
+      },
+      {
+        "arm": "E_S_D_P",
+        "metrics": {
+          "mrr": 1.0,
+          "ac@1": 1.0,
+          "ac@3": 1.0,
+          "ac@5": 1.0,
+          "avg@3": 1.0,
+          "avg@5": 1.0
+        },
+        "response": "{\"services\": [\"487\", \"967\", \"223\"], \"reason\": \"Service 487 exhibits extremely high exclusive latency (ExL_p95 ~20s and ~50s) for its operations (GetQuote, ShipOrder) despite having no reported error spikes in logs. This massive local latency suggests it is the bottleneck. Service 967 is a frequent downstream callee for 487 and shows significant latency and error ratio increases, but 487's extreme local latency is the upstream driver. Service 223 is the entry point calling 487, making it a symptom of the latency propagation.\", \"confidence\": \"high\"}",
+        "prompt": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/gemma-4-26b-a4b/prompts/a2cb03e228d151a5a589d3ff420930fd94916dad4d3952859a602fc83ee0a0ca.json",
+        "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/gemma-4-26b-a4b/conversations/a2cb03e228d151a5a589d3ff420930fd94916dad4d3952859a602fc83ee0a0ca.md",
+        "audit": {
+          "status": "partial_literal_audit",
+          "contract_errors": [],
+          "claims": [
+            {
+              "kind": "type",
+              "entity": "487",
+              "entity_type": "service",
+              "quote": "Service 487",
+              "span": [
+                0,
+                11
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "967",
+              "entity_type": "service",
+              "quote": "Service 967",
+              "span": [
+                226,
+                237
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "223",
+              "entity_type": "service",
+              "quote": "Service 223",
+              "span": [
+                391,
+                402
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            }
+          ],
+          "review_required": true,
+          "reason_characters": 482,
+          "quantities_compiled": 0,
+          "relations_compiled": 0,
+          "base_status": "sat",
+          "unparsed_claim_coverage": "unknown_not_zero",
+          "image_provenance": "text_only"
+        }
+      }
+    ],
+    "packs": [
+      {
+        "case": "INC-E324D405FD70",
+        "dataset": "aiops2025",
+        "id": "7297d93528338d1f37d8e476aaf1f7264860cfcfa31efe6e7d71b6a9ffe07b0f",
+        "entity": "487",
+        "entry": "223",
+        "family": "request",
+        "x": "local duration above reference p95 5.657 ms",
+        "y": "explicit entry error",
+        "operation": "entity:967.ShippingService/GetQuote",
+        "counts": [
+          253,
+          0,
+          7,
+          1259
+        ],
+        "a": 253,
+        "b": 0,
+        "c": 7,
+        "d": 1259,
+        "delta": 0.9944707740916272,
+        "min_group": 253,
+        "same_entity_entry": false,
+        "root_local": true,
+        "root_entry": false
+      },
+      {
+        "case": "INC-E324D405FD70",
+        "dataset": "aiops2025",
+        "id": "17adbde7b5e24ff010938d1c579ed94c8bd02112fc8158c4d54c4e5364fa9409",
+        "entity": "257",
+        "entry": "223",
+        "family": "request",
+        "x": "local duration above reference p95 7.2767 ms",
+        "y": "explicit entry error",
+        "operation": "entity:967.CartService/GetCart",
+        "counts": [
+          126,
+          127,
+          142,
+          5055
+        ],
+        "a": 126,
+        "b": 127,
+        "c": 142,
+        "d": 5055,
+        "delta": 0.47070025957511213,
+        "min_group": 253,
+        "same_entity_entry": false,
+        "root_local": false,
+        "root_entry": false
+      },
+      {
+        "case": "INC-E324D405FD70",
+        "dataset": "aiops2025",
+        "id": "90de98d31728766f564b791b9bf2715607a15f6c85f3e33bc10c6ff7ae77ecff",
+        "entity": "632",
+        "entry": "223",
+        "family": "request",
+        "x": "local duration above reference p95 14.9339 ms",
+        "y": "explicit entry error",
+        "operation": "entity:967.ProductCatalogService/GetProduct",
+        "counts": [
+          169,
+          84,
+          1402,
+          3512
+        ],
+        "a": 169,
+        "b": 84,
+        "c": 1402,
+        "d": 3512,
+        "delta": 0.38267690441603486,
+        "min_group": 253,
+        "same_entity_entry": false,
+        "root_local": false,
+        "root_entry": false
+      },
+      {
+        "case": "INC-E324D405FD70",
+        "dataset": "aiops2025",
+        "id": "96382d7ec8e52ca6935a560109a0ab28928fc3f8b924aeed8577ba9ab6de102b",
+        "entity": "886",
+        "entry": "223",
+        "family": "request",
+        "x": "local duration above reference p95 2.3304 ms",
+        "y": "explicit entry error",
+        "operation": "HGET",
+        "counts": [
+          6,
+          247,
+          268,
+          5436
+        ],
+        "a": 6,
+        "b": 247,
+        "c": 268,
+        "d": 5436,
+        "delta": -0.02326915721025118,
+        "min_group": 253,
+        "same_entity_entry": false,
+        "root_local": false,
+        "root_entry": false
+      }
+    ]
+  },
+  {
+    "case": "INC-C426468D92A8",
+    "dataset": "aegislab",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "type": "break",
+    "contrast": "E_S_D_P-E_P_D_P",
+    "root": [
+      "ts-route-plan-service",
+      "ts-travel-service"
+    ],
+    "root_ids": {
+      "ts-route-plan-service": "918",
+      "ts-travel-service": "669"
+    },
+    "fault_type": "HTTPRequestReplaceMethod",
+    "records": [
+      {
+        "arm": "E_P_D_P",
+        "metrics": {
+          "mrr": 1.0,
+          "ac@1": 1.0,
+          "ac@3": 1.0,
+          "ac@5": 1.0,
+          "avg@3": 1.0,
+          "avg@5": 1.0
+        },
+        "response": "{\"services\": [\"918\", \"735\", \"669\"], \"reason\": \"Service 918 exhibits severe resource exhaustion, specifically a massive spike in filesystem usage (z=522.1) and a concurrent rise in memory usage (z=211.6). This resource pressure matches the onset of the incident. While 735 and 669 show high latency and error counts (TRC-L), they are downstream callers of 918 (via 630/433/etc), suggesting they are experiencing symptoms of the underlying infrastructure/pod failure in 918.\", \"confidence\": \"high\"}",
+        "prompt": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/gemma-4-26b-a4b/prompts/5c2ec63c34f1ae61eafb4679d553d6d1a720425e5d059367ce5d1bb4dbff42cb.json",
+        "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/gemma-4-26b-a4b/conversations/5c2ec63c34f1ae61eafb4679d553d6d1a720425e5d059367ce5d1bb4dbff42cb.md",
+        "audit": {
+          "status": "partial_literal_audit",
+          "contract_errors": [],
+          "claims": [
+            {
+              "kind": "type",
+              "entity": "918",
+              "entity_type": "service",
+              "quote": "Service 918",
+              "span": [
+                0,
+                11
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            }
+          ],
+          "review_required": true,
+          "reason_characters": 425,
+          "quantities_compiled": 14,
+          "relations_compiled": 9,
+          "base_status": "sat",
+          "unparsed_claim_coverage": "unknown_not_zero",
+          "image_provenance": "text_only"
+        }
+      },
+      {
+        "arm": "E_S_D_P",
+        "metrics": {
+          "mrr": 0.3333333333333333,
+          "ac@1": 0.0,
+          "ac@3": 1.0,
+          "ac@5": 1.0,
+          "avg@3": 0.3333333333333333,
+          "avg@5": 0.6
+        },
+        "response": "{\"services\": [\"442\", \"735\", \"669\"], \"reason\": \"Service 442 exhibits extremely high exclusive latency (ExL_p95 = 2375ms) for POST operations, which is significantly higher than any other service. While 735 and 669 show high error rates and latency, they are downstream of 442 or part of the error handling path. The latency spike in 442 is the primary driver of the cascading delays observed in its callers (758, 124, 442) and the high inclusive latencies in its dependents.\", \"confidence\": \"high\"}",
+        "prompt": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/gemma-4-26b-a4b/prompts/cad962d096b867c7695a3090b7add653db47563b786736586bd72511d99492b8.json",
+        "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/gemma-4-26b-a4b/conversations/cad962d096b867c7695a3090b7add653db47563b786736586bd72511d99492b8.md",
+        "audit": {
+          "status": "partial_literal_audit",
+          "contract_errors": [],
+          "claims": [
+            {
+              "kind": "type",
+              "entity": "442",
+              "entity_type": "service",
+              "quote": "Service 442",
+              "span": [
+                0,
+                11
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            }
+          ],
+          "review_required": true,
+          "reason_characters": 426,
+          "quantities_compiled": 0,
+          "relations_compiled": 0,
+          "base_status": "sat",
+          "unparsed_claim_coverage": "unknown_not_zero",
+          "image_provenance": "text_only"
+        }
+      }
+    ],
+    "packs": []
+  },
+  {
+    "case": "INC-39B0C8694807",
+    "dataset": "aegislab",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "type": "repair",
+    "contrast": "E_S_D_P-E_S_D_S",
+    "root": [
+      "ts-preserve-service",
+      "ts-seat-service"
+    ],
+    "root_ids": {
+      "ts-preserve-service": "816",
+      "ts-seat-service": "907"
+    },
+    "fault_type": "HTTPRequestReplaceMethod",
+    "records": [
+      {
+        "arm": "E_S_D_S",
+        "metrics": {
+          "mrr": 0.5,
+          "ac@1": 0.0,
+          "ac@3": 1.0,
+          "ac@5": 1.0,
+          "avg@3": 0.6666666666666666,
+          "avg@5": 0.8
+        },
+        "response": "{\"services\": [\"7064\", \"11446\", \"13039\", \"223\", \"522\"], \"reason\": \"Node 7064 is the root cause. Evidence: 1) Correlated anomalies: Services hosted on node 7064 (15602, 17032, 25891, 28938, 29041, 56817, 72955, 94822) show significant log volume drops (e.g., 72955 vol_drop 0.15, 15602 vol_drop 0.16, 25891 vol_drop 0.16) and 72955 shows an error ratio spike of 2.78. This pattern of simultaneous degradation across unrelated pods co-located on a single node indicates a host-level fault (e.g., disk I/O or network saturation). 2) Downstream impact: Service 11446 (hosted on node 3308) shows a massive error ratio (3.28) but no direct connection to 7064 in the call graph; however, given the options and the nature of 'silent' co-located faults often causing network timeouts or shared resource exhaustion, 7064 is the primary origin. The high latency in 223/522 likely stems from timeouts caused by the infrastructure instability initiated at 7064 or its downstream propagation through the shared network. 11446 is ranked second as the most symptomatic service with the highest error score, but it is likely a victim of the broader infrastructure issue or network instability rather than the origin if 7064 is the node fault. Note: The prompt asks for component IDs. 7064 is a node ID. 11446 is a service ID. The evidence strongly points to Node 7064 as the origin due to the correlated 'vol_drop' and error spikes across its hosts.\", \"confidence\": \"medium\"}",
+        "prompt": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/qwen3.8-27b/prompts/edd1c47d078bde0b9fbf8923a1442dce241aabd940565c4b77646f74e61118b2.json",
+        "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/qwen3.8-27b/conversations/edd1c47d078bde0b9fbf8923a1442dce241aabd940565c4b77646f74e61118b2.md",
+        "audit": {
+          "status": "partial_literal_audit",
+          "contract_errors": [],
+          "claims": [
+            {
+              "kind": "type",
+              "entity": "7064",
+              "entity_type": "node",
+              "quote": "Node 7064",
+              "span": [
+                0,
+                9
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "node"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "7064",
+              "entity_type": "node",
+              "quote": "node 7064",
+              "span": [
+                83,
+                92
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "node"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "11446",
+              "entity_type": "service",
+              "quote": "Service 11446",
+              "span": [
+                482,
+                495
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "refuted",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "pod"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "3308",
+              "entity_type": "node",
+              "quote": "node 3308",
+              "span": [
+                507,
+                516
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "node"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "7064",
+              "entity_type": "node",
+              "quote": "Node 7064",
+              "span": [
+                1274,
+                1283
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "node"
+              }
+            }
+          ],
+          "review_required": true,
+          "reason_characters": 1365,
+          "quantities_compiled": 0,
+          "relations_compiled": 0,
+          "base_status": "sat",
+          "unparsed_claim_coverage": "unknown_not_zero",
+          "image_provenance": "text_only"
+        }
+      },
+      {
+        "arm": "E_S_D_P",
+        "metrics": {
+          "mrr": 1.0,
+          "ac@1": 1.0,
+          "ac@3": 1.0,
+          "ac@5": 1.0,
+          "avg@3": 1.0,
+          "avg@5": 1.0
+        },
+        "response": "{\"services\": [\"72955\", \"11446\", \"49037\"], \"reason\": \"Services 72955 and 11446 exhibit massive error-rate spikes (scores 139.2 and 165.0 respectively) with error counts jumping to 510, indicating a failure in their operations. Both are co-located on Node 7064, suggesting a shared infrastructure fault. In the call graph, 72955 is a leaf service with no outgoing edges, making it a plausible origin for local failures, while 11446 is also a leaf (caller 3308). The silent nature of other services in the [L] region and lack of upstream latency propagation in [R] supports a localized resource or infrastructure issue on Node 7064 affecting these specific pods/services.\", \"confidence\": \"medium\"}",
+        "prompt": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/qwen3.8-27b/prompts/7fcfa608ebc8f4b7122e604514743d887de1b36a3c925b89d3bafebdc9872dd3.json",
+        "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/qwen3.8-27b/conversations/7fcfa608ebc8f4b7122e604514743d887de1b36a3c925b89d3bafebdc9872dd3.md",
+        "audit": {
+          "status": "partial_literal_audit",
+          "contract_errors": [],
+          "claims": [
+            {
+              "kind": "type",
+              "entity": "7064",
+              "entity_type": "node",
+              "quote": "Node 7064",
+              "span": [
+                196,
+                205
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "node"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "7064",
+              "entity_type": "node",
+              "quote": "Node 7064",
+              "span": [
+                566,
+                575
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "node"
+              }
+            }
+          ],
+          "review_required": true,
+          "reason_characters": 615,
+          "quantities_compiled": 0,
+          "relations_compiled": 0,
+          "base_status": "sat",
+          "unparsed_claim_coverage": "unknown_not_zero",
+          "image_provenance": "text_only"
+        }
+      }
+    ],
+    "packs": []
+  },
+  {
+    "case": "INC-8201EB3924F3",
+    "dataset": "aiops2025",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "type": "repair",
+    "contrast": "E_S_D_P-E_S_D_S",
+    "root": [
+      "cartservice"
+    ],
+    "root_ids": {
+      "cartservice": "626"
+    },
+    "fault_type": "pod kill",
+    "records": [
+      {
+        "arm": "E_S_D_S",
+        "metrics": {
+          "mrr": 0.0,
+          "ac@1": 0.0,
+          "ac@3": 0.0,
+          "ac@5": 0.0,
+          "avg@3": 0.0,
+          "avg@5": 0.0
+        },
+        "response": "{\"services\": [\"112\"], \"reason\": \"Service 112 shows severe degradation in response time (rrt) and error ratios, which propagates through the call graph. While downstream services like 626 show extreme exclusive latency (ExL_p95), the span analysis [R] specifically identifies 626's latency as being caused by its dependency on 112 (e.g., 626/112.626/AddItem). Service 112 is a core dependency for multiple paths and its metrics (rrt and error_ratio) are highly anomalous without a corresponding node-level hardware failure being the primary driver for all affected pods.\", \"confidence\": \"high\"}",
+        "prompt": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/gemma-4-26b-a4b/prompts/0e1c628f311bb3dd057f3acb56c3a938ab2fcdce9b248b4b87a5375e0aab76bf.json",
+        "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/gemma-4-26b-a4b/conversations/0e1c628f311bb3dd057f3acb56c3a938ab2fcdce9b248b4b87a5375e0aab76bf.md",
+        "audit": {
+          "status": "partial_literal_audit",
+          "contract_errors": [],
+          "claims": [
+            {
+              "kind": "type",
+              "entity": "112",
+              "entity_type": "service",
+              "quote": "Service 112",
+              "span": [
+                0,
+                11
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "112",
+              "entity_type": "service",
+              "quote": "Service 112",
+              "span": [
+                326,
+                337
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            }
+          ],
+          "review_required": true,
+          "reason_characters": 536,
+          "quantities_compiled": 0,
+          "relations_compiled": 0,
+          "base_status": "sat",
+          "unparsed_claim_coverage": "unknown_not_zero",
+          "image_provenance": "text_only"
+        }
+      },
+      {
+        "arm": "E_S_D_P",
+        "metrics": {
+          "mrr": 1.0,
+          "ac@1": 1.0,
+          "ac@3": 1.0,
+          "ac@5": 1.0,
+          "avg@3": 1.0,
+          "avg@5": 1.0
+        },
+        "response": "{\"services\": [\"626\", \"619\", \"640\"], \"reason\": \"Service 626 exhibits extremely high exclusive latency (ExL_p95 ~60s) and high error ratios in TRC-L. While services 63482, 17146, and 70047 show significant log errors, the call graph shows 626 is a central downstream component for 619 and 640; 626's latency is the primary driver of the observed RRT spikes in its callers. 619 and 640 are high-level callers, but 626 is the origin of the performance degradation.\", \"confidence\": \"high\"}",
+        "prompt": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/gemma-4-26b-a4b/prompts/c3ef12f73da8344bb3d34ba961ec55d6746fba81cafd223a36ad889a00d1527f.json",
+        "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/gemma-4-26b-a4b/conversations/c3ef12f73da8344bb3d34ba961ec55d6746fba81cafd223a36ad889a00d1527f.md",
+        "audit": {
+          "status": "partial_literal_audit",
+          "contract_errors": [],
+          "claims": [
+            {
+              "kind": "type",
+              "entity": "626",
+              "entity_type": "service",
+              "quote": "Service 626",
+              "span": [
+                0,
+                11
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            }
+          ],
+          "review_required": true,
+          "reason_characters": 413,
+          "quantities_compiled": 0,
+          "relations_compiled": 0,
+          "base_status": "sat",
+          "unparsed_claim_coverage": "unknown_not_zero",
+          "image_provenance": "text_only"
+        }
+      }
+    ],
+    "packs": [
+      {
+        "case": "INC-8201EB3924F3",
+        "dataset": "aiops2025",
+        "id": "d5329e6fdf2860792d570bb94d141578f6e75b8cc5838aa79c71742f6ec5e99d",
+        "entity": "626",
+        "entry": "640",
+        "family": "request",
+        "x": "local duration above reference p95 7.1353 ms",
+        "y": "explicit entry error",
+        "operation": "entity:112.CartService/GetCart",
+        "counts": [
+          125,
+          0,
+          2,
+          4
+        ],
+        "a": 125,
+        "b": 0,
+        "c": 2,
+        "d": 4,
+        "delta": 0.6666666666666667,
+        "min_group": 6,
+        "same_entity_entry": false,
+        "root_local": true,
+        "root_entry": false
+      },
+      {
+        "case": "INC-8201EB3924F3",
+        "dataset": "aiops2025",
+        "id": "9fdcf36dd3a5494964a4b321f8f1634255c87c2abaefb970433da3f624562403",
+        "entity": "938",
+        "entry": "640",
+        "family": "request",
+        "x": "local duration above reference p95 1.64665 ms",
+        "y": "explicit entry error",
+        "operation": "entity:112.ProductCatalogService/ListProducts",
+        "counts": [
+          8,
+          2,
+          1,
+          5
+        ],
+        "a": 8,
+        "b": 2,
+        "c": 1,
+        "d": 5,
+        "delta": 0.6333333333333334,
+        "min_group": 6,
+        "same_entity_entry": false,
+        "root_local": false,
+        "root_entry": false
+      },
+      {
+        "case": "INC-8201EB3924F3",
+        "dataset": "aiops2025",
+        "id": "d9e062e2511c2f53dcf02f9a56756fff109fa46f426178a71adeef04e8648f16",
+        "entity": "648",
+        "entry": "640",
+        "family": "request",
+        "x": "local duration above reference p95 4.2249 ms",
+        "y": "explicit entry error",
+        "operation": "entity:112.CurrencyService/GetSupportedCurrencies",
+        "counts": [
+          7,
+          118,
+          0,
+          6
+        ],
+        "a": 7,
+        "b": 118,
+        "c": 0,
+        "d": 6,
+        "delta": 0.056,
+        "min_group": 6,
+        "same_entity_entry": false,
+        "root_local": false,
+        "root_entry": false
+      }
+    ]
+  },
+  {
+    "case": "INC-1B936A4C6354",
+    "dataset": "aiops2025",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "type": "break",
+    "contrast": "E_S_D_P-E_S_D_S",
+    "root": [
+      "tidb-tikv"
+    ],
+    "root_ids": {
+      "tidb-tikv": "404"
+    },
+    "fault_type": "io fault",
+    "records": [
+      {
+        "arm": "E_S_D_S",
+        "metrics": {
+          "mrr": 1.0,
+          "ac@1": 1.0,
+          "ac@3": 1.0,
+          "ac@5": 1.0,
+          "avg@3": 1.0,
+          "avg@5": 1.0
+        },
+        "response": "{\"services\": [\"404\"], \"reason\": \"Service 404 shows severe infrastructure-level anomalies: a massive spike in read_mbps (from ~21k to ~42k) and a significant increase in pending regions. This high disk I/O correlates with the latency and error patterns observed in downstream services. While other services like 645 show higher rank scores in span anomalies, they are downstream consumers in the call graph and their performance degradation is a symptom of the underlying resource contention/I/O bottleneck initiated by 404.\", \"confidence\": \"high\"}",
+        "prompt": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/gemma-4-26b-a4b/prompts/1394a503644c272b54eca13eed972d9845149d71b8c955f02c494f4ea3e3e34e.json",
+        "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/gemma-4-26b-a4b/conversations/1394a503644c272b54eca13eed972d9845149d71b8c955f02c494f4ea3e3e34e.md",
+        "audit": {
+          "status": "partial_literal_audit",
+          "contract_errors": [],
+          "claims": [
+            {
+              "kind": "type",
+              "entity": "404",
+              "entity_type": "service",
+              "quote": "Service 404",
+              "span": [
+                0,
+                11
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            }
+          ],
+          "review_required": true,
+          "reason_characters": 490,
+          "quantities_compiled": 0,
+          "relations_compiled": 0,
+          "base_status": "sat",
+          "unparsed_claim_coverage": "unknown_not_zero",
+          "image_provenance": "text_only"
+        }
+      },
+      {
+        "arm": "E_S_D_P",
+        "metrics": {
+          "mrr": 0.0,
+          "ac@1": 0.0,
+          "ac@3": 0.0,
+          "ac@5": 0.0,
+          "avg@3": 0.0,
+          "avg@5": 0.0
+        },
+        "response": "{\"services\": [\"80924\", \"3574\", \"3823\", \"1819\", \"3156\"], \"reason\": \"Service 80924 shows a massive 3σ+ spike in pod memory working set bytes (from ~2.8KB to ~168KB), indicating a local resource exhaustion/leak. While service 645 shows latency increases (TRC-L), it is a downstream consumer of 961 and 112, and the TRC-L rank score is significantly lower than the infrastructure-level anomaly seen in 80924. The memory fluctuation in 80924 is the most distinct and earliest indicator of a fault.\", \"confidence\": \"high\"}",
+        "prompt": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/gemma-4-26b-a4b/prompts/6d5afc34644d8f8d202cec28fa92fa4260bc6f5c53ab6fa4cffdaf91ba4bbf0e.json",
+        "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_evidence_instruction_cross/gemma-4-26b-a4b/conversations/6d5afc34644d8f8d202cec28fa92fa4260bc6f5c53ab6fa4cffdaf91ba4bbf0e.md",
+        "audit": {
+          "status": "partial_literal_audit",
+          "contract_errors": [],
+          "claims": [
+            {
+              "kind": "type",
+              "entity": "80924",
+              "entity_type": "service",
+              "quote": "Service 80924",
+              "span": [
+                0,
+                13
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "refuted",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "pod"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "645",
+              "entity_type": "service",
+              "quote": "service 645",
+              "span": [
+                148,
+                159
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            }
+          ],
+          "review_required": true,
+          "reason_characters": 425,
+          "quantities_compiled": 0,
+          "relations_compiled": 0,
+          "base_status": "sat",
+          "unparsed_claim_coverage": "unknown_not_zero",
+          "image_provenance": "text_only"
+        }
+      }
+    ],
+    "packs": []
+  },
+  {
+    "case": "INC-7CA062069501",
+    "dataset": "aiops2025",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "type": "repair",
+    "contrast": "J_COND-TPV",
+    "root": [
+      "checkoutservice",
+      "productcatalogservice"
+    ],
+    "root_ids": {
+      "checkoutservice": "353",
+      "productcatalogservice": "477"
+    },
+    "fault_type": "network corrupt",
+    "records": [
+      {
+        "arm": "TPV",
+        "metrics": {
+          "mrr": 0.5,
+          "ac@1": 0.0,
+          "ac@3": 1.0,
+          "ac@5": 1.0,
+          "avg@3": 0.6666666666666666,
+          "avg@5": 0.8
+        },
+        "response": "{\"services\": [\"95752\", \"41128\", \"43627\", \"477\", \"33496\"], \"reason\": \"MET-Z confirms 95752 as the sole entity exhibiting a sustained, statistically significant mean shift in the error_ratio (deviation_sigma 8.32 > 3) alongside extreme rrt spikes, while 41128 and 43627 show only transient peak deviations without equivalent error-state shifts. TRC-L indicates no meaningful exclusive-latency increases in the 477/145 calling chain, eliminating them as local-time origins despite their high rrt_max metrics, and LOG-R corroborates error-rate bursts in 33496/51976 downstream of the initial 95752 anomaly.\", \"confidence\": \"high\"}",
+        "prompt": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_outcome_linked_evidence/qwen3.8-27b/prompts/bb6f7df82fd82e29fb5ef97a9cf984d835ef6f161f6841335d655dc3e5525e27.json",
+        "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_outcome_linked_evidence/qwen3.8-27b/conversations/bb6f7df82fd82e29fb5ef97a9cf984d835ef6f161f6841335d655dc3e5525e27.md",
+        "audit": {
+          "status": "partial_literal_audit",
+          "contract_errors": [],
+          "claims": [],
+          "review_required": true,
+          "reason_characters": 533,
+          "quantities_compiled": 11,
+          "relations_compiled": 11,
+          "base_status": "sat",
+          "unparsed_claim_coverage": "unknown_not_zero",
+          "image_provenance": "frozen_parent_G_same_image_ledger"
+        }
+      },
+      {
+        "arm": "J_COND",
+        "metrics": {
+          "mrr": 1.0,
+          "ac@1": 1.0,
+          "ac@3": 1.0,
+          "ac@5": 1.0,
+          "avg@3": 1.0,
+          "avg@5": 1.0
+        },
+        "response": "{\"services\": [\"477\", \"43627\", \"145\"], \"reason\": \"Service 477 is the origin, confirmed by the top-ranked exclusive-latency burst in TRC-L and the highest MET-Z deviation (d=218) for node 41128, with the anomaly onset preceding the downstream symptom in 43627. The 43627 failure is classified as a co-located symptom because it exhibits latency spikes without a proportional increase in local call count or error logs, consistent with 477's exclusive latency propagating back up the caller-callee chain.\", \"confidence\": \"high\"}",
+        "prompt": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_outcome_linked_evidence/qwen3.8-27b/prompts/16643ccd270a3935a3768363383f20ec129516905951c15ba7fc5ef3e6b7911c.json",
+        "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_outcome_linked_evidence/qwen3.8-27b/conversations/16643ccd270a3935a3768363383f20ec129516905951c15ba7fc5ef3e6b7911c.md",
+        "audit": {
+          "status": "partial_literal_audit",
+          "contract_errors": [],
+          "claims": [
+            {
+              "kind": "type",
+              "entity": "477",
+              "entity_type": "service",
+              "quote": "Service 477",
+              "span": [
+                0,
+                11
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "41128",
+              "entity_type": "node",
+              "quote": "node 41128",
+              "span": [
+                132,
+                142
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "refuted",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "pod"
+              }
+            }
+          ],
+          "review_required": true,
+          "reason_characters": 452,
+          "quantities_compiled": 11,
+          "relations_compiled": 11,
+          "base_status": "sat",
+          "unparsed_claim_coverage": "unknown_not_zero",
+          "image_provenance": "frozen_parent_G_same_image_ledger"
+        }
+      }
+    ],
+    "packs": [
+      {
+        "case": "INC-7CA062069501",
+        "dataset": "aiops2025",
+        "id": "a3ca802d6bd69fc3f0ade546266bf8066570b17b67a4a41c3758f1e3b1cabdac",
+        "entity": "477",
+        "entry": "993",
+        "family": "request",
+        "x": "local duration above reference p95 15.078 ms",
+        "y": "explicit entry error",
+        "operation": "entity:603.ProductCatalogService/GetProduct",
+        "counts": [
+          65,
+          0,
+          392,
+          917
+        ],
+        "a": 65,
+        "b": 0,
+        "c": 392,
+        "d": 917,
+        "delta": 0.7005347593582888,
+        "min_group": 65,
+        "same_entity_entry": false,
+        "root_local": true,
+        "root_entry": false
+      },
+      {
+        "case": "INC-7CA062069501",
+        "dataset": "aiops2025",
+        "id": "0cbaccee44d6ab2ef2d5c5bea256669d8767d6725166f80cacfbf61b4c6db82b",
+        "entity": "145",
+        "entry": "993",
+        "family": "request",
+        "x": "local duration above reference p95 7.1732 ms",
+        "y": "explicit entry error",
+        "operation": "entity:603.CartService/GetCart",
+        "counts": [
+          39,
+          26,
+          23,
+          1352
+        ],
+        "a": 39,
+        "b": 26,
+        "c": 23,
+        "d": 1352,
+        "delta": 0.5832727272727273,
+        "min_group": 65,
+        "same_entity_entry": false,
+        "root_local": false,
+        "root_entry": false
+      },
+      {
+        "case": "INC-7CA062069501",
+        "dataset": "aiops2025",
+        "id": "ea90d1857f4c6e54482b4f3f86daa72095ea06fc71a448e8a4a7ef464284b59a",
+        "entity": "394",
+        "entry": "993",
+        "family": "request",
+        "x": "local duration above reference p95 1.9167 ms",
+        "y": "explicit entry error",
+        "operation": "HGET",
+        "counts": [
+          4,
+          61,
+          78,
+          1436
+        ],
+        "a": 4,
+        "b": 61,
+        "c": 78,
+        "d": 1436,
+        "delta": 0.010019306980997872,
+        "min_group": 65,
+        "same_entity_entry": false,
+        "root_local": false,
+        "root_entry": false
+      },
+      {
+        "case": "INC-7CA062069501",
+        "dataset": "aiops2025",
+        "id": "b688ee9398c3b92a654a1a38ba6695b6709fffb81124cf9481495a27688e9d93",
+        "entity": "145",
+        "entry": "993",
+        "family": "request",
+        "x": "local duration above reference p95 2.98885 ms",
+        "y": "explicit entry error",
+        "operation": "POST /entity:603.CartService/GetCart",
+        "counts": [
+          4,
+          61,
+          76,
+          1299
+        ],
+        "a": 4,
+        "b": 61,
+        "c": 76,
+        "d": 1299,
+        "delta": 0.00626573426573427,
+        "min_group": 65,
+        "same_entity_entry": false,
+        "root_local": false,
+        "root_entry": false
+      }
+    ]
+  },
+  {
+    "case": "INC-BF08743A4A7D",
+    "dataset": "aegislab",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "type": "break",
+    "contrast": "J_COND-TPV",
+    "root": [
+      "ts-auth-service"
+    ],
+    "root_ids": {
+      "ts-auth-service": "569"
+    },
+    "fault_type": "ContainerKill",
+    "records": [
+      {
+        "arm": "TPV",
+        "metrics": {
+          "mrr": 1.0,
+          "ac@1": 1.0,
+          "ac@3": 1.0,
+          "ac@5": 1.0,
+          "avg@3": 1.0,
+          "avg@5": 1.0
+        },
+        "response": "{\"services\": [\"91353\", \"714\", \"569\"], \"reason\": \"The metrics show a abrupt drop in pod 569's memory usage and filesystem metrics to near zero around bin 31, consistent with a pod crash, which coincides with the first restart of pod 91353. Service 714 exhibits extreme CPU spikes immediately following the 569 event. This suggests pod 569 experienced a memory leak or crash, causing its pod 91353 to restart, which in turn triggered high CPU usage in service 714, likely due to retries or overload.\", \"confidence\": \"medium\"}",
+        "prompt": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_outcome_linked_evidence/qwen3.8-27b/prompts/7c09460784acde09e3dc88b61a6e5b4cbb49db85c76e041627e465407d849299.json",
+        "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_outcome_linked_evidence/qwen3.8-27b/conversations/7c09460784acde09e3dc88b61a6e5b4cbb49db85c76e041627e465407d849299.md",
+        "audit": {
+          "status": "partial_literal_audit",
+          "contract_errors": [],
+          "claims": [
+            {
+              "kind": "type",
+              "entity": "569",
+              "entity_type": "pod",
+              "quote": "pod 569",
+              "span": [
+                34,
+                41
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "refuted",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "91353",
+              "entity_type": "pod",
+              "quote": "pod 91353",
+              "span": [
+                179,
+                188
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "pod"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "714",
+              "entity_type": "service",
+              "quote": "Service 714",
+              "span": [
+                190,
+                201
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "569",
+              "entity_type": "pod",
+              "quote": "pod 569",
+              "span": [
+                281,
+                288
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "refuted",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "91353",
+              "entity_type": "pod",
+              "quote": "pod 91353",
+              "span": [
+                337,
+                346
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "pod"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "714",
+              "entity_type": "service",
+              "quote": "service 714",
+              "span": [
+                401,
+                412
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            }
+          ],
+          "review_required": true,
+          "reason_characters": 448,
+          "quantities_compiled": 14,
+          "relations_compiled": 10,
+          "base_status": "sat",
+          "unparsed_claim_coverage": "unknown_not_zero",
+          "image_provenance": "frozen_parent_G_same_image_ledger"
+        }
+      },
+      {
+        "arm": "J_COND",
+        "metrics": {
+          "mrr": 0.25,
+          "ac@1": 0.0,
+          "ac@3": 0.0,
+          "ac@5": 1.0,
+          "avg@3": 0.0,
+          "avg@5": 0.4
+        },
+        "response": "{\"services\": [\"966\", \"911\", \"60680\", \"91353\"], \"reason\": \"Service 966 is the root cause, supported by TRC-L evidence showing a 4.5x increase in exclusive p95 latency (rank_score 3.36, max in dataset) for the POST /api/v1/users/login operation during the fault window. Topology evidence confirms service 911 calls 966, and 911's significant latency degradation (rank_score 2.22) and log evidence of database connection aborts on pod 60680 are consistent downstream symptoms of 966's resource exhaustion, not independent origins.\", \"confidence\": \"high\"}",
+        "prompt": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_outcome_linked_evidence/qwen3.8-27b/prompts/e728b229e9f1fd7b7b70c8be0d99e092c6f43803b9d30d72d1eae81a89d197f1.json",
+        "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_outcome_linked_evidence/qwen3.8-27b/conversations/e728b229e9f1fd7b7b70c8be0d99e092c6f43803b9d30d72d1eae81a89d197f1.md",
+        "audit": {
+          "status": "partial_literal_audit",
+          "contract_errors": [],
+          "claims": [
+            {
+              "kind": "type",
+              "entity": "966",
+              "entity_type": "service",
+              "quote": "Service 966",
+              "span": [
+                0,
+                11
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "911",
+              "entity_type": "service",
+              "quote": "service 911",
+              "span": [
+                237,
+                248
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "60680",
+              "entity_type": "pod",
+              "quote": "pod 60680",
+              "span": [
+                370,
+                379
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "pod"
+              }
+            },
+            {
+              "kind": "relation",
+              "relation": "calls",
+              "left": "911",
+              "right": "966",
+              "quote": "911 calls 966",
+              "span": [
+                245,
+                258
+              ],
+              "review_required": true,
+              "caveat": "Literal positive reading only; inspect negation and hypothetical context",
+              "check": {
+                "verdict": "unknown",
+                "sources": [],
+                "reason": "Unobserved is not false"
+              }
+            }
+          ],
+          "review_required": true,
+          "reason_characters": 469,
+          "quantities_compiled": 14,
+          "relations_compiled": 10,
+          "base_status": "sat",
+          "unparsed_claim_coverage": "unknown_not_zero",
+          "image_provenance": "frozen_parent_G_same_image_ledger"
+        }
+      }
+    ],
+    "packs": [
+      {
+        "case": "INC-BF08743A4A7D",
+        "dataset": "aegislab",
+        "id": "60254d5bacbfb9207531e0dca8ed01df294588db9aa6ca8760e88b958958046d",
+        "entity": "966",
+        "entry": "911",
+        "family": "request",
+        "x": "local duration above reference p95 100.434 ms",
+        "y": "explicit entry error",
+        "operation": "POST /api/v1/users/login",
+        "counts": [
+          12,
+          1440,
+          49,
+          789
+        ],
+        "a": 12,
+        "b": 1440,
+        "c": 49,
+        "d": 789,
+        "delta": -0.050208090889366654,
+        "min_group": 838,
+        "same_entity_entry": false,
+        "root_local": false,
+        "root_entry": false
+      },
+      {
+        "case": "INC-BF08743A4A7D",
+        "dataset": "aegislab",
+        "id": "9a59591edab5c9bf6e09088860172e9adbf5f4d7c99b3ff70310ed8429637874",
+        "entity": "966",
+        "entry": "911",
+        "family": "request",
+        "x": "explicit local error",
+        "y": "explicit entry error",
+        "operation": "POST /api/v1/users/login",
+        "counts": [
+          0,
+          1452,
+          0,
+          838
+        ],
+        "a": 0,
+        "b": 1452,
+        "c": 0,
+        "d": 838,
+        "delta": 0.0,
+        "min_group": 838,
+        "same_entity_entry": false,
+        "root_local": false,
+        "root_entry": false
+      }
+    ]
+  },
+  {
+    "case": "INC-BF08743A4A7D",
+    "dataset": "aegislab",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "type": "repair",
+    "contrast": "J_COND-TPV",
+    "root": [
+      "ts-auth-service"
+    ],
+    "root_ids": {
+      "ts-auth-service": "569"
+    },
+    "fault_type": "ContainerKill",
+    "records": [
+      {
+        "arm": "TPV",
+        "metrics": {
+          "mrr": 0.0,
+          "ac@1": 0.0,
+          "ac@3": 0.0,
+          "ac@5": 0.0,
+          "avg@3": 0.0,
+          "avg@5": 0.0
+        },
+        "response": "{\"services\": [\"60680\"], \"reason\": \"Pod 91353's container restarts (M1) correlate with a database connection error burst (L: 60680) in the log templates. While service 714 shows high CPU and latency (M6, R), this is a downstream symptom of the connectivity failures and instability originating at the database-related entity 60680. The temporal onset of the database errors aligns with the spike in restart and latency anomalies.\", \"confidence\": \"high\"}",
+        "prompt": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_outcome_linked_evidence/gemma-4-26b-a4b/prompts/d13c2ff764a48f2868d9ea1e976e8c20fbdd44b11420574c1e28c55d934d90e7.json",
+        "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_outcome_linked_evidence/gemma-4-26b-a4b/conversations/d13c2ff764a48f2868d9ea1e976e8c20fbdd44b11420574c1e28c55d934d90e7.md",
+        "audit": {
+          "status": "partial_literal_audit",
+          "contract_errors": [],
+          "claims": [
+            {
+              "kind": "type",
+              "entity": "91353",
+              "entity_type": "pod",
+              "quote": "Pod 91353",
+              "span": [
+                0,
+                9
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "pod"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "714",
+              "entity_type": "service",
+              "quote": "service 714",
+              "span": [
+                124,
+                135
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            }
+          ],
+          "review_required": true,
+          "reason_characters": 393,
+          "quantities_compiled": 14,
+          "relations_compiled": 10,
+          "base_status": "sat",
+          "unparsed_claim_coverage": "unknown_not_zero",
+          "image_provenance": "frozen_parent_G_same_image_ledger"
+        }
+      },
+      {
+        "arm": "J_COND",
+        "metrics": {
+          "mrr": 1.0,
+          "ac@1": 1.0,
+          "ac@3": 1.0,
+          "ac@5": 1.0,
+          "avg@3": 1.0,
+          "avg@5": 1.0
+        },
+        "response": "{\"services\": [\"91353\"], \"reason\": \"Pod 91353 shows a massive spike in container restarts starting at the onset of the fault window. While services 966 and 911 exhibit high latency and error rates, their issues are downstream symptoms of the infrastructure instability. The metric-based onset for the restarts aligns perfectly with the start of the broader system degradation.\", \"confidence\": \"high\"}",
+        "prompt": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_outcome_linked_evidence/gemma-4-26b-a4b/prompts/3aaab4382d86d2c174ace3612afbb5d1caee6136eeb9497e89cb6b859d1b3391.json",
+        "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_outcome_linked_evidence/gemma-4-26b-a4b/conversations/3aaab4382d86d2c174ace3612afbb5d1caee6136eeb9497e89cb6b859d1b3391.md",
+        "audit": {
+          "status": "partial_literal_audit",
+          "contract_errors": [],
+          "claims": [
+            {
+              "kind": "type",
+              "entity": "91353",
+              "entity_type": "pod",
+              "quote": "Pod 91353",
+              "span": [
+                0,
+                9
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "pod"
+              }
+            }
+          ],
+          "review_required": true,
+          "reason_characters": 340,
+          "quantities_compiled": 14,
+          "relations_compiled": 10,
+          "base_status": "sat",
+          "unparsed_claim_coverage": "unknown_not_zero",
+          "image_provenance": "frozen_parent_G_same_image_ledger"
+        }
+      }
+    ],
+    "packs": [
+      {
+        "case": "INC-BF08743A4A7D",
+        "dataset": "aegislab",
+        "id": "60254d5bacbfb9207531e0dca8ed01df294588db9aa6ca8760e88b958958046d",
+        "entity": "966",
+        "entry": "911",
+        "family": "request",
+        "x": "local duration above reference p95 100.434 ms",
+        "y": "explicit entry error",
+        "operation": "POST /api/v1/users/login",
+        "counts": [
+          12,
+          1440,
+          49,
+          789
+        ],
+        "a": 12,
+        "b": 1440,
+        "c": 49,
+        "d": 789,
+        "delta": -0.050208090889366654,
+        "min_group": 838,
+        "same_entity_entry": false,
+        "root_local": false,
+        "root_entry": false
+      },
+      {
+        "case": "INC-BF08743A4A7D",
+        "dataset": "aegislab",
+        "id": "9a59591edab5c9bf6e09088860172e9adbf5f4d7c99b3ff70310ed8429637874",
+        "entity": "966",
+        "entry": "911",
+        "family": "request",
+        "x": "explicit local error",
+        "y": "explicit entry error",
+        "operation": "POST /api/v1/users/login",
+        "counts": [
+          0,
+          1452,
+          0,
+          838
+        ],
+        "a": 0,
+        "b": 1452,
+        "c": 0,
+        "d": 838,
+        "delta": 0.0,
+        "min_group": 838,
+        "same_entity_entry": false,
+        "root_local": false,
+        "root_entry": false
+      }
+    ]
+  },
+  {
+    "case": "INC-B5C0BC6A223E",
+    "dataset": "aegislab",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "type": "repair",
+    "contrast": "W_NO_K-TPV",
+    "root": [
+      "ts-preserve-service",
+      "ts-travel-service"
+    ],
+    "root_ids": {
+      "ts-preserve-service": "234",
+      "ts-travel-service": "447"
+    },
+    "fault_type": "HTTPResponseReplaceCode",
+    "records": [
+      {
+        "arm": "TPV",
+        "metrics": {
+          "mrr": 0.3333333333333333,
+          "ac@1": 0.0,
+          "ac@3": 1.0,
+          "ac@5": 1.0,
+          "avg@3": 0.3333333333333333,
+          "avg@5": 0.6
+        },
+        "response": "{\"services\": [\"616\", \"760\", \"234\"], \"reason\": \"Service 616 is the root origin, with evidence verifying the top candidate and eliminating downstream propagations: its exclusive latency p95 exploded to ~1.18s (log2 fold-change of +5.77, the highest rank_score in the traces) while its call count dropped, indicating it is the local service that became slow rather than a proxy for a slow callee. This latency fault aligns temporally with the onset of 760 (at 5.8m, which 616 directly calls via the HTTP POST edge) and causally precedes the massive filesystem and page-fault spikes observed in 234, confirming 616 as the primary driver of the incident.\", \"confidence\": \"high\"}",
+        "prompt": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_outcome_linked_evidence/qwen3.8-27b/prompts/f04b73bcdb3c8432f112fedcb42218a1c637e352a1548049b931a7066c4b8011.json",
+        "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_outcome_linked_evidence/qwen3.8-27b/conversations/f04b73bcdb3c8432f112fedcb42218a1c637e352a1548049b931a7066c4b8011.md",
+        "audit": {
+          "status": "partial_literal_audit",
+          "contract_errors": [],
+          "claims": [
+            {
+              "kind": "type",
+              "entity": "616",
+              "entity_type": "service",
+              "quote": "Service 616",
+              "span": [
+                0,
+                11
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            }
+          ],
+          "review_required": true,
+          "reason_characters": 602,
+          "quantities_compiled": 14,
+          "relations_compiled": 15,
+          "base_status": "sat",
+          "unparsed_claim_coverage": "unknown_not_zero",
+          "image_provenance": "frozen_parent_G_same_image_ledger"
+        }
+      },
+      {
+        "arm": "W_NO_K",
+        "metrics": {
+          "mrr": 1.0,
+          "ac@1": 1.0,
+          "ac@3": 1.0,
+          "ac@5": 1.0,
+          "avg@3": 1.0,
+          "avg@5": 1.0
+        },
+        "response": "{\"services\": [\"234\", \"760\", \"616\"], \"reason\": \"Service 234 is the root origin, evidenced by a massive filesystem usage explosion (rank 1 deviation, onset at 4m) and a 17x error rate burst. This contradicts the alternative hypothesis that downstream 760/616 are the source, as 760's latency failures and 616's extreme delay are temporally subsequent (5.8m-6.2m onset) and topologically downstream in the 234 -> 760 -> 616 call chain.\", \"confidence\": \"high\"}",
+        "prompt": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_outcome_linked_evidence/qwen3.8-27b/prompts/d781bc57d8b5078129dca5ac804bc3e96f60c330b8576631c1f331557995d9ea.json",
+        "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_outcome_linked_evidence/qwen3.8-27b/conversations/d781bc57d8b5078129dca5ac804bc3e96f60c330b8576631c1f331557995d9ea.md",
+        "audit": {
+          "status": "partial_literal_audit",
+          "contract_errors": [],
+          "claims": [
+            {
+              "kind": "type",
+              "entity": "234",
+              "entity_type": "service",
+              "quote": "Service 234",
+              "span": [
+                0,
+                11
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            },
+            {
+              "kind": "display_number",
+              "quantity": "onset:234",
+              "value": "4",
+              "unit": "minutes",
+              "quote": "Service 234 is the root origin, evidenced by a massive filesystem usage explosion (rank 1 deviation, onset at 4m",
+              "span": [
+                0,
+                112
+              ],
+              "review_required": true,
+              "caveat": "Check metric-vs-entity onset, negation, coreference and rounding before confirmation",
+              "check": {
+                "verdict": "refuted",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 6,
+                    "compiled_part": 6,
+                    "line": 29,
+                    "text": "Topology evidence; field=propagation_service; entities=[\"234\"]; bins=[]; unit=\"displayed_minutes_and_z_source\"; evidence_source_display=\"M\" onset_rel_min_display=\"+6.2m\" rank=12 service=\"234\" severity_z_display=\"357\""
+                  }
+                ]
+              }
+            }
+          ],
+          "review_required": true,
+          "reason_characters": 385,
+          "quantities_compiled": 60,
+          "relations_compiled": 19,
+          "base_status": "sat",
+          "unparsed_claim_coverage": "unknown_not_zero",
+          "image_provenance": "frozen_parent_G_same_image_ledger"
+        }
+      }
+    ],
+    "packs": []
+  },
+  {
+    "case": "INC-BF08743A4A7D",
+    "dataset": "aegislab",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "type": "repair",
+    "contrast": "W_NO_K-TPV",
+    "root": [
+      "ts-auth-service"
+    ],
+    "root_ids": {
+      "ts-auth-service": "569"
+    },
+    "fault_type": "ContainerKill",
+    "records": [
+      {
+        "arm": "TPV",
+        "metrics": {
+          "mrr": 0.0,
+          "ac@1": 0.0,
+          "ac@3": 0.0,
+          "ac@5": 0.0,
+          "avg@3": 0.0,
+          "avg@5": 0.0
+        },
+        "response": "{\"services\": [\"60680\"], \"reason\": \"Pod 91353's container restarts (M1) correlate with a database connection error burst (L: 60680) in the log templates. While service 714 shows high CPU and latency (M6, R), this is a downstream symptom of the connectivity failures and instability originating at the database-related entity 60680. The temporal onset of the database errors aligns with the spike in restart and latency anomalies.\", \"confidence\": \"high\"}",
+        "prompt": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_outcome_linked_evidence/gemma-4-26b-a4b/prompts/d13c2ff764a48f2868d9ea1e976e8c20fbdd44b11420574c1e28c55d934d90e7.json",
+        "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_outcome_linked_evidence/gemma-4-26b-a4b/conversations/d13c2ff764a48f2868d9ea1e976e8c20fbdd44b11420574c1e28c55d934d90e7.md",
+        "audit": {
+          "status": "partial_literal_audit",
+          "contract_errors": [],
+          "claims": [
+            {
+              "kind": "type",
+              "entity": "91353",
+              "entity_type": "pod",
+              "quote": "Pod 91353",
+              "span": [
+                0,
+                9
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "pod"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "714",
+              "entity_type": "service",
+              "quote": "service 714",
+              "span": [
+                124,
+                135
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            }
+          ],
+          "review_required": true,
+          "reason_characters": 393,
+          "quantities_compiled": 14,
+          "relations_compiled": 10,
+          "base_status": "sat",
+          "unparsed_claim_coverage": "unknown_not_zero",
+          "image_provenance": "frozen_parent_G_same_image_ledger"
+        }
+      },
+      {
+        "arm": "W_NO_K",
+        "metrics": {
+          "mrr": 1.0,
+          "ac@1": 1.0,
+          "ac@3": 1.0,
+          "ac@5": 1.0,
+          "avg@3": 1.0,
+          "avg@5": 1.0
+        },
+        "response": "{\"services\": [\"91353\"], \"reason\": \"Pod 91353 shows a massive increase in container restarts starting at the onset of the fault window. While service 714 exhibits high CPU utilization and 966 shows high inclusive latency, these are downstream symptoms of the instability caused by the restarts in 91353. The temporal alignment of the restarts with the fault window confirms 91353 as the origin.\", \"confidence\": \"high\"}",
+        "prompt": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_outcome_linked_evidence/gemma-4-26b-a4b/prompts/ad0b173adf91b13ecff7cc893e5699c4f689994f435e62cf643fb6c59db2f28f.json",
+        "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/screen_exp_outcome_linked_evidence/gemma-4-26b-a4b/conversations/ad0b173adf91b13ecff7cc893e5699c4f689994f435e62cf643fb6c59db2f28f.md",
+        "audit": {
+          "status": "partial_literal_audit",
+          "contract_errors": [],
+          "claims": [
+            {
+              "kind": "type",
+              "entity": "91353",
+              "entity_type": "pod",
+              "quote": "Pod 91353",
+              "span": [
+                0,
+                9
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "pod"
+              }
+            },
+            {
+              "kind": "type",
+              "entity": "714",
+              "entity_type": "service",
+              "quote": "service 714",
+              "span": [
+                106,
+                117
+              ],
+              "review_required": true,
+              "check": {
+                "verdict": "entailed",
+                "sources": [
+                  {
+                    "artifact": null,
+                    "part": 0,
+                    "compiled_part": 0,
+                    "line": null,
+                    "text": "three digits identify a service, four digits identify a node, and five digits identify a pod"
+                  }
+                ],
+                "registered_type": "service"
+              }
+            }
+          ],
+          "review_required": true,
+          "reason_characters": 358,
+          "quantities_compiled": 60,
+          "relations_compiled": 13,
+          "base_status": "sat",
+          "unparsed_claim_coverage": "unknown_not_zero",
+          "image_provenance": "frozen_parent_G_same_image_ledger"
+        }
+      }
+    ],
+    "packs": [
+      {
+        "case": "INC-BF08743A4A7D",
+        "dataset": "aegislab",
+        "id": "60254d5bacbfb9207531e0dca8ed01df294588db9aa6ca8760e88b958958046d",
+        "entity": "966",
+        "entry": "911",
+        "family": "request",
+        "x": "local duration above reference p95 100.434 ms",
+        "y": "explicit entry error",
+        "operation": "POST /api/v1/users/login",
+        "counts": [
+          12,
+          1440,
+          49,
+          789
+        ],
+        "a": 12,
+        "b": 1440,
+        "c": 49,
+        "d": 789,
+        "delta": -0.050208090889366654,
+        "min_group": 838,
+        "same_entity_entry": false,
+        "root_local": false,
+        "root_entry": false
+      },
+      {
+        "case": "INC-BF08743A4A7D",
+        "dataset": "aegislab",
+        "id": "9a59591edab5c9bf6e09088860172e9adbf5f4d7c99b3ff70310ed8429637874",
+        "entity": "966",
+        "entry": "911",
+        "family": "request",
+        "x": "explicit local error",
+        "y": "explicit entry error",
+        "operation": "POST /api/v1/users/login",
+        "counts": [
+          0,
+          1452,
+          0,
+          838
+        ],
+        "a": 0,
+        "b": 1452,
+        "c": 0,
+        "d": 838,
+        "delta": 0.0,
+        "min_group": 838,
+        "same_entity_entry": false,
+        "root_local": false,
+        "root_entry": false
+      }
+    ]
+  }
+]

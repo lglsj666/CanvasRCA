@@ -1,0 +1,2002 @@
+[
+  {
+    "case": "INC-38A22FDFB326",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "T_MATCH",
+    "encoding": "NATIVE",
+    "mrr": 0.3333333333333333,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/fee4768de3d4226616c0fc9eee8efc8b58c35dab47015df6ef8471380374ed3b.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/fee4768de3d4226616c0fc9eee8efc8b58c35dab47015df6ef8471380374ed3b.json"
+  },
+  {
+    "case": "INC-38A22FDFB326",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "REMOTE_ID",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/9529ad000dfade39c6143e501a1b2f993e23ad0d6c3c7835f213107e0da00de0.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/9529ad000dfade39c6143e501a1b2f993e23ad0d6c3c7835f213107e0da00de0.json"
+  },
+  {
+    "case": "INC-38A22FDFB326",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "LOCAL_LINK",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/3711150f1dafbb05fd857d85196fac0c9b8da71de7781f7d503be2fed075d770.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/3711150f1dafbb05fd857d85196fac0c9b8da71de7781f7d503be2fed075d770.json"
+  },
+  {
+    "case": "INC-38A22FDFB326",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "TPV_REF",
+    "encoding": "NATIVE",
+    "mrr": 0.25,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/conversations/bae7c755d789a67dd4f3d6877267400ced033b5e0777863a2cfbb5ffe8e1649f.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/inputs/bae7c755d789a67dd4f3d6877267400ced033b5e0777863a2cfbb5ffe8e1649f.json"
+  },
+  {
+    "case": "INC-38A22FDFB326",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "B3_G_REF",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/qwen3.8-27b/conversations/af3a72bcd5ab2f1deba4ca1664f27d7d98ab593f79073b568350c7e19ce45f0c.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/qwen3.8-27b/inputs/af3a72bcd5ab2f1deba4ca1664f27d7d98ab593f79073b568350c7e19ce45f0c.json"
+  },
+  {
+    "case": "INC-38A22FDFB326",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "T_MATCH",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/8361ffdc4c9f5c3a74c40de0a0aae6d747238f440a4d4ac240af20c6d3daa450.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/8361ffdc4c9f5c3a74c40de0a0aae6d747238f440a4d4ac240af20c6d3daa450.json"
+  },
+  {
+    "case": "INC-38A22FDFB326",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "REMOTE_ID",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/f3be782483b30c486a6f67fa43f927ceb909f8bf8427e705e11884425b06134e.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/f3be782483b30c486a6f67fa43f927ceb909f8bf8427e705e11884425b06134e.json"
+  },
+  {
+    "case": "INC-38A22FDFB326",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "LOCAL_LINK",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/9a24d49d4079649a392b188fb2f2d2595e2e6fd0c0c33998f1d6e04783c16847.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/9a24d49d4079649a392b188fb2f2d2595e2e6fd0c0c33998f1d6e04783c16847.json"
+  },
+  {
+    "case": "INC-38A22FDFB326",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "TPV_REF",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/conversations/49d982e5fd1c027719a18e2b791fd3d390694bf068896d1dc0149df5088e8f45.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/inputs/49d982e5fd1c027719a18e2b791fd3d390694bf068896d1dc0149df5088e8f45.json"
+  },
+  {
+    "case": "INC-38A22FDFB326",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "B3_G_REF",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/gemma-4-26b-a4b/conversations/84aad10bc801729313fb7220793d1cbdc5b4d780f5e06580f196aab30b668e0f.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/gemma-4-26b-a4b/inputs/84aad10bc801729313fb7220793d1cbdc5b4d780f5e06580f196aab30b668e0f.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "T_MATCH",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/01f1dba8cba5e3aadbbbceff7b2d7edf12478e204f4b6bcfe430509a333224fd.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/01f1dba8cba5e3aadbbbceff7b2d7edf12478e204f4b6bcfe430509a333224fd.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "REMOTE_ID",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/92df8c97bfde553c006a19f0464d62d828cbffc2cc3ab0e80cf9a27d50bcbab6.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/92df8c97bfde553c006a19f0464d62d828cbffc2cc3ab0e80cf9a27d50bcbab6.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "LOCAL_LINK",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/59d6d58f6501bf909d1dedccebb2038e14f039531c005467a60fb0886e99d93a.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/59d6d58f6501bf909d1dedccebb2038e14f039531c005467a60fb0886e99d93a.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "TPV_REF",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/conversations/bac4e723c211d4d751940a1805836711c656ba0e40b27f5820e6faf9d873884a.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/inputs/bac4e723c211d4d751940a1805836711c656ba0e40b27f5820e6faf9d873884a.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "B3_G_REF",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/qwen3.8-27b/conversations/bafad3aa50c9ca313fdc2fc0e5fa712b0aaf08d5d11e279de619c0bc7491c472.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/qwen3.8-27b/inputs/bafad3aa50c9ca313fdc2fc0e5fa712b0aaf08d5d11e279de619c0bc7491c472.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "T_MATCH",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/1f2306cd6a41c2355640d8d2549eb475ae86dfc21f711ad386c6e614c118078f.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/1f2306cd6a41c2355640d8d2549eb475ae86dfc21f711ad386c6e614c118078f.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "REMOTE_ID",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/97be727947e1f5e021a63665cd9270c9353cad9cdd85f6edc9c91d7dbfef89fb.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/97be727947e1f5e021a63665cd9270c9353cad9cdd85f6edc9c91d7dbfef89fb.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "LOCAL_LINK",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/4d081a495ff2ab964eaafd2d265493eac976fbe2c3145b3b15aff624d4dadf5f.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/4d081a495ff2ab964eaafd2d265493eac976fbe2c3145b3b15aff624d4dadf5f.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "TPV_REF",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/conversations/e67600a0ba2f24d8b62273ffecf3d40b0c0e7f12af999e25c518499b1b86e417.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/inputs/e67600a0ba2f24d8b62273ffecf3d40b0c0e7f12af999e25c518499b1b86e417.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "B3_G_REF",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/gemma-4-26b-a4b/conversations/b5536a3f6afe5492054b69aae16f3f55c069190bf83c874d0860884670ebd1f2.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/gemma-4-26b-a4b/inputs/b5536a3f6afe5492054b69aae16f3f55c069190bf83c874d0860884670ebd1f2.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "SCIENTIFIC",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/4abcc35680d380e7aaa40dfb1dfd30f06a6197921d2335b0f84004d964b50806.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/4abcc35680d380e7aaa40dfb1dfd30f06a6197921d2335b0f84004d964b50806.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/01f1dba8cba5e3aadbbbceff7b2d7edf12478e204f4b6bcfe430509a333224fd.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/01f1dba8cba5e3aadbbbceff7b2d7edf12478e204f4b6bcfe430509a333224fd.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "REPEAT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/35488353b19ad8a878b79010e1fc671f78e5b3f2bd73e4de9e5d666c8c36d4c4.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/35488353b19ad8a878b79010e1fc671f78e5b3f2bd73e4de9e5d666c8c36d4c4.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "SCIENTIFIC",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/fecd3352ca7ad0744dca88c7a65d0b699ecc00f752bae9c7684aa61131f73306.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/fecd3352ca7ad0744dca88c7a65d0b699ecc00f752bae9c7684aa61131f73306.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/92df8c97bfde553c006a19f0464d62d828cbffc2cc3ab0e80cf9a27d50bcbab6.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/92df8c97bfde553c006a19f0464d62d828cbffc2cc3ab0e80cf9a27d50bcbab6.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "REPEAT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/216e5cac6cc7bcff8a25829011539244771747a4a93a44a7fab85180e8a3059f.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/216e5cac6cc7bcff8a25829011539244771747a4a93a44a7fab85180e8a3059f.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "SCIENTIFIC",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/14d8917e2bb1e43cbcee1c4d342f283717ce9208b41313445598f34902b564ef.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/14d8917e2bb1e43cbcee1c4d342f283717ce9208b41313445598f34902b564ef.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/59d6d58f6501bf909d1dedccebb2038e14f039531c005467a60fb0886e99d93a.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/59d6d58f6501bf909d1dedccebb2038e14f039531c005467a60fb0886e99d93a.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "REPEAT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/409919959f589e54c31e1f267d8f96080c1cce155645ae6b474f32b10300350a.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/409919959f589e54c31e1f267d8f96080c1cce155645ae6b474f32b10300350a.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "SCIENTIFIC",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/fecf07567d25791a9904aa7df2c3ffb38364fc741649912542cc95282ee3eb3b.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/fecf07567d25791a9904aa7df2c3ffb38364fc741649912542cc95282ee3eb3b.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/1f2306cd6a41c2355640d8d2549eb475ae86dfc21f711ad386c6e614c118078f.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/1f2306cd6a41c2355640d8d2549eb475ae86dfc21f711ad386c6e614c118078f.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "REPEAT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/c0b88ec5b6a4367fee68c610bf66c2d7609b79782ad3f5ba13228c13651ebcad.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/c0b88ec5b6a4367fee68c610bf66c2d7609b79782ad3f5ba13228c13651ebcad.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "SCIENTIFIC",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/c3893553c077bb9e0bd6e64d47b71a8f33c7ea15d0109ec784420bb38202f6e0.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/c3893553c077bb9e0bd6e64d47b71a8f33c7ea15d0109ec784420bb38202f6e0.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/97be727947e1f5e021a63665cd9270c9353cad9cdd85f6edc9c91d7dbfef89fb.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/97be727947e1f5e021a63665cd9270c9353cad9cdd85f6edc9c91d7dbfef89fb.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "REPEAT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/2fe8b6edc68ffb4b98610893b68f9a7d913fd5119e3c083b481c0ce7823f552f.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/2fe8b6edc68ffb4b98610893b68f9a7d913fd5119e3c083b481c0ce7823f552f.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "SCIENTIFIC",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/d348e8fde7368591a6c7f9b3d16dba4e0c6ccf626bd2d3e4ad0c1b8634afc76e.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/d348e8fde7368591a6c7f9b3d16dba4e0c6ccf626bd2d3e4ad0c1b8634afc76e.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/4d081a495ff2ab964eaafd2d265493eac976fbe2c3145b3b15aff624d4dadf5f.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/4d081a495ff2ab964eaafd2d265493eac976fbe2c3145b3b15aff624d4dadf5f.json"
+  },
+  {
+    "case": "INC-B63AC53AB86F",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "REPEAT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/f464c2a1727db2a96bda819aa41c2d7e85688030864c23be20b3d28463d463fd.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/f464c2a1727db2a96bda819aa41c2d7e85688030864c23be20b3d28463d463fd.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "T_MATCH",
+    "encoding": "NATIVE",
+    "mrr": 0.3333333333333333,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/f41293269e10f4d01e142dccadd0fb5fa06f79824952a99646d80010112cb1e9.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/f41293269e10f4d01e142dccadd0fb5fa06f79824952a99646d80010112cb1e9.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "REMOTE_ID",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/482ed293f3245fe141b0ced7470f6b4375ba85d0afaa810803bc3f09f285751d.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/482ed293f3245fe141b0ced7470f6b4375ba85d0afaa810803bc3f09f285751d.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "LOCAL_LINK",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/27b9927e21d7b49a19098300354101bd6ccf1f694c3e503e88ee9ad51bf425ce.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/27b9927e21d7b49a19098300354101bd6ccf1f694c3e503e88ee9ad51bf425ce.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "TPV_REF",
+    "encoding": "NATIVE",
+    "mrr": 0.5,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/conversations/367c90640cd994b8f2a37cf86be0c6e6d4bb0a15edaaf6e82f5dd2a25b265f6c.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/inputs/367c90640cd994b8f2a37cf86be0c6e6d4bb0a15edaaf6e82f5dd2a25b265f6c.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "B3_G_REF",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/qwen3.8-27b/conversations/e08579576043d272e44bc2a43a26a0a5f954fe1fd41f37f236a1cdf62cef987a.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/qwen3.8-27b/inputs/e08579576043d272e44bc2a43a26a0a5f954fe1fd41f37f236a1cdf62cef987a.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "T_MATCH",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/034e7276c9dbd28c0345893b17c3c6f812da3df1a9b899e8eb09960331ed31ae.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/034e7276c9dbd28c0345893b17c3c6f812da3df1a9b899e8eb09960331ed31ae.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "REMOTE_ID",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/fb0697d9d681cdf1d009a4e2583bf946272e6d78fe6152b68c94818ea8a8c7b6.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/fb0697d9d681cdf1d009a4e2583bf946272e6d78fe6152b68c94818ea8a8c7b6.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "LOCAL_LINK",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/ee623c9070370632664140586aef8e8c1ab91e8458ebd9a15bb7c90aa4ebdc64.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/ee623c9070370632664140586aef8e8c1ab91e8458ebd9a15bb7c90aa4ebdc64.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "TPV_REF",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/conversations/8147db5411799985f94cf657f58fd2252d9129e8b49206a3be5998b196635c13.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/inputs/8147db5411799985f94cf657f58fd2252d9129e8b49206a3be5998b196635c13.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "B3_G_REF",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/gemma-4-26b-a4b/conversations/ca69fa1886c5f3dfff43dcd6a101ce197b9e213033703083768e7df5b5b6f463.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/gemma-4-26b-a4b/inputs/ca69fa1886c5f3dfff43dcd6a101ce197b9e213033703083768e7df5b5b6f463.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "SCIENTIFIC",
+    "mrr": 0.3333333333333333,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/18b4512ce34b9c99b4d6dd3a2d8d5150592e871189b750d6e4d810be9f40dcba.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/18b4512ce34b9c99b4d6dd3a2d8d5150592e871189b750d6e4d810be9f40dcba.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 0.3333333333333333,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/f41293269e10f4d01e142dccadd0fb5fa06f79824952a99646d80010112cb1e9.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/f41293269e10f4d01e142dccadd0fb5fa06f79824952a99646d80010112cb1e9.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "REPEAT",
+    "mrr": 0.3333333333333333,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/2d8c1f01a380a7f0ca5f78dc73529f3c34d1b91bb54667e84b36873d3b1e82db.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/2d8c1f01a380a7f0ca5f78dc73529f3c34d1b91bb54667e84b36873d3b1e82db.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "SCIENTIFIC",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/e501967210fccef156979cfd122ddbcccb22743ff4bbd80a271540281f78a4b7.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/e501967210fccef156979cfd122ddbcccb22743ff4bbd80a271540281f78a4b7.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/482ed293f3245fe141b0ced7470f6b4375ba85d0afaa810803bc3f09f285751d.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/482ed293f3245fe141b0ced7470f6b4375ba85d0afaa810803bc3f09f285751d.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "REPEAT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/e7465b0d5caac44f2768c8725e1e66cb2e0b5bff6f80242e36564ddd9a2808e6.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/e7465b0d5caac44f2768c8725e1e66cb2e0b5bff6f80242e36564ddd9a2808e6.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "SCIENTIFIC",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/9168f675414c68b30c53a4867bc9a0113549891841872a8308021b5d88bb65d8.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/9168f675414c68b30c53a4867bc9a0113549891841872a8308021b5d88bb65d8.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/27b9927e21d7b49a19098300354101bd6ccf1f694c3e503e88ee9ad51bf425ce.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/27b9927e21d7b49a19098300354101bd6ccf1f694c3e503e88ee9ad51bf425ce.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "REPEAT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/c3d220fa389546c2a2a3bf4f6bb8a1e67a6cbb4cdc8b9cfc1e7c767680ab2091.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/c3d220fa389546c2a2a3bf4f6bb8a1e67a6cbb4cdc8b9cfc1e7c767680ab2091.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "SCIENTIFIC",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/74c2db8395e3d846c63d7d0b277cb2059b5e66fafde9fac0898631a8e294f247.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/74c2db8395e3d846c63d7d0b277cb2059b5e66fafde9fac0898631a8e294f247.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/034e7276c9dbd28c0345893b17c3c6f812da3df1a9b899e8eb09960331ed31ae.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/034e7276c9dbd28c0345893b17c3c6f812da3df1a9b899e8eb09960331ed31ae.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "REPEAT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/a285379210d10ac36e786d81fc13a9c8c2a4037c8700bffbe821ee0d10e450df.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/a285379210d10ac36e786d81fc13a9c8c2a4037c8700bffbe821ee0d10e450df.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "SCIENTIFIC",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/55afcab851e423101817c87054ebdeab4331fba79aa9ecb9c54b63c03daf8abb.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/55afcab851e423101817c87054ebdeab4331fba79aa9ecb9c54b63c03daf8abb.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/fb0697d9d681cdf1d009a4e2583bf946272e6d78fe6152b68c94818ea8a8c7b6.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/fb0697d9d681cdf1d009a4e2583bf946272e6d78fe6152b68c94818ea8a8c7b6.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "REPEAT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/2fa5ad1ff3a9245844771260c48ae1cafa2cd367047882e640f23c9b3e58c682.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/2fa5ad1ff3a9245844771260c48ae1cafa2cd367047882e640f23c9b3e58c682.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "SCIENTIFIC",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/4c1dc96246f24d5c07b21ac12728ba7660c6fbdfab4acc350de660ae4eb44e6a.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/4c1dc96246f24d5c07b21ac12728ba7660c6fbdfab4acc350de660ae4eb44e6a.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/ee623c9070370632664140586aef8e8c1ab91e8458ebd9a15bb7c90aa4ebdc64.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/ee623c9070370632664140586aef8e8c1ab91e8458ebd9a15bb7c90aa4ebdc64.json"
+  },
+  {
+    "case": "INC-77C683F9B6C0",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "REPEAT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/d941c331757dd5248fc7fe4254a74b6acdb42dc63bdfc8eba9a23ceabe372733.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/d941c331757dd5248fc7fe4254a74b6acdb42dc63bdfc8eba9a23ceabe372733.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "T_MATCH",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/a115a9437d0b8bf6c9e5455a20c6c03f512dbe0dc2e059b6d7f8282cb7ee8a2a.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/a115a9437d0b8bf6c9e5455a20c6c03f512dbe0dc2e059b6d7f8282cb7ee8a2a.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "REMOTE_ID",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/7527634b3220727a8528a88a03ec370208afddc3f47bc257dffe2e5592fdd7bc.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/7527634b3220727a8528a88a03ec370208afddc3f47bc257dffe2e5592fdd7bc.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "LOCAL_LINK",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/5e11d0b3ec796a4fa80c26c67dfbad38f6ff08c86196750397a448fc73b3f6e0.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/5e11d0b3ec796a4fa80c26c67dfbad38f6ff08c86196750397a448fc73b3f6e0.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "TPV_REF",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/tpv_reference_backfill_v1/stages/formal_A_tpv_backfill/qwen3.8-27b/conversations/98ed8bfe089dc23eac68e1ec0cb9b5cf978ec082782830d1635a59bc9986f6b6.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/tpv_reference_backfill_v1/stages/formal_A_tpv_backfill/qwen3.8-27b/inputs/98ed8bfe089dc23eac68e1ec0cb9b5cf978ec082782830d1635a59bc9986f6b6.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "B3_G_REF",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/qwen3.8-27b/conversations/33040c2cfbab901fc646d98186d8ea89385ef23a5e68b56af8d79d32f9ac55b2.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/qwen3.8-27b/inputs/33040c2cfbab901fc646d98186d8ea89385ef23a5e68b56af8d79d32f9ac55b2.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "T_MATCH",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/5598fdc6c941bf048445bf3759970db7bf8df61cf534b6c9b643ff2d6c1794f5.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/5598fdc6c941bf048445bf3759970db7bf8df61cf534b6c9b643ff2d6c1794f5.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "REMOTE_ID",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/0464fba82b6f60293b6b8ad3b9e713e69548f6a687c356f34481ae0e44c98966.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/0464fba82b6f60293b6b8ad3b9e713e69548f6a687c356f34481ae0e44c98966.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "LOCAL_LINK",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/6da8d6c63c0ed740685d7fe81822b9baeceaca3bcfb4635bb4ef09167f130cb4.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/6da8d6c63c0ed740685d7fe81822b9baeceaca3bcfb4635bb4ef09167f130cb4.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "TPV_REF",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/tpv_reference_backfill_v1/stages/formal_A_tpv_backfill/gemma-4-26b-a4b/conversations/6ff158465a67d798cbe9600e76b2e1eb5848fc2477ff6d312e0c9cbe81c70fa4.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/tpv_reference_backfill_v1/stages/formal_A_tpv_backfill/gemma-4-26b-a4b/inputs/6ff158465a67d798cbe9600e76b2e1eb5848fc2477ff6d312e0c9cbe81c70fa4.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "B3_G_REF",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/gemma-4-26b-a4b/conversations/55aa964f0018972a49bf30e730493ba43748733a2240d1ef0cf64f71e7de5013.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/gemma-4-26b-a4b/inputs/55aa964f0018972a49bf30e730493ba43748733a2240d1ef0cf64f71e7de5013.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "SCIENTIFIC",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/1586b44943114450d97d5b9f6a5d64092c6853640b8a999c7e3c31b50a12d4b8.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/1586b44943114450d97d5b9f6a5d64092c6853640b8a999c7e3c31b50a12d4b8.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/a115a9437d0b8bf6c9e5455a20c6c03f512dbe0dc2e059b6d7f8282cb7ee8a2a.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/a115a9437d0b8bf6c9e5455a20c6c03f512dbe0dc2e059b6d7f8282cb7ee8a2a.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "REPEAT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/e73ef6b84eea11b97401b2ad8b915a66f58a7cb987e9d16e328863c7273d093b.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/e73ef6b84eea11b97401b2ad8b915a66f58a7cb987e9d16e328863c7273d093b.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "SCIENTIFIC",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/537097b8745e267e6d7d4479b9f23162d6897f3370527e907c5b1bcae7ad6e45.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/537097b8745e267e6d7d4479b9f23162d6897f3370527e907c5b1bcae7ad6e45.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/7527634b3220727a8528a88a03ec370208afddc3f47bc257dffe2e5592fdd7bc.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/7527634b3220727a8528a88a03ec370208afddc3f47bc257dffe2e5592fdd7bc.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "REPEAT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/55154205de5a184838b4ce68bb6a657ac0c9ccb411ab5aeb268057e14f9c4e4f.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/55154205de5a184838b4ce68bb6a657ac0c9ccb411ab5aeb268057e14f9c4e4f.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "SCIENTIFIC",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/93adeb5bb9a6e7ce9eb87a404e9fd0dd2ad05a5c9fba358f5e6d712fd148c7ca.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/93adeb5bb9a6e7ce9eb87a404e9fd0dd2ad05a5c9fba358f5e6d712fd148c7ca.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/5e11d0b3ec796a4fa80c26c67dfbad38f6ff08c86196750397a448fc73b3f6e0.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/5e11d0b3ec796a4fa80c26c67dfbad38f6ff08c86196750397a448fc73b3f6e0.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "REPEAT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/3d2418ced08c068db9c4cb8dec071da5338abe76b2cbeadb418f2135cd969ac1.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/3d2418ced08c068db9c4cb8dec071da5338abe76b2cbeadb418f2135cd969ac1.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "SCIENTIFIC",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/90e239ce0f7ba6e6ef61e75b76d44e03cfe04cdaf76df35b73c0b7d2e08866ec.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/90e239ce0f7ba6e6ef61e75b76d44e03cfe04cdaf76df35b73c0b7d2e08866ec.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/5598fdc6c941bf048445bf3759970db7bf8df61cf534b6c9b643ff2d6c1794f5.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/5598fdc6c941bf048445bf3759970db7bf8df61cf534b6c9b643ff2d6c1794f5.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "REPEAT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/fc827251648e3814e3837daecb7a1b2d48a2a3c3624afb06f7cdd8069286002e.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/fc827251648e3814e3837daecb7a1b2d48a2a3c3624afb06f7cdd8069286002e.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "SCIENTIFIC",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/78967726c4d8a584727e3082331747f2c70521359f23e335fc8a596e02cd8b90.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/78967726c4d8a584727e3082331747f2c70521359f23e335fc8a596e02cd8b90.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/0464fba82b6f60293b6b8ad3b9e713e69548f6a687c356f34481ae0e44c98966.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/0464fba82b6f60293b6b8ad3b9e713e69548f6a687c356f34481ae0e44c98966.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "REPEAT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/b5f030931a8fe9a833b93e8e523ccbf169e9faf8349adb1a1de1c1952923fd0e.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/b5f030931a8fe9a833b93e8e523ccbf169e9faf8349adb1a1de1c1952923fd0e.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "SCIENTIFIC",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/9e6a9bbf96fcd921c0aff2d22a05bc20a4ac63da0d58899edfa133f90c7a02b6.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/9e6a9bbf96fcd921c0aff2d22a05bc20a4ac63da0d58899edfa133f90c7a02b6.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/6da8d6c63c0ed740685d7fe81822b9baeceaca3bcfb4635bb4ef09167f130cb4.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/6da8d6c63c0ed740685d7fe81822b9baeceaca3bcfb4635bb4ef09167f130cb4.json"
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "REPEAT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/95d5f6595a3b7d77f2f66d058f27cdab3ad3a740d880b09439a37fc22de1134c.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/95d5f6595a3b7d77f2f66d058f27cdab3ad3a740d880b09439a37fc22de1134c.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "T_MATCH",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/cf9b2cbff557f0004ef8f5b3ca07aa58ffb76980800a45e195aa690fcde43d7f.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/cf9b2cbff557f0004ef8f5b3ca07aa58ffb76980800a45e195aa690fcde43d7f.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "REMOTE_ID",
+    "encoding": "NATIVE",
+    "mrr": 0.5,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/edfa657735317ecdc4e7c6f8ffab3b6ca6790f3d9b71c448764b2cb239963d01.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/edfa657735317ecdc4e7c6f8ffab3b6ca6790f3d9b71c448764b2cb239963d01.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "LOCAL_LINK",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/095d5c54c227bb78a412bd31fd20408a80dd429cbd958823ed87a7bc724ecaa1.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/095d5c54c227bb78a412bd31fd20408a80dd429cbd958823ed87a7bc724ecaa1.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "TPV_REF",
+    "encoding": "NATIVE",
+    "mrr": 0.5,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/conversations/fe3088ea35f13885c7359db8bfede9c9a87ce0a28375c074a75be446b1a10b44.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/inputs/fe3088ea35f13885c7359db8bfede9c9a87ce0a28375c074a75be446b1a10b44.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "B3_G_REF",
+    "encoding": "NATIVE",
+    "mrr": 0.5,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/qwen3.8-27b/conversations/328c97114afb7fa9d6d19955f4ba2327482918b4fa8fc1a4530717348fcb30fe.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/qwen3.8-27b/inputs/328c97114afb7fa9d6d19955f4ba2327482918b4fa8fc1a4530717348fcb30fe.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "T_MATCH",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/72064f0f7d432f48602448c856a2d304ec67510fbc07bb5e4848c8a7abbee454.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/72064f0f7d432f48602448c856a2d304ec67510fbc07bb5e4848c8a7abbee454.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "REMOTE_ID",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/9ebf7e826488c8a7094a3079d59a6a1c451c34dd3f98e2208623900802bc7262.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/9ebf7e826488c8a7094a3079d59a6a1c451c34dd3f98e2208623900802bc7262.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "LOCAL_LINK",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/4afd166623116fd1b140b910d05e19433a1a04bb021fd7f4f137a3f41ef9d550.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/4afd166623116fd1b140b910d05e19433a1a04bb021fd7f4f137a3f41ef9d550.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "TPV_REF",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/conversations/f404790db0faa0dc513be078dcdbac94f9cf63e6e82222d73cfffae5ec836cf6.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/inputs/f404790db0faa0dc513be078dcdbac94f9cf63e6e82222d73cfffae5ec836cf6.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "B3_G_REF",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/gemma-4-26b-a4b/conversations/9b423a96c0cbaa44f977945958e46cbe7729b905dbe75198f8101fa2bc3e8a62.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/gemma-4-26b-a4b/inputs/9b423a96c0cbaa44f977945958e46cbe7729b905dbe75198f8101fa2bc3e8a62.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "SCIENTIFIC",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/c9f8e550dc0536a2f427b6ab31fbd49e41d2d5288ef705f10909019dc7b9ef4c.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/c9f8e550dc0536a2f427b6ab31fbd49e41d2d5288ef705f10909019dc7b9ef4c.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/cf9b2cbff557f0004ef8f5b3ca07aa58ffb76980800a45e195aa690fcde43d7f.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/cf9b2cbff557f0004ef8f5b3ca07aa58ffb76980800a45e195aa690fcde43d7f.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "REPEAT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/03ec45bddb3f942f1c1b78e605bc1b120d352e76cf22fc1dd111e75f6cebf3b6.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/03ec45bddb3f942f1c1b78e605bc1b120d352e76cf22fc1dd111e75f6cebf3b6.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "SCIENTIFIC",
+    "mrr": 0.5,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/ae2678f5df92bac3f31e2576642ce68e74b62014f03148aa69db1f81efb5de29.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/ae2678f5df92bac3f31e2576642ce68e74b62014f03148aa69db1f81efb5de29.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 0.5,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/edfa657735317ecdc4e7c6f8ffab3b6ca6790f3d9b71c448764b2cb239963d01.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/edfa657735317ecdc4e7c6f8ffab3b6ca6790f3d9b71c448764b2cb239963d01.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "REPEAT",
+    "mrr": 0.5,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/e5e22a68817bc987c133f1c53b46699b37b7bf31fa0912334f5cf39f135311a5.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/e5e22a68817bc987c133f1c53b46699b37b7bf31fa0912334f5cf39f135311a5.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "SCIENTIFIC",
+    "mrr": 0.5,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/6f38b0f427c3896079f4d1376674640948617880bdcfe303a294060030721a5f.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/6f38b0f427c3896079f4d1376674640948617880bdcfe303a294060030721a5f.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/095d5c54c227bb78a412bd31fd20408a80dd429cbd958823ed87a7bc724ecaa1.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/095d5c54c227bb78a412bd31fd20408a80dd429cbd958823ed87a7bc724ecaa1.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "REPEAT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/27f6862e0730995a34403aacc8e8aaeec69c316dff268e79bdaf74a9fa4e41b4.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/27f6862e0730995a34403aacc8e8aaeec69c316dff268e79bdaf74a9fa4e41b4.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "SCIENTIFIC",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/9363b809f2a47c5e0508a54ec6dd315cb83e5e42b6a336dfa8750d3c617c4e60.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/9363b809f2a47c5e0508a54ec6dd315cb83e5e42b6a336dfa8750d3c617c4e60.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/72064f0f7d432f48602448c856a2d304ec67510fbc07bb5e4848c8a7abbee454.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/72064f0f7d432f48602448c856a2d304ec67510fbc07bb5e4848c8a7abbee454.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "REPEAT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/d335206b03d0d404b33ecff21692cacba13d521a2b070d601825f649c2be2910.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/d335206b03d0d404b33ecff21692cacba13d521a2b070d601825f649c2be2910.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "SCIENTIFIC",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/22cd0ea613f3f4e359dfaba01c2ef13c0dcb462b95c922c204714e8e4a62ffd1.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/22cd0ea613f3f4e359dfaba01c2ef13c0dcb462b95c922c204714e8e4a62ffd1.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/9ebf7e826488c8a7094a3079d59a6a1c451c34dd3f98e2208623900802bc7262.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/9ebf7e826488c8a7094a3079d59a6a1c451c34dd3f98e2208623900802bc7262.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "REPEAT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/17f10ea53bd92b2b4e12e87cde412c299a881092489b11c031227170a8846b92.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/17f10ea53bd92b2b4e12e87cde412c299a881092489b11c031227170a8846b92.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "SCIENTIFIC",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/93109dd98fbbd3f6580f38d7169a4000fc57aa98b75318b55395179647f1f1ec.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/93109dd98fbbd3f6580f38d7169a4000fc57aa98b75318b55395179647f1f1ec.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/4afd166623116fd1b140b910d05e19433a1a04bb021fd7f4f137a3f41ef9d550.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/4afd166623116fd1b140b910d05e19433a1a04bb021fd7f4f137a3f41ef9d550.json"
+  },
+  {
+    "case": "INC-6E6E1B20F2D5",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "REPEAT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/2989f292dd21eaee9f37eeeabc255e91920a058676fe65ee5634046d409dc1f6.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/2989f292dd21eaee9f37eeeabc255e91920a058676fe65ee5634046d409dc1f6.json"
+  },
+  {
+    "source_png": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/renders/edfa657735317ecdc4e7c6f8ffab3b6ca6790f3d9b71c448764b2cb239963d01_2.png",
+    "copied_png": "/home/lglsj/CanvasRCA_nibi/docs/experiment_reports/RQ3_7_Results_Analysis_2026-09-28_assets/INC-6E6E1B20F2D5_REMOTE_ID.png",
+    "sha256": "30de2cfd64850255f216bca78665eecc3d5e6fb30b4c8b0f417a2ba14f90748e"
+  },
+  {
+    "source_png": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/renders/095d5c54c227bb78a412bd31fd20408a80dd429cbd958823ed87a7bc724ecaa1_2.png",
+    "copied_png": "/home/lglsj/CanvasRCA_nibi/docs/experiment_reports/RQ3_7_Results_Analysis_2026-09-28_assets/INC-6E6E1B20F2D5_LOCAL_LINK.png",
+    "sha256": "247692d2edfa441361289979172fcd8d701102749c3221a72b39e0158ca50df2"
+  },
+  {
+    "case": "INC-992C09A89DC9",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "T_MATCH",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/1b826edfed594b598b969ec233e424a9e71c014976e61f2d7a913166a1e72b39.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/1b826edfed594b598b969ec233e424a9e71c014976e61f2d7a913166a1e72b39.json"
+  },
+  {
+    "case": "INC-992C09A89DC9",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "REMOTE_ID",
+    "encoding": "NATIVE",
+    "mrr": 0.5,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/3a1ec17e241f5de5f025fad2c9590d9f45771f346ce2abb0ca0953fa049a6844.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/3a1ec17e241f5de5f025fad2c9590d9f45771f346ce2abb0ca0953fa049a6844.json"
+  },
+  {
+    "case": "INC-992C09A89DC9",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "LOCAL_LINK",
+    "encoding": "NATIVE",
+    "mrr": 0.5,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/6c5ab5540e54739347d78600f34855c44f0a609d713bc1330352a744f75c0e3f.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/6c5ab5540e54739347d78600f34855c44f0a609d713bc1330352a744f75c0e3f.json"
+  },
+  {
+    "case": "INC-992C09A89DC9",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "TPV_REF",
+    "encoding": "NATIVE",
+    "mrr": 0.5,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/tpv_reference_backfill_v1/stages/formal_A_tpv_backfill/qwen3.8-27b/conversations/6a20a9a5fa74ae100839d962fa8ac108466d8cfe75202a786a984a9b7f743c6c.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/tpv_reference_backfill_v1/stages/formal_A_tpv_backfill/qwen3.8-27b/inputs/6a20a9a5fa74ae100839d962fa8ac108466d8cfe75202a786a984a9b7f743c6c.json"
+  },
+  {
+    "case": "INC-992C09A89DC9",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "B3_G_REF",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/qwen3.8-27b/conversations/1c5eccd348fe263600788003a70abe86d269606f4a9d42c68473cf0b77bd8632.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/qwen3.8-27b/inputs/1c5eccd348fe263600788003a70abe86d269606f4a9d42c68473cf0b77bd8632.json"
+  },
+  {
+    "case": "INC-992C09A89DC9",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "T_MATCH",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/22888b0b693f2a43f90da4d86ce32389b96e3a789feb5976305151b5c65bb6c2.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/22888b0b693f2a43f90da4d86ce32389b96e3a789feb5976305151b5c65bb6c2.json"
+  },
+  {
+    "case": "INC-992C09A89DC9",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "REMOTE_ID",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/b97a83a09f0a82a79b243064ffb3904f7da5f16afd6315179809b7bd7e842123.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/b97a83a09f0a82a79b243064ffb3904f7da5f16afd6315179809b7bd7e842123.json"
+  },
+  {
+    "case": "INC-992C09A89DC9",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "LOCAL_LINK",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/ac3746ea4c171cc467b0d5194ad64d427f283c97551493fe8e6cb69db4383dae.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/ac3746ea4c171cc467b0d5194ad64d427f283c97551493fe8e6cb69db4383dae.json"
+  },
+  {
+    "case": "INC-992C09A89DC9",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "TPV_REF",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/tpv_reference_backfill_v1/stages/formal_A_tpv_backfill/gemma-4-26b-a4b/conversations/bd6b6ef85a97e26a166e3f81d0b16bf463c45bbb5517550c06029d9a000655d0.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/tpv_reference_backfill_v1/stages/formal_A_tpv_backfill/gemma-4-26b-a4b/inputs/bd6b6ef85a97e26a166e3f81d0b16bf463c45bbb5517550c06029d9a000655d0.json"
+  },
+  {
+    "case": "INC-992C09A89DC9",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "B3_G_REF",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/gemma-4-26b-a4b/conversations/b66f079c727c09a293b10fa4296712d3b45a7d952d8b6b8b2dd427f605a50304.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/gemma-4-26b-a4b/inputs/b66f079c727c09a293b10fa4296712d3b45a7d952d8b6b8b2dd427f605a50304.json"
+  },
+  {
+    "case": "INC-B77D2FD0C248",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "T_MATCH",
+    "encoding": "NATIVE",
+    "mrr": 0.5,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/6f4bb3f90144788ea7b648382c126ed6eb8da3327e7851b7abb174755a7b153e.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/6f4bb3f90144788ea7b648382c126ed6eb8da3327e7851b7abb174755a7b153e.json"
+  },
+  {
+    "case": "INC-B77D2FD0C248",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "REMOTE_ID",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/ba9e3f803392029ad17f7f4f5b65ff733370561c74360a6478db6e2a42e595f9.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/ba9e3f803392029ad17f7f4f5b65ff733370561c74360a6478db6e2a42e595f9.json"
+  },
+  {
+    "case": "INC-B77D2FD0C248",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "LOCAL_LINK",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/e07e3a050c1dcc17b6f66f3c59336c3a7b77773d973f9bb93c073adac7080305.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/e07e3a050c1dcc17b6f66f3c59336c3a7b77773d973f9bb93c073adac7080305.json"
+  },
+  {
+    "case": "INC-B77D2FD0C248",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "TPV_REF",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/conversations/ac613efea03cc8e925e21a285a975e3e748fd196ce094311a2e6070634b1695a.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/inputs/ac613efea03cc8e925e21a285a975e3e748fd196ce094311a2e6070634b1695a.json"
+  },
+  {
+    "case": "INC-B77D2FD0C248",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "B3_G_REF",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/qwen3.8-27b/conversations/6fc0f8a9f58682fe529b697615565e0425ff6c2cb13e6512785705ac6923be9c.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/qwen3.8-27b/inputs/6fc0f8a9f58682fe529b697615565e0425ff6c2cb13e6512785705ac6923be9c.json"
+  },
+  {
+    "case": "INC-B77D2FD0C248",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "T_MATCH",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/f1c6d6d4c153d9867d77e3a50734da2094ef68fb3bf5bf2e4320db3e041728c7.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/f1c6d6d4c153d9867d77e3a50734da2094ef68fb3bf5bf2e4320db3e041728c7.json"
+  },
+  {
+    "case": "INC-B77D2FD0C248",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "REMOTE_ID",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/1849d5efba3d23f62d0c66f4cc432998b359e9299ea93f8273ec0bbfb4a0078f.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/1849d5efba3d23f62d0c66f4cc432998b359e9299ea93f8273ec0bbfb4a0078f.json"
+  },
+  {
+    "case": "INC-B77D2FD0C248",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "LOCAL_LINK",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/c4d12c46a33435502e2fad576bc75ab8c211f6e9cfdbea312fcb00794bda025d.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/c4d12c46a33435502e2fad576bc75ab8c211f6e9cfdbea312fcb00794bda025d.json"
+  },
+  {
+    "case": "INC-B77D2FD0C248",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "TPV_REF",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/conversations/6f80f6d20fe02791207db56cd9e064bf09f9f7f5f7c7e0d0f2ae08d7f460efe9.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/inputs/6f80f6d20fe02791207db56cd9e064bf09f9f7f5f7c7e0d0f2ae08d7f460efe9.json"
+  },
+  {
+    "case": "INC-B77D2FD0C248",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "B3_G_REF",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/gemma-4-26b-a4b/conversations/a21210a95999abab957ddc05982f88ce02edbf2696ccbd72ca551a1def97e067.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/gemma-4-26b-a4b/inputs/a21210a95999abab957ddc05982f88ce02edbf2696ccbd72ca551a1def97e067.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "T_MATCH",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/6f1f3b265d2974b0ee3f1b88b6f7153f059cc89f43ad4bbb7f907d88f33b5b78.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/6f1f3b265d2974b0ee3f1b88b6f7153f059cc89f43ad4bbb7f907d88f33b5b78.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "REMOTE_ID",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/7176378fb013aa55dff35ffa7949a7d5e3122ebb0c4065b2696bb4765aeea6cd.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/7176378fb013aa55dff35ffa7949a7d5e3122ebb0c4065b2696bb4765aeea6cd.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "LOCAL_LINK",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/d22708dfac0ca60a8c1d47fc1d5dba8ed462d9c3d99685452c734d28ac4bbb28.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/d22708dfac0ca60a8c1d47fc1d5dba8ed462d9c3d99685452c734d28ac4bbb28.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "TPV_REF",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/tpv_reference_backfill_v1/stages/formal_A_tpv_backfill/qwen3.8-27b/conversations/129d16c9fc7060a889a7f68c76fef479cc62950581b49f60e279cb6e167dcd31.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/tpv_reference_backfill_v1/stages/formal_A_tpv_backfill/qwen3.8-27b/inputs/129d16c9fc7060a889a7f68c76fef479cc62950581b49f60e279cb6e167dcd31.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "B3_G_REF",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/qwen3.8-27b/conversations/0fe287dc1976596315f50673251395202a1ac3f6d8b6c3bdfa715e84708e8643.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/qwen3.8-27b/inputs/0fe287dc1976596315f50673251395202a1ac3f6d8b6c3bdfa715e84708e8643.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "T_MATCH",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/bfa9beb95fa22c5eb352f0c6ac23e94b3c388cd77d0f7372c1963d5f7700eb23.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/bfa9beb95fa22c5eb352f0c6ac23e94b3c388cd77d0f7372c1963d5f7700eb23.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "REMOTE_ID",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/7591339dc30a8843461ac68d407ccb1612a3b44b1f61476113ab5ce7ecd98b6f.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/7591339dc30a8843461ac68d407ccb1612a3b44b1f61476113ab5ce7ecd98b6f.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "LOCAL_LINK",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/460bf290251071d0a0e6d9bd7274136e10e5006b90d0f2881c396a02fbc83ff4.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/460bf290251071d0a0e6d9bd7274136e10e5006b90d0f2881c396a02fbc83ff4.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "TPV_REF",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/tpv_reference_backfill_v1/stages/formal_A_tpv_backfill/gemma-4-26b-a4b/conversations/3e312f7f85123136c830b2a034d24cb490196b5290c0e644f510b01dd634ee7b.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/tpv_reference_backfill_v1/stages/formal_A_tpv_backfill/gemma-4-26b-a4b/inputs/3e312f7f85123136c830b2a034d24cb490196b5290c0e644f510b01dd634ee7b.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "B3_G_REF",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/gemma-4-26b-a4b/conversations/2e976dcbd89e810f33d7c03de5c284856d49037cb6b3b85ef7cce1410b0b7c34.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/gemma-4-26b-a4b/inputs/2e976dcbd89e810f33d7c03de5c284856d49037cb6b3b85ef7cce1410b0b7c34.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "SCIENTIFIC",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/55274028403e28f52def1254df59146c28736b701d9c4b2580f6f708b42bc5ff.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/55274028403e28f52def1254df59146c28736b701d9c4b2580f6f708b42bc5ff.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/99a25dd90c31c0d50c5638affc8680a89efbc81aeffc4ecc0c8cd2071d613f6c.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/99a25dd90c31c0d50c5638affc8680a89efbc81aeffc4ecc0c8cd2071d613f6c.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "REPEAT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/22cd1b6773edeecda3f8d8a9e337b89580014187f06523e3524cc58c37e29d94.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/22cd1b6773edeecda3f8d8a9e337b89580014187f06523e3524cc58c37e29d94.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "SCIENTIFIC",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/63ac4b3f19793f702084387a863d96964e8fadf28b8ebdcc4ddbdfcb0649f713.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/63ac4b3f19793f702084387a863d96964e8fadf28b8ebdcc4ddbdfcb0649f713.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/90b93e0eb1318f8cfb1398067bbb6561fb116a5cd66f42b108bc00e42ed6323b.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/90b93e0eb1318f8cfb1398067bbb6561fb116a5cd66f42b108bc00e42ed6323b.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "REPEAT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/9e281dffc0243ddac61a49613f706ca7940e907902fffd49240e880314da4f89.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/9e281dffc0243ddac61a49613f706ca7940e907902fffd49240e880314da4f89.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "SCIENTIFIC",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/bfa4e071c77ebd5b940f0787cce1135c4d464d14e93982fe924c4094c3be4f1b.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/bfa4e071c77ebd5b940f0787cce1135c4d464d14e93982fe924c4094c3be4f1b.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/2d9f37c5ad57c027a1286877daf1a918947addc6ab3c64d1a4a053ef11cafab0.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/2d9f37c5ad57c027a1286877daf1a918947addc6ab3c64d1a4a053ef11cafab0.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "REPEAT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/1fb928cfa5510474d9ae7d6816e7742e7822e11398f7af3af3019ae52da49e3b.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/1fb928cfa5510474d9ae7d6816e7742e7822e11398f7af3af3019ae52da49e3b.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "SCIENTIFIC",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/c317e3445b0837117f718ae7650a4a1a66ac402b379e126495f9c49e1e21ccf9.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/c317e3445b0837117f718ae7650a4a1a66ac402b379e126495f9c49e1e21ccf9.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/bdbaa538a95a447771882062b4402302ac32794a0b24c9f357a442358f9c7cd6.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/bdbaa538a95a447771882062b4402302ac32794a0b24c9f357a442358f9c7cd6.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "REPEAT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/6dba9cec8708ebd69fb55591f47bf3b0617fc5930d806d56a435c6f68776d711.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/6dba9cec8708ebd69fb55591f47bf3b0617fc5930d806d56a435c6f68776d711.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "SCIENTIFIC",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/73c70ea005f91426eb7e868875a01a70820adfa22f1ebd430236116eebe9a605.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/73c70ea005f91426eb7e868875a01a70820adfa22f1ebd430236116eebe9a605.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/2831ab279061cfac5201b8b922014290f6ca77083455339faf049a075c4826e7.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/2831ab279061cfac5201b8b922014290f6ca77083455339faf049a075c4826e7.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "REPEAT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/9902a851b866b787c7ab76153217352d8473337e004f29fc06fb6117f5e95a77.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/9902a851b866b787c7ab76153217352d8473337e004f29fc06fb6117f5e95a77.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "SCIENTIFIC",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/e7747b6bd6ea5f2c32a2cfaad45dcf0c1219cc4cd9cd6d0bfb51bdc8ec82ba8d.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/e7747b6bd6ea5f2c32a2cfaad45dcf0c1219cc4cd9cd6d0bfb51bdc8ec82ba8d.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/5a43327e9d80b76f2c2760586e786a94d4b73b1a366f649d4d0700e9af379217.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/5a43327e9d80b76f2c2760586e786a94d4b73b1a366f649d4d0700e9af379217.json"
+  },
+  {
+    "case": "INC-331437929E47",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "REPEAT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/dc179bb75a2ba921aaf2d3b5f4a681a84207122644e592bc2c326a45923fc832.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/dc179bb75a2ba921aaf2d3b5f4a681a84207122644e592bc2c326a45923fc832.json"
+  },
+  {
+    "source_png": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/renders/7176378fb013aa55dff35ffa7949a7d5e3122ebb0c4065b2696bb4765aeea6cd_2.png",
+    "copied_png": "/home/lglsj/CanvasRCA_nibi/docs/experiment_reports/RQ3_7_Results_Analysis_2026-09-28_assets/INC-331437929E47_REMOTE_ID.png",
+    "sha256": "fdb377c0bb2dfff2001216af4016c28741d812aeca44c349440c0da374971b38"
+  },
+  {
+    "source_png": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/renders/d22708dfac0ca60a8c1d47fc1d5dba8ed462d9c3d99685452c734d28ac4bbb28_2.png",
+    "copied_png": "/home/lglsj/CanvasRCA_nibi/docs/experiment_reports/RQ3_7_Results_Analysis_2026-09-28_assets/INC-331437929E47_LOCAL_LINK.png",
+    "sha256": "0f1c31c1095a43be64f09ce0ed70d6aa407b85fa93de5da906b8d0b0492c7eef"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "T_MATCH",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/6a42893f430f842bac0257b285a0951871b70916596792c1d4eca9d1cf05895b.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/6a42893f430f842bac0257b285a0951871b70916596792c1d4eca9d1cf05895b.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "REMOTE_ID",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/c8a899f5ca82174d2c337f28c781dbb09016b3cfccc8e36e36cc1fdbd6ee1a30.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/c8a899f5ca82174d2c337f28c781dbb09016b3cfccc8e36e36cc1fdbd6ee1a30.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "LOCAL_LINK",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/conversations/e0ed9fd3aefe2dd4a7e15f856fb6132717d3dfa2f5a5e3285a41a0dbd5282993.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/e0ed9fd3aefe2dd4a7e15f856fb6132717d3dfa2f5a5e3285a41a0dbd5282993.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "TPV_REF",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/conversations/7c62db8a09d1f9a22d4c267d50a53f0ba2f28be70b80e8f1be3a47f7cb42de81.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/inputs/7c62db8a09d1f9a22d4c267d50a53f0ba2f28be70b80e8f1be3a47f7cb42de81.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "qwen3.8-27b",
+    "experiment": "A",
+    "arm": "B3_G_REF",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/qwen3.8-27b/conversations/ff2d8aab04c4647ba1f1b9354eedde5c4074290391dee858dd5068e34ab57d40.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/qwen3.8-27b/inputs/ff2d8aab04c4647ba1f1b9354eedde5c4074290391dee858dd5068e34ab57d40.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "T_MATCH",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/61483e3d45f9fddcea805cfbd10760268f3718bd20ec9f92fbbd10b9b99687b2.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/61483e3d45f9fddcea805cfbd10760268f3718bd20ec9f92fbbd10b9b99687b2.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "REMOTE_ID",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/ca1e5add4be48bba92d59a3d33866d00330ee4fac39f9368e23ace08ba821f7e.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/ca1e5add4be48bba92d59a3d33866d00330ee4fac39f9368e23ace08ba821f7e.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "LOCAL_LINK",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/conversations/1c07ed95c297a9faac626389c6ecfed812ef4a61a4e50fc617aeda053a5da76b.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/gemma-4-26b-a4b/inputs/1c07ed95c297a9faac626389c6ecfed812ef4a61a4e50fc617aeda053a5da76b.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "TPV_REF",
+    "encoding": "NATIVE",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/conversations/61ec04d87cf536ac738f4a55aee2125872eeedc705ebbc04c1674041282f90ce.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/inputs/61ec04d87cf536ac738f4a55aee2125872eeedc705ebbc04c1674041282f90ce.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "A",
+    "arm": "B3_G_REF",
+    "encoding": "NATIVE",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/gemma-4-26b-a4b/conversations/523b70e8a9dc6cbb6f22428809b6a087e1e6cf8d8419e15720b812459a63c580.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/mechanisms_v2/relation_binding/stages/check_exp_relation_provenance_binding/gemma-4-26b-a4b/inputs/523b70e8a9dc6cbb6f22428809b6a087e1e6cf8d8419e15720b812459a63c580.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "SCIENTIFIC",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/f216c1344457558d4089e75820d7ab325e51e04fbb150a157549c11edf43dc94.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/f216c1344457558d4089e75820d7ab325e51e04fbb150a157549c11edf43dc94.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/70757a8316c5c83a24d81022e065a8769a530d0aece1c2323d109faa4c0950c1.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/70757a8316c5c83a24d81022e065a8769a530d0aece1c2323d109faa4c0950c1.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "REPEAT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/0189d529ef040cba42c6a3ad080fe7fa61e214c58b9115d5901e18ec2b2d3cdc.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/0189d529ef040cba42c6a3ad080fe7fa61e214c58b9115d5901e18ec2b2d3cdc.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "SCIENTIFIC",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/ad1d97f02a4f3395d81fef815bcb308899fdbe8470705ec0762ce657dd2a1060.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/ad1d97f02a4f3395d81fef815bcb308899fdbe8470705ec0762ce657dd2a1060.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/16b033c4f4eaeb4ae9e1026ddebb993ac37bb0b82ea2c323434fd72535641059.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/16b033c4f4eaeb4ae9e1026ddebb993ac37bb0b82ea2c323434fd72535641059.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "REPEAT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/2ccb1308af3e6dd75909951d195795cfcee6749d07f47515dc2add05f75ca84f.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/2ccb1308af3e6dd75909951d195795cfcee6749d07f47515dc2add05f75ca84f.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "SCIENTIFIC",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/9b66e31288361d9c37d2a5bcd37070b7864b134879bfc3f44201f21540286c18.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/9b66e31288361d9c37d2a5bcd37070b7864b134879bfc3f44201f21540286c18.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/b0f3e719fb0f3bd765bd9c42795bdfabf9cd89f39f2fbeab165e259fe3bb2535.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/b0f3e719fb0f3bd765bd9c42795bdfabf9cd89f39f2fbeab165e259fe3bb2535.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "qwen3.8-27b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "REPEAT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/conversations/0275055a1668e002d287d092083a67fc0f4c48447bff09e9df4be0219014dbb9.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/qwen3.8-27b/inputs/0275055a1668e002d287d092083a67fc0f4c48447bff09e9df4be0219014dbb9.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "SCIENTIFIC",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/dc4486bf18fc890f54e31f4e68d0054f35b9f356940234f6c344e24bac197ca9.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/dc4486bf18fc890f54e31f4e68d0054f35b9f356940234f6c344e24bac197ca9.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/c7d4a62a530b8441fdaef9f58b9980d354259402deef1017ec6409ae4ad9d56a.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/c7d4a62a530b8441fdaef9f58b9980d354259402deef1017ec6409ae4ad9d56a.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "T_MATCH",
+    "encoding": "REPEAT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/ce87da6fe097dee369bdbe99f4caafa598c8cc9f824d60502d1edfd5518f9336.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/ce87da6fe097dee369bdbe99f4caafa598c8cc9f824d60502d1edfd5518f9336.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "SCIENTIFIC",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/e69e18bc3f4f8d701b2d313409d090ebeee06287cc5952facf1ac3243ed484f1.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/e69e18bc3f4f8d701b2d313409d090ebeee06287cc5952facf1ac3243ed484f1.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/1d24b67f1751d070854cab5f2e14a8307ab4d8a6e795a3152fd9850dd2b1b6c7.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/1d24b67f1751d070854cab5f2e14a8307ab4d8a6e795a3152fd9850dd2b1b6c7.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "REMOTE_ID",
+    "encoding": "REPEAT",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/e200e8ffb26b5d5587f848b11b5abc458476dce51f66874f710050424ca1872d.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/e200e8ffb26b5d5587f848b11b5abc458476dce51f66874f710050424ca1872d.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "SCIENTIFIC",
+    "mrr": 0.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/a024d9aa2b2505178f6721ba0be1ded55fd05777be6417f5af56d616578c8975.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/a024d9aa2b2505178f6721ba0be1ded55fd05777be6417f5af56d616578c8975.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "UNIT_EQUIVALENT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/dbd1600bd0f6a225699f18fd61ab92ee9681569b0e478c42d43bae09035b822e.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/dbd1600bd0f6a225699f18fd61ab92ee9681569b0e478c42d43bae09035b822e.json"
+  },
+  {
+    "case": "INC-491E85FD6009",
+    "model": "gemma-4-26b-a4b",
+    "experiment": "B",
+    "arm": "LOCAL_LINK",
+    "encoding": "REPEAT",
+    "mrr": 1.0,
+    "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/conversations/7c14a4652bf7c31ba14dd073a33a32e8983b9b46f4e305888c3e1be32b7937c8.md",
+    "input": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_B_robustness/gemma-4-26b-a4b/inputs/7c14a4652bf7c31ba14dd073a33a32e8983b9b46f4e305888c3e1be32b7937c8.json"
+  }
+]

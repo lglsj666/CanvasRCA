@@ -1,0 +1,17 @@
+{
+  "schema_version": "RQ31SIRCLNativeClosureV1",
+  "source_package": "packages/SIRCL_selected_reference",
+  "source_provenance_sha256": "9cd93ee26197ca97b3e28d933adce054d26ff6433fd84568d6ff812b07924960",
+  "source_license_sha256": "1d0dde41ece0f9620937f1a81a67e295ace0eae180c009d862006e8f3b288458",
+  "source_copied_files_tree_sha256": "720d90baa3e5e718ec6332cafc6ac6301af248799ebc0c0dac4e0380c93ae1bb",
+  "byte_copy_verification": "At runtime, every regular file under packages/SIRCL_selected_reference is matched by relative path and SHA-256 against original/ before any component call.",
+  "license": "MIT",
+  "selected_components": ["MET-Z", "TRC-L", "LOG-R"],
+  "added_dependency_closure": [
+    "original/src/data/base.py",
+    "original/src/telemetry_analyzers/summarized_tools.py",
+    "package __init__.py files"
+  ],
+  "adapter": "adapter.py",
+  "external_runtime_import": false
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": "WitnessMeasurementDefinitionsV1",
+  "policy": "exact metric key only; no fuzzy alias inference; unknown remains unknown",
+  "definitions": {
+    "kube_pod_container_resource_requests": {"role": "configuration", "unit": "source_unit", "definition": "Configured container resource request, not measured resource consumption.", "source": "https://github.com/kubernetes/kube-state-metrics/blob/main/docs/metrics/workload/pod-metrics.md"},
+    "kube_pod_container_resource_limits": {"role": "configuration", "unit": "source_unit", "definition": "Configured container resource limit, not measured resource consumption.", "source": "https://github.com/kubernetes/kube-state-metrics/blob/main/docs/metrics/workload/pod-metrics.md"},
+    "kube_pod_container_status_ready": {"role": "state", "unit": "boolean", "definition": "Whether the container readiness check succeeded.", "source": "https://github.com/kubernetes/kube-state-metrics/blob/main/docs/metrics/workload/pod-metrics.md"},
+    "kube_pod_container_status_restarts_total": {"role": "counter", "unit": "restarts", "definition": "Cumulative container restarts; a counter decrease is a reset, not a negative restart.", "source": "https://github.com/kubernetes/kube-state-metrics/blob/main/docs/metrics/workload/pod-metrics.md"},
+    "container_cpu_usage_seconds_total": {"role": "counter", "unit": "cpu_seconds", "definition": "Cumulative CPU time consumed; this is not instantaneous CPU utilization.", "source": "https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md"},
+    "container_memory_working_set_bytes": {"role": "usage", "unit": "bytes", "definition": "Current container working-set memory size.", "source": "https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md"},
+    "container_memory_usage_bytes": {"role": "usage", "unit": "bytes", "definition": "Current container memory usage including cached memory.", "source": "https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md"}
+  }
+}

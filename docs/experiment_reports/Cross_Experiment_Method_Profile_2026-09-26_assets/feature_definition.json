@@ -1,0 +1,177 @@
+{
+  "graph": "public graph, remove hosts, project pod-name suffixes, collapse duplicate directed edges; not proven deployment inventory",
+  "hops": "maximum finite directed shortest-path distance; isolates excluded, unavailable != zero",
+  "root_depth": "minimum entry-SCC distance to an accepted service/pod root; node unavailable",
+  "metrics": "full per-case metric columns; sampled shape proxy <=128 hash-selected dynamic series and <=64 actual rows; >=90% finite and median imputation for shape only",
+  "effective_rank": "exp entropy of normalized Gram eigenvalues; not label mutual information or physical fault complexity",
+  "selection": "feature bins independent of scores; posthoc descriptive profiles; no model-facing inputs changed",
+  "bins": {
+    "graph_services": [
+      [
+        -Infinity,
+        15,
+        30,
+        60,
+        Infinity
+      ],
+      [
+        "<=15",
+        "16-30",
+        "31-60",
+        ">60"
+      ]
+    ],
+    "graph_edges": [
+      [
+        -Infinity,
+        15,
+        40,
+        80,
+        Infinity
+      ],
+      [
+        "<=15",
+        "16-40",
+        "41-80",
+        ">80"
+      ]
+    ],
+    "graph_max_hops": [
+      [
+        -Infinity,
+        2,
+        4,
+        6,
+        Infinity
+      ],
+      [
+        "<=2",
+        "3-4",
+        "5-6",
+        ">=7"
+      ]
+    ],
+    "graph_isolate_fraction": [
+      [
+        -Infinity,
+        0.1,
+        0.3,
+        0.6,
+        Infinity
+      ],
+      [
+        "<=10%",
+        "10-30%",
+        "30-60%",
+        ">60%"
+      ]
+    ],
+    "root_entry_hops": [
+      [
+        -Infinity,
+        0,
+        1,
+        2,
+        4,
+        Infinity
+      ],
+      [
+        "entry",
+        "1",
+        "2",
+        "3-4",
+        ">=5"
+      ]
+    ],
+    "metric_series": [
+      [
+        -Infinity,
+        100,
+        1000,
+        3000,
+        Infinity
+      ],
+      [
+        "<=100",
+        "101-1000",
+        "1001-3000",
+        ">3000"
+      ]
+    ],
+    "metric_dynamic_fraction": [
+      [
+        -Infinity,
+        0.25,
+        0.5,
+        0.75,
+        Infinity
+      ],
+      [
+        "<=25%",
+        "25-50%",
+        "50-75%",
+        ">75%"
+      ]
+    ],
+    "metric_missing_fraction": [
+      [
+        -Infinity,
+        0.05,
+        0.3,
+        0.6,
+        Infinity
+      ],
+      [
+        "<=5%",
+        "5-30%",
+        "30-60%",
+        ">60%"
+      ]
+    ],
+    "metric_effective_rank": [
+      [
+        -Infinity,
+        3,
+        6,
+        12,
+        Infinity
+      ],
+      [
+        "<=3",
+        "3-6",
+        "6-12",
+        ">12"
+      ]
+    ],
+    "metric_redundancy_fraction": [
+      [
+        -Infinity,
+        0.1,
+        0.3,
+        0.6,
+        Infinity
+      ],
+      [
+        "<=10%",
+        "10-30%",
+        "30-60%",
+        ">60%"
+      ]
+    ],
+    "metric_total_variation": [
+      [
+        -Infinity,
+        3,
+        8,
+        16,
+        Infinity
+      ],
+      [
+        "<=3",
+        "3-8",
+        "8-16",
+        ">16"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,659 @@
+model,arm,dataset,fault_type,n,mrr,ac1
+gemma-4-26b-a4b,B3_G_REF,aegislab,ContainerKill,6,1.0,1.0
+gemma-4-26b-a4b,B3_G_REF,aegislab,HTTPRequestAbort,5,0.2,0.2
+gemma-4-26b-a4b,B3_G_REF,aegislab,HTTPRequestDelay,5,0.0,0.0
+gemma-4-26b-a4b,B3_G_REF,aegislab,HTTPRequestReplaceMethod,8,0.375,0.375
+gemma-4-26b-a4b,B3_G_REF,aegislab,HTTPResponseDelay,5,0.2,0.2
+gemma-4-26b-a4b,B3_G_REF,aegislab,HTTPResponseReplaceBody,1,0.0,0.0
+gemma-4-26b-a4b,B3_G_REF,aegislab,HTTPResponseReplaceCode,8,0.375,0.375
+gemma-4-26b-a4b,B3_G_REF,aegislab,JVMException,3,0.6666666666666666,0.6666666666666666
+gemma-4-26b-a4b,B3_G_REF,aegislab,JVMLatency,1,1.0,1.0
+gemma-4-26b-a4b,B3_G_REF,aegislab,JVMMemoryStress,9,0.8888888888888888,0.8888888888888888
+gemma-4-26b-a4b,B3_G_REF,aegislab,NetworkBandwidth,2,0.5,0.5
+gemma-4-26b-a4b,B3_G_REF,aegislab,NetworkCorrupt,2,0.5,0.5
+gemma-4-26b-a4b,B3_G_REF,aegislab,NetworkLoss,1,1.0,1.0
+gemma-4-26b-a4b,B3_G_REF,aegislab,NetworkPartition,3,0.0,0.0
+gemma-4-26b-a4b,B3_G_REF,aegislab,PodKill,1,1.0,1.0
+gemma-4-26b-a4b,B3_G_REF,aiops2022,k8s容器cpu负载,5,0.6,0.6
+gemma-4-26b-a4b,B3_G_REF,aiops2022,k8s容器内存负载,6,0.16666666666666666,0.16666666666666666
+gemma-4-26b-a4b,B3_G_REF,aiops2022,k8s容器写io负载,2,0.5,0.5
+gemma-4-26b-a4b,B3_G_REF,aiops2022,k8s容器网络丢包,4,0.0,0.0
+gemma-4-26b-a4b,B3_G_REF,aiops2022,k8s容器网络延迟,8,0.125,0.125
+gemma-4-26b-a4b,B3_G_REF,aiops2022,k8s容器网络资源包损坏,7,0.5714285714285714,0.5714285714285714
+gemma-4-26b-a4b,B3_G_REF,aiops2022,k8s容器网络资源包重复发送,5,0.2,0.2
+gemma-4-26b-a4b,B3_G_REF,aiops2022,k8s容器读io负载,4,0.5,0.5
+gemma-4-26b-a4b,B3_G_REF,aiops2022,k8s容器进程中止,3,0.6666666666666666,0.6666666666666666
+gemma-4-26b-a4b,B3_G_REF,aiops2022,node 内存消耗,3,0.0,0.0
+gemma-4-26b-a4b,B3_G_REF,aiops2022,node 磁盘写IO消耗,3,0.3333333333333333,0.3333333333333333
+gemma-4-26b-a4b,B3_G_REF,aiops2022,node 磁盘空间消耗,2,1.0,1.0
+gemma-4-26b-a4b,B3_G_REF,aiops2022,node 磁盘读IO消耗,4,0.25,0.25
+gemma-4-26b-a4b,B3_G_REF,aiops2022,node节点CPU故障,2,0.0,0.0
+gemma-4-26b-a4b,B3_G_REF,aiops2022,node节点CPU爬升,2,0.0,0.0
+gemma-4-26b-a4b,B3_G_REF,aiops2025,cpu stress,6,0.16666666666666666,0.16666666666666666
+gemma-4-26b-a4b,B3_G_REF,aiops2025,dns error,4,0.0,0.0
+gemma-4-26b-a4b,B3_G_REF,aiops2025,io fault,3,0.6666666666666666,0.6666666666666666
+gemma-4-26b-a4b,B3_G_REF,aiops2025,jvm cpu,3,1.0,1.0
+gemma-4-26b-a4b,B3_G_REF,aiops2025,jvm exception,5,0.4,0.4
+gemma-4-26b-a4b,B3_G_REF,aiops2025,jvm gc,1,0.0,0.0
+gemma-4-26b-a4b,B3_G_REF,aiops2025,jvm latency,3,0.0,0.0
+gemma-4-26b-a4b,B3_G_REF,aiops2025,memory stress,4,0.0,0.0
+gemma-4-26b-a4b,B3_G_REF,aiops2025,network corrupt,4,0.25,0.25
+gemma-4-26b-a4b,B3_G_REF,aiops2025,network delay,4,0.5,0.5
+gemma-4-26b-a4b,B3_G_REF,aiops2025,network loss,4,0.5,0.5
+gemma-4-26b-a4b,B3_G_REF,aiops2025,node cpu stress,2,1.0,1.0
+gemma-4-26b-a4b,B3_G_REF,aiops2025,node disk fill,4,0.5,0.5
+gemma-4-26b-a4b,B3_G_REF,aiops2025,node memory stress,3,0.0,0.0
+gemma-4-26b-a4b,B3_G_REF,aiops2025,pod failure,8,0.125,0.125
+gemma-4-26b-a4b,B3_G_REF,aiops2025,pod kill,1,0.0,0.0
+gemma-4-26b-a4b,B3_G_REF,aiops2025,target port misconfig,1,0.0,0.0
+gemma-4-26b-a4b,LOCAL_ID,aegislab,ContainerKill,6,0.5,0.5
+gemma-4-26b-a4b,LOCAL_ID,aegislab,HTTPRequestAbort,5,0.2,0.2
+gemma-4-26b-a4b,LOCAL_ID,aegislab,HTTPRequestDelay,5,0.2,0.2
+gemma-4-26b-a4b,LOCAL_ID,aegislab,HTTPRequestReplaceMethod,8,0.25,0.25
+gemma-4-26b-a4b,LOCAL_ID,aegislab,HTTPResponseDelay,5,0.2,0.2
+gemma-4-26b-a4b,LOCAL_ID,aegislab,HTTPResponseReplaceBody,1,0.0,0.0
+gemma-4-26b-a4b,LOCAL_ID,aegislab,HTTPResponseReplaceCode,8,0.25,0.25
+gemma-4-26b-a4b,LOCAL_ID,aegislab,JVMException,3,1.0,1.0
+gemma-4-26b-a4b,LOCAL_ID,aegislab,JVMLatency,1,1.0,1.0
+gemma-4-26b-a4b,LOCAL_ID,aegislab,JVMMemoryStress,9,0.4444444444444444,0.4444444444444444
+gemma-4-26b-a4b,LOCAL_ID,aegislab,NetworkBandwidth,2,1.0,1.0
+gemma-4-26b-a4b,LOCAL_ID,aegislab,NetworkCorrupt,2,0.5,0.5
+gemma-4-26b-a4b,LOCAL_ID,aegislab,NetworkLoss,1,1.0,1.0
+gemma-4-26b-a4b,LOCAL_ID,aegislab,NetworkPartition,3,0.0,0.0
+gemma-4-26b-a4b,LOCAL_ID,aegislab,PodKill,1,1.0,1.0
+gemma-4-26b-a4b,LOCAL_ID,aiops2022,k8s容器cpu负载,5,0.6,0.6
+gemma-4-26b-a4b,LOCAL_ID,aiops2022,k8s容器内存负载,6,0.16666666666666666,0.16666666666666666
+gemma-4-26b-a4b,LOCAL_ID,aiops2022,k8s容器写io负载,2,0.5,0.5
+gemma-4-26b-a4b,LOCAL_ID,aiops2022,k8s容器网络丢包,4,0.0,0.0
+gemma-4-26b-a4b,LOCAL_ID,aiops2022,k8s容器网络延迟,8,0.125,0.125
+gemma-4-26b-a4b,LOCAL_ID,aiops2022,k8s容器网络资源包损坏,7,0.14285714285714285,0.14285714285714285
+gemma-4-26b-a4b,LOCAL_ID,aiops2022,k8s容器网络资源包重复发送,5,0.2,0.2
+gemma-4-26b-a4b,LOCAL_ID,aiops2022,k8s容器读io负载,4,0.75,0.75
+gemma-4-26b-a4b,LOCAL_ID,aiops2022,k8s容器进程中止,3,0.3333333333333333,0.3333333333333333
+gemma-4-26b-a4b,LOCAL_ID,aiops2022,node 内存消耗,3,0.0,0.0
+gemma-4-26b-a4b,LOCAL_ID,aiops2022,node 磁盘写IO消耗,3,0.3333333333333333,0.3333333333333333
+gemma-4-26b-a4b,LOCAL_ID,aiops2022,node 磁盘空间消耗,2,1.0,1.0
+gemma-4-26b-a4b,LOCAL_ID,aiops2022,node 磁盘读IO消耗,4,0.25,0.25
+gemma-4-26b-a4b,LOCAL_ID,aiops2022,node节点CPU故障,2,0.0,0.0
+gemma-4-26b-a4b,LOCAL_ID,aiops2022,node节点CPU爬升,2,0.0,0.0
+gemma-4-26b-a4b,LOCAL_ID,aiops2025,cpu stress,6,0.16666666666666666,0.16666666666666666
+gemma-4-26b-a4b,LOCAL_ID,aiops2025,dns error,4,0.0,0.0
+gemma-4-26b-a4b,LOCAL_ID,aiops2025,io fault,3,0.0,0.0
+gemma-4-26b-a4b,LOCAL_ID,aiops2025,jvm cpu,3,0.6666666666666666,0.6666666666666666
+gemma-4-26b-a4b,LOCAL_ID,aiops2025,jvm exception,5,0.4,0.4
+gemma-4-26b-a4b,LOCAL_ID,aiops2025,jvm gc,1,0.0,0.0
+gemma-4-26b-a4b,LOCAL_ID,aiops2025,jvm latency,3,0.0,0.0
+gemma-4-26b-a4b,LOCAL_ID,aiops2025,memory stress,4,0.0,0.0
+gemma-4-26b-a4b,LOCAL_ID,aiops2025,network corrupt,4,0.25,0.25
+gemma-4-26b-a4b,LOCAL_ID,aiops2025,network delay,4,0.0,0.0
+gemma-4-26b-a4b,LOCAL_ID,aiops2025,network loss,4,0.25,0.25
+gemma-4-26b-a4b,LOCAL_ID,aiops2025,node cpu stress,2,1.0,1.0
+gemma-4-26b-a4b,LOCAL_ID,aiops2025,node disk fill,4,0.5,0.5
+gemma-4-26b-a4b,LOCAL_ID,aiops2025,node memory stress,3,0.0,0.0
+gemma-4-26b-a4b,LOCAL_ID,aiops2025,pod failure,8,0.0625,0.0
+gemma-4-26b-a4b,LOCAL_ID,aiops2025,pod kill,1,0.0,0.0
+gemma-4-26b-a4b,LOCAL_ID,aiops2025,target port misconfig,1,0.0,0.0
+gemma-4-26b-a4b,LOCAL_LINK,aegislab,ContainerKill,6,0.6666666666666666,0.6666666666666666
+gemma-4-26b-a4b,LOCAL_LINK,aegislab,HTTPRequestAbort,5,0.2,0.2
+gemma-4-26b-a4b,LOCAL_LINK,aegislab,HTTPRequestDelay,5,0.0,0.0
+gemma-4-26b-a4b,LOCAL_LINK,aegislab,HTTPRequestReplaceMethod,8,0.25,0.25
+gemma-4-26b-a4b,LOCAL_LINK,aegislab,HTTPResponseDelay,5,0.2,0.2
+gemma-4-26b-a4b,LOCAL_LINK,aegislab,HTTPResponseReplaceBody,1,0.0,0.0
+gemma-4-26b-a4b,LOCAL_LINK,aegislab,HTTPResponseReplaceCode,8,0.25,0.25
+gemma-4-26b-a4b,LOCAL_LINK,aegislab,JVMException,3,1.0,1.0
+gemma-4-26b-a4b,LOCAL_LINK,aegislab,JVMLatency,1,1.0,1.0
+gemma-4-26b-a4b,LOCAL_LINK,aegislab,JVMMemoryStress,9,0.6666666666666666,0.6666666666666666
+gemma-4-26b-a4b,LOCAL_LINK,aegislab,NetworkBandwidth,2,0.5,0.5
+gemma-4-26b-a4b,LOCAL_LINK,aegislab,NetworkCorrupt,2,1.0,1.0
+gemma-4-26b-a4b,LOCAL_LINK,aegislab,NetworkLoss,1,1.0,1.0
+gemma-4-26b-a4b,LOCAL_LINK,aegislab,NetworkPartition,3,0.0,0.0
+gemma-4-26b-a4b,LOCAL_LINK,aegislab,PodKill,1,1.0,1.0
+gemma-4-26b-a4b,LOCAL_LINK,aiops2022,k8s容器cpu负载,5,0.6,0.6
+gemma-4-26b-a4b,LOCAL_LINK,aiops2022,k8s容器内存负载,6,0.16666666666666666,0.16666666666666666
+gemma-4-26b-a4b,LOCAL_LINK,aiops2022,k8s容器写io负载,2,0.5,0.5
+gemma-4-26b-a4b,LOCAL_LINK,aiops2022,k8s容器网络丢包,4,0.0,0.0
+gemma-4-26b-a4b,LOCAL_LINK,aiops2022,k8s容器网络延迟,8,0.125,0.125
+gemma-4-26b-a4b,LOCAL_LINK,aiops2022,k8s容器网络资源包损坏,7,0.2857142857142857,0.2857142857142857
+gemma-4-26b-a4b,LOCAL_LINK,aiops2022,k8s容器网络资源包重复发送,5,0.2,0.2
+gemma-4-26b-a4b,LOCAL_LINK,aiops2022,k8s容器读io负载,4,0.75,0.75
+gemma-4-26b-a4b,LOCAL_LINK,aiops2022,k8s容器进程中止,3,0.3333333333333333,0.3333333333333333
+gemma-4-26b-a4b,LOCAL_LINK,aiops2022,node 内存消耗,3,0.0,0.0
+gemma-4-26b-a4b,LOCAL_LINK,aiops2022,node 磁盘写IO消耗,3,0.3333333333333333,0.3333333333333333
+gemma-4-26b-a4b,LOCAL_LINK,aiops2022,node 磁盘空间消耗,2,1.0,1.0
+gemma-4-26b-a4b,LOCAL_LINK,aiops2022,node 磁盘读IO消耗,4,0.25,0.25
+gemma-4-26b-a4b,LOCAL_LINK,aiops2022,node节点CPU故障,2,0.0,0.0
+gemma-4-26b-a4b,LOCAL_LINK,aiops2022,node节点CPU爬升,2,0.0,0.0
+gemma-4-26b-a4b,LOCAL_LINK,aiops2025,cpu stress,6,0.16666666666666666,0.16666666666666666
+gemma-4-26b-a4b,LOCAL_LINK,aiops2025,dns error,4,0.0,0.0
+gemma-4-26b-a4b,LOCAL_LINK,aiops2025,io fault,3,0.0,0.0
+gemma-4-26b-a4b,LOCAL_LINK,aiops2025,jvm cpu,3,0.6666666666666666,0.6666666666666666
+gemma-4-26b-a4b,LOCAL_LINK,aiops2025,jvm exception,5,0.4,0.4
+gemma-4-26b-a4b,LOCAL_LINK,aiops2025,jvm gc,1,0.0,0.0
+gemma-4-26b-a4b,LOCAL_LINK,aiops2025,jvm latency,3,0.0,0.0
+gemma-4-26b-a4b,LOCAL_LINK,aiops2025,memory stress,4,0.0,0.0
+gemma-4-26b-a4b,LOCAL_LINK,aiops2025,network corrupt,4,0.125,0.0
+gemma-4-26b-a4b,LOCAL_LINK,aiops2025,network delay,4,0.25,0.25
+gemma-4-26b-a4b,LOCAL_LINK,aiops2025,network loss,4,0.25,0.25
+gemma-4-26b-a4b,LOCAL_LINK,aiops2025,node cpu stress,2,1.0,1.0
+gemma-4-26b-a4b,LOCAL_LINK,aiops2025,node disk fill,4,0.5,0.5
+gemma-4-26b-a4b,LOCAL_LINK,aiops2025,node memory stress,3,0.0,0.0
+gemma-4-26b-a4b,LOCAL_LINK,aiops2025,pod failure,8,0.0,0.0
+gemma-4-26b-a4b,LOCAL_LINK,aiops2025,pod kill,1,0.0,0.0
+gemma-4-26b-a4b,LOCAL_LINK,aiops2025,target port misconfig,1,0.0,0.0
+gemma-4-26b-a4b,REMOTE_ID,aegislab,ContainerKill,6,0.8333333333333334,0.8333333333333334
+gemma-4-26b-a4b,REMOTE_ID,aegislab,HTTPRequestAbort,5,0.0,0.0
+gemma-4-26b-a4b,REMOTE_ID,aegislab,HTTPRequestDelay,5,0.2,0.2
+gemma-4-26b-a4b,REMOTE_ID,aegislab,HTTPRequestReplaceMethod,8,0.25,0.25
+gemma-4-26b-a4b,REMOTE_ID,aegislab,HTTPResponseDelay,5,0.2,0.2
+gemma-4-26b-a4b,REMOTE_ID,aegislab,HTTPResponseReplaceBody,1,0.0,0.0
+gemma-4-26b-a4b,REMOTE_ID,aegislab,HTTPResponseReplaceCode,8,0.375,0.375
+gemma-4-26b-a4b,REMOTE_ID,aegislab,JVMException,3,0.6666666666666666,0.6666666666666666
+gemma-4-26b-a4b,REMOTE_ID,aegislab,JVMLatency,1,1.0,1.0
+gemma-4-26b-a4b,REMOTE_ID,aegislab,JVMMemoryStress,9,0.4444444444444444,0.4444444444444444
+gemma-4-26b-a4b,REMOTE_ID,aegislab,NetworkBandwidth,2,0.5,0.5
+gemma-4-26b-a4b,REMOTE_ID,aegislab,NetworkCorrupt,2,1.0,1.0
+gemma-4-26b-a4b,REMOTE_ID,aegislab,NetworkLoss,1,1.0,1.0
+gemma-4-26b-a4b,REMOTE_ID,aegislab,NetworkPartition,3,0.0,0.0
+gemma-4-26b-a4b,REMOTE_ID,aegislab,PodKill,1,1.0,1.0
+gemma-4-26b-a4b,REMOTE_ID,aiops2022,k8s容器cpu负载,5,0.6,0.6
+gemma-4-26b-a4b,REMOTE_ID,aiops2022,k8s容器内存负载,6,0.16666666666666666,0.16666666666666666
+gemma-4-26b-a4b,REMOTE_ID,aiops2022,k8s容器写io负载,2,0.5,0.5
+gemma-4-26b-a4b,REMOTE_ID,aiops2022,k8s容器网络丢包,4,0.0,0.0
+gemma-4-26b-a4b,REMOTE_ID,aiops2022,k8s容器网络延迟,8,0.25,0.25
+gemma-4-26b-a4b,REMOTE_ID,aiops2022,k8s容器网络资源包损坏,7,0.2857142857142857,0.2857142857142857
+gemma-4-26b-a4b,REMOTE_ID,aiops2022,k8s容器网络资源包重复发送,5,0.2,0.2
+gemma-4-26b-a4b,REMOTE_ID,aiops2022,k8s容器读io负载,4,0.75,0.75
+gemma-4-26b-a4b,REMOTE_ID,aiops2022,k8s容器进程中止,3,0.3333333333333333,0.3333333333333333
+gemma-4-26b-a4b,REMOTE_ID,aiops2022,node 内存消耗,3,0.0,0.0
+gemma-4-26b-a4b,REMOTE_ID,aiops2022,node 磁盘写IO消耗,3,0.0,0.0
+gemma-4-26b-a4b,REMOTE_ID,aiops2022,node 磁盘空间消耗,2,1.0,1.0
+gemma-4-26b-a4b,REMOTE_ID,aiops2022,node 磁盘读IO消耗,4,0.25,0.25
+gemma-4-26b-a4b,REMOTE_ID,aiops2022,node节点CPU故障,2,0.0,0.0
+gemma-4-26b-a4b,REMOTE_ID,aiops2022,node节点CPU爬升,2,0.0,0.0
+gemma-4-26b-a4b,REMOTE_ID,aiops2025,cpu stress,6,0.16666666666666666,0.16666666666666666
+gemma-4-26b-a4b,REMOTE_ID,aiops2025,dns error,4,0.0,0.0
+gemma-4-26b-a4b,REMOTE_ID,aiops2025,io fault,3,0.3333333333333333,0.3333333333333333
+gemma-4-26b-a4b,REMOTE_ID,aiops2025,jvm cpu,3,0.6666666666666666,0.6666666666666666
+gemma-4-26b-a4b,REMOTE_ID,aiops2025,jvm exception,5,0.4,0.4
+gemma-4-26b-a4b,REMOTE_ID,aiops2025,jvm gc,1,0.0,0.0
+gemma-4-26b-a4b,REMOTE_ID,aiops2025,jvm latency,3,0.0,0.0
+gemma-4-26b-a4b,REMOTE_ID,aiops2025,memory stress,4,0.0,0.0
+gemma-4-26b-a4b,REMOTE_ID,aiops2025,network corrupt,4,0.125,0.0
+gemma-4-26b-a4b,REMOTE_ID,aiops2025,network delay,4,0.25,0.25
+gemma-4-26b-a4b,REMOTE_ID,aiops2025,network loss,4,0.25,0.25
+gemma-4-26b-a4b,REMOTE_ID,aiops2025,node cpu stress,2,1.0,1.0
+gemma-4-26b-a4b,REMOTE_ID,aiops2025,node disk fill,4,0.5,0.5
+gemma-4-26b-a4b,REMOTE_ID,aiops2025,node memory stress,3,0.0,0.0
+gemma-4-26b-a4b,REMOTE_ID,aiops2025,pod failure,8,0.0,0.0
+gemma-4-26b-a4b,REMOTE_ID,aiops2025,pod kill,1,0.0,0.0
+gemma-4-26b-a4b,REMOTE_ID,aiops2025,target port misconfig,1,0.0,0.0
+gemma-4-26b-a4b,REMOTE_LINK,aegislab,ContainerKill,6,0.6666666666666666,0.6666666666666666
+gemma-4-26b-a4b,REMOTE_LINK,aegislab,HTTPRequestAbort,5,0.0,0.0
+gemma-4-26b-a4b,REMOTE_LINK,aegislab,HTTPRequestDelay,5,0.2,0.2
+gemma-4-26b-a4b,REMOTE_LINK,aegislab,HTTPRequestReplaceMethod,8,0.375,0.375
+gemma-4-26b-a4b,REMOTE_LINK,aegislab,HTTPResponseDelay,5,0.2,0.2
+gemma-4-26b-a4b,REMOTE_LINK,aegislab,HTTPResponseReplaceBody,1,0.0,0.0
+gemma-4-26b-a4b,REMOTE_LINK,aegislab,HTTPResponseReplaceCode,8,0.375,0.375
+gemma-4-26b-a4b,REMOTE_LINK,aegislab,JVMException,3,1.0,1.0
+gemma-4-26b-a4b,REMOTE_LINK,aegislab,JVMLatency,1,1.0,1.0
+gemma-4-26b-a4b,REMOTE_LINK,aegislab,JVMMemoryStress,9,0.3333333333333333,0.3333333333333333
+gemma-4-26b-a4b,REMOTE_LINK,aegislab,NetworkBandwidth,2,0.5,0.5
+gemma-4-26b-a4b,REMOTE_LINK,aegislab,NetworkCorrupt,2,1.0,1.0
+gemma-4-26b-a4b,REMOTE_LINK,aegislab,NetworkLoss,1,1.0,1.0
+gemma-4-26b-a4b,REMOTE_LINK,aegislab,NetworkPartition,3,0.0,0.0
+gemma-4-26b-a4b,REMOTE_LINK,aegislab,PodKill,1,1.0,1.0
+gemma-4-26b-a4b,REMOTE_LINK,aiops2022,k8s容器cpu负载,5,0.6,0.6
+gemma-4-26b-a4b,REMOTE_LINK,aiops2022,k8s容器内存负载,6,0.16666666666666666,0.16666666666666666
+gemma-4-26b-a4b,REMOTE_LINK,aiops2022,k8s容器写io负载,2,0.5,0.5
+gemma-4-26b-a4b,REMOTE_LINK,aiops2022,k8s容器网络丢包,4,0.0,0.0
+gemma-4-26b-a4b,REMOTE_LINK,aiops2022,k8s容器网络延迟,8,0.125,0.125
+gemma-4-26b-a4b,REMOTE_LINK,aiops2022,k8s容器网络资源包损坏,7,0.2857142857142857,0.2857142857142857
+gemma-4-26b-a4b,REMOTE_LINK,aiops2022,k8s容器网络资源包重复发送,5,0.2,0.2
+gemma-4-26b-a4b,REMOTE_LINK,aiops2022,k8s容器读io负载,4,0.5,0.5
+gemma-4-26b-a4b,REMOTE_LINK,aiops2022,k8s容器进程中止,3,0.3333333333333333,0.3333333333333333
+gemma-4-26b-a4b,REMOTE_LINK,aiops2022,node 内存消耗,3,0.0,0.0
+gemma-4-26b-a4b,REMOTE_LINK,aiops2022,node 磁盘写IO消耗,3,0.0,0.0
+gemma-4-26b-a4b,REMOTE_LINK,aiops2022,node 磁盘空间消耗,2,1.0,1.0
+gemma-4-26b-a4b,REMOTE_LINK,aiops2022,node 磁盘读IO消耗,4,0.25,0.25
+gemma-4-26b-a4b,REMOTE_LINK,aiops2022,node节点CPU故障,2,0.0,0.0
+gemma-4-26b-a4b,REMOTE_LINK,aiops2022,node节点CPU爬升,2,0.0,0.0
+gemma-4-26b-a4b,REMOTE_LINK,aiops2025,cpu stress,6,0.16666666666666666,0.16666666666666666
+gemma-4-26b-a4b,REMOTE_LINK,aiops2025,dns error,4,0.0,0.0
+gemma-4-26b-a4b,REMOTE_LINK,aiops2025,io fault,3,0.6666666666666666,0.6666666666666666
+gemma-4-26b-a4b,REMOTE_LINK,aiops2025,jvm cpu,3,0.6666666666666666,0.6666666666666666
+gemma-4-26b-a4b,REMOTE_LINK,aiops2025,jvm exception,5,0.4,0.4
+gemma-4-26b-a4b,REMOTE_LINK,aiops2025,jvm gc,1,0.0,0.0
+gemma-4-26b-a4b,REMOTE_LINK,aiops2025,jvm latency,3,0.0,0.0
+gemma-4-26b-a4b,REMOTE_LINK,aiops2025,memory stress,4,0.0,0.0
+gemma-4-26b-a4b,REMOTE_LINK,aiops2025,network corrupt,4,0.125,0.0
+gemma-4-26b-a4b,REMOTE_LINK,aiops2025,network delay,4,0.25,0.25
+gemma-4-26b-a4b,REMOTE_LINK,aiops2025,network loss,4,0.375,0.25
+gemma-4-26b-a4b,REMOTE_LINK,aiops2025,node cpu stress,2,0.5,0.5
+gemma-4-26b-a4b,REMOTE_LINK,aiops2025,node disk fill,4,0.5,0.5
+gemma-4-26b-a4b,REMOTE_LINK,aiops2025,node memory stress,3,0.0,0.0
+gemma-4-26b-a4b,REMOTE_LINK,aiops2025,pod failure,8,0.0,0.0
+gemma-4-26b-a4b,REMOTE_LINK,aiops2025,pod kill,1,0.0,0.0
+gemma-4-26b-a4b,REMOTE_LINK,aiops2025,target port misconfig,1,0.0,0.0
+gemma-4-26b-a4b,TPV_REF,aegislab,ContainerKill,6,0.5,0.5
+gemma-4-26b-a4b,TPV_REF,aegislab,HTTPRequestAbort,5,0.2,0.2
+gemma-4-26b-a4b,TPV_REF,aegislab,HTTPRequestDelay,5,0.0,0.0
+gemma-4-26b-a4b,TPV_REF,aegislab,HTTPRequestReplaceMethod,8,0.25,0.25
+gemma-4-26b-a4b,TPV_REF,aegislab,HTTPResponseDelay,5,0.2,0.2
+gemma-4-26b-a4b,TPV_REF,aegislab,HTTPResponseReplaceBody,1,0.0,0.0
+gemma-4-26b-a4b,TPV_REF,aegislab,HTTPResponseReplaceCode,8,0.5,0.5
+gemma-4-26b-a4b,TPV_REF,aegislab,JVMException,3,1.0,1.0
+gemma-4-26b-a4b,TPV_REF,aegislab,JVMLatency,1,1.0,1.0
+gemma-4-26b-a4b,TPV_REF,aegislab,JVMMemoryStress,9,0.6111111111111112,0.5555555555555556
+gemma-4-26b-a4b,TPV_REF,aegislab,NetworkBandwidth,2,0.5,0.5
+gemma-4-26b-a4b,TPV_REF,aegislab,NetworkCorrupt,2,0.5,0.5
+gemma-4-26b-a4b,TPV_REF,aegislab,NetworkLoss,1,1.0,1.0
+gemma-4-26b-a4b,TPV_REF,aegislab,NetworkPartition,3,0.0,0.0
+gemma-4-26b-a4b,TPV_REF,aegislab,PodKill,1,1.0,1.0
+gemma-4-26b-a4b,TPV_REF,aiops2022,k8s容器cpu负载,5,0.4,0.4
+gemma-4-26b-a4b,TPV_REF,aiops2022,k8s容器内存负载,6,0.0,0.0
+gemma-4-26b-a4b,TPV_REF,aiops2022,k8s容器写io负载,2,1.0,1.0
+gemma-4-26b-a4b,TPV_REF,aiops2022,k8s容器网络丢包,4,0.0,0.0
+gemma-4-26b-a4b,TPV_REF,aiops2022,k8s容器网络延迟,8,0.125,0.125
+gemma-4-26b-a4b,TPV_REF,aiops2022,k8s容器网络资源包损坏,7,0.2857142857142857,0.2857142857142857
+gemma-4-26b-a4b,TPV_REF,aiops2022,k8s容器网络资源包重复发送,5,0.2,0.2
+gemma-4-26b-a4b,TPV_REF,aiops2022,k8s容器读io负载,4,0.5,0.5
+gemma-4-26b-a4b,TPV_REF,aiops2022,k8s容器进程中止,3,0.3333333333333333,0.3333333333333333
+gemma-4-26b-a4b,TPV_REF,aiops2022,node 内存消耗,3,0.0,0.0
+gemma-4-26b-a4b,TPV_REF,aiops2022,node 磁盘写IO消耗,3,0.0,0.0
+gemma-4-26b-a4b,TPV_REF,aiops2022,node 磁盘空间消耗,2,1.0,1.0
+gemma-4-26b-a4b,TPV_REF,aiops2022,node 磁盘读IO消耗,4,0.25,0.25
+gemma-4-26b-a4b,TPV_REF,aiops2022,node节点CPU故障,2,0.0,0.0
+gemma-4-26b-a4b,TPV_REF,aiops2022,node节点CPU爬升,2,0.0,0.0
+gemma-4-26b-a4b,TPV_REF,aiops2025,cpu stress,6,0.3333333333333333,0.3333333333333333
+gemma-4-26b-a4b,TPV_REF,aiops2025,dns error,4,0.0,0.0
+gemma-4-26b-a4b,TPV_REF,aiops2025,io fault,3,0.3333333333333333,0.3333333333333333
+gemma-4-26b-a4b,TPV_REF,aiops2025,jvm cpu,3,1.0,1.0
+gemma-4-26b-a4b,TPV_REF,aiops2025,jvm exception,5,0.4,0.4
+gemma-4-26b-a4b,TPV_REF,aiops2025,jvm gc,1,0.0,0.0
+gemma-4-26b-a4b,TPV_REF,aiops2025,jvm latency,3,0.0,0.0
+gemma-4-26b-a4b,TPV_REF,aiops2025,memory stress,4,0.0,0.0
+gemma-4-26b-a4b,TPV_REF,aiops2025,network corrupt,4,0.3333333333333333,0.25
+gemma-4-26b-a4b,TPV_REF,aiops2025,network delay,4,0.25,0.25
+gemma-4-26b-a4b,TPV_REF,aiops2025,network loss,4,0.25,0.25
+gemma-4-26b-a4b,TPV_REF,aiops2025,node cpu stress,2,0.5,0.5
+gemma-4-26b-a4b,TPV_REF,aiops2025,node disk fill,4,0.5,0.5
+gemma-4-26b-a4b,TPV_REF,aiops2025,node memory stress,3,0.0,0.0
+gemma-4-26b-a4b,TPV_REF,aiops2025,pod failure,8,0.0,0.0
+gemma-4-26b-a4b,TPV_REF,aiops2025,pod kill,1,0.0,0.0
+gemma-4-26b-a4b,TPV_REF,aiops2025,target port misconfig,1,0.0,0.0
+gemma-4-26b-a4b,T_MATCH,aegislab,ContainerKill,6,0.8333333333333334,0.8333333333333334
+gemma-4-26b-a4b,T_MATCH,aegislab,HTTPRequestAbort,5,0.2,0.2
+gemma-4-26b-a4b,T_MATCH,aegislab,HTTPRequestDelay,5,0.0,0.0
+gemma-4-26b-a4b,T_MATCH,aegislab,HTTPRequestReplaceMethod,8,0.375,0.375
+gemma-4-26b-a4b,T_MATCH,aegislab,HTTPResponseDelay,5,0.4,0.4
+gemma-4-26b-a4b,T_MATCH,aegislab,HTTPResponseReplaceBody,1,0.0,0.0
+gemma-4-26b-a4b,T_MATCH,aegislab,HTTPResponseReplaceCode,8,0.25,0.25
+gemma-4-26b-a4b,T_MATCH,aegislab,JVMException,3,0.6666666666666666,0.6666666666666666
+gemma-4-26b-a4b,T_MATCH,aegislab,JVMLatency,1,1.0,1.0
+gemma-4-26b-a4b,T_MATCH,aegislab,JVMMemoryStress,9,0.6666666666666666,0.6666666666666666
+gemma-4-26b-a4b,T_MATCH,aegislab,NetworkBandwidth,2,0.0,0.0
+gemma-4-26b-a4b,T_MATCH,aegislab,NetworkCorrupt,2,0.0,0.0
+gemma-4-26b-a4b,T_MATCH,aegislab,NetworkLoss,1,1.0,1.0
+gemma-4-26b-a4b,T_MATCH,aegislab,NetworkPartition,3,0.0,0.0
+gemma-4-26b-a4b,T_MATCH,aegislab,PodKill,1,0.0,0.0
+gemma-4-26b-a4b,T_MATCH,aiops2022,k8s容器cpu负载,5,0.4,0.4
+gemma-4-26b-a4b,T_MATCH,aiops2022,k8s容器内存负载,6,0.0,0.0
+gemma-4-26b-a4b,T_MATCH,aiops2022,k8s容器写io负载,2,1.0,1.0
+gemma-4-26b-a4b,T_MATCH,aiops2022,k8s容器网络丢包,4,0.0,0.0
+gemma-4-26b-a4b,T_MATCH,aiops2022,k8s容器网络延迟,8,0.0,0.0
+gemma-4-26b-a4b,T_MATCH,aiops2022,k8s容器网络资源包损坏,7,0.14285714285714285,0.14285714285714285
+gemma-4-26b-a4b,T_MATCH,aiops2022,k8s容器网络资源包重复发送,5,0.2,0.2
+gemma-4-26b-a4b,T_MATCH,aiops2022,k8s容器读io负载,4,0.25,0.25
+gemma-4-26b-a4b,T_MATCH,aiops2022,k8s容器进程中止,3,0.0,0.0
+gemma-4-26b-a4b,T_MATCH,aiops2022,node 内存消耗,3,0.0,0.0
+gemma-4-26b-a4b,T_MATCH,aiops2022,node 磁盘写IO消耗,3,0.6666666666666666,0.6666666666666666
+gemma-4-26b-a4b,T_MATCH,aiops2022,node 磁盘空间消耗,2,1.0,1.0
+gemma-4-26b-a4b,T_MATCH,aiops2022,node 磁盘读IO消耗,4,0.5,0.5
+gemma-4-26b-a4b,T_MATCH,aiops2022,node节点CPU故障,2,0.5,0.5
+gemma-4-26b-a4b,T_MATCH,aiops2022,node节点CPU爬升,2,0.0,0.0
+gemma-4-26b-a4b,T_MATCH,aiops2025,cpu stress,6,0.3333333333333333,0.3333333333333333
+gemma-4-26b-a4b,T_MATCH,aiops2025,dns error,4,0.0,0.0
+gemma-4-26b-a4b,T_MATCH,aiops2025,io fault,3,0.0,0.0
+gemma-4-26b-a4b,T_MATCH,aiops2025,jvm cpu,3,0.6666666666666666,0.6666666666666666
+gemma-4-26b-a4b,T_MATCH,aiops2025,jvm exception,5,0.2,0.2
+gemma-4-26b-a4b,T_MATCH,aiops2025,jvm gc,1,0.0,0.0
+gemma-4-26b-a4b,T_MATCH,aiops2025,jvm latency,3,0.0,0.0
+gemma-4-26b-a4b,T_MATCH,aiops2025,memory stress,4,0.0,0.0
+gemma-4-26b-a4b,T_MATCH,aiops2025,network corrupt,4,0.125,0.0
+gemma-4-26b-a4b,T_MATCH,aiops2025,network delay,4,0.25,0.25
+gemma-4-26b-a4b,T_MATCH,aiops2025,network loss,4,0.5,0.5
+gemma-4-26b-a4b,T_MATCH,aiops2025,node cpu stress,2,1.0,1.0
+gemma-4-26b-a4b,T_MATCH,aiops2025,node disk fill,4,0.75,0.75
+gemma-4-26b-a4b,T_MATCH,aiops2025,node memory stress,3,0.3333333333333333,0.3333333333333333
+gemma-4-26b-a4b,T_MATCH,aiops2025,pod failure,8,0.0,0.0
+gemma-4-26b-a4b,T_MATCH,aiops2025,pod kill,1,0.0,0.0
+gemma-4-26b-a4b,T_MATCH,aiops2025,target port misconfig,1,0.0,0.0
+qwen3.8-27b,B3_G_REF,aegislab,ContainerKill,6,1.0,1.0
+qwen3.8-27b,B3_G_REF,aegislab,HTTPRequestAbort,5,0.16666666666666666,0.0
+qwen3.8-27b,B3_G_REF,aegislab,HTTPRequestDelay,5,0.2,0.2
+qwen3.8-27b,B3_G_REF,aegislab,HTTPRequestReplaceMethod,8,0.625,0.5
+qwen3.8-27b,B3_G_REF,aegislab,HTTPResponseDelay,5,0.6,0.4
+qwen3.8-27b,B3_G_REF,aegislab,HTTPResponseReplaceBody,1,0.0,0.0
+qwen3.8-27b,B3_G_REF,aegislab,HTTPResponseReplaceCode,8,0.25,0.25
+qwen3.8-27b,B3_G_REF,aegislab,JVMException,3,1.0,1.0
+qwen3.8-27b,B3_G_REF,aegislab,JVMLatency,1,1.0,1.0
+qwen3.8-27b,B3_G_REF,aegislab,JVMMemoryStress,8,0.8125,0.75
+qwen3.8-27b,B3_G_REF,aegislab,NetworkBandwidth,2,1.0,1.0
+qwen3.8-27b,B3_G_REF,aegislab,NetworkCorrupt,2,1.0,1.0
+qwen3.8-27b,B3_G_REF,aegislab,NetworkLoss,1,1.0,1.0
+qwen3.8-27b,B3_G_REF,aegislab,NetworkPartition,3,0.6666666666666666,0.6666666666666666
+qwen3.8-27b,B3_G_REF,aegislab,PodKill,1,0.5,0.0
+qwen3.8-27b,B3_G_REF,aiops2022,k8s容器cpu负载,5,0.6666666666666666,0.6
+qwen3.8-27b,B3_G_REF,aiops2022,k8s容器内存负载,6,0.38888888888888884,0.3333333333333333
+qwen3.8-27b,B3_G_REF,aiops2022,k8s容器写io负载,2,1.0,1.0
+qwen3.8-27b,B3_G_REF,aiops2022,k8s容器网络丢包,3,0.0,0.0
+qwen3.8-27b,B3_G_REF,aiops2022,k8s容器网络延迟,8,0.25,0.25
+qwen3.8-27b,B3_G_REF,aiops2022,k8s容器网络资源包损坏,6,0.5,0.5
+qwen3.8-27b,B3_G_REF,aiops2022,k8s容器网络资源包重复发送,5,0.0,0.0
+qwen3.8-27b,B3_G_REF,aiops2022,k8s容器读io负载,4,0.20833333333333331,0.0
+qwen3.8-27b,B3_G_REF,aiops2022,k8s容器进程中止,3,0.1111111111111111,0.0
+qwen3.8-27b,B3_G_REF,aiops2022,node 内存消耗,3,0.0,0.0
+qwen3.8-27b,B3_G_REF,aiops2022,node 磁盘写IO消耗,3,0.3333333333333333,0.3333333333333333
+qwen3.8-27b,B3_G_REF,aiops2022,node 磁盘空间消耗,2,0.6666666666666666,0.5
+qwen3.8-27b,B3_G_REF,aiops2022,node 磁盘读IO消耗,4,0.375,0.25
+qwen3.8-27b,B3_G_REF,aiops2022,node节点CPU故障,2,0.16666666666666666,0.0
+qwen3.8-27b,B3_G_REF,aiops2022,node节点CPU爬升,2,0.0,0.0
+qwen3.8-27b,B3_G_REF,aiops2025,cpu stress,5,0.5,0.4
+qwen3.8-27b,B3_G_REF,aiops2025,dns error,4,0.375,0.25
+qwen3.8-27b,B3_G_REF,aiops2025,io fault,3,0.6666666666666666,0.6666666666666666
+qwen3.8-27b,B3_G_REF,aiops2025,jvm cpu,3,1.0,1.0
+qwen3.8-27b,B3_G_REF,aiops2025,jvm exception,5,0.4,0.4
+qwen3.8-27b,B3_G_REF,aiops2025,jvm gc,1,0.0,0.0
+qwen3.8-27b,B3_G_REF,aiops2025,jvm latency,3,0.1111111111111111,0.0
+qwen3.8-27b,B3_G_REF,aiops2025,memory stress,4,0.08333333333333333,0.0
+qwen3.8-27b,B3_G_REF,aiops2025,network corrupt,4,0.8333333333333333,0.75
+qwen3.8-27b,B3_G_REF,aiops2025,network delay,4,0.5,0.5
+qwen3.8-27b,B3_G_REF,aiops2025,network loss,4,0.8333333333333333,0.75
+qwen3.8-27b,B3_G_REF,aiops2025,node cpu stress,2,0.75,0.5
+qwen3.8-27b,B3_G_REF,aiops2025,node disk fill,4,0.25,0.25
+qwen3.8-27b,B3_G_REF,aiops2025,node memory stress,3,0.3333333333333333,0.3333333333333333
+qwen3.8-27b,B3_G_REF,aiops2025,pod failure,8,0.125,0.125
+qwen3.8-27b,B3_G_REF,aiops2025,pod kill,1,1.0,1.0
+qwen3.8-27b,B3_G_REF,aiops2025,target port misconfig,1,0.0,0.0
+qwen3.8-27b,LOCAL_ID,aegislab,ContainerKill,6,1.0,1.0
+qwen3.8-27b,LOCAL_ID,aegislab,HTTPRequestAbort,5,0.1,0.0
+qwen3.8-27b,LOCAL_ID,aegislab,HTTPRequestDelay,5,0.5,0.4
+qwen3.8-27b,LOCAL_ID,aegislab,HTTPRequestReplaceMethod,8,0.6875,0.5
+qwen3.8-27b,LOCAL_ID,aegislab,HTTPResponseDelay,5,0.5,0.2
+qwen3.8-27b,LOCAL_ID,aegislab,HTTPResponseReplaceBody,1,0.0,0.0
+qwen3.8-27b,LOCAL_ID,aegislab,HTTPResponseReplaceCode,8,0.375,0.25
+qwen3.8-27b,LOCAL_ID,aegislab,JVMException,3,1.0,1.0
+qwen3.8-27b,LOCAL_ID,aegislab,JVMLatency,1,1.0,1.0
+qwen3.8-27b,LOCAL_ID,aegislab,JVMMemoryStress,9,0.5555555555555556,0.5555555555555556
+qwen3.8-27b,LOCAL_ID,aegislab,NetworkBandwidth,2,1.0,1.0
+qwen3.8-27b,LOCAL_ID,aegislab,NetworkCorrupt,2,1.0,1.0
+qwen3.8-27b,LOCAL_ID,aegislab,NetworkLoss,1,1.0,1.0
+qwen3.8-27b,LOCAL_ID,aegislab,NetworkPartition,3,0.6666666666666666,0.6666666666666666
+qwen3.8-27b,LOCAL_ID,aegislab,PodKill,1,0.5,0.0
+qwen3.8-27b,LOCAL_ID,aiops2022,k8s容器cpu负载,5,0.8,0.8
+qwen3.8-27b,LOCAL_ID,aiops2022,k8s容器内存负载,6,0.38888888888888884,0.3333333333333333
+qwen3.8-27b,LOCAL_ID,aiops2022,k8s容器写io负载,2,1.0,1.0
+qwen3.8-27b,LOCAL_ID,aiops2022,k8s容器网络丢包,3,0.0,0.0
+qwen3.8-27b,LOCAL_ID,aiops2022,k8s容器网络延迟,8,0.375,0.375
+qwen3.8-27b,LOCAL_ID,aiops2022,k8s容器网络资源包损坏,6,0.5,0.5
+qwen3.8-27b,LOCAL_ID,aiops2022,k8s容器网络资源包重复发送,5,0.2,0.2
+qwen3.8-27b,LOCAL_ID,aiops2022,k8s容器读io负载,4,0.5,0.25
+qwen3.8-27b,LOCAL_ID,aiops2022,k8s容器进程中止,3,0.16666666666666666,0.0
+qwen3.8-27b,LOCAL_ID,aiops2022,node 内存消耗,3,0.0,0.0
+qwen3.8-27b,LOCAL_ID,aiops2022,node 磁盘写IO消耗,3,0.3333333333333333,0.3333333333333333
+qwen3.8-27b,LOCAL_ID,aiops2022,node 磁盘空间消耗,2,0.5,0.5
+qwen3.8-27b,LOCAL_ID,aiops2022,node 磁盘读IO消耗,4,0.25,0.25
+qwen3.8-27b,LOCAL_ID,aiops2022,node节点CPU故障,2,0.0,0.0
+qwen3.8-27b,LOCAL_ID,aiops2022,node节点CPU爬升,2,0.0,0.0
+qwen3.8-27b,LOCAL_ID,aiops2025,cpu stress,5,0.4666666666666666,0.4
+qwen3.8-27b,LOCAL_ID,aiops2025,dns error,4,0.125,0.0
+qwen3.8-27b,LOCAL_ID,aiops2025,io fault,3,0.7777777777777778,0.6666666666666666
+qwen3.8-27b,LOCAL_ID,aiops2025,jvm cpu,3,1.0,1.0
+qwen3.8-27b,LOCAL_ID,aiops2025,jvm exception,5,0.4666666666666666,0.4
+qwen3.8-27b,LOCAL_ID,aiops2025,jvm gc,1,0.0,0.0
+qwen3.8-27b,LOCAL_ID,aiops2025,jvm latency,3,0.4444444444444444,0.3333333333333333
+qwen3.8-27b,LOCAL_ID,aiops2025,memory stress,4,0.125,0.0
+qwen3.8-27b,LOCAL_ID,aiops2025,network corrupt,4,0.75,0.5
+qwen3.8-27b,LOCAL_ID,aiops2025,network delay,4,0.625,0.5
+qwen3.8-27b,LOCAL_ID,aiops2025,network loss,4,0.8333333333333333,0.75
+qwen3.8-27b,LOCAL_ID,aiops2025,node cpu stress,2,0.5,0.5
+qwen3.8-27b,LOCAL_ID,aiops2025,node disk fill,4,0.5,0.5
+qwen3.8-27b,LOCAL_ID,aiops2025,node memory stress,3,0.3333333333333333,0.3333333333333333
+qwen3.8-27b,LOCAL_ID,aiops2025,pod failure,8,0.125,0.125
+qwen3.8-27b,LOCAL_ID,aiops2025,pod kill,1,0.3333333333333333,0.0
+qwen3.8-27b,LOCAL_ID,aiops2025,target port misconfig,1,0.0,0.0
+qwen3.8-27b,LOCAL_LINK,aegislab,ContainerKill,6,1.0,1.0
+qwen3.8-27b,LOCAL_LINK,aegislab,HTTPRequestAbort,5,0.1,0.0
+qwen3.8-27b,LOCAL_LINK,aegislab,HTTPRequestDelay,5,0.6,0.4
+qwen3.8-27b,LOCAL_LINK,aegislab,HTTPRequestReplaceMethod,8,0.6875,0.5
+qwen3.8-27b,LOCAL_LINK,aegislab,HTTPResponseDelay,5,0.5,0.2
+qwen3.8-27b,LOCAL_LINK,aegislab,HTTPResponseReplaceBody,1,0.0,0.0
+qwen3.8-27b,LOCAL_LINK,aegislab,HTTPResponseReplaceCode,8,0.375,0.25
+qwen3.8-27b,LOCAL_LINK,aegislab,JVMException,3,1.0,1.0
+qwen3.8-27b,LOCAL_LINK,aegislab,JVMLatency,1,1.0,1.0
+qwen3.8-27b,LOCAL_LINK,aegislab,JVMMemoryStress,9,0.5555555555555556,0.5555555555555556
+qwen3.8-27b,LOCAL_LINK,aegislab,NetworkBandwidth,2,1.0,1.0
+qwen3.8-27b,LOCAL_LINK,aegislab,NetworkCorrupt,2,1.0,1.0
+qwen3.8-27b,LOCAL_LINK,aegislab,NetworkLoss,1,1.0,1.0
+qwen3.8-27b,LOCAL_LINK,aegislab,NetworkPartition,3,0.6666666666666666,0.6666666666666666
+qwen3.8-27b,LOCAL_LINK,aegislab,PodKill,1,0.5,0.0
+qwen3.8-27b,LOCAL_LINK,aiops2022,k8s容器cpu负载,5,0.8,0.8
+qwen3.8-27b,LOCAL_LINK,aiops2022,k8s容器内存负载,6,0.4444444444444444,0.3333333333333333
+qwen3.8-27b,LOCAL_LINK,aiops2022,k8s容器写io负载,2,1.0,1.0
+qwen3.8-27b,LOCAL_LINK,aiops2022,k8s容器网络丢包,3,0.0,0.0
+qwen3.8-27b,LOCAL_LINK,aiops2022,k8s容器网络延迟,8,0.375,0.375
+qwen3.8-27b,LOCAL_LINK,aiops2022,k8s容器网络资源包损坏,6,0.5,0.5
+qwen3.8-27b,LOCAL_LINK,aiops2022,k8s容器网络资源包重复发送,5,0.2,0.2
+qwen3.8-27b,LOCAL_LINK,aiops2022,k8s容器读io负载,4,0.5,0.25
+qwen3.8-27b,LOCAL_LINK,aiops2022,k8s容器进程中止,3,0.16666666666666666,0.0
+qwen3.8-27b,LOCAL_LINK,aiops2022,node 内存消耗,3,0.0,0.0
+qwen3.8-27b,LOCAL_LINK,aiops2022,node 磁盘写IO消耗,3,0.3333333333333333,0.3333333333333333
+qwen3.8-27b,LOCAL_LINK,aiops2022,node 磁盘空间消耗,2,0.5,0.5
+qwen3.8-27b,LOCAL_LINK,aiops2022,node 磁盘读IO消耗,4,0.25,0.25
+qwen3.8-27b,LOCAL_LINK,aiops2022,node节点CPU故障,2,0.0,0.0
+qwen3.8-27b,LOCAL_LINK,aiops2022,node节点CPU爬升,2,0.0,0.0
+qwen3.8-27b,LOCAL_LINK,aiops2025,cpu stress,5,0.4666666666666666,0.4
+qwen3.8-27b,LOCAL_LINK,aiops2025,dns error,4,0.125,0.0
+qwen3.8-27b,LOCAL_LINK,aiops2025,io fault,3,0.75,0.6666666666666666
+qwen3.8-27b,LOCAL_LINK,aiops2025,jvm cpu,3,1.0,1.0
+qwen3.8-27b,LOCAL_LINK,aiops2025,jvm exception,5,0.4,0.4
+qwen3.8-27b,LOCAL_LINK,aiops2025,jvm gc,1,0.0,0.0
+qwen3.8-27b,LOCAL_LINK,aiops2025,jvm latency,3,0.4444444444444444,0.3333333333333333
+qwen3.8-27b,LOCAL_LINK,aiops2025,memory stress,4,0.125,0.0
+qwen3.8-27b,LOCAL_LINK,aiops2025,network corrupt,4,0.75,0.5
+qwen3.8-27b,LOCAL_LINK,aiops2025,network delay,4,0.625,0.5
+qwen3.8-27b,LOCAL_LINK,aiops2025,network loss,4,0.8333333333333333,0.75
+qwen3.8-27b,LOCAL_LINK,aiops2025,node cpu stress,2,0.5,0.5
+qwen3.8-27b,LOCAL_LINK,aiops2025,node disk fill,4,0.5,0.5
+qwen3.8-27b,LOCAL_LINK,aiops2025,node memory stress,3,0.4444444444444444,0.3333333333333333
+qwen3.8-27b,LOCAL_LINK,aiops2025,pod failure,8,0.125,0.125
+qwen3.8-27b,LOCAL_LINK,aiops2025,pod kill,1,0.3333333333333333,0.0
+qwen3.8-27b,LOCAL_LINK,aiops2025,target port misconfig,1,0.0,0.0
+qwen3.8-27b,REMOTE_ID,aegislab,ContainerKill,6,1.0,1.0
+qwen3.8-27b,REMOTE_ID,aegislab,HTTPRequestAbort,5,0.2,0.0
+qwen3.8-27b,REMOTE_ID,aegislab,HTTPRequestDelay,5,0.5,0.4
+qwen3.8-27b,REMOTE_ID,aegislab,HTTPRequestReplaceMethod,8,0.625,0.5
+qwen3.8-27b,REMOTE_ID,aegislab,HTTPResponseDelay,5,0.4,0.2
+qwen3.8-27b,REMOTE_ID,aegislab,HTTPResponseReplaceBody,1,0.0,0.0
+qwen3.8-27b,REMOTE_ID,aegislab,HTTPResponseReplaceCode,8,0.25,0.125
+qwen3.8-27b,REMOTE_ID,aegislab,JVMException,3,0.6666666666666666,0.6666666666666666
+qwen3.8-27b,REMOTE_ID,aegislab,JVMLatency,1,1.0,1.0
+qwen3.8-27b,REMOTE_ID,aegislab,JVMMemoryStress,9,0.5925925925925926,0.5555555555555556
+qwen3.8-27b,REMOTE_ID,aegislab,NetworkBandwidth,2,1.0,1.0
+qwen3.8-27b,REMOTE_ID,aegislab,NetworkCorrupt,2,1.0,1.0
+qwen3.8-27b,REMOTE_ID,aegislab,NetworkLoss,1,1.0,1.0
+qwen3.8-27b,REMOTE_ID,aegislab,NetworkPartition,3,0.6666666666666666,0.6666666666666666
+qwen3.8-27b,REMOTE_ID,aegislab,PodKill,1,0.5,0.0
+qwen3.8-27b,REMOTE_ID,aiops2022,k8s容器cpu负载,5,0.8,0.8
+qwen3.8-27b,REMOTE_ID,aiops2022,k8s容器内存负载,6,0.5,0.3333333333333333
+qwen3.8-27b,REMOTE_ID,aiops2022,k8s容器写io负载,2,1.0,1.0
+qwen3.8-27b,REMOTE_ID,aiops2022,k8s容器网络丢包,3,0.0,0.0
+qwen3.8-27b,REMOTE_ID,aiops2022,k8s容器网络延迟,8,0.25,0.25
+qwen3.8-27b,REMOTE_ID,aiops2022,k8s容器网络资源包损坏,6,0.5,0.5
+qwen3.8-27b,REMOTE_ID,aiops2022,k8s容器网络资源包重复发送,5,0.2,0.2
+qwen3.8-27b,REMOTE_ID,aiops2022,k8s容器读io负载,4,0.375,0.0
+qwen3.8-27b,REMOTE_ID,aiops2022,k8s容器进程中止,3,0.16666666666666666,0.0
+qwen3.8-27b,REMOTE_ID,aiops2022,node 内存消耗,3,0.0,0.0
+qwen3.8-27b,REMOTE_ID,aiops2022,node 磁盘写IO消耗,3,0.3333333333333333,0.3333333333333333
+qwen3.8-27b,REMOTE_ID,aiops2022,node 磁盘空间消耗,2,0.5,0.5
+qwen3.8-27b,REMOTE_ID,aiops2022,node 磁盘读IO消耗,4,0.25,0.25
+qwen3.8-27b,REMOTE_ID,aiops2022,node节点CPU故障,2,0.0,0.0
+qwen3.8-27b,REMOTE_ID,aiops2022,node节点CPU爬升,2,0.0,0.0
+qwen3.8-27b,REMOTE_ID,aiops2025,cpu stress,5,0.4666666666666666,0.4
+qwen3.8-27b,REMOTE_ID,aiops2025,dns error,4,0.125,0.0
+qwen3.8-27b,REMOTE_ID,aiops2025,io fault,3,0.7777777777777778,0.6666666666666666
+qwen3.8-27b,REMOTE_ID,aiops2025,jvm cpu,3,1.0,1.0
+qwen3.8-27b,REMOTE_ID,aiops2025,jvm exception,5,0.4,0.4
+qwen3.8-27b,REMOTE_ID,aiops2025,jvm gc,1,0.0,0.0
+qwen3.8-27b,REMOTE_ID,aiops2025,jvm latency,3,0.1111111111111111,0.0
+qwen3.8-27b,REMOTE_ID,aiops2025,memory stress,4,0.125,0.0
+qwen3.8-27b,REMOTE_ID,aiops2025,network corrupt,4,0.625,0.25
+qwen3.8-27b,REMOTE_ID,aiops2025,network delay,4,0.625,0.5
+qwen3.8-27b,REMOTE_ID,aiops2025,network loss,4,0.75,0.75
+qwen3.8-27b,REMOTE_ID,aiops2025,node cpu stress,2,0.75,0.5
+qwen3.8-27b,REMOTE_ID,aiops2025,node disk fill,4,0.5,0.5
+qwen3.8-27b,REMOTE_ID,aiops2025,node memory stress,3,0.4444444444444444,0.3333333333333333
+qwen3.8-27b,REMOTE_ID,aiops2025,pod failure,8,0.125,0.125
+qwen3.8-27b,REMOTE_ID,aiops2025,pod kill,1,0.3333333333333333,0.0
+qwen3.8-27b,REMOTE_ID,aiops2025,target port misconfig,1,0.0,0.0
+qwen3.8-27b,REMOTE_LINK,aegislab,ContainerKill,6,1.0,1.0
+qwen3.8-27b,REMOTE_LINK,aegislab,HTTPRequestAbort,5,0.2,0.0
+qwen3.8-27b,REMOTE_LINK,aegislab,HTTPRequestDelay,5,0.5,0.4
+qwen3.8-27b,REMOTE_LINK,aegislab,HTTPRequestReplaceMethod,8,0.625,0.5
+qwen3.8-27b,REMOTE_LINK,aegislab,HTTPResponseDelay,5,0.5,0.2
+qwen3.8-27b,REMOTE_LINK,aegislab,HTTPResponseReplaceBody,1,0.0,0.0
+qwen3.8-27b,REMOTE_LINK,aegislab,HTTPResponseReplaceCode,8,0.25,0.125
+qwen3.8-27b,REMOTE_LINK,aegislab,JVMException,3,0.6666666666666666,0.6666666666666666
+qwen3.8-27b,REMOTE_LINK,aegislab,JVMLatency,1,1.0,1.0
+qwen3.8-27b,REMOTE_LINK,aegislab,JVMMemoryStress,9,0.6481481481481481,0.5555555555555556
+qwen3.8-27b,REMOTE_LINK,aegislab,NetworkBandwidth,2,1.0,1.0
+qwen3.8-27b,REMOTE_LINK,aegislab,NetworkCorrupt,2,1.0,1.0
+qwen3.8-27b,REMOTE_LINK,aegislab,NetworkLoss,1,1.0,1.0
+qwen3.8-27b,REMOTE_LINK,aegislab,NetworkPartition,3,0.6666666666666666,0.6666666666666666
+qwen3.8-27b,REMOTE_LINK,aegislab,PodKill,1,0.5,0.0
+qwen3.8-27b,REMOTE_LINK,aiops2022,k8s容器cpu负载,5,0.6,0.6
+qwen3.8-27b,REMOTE_LINK,aiops2022,k8s容器内存负载,6,0.4444444444444444,0.3333333333333333
+qwen3.8-27b,REMOTE_LINK,aiops2022,k8s容器写io负载,2,1.0,1.0
+qwen3.8-27b,REMOTE_LINK,aiops2022,k8s容器网络丢包,3,0.0,0.0
+qwen3.8-27b,REMOTE_LINK,aiops2022,k8s容器网络延迟,8,0.41666666666666663,0.375
+qwen3.8-27b,REMOTE_LINK,aiops2022,k8s容器网络资源包损坏,6,0.5,0.5
+qwen3.8-27b,REMOTE_LINK,aiops2022,k8s容器网络资源包重复发送,5,0.2,0.2
+qwen3.8-27b,REMOTE_LINK,aiops2022,k8s容器读io负载,4,0.5,0.25
+qwen3.8-27b,REMOTE_LINK,aiops2022,k8s容器进程中止,3,0.16666666666666666,0.0
+qwen3.8-27b,REMOTE_LINK,aiops2022,node 内存消耗,3,0.0,0.0
+qwen3.8-27b,REMOTE_LINK,aiops2022,node 磁盘写IO消耗,3,0.3333333333333333,0.3333333333333333
+qwen3.8-27b,REMOTE_LINK,aiops2022,node 磁盘空间消耗,2,0.5,0.5
+qwen3.8-27b,REMOTE_LINK,aiops2022,node 磁盘读IO消耗,4,0.25,0.25
+qwen3.8-27b,REMOTE_LINK,aiops2022,node节点CPU故障,2,0.0,0.0
+qwen3.8-27b,REMOTE_LINK,aiops2022,node节点CPU爬升,2,0.0,0.0
+qwen3.8-27b,REMOTE_LINK,aiops2025,cpu stress,5,0.4666666666666666,0.4
+qwen3.8-27b,REMOTE_LINK,aiops2025,dns error,4,0.125,0.0
+qwen3.8-27b,REMOTE_LINK,aiops2025,io fault,3,0.7777777777777778,0.6666666666666666
+qwen3.8-27b,REMOTE_LINK,aiops2025,jvm cpu,3,1.0,1.0
+qwen3.8-27b,REMOTE_LINK,aiops2025,jvm exception,5,0.4,0.4
+qwen3.8-27b,REMOTE_LINK,aiops2025,jvm gc,1,0.0,0.0
+qwen3.8-27b,REMOTE_LINK,aiops2025,jvm latency,3,0.4444444444444444,0.3333333333333333
+qwen3.8-27b,REMOTE_LINK,aiops2025,memory stress,4,0.125,0.0
+qwen3.8-27b,REMOTE_LINK,aiops2025,network corrupt,4,0.75,0.5
+qwen3.8-27b,REMOTE_LINK,aiops2025,network delay,4,0.625,0.5
+qwen3.8-27b,REMOTE_LINK,aiops2025,network loss,4,0.75,0.75
+qwen3.8-27b,REMOTE_LINK,aiops2025,node cpu stress,2,0.75,0.5
+qwen3.8-27b,REMOTE_LINK,aiops2025,node disk fill,4,0.5,0.5
+qwen3.8-27b,REMOTE_LINK,aiops2025,node memory stress,3,0.3333333333333333,0.3333333333333333
+qwen3.8-27b,REMOTE_LINK,aiops2025,pod failure,8,0.125,0.125
+qwen3.8-27b,REMOTE_LINK,aiops2025,pod kill,1,0.3333333333333333,0.0
+qwen3.8-27b,REMOTE_LINK,aiops2025,target port misconfig,1,0.0,0.0
+qwen3.8-27b,TPV_REF,aegislab,ContainerKill,5,0.6,0.6
+qwen3.8-27b,TPV_REF,aegislab,HTTPRequestAbort,5,0.16666666666666666,0.0
+qwen3.8-27b,TPV_REF,aegislab,HTTPRequestDelay,5,0.5,0.4
+qwen3.8-27b,TPV_REF,aegislab,HTTPRequestReplaceMethod,8,0.6041666666666666,0.375
+qwen3.8-27b,TPV_REF,aegislab,HTTPResponseDelay,5,0.5,0.4
+qwen3.8-27b,TPV_REF,aegislab,HTTPResponseReplaceBody,1,0.0,0.0
+qwen3.8-27b,TPV_REF,aegislab,HTTPResponseReplaceCode,8,0.29166666666666663,0.125
+qwen3.8-27b,TPV_REF,aegislab,JVMException,3,1.0,1.0
+qwen3.8-27b,TPV_REF,aegislab,JVMLatency,1,1.0,1.0
+qwen3.8-27b,TPV_REF,aegislab,JVMMemoryStress,9,0.6666666666666666,0.5555555555555556
+qwen3.8-27b,TPV_REF,aegislab,NetworkBandwidth,2,1.0,1.0
+qwen3.8-27b,TPV_REF,aegislab,NetworkCorrupt,2,1.0,1.0
+qwen3.8-27b,TPV_REF,aegislab,NetworkLoss,1,1.0,1.0
+qwen3.8-27b,TPV_REF,aegislab,NetworkPartition,3,0.6666666666666666,0.6666666666666666
+qwen3.8-27b,TPV_REF,aegislab,PodKill,1,0.5,0.0
+qwen3.8-27b,TPV_REF,aiops2022,k8s容器cpu负载,5,0.4,0.4
+qwen3.8-27b,TPV_REF,aiops2022,k8s容器内存负载,6,0.08333333333333333,0.0
+qwen3.8-27b,TPV_REF,aiops2022,k8s容器写io负载,2,1.0,1.0
+qwen3.8-27b,TPV_REF,aiops2022,k8s容器网络丢包,3,0.0,0.0
+qwen3.8-27b,TPV_REF,aiops2022,k8s容器网络延迟,8,0.34375,0.25
+qwen3.8-27b,TPV_REF,aiops2022,k8s容器网络资源包损坏,6,0.25,0.16666666666666666
+qwen3.8-27b,TPV_REF,aiops2022,k8s容器网络资源包重复发送,5,0.2,0.2
+qwen3.8-27b,TPV_REF,aiops2022,k8s容器读io负载,4,0.3333333333333333,0.25
+qwen3.8-27b,TPV_REF,aiops2022,k8s容器进程中止,3,0.1111111111111111,0.0
+qwen3.8-27b,TPV_REF,aiops2022,node 内存消耗,3,0.0,0.0
+qwen3.8-27b,TPV_REF,aiops2022,node 磁盘写IO消耗,3,0.3333333333333333,0.3333333333333333
+qwen3.8-27b,TPV_REF,aiops2022,node 磁盘空间消耗,2,0.5,0.5
+qwen3.8-27b,TPV_REF,aiops2022,node 磁盘读IO消耗,4,0.25,0.25
+qwen3.8-27b,TPV_REF,aiops2022,node节点CPU故障,1,0.5,0.0
+qwen3.8-27b,TPV_REF,aiops2022,node节点CPU爬升,2,0.0,0.0
+qwen3.8-27b,TPV_REF,aiops2025,cpu stress,5,0.3,0.2
+qwen3.8-27b,TPV_REF,aiops2025,dns error,4,0.125,0.0
+qwen3.8-27b,TPV_REF,aiops2025,io fault,3,0.8333333333333334,0.6666666666666666
+qwen3.8-27b,TPV_REF,aiops2025,jvm cpu,3,1.0,1.0
+qwen3.8-27b,TPV_REF,aiops2025,jvm exception,5,0.3,0.2
+qwen3.8-27b,TPV_REF,aiops2025,jvm gc,1,0.0,0.0
+qwen3.8-27b,TPV_REF,aiops2025,jvm latency,3,0.4444444444444444,0.3333333333333333
+qwen3.8-27b,TPV_REF,aiops2025,memory stress,4,0.08333333333333333,0.0
+qwen3.8-27b,TPV_REF,aiops2025,network corrupt,4,0.7083333333333333,0.5
+qwen3.8-27b,TPV_REF,aiops2025,network delay,4,0.3333333333333333,0.25
+qwen3.8-27b,TPV_REF,aiops2025,network loss,4,0.75,0.75
+qwen3.8-27b,TPV_REF,aiops2025,node cpu stress,2,0.25,0.0
+qwen3.8-27b,TPV_REF,aiops2025,node disk fill,4,0.375,0.25
+qwen3.8-27b,TPV_REF,aiops2025,node memory stress,3,0.0,0.0
+qwen3.8-27b,TPV_REF,aiops2025,pod failure,8,0.1875,0.125
+qwen3.8-27b,TPV_REF,aiops2025,pod kill,1,0.3333333333333333,0.0
+qwen3.8-27b,TPV_REF,aiops2025,target port misconfig,1,0.0,0.0
+qwen3.8-27b,T_MATCH,aegislab,ContainerKill,6,0.6666666666666666,0.6666666666666666
+qwen3.8-27b,T_MATCH,aegislab,HTTPRequestAbort,5,0.4,0.2
+qwen3.8-27b,T_MATCH,aegislab,HTTPRequestDelay,5,0.4,0.4
+qwen3.8-27b,T_MATCH,aegislab,HTTPRequestReplaceMethod,8,0.35416666666666663,0.125
+qwen3.8-27b,T_MATCH,aegislab,HTTPResponseDelay,5,0.6,0.6
+qwen3.8-27b,T_MATCH,aegislab,HTTPResponseReplaceBody,1,0.25,0.0
+qwen3.8-27b,T_MATCH,aegislab,HTTPResponseReplaceCode,8,0.3333333333333333,0.25
+qwen3.8-27b,T_MATCH,aegislab,JVMException,3,0.8333333333333334,0.6666666666666666
+qwen3.8-27b,T_MATCH,aegislab,JVMLatency,1,0.0,0.0
+qwen3.8-27b,T_MATCH,aegislab,JVMMemoryStress,9,0.7777777777777778,0.6666666666666666
+qwen3.8-27b,T_MATCH,aegislab,NetworkBandwidth,2,0.6666666666666666,0.5
+qwen3.8-27b,T_MATCH,aegislab,NetworkCorrupt,2,0.6666666666666666,0.5
+qwen3.8-27b,T_MATCH,aegislab,NetworkLoss,1,1.0,1.0
+qwen3.8-27b,T_MATCH,aegislab,NetworkPartition,3,0.27777777777777773,0.0
+qwen3.8-27b,T_MATCH,aegislab,PodKill,1,1.0,1.0
+qwen3.8-27b,T_MATCH,aiops2022,k8s容器cpu负载,5,0.5666666666666667,0.4
+qwen3.8-27b,T_MATCH,aiops2022,k8s容器内存负载,6,0.4166666666666667,0.3333333333333333
+qwen3.8-27b,T_MATCH,aiops2022,k8s容器写io负载,2,1.0,1.0
+qwen3.8-27b,T_MATCH,aiops2022,k8s容器网络丢包,3,0.0,0.0
+qwen3.8-27b,T_MATCH,aiops2022,k8s容器网络延迟,8,0.29166666666666663,0.25
+qwen3.8-27b,T_MATCH,aiops2022,k8s容器网络资源包损坏,6,0.2222222222222222,0.0
+qwen3.8-27b,T_MATCH,aiops2022,k8s容器网络资源包重复发送,5,0.1,0.0
+qwen3.8-27b,T_MATCH,aiops2022,k8s容器读io负载,4,0.25,0.25
+qwen3.8-27b,T_MATCH,aiops2022,k8s容器进程中止,3,0.4444444444444444,0.3333333333333333
+qwen3.8-27b,T_MATCH,aiops2022,node 内存消耗,3,0.0,0.0
+qwen3.8-27b,T_MATCH,aiops2022,node 磁盘写IO消耗,3,0.3333333333333333,0.3333333333333333
+qwen3.8-27b,T_MATCH,aiops2022,node 磁盘空间消耗,2,1.0,1.0
+qwen3.8-27b,T_MATCH,aiops2022,node 磁盘读IO消耗,4,0.3333333333333333,0.25
+qwen3.8-27b,T_MATCH,aiops2022,node节点CPU故障,2,0.41666666666666663,0.0
+qwen3.8-27b,T_MATCH,aiops2022,node节点CPU爬升,2,0.25,0.0
+qwen3.8-27b,T_MATCH,aiops2025,cpu stress,5,0.3333333333333333,0.2
+qwen3.8-27b,T_MATCH,aiops2025,dns error,4,0.125,0.0
+qwen3.8-27b,T_MATCH,aiops2025,io fault,3,0.5,0.3333333333333333
+qwen3.8-27b,T_MATCH,aiops2025,jvm cpu,3,0.611111111111111,0.3333333333333333
+qwen3.8-27b,T_MATCH,aiops2025,jvm exception,5,0.2,0.2
+qwen3.8-27b,T_MATCH,aiops2025,jvm gc,1,0.0,0.0
+qwen3.8-27b,T_MATCH,aiops2025,jvm latency,3,0.0,0.0
+qwen3.8-27b,T_MATCH,aiops2025,memory stress,4,0.20833333333333331,0.0
+qwen3.8-27b,T_MATCH,aiops2025,network corrupt,4,0.8333333333333333,0.75
+qwen3.8-27b,T_MATCH,aiops2025,network delay,4,0.20833333333333331,0.0
+qwen3.8-27b,T_MATCH,aiops2025,network loss,4,0.875,0.75
+qwen3.8-27b,T_MATCH,aiops2025,node cpu stress,2,0.5,0.5
+qwen3.8-27b,T_MATCH,aiops2025,node disk fill,4,0.5,0.5
+qwen3.8-27b,T_MATCH,aiops2025,node memory stress,3,0.0,0.0
+qwen3.8-27b,T_MATCH,aiops2025,pod failure,8,0.125,0.125
+qwen3.8-27b,T_MATCH,aiops2025,pod kill,1,0.3333333333333333,0.0
+qwen3.8-27b,T_MATCH,aiops2025,target port misconfig,1,0.3333333333333333,0.0

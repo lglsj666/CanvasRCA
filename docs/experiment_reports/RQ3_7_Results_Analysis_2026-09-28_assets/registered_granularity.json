@@ -1,0 +1,242 @@
+[
+  {
+    "model": "qwen3.8-27b",
+    "baseline": "REMOTE_ID",
+    "granularity": "node",
+    "n": 25,
+    "delta": -0.02,
+    "p": 0.31731050786291415,
+    "dz": -0.19999999999999998,
+    "dz_undefined_zero_variance": false
+  },
+  {
+    "model": "qwen3.8-27b",
+    "baseline": "REMOTE_ID",
+    "granularity": "pod",
+    "n": 21,
+    "delta": 0.07142857142857142,
+    "p": 0.15742265908958053,
+    "dz": 0.2988071523335984,
+    "dz_undefined_zero_variance": false
+  },
+  {
+    "model": "qwen3.8-27b",
+    "baseline": "REMOTE_ID",
+    "granularity": "service",
+    "n": 116,
+    "delta": 0.03520114942528736,
+    "p": 0.22365609413281462,
+    "dz": 0.1790171650819577,
+    "dz_undefined_zero_variance": false
+  },
+  {
+    "model": "qwen3.8-27b",
+    "baseline": "T_MATCH",
+    "granularity": "node",
+    "n": 25,
+    "delta": -0.05333333333333333,
+    "p": 0.42896927020618625,
+    "dz": -0.10047537355047974,
+    "dz_undefined_zero_variance": false
+  },
+  {
+    "model": "qwen3.8-27b",
+    "baseline": "T_MATCH",
+    "granularity": "pod",
+    "n": 21,
+    "delta": 0.19047619047619047,
+    "p": 0.024786185894032083,
+    "dz": 0.5999625035152588,
+    "dz_undefined_zero_variance": false
+  },
+  {
+    "model": "qwen3.8-27b",
+    "baseline": "T_MATCH",
+    "granularity": "service",
+    "n": 116,
+    "delta": 0.08908045977011496,
+    "p": 0.07434263749789231,
+    "dz": 0.1920875845552026,
+    "dz_undefined_zero_variance": false
+  },
+  {
+    "model": "qwen3.8-27b",
+    "baseline": "B3_G_REF",
+    "granularity": "node",
+    "n": 25,
+    "delta": -0.013333333333333332,
+    "p": 0.4363989472759281,
+    "dz": -0.048300396593165845,
+    "dz_undefined_zero_variance": false
+  },
+  {
+    "model": "qwen3.8-27b",
+    "baseline": "B3_G_REF",
+    "granularity": "pod",
+    "n": 21,
+    "delta": 0.1349206349206349,
+    "p": 0.014699148008254984,
+    "dz": 0.515933826179505,
+    "dz_undefined_zero_variance": false
+  },
+  {
+    "model": "qwen3.8-27b",
+    "baseline": "B3_G_REF",
+    "granularity": "service",
+    "n": 115,
+    "delta": 0.031159420289855074,
+    "p": 0.17824002178450282,
+    "dz": 0.1218818446262219,
+    "dz_undefined_zero_variance": false
+  },
+  {
+    "model": "qwen3.8-27b",
+    "baseline": "TPV_REF",
+    "granularity": "node",
+    "n": 24,
+    "delta": 0.07638888888888888,
+    "p": 0.39411871221154826,
+    "dz": 0.2220877824819435,
+    "dz_undefined_zero_variance": false
+  },
+  {
+    "model": "qwen3.8-27b",
+    "baseline": "TPV_REF",
+    "granularity": "pod",
+    "n": 21,
+    "delta": 0.31349206349206354,
+    "p": 0.0018161144024759072,
+    "dz": 0.7778364037969786,
+    "dz_undefined_zero_variance": false
+  },
+  {
+    "model": "qwen3.8-27b",
+    "baseline": "TPV_REF",
+    "granularity": "service",
+    "n": 115,
+    "delta": 0.041304347826086954,
+    "p": 0.24494220108164444,
+    "dz": 0.16451752965670965,
+    "dz_undefined_zero_variance": false
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "baseline": "REMOTE_ID",
+    "granularity": "node",
+    "n": 25,
+    "delta": 0.04,
+    "p": 0.31731050786291415,
+    "dz": 0.19999999999999998,
+    "dz_undefined_zero_variance": false
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "baseline": "REMOTE_ID",
+    "granularity": "pod",
+    "n": 23,
+    "delta": -0.043478260869565216,
+    "p": 0.31731050786291415,
+    "dz": -0.20851441405707474,
+    "dz_undefined_zero_variance": false
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "baseline": "REMOTE_ID",
+    "granularity": "service",
+    "n": 117,
+    "delta": 0.0,
+    "p": 1.0,
+    "dz": 0.0,
+    "dz_undefined_zero_variance": false
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "baseline": "T_MATCH",
+    "granularity": "node",
+    "n": 25,
+    "delta": -0.2,
+    "p": 0.025347318677468252,
+    "dz": -0.4898979485566356,
+    "dz_undefined_zero_variance": false
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "baseline": "T_MATCH",
+    "granularity": "pod",
+    "n": 23,
+    "delta": 0.17391304347826086,
+    "p": 0.10247043485974937,
+    "dz": 0.3541828256484486,
+    "dz_undefined_zero_variance": false
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "baseline": "T_MATCH",
+    "granularity": "service",
+    "n": 117,
+    "delta": 0.04700854700854701,
+    "p": 0.20662620707547386,
+    "dz": 0.11050567252867638,
+    "dz_undefined_zero_variance": false
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "baseline": "B3_G_REF",
+    "granularity": "node",
+    "n": 25,
+    "delta": 0.0,
+    "p": 1.0,
+    "dz": null,
+    "dz_undefined_zero_variance": true
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "baseline": "B3_G_REF",
+    "granularity": "pod",
+    "n": 23,
+    "delta": 0.0,
+    "p": 1.0,
+    "dz": 0.0,
+    "dz_undefined_zero_variance": false
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "baseline": "B3_G_REF",
+    "granularity": "service",
+    "n": 117,
+    "delta": -0.10683760683760683,
+    "p": 0.0066075028242235595,
+    "dz": -0.27186320818907406,
+    "dz_undefined_zero_variance": false
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "baseline": "TPV_REF",
+    "granularity": "node",
+    "n": 25,
+    "delta": 0.08,
+    "p": 0.15729920705028516,
+    "dz": 0.2889260474058461,
+    "dz_undefined_zero_variance": false
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "baseline": "TPV_REF",
+    "granularity": "pod",
+    "n": 23,
+    "delta": 0.043478260869565216,
+    "p": 0.6547208460185769,
+    "dz": 0.09159989940671115,
+    "dz_undefined_zero_variance": false
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "baseline": "TPV_REF",
+    "granularity": "service",
+    "n": 117,
+    "delta": -0.008547008547008548,
+    "p": 0.8169608488119263,
+    "dz": -0.022010514239544077,
+    "dz_undefined_zero_variance": false
+  }
+]

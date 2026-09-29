@@ -1,0 +1,15 @@
+{
+  "source": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned",
+  "source_csv_sha256": "aeb55d65d22dc8199ba396b9673f4c02975da78b5c36cbbc20dbcd83e27ba887",
+  "scoring": "unchanged frozen per-case metrics",
+  "inference_calls": 0,
+  "A_core_n": {
+    "qwen3.8-27b": 177,
+    "gemma-4-26b-a4b": 180
+  },
+  "exploratory_families": {
+    "strata": "each of dataset/level/fault_type, all 4 baselines x 2 models in one family per axis",
+    "flip_vs_repeat": "12 exact paired McNemar/binomial comparisons"
+  },
+  "granularity": "mixed accepted pod/service aliases kept in separate pod/service group, not recoded as pod or service"
+}

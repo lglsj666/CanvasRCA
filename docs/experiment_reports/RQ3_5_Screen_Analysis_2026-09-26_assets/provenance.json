@@ -1,0 +1,301 @@
+{
+  "registration": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/registration.json",
+  "contract_hash": "bbe9b1e3b979df891fa588f0f3565edd2e290745ad0c93d1cec5fe9d04980329",
+  "source_analyses": {
+    "A": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/analysis/screen_exp_evidence_instruction_cross.json",
+    "B": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/analysis/screen_exp_outcome_linked_evidence.json"
+  },
+  "status": "completed repeated-exposed screen60; not check120 or test",
+  "models": [
+    "qwen3.8-27b",
+    "gemma-4-26b-a4b"
+  ],
+  "script": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/scripts/analysis/report_screen.py",
+  "no_new_model_calls": true,
+  "scoring": "original granularity-aware per-call scores unchanged",
+  "qualifications": {
+    "exp_evidence_instruction_cross": {
+      "status": "passed",
+      "contract_hash": "bbe9b1e3b979df891fa588f0f3565edd2e290745ad0c93d1cec5fe9d04980329",
+      "units": [
+        {
+          "arm": "SIRCL_IDS_NATIVE",
+          "model": "qwen3.8-27b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_evidence_instruction_cross/qwen3.8-27b/conversations/109cd89b4682e7ce2fd1fdd45c55d5cdb0e705354f8ac0204459fe4614138848.md",
+          "call_key": "109cd89b4682e7ce2fd1fdd45c55d5cdb0e705354f8ac0204459fe4614138848"
+        },
+        {
+          "arm": "SIRCL_IDS_NATIVE",
+          "model": "qwen3.8-27b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_evidence_instruction_cross/qwen3.8-27b/conversations/a6e1807c25a92bbeed8f4aacf8c50b576c3276e4d6e4d61da9bdce427b90e2f5.md",
+          "call_key": "a6e1807c25a92bbeed8f4aacf8c50b576c3276e4d6e4d61da9bdce427b90e2f5"
+        },
+        {
+          "arm": "SIRCL_IDS_NATIVE",
+          "model": "gemma-4-26b-a4b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_evidence_instruction_cross/gemma-4-26b-a4b/conversations/e78adc5ad7d355043d555e880900e5d417657fa7f4d92f9a5993ef7457e0ba97.md",
+          "call_key": "e78adc5ad7d355043d555e880900e5d417657fa7f4d92f9a5993ef7457e0ba97"
+        },
+        {
+          "arm": "SIRCL_IDS_NATIVE",
+          "model": "gemma-4-26b-a4b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_evidence_instruction_cross/gemma-4-26b-a4b/conversations/89e8d531bedf0289ab77278c017d860db48b8358d431193fa9ca07edb25a67b5.md",
+          "call_key": "89e8d531bedf0289ab77278c017d860db48b8358d431193fa9ca07edb25a67b5"
+        },
+        {
+          "arm": "E_P_D_P",
+          "model": "qwen3.8-27b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_evidence_instruction_cross_lossless_blocks_v3/qwen3.8-27b/conversations/b6d2b8fee8eb0c91e5854c2966d23190a6c9ab28f388727e5cafe20a5a7c2e71.md",
+          "call_key": "b6d2b8fee8eb0c91e5854c2966d23190a6c9ab28f388727e5cafe20a5a7c2e71"
+        },
+        {
+          "arm": "E_P_D_P",
+          "model": "qwen3.8-27b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_evidence_instruction_cross_lossless_blocks_v3/qwen3.8-27b/conversations/dc67848f277195bb8930de8ca35c935abd7c9e1f67452cf59140bcb9a36f299e.md",
+          "call_key": "dc67848f277195bb8930de8ca35c935abd7c9e1f67452cf59140bcb9a36f299e"
+        },
+        {
+          "arm": "E_S_D_S",
+          "model": "qwen3.8-27b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_evidence_instruction_cross_lossless_blocks_v3/qwen3.8-27b/conversations/b3655b3c4a5321c68d22d3a39e05cc69c4a1ca24af01cb82231d41d7848d424f.md",
+          "call_key": "b3655b3c4a5321c68d22d3a39e05cc69c4a1ca24af01cb82231d41d7848d424f"
+        },
+        {
+          "arm": "E_P_D_P",
+          "model": "qwen3.8-27b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_evidence_instruction_cross_lossless_blocks_v3/qwen3.8-27b/conversations/cbd242cc19e79ad92f7b27ee9800f658895095c8771674092332f3d2b8aeff9e.md",
+          "call_key": "cbd242cc19e79ad92f7b27ee9800f658895095c8771674092332f3d2b8aeff9e"
+        },
+        {
+          "arm": "E_S_D_S",
+          "model": "qwen3.8-27b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_evidence_instruction_cross_lossless_blocks_v3/qwen3.8-27b/conversations/9d8b5a1b6212235c8ee2b96458e92cc81ee22429a53e8d9db61b7074bd884131.md",
+          "call_key": "9d8b5a1b6212235c8ee2b96458e92cc81ee22429a53e8d9db61b7074bd884131"
+        },
+        {
+          "arm": "E_P_D_P",
+          "model": "gemma-4-26b-a4b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_evidence_instruction_cross_lossless_blocks_v3/gemma-4-26b-a4b/conversations/d60bae73aba5c07da296765d5249ac7cd455169d4a9fab7309c3e261d9028b4d.md",
+          "call_key": "d60bae73aba5c07da296765d5249ac7cd455169d4a9fab7309c3e261d9028b4d"
+        },
+        {
+          "arm": "E_P_D_P",
+          "model": "gemma-4-26b-a4b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_evidence_instruction_cross_lossless_blocks_v3/gemma-4-26b-a4b/conversations/14b77fff574ab7bb47898da7d979d8b168c098fce735ec3db2d7559cb859b825.md",
+          "call_key": "14b77fff574ab7bb47898da7d979d8b168c098fce735ec3db2d7559cb859b825"
+        },
+        {
+          "arm": "E_S_D_S",
+          "model": "gemma-4-26b-a4b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_evidence_instruction_cross_lossless_blocks_v3/gemma-4-26b-a4b/conversations/d013a22d8b692fc2586180eb74d86c5e1f42f4e0bcea9315443395e2d606a0c7.md",
+          "call_key": "d013a22d8b692fc2586180eb74d86c5e1f42f4e0bcea9315443395e2d606a0c7"
+        },
+        {
+          "arm": "E_P_D_P",
+          "model": "gemma-4-26b-a4b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_evidence_instruction_cross_lossless_blocks_v3/gemma-4-26b-a4b/conversations/6da781fd51d2aa7402b2877072809c7a6cf298ccebe172710b3198ea3da3e2b2.md",
+          "call_key": "6da781fd51d2aa7402b2877072809c7a6cf298ccebe172710b3198ea3da3e2b2"
+        },
+        {
+          "arm": "E_S_D_S",
+          "model": "gemma-4-26b-a4b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_evidence_instruction_cross_lossless_blocks_v3/gemma-4-26b-a4b/conversations/7d9c3b6125f961f997dc36f189a80c5626eda7c822f2f087b8796115a5e5d7fd.md",
+          "call_key": "7d9c3b6125f961f997dc36f189a80c5626eda7c822f2f087b8796115a5e5d7fd"
+        },
+        {
+          "arm": "E_S_D_S",
+          "model": "qwen3.8-27b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_evidence_instruction_cross_gc_clock_v1/qwen3.8-27b/conversations/724bff79a7d5ab873d5ae0dcb54216569f515255e8c0c0bedb990b0022c5416f.md",
+          "call_key": "724bff79a7d5ab873d5ae0dcb54216569f515255e8c0c0bedb990b0022c5416f"
+        },
+        {
+          "arm": "SIRCL_IDS_NATIVE",
+          "model": "qwen3.8-27b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_evidence_instruction_cross_gc_clock_v1/qwen3.8-27b/conversations/6c0658dd5ae6b79150e8aa5ee3be0a07acfd01e6cd4be25c7be89e54f68b3521.md",
+          "call_key": "6c0658dd5ae6b79150e8aa5ee3be0a07acfd01e6cd4be25c7be89e54f68b3521"
+        },
+        {
+          "arm": "E_S_D_S",
+          "model": "gemma-4-26b-a4b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_evidence_instruction_cross_gc_clock_v1/gemma-4-26b-a4b/conversations/6ced42dbcac12bfb3b4d931282b2f8d39c11bd0e2d3867ca32ad2e6aff8f7e0f.md",
+          "call_key": "6ced42dbcac12bfb3b4d931282b2f8d39c11bd0e2d3867ca32ad2e6aff8f7e0f"
+        },
+        {
+          "arm": "SIRCL_IDS_NATIVE",
+          "model": "gemma-4-26b-a4b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_evidence_instruction_cross_gc_clock_v1/gemma-4-26b-a4b/conversations/234d4cdb176e4e597a49b5f8d44026d9c5a949b172b5d92bdec7d88676ee1979.md",
+          "call_key": "234d4cdb176e4e597a49b5f8d44026d9c5a949b172b5d92bdec7d88676ee1979"
+        }
+      ],
+      "initiated_calls": 40,
+      "smoke_status": "complete",
+      "assistant_visual_review": "Passed actual input, clock projection, raw response and conversation review; four text-only units, renderer unchanged.",
+      "source_qualification_contract": "d353320098f0020d28f3d2605f657f7d31a6e2004eb35b1f94364a1338cb79a8",
+      "cpu_request_equivalence_proof": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/repairs/gc_clock_v1/completed.json",
+      "needed_new_calls": 0,
+      "approval_required": false,
+      "affected_smoke_arms": [
+        "E_S_D_S",
+        "SIRCL_IDS_NATIVE"
+      ],
+      "targeted_gpu_report": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/repairs/gc_clock_v1/report.json",
+      "assistant_review_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/repairs/gc_clock_v1/assistant_review.json"
+    },
+    "exp_outcome_linked_evidence": {
+      "status": "passed",
+      "contract_hash": "bbe9b1e3b979df891fa588f0f3565edd2e290745ad0c93d1cec5fe9d04980329",
+      "units": [
+        {
+          "arm": "J_MARG",
+          "model": "qwen3.8-27b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_outcome_linked_evidence/qwen3.8-27b/conversations/912adbd7a18b9d931fea7f2a2cb938c7825797fc285f1747e280c5990057de63.md",
+          "call_key": "912adbd7a18b9d931fea7f2a2cb938c7825797fc285f1747e280c5990057de63"
+        },
+        {
+          "arm": "J_JOINT",
+          "model": "qwen3.8-27b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_outcome_linked_evidence/qwen3.8-27b/conversations/196557941b34a4ddf4afc67171f5f7523a0ab39f0db622d482067143aa09324f.md",
+          "call_key": "196557941b34a4ddf4afc67171f5f7523a0ab39f0db622d482067143aa09324f"
+        },
+        {
+          "arm": "J_COND",
+          "model": "qwen3.8-27b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_outcome_linked_evidence/qwen3.8-27b/conversations/550ed4876305e7da548663a2dcf518b90441654d2d7bad267462cf6a949ad976.md",
+          "call_key": "550ed4876305e7da548663a2dcf518b90441654d2d7bad267462cf6a949ad976"
+        },
+        {
+          "arm": "J_MARG",
+          "model": "qwen3.8-27b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_outcome_linked_evidence/qwen3.8-27b/conversations/aa93ab1b0a971c136ae1d3dd1ebc3743bd1ccfb94ee8386d47e442cfff0475f3.md",
+          "call_key": "aa93ab1b0a971c136ae1d3dd1ebc3743bd1ccfb94ee8386d47e442cfff0475f3"
+        },
+        {
+          "arm": "J_MARG",
+          "model": "qwen3.8-27b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_outcome_linked_evidence/qwen3.8-27b/conversations/aa93ab1b0a971c136ae1d3dd1ebc3743bd1ccfb94ee8386d47e442cfff0475f3.md",
+          "call_key": "aa93ab1b0a971c136ae1d3dd1ebc3743bd1ccfb94ee8386d47e442cfff0475f3"
+        },
+        {
+          "arm": "J_MARG",
+          "model": "qwen3.8-27b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_outcome_linked_evidence/qwen3.8-27b/conversations/aa93ab1b0a971c136ae1d3dd1ebc3743bd1ccfb94ee8386d47e442cfff0475f3.md",
+          "call_key": "aa93ab1b0a971c136ae1d3dd1ebc3743bd1ccfb94ee8386d47e442cfff0475f3"
+        },
+        {
+          "arm": "J_MARG",
+          "model": "qwen3.8-27b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_outcome_linked_evidence/qwen3.8-27b/conversations/d3b61eeeef064a48290ca37c720de3602ed153d9f48b04d3ca9b51656f69c7a0.md",
+          "call_key": "d3b61eeeef064a48290ca37c720de3602ed153d9f48b04d3ca9b51656f69c7a0"
+        },
+        {
+          "arm": "J_JOINT",
+          "model": "qwen3.8-27b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_outcome_linked_evidence/qwen3.8-27b/conversations/474fd82eff0a5ef4e73bac943419b93187a0df258043a9fe6d365a9f2cd3b258.md",
+          "call_key": "474fd82eff0a5ef4e73bac943419b93187a0df258043a9fe6d365a9f2cd3b258"
+        },
+        {
+          "arm": "J_COND",
+          "model": "qwen3.8-27b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_outcome_linked_evidence/qwen3.8-27b/conversations/0c15d2ede787a4a211008165a326a16f319356bcd54c0d3076b718c5fec9b3d4.md",
+          "call_key": "0c15d2ede787a4a211008165a326a16f319356bcd54c0d3076b718c5fec9b3d4"
+        },
+        {
+          "arm": "J_MARG",
+          "model": "gemma-4-26b-a4b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_outcome_linked_evidence/gemma-4-26b-a4b/conversations/75764aeb8f7c626dd427ab5ebca91c1c1761f26ae9d610761729fd7edb8ea324.md",
+          "call_key": "75764aeb8f7c626dd427ab5ebca91c1c1761f26ae9d610761729fd7edb8ea324"
+        },
+        {
+          "arm": "J_JOINT",
+          "model": "gemma-4-26b-a4b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_outcome_linked_evidence/gemma-4-26b-a4b/conversations/d3c93cd7baf48c11f0c5b8ee9b23b339906e1173d634803483bd78069b9fef64.md",
+          "call_key": "d3c93cd7baf48c11f0c5b8ee9b23b339906e1173d634803483bd78069b9fef64"
+        },
+        {
+          "arm": "J_COND",
+          "model": "gemma-4-26b-a4b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_outcome_linked_evidence/gemma-4-26b-a4b/conversations/20051dc2da737bb041d7d381a0a92a62c1f8579dc80f71396c1822ecd70ab024.md",
+          "call_key": "20051dc2da737bb041d7d381a0a92a62c1f8579dc80f71396c1822ecd70ab024"
+        },
+        {
+          "arm": "J_MARG",
+          "model": "gemma-4-26b-a4b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_outcome_linked_evidence/gemma-4-26b-a4b/conversations/1646fc04985fdfd6cdd51506e154b4acb880858500ae76cd5297c0f2a8478584.md",
+          "call_key": "1646fc04985fdfd6cdd51506e154b4acb880858500ae76cd5297c0f2a8478584"
+        },
+        {
+          "arm": "J_MARG",
+          "model": "gemma-4-26b-a4b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_outcome_linked_evidence/gemma-4-26b-a4b/conversations/1646fc04985fdfd6cdd51506e154b4acb880858500ae76cd5297c0f2a8478584.md",
+          "call_key": "1646fc04985fdfd6cdd51506e154b4acb880858500ae76cd5297c0f2a8478584"
+        },
+        {
+          "arm": "J_MARG",
+          "model": "gemma-4-26b-a4b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_outcome_linked_evidence/gemma-4-26b-a4b/conversations/1646fc04985fdfd6cdd51506e154b4acb880858500ae76cd5297c0f2a8478584.md",
+          "call_key": "1646fc04985fdfd6cdd51506e154b4acb880858500ae76cd5297c0f2a8478584"
+        },
+        {
+          "arm": "J_MARG",
+          "model": "gemma-4-26b-a4b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_outcome_linked_evidence/gemma-4-26b-a4b/conversations/89530cdef1b74b9ad79d5abb1cc1b2ffb815d0848e5cfa607a8c4a17505d0f18.md",
+          "call_key": "89530cdef1b74b9ad79d5abb1cc1b2ffb815d0848e5cfa607a8c4a17505d0f18"
+        },
+        {
+          "arm": "J_JOINT",
+          "model": "gemma-4-26b-a4b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_outcome_linked_evidence/gemma-4-26b-a4b/conversations/25abbd1264c322db42de90876e8e8ecd5ad3ac6e7fb064db6bb9e2d067e7312a.md",
+          "call_key": "25abbd1264c322db42de90876e8e8ecd5ad3ac6e7fb064db6bb9e2d067e7312a"
+        },
+        {
+          "arm": "J_COND",
+          "model": "gemma-4-26b-a4b",
+          "status": "complete",
+          "conversation": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/stages/smoke_exp_outcome_linked_evidence/gemma-4-26b-a4b/conversations/c3a86b9890676aa0e6f1be043cd2653ec4e836188960e770730b96b3a65a0b00.md",
+          "call_key": "c3a86b9890676aa0e6f1be043cd2653ec4e836188960e770730b96b3a65a0b00"
+        }
+      ],
+      "initiated_calls": 14,
+      "smoke_status": "complete",
+      "assistant_visual_review": "sampled prompts, answers and real dashboard reviewed; see docs/issues/RQ3_5_qualification_2026-09-25.md",
+      "source_qualification_contract": "d353320098f0020d28f3d2605f657f7d31a6e2004eb35b1f94364a1338cb79a8",
+      "cpu_request_equivalence_proof": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_5/results/outcome_linked_v1/repairs/gc_clock_v1/completed.json",
+      "needed_new_calls": 0
+    }
+  }
+}

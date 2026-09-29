@@ -1,0 +1,48 @@
+{
+  "baro_artifact_hash": "a853e5925a8df108ef6c403481931e5f42e77b6f87980df17f08712da1d0df69",
+  "derived_files": [
+    "cpu_baselines.csv",
+    "eval_arm_metrics.csv",
+    "eval_pairwise_holm.csv",
+    "exposure_stratum_metrics.csv",
+    "fault_type_metrics.csv",
+    "final_arm_metrics.csv",
+    "final_call_records.csv",
+    "final_pairwise_holm.csv",
+    "mechanism_comparisons.csv",
+    "reason_and_failure_summary.csv",
+    "root_evidence_visibility.csv",
+    "root_granularity_metrics.csv",
+    "test_case_metadata.csv",
+    "visual_vs_T_transitions.csv",
+    "visual_vs_table_transitions.csv"
+  ],
+  "final_arms": [
+    "SIRCL_TEXT",
+    "T",
+    "TPV",
+    "T_COMPACT",
+    "X_C",
+    "X_C_TABLE",
+    "X_MTEXT",
+    "X_V_CONTRAST"
+  ],
+  "final_models": [
+    "gemma-4-26b-a4b",
+    "qwen3.8-27b"
+  ],
+  "final_records": 5760,
+  "final_unique_cases": 360,
+  "metadata_cases": 360,
+  "schema_version": "RQ31ResultsAnalysisV1",
+  "source_summary_hashes": {
+    "exp_budget_curve": "699ca803e529770b5e28c066820ccb7f6d7a5152c06a346dc3d321df7c36ad4f",
+    "exp_contrastive_rca_effectiveness": "32c3324dfa8f850ab9bf6accd13bec6575d3acc7f3b9e1ab65f1f4b561d67dc7",
+    "exp_final_test": "ba4bcef15ca965d01fa2726204ea0683af17e9ed239eeecb3f93d2a4ba71162c",
+    "exp_redundant_load": "437e083ab53a9c61dfbfbfd5b81ab278892ada51bcf124db9ab7a4e20b53bb7e",
+    "exp_replicate_stability": "464caac624ac76d3fe5e4878150266a5ca3ce659973b5d934214743c79f28461",
+    "exp_table_screenshot": "45ba9f75e6b85333064ba0538417eb0febb1e74d9d734c8821cea758bf51f7cd",
+    "exp_transfer_and_diagnostic_robustness": "011a701e91d8e0ed2a3f69088c514c0f97d05bdcaf0a84554631ee71253c4487",
+    "exp_visual_diagnostic_mechanisms": "9d1630231e1aabd5c40adfab252053a444ed20d1c9c1099a71d000055d3a42bc"
+  }
+}

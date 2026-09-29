@@ -1,0 +1,122 @@
+[
+  {
+    "model": "qwen3.8-27b",
+    "arm": "T_MATCH",
+    "encoding": "SCIENTIFIC",
+    "n": 84,
+    "transform_only_flip": 11,
+    "repeat_only_flip": 0,
+    "p": 0.0009765625,
+    "holm_p": 0.01171875
+  },
+  {
+    "model": "qwen3.8-27b",
+    "arm": "T_MATCH",
+    "encoding": "UNIT_EQUIVALENT",
+    "n": 22,
+    "transform_only_flip": 2,
+    "repeat_only_flip": 0,
+    "p": 0.5,
+    "holm_p": 1.0
+  },
+  {
+    "model": "qwen3.8-27b",
+    "arm": "REMOTE_ID",
+    "encoding": "SCIENTIFIC",
+    "n": 84,
+    "transform_only_flip": 9,
+    "repeat_only_flip": 1,
+    "p": 0.021484375,
+    "holm_p": 0.193359375
+  },
+  {
+    "model": "qwen3.8-27b",
+    "arm": "REMOTE_ID",
+    "encoding": "UNIT_EQUIVALENT",
+    "n": 22,
+    "transform_only_flip": 2,
+    "repeat_only_flip": 0,
+    "p": 0.5,
+    "holm_p": 1.0
+  },
+  {
+    "model": "qwen3.8-27b",
+    "arm": "LOCAL_LINK",
+    "encoding": "SCIENTIFIC",
+    "n": 84,
+    "transform_only_flip": 10,
+    "repeat_only_flip": 0,
+    "p": 0.001953125,
+    "holm_p": 0.021484375
+  },
+  {
+    "model": "qwen3.8-27b",
+    "arm": "LOCAL_LINK",
+    "encoding": "UNIT_EQUIVALENT",
+    "n": 22,
+    "transform_only_flip": 3,
+    "repeat_only_flip": 0,
+    "p": 0.25,
+    "holm_p": 1.0
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "arm": "T_MATCH",
+    "encoding": "SCIENTIFIC",
+    "n": 90,
+    "transform_only_flip": 11,
+    "repeat_only_flip": 6,
+    "p": 0.332305908203125,
+    "holm_p": 1.0
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "arm": "T_MATCH",
+    "encoding": "UNIT_EQUIVALENT",
+    "n": 23,
+    "transform_only_flip": 1,
+    "repeat_only_flip": 0,
+    "p": 1.0,
+    "holm_p": 1.0
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "arm": "REMOTE_ID",
+    "encoding": "SCIENTIFIC",
+    "n": 90,
+    "transform_only_flip": 12,
+    "repeat_only_flip": 6,
+    "p": 0.237884521484375,
+    "holm_p": 1.0
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "arm": "REMOTE_ID",
+    "encoding": "UNIT_EQUIVALENT",
+    "n": 23,
+    "transform_only_flip": 3,
+    "repeat_only_flip": 3,
+    "p": 1.0,
+    "holm_p": 1.0
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "arm": "LOCAL_LINK",
+    "encoding": "SCIENTIFIC",
+    "n": 90,
+    "transform_only_flip": 14,
+    "repeat_only_flip": 3,
+    "p": 0.012725830078125,
+    "holm_p": 0.12725830078125
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "arm": "LOCAL_LINK",
+    "encoding": "UNIT_EQUIVALENT",
+    "n": 23,
+    "transform_only_flip": 4,
+    "repeat_only_flip": 1,
+    "p": 0.375,
+    "holm_p": 1.0
+  }
+]

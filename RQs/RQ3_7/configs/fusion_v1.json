@@ -1,0 +1,31 @@
+{
+  "schema_version": "RQ37ProtocolV1",
+  "registration_id": "rq37_numeric_relation_fusion_v2_pruned",
+  "protocol_revision": "2026-09-28_remove_redundant_generation",
+  "status": "implementation_pending_qualification",
+  "seed": 42,
+  "models": ["qwen3.8-27b", "gemma-4-26b-a4b"],
+  "runtime_authority": "RQs/RQ3_3/configs/research_v2.json",
+  "unified": {"inference": "configs/vllm_inference_local.yaml"},
+  "implementation": {
+    "output_root": "RQs/RQ3_7/results/fusion_v2_pruned",
+    "source_run": "RQs/RQ3_4/results/integrated_v1",
+    "roster_run": "RQs/RQ3_6/results/mechanisms_v2/relation_binding",
+    "parent_config": "RQs/RQ3_6/configs/relation_binding_v2.json",
+    "shared_ledger": "RQs/RQ3_6/results/mechanisms_v2/calls.sqlite",
+    "prior_call_ledgers": ["RQs/RQ3_6/results/mechanisms_v2/calls.sqlite"],
+    "bridge_roots": ["RQs/RQ3_6/results/mechanisms_v2/relation_binding", "RQs/RQ3_6/results/replication_v1", "RQs/RQ3_6/results/visual_mechanisms_v1"],
+    "semantics": "RQs/RQ3_3/configs/measurement_semantics_v1.json",
+    "semantics_overlay": "RQs/RQ3_7/configs/measurement_semantics_overlay_v1.json",
+    "exposure_audit": null
+  },
+  "execution": {"workers": 8, "concurrency": 36, "prefetch_cases": 8, "min_free_disk_gib": 10, "attention": false, "training": false, "request_timeout": 300},
+  "qualification": {"max_calls": 18, "max_seconds": 600, "cpu_seconds": 1800, "datasets": ["aiops2022", "aiops2025", "aegislab"]},
+  "budget": {"hard_limit": 40000, "planned_new_upper": 12774, "historical_expected_at_design": 21469, "reset_prior_spend": false},
+  "visual": {"width": 2304, "height": 3072, "max_height": 8192, "font_size": 20, "line_height": 26, "margin": 32},
+  "experiments": {
+    "A": {"name": "exp_numeric_relation_fusion", "cohorts": ["development"], "arms": ["T_MATCH", "REMOTE_ID", "REMOTE_LINK", "LOCAL_ID", "LOCAL_LINK"], "reference_only_arms": ["TPV_REF", "B3_G_REF"], "smoke_arms": ["T_MATCH", "REMOTE_ID", "LOCAL_LINK"], "calls_upper": 1800},
+    "B": {"name": "exp_numeric_encoding_robustness", "cohorts": ["robustness"], "arms": ["T_MATCH", "REMOTE_ID", "LOCAL_LINK"], "encodings": ["SCIENTIFIC", "UNIT_EQUIVALENT", "REPEAT"], "smoke_arms": ["T_MATCH", "REMOTE_ID", "LOCAL_LINK"], "calls_upper": 1620},
+    "C": {"name": "exp_locked_fusion_generalization", "cohorts": ["eval", "test", "fresh"], "arms": ["TPV_REF", "B3_G_REF", "T_MATCH", "REMOTE_ID", "LOCAL_LINK"], "smoke_arms": ["REMOTE_ID", "T_MATCH", "LOCAL_LINK"], "calls_upper": 9300, "automatic_start": false}
+  }
+}

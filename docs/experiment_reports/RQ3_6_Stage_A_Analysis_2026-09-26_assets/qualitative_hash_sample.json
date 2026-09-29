@@ -1,0 +1,532 @@
+[
+  {
+    "model": "qwen3.8-27b",
+    "case": "INC-38A22FDFB326",
+    "dataset": "aiops2022",
+    "mode": "repair",
+    "newer": "E_S_D_P",
+    "base": "E_P_D_P",
+    "root": {
+      "checkoutservice-0": "39770"
+    },
+    "fault": "k8s容器网络资源包损坏",
+    "before": 0.3333333333333333,
+    "after": 1.0,
+    "reason_before": "Service 74010 (pod) is the origin. It is the top-ranked service in the MET-Z analyzer (rank=1, severity_z=592.8) with an onset at +20.0m, which precedes the onset of the other candidates in the local service cluster (e.g., 588 at +20.7m, 621 at +22.0m). In the TRC-L analyzer, 74010 exhibits the highest latency fold change (13.77) for the 'hipstershop.588/PlaceOrder' operation, with exclusive latency spiking to ~40ms from ~2.8ms, indicating local processing degradation rather than just child-span delay. Logs and metrics for 39770 (GetCart/GetProduct) also show anomalies, but its onset is later and it is likely a downstream or co-located victim given the topology where 588 calls both 621 and 374/985/780, and 74010's metrics (fs_writes) suggest a disk I/O bottleneck on the node hosting this pod, propagating latency up to callers like 588.",
+    "reason_after": "Service 39770 shows the strongest signal for origin: an extreme latency spike (ExL p95 from ~44ms to ~20s, rank_score 8.79) for 'GetCart' operations and a massive log error burst (score 825.1, driven by error ratio spikes). While entry points 30110 and 88210 also show high latency in 'PlaceOrder' and log errors, their latency is consistent with timeouts caused by waiting on the slow downstream service 39770, which is called by them and exhibits the most severe local performance degradation and error generation.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/37b700af3fd66d20b2871b5abcfb106a6a0d85bde8eae1cd32d526b6db255f5f.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/4f6b6192bb6fc30c054fb3a2afba350d1a5397c5ae0539203e936f12157b8fd2.json"
+  },
+  {
+    "model": "qwen3.8-27b",
+    "case": "INC-5C2F191841A2",
+    "dataset": "aiops2022",
+    "mode": "broken",
+    "newer": "E_S_D_P",
+    "base": "E_P_D_P",
+    "root": {
+      "cartservice": "798"
+    },
+    "fault": "k8s容器网络延迟",
+    "before": 1.0,
+    "after": 0.0,
+    "reason_before": "Service 798 exhibits the highest severity (z=106.5) and earliest onset (+21m) among the core transactional services, showing a ~1.2s exclusive latency degradation across all cart operations (EmptyCart, GetCart, AddItem) in trace evidence. Services 199 and 184 show concurrent onset (+20m) but lack the specific transactional latency signatures of 798; 798 is the likely origin of the bottleneck affecting downstream/caller services like 647.",
+    "reason_after": "Service 798 is the origin. TRC-L (R) shows massive latency spikes in operations calling 798 (e.g., 99788/GetCart ExL p95: 4.7ms -> 823.6ms; 90196/AddItem ExL p95: 2.5ms -> 413.1ms), indicating downstream wait time. Service 798 itself has no metrics in [M] and is listed as silent in [L], consistent with a 'black hole' or hung service causing timeouts rather than error logs. The [G] graph confirms 798 is a callee for the affected services (52043, 90196, 93164, etc.). Node 792 (5 digits, pod ID) is ranked second due to its similar metrics pattern (memory spike, IO spike) which may indicate a co-located infrastructure issue or a related pod, but 798 is the service-level root cause identified by the call chain latency propagation.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/afafbc987dad37572c57401735590055f75c2e2bfba959419f8cc5e3bbbe532f.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/16fe3739e30a48dd7cace933bd67c2d041246bad413a3b127a991b64f11f761e.json"
+  },
+  {
+    "model": "qwen3.8-27b",
+    "case": "INC-D02CFDF1A4AE",
+    "dataset": "aiops2025",
+    "mode": "repair",
+    "newer": "E_S_D_P",
+    "base": "E_P_D_P",
+    "root": {
+      "checkoutservice": "980",
+      "frontend": "211"
+    },
+    "fault": "network loss",
+    "before": 0.5,
+    "after": 1.0,
+    "reason_before": "Service 791 exhibits the highest severity (z=14.11) and earliest onset (+28.0m) among services with active metric anomalies. The topology shows 791 is a central caller to multiple affected services (211, 622, 980) and the cascade in error rates/latency aligns with an origin in 791 propagating to its dependencies. Service 211 shows the highest trace severity (z=3.606) and earliest trace onset (+27.3m) but has lower metric severity and is a caller of 980 (which has high metric z), making it a strong secondary candidate or potential downstream amplifier, but 791's combination of high metric anomaly and topology centrality as an origin makes it the most plausible root cause.",
+    "reason_after": "Service 980 shows a massive error ratio shift (12x) and latency stability in TRC-L, indicating a local processing failure (PlaceOrder) rather than downstream wait. Service 19602, which calls 980 (based on graph 980 <- 211 and 980 -> ... wait, graph says 211 -> 980 and 980 -> 397,411,544,622,691. 19602 is a leaf in the graph provided? No, 19602 is not listed as calling anything, but its metrics show similar error explosion to 980. Re-examining graph: 19602 is isolated in the provided G section lines except for hosting. However, M shows 19602 has identical error/latency patterns to 980. In typical RCA, if 980 is the 'Order' service and 19602 is a frontend/gateway (implied by client_error_ratio), 980 is the upstream cause of 19602's errors if 19602 calls 980. The graph shows 211 calls 980. It does not show 19602 calling 980. However, 19602 has high client errors. Let's look at 83775 in LOG-R. 83775 has the highest log error score (398.6). 83775 is hosted on node 3473. Node 3473 has fluctuating disk/memory metrics. 83775 is not in the call graph as a service interacting with 980. This suggests 83775 might be an unrelated noise or a separate failure. The primary fault likely centers on the 980/19602/211 cluster. 211 is the entry point. 211 calls 980. 980 has high errors. 19602 has high errors. If 19602 calls 980, 980 is the root. If 211 calls 980, 211 sees the errors. The M data for 980 and 19602 is nearly identical (ratio ~12, rrt drop). This suggests they are measuring the same failing path or one proxies the other. Given 980 is 'PlaceOrder' and has specific span data in R showing high count but stable latency (local failure), 980 is the most likely origin. 19602 is likely a downstream client or sibling. 211 is the caller. 83775 is a high-log-error service on a noisy node, but lacks connection to the main flow in the graph provided.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/5391fe124f369e2cd76950cc32ad4031fbb808b39efa57db1ad6794316afe744.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/c83c2c249bc97c467a0bab6e2782c5a4082b52fe41ad4a336ce18f9beb586847.json"
+  },
+  {
+    "model": "qwen3.8-27b",
+    "case": "INC-6E6E1B20F2D5",
+    "dataset": "aiops2025",
+    "mode": "broken",
+    "newer": "E_S_D_P",
+    "base": "E_P_D_P",
+    "root": {
+      "node-7": "8820"
+    },
+    "fault": "node cpu stress",
+    "before": 1.0,
+    "after": 0.5,
+    "reason_before": "Service 8820 (node) exhibits the strongest and earliest distinct anomaly: node_cpu_usage_rate spikes from a baseline of ~18% to ~90% at relative time +25m (bin 34), with a deviation of 44σ. This onset precedes or coincides with the symptoms in the service layer (onset +16m to +19m for services 940, 882, 751), suggesting the infrastructure node's resource exhaustion (CPU) is the upstream driver causing latency spikes (rrt_max increases in services 940, 882, 56474, 16967) and potential performance degradation in the dependent microservices. Service 802 and 643 also show metric anomalies but with lower severity or concurrent onset, likely secondary to the primary node fault or co-located noise. The topology confirms services 940, 882, etc., are distinct from node 8820, but the temporal precedence of the node CPU spike makes it the most plausible root cause origin among the candidates provided.",
+    "reason_after": "Node 7877 exhibits a clear 3σ fluctuation in memory metrics (usage rate +3.2σ, MemAvailable -3.2σ), indicating a resource exhaustion event. Node 8820 shows a severe CPU spike (+42σ), which is also a strong root cause candidate but may be a reaction to load or a separate issue. Service 18457, hosted on node 8820, shows a metric fluctuation (rrt) but is less likely the primary origin compared to the infrastructure faults. The lack of significant error logs or latency spikes in upstream services suggests the fault is contained or early-stage. Given the magnitude of the shift on 7877 and the specific memory signature, it is ranked first.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/1739b9690b4e6af1fb6cd0e53b2a3e5a7c8179b11e1a849fbed8d9bb8df2d0f1.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/2914f2eb3b1ca15641144e8ee1ff29cda26b203abe7ba0061a5763dcdde47716.json"
+  },
+  {
+    "model": "qwen3.8-27b",
+    "case": "INC-1D3579F09C93",
+    "dataset": "aegislab",
+    "mode": "repair",
+    "newer": "E_S_D_P",
+    "base": "E_P_D_P",
+    "root": {
+      "ts-route-service": "636",
+      "ts-travel2-service": "790"
+    },
+    "fault": "HTTPRequestAbort",
+    "before": 0.0,
+    "after": 1.0,
+    "reason_before": "Service 770 exhibits the earliest telemetry onset (+5.0m) and highest severity (z=205.1) among the top candidates. TRC-L analysis shows 770 has the highest rank score (9.23) with extreme exclusive latency inflation (p95 ~2.6s), indicating local processing failure rather than pure downstream propagation. Topologically, 770 is a caller to 897 and 847, consistent with 770's failure propagating downstream to 897 (onset +6.1m) and others, making 770 the most plausible origin.",
+    "reason_after": "Service 790 exhibits the highest anomaly rank scores in TRC-L for its core operations (TripRepository.findAll: 4.56, POST: 3.39), indicating significant exclusive latency degradation and volume changes. Metric data confirms a massive CPU load spike (mean shift >3σ) for 790. Graph analysis (G) shows 790 is called by 328 and 520, and calls 636, 670, and 897; it does not call upstream services like 209 or 328, making it a plausible origin of the latency propagation observed downstream (e.g., in 328 and 209). Log evidence (L) shows no error bursts for 790, suggesting a performance/resource exhaustion root cause rather than a crash, consistent with the high CPU and latency metrics.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/d8bead4830186243891aa79c4b538373009ce38560644b08b1c167a774b83207.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/9a12017a0858ccf7e8bc9f237bc72530733b91b7d074e316d9c9ec9b49d10d6e.json"
+  },
+  {
+    "model": "qwen3.8-27b",
+    "case": "INC-CEDB66058BB8",
+    "dataset": "aegislab",
+    "mode": "broken",
+    "newer": "E_S_D_P",
+    "base": "E_P_D_P",
+    "root": {
+      "ts-price-service": "371"
+    },
+    "fault": "JVMMemoryStress",
+    "before": 1.0,
+    "after": 0.0,
+    "reason_before": "Service 371 is the root cause. It exhibits the earliest onset (+4.5m, Rank 1) with critical metric anomalies: a massive memory spike to 1.67GB (signed_z=95) coinciding with a filesystem drop (suggesting a crash/kill) and a new container restart. Trace evidence confirms local latency degradation (p95 increased by 8.56x for `SELECT price_config`). Service 347 is a downstream caller of 371 that shows high latency (8.64x) but later onset (+4.8m). Services 701 and 236 are downstream of 347 or other callers and show later onsets (+6.1m).",
+    "reason_after": "Service 347 exhibits the highest anomaly scores in TRC-L (rank_score 8.47 for GET, 7.48 for POST) with exclusive latency p95 jumping from ~10-20ms to ~3600-3700ms, indicating local execution failure rather than downstream propagation. This is corroborated by M metrics showing significant filesystem usage increase (347.k8s.pod.filesystem.usage) and lack of error logs (silent in L), suggesting a resource exhaustion or disk-bound issue within the service itself. G analysis confirms 347 is a leaf/callee in this latency path (called by 265, 705, 914), making it a plausible origin. Service 705 shows high downstream inclusive latency (42s) but lower exclusive latency signals, positioning it as a victim of 347's slowness.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/0e61000f1070840b5016e340802e7831b3d40bc8d849e1c02fa17164b6eb840b.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/74b84f1f61fb70e2ab95bdab3527d2b738ddfb2fc489663e1867cd4fd36d0eaf.json"
+  },
+  {
+    "model": "qwen3.8-27b",
+    "case": "INC-D3EAA310B962",
+    "dataset": "aiops2022",
+    "mode": "broken",
+    "newer": "E_S_G_S_V_P",
+    "base": "E_S_D_P",
+    "root": {
+      "productcatalogservice": "437"
+    },
+    "fault": "k8s容器网络资源包损坏",
+    "before": 1.0,
+    "after": 0.0,
+    "reason_before": "TRC-L evidence identifies service 437 as the origin of the latency anomaly. Spans to 437 (ListProducts, GetProduct) show massive exclusive latency spikes (ExL p95 increasing from ~2-4ms to >20s/848ms) in callers 22932, 31727, and 82967. The call graph confirms 437 is a leaf service called by 22932, 31727, and 82967, and no spans originate *from* 437, indicating it is the downstream bottleneck causing the latency. While 10086 shows high request volume and error scores in L, its latency exclusions are low/negative, suggesting it is primarily experiencing traffic spikes or propagation effects rather than being the primary latency origin. 82967 is an entry point showing high latency inclusive of the 437 call, making it a victim rather than the root cause.",
+    "reason_after": "Service 10086 shows the strongest signal of origin: span data indicates a massive surge in request count (count_lfc ~7.5) while local exclusive latency decreased (latency_lfc negative), indicating it is generating excessive traffic rather than suffering from downstream slowness. This traffic surge propagates to upstream callers like 22932 and 31727, which exhibit extreme exclusive latency spikes (20k-24k ms) and high rank scores, consistent with being overwhelmed or waiting on 10086. While node 5026 hosts many affected pods, the specific pattern of 10086 driving the load and the distinct latency profiles of its callers point to 10086 as the primary root cause origin.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/855b0b96d1962bef213699177e53111b36847fcb34fbfff34304c553a3c30ab1.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/9d011a0b112580087582b68d8db8e5a86ae10dfd849b7bf7c09347fda8c3a31a.json"
+  },
+  {
+    "model": "qwen3.8-27b",
+    "case": "INC-5EADA73E94EC",
+    "dataset": "aiops2025",
+    "mode": "repair",
+    "newer": "E_S_G_S_V_P",
+    "base": "E_S_D_P",
+    "root": {
+      "node-3": "9013"
+    },
+    "fault": "node disk fill",
+    "before": 0.0,
+    "after": 1.0,
+    "reason_before": "Service 443 is the entry point that calls 226 and 136. In the TRC-L analyzer, 226 and 136 show the highest rank scores (2.35 and 0.63 respectively) with significant latency increases and count drops, indicating they are the direct sources of failure/latency spikes. Since 443 is the caller to these anomalous services and shows inclusive latency propagation (InL_p95 115.5ms) without exclusive latency anomaly itself in the top ranks, it is the upstream origin propagating the issue from its dependencies or acting as the gateway affected by the downstream faults, but given the 'origin' requirement, we look for the component causing the fault. However, looking closely at G, 443 is the entry. If 226 and 136 are failing, 443 is the caller. Usually, root cause is the failing dependency. But wait, the prompt asks for the component where the fault *originated*. If 226 and 136 are the ones with high exclusive latency spikes, they are the culprits. 443 is just the caller. Let's re-evaluate. 226 has a massive exclusive latency jump (1.8 to 13.3) and count drop. 136 has a smaller jump. 443 calls them. Is there an infrastructure cause? Node 882 has disk write issues, but no clear link to 226/136 in the hosting graph (882 hosts nothing listed? No, 882 is a node ID? No, 882 is a service ID in M, but in G it's a service. Wait, Node IDs are 4 digits. 882 is 3 digits, so it's a service. Node 8122 hosts 91674. Node 9013 hosts 11298. The metrics for 9013 show high filesystem usage. 91674 shows high memory. These are pods/nodes? 91674 is 5 digits (pod). 9013 is 4 digits (node). 882 is 3 digits (service). So 882 is a service with disk metrics? That's odd. Usually nodes have disk. Let's assume 882 is a service name that happens to have node-like metrics or it's a mislabel. Regardless, the strongest signal is in the call graph and TRC-L. 226 and 136 are the anomalous services. 443 is the entry. If 226 and 136 are independent, which is the root? 226 has a much higher rank score. However, 443 is the caller. In many RCA tasks, if the entry point is healthy in ExL but high in InL, the root cause is downstream. Between 226 and 136, 226 is worse. Is there a node causing this? No node links 226 or 136 in the hosting table. Therefore, the fault likely originated in service 226 (or 136), and 443 is the victim. But the prompt asks for the component where the fault *originated*. 226 is a candidate. 136 is a candidate. 443 is a candidate. I will rank 226 first as it has the highest anomaly score, followed by 136, then 443 as the propagation point.",
+    "reason_after": "Node 9013 exhibits a critical filesystem usage rate anomaly (25.75% baseline to 65.12% current, 3σ deviation), indicating severe disk exhaustion. Node 882 also shows significant disk write time and filesystem free byte fluctuations, supporting a disk I/O infrastructure fault. Co-located pods on node 1447 (53590, 59458) show extreme memory and latency spikes (53590 rrt_max 8022ms, 59458 memory 14k+), which are consistent with downstream symptoms of node-level disk I/O blocking and memory pressure (OOM/caching thrashing) rather than independent application faults. No service-level error logs indicate application logic failures, reinforcing the infrastructure root cause.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/3711b0665426ea74f4b46ffc20c2ef354863194a71dd4757d33036f3506fd2f2.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/9cb1c0fed0630708a98039499da879e28bf5f18361e69f702073ec11a1cf6147.json"
+  },
+  {
+    "model": "qwen3.8-27b",
+    "case": "INC-DE4C5840855B",
+    "dataset": "aiops2025",
+    "mode": "broken",
+    "newer": "E_S_G_S_V_P",
+    "base": "E_S_D_P",
+    "root": {
+      "checkoutservice": "355",
+      "currencyservice": "612"
+    },
+    "fault": "network delay",
+    "before": 1.0,
+    "after": 0.3333333333333333,
+    "reason_before": "Service 355 is the origin because it is the only candidate in the critical call path (229 -> 355 -> 266/615/960) exhibiting a massive local execution degradation (ExL_p95 increased by ~6.84 log2 folds from 79.1ms to 9174.7ms in TRC-L), confirmed by a >3σ mean shift in RRT metrics (M). Downstream services like 266, 615, and 960 show minor or no local latency changes, indicating they are affected by waiting on 355. Other high-metric services (10482, 33273, 95884) are not direct predecessors in the primary failing path or show metrics consistent with co-located node issues or independent noise rather than the primary cascade origin.",
+    "reason_after": "Service 355 (PlaceOrder) exhibits an extreme exclusive latency spike (rank_score 6.84), indicating local processing delay rather than downstream wait. Call graph analysis shows 355 calls service 266. Node 7069 hosts service 266 (along with 10482, 35139, etc.) and displays a critical anomaly: node_memory_usage_rate jumped from ~74.5% to ~78.9% with MemAvailable dropping significantly. Services 10482 and 35139 (also on node 7069) show corresponding RRT spikes (approx 4x-35x baseline). The simultaneous degradation of co-located pods (10482, 35139, 266) and the specific resource pressure on node 7069 identify the node as the root cause of the slowness experienced by 266, which propagated to 355. Service 229 is an upstream caller showing timeout symptoms.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/982c1fcb1c8104e72970c41517e812b662b34b4fe5195f9727aa559204d40d4e.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/6ca3d6c38d1279da03af4a5aa2319b9bfb679305ec299669875f4e1e36940f79.json"
+  },
+  {
+    "model": "qwen3.8-27b",
+    "case": "INC-EDA23ECB5C82",
+    "dataset": "aegislab",
+    "mode": "repair",
+    "newer": "E_S_G_S_V_P",
+    "base": "E_S_D_P",
+    "root": {
+      "ts-contacts-service": "961",
+      "ts-preserve-service": "444"
+    },
+    "fault": "HTTPResponseReplaceCode",
+    "before": 0.3333333333333333,
+    "after": 1.0,
+    "reason_before": "Service 441 exhibits the most severe latency degradation (e.g., p50 shifted from 0.11s to 2.32s, a ~21x increase; p99 shifted from 0.05s to 0.7s) and high TRC-L rank scores for local operations (rank_score > 6 for multiple GET/POST endpoints). The call graph shows 441 as a central hub called by entry point 223, and 223 itself shows extreme exclusive latency increases (100ms to 1208ms) specifically when calling 441. Downstream services (like 444, 961) show increased traffic counts but relatively lower latency rank scores, indicating they are reacting to 441's slowness or being overwhelmed, rather than being the primary source of the latency fault. 223 is ranked second as the immediate caller experiencing the impact, but 441 is the origin of the latency degradation within the service mesh.",
+    "reason_after": "Service 444 exhibits a massive spike in error generation (533 BasicErrorController.error spans vs 179 baseline) and significant filesystem usage increase (8.7GB vs 1.0GB baseline), indicating a local resource exhaustion or fault. This causes its operations to degrade (ExL drop but InL rise due to retries/child waits) and propagates latency/latency spikes to its upstream caller 441 (which calls 444) and 223 (which calls 441). Other high-rank services like 327 and 961 show increased span counts but reduced exclusive latency or minor metric fluctuations, consistent with downstream impact or retry storms rather than origin. 444 is the primary origin of the error volume and resource anomaly.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/eea436a5d96d2e2ca43c5154f9f66189a4f4bf0e9c0aa2d6fe1af3225f1e8fd8.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/473490c50d1b33d33c53a4a725ae6139131b95cfaf4165cdaa7236a152d22cc9.json"
+  },
+  {
+    "model": "qwen3.8-27b",
+    "case": "INC-7F84D3BE3772",
+    "dataset": "aiops2022",
+    "mode": "repair",
+    "newer": "W_NO_K",
+    "base": "TPV",
+    "root": {
+      "node-3": "5900"
+    },
+    "fault": "node 磁盘空间消耗",
+    "before": 0.0,
+    "after": 1.0,
+    "reason_before": "G topology places 308 (onset 23m) and 831 (onset 22m) upstream of pod 22784, the only entity with LOG-R error-keyword bursts and new GET /GetProduct traffic; trace evidence confirms 308/831 local exclusive-latency spikes that drive the high inclusive latency observed in 22784.",
+    "reason_after": "Host 5900 shows a decisive root-cause anomaly with a 350σ drop in system.disk.free and a 316σ spike in system.disk.pct_usage, temporally preceding the elevated gRPC latency (247ms peak) observed on pod 38774. Topology evidence confirms that pod 38774 is hosted on the affected node 5900, establishing the causal path from storage degradation to service-level latency impact.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/75e9e43f2742d016be495d2018ea54827d8d99b9db05eba346ed497187c0aa1f.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/9d44bdc32c614227b39be7c8fdb0c7f337f6a0bd72f2ae049477ccc36150a551.json"
+  },
+  {
+    "model": "qwen3.8-27b",
+    "case": "INC-BA41A280E858",
+    "dataset": "aiops2022",
+    "mode": "broken",
+    "newer": "W_NO_K",
+    "base": "TPV",
+    "root": {
+      "adservice-0": "46218"
+    },
+    "fault": "k8s容器读io负载",
+    "before": 1.0,
+    "after": 0.5,
+    "reason_before": "The top candidate is pod 46218, verified by two checks: its MET-Z metrics show a hard, sustained step in filesystem usage/inodes (22.61MB -> 626MB, ~0 -> 3) that is locally contained (exclude 919 as an origin, whose memory bumps are sub-0.2MB, and 2660 as an origin, whose network bytes_rcvd is a distributed co-occurring burst, not an upstream caller of 46218); G provides no caller edge pointing into 46218, confirming it is a leaf origin. Pod 70692's CPU throttling onset at 23m is later than 46218's step (bins 32-40) and co-located, so it is ranked second as a concurrent resource symptom, with 2660's network spike third.",
+    "reason_after": "Node 5360 is the confirmed root cause as the exclusive origin of the system.io.await spike (0.48 to 13.18) and container filesystem burst on Pod 46218, both of which exhibit clear temporal precedents at the 20-minute onset. Verification confirms that no upstream service edge exists that would propagate latency to 5360, and its node-level I/O anomaly is temporally consistent with the metric onset of its co-located Pods.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/19f732583435b3ef501977565639b23c8cce69bfeaf5f16cf76f2f8a081b5cea.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/9ca539a9d1e3030d7b37fc3c44a787cac2fc93fd0ecad72fe3e57cb925a5b903.json"
+  },
+  {
+    "model": "qwen3.8-27b",
+    "case": "INC-77C683F9B6C0",
+    "dataset": "aiops2025",
+    "mode": "repair",
+    "newer": "W_NO_K",
+    "base": "TPV",
+    "root": {
+      "paymentservice": "808"
+    },
+    "fault": "cpu stress",
+    "before": 0.5,
+    "after": 1.0,
+    "reason_before": "Service 203 is the root origin, verified by its earliest top-row anomaly onset at 21m (earlier than all downstream entities) and its elevated exclusive-latency TRC-L rank score of 0.44 with no upstream caller edges. The dependency topology confirms propagation from 203 to downstream failures in 808 and 204, which showed matching latency spikes as a direct consequence.",
+    "reason_after": "Service 808 is the root origin, verified by a 35.6x jump in node-level 'rrt_max' latency (median 2766µs -> 98192µs) concurrent with a ~56% drop in 'Charge' call counts, which precedes the propagation. This local latency degradation in 808 plausibly explains the downstream 'client_error' bursts and count drops observed in caller 203 and co-located services, but does not originate from them. The exclusion of 808 from the initial upstream callers and the lack of upstream trace evidence for the latency spike confirm 808 as the decisive, earliest anomaly.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/367c90640cd994b8f2a37cf86be0c6e6d4bb0a15edaaf6e82f5dd2a25b265f6c.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/80680e947abd81eef5eb8e716f309438edb94a4833c26093db5843cc66e28624.json"
+  },
+  {
+    "model": "qwen3.8-27b",
+    "case": "INC-27F3CF9F35C3",
+    "dataset": "aegislab",
+    "mode": "repair",
+    "newer": "W_NO_K",
+    "base": "TPV",
+    "root": {
+      "ts-auth-service": "419"
+    },
+    "fault": "ContainerKill",
+    "before": 0.0,
+    "after": 1.0,
+    "reason_before": "The metrics show a abrupt drop in pod 419's memory usage and filesystem metrics to near zero around t=3m, consistent with a pod crash, and pod 77815 shows a restart, identifying an infrastructure-level fault. The log evidence attributes the new burst of 'Aborted connection' errors to pod 84519, which is the strongest local, fault-window-locked evidence. The trace evidence for service 750 shows a massive increase in exclusive latency (score 4.38), indicating a downstream stall in the 'foodsearch' domain, and the topology confirms 713 calling 892 (the caller of 750), validating the propagation path.",
+    "reason_after": "Pod 77815 records a hard k8s.container.restarts onset at 3.8m (M1) with co-located node 419 showing a simultaneous, self-contained 29σ–44σ trough in pod memory usage, working set, and limit utilization (M3, M5, M6, M9, M10) that cleanly recovers by 6m, consistent with a container crash/restart rather than sustained downstream backpressure. Trace R shows high inclusive-latency in callers 713/908 but only modest exclusive-latency deviations (e.g., 713 exclusive ~2.1ms, 908 exclusive ~3.4ms vs inclusive >40ms), so their latency is explained by waiting on 77815 rather than originating locally, and no earlier G onset exists for 133/985 to displace 77815/419 as the origin.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/7580e5afc8a8b0dd778e4c694b521d52c0f6c314d6f3959efaa16bb9e2b9b5c6.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/qwen3.8-27b/outputs/56c8510bd4aa24b5563de899ea197858fd434ac4d37efdd830d2b6a6417da433.json"
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "case": "INC-4D6E62700175",
+    "dataset": "aiops2022",
+    "mode": "repair",
+    "newer": "E_S_D_P",
+    "base": "E_P_D_P",
+    "root": {
+      "productcatalogservice-0": "13702"
+    },
+    "fault": "k8s容器网络丢包",
+    "before": 0.0,
+    "after": 1.0,
+    "reason_before": "Service 672 shows severe memory metrics anomalies (Tenured Gen usage and allocation) with a high-confidence 500+ sigma deviation, characteristic of a memory leak or GC thrashing. While service 13702 shows higher latency rank scores, its latency is inclusive (child-heavy), whereas 672's metric shift is fundamental to the service's internal resource state. Propagation onset for 672 is consistent with the wider system symptoms.",
+    "reason_after": "Service 13702 exhibits the highest TRC-L rank_score (10.75) due to an extreme increase in exclusive latency for 'hipstershop.449/GetProduct', while also showing a high error-keyword log score (112.9). Although service 59042 has a higher log error score, its TRC-L score is significantly lower (4.98), and its latency increases are less extreme than 13702's. Service 15831 is a major entry point and downstream of many, but the massive latency spike in 13702's local execution makes it the primary candidate for the origin.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/b918f99419b9a5cc4f963d420a22799cd6d620bcea8b5063934851ed4330ab27.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/f74334446eaef22b770562114a59a33e51a1325319f39a3e84afc432c16dbc31.json"
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "case": "INC-556C50BDC08D",
+    "dataset": "aiops2022",
+    "mode": "broken",
+    "newer": "E_S_D_P",
+    "base": "E_P_D_P",
+    "root": {
+      "cartservice": "909"
+    },
+    "fault": "k8s容器网络资源包重复发送",
+    "before": 1.0,
+    "after": 0.5,
+    "reason_before": "Service 52199 shows a massive spike in page faults (M11/M12) and CPU throttling (M1) starting around bin 47, coinciding with a high severity Z-score. While node 73759 also shows faults, 52199's container-level metrics suggest the localized resource exhaustion is the primary driver. 92890 and 8001 show secondary symptoms (throttling and zombie processes).",
+    "reason_after": "Service 17188 shows the highest TRC-L rank_score (0.63) due to a significant increase in exclusive latency (ExL_p95) for the 'EmptyCart' operation, indicating the bottleneck is local to the service. While 52199 shows high memory-related metric fluctuations (pgfaults), the latency spike in 17188 is the primary driver of downstream call anomalies. 17188 is a central node in the call graph with many downstream dependencies.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/216ee3f63983a0fc15f54d82dca802dd6eb77ffb394afddb1b2e45f7a564a250.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/4a502d72009de96cde131243ce55e00ae8db33afd1446939579f9fc2f30c23ac.json"
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "case": "INC-96E8C237EFAF",
+    "dataset": "aiops2025",
+    "mode": "repair",
+    "newer": "E_S_D_P",
+    "base": "E_P_D_P",
+    "root": {
+      "adservice": "240"
+    },
+    "fault": "jvm cpu",
+    "before": 0.2,
+    "after": 1.0,
+    "reason_before": "Node 2619 shows an extreme metric anomaly (signed_z=999) in disk read bytes, preceding the propagation of latency and error spikes in services like 645, 5226, and 718. While service 240 shows high latency rank_score, its onset follows the infrastructure-level disruption.",
+    "reason_after": "Service 240 shows the most significant increase in exclusive latency (rank_score 3.30) for its GetAds operation. While 872 and 488 also show latency increases, 240's signal is the strongest. Tracing the call graph, 240 is a downstream dependency of 888, which is an entry point, but the latency is localized to 240 itself.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/b8b59513e81546ddc50cace0ea3bae021424032d4be3814211177c8b5ed6b8ae.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/44f2f6bd22e393ecf53f1e3e2821d79fd00e9ec243ece36082d454cb96c98838.json"
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "case": "INC-D93BC27D5F39",
+    "dataset": "aiops2025",
+    "mode": "broken",
+    "newer": "E_S_D_P",
+    "base": "E_P_D_P",
+    "root": {
+      "adservice": "918"
+    },
+    "fault": "jvm exception",
+    "before": 1.0,
+    "after": 0.0,
+    "reason_before": "The propagation onset analysis (G) shows service 918 had the earliest onset of severe anomalies (rank 1, onset +17.0m, severity 999). While service 687 also shows high severity (rank 3), 918 is the first in the causal chain (603 calls 918, 603 calls 687/613/548) to exhibit massive metric shifts and is at the root of the identified dependency graph.",
+    "reason_after": "Service 30479 exhibits a massive 3σ mean shift in pod memory working set (from ~3.5GB to ~24.4GB), indicating a likely memory leak or exhaustion. This is corroborated by service 31327 showing a similar shift. While services like 17255 and 30928 show error logs and volume drops, they are downstream of the memory-related instability. Node 3365 also shows increased memory usage and available memory drops, suggesting the memory pressure is systemic to the nodes hosting these specific pods.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/bbfa6811058cd7da2b9ac563f7717920d7d5b3f4661472ee91bb62ecdeccbb80.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/34d198065349397980820a56226e86b09dc3be997100177bac7a90e1bde0cc1c.json"
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "case": "INC-FD27B5B35F1F",
+    "dataset": "aegislab",
+    "mode": "repair",
+    "newer": "E_S_D_P",
+    "base": "E_P_D_P",
+    "root": {
+      "mysql": "474",
+      "ts-consign-service": "757"
+    },
+    "fault": "NetworkBandwidth",
+    "before": 0.3333333333333333,
+    "after": 1.0,
+    "reason_before": "Service 624 shows the earliest and most severe metric anomalies, specifically a significant increase in memory page faults and a decrease in available memory, occurring at the onset of the fault window. While service 757 exhibits high latency in SQL operations, the topology shows 931 (the likely caller/aggregator) is downstream of 624 in the impact propagation, and the memory pressure in 624 (M11, M12) is a more fundamental infrastructure-level trigger than the latency spikes in downstream services.",
+    "reason_after": "Service 757 shows the most extreme latency anomaly (rank_score 10.71) driven by a massive jump in exclusive latency for 'SELECT ConsignRecord'. While many services show error rate spikes or volume drops (L) and some show memory fluctuations (M), the extreme latency in 757's database operations suggests it is the origin of the bottleneck or the first point of failure in the call chain.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/8395383608607c36ba625d693e278ab316bf56c4eb1b09c37ef771497686c2fe.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/eaac2bdd660051032b8693bd1e93c9abd158f370fa340e0cf8a80141b1f76d19.json"
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "case": "INC-491E85FD6009",
+    "dataset": "aegislab",
+    "mode": "broken",
+    "newer": "E_S_D_P",
+    "base": "E_P_D_P",
+    "root": {
+      "ts-travel-plan-service": "496"
+    },
+    "fault": "JVMException",
+    "before": 1.0,
+    "after": 0.3333333333333333,
+    "reason_before": "Service 496 exhibits the earliest onset of high-severity anomalies (rank 1 in MET-Z, onset +4.2m) and a massive filesystem usage spike (z=848.4). While service 570 shows significant memory shifts, its onset is later (+4.5m to +6.0m) and it is not a caller of 496. Service 476 shows high latency (rank_score 6.47), but its onset is part of the downstream propagation.",
+    "reason_after": "Service 476 exhibits the most significant latency anomaly (rank_score 5.44) in its food service operations, despite having no error-log spikes. While service 675 and 496 show increased inclusive latencies and filesystem usage, 476 is a major hub in the call graph (calling 133, 152, 163, 236, 376, 469, 496, 570, 580, 675, 834, 841, 854, 879, 891, 942), making its latency issues the most likely driver for downstream performance degradation.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/124f5adbd5bc4b929f27679a7bbd75266c9742f657069cda47a6b7a890fa46a3.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/661511a32422850d216caeb697c09107e274cd89543bb7dcc02b4074881362a1.json"
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "case": "INC-A19BB8DA9651",
+    "dataset": "aiops2022",
+    "mode": "repair",
+    "newer": "E_S_G_S_V_P",
+    "base": "E_S_D_P",
+    "root": {
+      "node-5": "9236"
+    },
+    "fault": "node节点CPU爬升",
+    "before": 0.0,
+    "after": 1.0,
+    "reason_before": "Service 67831 shows the highest TRC-L rank_score (1.12) for the 'SendOrderConfirmation' operation, driven by a significant increase in exclusive latency (ExL_p95 from 16.1 to 36.0). While other services like 20209 and 83223 show anomalies, they are downstream callers or co-located on the same node (9236) as many others. 67831 is a caller to 90950 and 15723, but its own local execution time has spiked, making it the most plausible origin of the latency.",
+    "reason_after": "Multiple unrelated services (15282, 20209, 36073, 40405, 83223, etc.) hosted on node 9236 exhibit symptoms of degradation, such as increased latency in the call graph (R) and error/volume drops in logs (L). While service 67831 shows high latency, it is an entry point and its dependencies are not all on the same node. Node 9236 exhibits critical system-level metrics including high memory usage and I/O queue size increases, making it the most likely origin of the correlated failures across the diverse set of pods it hosts.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/669075fb45a02c4c513a48de3311b6d84401b6f20563ba276fccd0acd1f33af9.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/c21f9950f23066b2f1b39474316dab4c1eb2b31abba1cc5eb7146d27bb48ab61.json"
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "case": "INC-7C2B878AC3BB",
+    "dataset": "aiops2022",
+    "mode": "broken",
+    "newer": "E_S_G_S_V_P",
+    "base": "E_S_D_P",
+    "root": {
+      "recommendationservice-2": "10621"
+    },
+    "fault": "k8s容器网络丢包",
+    "before": 1.0,
+    "after": 0.0,
+    "reason_before": "Service 10621 exhibits a massive latency shift (4743ms vs 0.09ms) and a high error-log frequency ratio (100.1) indicating new errors. While 65470 also shows new errors, 10621 is a downstream callee of 65470 and 99845, and its latency spike is more severe. 99845 shows high rank scores in TRC-L for SendOrderConfirmation, but 10621's direct metric fluctuations and error logs strongly point to it as the origin of the observed latency and error propagation.",
+    "reason_after": "Service 9305 is a node hosting a massive number of pods, many of which show correlated anomalies. Metrics for 9305 show significant increases in system disk usage (3661MB to 4124MB), system disk free space fluctuation, and notably, a spike in TCP retransmissions (0.01 to 0.57) and outbound segments (261 to 1064), suggesting network or I/O saturation at the node level. While pods like 10621 and 65470 show high latency and errors, they are downstream of the node-level saturation affecting the shared infrastructure.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/19a4febb2ff617499f4a72deffa7e0af90c358a15544fbe06733a4d7040778d9.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/6a3e0bd53877326bc9a5419bb9f597ab13c30ecaca3d2aab579a8e6b4a387ad8.json"
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "case": "INC-392EE028390B",
+    "dataset": "aiops2025",
+    "mode": "repair",
+    "newer": "E_S_G_S_V_P",
+    "base": "E_S_D_P",
+    "root": {
+      "tidb-tikv": "614"
+    },
+    "fault": "io fault",
+    "before": 0.0,
+    "after": 1.0,
+    "reason_before": "The service 662 is the common denominator for all anomalous span timings (TRC-L) and is the target of most calls in the graph. It acts as a central hub/gateway. While 694 and 721 are major entry points/callers showing latency, the TRC-L analysis shows they are waiting on 662. Crucially, the MET-Z analyzer shows 662 is not flagged, but the RRT (round-trip time) metrics for services calling 662 (like 46143, 46702, 53598, 55930, 662, 694, 71234, 721, 822, 85672) are all massively inflated, indicating a systemic delay at the 662 layer which all these services transit through.",
+    "reason_after": "Service 614 shows extreme anomalies in write_wal_mbps (48.33 vs 15.34) and region_pending (10092 vs 67417), suggesting a storage/IO bottleneck. Service 1994 shows a massive spike in node_disk_written_bytes_total, indicating disk-intensive activity is occurring. The RRT spikes across multiple services (46143, 46702, 53598, 55930, 662, 694, 71234, 721, 822, 85672) are downstream symptoms of this systemic IO/disk pressure.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/2b4d8f3c4c975b279d94633c5fbf134a0bbd941358e2cea2d1345359e7b57823.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/d5b13cdbc771ff440566ecd254fa759fd70a7b9b5eb7ed0f08165d18f91108cb.json"
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "case": "INC-03AEF8BDD4EF",
+    "dataset": "aiops2025",
+    "mode": "broken",
+    "newer": "E_S_G_S_V_P",
+    "base": "E_S_D_P",
+    "root": {
+      "productcatalogservice": "828",
+      "productcatalogservice-0": "49253"
+    },
+    "fault": "cpu stress",
+    "before": 1.0,
+    "after": 0.5,
+    "reason_before": "TRC-L analysis shows service 828 has the highest rank_score (5.30) due to a massive increase in exclusive latency (ExL_p95) for its 'ListProducts' operation (from 3.6ms to 95.6ms). While many services show increased inclusive latency (InL), 828's local execution time spike indicates it is the origin. The latency propagates to callers 816 and 752.",
+    "reason_after": "Service 927 is the common downstream dependency for almost all anomalous services showing increased latency (828, 816, 785, 445, 923, 613, 752). The span anomaly scores in [R] show that 828 has a massive spike in exclusive latency (exl_p95) when calling 927, but the core of the delay propagates through 927. While 828 and 752 show significant latency and call-chain involvement, 927 is the bottleneck service receiving requests from the entry-point services.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/6722cf0c3f3a6e9d62b1bb53048f1aa2bc78765bf46b86256381e3801679c46c.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/f848471fc74c76570b9d9af0d97b75020cb3ca022d4c56dc1f76b74ad28e9a6e.json"
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "case": "INC-D9ABFB644D29",
+    "dataset": "aegislab",
+    "mode": "repair",
+    "newer": "E_S_G_S_V_P",
+    "base": "E_S_D_P",
+    "root": {
+      "ts-order-service": "959"
+    },
+    "fault": "JVMException",
+    "before": 0.25,
+    "after": 1.0,
+    "reason_before": "Service 457 shows the most significant latency anomaly with a rank_score of 10.08 (primarily due to a massive increase in exclusive latency, exl_p95 from 9.4 to 3954.2s). While service 481 and 418 are heavily involved in the call graph and show latency spikes, their latency increases are largely inclusive of downstream delays or less severe in exclusive terms. Service 457's high exclusive latency and localized filesystem/memory fluctuations suggest it is the origin of the bottleneck affecting its callers (418, 335, etc.).",
+    "reason_after": "Service 96209 has the highest error frequency-ratio score (4370.1), indicating a massive spike in error logs. While 457 and 481 show significant latency anomalies in the span scores, they are upstream/midstream in the call graph relative to the massive error density seen in 96209. However, looking at the dependency graph, 96209 is hosted on node 6076, and there are no other services on that node showing errors, suggesting 96209 is the specific failing component. 457 and 481 are highly anomalous in latency, likely caused by the cascading pressure or downstream failures.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/2cc9122329c1dd11abef293a47c9188f2a5fae90d71f476f3c0ebb7f005e5a2f.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/a3d859a85cff79480f30030039dd7e036b7e07606583c58559a3a71479ccdf09.json"
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "case": "INC-B77D2FD0C248",
+    "dataset": "aegislab",
+    "mode": "broken",
+    "newer": "E_S_G_S_V_P",
+    "base": "E_S_D_P",
+    "root": {
+      "ts-seat-service": "115",
+      "ts-travel2-service": "126"
+    },
+    "fault": "NetworkPartition",
+    "before": 1.0,
+    "after": 0.0,
+    "reason_before": "Service 126 shows the highest TRC-L rank_score (13.22) due to a massive spike in exclusive latency (ExL_p95) for the POST operation, indicating the bottleneck is local to 126. While 564 and 483 also show high latency, 126 is a primary component in the dependency chain (called by 483 and 564) and exhibits the most significant shift in local execution time.",
+    "reason_after": "Service 5698 is a node hosting a massive number of pods (22 pods). While the error-keyword frequency scores (L) show high values for services like 74544 and 78423, the call graph (G) reveals these services are actually dependents or co-located on nodes managed by or related to the infrastructure patterns involving 5698. More importantly, the span anomaly scores (R) show massive latency spikes in service 126 and 564, which are heavily dependent on the infrastructure and the wide-reaching call chains passing through services linked to the 5698 cluster. The sheer scale of 5698's footprint suggests an infrastructure-level fault or a service-wide failure within that node/cluster context.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/46332ded7922b6c79e9e5a73be9b4c5f396e72a59a9af80ddfc8b9fd795c2dab.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/9ca22688c56d9c489a7ce2e3b6b3c1664db99acef99cd90d92a6d4ef9cb0c9b2.json"
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "case": "INC-CCCFF766DA4B",
+    "dataset": "aiops2022",
+    "mode": "repair",
+    "newer": "W_NO_K",
+    "base": "TPV",
+    "root": {
+      "productcatalogservice-1": "57600"
+    },
+    "fault": "k8s容器读io负载",
+    "before": 0.0,
+    "after": 1.0,
+    "reason_before": "Node 7458 shows a massive, simultaneous surge in disk usage, inode usage, and network output segments starting exactly at the fault onset. While other services like 77548 show CPU throttling, 7458's infrastructure-level resource exhaustion is the earliest and most severe anomaly, preceding downstream service symptoms.",
+    "reason_after": "Node 7458 experienced a massive spike in disk usage and inode count, but the actual root cause is pod 57600 which shows a significant increase in container memory failcnt and disk usage. Verification confirmed that pod 57600's metrics correlate with the storage anomaly on its host node, and no upstream service showed earlier onset or higher rank scores. The topology shows 7458 hosts 57600, making the local disk pressure the decisive factor. ",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/5d39c63e99c0fc22b3a618174d7e52663156fa149512cbc11d0d24f6339318ef.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/6df8a85fcf6647a692d6d8318923b6812fb1d99e601cbfceea55544bb5fe124e.json"
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "case": "INC-DE4C5840855B",
+    "dataset": "aiops2025",
+    "mode": "broken",
+    "newer": "W_NO_K",
+    "base": "TPV",
+    "root": {
+      "checkoutservice": "355",
+      "currencyservice": "612"
+    },
+    "fault": "network delay",
+    "before": 1.0,
+    "after": 0.0,
+    "reason_before": "Pod 95884 shows a massive memory spike (signed_z=999) at t=25m, which is significantly earlier than the widespread latency issues in service 355. The latency in 355 is confirmed to be inclusive of its child service 953, while the 95884 memory anomaly precedes the massive rrt and rrt_max spikes seen in downstream callers.",
+    "reason_after": "Pod 60748 exhibits a massive memory spike (signed_z=999) at the very start of the incident, whereas other services like 355 show latency spikes much later. The memory exhaustion in 60748 precedes the downstream latency and error propagation observed in the service call graph.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/be77c5e32379436fcb2050012e1cd87db3c56fd2f8a6c5557add5c59159e5038.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/8e8173f62299121354c28dbe776a7eaf220e7d0da10e67fe193ebbb692ede97c.json"
+  },
+  {
+    "model": "gemma-4-26b-a4b",
+    "case": "INC-50C26A55D214",
+    "dataset": "aegislab",
+    "mode": "broken",
+    "newer": "W_NO_K",
+    "base": "TPV",
+    "root": {
+      "ts-user-service": "762"
+    },
+    "fault": "PodKill",
+    "before": 1.0,
+    "after": 0.0,
+    "reason_before": "Service 59269 is the origin of the fault, evidenced by an extreme log-rate burst and error ratio increase (LOG-R score 284.29). Verification against the topology shows it is not a downstream callee of the other anomalous entities, and metric shifts in 762 are secondary to the error burst in 59269. Although 762 shows high latency and memory fluctuations, its metrics do not precede the specific log-driven error onset in 59269.",
+    "reason_after": "Node 871 shows a massive metric deviation in memory utilization with an onset at 5.2m, preceding the errors in service 762. While service 762 exhibits high error rates and latency, it is a downstream consumer in the topology, and the node-level metric shift identifies 871 as the origin.",
+    "before_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/5ff8cf459bf9b14aa2d3205907666a37bcc2fcf25ca9004f3592972d774262f1.json",
+    "after_path": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/stages/check_exp_evidence_instruction_replication/gemma-4-26b-a4b/outputs/fd41d01af78a15cb0c2bbec238b7b8473ba22fb9dd874a041fd14cd9006e0d26.json"
+  }
+]

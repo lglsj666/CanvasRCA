@@ -1,0 +1,90 @@
+{
+  "schema_version": "RQ32ResearchRegistrationV1",
+  "registration_id": "rq32_signal_cover_v1",
+  "seed": 42,
+  "status": "implemented_pending_cpu_and_live_smoke",
+  "data": {
+    "registration": "RQs/RQ3_1/results/data_registration_v1/registration.json",
+    "private_registration": "RQs/RQ3_1/results/data_registration_v1/private/split.json",
+    "rq31_eval_contexts": "RQs/RQ3_1/results/formal_contexts_eval_direct_per_case_v2",
+    "rq31_test_contexts": "RQs/RQ3_1/results/formal_contexts_test_direct_per_case_v3_text_contrast",
+    "eval_cases": 480,
+    "test_cases": 360,
+    "unused_manifest": null
+  },
+  "models": {
+    "order": ["qwen3.8-27b", "gemma-4-26b-a4b"],
+    "primary": "qwen3.8-27b",
+    "cross_model": "gemma-4-26b-a4b"
+  },
+  "request": {
+    "adapter_version": "rq32_solver_request_v1",
+    "max_tokens": 8192,
+    "attention": "disabled",
+    "structured_output": "frozen_top5_json"
+  },
+  "selector": {
+    "version": "signal_cover_v1",
+    "backbone_fraction": 0.5,
+    "coverage_fraction": 0.25,
+    "more_capacity_multiplier": 1.25,
+    "p0_public_split": true,
+    "graph_budget_separate": true,
+    "signal_structures": [
+      "sustained_level", "transient_variation", "discrete_availability",
+      "traffic_error_composition", "host_instance_scope", "local_related_behavior"
+    ]
+  },
+  "experiments": {
+    "exp_signal_selection": {
+      "population": "eval",
+      "cases": 480,
+      "arms": ["P0_CAL", "X_NATIVE_CAL", "X_ALIGNED", "SC_COVER", "SC_FULL", "SC_NO_BACKBONE", "SC_NO_STRATA", "SC_STRICT_PAIR", "P0_MORE", "SC_MORE"],
+      "calls": 9600
+    },
+    "exp_signal_representation": {
+      "population": "eval",
+      "cases": 480,
+      "selectors": ["P0", "SC"],
+      "representations": ["C_CONTRAST", "V_STANDARD", "V_CONTRAST", "M_TEXT"],
+      "bridge_methods": ["T", "TPV", "SIRCL_TEXT"],
+      "calls_without_bridge_reuse": 10560
+    },
+    "exp_signal_mechanisms": {
+      "population": "eval_hash_subset",
+      "cases": 100,
+      "representations": ["C_CONTRAST", "M_TEXT"],
+      "conditions": ["REMOVE_TARGET", "REMOVE_MATCHED_NONTARGET", "NO_GROUPING", "REDUNDANT_NOISE", "REANONYMIZE", "REPLICATE_1", "REPLICATE_2"],
+      "calls": 2800
+    },
+    "exp_signal_locked_generalization": {
+      "population": "test_then_unused",
+      "test_cases": 360,
+      "unused_cases_max": 90,
+      "methods": ["T", "TPV", "SIRCL_TEXT", "SC_C_CONTRAST", "SC_V_CONTRAST", "SC_M_TEXT"],
+      "calls_max": 5400,
+      "requires_method_lock": true
+    }
+  },
+  "smoke": {
+    "datasets": ["re2_ob", "aiops2022", "aiops2025"],
+    "cases_per_dataset": 1,
+    "calls_per_experiment": 6,
+    "max_calls_per_experiment": 18,
+    "max_seconds_per_experiment": 1800,
+    "models_sequential": true
+  },
+  "budget": {
+    "planned_core_calls": 28432,
+    "hard_limit": 40000,
+    "retries_count": true,
+    "reused_calls_count": false
+  },
+  "artifacts": {
+    "formal_root": "RQs/RQ3_2/results/formal_signal_cover_v1",
+    "qualification_root": "RQs/RQ3_2/results/qualification_v1",
+    "ledger": "RQs/RQ3_2/results/rq32_call_ledger.sqlite",
+    "cpu_workers": 8,
+    "attention": false
+  }
+}

@@ -1,0 +1,276 @@
+[
+  {
+    "stage": "RQ1.1",
+    "model": "gemma-4-26b-a4b",
+    "n": 480,
+    "arms": [
+      "MV",
+      "T",
+      "TCV",
+      "TPV",
+      "V"
+    ],
+    "excluded": []
+  },
+  {
+    "stage": "RQ1.1",
+    "model": "qwen3.8-27b",
+    "n": 480,
+    "arms": [
+      "MV",
+      "T",
+      "TCV",
+      "TPV",
+      "V"
+    ],
+    "excluded": []
+  },
+  {
+    "stage": "RQ2.1-selection",
+    "model": "gemma-4-26b-a4b",
+    "n": 480,
+    "arms": [
+      "P0__T",
+      "P_DIVERSITY__T",
+      "P_SIGMA__T",
+      "P_TRACE_SC__T"
+    ],
+    "excluded": []
+  },
+  {
+    "stage": "RQ2.1-selection",
+    "model": "qwen3.8-27b",
+    "n": 480,
+    "arms": [
+      "P0__T",
+      "P_DIVERSITY__T",
+      "P_SIGMA__T",
+      "P_TRACE_SC__T"
+    ],
+    "excluded": []
+  },
+  {
+    "stage": "RQ2.1-encoding",
+    "model": "gemma-4-26b-a4b",
+    "n": 480,
+    "arms": [
+      "S0",
+      "S_G_LAYERED",
+      "S_TABLE"
+    ],
+    "excluded": []
+  },
+  {
+    "stage": "RQ2.1-encoding",
+    "model": "qwen3.8-27b",
+    "n": 480,
+    "arms": [
+      "S0",
+      "S_G_LAYERED",
+      "S_TABLE"
+    ],
+    "excluded": []
+  },
+  {
+    "stage": "RQ2.1-layout",
+    "model": "gemma-4-26b-a4b",
+    "n": 480,
+    "arms": [
+      "D0",
+      "D_PORTRAIT",
+      "D_SCALE_150",
+      "D_TOPOLOGY_CENTER"
+    ],
+    "excluded": []
+  },
+  {
+    "stage": "RQ2.1-layout",
+    "model": "qwen3.8-27b",
+    "n": 480,
+    "arms": [
+      "D0",
+      "D_PORTRAIT",
+      "D_SCALE_150",
+      "D_TOPOLOGY_CENTER"
+    ],
+    "excluded": []
+  },
+  {
+    "stage": "RQ3.2-selection",
+    "model": "gemma-4-26b-a4b",
+    "n": 480,
+    "arms": [
+      "P0_CAL",
+      "SC_FULL",
+      "SC_MORE",
+      "SC_NO_BACKBONE",
+      "SC_NO_STRATA"
+    ],
+    "excluded": []
+  },
+  {
+    "stage": "RQ3.2-selection",
+    "model": "qwen3.8-27b",
+    "n": 455,
+    "arms": [
+      "P0_CAL",
+      "SC_FULL",
+      "SC_MORE",
+      "SC_NO_BACKBONE",
+      "SC_NO_STRATA"
+    ],
+    "excluded": [
+      "INC-03A46BA87920",
+      "INC-03C364835E1A",
+      "INC-39682657768A",
+      "INC-495E8857529A",
+      "INC-62C126A9829B",
+      "INC-6E6E1B20F2D5",
+      "INC-7623CCC4CFDF",
+      "INC-785D78DEDF40",
+      "INC-86158623978C",
+      "INC-8991CE65FDA1",
+      "INC-8AF1B166DB48",
+      "INC-8C75E02709E2",
+      "INC-8E1DFDBC7F96",
+      "INC-96E8C237EFAF",
+      "INC-A630AAF01518",
+      "INC-AC9FBC0EC13D",
+      "INC-CAAEB27C1167",
+      "INC-D629BE49A3C4",
+      "INC-D639854EA9F7",
+      "INC-D7EB286C5225",
+      "INC-E518E9800304",
+      "INC-E86A05E1673E",
+      "INC-EC62E3B248EA",
+      "INC-F5B2E7B7AD42",
+      "INC-F7EC1094EA48"
+    ]
+  },
+  {
+    "stage": "RQ3.3-check",
+    "model": "gemma-4-26b-a4b",
+    "n": 120,
+    "arms": [
+      "P0_MORE_TRUE",
+      "SIRCL_TEXT",
+      "TPV",
+      "W_G",
+      "W_T"
+    ],
+    "excluded": []
+  },
+  {
+    "stage": "RQ3.3-check",
+    "model": "qwen3.8-27b",
+    "n": 118,
+    "arms": [
+      "P0_MORE_TRUE",
+      "SIRCL_TEXT",
+      "TPV",
+      "W_G",
+      "W_T"
+    ],
+    "excluded": [
+      "INC-03A46BA87920",
+      "INC-058FC5DD18AD"
+    ]
+  },
+  {
+    "stage": "RQ3.4-check",
+    "model": "gemma-4-26b-a4b",
+    "n": 120,
+    "arms": [
+      "P0_MORE_TRUE",
+      "P1H1K0_G",
+      "P1H1K1_G",
+      "P1H1K1_T",
+      "SIRCL_IDS",
+      "TPV"
+    ],
+    "excluded": []
+  },
+  {
+    "stage": "RQ3.4-check",
+    "model": "qwen3.8-27b",
+    "n": 113,
+    "arms": [
+      "P0_MORE_TRUE",
+      "P1H1K0_G",
+      "P1H1K1_G",
+      "P1H1K1_T",
+      "SIRCL_IDS",
+      "TPV"
+    ],
+    "excluded": [
+      "INC-01BF937825D4",
+      "INC-1D40A642FA86",
+      "INC-776EE000D01C",
+      "INC-7C2B878AC3BB",
+      "INC-7FCA48559A2E",
+      "INC-CCCFF766DA4B",
+      "INC-D573DF313B5A"
+    ]
+  },
+  {
+    "stage": "RQ3.5-A",
+    "model": "gemma-4-26b-a4b",
+    "n": 60,
+    "arms": [
+      "E_P_D_P",
+      "E_P_D_S",
+      "E_S_D_P",
+      "E_S_D_S",
+      "SIRCL_IDS_NATIVE",
+      "T_NATIVE"
+    ],
+    "excluded": []
+  },
+  {
+    "stage": "RQ3.5-A",
+    "model": "qwen3.8-27b",
+    "n": 58,
+    "arms": [
+      "E_P_D_P",
+      "E_P_D_S",
+      "E_S_D_P",
+      "E_S_D_S",
+      "SIRCL_IDS_NATIVE",
+      "T_NATIVE"
+    ],
+    "excluded": [
+      "INC-7E5014ED408C",
+      "INC-8201EB3924F3"
+    ]
+  },
+  {
+    "stage": "RQ3.5-B",
+    "model": "gemma-4-26b-a4b",
+    "n": 60,
+    "arms": [
+      "J_COND",
+      "J_JOINT",
+      "J_MARG",
+      "MORE",
+      "TPV",
+      "W_NO_K"
+    ],
+    "excluded": []
+  },
+  {
+    "stage": "RQ3.5-B",
+    "model": "qwen3.8-27b",
+    "n": 59,
+    "arms": [
+      "J_COND",
+      "J_JOINT",
+      "J_MARG",
+      "MORE",
+      "TPV",
+      "W_NO_K"
+    ],
+    "excluded": [
+      "INC-91DCB951C96E"
+    ]
+  }
+]

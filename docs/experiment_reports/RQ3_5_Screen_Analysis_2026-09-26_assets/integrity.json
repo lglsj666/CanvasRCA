@@ -1,0 +1,39 @@
+{
+  "expected_units": 1440,
+  "contract_hash": "bbe9b1e3b979df891fa588f0f3565edd2e290745ad0c93d1cec5fe9d04980329",
+  "warnings": [
+    "Runtime granularity summary used an entity map, not gold-root type; offline strata corrected without changing scores."
+  ],
+  "artifact_presence_checked": 8622,
+  "source_score_mismatches": 0,
+  "done": 1437,
+  "fail": 3,
+  "new_formal_calls": 1248,
+  "unique_complete_requests": 1245,
+  "source_availability": {
+    "aiops2022": {
+      "n": 20,
+      "with_request": 20,
+      "with_scope": 0,
+      "no_op": 0
+    },
+    "aiops2025": {
+      "n": 20,
+      "with_request": 5,
+      "with_scope": 0,
+      "no_op": 15
+    },
+    "aegislab": {
+      "n": 20,
+      "with_request": 3,
+      "with_scope": 0,
+      "no_op": 17
+    }
+  },
+  "selected_packs": 105,
+  "paired_input_audits": 598,
+  "raw_finish_reasons": {
+    "stop": 1437
+  },
+  "scope_packs": 0
+}

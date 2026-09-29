@@ -1,0 +1,7 @@
+model,baseline,n,repair1,break1,new_top5,lost_top5,within_top5_promote_to1,outside_top5_to1,mrr_up,mrr_down,both_miss_top5
+qwen3.8-27b,TPV,118,8,2,8,4,4,4,12,5,53
+qwen3.8-27b,P0_MORE_TRUE,118,6,3,6,7,5,1,11,9,50
+qwen3.8-27b,W_T,118,23,11,14,16,15,8,31,23,41
+gemma-4-26b-a4b,TPV,120,1,4,1,7,0,1,1,7,73
+gemma-4-26b-a4b,P0_MORE_TRUE,120,4,7,4,9,0,4,4,9,71
+gemma-4-26b-a4b,W_T,120,8,10,8,10,0,8,8,10,70

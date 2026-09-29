@@ -1,0 +1,141 @@
+{
+  "schema_version": "RQ37ExactMeasurementDefinitionsV1",
+  "policy": "Exact source-defined metric names only. No dataset or label routing; unknown names retain source readings. Extends but never modifies the inherited registry.",
+  "definitions": {
+    "container.memory.available": {
+      "role": "gauge",
+      "unit": "bytes",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "container.memory.usage": {
+      "role": "gauge",
+      "unit": "bytes",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "container.memory.rss": {
+      "role": "gauge",
+      "unit": "bytes",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "container.memory.working_set": {
+      "role": "gauge",
+      "unit": "bytes",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "container.filesystem.available": {
+      "role": "gauge",
+      "unit": "bytes",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "container.filesystem.capacity": {
+      "role": "gauge",
+      "unit": "bytes",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "container.filesystem.usage": {
+      "role": "gauge",
+      "unit": "bytes",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "k8s.pod.memory.available": {
+      "role": "gauge",
+      "unit": "bytes",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "k8s.pod.memory.usage": {
+      "role": "gauge",
+      "unit": "bytes",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "k8s.pod.memory.rss": {
+      "role": "gauge",
+      "unit": "bytes",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "k8s.pod.memory.working_set": {
+      "role": "gauge",
+      "unit": "bytes",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "k8s.pod.filesystem.available": {
+      "role": "gauge",
+      "unit": "bytes",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "k8s.pod.filesystem.capacity": {
+      "role": "gauge",
+      "unit": "bytes",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "k8s.pod.filesystem.usage": {
+      "role": "gauge",
+      "unit": "bytes",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "k8s.node.memory.available": {
+      "role": "gauge",
+      "unit": "bytes",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "k8s.node.memory.usage": {
+      "role": "gauge",
+      "unit": "bytes",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "k8s.node.memory.rss": {
+      "role": "gauge",
+      "unit": "bytes",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "k8s.node.memory.working_set": {
+      "role": "gauge",
+      "unit": "bytes",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "k8s.node.filesystem.available": {
+      "role": "gauge",
+      "unit": "bytes",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "k8s.node.filesystem.capacity": {
+      "role": "gauge",
+      "unit": "bytes",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "k8s.node.filesystem.usage": {
+      "role": "gauge",
+      "unit": "bytes",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "k8s.pod.memory.node.utilization": {
+      "role": "gauge",
+      "unit": "ratio",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "k8s.pod.memory_limit_utilization": {
+      "role": "gauge",
+      "unit": "ratio",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "k8s.pod.memory_request_utilization": {
+      "role": "gauge",
+      "unit": "ratio",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "k8s.container.memory.node.utilization": {
+      "role": "gauge",
+      "unit": "ratio",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "k8s.container.memory_limit_utilization": {
+      "role": "gauge",
+      "unit": "ratio",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    },
+    "k8s.container.memory_request_utilization": {
+      "role": "gauge",
+      "unit": "ratio",
+      "source": "https://raw.githubusercontent.com/open-telemetry/opentelemetry-collector-contrib/v0.110.0/receiver/kubeletstatsreceiver/metadata.yaml"
+    }
+  }
+}

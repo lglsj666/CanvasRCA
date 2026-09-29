@@ -1,0 +1,121 @@
+[
+  {
+    "stage": "calibration",
+    "model": "qwen3.8-27b",
+    "n": 58,
+    "excluded": [
+      "INC-1F5529D2CA5E",
+      "INC-8E91494BF92F"
+    ],
+    "datasets": {
+      "aiops2022": 20,
+      "aegislab": 18,
+      "aiops2025": 20
+    }
+  },
+  {
+    "stage": "calibration",
+    "model": "gemma-4-26b-a4b",
+    "n": 60,
+    "excluded": [],
+    "datasets": {
+      "aiops2022": 20,
+      "aegislab": 20,
+      "aiops2025": 20
+    }
+  },
+  {
+    "stage": "screen",
+    "model": "qwen3.8-27b",
+    "n": 58,
+    "excluded": [
+      "INC-1F5529D2CA5E",
+      "INC-A89422C045DE"
+    ],
+    "datasets": {
+      "aiops2022": 20,
+      "aegislab": 18,
+      "aiops2025": 20
+    }
+  },
+  {
+    "stage": "screen",
+    "model": "gemma-4-26b-a4b",
+    "n": 60,
+    "excluded": [],
+    "datasets": {
+      "aiops2022": 20,
+      "aegislab": 20,
+      "aiops2025": 20
+    }
+  },
+  {
+    "stage": "budget",
+    "model": "qwen3.8-27b",
+    "n": 60,
+    "excluded": [],
+    "datasets": {
+      "aiops2022": 20,
+      "aegislab": 20,
+      "aiops2025": 20
+    }
+  },
+  {
+    "stage": "budget",
+    "model": "gemma-4-26b-a4b",
+    "n": 60,
+    "excluded": [],
+    "datasets": {
+      "aiops2022": 20,
+      "aegislab": 20,
+      "aiops2025": 20
+    }
+  },
+  {
+    "stage": "check",
+    "model": "qwen3.8-27b",
+    "n": 118,
+    "excluded": [
+      "INC-03A46BA87920",
+      "INC-058FC5DD18AD"
+    ],
+    "datasets": {
+      "aiops2022": 40,
+      "aegislab": 39,
+      "aiops2025": 39
+    }
+  },
+  {
+    "stage": "check",
+    "model": "gemma-4-26b-a4b",
+    "n": 120,
+    "excluded": [],
+    "datasets": {
+      "aiops2022": 40,
+      "aegislab": 40,
+      "aiops2025": 40
+    }
+  },
+  {
+    "stage": "diagnostic",
+    "model": "qwen3.8-27b",
+    "n": 60,
+    "excluded": [],
+    "datasets": {
+      "aiops2022": 20,
+      "aegislab": 20,
+      "aiops2025": 20
+    }
+  },
+  {
+    "stage": "diagnostic",
+    "model": "gemma-4-26b-a4b",
+    "n": 60,
+    "excluded": [],
+    "datasets": {
+      "aiops2022": 20,
+      "aegislab": 20,
+      "aiops2025": 20
+    }
+  }
+]

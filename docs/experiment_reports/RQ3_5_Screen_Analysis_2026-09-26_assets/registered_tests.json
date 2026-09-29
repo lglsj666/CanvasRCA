@@ -1,0 +1,502 @@
+[
+  {
+    "experiment": "A",
+    "family": "primary",
+    "model": "qwen3.8-27b",
+    "contrast": "evidence",
+    "n": 59,
+    "delta_mrr": 0.055084745762711856,
+    "paired_dz": 0.13506638556202052,
+    "p": 0.37994513298028787,
+    "event_group_sensitivity": {
+      "groups": 49,
+      "delta_mrr": 0.04441609977324263,
+      "paired_dz": 0.1097971560895597,
+      "p": 0.5037188174674587,
+      "status": "secondary sensitivity, unadjusted"
+    },
+    "per_dataset_delta": {
+      "aegislab": 0.12291666666666665,
+      "aiops2022": 0.029166666666666674,
+      "aiops2025": 0.010964912280701754
+    },
+    "repair_top1": null,
+    "break_top1": null,
+    "holm_p": 0.8780221443600499
+  },
+  {
+    "experiment": "A",
+    "family": "primary",
+    "model": "qwen3.8-27b",
+    "contrast": "instruction",
+    "n": 59,
+    "delta_mrr": -0.027401129943502824,
+    "paired_dz": -0.1273630506676906,
+    "p": 0.2926740481200166,
+    "event_group_sensitivity": {
+      "groups": 49,
+      "delta_mrr": -0.03415532879818594,
+      "paired_dz": -0.17116540516695847,
+      "p": 0.32615993015904354,
+      "status": "secondary sensitivity, unadjusted"
+    },
+    "per_dataset_delta": {
+      "aegislab": -0.010416666666666668,
+      "aiops2022": 0.0025000000000000035,
+      "aiops2025": -0.07675438596491228
+    },
+    "repair_top1": null,
+    "break_top1": null,
+    "holm_p": 0.8780221443600499
+  },
+  {
+    "experiment": "A",
+    "family": "primary",
+    "model": "qwen3.8-27b",
+    "contrast": "interaction",
+    "n": 59,
+    "delta_mrr": -0.0689265536723164,
+    "paired_dz": -0.18109700447813254,
+    "p": 0.0534249576940739,
+    "event_group_sensitivity": {
+      "groups": 49,
+      "delta_mrr": -0.051077097505668925,
+      "paired_dz": -0.128601054110245,
+      "p": 0.1186807262469826,
+      "status": "secondary sensitivity, unadjusted"
+    },
+    "per_dataset_delta": {
+      "aegislab": 0.04583333333333334,
+      "aiops2022": -0.125,
+      "aiops2025": -0.1307017543859649
+    },
+    "repair_top1": null,
+    "break_top1": null,
+    "holm_p": 0.26712478847036947
+  },
+  {
+    "experiment": "A",
+    "family": "primary",
+    "model": "gemma-4-26b-a4b",
+    "contrast": "evidence",
+    "n": 60,
+    "delta_mrr": 0.07222222222222222,
+    "paired_dz": 0.13214580947925936,
+    "p": 0.17578254240641755,
+    "event_group_sensitivity": {
+      "groups": 50,
+      "delta_mrr": 0.09149999999999998,
+      "paired_dz": 0.16859926845355103,
+      "p": 0.1459690324445487,
+      "status": "secondary sensitivity, unadjusted"
+    },
+    "per_dataset_delta": {
+      "aegislab": 0.15875,
+      "aiops2022": -0.015833333333333338,
+      "aiops2025": 0.07375
+    },
+    "repair_top1": null,
+    "break_top1": null,
+    "holm_p": 0.7031301696256702
+  },
+  {
+    "experiment": "A",
+    "family": "primary",
+    "model": "gemma-4-26b-a4b",
+    "contrast": "instruction",
+    "n": 60,
+    "delta_mrr": -0.06916666666666665,
+    "paired_dz": -0.3561004039252069,
+    "p": 0.004011661650319634,
+    "event_group_sensitivity": {
+      "groups": 50,
+      "delta_mrr": -0.06283333333333334,
+      "paired_dz": -0.312584600244833,
+      "p": 0.012114855546023602,
+      "status": "secondary sensitivity, unadjusted"
+    },
+    "per_dataset_delta": {
+      "aegislab": -0.012083333333333331,
+      "aiops2022": -0.08416666666666668,
+      "aiops2025": -0.11125
+    },
+    "repair_top1": null,
+    "break_top1": null,
+    "holm_p": 0.0240699699019178
+  },
+  {
+    "experiment": "A",
+    "family": "primary",
+    "model": "gemma-4-26b-a4b",
+    "contrast": "interaction",
+    "n": 60,
+    "delta_mrr": -0.014999999999999998,
+    "paired_dz": -0.03832455246467444,
+    "p": 0.5191951118562967,
+    "event_group_sensitivity": {
+      "groups": 50,
+      "delta_mrr": -0.011000000000000015,
+      "paired_dz": -0.027161803415054624,
+      "p": 0.54483681382911,
+      "status": "secondary sensitivity, unadjusted"
+    },
+    "per_dataset_delta": {
+      "aegislab": 0.029166666666666664,
+      "aiops2022": -0.018333333333333326,
+      "aiops2025": -0.05583333333333333
+    },
+    "repair_top1": null,
+    "break_top1": null,
+    "holm_p": 0.8780221443600499
+  },
+  {
+    "experiment": "A",
+    "family": "native_calibration",
+    "model": "qwen3.8-27b",
+    "contrast": "common_P-native_T",
+    "n": 59,
+    "delta_mrr": 0.03163841807909604,
+    "paired_dz": 0.07364998634221141,
+    "p": 0.49958825966929976,
+    "event_group_sensitivity": {
+      "groups": 49,
+      "delta_mrr": 0.06626984126984127,
+      "paired_dz": 0.17304830754616993,
+      "p": 0.14885513825868443,
+      "status": "secondary sensitivity, unadjusted"
+    },
+    "per_dataset_delta": {
+      "aegislab": 0.08333333333333334,
+      "aiops2022": -0.09,
+      "aiops2025": 0.10526315789473684
+    },
+    "repair_top1": 6,
+    "break_top1": 4,
+    "holm_p": 0.6342353077906202
+  },
+  {
+    "experiment": "A",
+    "family": "native_calibration",
+    "model": "qwen3.8-27b",
+    "contrast": "common_S-native_S",
+    "n": 59,
+    "delta_mrr": -0.03728813559322034,
+    "paired_dz": -0.08949315734188618,
+    "p": 0.3171176538953101,
+    "event_group_sensitivity": {
+      "groups": 49,
+      "delta_mrr": -0.030725623582766443,
+      "paired_dz": -0.07898822885893901,
+      "p": 0.4354410498247868,
+      "status": "secondary sensitivity, unadjusted"
+    },
+    "per_dataset_delta": {
+      "aegislab": 0.029166666666666664,
+      "aiops2022": -0.16666666666666666,
+      "aiops2025": 0.028947368421052635
+    },
+    "repair_top1": 4,
+    "break_top1": 9,
+    "holm_p": 0.6342353077906202
+  },
+  {
+    "experiment": "A",
+    "family": "native_calibration",
+    "model": "gemma-4-26b-a4b",
+    "contrast": "common_P-native_T",
+    "n": 60,
+    "delta_mrr": 0.09277777777777778,
+    "paired_dz": 0.24508003534894615,
+    "p": 0.0223691423094068,
+    "event_group_sensitivity": {
+      "groups": 50,
+      "delta_mrr": 0.08800000000000001,
+      "paired_dz": 0.24502044383212532,
+      "p": 0.023798549563390368,
+      "status": "secondary sensitivity, unadjusted"
+    },
+    "per_dataset_delta": {
+      "aegislab": 0.011666666666666659,
+      "aiops2022": 0.08333333333333334,
+      "aiops2025": 0.18333333333333332
+    },
+    "repair_top1": 7,
+    "break_top1": 5,
+    "holm_p": 0.0894765692376272
+  },
+  {
+    "experiment": "A",
+    "family": "native_calibration",
+    "model": "gemma-4-26b-a4b",
+    "contrast": "common_S-native_S",
+    "n": 60,
+    "delta_mrr": 0.07916666666666666,
+    "paired_dz": 0.23275873601353636,
+    "p": 0.14550404857220317,
+    "event_group_sensitivity": {
+      "groups": 50,
+      "delta_mrr": 0.05444444444444445,
+      "paired_dz": 0.17190445125036916,
+      "p": 0.2548881591141112,
+      "status": "secondary sensitivity, unadjusted"
+    },
+    "per_dataset_delta": {
+      "aegislab": 0.05,
+      "aiops2022": 0.15833333333333335,
+      "aiops2025": 0.029166666666666674
+    },
+    "repair_top1": 6,
+    "break_top1": 1,
+    "holm_p": 0.4365121457166095
+  },
+  {
+    "experiment": "B",
+    "family": "primary",
+    "model": "qwen3.8-27b",
+    "contrast": "J_COND-TPV",
+    "n": 59,
+    "delta_mrr": -0.0028248587570621464,
+    "paired_dz": -0.018538176593728157,
+    "p": 0.9942373103767185,
+    "event_group_sensitivity": {
+      "groups": 50,
+      "delta_mrr": -0.007638888888888889,
+      "paired_dz": -0.05348705600043545,
+      "p": 0.979442821911454,
+      "status": "secondary sensitivity, unadjusted"
+    },
+    "per_dataset_delta": {
+      "aegislab": -0.0375,
+      "aiops2022": 0.02192982456140351,
+      "aiops2025": 0.008333333333333335
+    },
+    "repair_top1": 1,
+    "break_top1": 1,
+    "holm_p": 1.0
+  },
+  {
+    "experiment": "B",
+    "family": "primary",
+    "model": "qwen3.8-27b",
+    "contrast": "J_COND-MORE",
+    "n": 59,
+    "delta_mrr": -0.011299435028248586,
+    "paired_dz": -0.0682518779143381,
+    "p": 0.6956227744922163,
+    "event_group_sensitivity": {
+      "groups": 50,
+      "delta_mrr": -0.017638888888888888,
+      "paired_dz": -0.11102438637049544,
+      "p": 0.6760918104165019,
+      "status": "secondary sensitivity, unadjusted"
+    },
+    "per_dataset_delta": {
+      "aegislab": -0.0375,
+      "aiops2022": 0.02192982456140351,
+      "aiops2025": -0.016666666666666666
+    },
+    "repair_top1": 0,
+    "break_top1": 2,
+    "holm_p": 1.0
+  },
+  {
+    "experiment": "B",
+    "family": "primary",
+    "model": "qwen3.8-27b",
+    "contrast": "J_COND-W_NO_K",
+    "n": 59,
+    "delta_mrr": -0.06497175141242938,
+    "paired_dz": -0.24278396147048809,
+    "p": 0.11596456716049197,
+    "event_group_sensitivity": {
+      "groups": 50,
+      "delta_mrr": -0.07597222222222223,
+      "paired_dz": -0.2673493867443142,
+      "p": 0.11014808068382287,
+      "status": "secondary sensitivity, unadjusted"
+    },
+    "per_dataset_delta": {
+      "aegislab": -0.04583333333333334,
+      "aiops2022": -0.004385964912280701,
+      "aiops2025": -0.14166666666666666
+    },
+    "repair_top1": 1,
+    "break_top1": 5,
+    "holm_p": 0.6957874029629518
+  },
+  {
+    "experiment": "B",
+    "family": "primary",
+    "model": "gemma-4-26b-a4b",
+    "contrast": "J_COND-TPV",
+    "n": 60,
+    "delta_mrr": 0.011111111111111112,
+    "paired_dz": 0.0812376302750575,
+    "p": 0.9905183800775177,
+    "event_group_sensitivity": {
+      "groups": 50,
+      "delta_mrr": 0.013333333333333334,
+      "paired_dz": 0.08890008890013334,
+      "p": 0.9886031996189143,
+      "status": "secondary sensitivity, unadjusted"
+    },
+    "per_dataset_delta": {
+      "aegislab": 0.05,
+      "aiops2022": 0.0,
+      "aiops2025": -0.016666666666666666
+    },
+    "repair_top1": 1,
+    "break_top1": 0,
+    "holm_p": 1.0
+  },
+  {
+    "experiment": "B",
+    "family": "primary",
+    "model": "gemma-4-26b-a4b",
+    "contrast": "J_COND-MORE",
+    "n": 60,
+    "delta_mrr": -0.02222222222222222,
+    "paired_dz": -0.09723748353967314,
+    "p": 0.321517454761888,
+    "event_group_sensitivity": {
+      "groups": 50,
+      "delta_mrr": -0.02333333333333333,
+      "paired_dz": -0.13587542069859146,
+      "p": 0.3224409974115586,
+      "status": "secondary sensitivity, unadjusted"
+    },
+    "per_dataset_delta": {
+      "aegislab": -0.05,
+      "aiops2022": 0.0,
+      "aiops2025": -0.016666666666666666
+    },
+    "repair_top1": 1,
+    "break_top1": 2,
+    "holm_p": 1.0
+  },
+  {
+    "experiment": "B",
+    "family": "primary",
+    "model": "gemma-4-26b-a4b",
+    "contrast": "J_COND-W_NO_K",
+    "n": 60,
+    "delta_mrr": 0.0,
+    "paired_dz": null,
+    "p": 1.0,
+    "event_group_sensitivity": {
+      "groups": 50,
+      "delta_mrr": 0.0,
+      "paired_dz": null,
+      "p": 1.0,
+      "status": "secondary sensitivity, unadjusted"
+    },
+    "per_dataset_delta": {
+      "aegislab": 0.0,
+      "aiops2022": 0.0,
+      "aiops2025": 0.0
+    },
+    "repair_top1": 0,
+    "break_top1": 0,
+    "holm_p": 1.0
+  },
+  {
+    "experiment": "B",
+    "family": "joint_mechanism",
+    "model": "qwen3.8-27b",
+    "contrast": "joint-marginal",
+    "n": 59,
+    "delta_mrr": 0.014124293785310736,
+    "paired_dz": 0.12073389458460389,
+    "p": 0.5503740417574694,
+    "event_group_sensitivity": {
+      "groups": 50,
+      "delta_mrr": 0.014444444444444447,
+      "paired_dz": 0.1678150089585652,
+      "p": 0.5479517696786598,
+      "status": "secondary sensitivity, unadjusted"
+    },
+    "per_dataset_delta": {
+      "aegislab": 0.0,
+      "aiops2022": 0.017543859649122813,
+      "aiops2025": 0.025
+    },
+    "repair_top1": 2,
+    "break_top1": 0,
+    "holm_p": 1.0
+  },
+  {
+    "experiment": "B",
+    "family": "joint_mechanism",
+    "model": "qwen3.8-27b",
+    "contrast": "conditional-joint",
+    "n": 59,
+    "delta_mrr": -0.00847457627118644,
+    "paired_dz": -0.13018891098082389,
+    "p": 0.31731050786291415,
+    "event_group_sensitivity": {
+      "groups": 50,
+      "delta_mrr": -0.005,
+      "paired_dz": -0.1414213562373095,
+      "p": 0.31731050786291415,
+      "status": "secondary sensitivity, unadjusted"
+    },
+    "per_dataset_delta": {
+      "aegislab": 0.0,
+      "aiops2022": -0.02631578947368421,
+      "aiops2025": 0.0
+    },
+    "repair_top1": 0,
+    "break_top1": 1,
+    "holm_p": 1.0
+  },
+  {
+    "experiment": "B",
+    "family": "joint_mechanism",
+    "model": "gemma-4-26b-a4b",
+    "contrast": "joint-marginal",
+    "n": 60,
+    "delta_mrr": 0.0,
+    "paired_dz": null,
+    "p": 1.0,
+    "event_group_sensitivity": {
+      "groups": 50,
+      "delta_mrr": 0.0,
+      "paired_dz": null,
+      "p": 1.0,
+      "status": "secondary sensitivity, unadjusted"
+    },
+    "per_dataset_delta": {
+      "aegislab": 0.0,
+      "aiops2022": 0.0,
+      "aiops2025": 0.0
+    },
+    "repair_top1": 0,
+    "break_top1": 0,
+    "holm_p": 1.0
+  },
+  {
+    "experiment": "B",
+    "family": "joint_mechanism",
+    "model": "gemma-4-26b-a4b",
+    "contrast": "conditional-joint",
+    "n": 60,
+    "delta_mrr": -0.005555555555555555,
+    "paired_dz": -0.12909944487358058,
+    "p": 0.31731050786291415,
+    "event_group_sensitivity": {
+      "groups": 50,
+      "delta_mrr": -0.006666666666666666,
+      "paired_dz": -0.14142135623730953,
+      "p": 0.31731050786291415,
+      "status": "secondary sensitivity, unadjusted"
+    },
+    "per_dataset_delta": {
+      "aegislab": 0.0,
+      "aiops2022": 0.0,
+      "aiops2025": -0.016666666666666666
+    },
+    "repair_top1": 0,
+    "break_top1": 0,
+    "holm_p": 1.0
+  }
+]

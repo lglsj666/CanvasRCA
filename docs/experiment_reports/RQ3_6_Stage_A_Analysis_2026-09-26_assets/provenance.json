@@ -1,0 +1,39 @@
+{
+  "registration": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/registration.json",
+  "contract_hash": "5d77be32458c919e32d61225f40fa32e4b5fddb3b5cbd2c2dfc2d1adda2b7e39",
+  "original_outputs_unchanged": true,
+  "new_model_calls": 0,
+  "calls_by_scope": [
+    [
+      "formal",
+      2640
+    ],
+    [
+      "historical",
+      8241
+    ],
+    [
+      "smoke",
+      18
+    ]
+  ],
+  "shared_mask": "per-model all-eleven whole-case infrastructure exclusion",
+  "wilcoxon_difference_rounding_decimals": 12,
+  "source_status": {
+    "pid": 102078,
+    "attempt": "1790460579546847200",
+    "started_unix": 1790460579.5468757,
+    "scope": "A_check120",
+    "planned_units": 2640,
+    "contract_hash": "5d77be32458c919e32d61225f40fa32e4b5fddb3b5cbd2c2dfc2d1adda2b7e39",
+    "state": "completed_A_check120",
+    "updated_unix": 1790467470.7483993,
+    "child_pid": null,
+    "server_pid": null,
+    "model": "gemma-4-26b-a4b",
+    "remaining_units": 1320,
+    "server_log": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/logs/1790460579546847200_gemma-4-26b-a4b_server.log",
+    "child_log": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/results/replication_v1/logs/1790460579546847200_gemma-4-26b-a4b_runner.log"
+  },
+  "script": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_6/scripts/analysis/report_stage_a.py"
+}

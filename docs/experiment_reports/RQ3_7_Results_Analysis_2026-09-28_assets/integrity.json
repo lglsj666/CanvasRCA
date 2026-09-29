@@ -1,0 +1,71 @@
+{
+  "rows": 4140,
+  "unique_success_artifacts": 3727,
+  "missing_paths": [],
+  "output_score_status": {
+    "complete": 3725,
+    "model_failure": 2
+  },
+  "cost_finish_status": {
+    "unrecorded_here": 3727
+  },
+  "A_excluded_cases": {
+    "qwen3.8-27b": [
+      "INC-316B59616EA8",
+      "INC-4D6E62700175",
+      "INC-BD30D389E22B"
+    ],
+    "gemma-4-26b-a4b": []
+  },
+  "terminal_status_counts": [
+    {
+      "experiment": "A",
+      "model": "gemma-4-26b-a4b",
+      "status": "done",
+      "failure_class": "",
+      "n": 1260
+    },
+    {
+      "experiment": "A",
+      "model": "qwen3.8-27b",
+      "status": "done",
+      "failure_class": "",
+      "n": 1253
+    },
+    {
+      "experiment": "A",
+      "model": "qwen3.8-27b",
+      "status": "fail",
+      "failure_class": "reference_unavailable",
+      "n": 3
+    },
+    {
+      "experiment": "A",
+      "model": "qwen3.8-27b",
+      "status": "fail",
+      "failure_class": "request_timeout",
+      "n": 4
+    },
+    {
+      "experiment": "B",
+      "model": "gemma-4-26b-a4b",
+      "status": "done",
+      "failure_class": "",
+      "n": 810
+    },
+    {
+      "experiment": "B",
+      "model": "qwen3.8-27b",
+      "status": "done",
+      "failure_class": "",
+      "n": 803
+    },
+    {
+      "experiment": "B",
+      "model": "qwen3.8-27b",
+      "status": "fail",
+      "failure_class": "request_timeout",
+      "n": 7
+    }
+  ]
+}

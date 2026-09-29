@@ -28,7 +28,7 @@ common:
   max_tokens: 16384
   temperature: 1.0
   top_p: 0.95
-  request_timeout_sec: 1800
+  request_timeout_sec: 300
   wait_timeout_sec: 1800
   async_scheduling: false
   # This is the only operational recipe difference from the Nibi profile.

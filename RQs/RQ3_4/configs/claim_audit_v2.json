@@ -1,0 +1,13 @@
+{
+  "schema_version": "claim-audit-v1",
+  "experiment": "exp_claim_verification_cpu",
+  "source_run": "RQs/RQ3_3/results/witness_v2",
+  "stage": "check",
+  "output_root": "RQs/RQ3_4/results/claim_audit_v2",
+  "solver_timeout_ms": 1000,
+  "wall_timeout_sec": 900,
+  "model_calls": 0,
+  "training": false,
+  "attention": false,
+  "unified_contracts": ["configs/vllm_inference.yaml", "configs/dataset_segmentation.yaml", "configs/rca_scorer.yaml"]
+}

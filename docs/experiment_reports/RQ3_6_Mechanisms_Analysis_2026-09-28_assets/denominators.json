@@ -1,0 +1,108 @@
+[
+  {
+    "family": "g_components",
+    "model": "gemma-4-26b-a4b",
+    "n": 180,
+    "excluded": [],
+    "datasets": {
+      "aiops2025": 60,
+      "aegislab": 60,
+      "aiops2022": 60
+    }
+  },
+  {
+    "family": "g_components",
+    "model": "qwen3.8-27b",
+    "n": 163,
+    "excluded": [
+      "INC-04317463B3D0",
+      "INC-27CBD1F8668A",
+      "INC-2B5B37FB4D11",
+      "INC-491E85FD6009",
+      "INC-68BAACF4BB36",
+      "INC-6E6E1B20F2D5",
+      "INC-881461551C98",
+      "INC-8E1DFDBC7F96",
+      "INC-91DCB951C96E",
+      "INC-977EEEDB6E71",
+      "INC-A30E2AFB40B0",
+      "INC-B63AC53AB86F",
+      "INC-B63F1516296F",
+      "INC-C10F5EA649A5",
+      "INC-C7962AC24637",
+      "INC-CCCFF766DA4B",
+      "INC-D3EAA310B962"
+    ],
+    "datasets": {
+      "aiops2025": 53,
+      "aegislab": 57,
+      "aiops2022": 53
+    }
+  },
+  {
+    "family": "relation_binding",
+    "model": "gemma-4-26b-a4b",
+    "n": 180,
+    "excluded": [],
+    "datasets": {
+      "aiops2025": 60,
+      "aegislab": 60,
+      "aiops2022": 60
+    }
+  },
+  {
+    "family": "relation_binding",
+    "model": "qwen3.8-27b",
+    "n": 170,
+    "excluded": [
+      "INC-03AEF8BDD4EF",
+      "INC-4223B0F4F49C",
+      "INC-6E6E1B20F2D5",
+      "INC-77C683F9B6C0",
+      "INC-7C2B878AC3BB",
+      "INC-8E0FB1B7B3FE",
+      "INC-9C225C04C814",
+      "INC-A2F0E757DD2A",
+      "INC-D87134FF9ACF",
+      "INC-DD972245679A"
+    ],
+    "datasets": {
+      "aiops2025": 54,
+      "aegislab": 59,
+      "aiops2022": 57
+    }
+  },
+  {
+    "family": "scope_competition",
+    "model": "gemma-4-26b-a4b",
+    "n": 180,
+    "excluded": [],
+    "datasets": {
+      "aiops2025": 60,
+      "aegislab": 60,
+      "aiops2022": 60
+    }
+  },
+  {
+    "family": "scope_competition",
+    "model": "qwen3.8-27b",
+    "n": 170,
+    "excluded": [
+      "INC-2FF9FCA71E6D",
+      "INC-335A9F3A663E",
+      "INC-4223B0F4F49C",
+      "INC-4D6E62700175",
+      "INC-65CE2F2F3440",
+      "INC-6E6E1B20F2D5",
+      "INC-6FDD214ABC63",
+      "INC-7D95F2013B97",
+      "INC-7E5014ED408C",
+      "INC-80540E51533D"
+    ],
+    "datasets": {
+      "aiops2025": 56,
+      "aegislab": 60,
+      "aiops2022": 54
+    }
+  }
+]

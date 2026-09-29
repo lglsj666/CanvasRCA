@@ -1,0 +1,60 @@
+dataset,root_level,fault_type,0
+aegislab,service,ContainerKill,6
+aegislab,service,HTTPRequestAbort,5
+aegislab,service,HTTPRequestDelay,5
+aegislab,service,HTTPRequestReplaceMethod,8
+aegislab,service,HTTPResponseDelay,5
+aegislab,service,HTTPResponseReplaceBody,1
+aegislab,service,HTTPResponseReplaceCode,8
+aegislab,service,JVMException,3
+aegislab,service,JVMLatency,1
+aegislab,service,JVMMemoryStress,9
+aegislab,service,NetworkBandwidth,2
+aegislab,service,NetworkCorrupt,2
+aegislab,service,NetworkLoss,1
+aegislab,service,NetworkPartition,3
+aegislab,service,PodKill,1
+aiops2022,node,node 内存消耗,3
+aiops2022,node,node 磁盘写IO消耗,3
+aiops2022,node,node 磁盘空间消耗,2
+aiops2022,node,node 磁盘读IO消耗,4
+aiops2022,node,node节点CPU故障,2
+aiops2022,node,node节点CPU爬升,2
+aiops2022,pod,k8s容器cpu负载,2
+aiops2022,pod,k8s容器内存负载,4
+aiops2022,pod,k8s容器写io负载,2
+aiops2022,pod,k8s容器网络丢包,3
+aiops2022,pod,k8s容器网络延迟,3
+aiops2022,pod,k8s容器网络资源包损坏,4
+aiops2022,pod,k8s容器网络资源包重复发送,1
+aiops2022,pod,k8s容器读io负载,4
+aiops2022,service,k8s容器cpu负载,3
+aiops2022,service,k8s容器内存负载,2
+aiops2022,service,k8s容器网络丢包,1
+aiops2022,service,k8s容器网络延迟,5
+aiops2022,service,k8s容器网络资源包损坏,3
+aiops2022,service,k8s容器网络资源包重复发送,4
+aiops2022,service,k8s容器进程中止,3
+aiops2025,node,node cpu stress,2
+aiops2025,node,node disk fill,4
+aiops2025,node,node memory stress,3
+aiops2025,pod+service,cpu stress,3
+aiops2025,pod+service,dns error,4
+aiops2025,pod+service,io fault,3
+aiops2025,pod+service,jvm exception,2
+aiops2025,pod+service,jvm latency,2
+aiops2025,pod+service,memory stress,2
+aiops2025,pod+service,network corrupt,1
+aiops2025,pod+service,pod failure,6
+aiops2025,service,cpu stress,3
+aiops2025,service,jvm cpu,3
+aiops2025,service,jvm exception,3
+aiops2025,service,jvm gc,1
+aiops2025,service,jvm latency,1
+aiops2025,service,memory stress,2
+aiops2025,service,network corrupt,3
+aiops2025,service,network delay,4
+aiops2025,service,network loss,4
+aiops2025,service,pod failure,2
+aiops2025,service,pod kill,1
+aiops2025,service,target port misconfig,1

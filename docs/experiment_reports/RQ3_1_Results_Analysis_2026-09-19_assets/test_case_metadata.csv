@@ -1,0 +1,361 @@
+case,dataset,fault_type,root_granularity,candidate_count,x_pool_fact_count,x_selected_fact_count,x_selected_bundle_count,x_root_evidence_visible,x_root_fact_count,x_root_modalities,x_root_bundle_visible,p0_root_evidence_visible,p0_root_fact_count,p0_root_modalities,original_validation,exposure_stratum,ANOMALY_MAGNITUDE_mrr,ANOMALY_MAGNITUDE_ac1,ANOMALY_MAGNITUDE_ac3,ANOMALY_MAGNITUDE_ac5,ANOMALY_COUNT_mrr,ANOMALY_COUNT_ac1,ANOMALY_COUNT_ac3,ANOMALY_COUNT_ac5,X_INTERNAL_mrr,X_INTERNAL_ac1,X_INTERNAL_ac3,X_INTERNAL_ac5
+INC-009C6244A932,aiops2022,k8s容器网络延迟,service,85,444213,44,24,True,21,G+R,True,True,11,G+L+R,False,added220,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.25,0.0,0.0,1.0
+INC-0176E922439E,aegislab,HTTPResponseReplaceCode,service,104,42651,44,24,True,7,G+R,True,True,9,G+M,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-0219584C9EF9,aiops2025,jvm gc,service,61,16261,27,7,True,5,G+L+M,True,True,1,G,False,added220,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-02601518809D,aiops2025,pod failure,service,63,22488,33,15,True,4,G+L+R,True,False,0,none,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-02F324E78A82,aiops2025,node disk fill,node,63,32773,32,13,False,0,none,False,True,2,G+M,False,added220,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-05A1167EB79A,aiops2022,k8s容器网络丢包,service,85,370329,44,24,True,17,G+R,True,True,10,G+L+R,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-061C4417DFE6,aiops2022,node节点CPU爬升,node,85,379595,41,20,True,1,M,False,False,0,none,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-06D4BEB9E149,aiops2022,node 磁盘空间消耗,node,85,131506,44,24,False,0,none,False,True,4,G+M,False,added220,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-07361DF5979D,aiops2022,k8s容器读io负载,service,85,420562,44,24,True,1,M,False,True,3,G,False,added220,1.0,1.0,1.0,1.0,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-079EB921B335,aiops2022,k8s容器写io负载,service,85,118767,44,25,True,4,G+R,True,True,7,G+M,False,added220,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-085522AC5905,aiops2022,k8s容器cpu负载,service,85,257099,41,20,True,5,G+L+M+R,True,True,14,G+M,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-0904974DA9D9,aiops2025,node disk fill,node,63,17670,34,14,False,0,none,False,True,1,G,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-0915D5F0EB5B,aegislab,JVMMemoryStress,service,104,66808,40,20,True,5,G+M+R,True,True,14,G+M+R,False,added220,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+INC-0BA66AC480B7,aiops2022,k8s容器网络资源包重复发送,pod,85,101667,38,16,True,3,G+R,True,False,0,none,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-0C06E49170EA,aegislab,JVMMemoryStress,service,104,52230,41,20,True,1,G,False,True,11,G+M,False,added220,0.25,0.0,0.0,1.0,0.25,0.0,0.0,1.0,0.25,0.0,0.0,1.0
+INC-0C24330AB85D,aiops2025,jvm gc,service,63,14534,35,16,True,3,G+L+R,True,True,3,G+M+R,False,added220,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-0CD087EF23F0,aegislab,JVMMemoryStress,service,104,26619,41,20,True,7,G+R,True,True,13,G+M+R,False,added220,0.2,0.0,0.0,1.0,0.2,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-0DE58711FAED,aiops2025,node memory stress,node,63,14835,35,16,False,0,none,False,True,2,G+M,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-0E16D3BAF263,aiops2022,node节点CPU爬升,node,85,420506,44,24,False,0,none,False,True,1,G,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0
+INC-0ED043E9D29A,aiops2022,k8s容器读io负载,service,85,436642,41,20,True,3,G+R,True,True,13,G+M,True,legacy_validation140,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+INC-0F8A700B240D,aiops2022,k8s容器进程中止,service,85,398783,38,16,True,5,G+R,True,True,2,G,True,legacy_validation140,0.5,0.0,1.0,1.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-0FCD67EDEDD1,aiops2022,k8s容器网络延迟,pod,74,377572,38,16,True,14,G+M+R,True,True,8,L+M+R,True,legacy_validation140,0.0,0.0,0.0,0.0,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-11E5AABB818F,aegislab,HTTPResponseReplaceCode,service,104,40788,40,19,True,4,G+L+R,True,True,17,G+L+M+R,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.5,0.0,1.0,1.0
+INC-11E804C2E00A,aiops2022,k8s容器进程中止,service,85,419557,43,23,True,6,G+R,True,True,3,G+M,False,added220,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-12D81A21098E,aiops2025,network corrupt,service,63,20902,34,15,True,11,G+M+R,True,True,9,G+R,False,added220,0.5,0.0,1.0,1.0,0.25,0.0,0.0,1.0,1.0,1.0,1.0,1.0
+INC-14B01FA7DFE4,aegislab,HTTPResponseReplaceCode,service,104,75977,36,14,True,8,G+R,True,True,8,G+M+R,False,added220,0.2,0.0,0.0,1.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-154D92DF4C8E,aegislab,HTTPResponseReplaceCode,service,104,24948,41,20,True,2,L+R,False,True,15,G+M+R,False,added220,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-158B17DAA65E,aiops2022,k8s容器进程中止,service,85,365857,41,20,True,12,G+R,True,True,8,G+M+R,True,legacy_validation140,0.2,0.0,0.0,1.0,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-16004E61D5E3,aegislab,NetworkCorrupt,service,104,22345,40,19,True,1,M,False,True,10,G+L+M+R,False,added220,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+INC-164B71DA056A,aiops2025,io fault,mixed,63,32445,35,16,True,1,M,False,True,5,G+M,True,legacy_validation140,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-182B6B476BE0,aegislab,HTTPRequestAbort,service,104,27727,44,24,True,9,G+R,True,True,2,R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.2,0.0,0.0,1.0
+INC-1892797B8DCF,aegislab,HTTPResponseReplaceBody,service,104,51677,41,20,True,3,G+L+R,False,True,5,G+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-189F4299D60C,aiops2022,k8s容器网络延迟,pod,85,174982,47,28,True,8,G+R,True,True,2,M+R,True,legacy_validation140,0.0,0.0,0.0,0.0,0.2,0.0,0.0,1.0,1.0,1.0,1.0,1.0
+INC-18F98268D13F,aiops2022,k8s容器cpu负载,service,85,381926,41,20,True,12,G+R,True,True,6,G+M+R,True,legacy_validation140,0.5,0.0,1.0,1.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-19E8CFE48BBE,aiops2022,k8s容器读io负载,pod,85,50286,47,28,False,0,none,False,True,4,M,True,legacy_validation140,0.0,0.0,0.0,0.0,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-1A3B8BB96764,aiops2025,jvm latency,mixed,63,34425,34,14,True,3,G+L+M,False,True,4,G+M+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-1A7F6EF2864E,aegislab,HTTPResponseReplaceBody,service,104,41919,41,20,True,3,L+M+R,False,True,21,G+L+M+R,False,added220,0.5,0.0,1.0,1.0,0.25,0.0,0.0,1.0,0.2,0.0,0.0,1.0
+INC-1BE65D21AE99,aiops2022,k8s容器网络资源包重复发送,pod,85,134716,41,20,True,3,G+R,True,False,0,none,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-1C453098735A,aiops2022,k8s容器写io负载,service,85,139483,40,19,True,3,G+R,True,True,2,G+R,False,added220,0.0,0.0,0.0,0.0,0.2,0.0,0.0,1.0,0.2,0.0,0.0,1.0
+INC-1C9EC0F5928F,aiops2025,jvm exception,service,63,35857,34,16,True,5,G+L+M+R,True,True,13,G+L+M+R,True,legacy_validation140,1.0,1.0,1.0,1.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-1CD4A052FF22,aiops2022,k8s容器网络延迟,pod,85,184806,45,26,False,0,none,False,False,0,none,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-1D08CA0D6ABD,aegislab,HTTPResponseAbort,service,104,55126,38,16,True,2,G+R,True,True,5,G+M+R,False,added220,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-1D51AFFCB615,aiops2022,node 磁盘写IO消耗,node,74,358926,41,20,False,0,none,False,True,2,G+M,True,legacy_validation140,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-1D6D2D649324,aegislab,JVMMemoryStress,service,104,28831,38,16,True,9,G+M+R,True,True,6,G+M+R,False,added220,0.2,0.0,0.0,1.0,1.0,1.0,1.0,1.0,0.3333333333333333,0.0,1.0,1.0
+INC-1DA6B1EFC391,aiops2025,cpu stress,mixed,61,1039,17,0,True,2,G,False,True,2,G+M,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-1E6B7D78EDF9,aiops2025,code error,service,63,25374,35,16,True,9,G+L+M+R,True,True,4,G+R,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0
+INC-1F49D810F5EC,aegislab,HTTPRequestAbort,service,104,29133,38,16,True,1,R,False,True,5,G+L+M+R,False,added220,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-1F5B7BB95F1B,aiops2022,k8s容器cpu负载,service,74,357487,41,20,True,7,G+M+R,True,True,14,G+L+M+R,True,legacy_validation140,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.3333333333333333,0.0,1.0,1.0
+INC-1F7BABADDB57,aegislab,HTTPRequestReplaceMethod,service,104,43867,43,23,True,7,G+L+R,True,True,10,G+M,False,added220,0.2,0.0,0.0,1.0,0.3333333333333333,0.0,1.0,1.0,0.5,0.0,1.0,1.0
+INC-1FB6E16BCD5F,aegislab,ContainerKill,service,104,57766,38,16,True,4,G+R,True,True,17,G+M+R,False,added220,0.25,0.0,0.0,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-20473A0381A7,aiops2022,k8s容器读io负载,pod,85,410173,39,18,False,0,none,False,False,0,none,True,legacy_validation140,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-22A08A1042D4,aiops2022,k8s容器cpu负载,pod,85,133981,44,24,True,1,M,False,True,1,R,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-234848F08691,aiops2025,jvm latency,mixed,61,14159,34,15,True,4,G+L+R,True,True,1,R,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-234AD11218C6,aegislab,HTTPResponseReplaceCode,service,104,72349,42,22,True,10,G+L+R,True,True,9,G+L+M+R,False,added220,0.0,0.0,0.0,0.0,0.2,0.0,0.0,1.0,0.25,0.0,0.0,1.0
+INC-236B9F7DB855,aegislab,HTTPRequestReplaceMethod,service,104,27997,44,24,True,10,G+R,True,True,8,G+L+M+R,False,added220,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-2766ED77B7DC,aegislab,HTTPRequestDelay,service,104,39860,41,20,True,9,G+R,True,True,2,R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0
+INC-280985561CF8,aegislab,HTTPRequestDelay,service,104,41464,38,16,True,12,G+R,True,True,7,G+L+M+R,False,added220,0.2,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+INC-298BF5175093,aiops2025,io fault,mixed,63,25523,34,15,False,0,none,False,True,2,G+M,False,added220,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-2B928A163E6E,aegislab,HTTPResponseReplaceCode,service,104,49945,41,20,True,3,G+R,True,True,5,G+L+M+R,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-2C1DF89539FD,aegislab,HTTPRequestAbort,service,103,44770,41,20,True,4,G+R,True,True,10,G+M,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-2CCAB5CF7FA7,aegislab,JVMMemoryStress,service,103,65507,41,20,True,6,G+R,True,True,16,G+M,False,added220,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-2DF2EFC075DD,aiops2022,node节点CPU故障,node,85,403173,39,18,False,0,none,False,True,1,G,True,legacy_validation140,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-2E0388F7BF90,aegislab,NetworkPartition,service,104,36208,41,20,True,9,G+R,True,False,0,none,False,added220,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-300BBB9A475A,aegislab,HTTPResponseReplaceCode,service,104,71306,38,16,True,6,G+R,True,True,5,G+M+R,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.2,0.0,0.0,1.0
+INC-3015F112D266,aegislab,HTTPResponseAbort,service,104,27471,41,20,True,4,G+R,True,True,7,G+L+R,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-315ABB5E9DA9,aiops2025,jvm cpu,service,63,43168,34,15,True,6,G+L+M+R,True,True,4,G+L+R,True,legacy_validation140,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-316A0F1366F1,aiops2025,pod failure,mixed,63,12256,35,15,False,0,none,False,True,1,G,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-31CBE0C2D9E7,aegislab,JVMException,service,104,76965,38,16,True,1,R,False,True,4,G+L+M,False,added220,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-322762EDC77A,aiops2025,pod kill,service,63,14563,35,16,True,6,G+L+M+R,True,True,7,G+L+M,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-328BFC178263,aegislab,TimeSkew,service,104,26246,41,20,True,5,G+L+R,True,False,0,none,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.2,0.0,0.0,1.0
+INC-32C07BF427ED,aegislab,JVMMySQLLatency,service,104,25027,38,16,True,2,G+R,True,True,4,G+M,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-35BF171F5655,aiops2022,k8s容器网络丢包,pod,85,98552,43,23,True,7,G+R,True,False,0,none,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.0,0.0,1.0
+INC-3652859717DA,aiops2022,node节点CPU爬升,node,85,437040,41,20,False,0,none,False,False,0,none,True,legacy_validation140,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-36707F22CB1E,aegislab,HTTPRequestReplaceMethod,service,104,54893,38,16,True,3,G+R,True,True,3,G+M,False,added220,0.0,0.0,0.0,0.0,0.2,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-38DA30FCB36E,aiops2022,k8s容器网络资源包重复发送,service,85,423464,40,19,True,8,G+R,True,True,9,G+R,False,added220,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-38F1C75D9937,aegislab,NetworkPartition,service,104,31293,41,20,True,10,G+R,True,True,4,L+R,False,added220,0.0,0.0,0.0,0.0,0.25,0.0,0.0,1.0,1.0,1.0,1.0,1.0
+INC-391C9D5E4EC8,aiops2025,node cpu stress,node,63,14550,34,15,False,0,none,False,True,2,G+M,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-3ACEDA7BEB10,aegislab,NetworkCorrupt,service,104,53629,38,16,True,4,G+R,True,False,0,none,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0
+INC-3B2DEA54F494,aiops2022,k8s容器读io负载,pod,85,357896,41,20,False,0,none,False,False,0,none,False,added220,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-3B7BA04A64A5,aegislab,HTTPRequestReplaceMethod,service,104,32663,38,16,True,4,G+R,True,True,7,G+M,False,added220,0.0,0.0,0.0,0.0,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-3BD85268FC32,aegislab,NetworkPartition,service,104,17843,41,20,True,9,G+L+R,True,True,1,R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+INC-3CDBB7212F68,aegislab,HTTPResponseAbort,service,104,33267,41,20,True,7,G+L+R,True,True,6,G+R,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-3D8C951F6045,aiops2022,node 内存消耗,node,85,429640,44,24,False,0,none,False,True,4,G+M,True,legacy_validation140,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-3DCEBE5928F6,aegislab,HTTPRequestReplaceMethod,service,104,75506,41,20,True,3,G+R,True,False,0,none,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-3E916629F15A,aegislab,HTTPResponseReplaceBody,service,102,12806,39,18,True,10,G+L+R,True,True,15,G+L+M,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.5,0.0,1.0,1.0
+INC-3F4A5894F43F,aegislab,NetworkPartition,service,103,34992,38,16,True,4,G+R,True,True,6,G+L+M+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+INC-3FAB12CE8305,aegislab,HTTPRequestReplaceMethod,service,104,41667,44,24,True,11,G+L+R,True,True,5,G+M+R,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+INC-3FF50C05D339,aegislab,HTTPResponseReplaceCode,service,104,61373,41,20,False,0,none,False,False,0,none,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-4140BD22C978,aegislab,JVMException,service,104,30119,41,20,True,1,R,False,True,10,G+L+M+R,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-41DAEA891363,aiops2022,k8s容器网络资源包损坏,pod,85,138345,40,19,True,1,L,False,False,0,none,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-42236D722345,aegislab,HTTPResponseReplaceCode,service,104,36546,41,20,True,1,R,False,True,10,G+L+M,False,added220,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-43FE1641B936,aegislab,HTTPResponseDelay,service,104,20649,41,20,True,15,G+R,True,True,4,G+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0
+INC-44F522AB66FA,aiops2025,target port misconfig,service,63,15152,34,14,True,4,G+L+R,True,True,1,G,True,legacy_validation140,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.25,0.0,0.0,1.0
+INC-45A255367CAA,aiops2022,k8s容器写io负载,service,85,336989,44,24,True,1,G,False,True,3,G+M,False,added220,0.0,0.0,0.0,0.0,0.2,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-45C9DC9C27E1,aegislab,PodFailure,service,104,27115,44,24,True,5,G+R,True,True,4,G+M,False,added220,0.25,0.0,0.0,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-4628F1A41C33,aiops2022,k8s容器内存负载,service,85,119751,48,30,True,2,G+M,False,True,2,G+M,False,added220,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-4643B526D65D,aegislab,ContainerKill,service,104,60917,38,16,True,7,G+R,True,True,16,G+M+R,False,added220,0.5,0.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+INC-46A49BECA81F,aiops2022,node 磁盘读IO消耗,node,85,64246,47,28,False,0,none,False,False,0,none,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-48CE5076911D,aegislab,JVMMemoryStress,service,104,58764,38,16,True,1,M,False,True,8,G+M+R,False,added220,0.25,0.0,0.0,1.0,1.0,1.0,1.0,1.0,0.3333333333333333,0.0,1.0,1.0
+INC-48E11FE53900,aegislab,NetworkPartition,service,104,35187,38,16,True,7,G+L+R,True,True,4,G+L+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+INC-4930E1D41E3B,aegislab,HTTPRequestReplaceMethod,service,104,39315,40,19,True,5,G+R,True,True,4,G+M+R,False,added220,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,1.0,1.0,1.0,1.0
+INC-499515C17EB5,aiops2025,target port misconfig,service,61,9580,35,16,True,4,G+L+R,True,True,3,G+R,True,legacy_validation140,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+INC-49E030F3EEB2,aiops2022,node 磁盘读IO消耗,node,85,439223,41,20,False,0,none,False,True,1,G,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-4A5AB5B8EF94,aiops2022,k8s容器网络丢包,service,85,400324,41,20,True,2,G+R,True,True,8,G+M,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-4AF61B26E6F1,aiops2025,node memory stress,node,63,14791,34,15,False,0,none,False,False,0,none,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-4BB7097E94BE,aegislab,PodKill,service,105,41902,43,23,True,9,G+L+R,True,True,13,G+L+M,False,added220,0.25,0.0,0.0,1.0,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-4C041FB125AC,aiops2025,network delay,service,59,1017,17,0,True,2,G,False,True,6,G+M,False,added220,0.5,0.0,1.0,1.0,0.25,0.0,0.0,1.0,0.3333333333333333,0.0,1.0,1.0
+INC-4CA1C770ECD0,aegislab,HTTPRequestReplaceMethod,service,104,38967,44,24,True,3,G+R,True,True,9,G+M,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-4CD2E88DA754,aiops2025,node disk fill,node,63,14582,33,14,False,0,none,False,True,2,G+M,False,added220,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.5,0.0,1.0,1.0
+INC-4D25DF8CB45B,aiops2025,pod failure,service,63,14647,34,15,True,4,G+L+R,True,False,0,none,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-4D34C453B4EE,aiops2025,cpu stress,service,64,14470,34,15,True,2,G+R,True,True,2,G+R,False,added220,0.0,0.0,0.0,0.0,0.2,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-4D67065E0B86,aiops2025,dns error,service,63,31230,32,13,True,7,G+R,True,True,5,G,False,added220,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+INC-4E8C708A5B89,aegislab,NetworkPartition,service,104,55075,38,16,True,5,G+L+M+R,True,True,11,G+L+R,False,added220,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+INC-525C9C8B2C42,aegislab,NetworkLoss,service,104,51993,41,20,True,11,G+R,True,True,4,L+M+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0
+INC-526924866F4E,aiops2022,k8s容器写io负载,pod,85,200585,41,20,True,3,G+R,True,True,3,M,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-5292E08BF2BC,aegislab,HTTPResponseReplaceCode,service,102,25186,44,24,True,8,G+L+R,True,True,8,G+M,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.5,0.0,1.0,1.0
+INC-52A2EA48762A,aegislab,JVMException,service,103,46722,41,20,True,1,G,False,True,8,G+M+R,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.25,0.0,0.0,1.0
+INC-548BCCAB0DA2,aiops2025,io fault,mixed,63,33460,34,14,False,0,none,False,True,5,G+M,True,legacy_validation140,0.2,0.0,0.0,1.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-54FA7751DC43,aiops2025,network corrupt,service,63,15499,31,12,True,6,G+R,True,True,16,G+L+M+R,True,legacy_validation140,0.2,0.0,0.0,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-5504455B232D,aiops2022,k8s容器内存负载,service,85,101202,41,20,False,0,none,False,True,3,G+M,True,legacy_validation140,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-559F0B2CEFB9,aiops2022,k8s容器读io负载,service,85,134659,43,23,True,11,G+R,True,True,3,G+R,True,legacy_validation140,0.2,0.0,0.0,1.0,0.25,0.0,0.0,1.0,0.25,0.0,0.0,1.0
+INC-55F7AF42FCCD,aiops2022,k8s容器网络丢包,pod,74,66980,44,24,False,0,none,False,False,0,none,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-5934CB389AFC,aiops2022,k8s容器读io负载,service,85,184261,43,24,True,21,G+R,True,True,11,G+M+R,True,legacy_validation140,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.3333333333333333,0.0,1.0,1.0
+INC-59984D991A4F,aiops2022,k8s容器进程中止,pod,85,345106,44,24,True,1,M,False,True,7,M+R,True,legacy_validation140,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-5A216004121B,aegislab,NetworkCorrupt,service,104,48241,41,20,True,7,G+R,True,True,9,G+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0
+INC-5A3FF07C3860,aiops2022,node 内存消耗,node,85,391569,41,20,False,0,none,False,True,4,G+M,True,legacy_validation140,0.0,0.0,0.0,0.0,0.2,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-5BCE0E9A0F53,aiops2022,k8s容器网络资源包损坏,service,85,104044,41,20,True,11,G+R,True,True,9,G+L+R,True,legacy_validation140,0.3333333333333333,0.0,1.0,1.0,0.25,0.0,0.0,1.0,1.0,1.0,1.0,1.0
+INC-5BE73BA3D61F,aegislab,NetworkPartition,service,104,45603,38,16,True,8,G+R,True,True,8,G+L+R,False,added220,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.3333333333333333,0.0,1.0,1.0
+INC-5BE75D14A2D9,aiops2022,node 磁盘读IO消耗,node,85,389312,41,20,True,1,G,False,True,1,G,True,legacy_validation140,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+INC-5CB7862B0049,aiops2025,network loss,service,63,21762,35,16,True,8,G+L+R,True,True,8,G+R,True,legacy_validation140,0.25,0.0,0.0,1.0,0.25,0.0,0.0,1.0,0.25,0.0,0.0,1.0
+INC-5CBD8BBEC6FF,aegislab,HTTPResponseReplaceCode,service,104,34072,41,20,True,6,G+R,True,True,15,G+M,False,added220,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.5,0.0,1.0,1.0
+INC-5D3F06BA19CC,aegislab,HTTPRequestDelay,service,103,32173,38,16,True,7,G+R,True,True,8,G+M+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0
+INC-5D6C216DCA9B,aiops2022,k8s容器内存负载,service,85,385358,41,20,False,0,none,False,True,4,G+M,False,added220,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-5DBE87BA40A7,aegislab,NetworkBandwidth,service,104,29300,41,20,True,1,R,False,True,10,G+L+M+R,False,added220,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.5,0.0,1.0,1.0
+INC-5E10026E33A4,aiops2025,jvm cpu,service,63,34023,34,15,True,6,G+L+M+R,True,True,5,G+L+M+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.0,0.0,1.0
+INC-5F5BE902AC1D,aiops2022,k8s容器网络延迟,pod,85,415390,38,16,True,2,G+R,True,True,3,M+R,True,legacy_validation140,1.0,1.0,1.0,1.0,0.25,0.0,0.0,1.0,1.0,1.0,1.0,1.0
+INC-5F866622F73A,aiops2025,node disk fill,node,63,38383,31,13,False,0,none,False,True,2,G+M,True,legacy_validation140,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-621E9CCCC5E1,aiops2022,k8s容器进程中止,pod,85,186728,44,24,True,3,G+R,True,True,1,M,True,legacy_validation140,0.0,0.0,0.0,0.0,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-63AF8B3C44D2,aiops2025,memory stress,mixed,63,17117,33,14,True,5,G+M+R,True,True,5,G+L+M,True,legacy_validation140,0.5,0.0,1.0,1.0,0.2,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-641C662F70D0,aiops2022,k8s容器网络延迟,service,85,137175,40,20,True,1,G,False,True,3,G,True,legacy_validation140,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+INC-647551B811A4,aiops2025,memory stress,service,63,6084,35,16,True,3,G+R,True,True,7,G+M,False,added220,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.5,0.0,1.0,1.0
+INC-64E620E140C1,aiops2025,pod kill,service,63,17908,34,16,True,7,G+L+M+R,True,True,7,G+R,True,legacy_validation140,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-6563F93E4091,aiops2025,network delay,service,63,33417,33,15,True,12,G+L+M+R,True,True,7,G+L+R,True,legacy_validation140,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.5,0.0,1.0,1.0
+INC-657850386611,aegislab,JVMMemoryStress,service,103,25471,39,18,True,8,G+R,True,True,16,G+M,False,added220,0.2,0.0,0.0,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-6590B040DA33,aiops2022,k8s容器网络资源包重复发送,service,85,417363,44,24,True,10,G+R,True,False,0,none,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-6ACC8FCB4C33,aegislab,HTTPResponseAbort,service,104,38177,41,20,True,3,G+R,True,True,6,G+M+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-6B356E1E66B1,aiops2022,k8s容器内存负载,service,85,135977,47,28,True,4,G+M+R,True,True,4,G+M,False,added220,0.0,0.0,0.0,0.0,0.2,0.0,0.0,1.0,0.5,0.0,1.0,1.0
+INC-6B3E8D473304,aiops2022,node 内存消耗,node,85,421371,44,24,True,1,G,False,False,0,none,False,added220,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.25,0.0,0.0,1.0
+INC-6C73D2BCE111,aiops2022,k8s容器cpu负载,pod,85,117423,41,20,True,1,R,False,True,1,R,False,added220,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-6D42F6E36A0F,aegislab,NetworkPartition,service,104,17389,41,20,True,8,G+R,True,True,4,G+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+INC-6FF41B110CD7,aiops2022,node 磁盘写IO消耗,node,85,138409,41,20,False,0,none,False,True,3,G+M,True,legacy_validation140,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-710347BA69B0,aiops2022,node 磁盘写IO消耗,node,85,475936,44,24,False,0,none,False,True,1,G,False,added220,0.0,0.0,0.0,0.0,0.2,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-73C9B9C18C59,aiops2022,node 磁盘空间消耗,node,85,496978,44,24,False,0,none,False,True,2,G+M,False,added220,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-7555D6D6FE67,aiops2025,dns error,service,63,15067,35,16,True,7,G+R,True,False,0,none,False,added220,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-7649D288EDD6,aiops2022,k8s容器读io负载,pod,85,404052,47,28,False,0,none,False,False,0,none,True,legacy_validation140,0.0,0.0,0.0,0.0,0.2,0.0,0.0,1.0,0.2,0.0,0.0,1.0
+INC-76A0CB52556C,aiops2025,node memory stress,node,63,15552,35,16,False,0,none,False,True,4,G+M,True,legacy_validation140,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-77B05C56C6F3,aiops2022,node 磁盘空间消耗,node,85,433178,41,21,False,0,none,False,True,1,G,True,legacy_validation140,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-786256A96E69,aegislab,HTTPResponseReplaceCode,service,104,69357,41,20,True,13,G+R,True,True,6,G+L+M+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0
+INC-78AF7AE99ED6,aiops2025,node cpu stress,node,64,14818,34,15,False,0,none,False,False,0,none,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.2,0.0,0.0,1.0
+INC-7A0B63101F92,aegislab,ContainerKill,service,104,47130,41,20,True,1,M,False,True,19,G+M+R,False,added220,1.0,1.0,1.0,1.0,0.5,0.0,1.0,1.0,0.2,0.0,0.0,1.0
+INC-7AAF3743554C,aiops2022,node节点CPU故障,node,85,429881,40,19,False,0,none,False,True,1,G,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-7AB932D940B7,aiops2025,network loss,service,63,32587,35,16,True,14,G+R,True,True,18,G+L+M+R,False,added220,0.3333333333333333,0.0,1.0,1.0,1.0,1.0,1.0,1.0,0.3333333333333333,0.0,1.0,1.0
+INC-7C17EA350610,aiops2022,node节点CPU故障,node,85,133592,41,20,False,0,none,False,True,2,G+M,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-7C26907D5879,aiops2025,jvm gc,service,61,17553,28,7,True,3,L+M,True,True,1,G,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.2,0.0,0.0,1.0
+INC-7C6E576DEA9F,aiops2022,k8s容器网络丢包,pod,85,434013,38,16,True,14,G+R,True,True,5,M,False,added220,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-7D1E953969C9,aiops2022,node 磁盘空间消耗,node,85,135327,47,29,False,0,none,False,True,7,G+M,False,added220,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-7DE409F29B44,aiops2025,network delay,service,63,13832,35,15,True,12,G+R,True,True,10,G+R,False,added220,0.25,0.0,0.0,1.0,0.25,0.0,0.0,1.0,1.0,1.0,1.0,1.0
+INC-7E44A5F908F6,aiops2025,jvm gc,service,63,36366,31,13,True,5,G+L+M+R,True,True,2,G,True,legacy_validation140,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-7F7102C8ED57,aegislab,HTTPResponseReplaceCode,service,104,66728,41,20,True,2,G+R,True,True,8,G+M+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-7FA40D82F9EA,aiops2025,jvm latency,service,63,31483,35,16,True,6,G+L+M+R,True,True,5,G+L+R,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.5,0.0,1.0,1.0
+INC-7FF092590A3B,aiops2025,memory stress,service,63,32699,34,15,True,6,G+L+M+R,True,True,10,G+M+R,True,legacy_validation140,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-8073E3F64D0E,aiops2025,jvm cpu,mixed,63,35175,33,15,True,4,G+L+M+R,True,True,4,G+L+M,True,legacy_validation140,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-812AB8686880,aiops2022,k8s容器网络丢包,service,85,118288,41,20,True,11,G+R,True,True,3,G+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-8298FD5CF5C8,aiops2025,network loss,service,63,8872,34,15,True,12,G+R,True,True,19,G+L+M+R,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+INC-840F977CC454,aegislab,HTTPRequestReplaceMethod,service,104,36512,41,20,True,7,G+R,True,True,3,G+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0
+INC-843BF6B833C2,aegislab,HTTPRequestReplaceMethod,service,102,23967,41,20,True,5,G+L+R,True,True,7,G+M,False,added220,0.3333333333333333,0.0,1.0,1.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-851380B8EC53,aegislab,NetworkPartition,service,104,33755,44,24,True,9,G+R,True,True,5,L+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+INC-851D1AAC181D,aegislab,HTTPResponseDelay,service,104,39184,41,20,True,8,G+R,True,True,2,L+R,False,added220,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,1.0,1.0,1.0,1.0
+INC-865B8F45DCF2,aiops2022,k8s容器读io负载,pod,85,134256,41,20,True,4,G+R,True,False,0,none,True,legacy_validation140,0.0,0.0,0.0,0.0,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-865D6E0D3337,aiops2022,k8s容器内存负载,service,85,440202,41,20,True,1,L,False,True,2,G,False,added220,0.0,0.0,0.0,0.0,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-868F3AB48C4A,aegislab,JVMMemoryStress,service,104,48027,41,20,True,6,G+M+R,True,True,18,G+M+R,False,added220,1.0,1.0,1.0,1.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-86EA09B38EF3,aiops2022,k8s容器网络丢包,pod,85,174445,47,28,False,0,none,False,True,2,L+M,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-8713A652FFCE,aegislab,HTTPResponseReplaceCode,service,104,25099,41,20,True,1,R,False,True,5,G+L+M,False,added220,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-874CFCC77E38,aiops2022,k8s容器进程中止,pod,85,384984,39,18,True,5,G+R,True,False,0,none,True,legacy_validation140,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-876D81C419EF,aegislab,NetworkDelay,service,104,14351,44,24,True,7,G+R,True,True,13,G+M+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0
+INC-87D0FB1BFE1E,aiops2022,k8s容器内存负载,pod,85,136022,41,20,False,0,none,False,False,0,none,False,added220,1.0,1.0,1.0,1.0,0.2,0.0,0.0,1.0,1.0,1.0,1.0,1.0
+INC-88391D803008,aiops2025,io fault,mixed,63,14527,34,15,False,0,none,False,True,2,G+M,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-88536F3C66CA,aiops2022,k8s容器网络丢包,pod,85,175333,40,19,False,0,none,False,True,1,R,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-8944D1156B43,aegislab,HTTPRequestReplaceMethod,service,104,25660,38,16,True,3,G+R,True,False,0,none,False,added220,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-89915B1135CC,aegislab,HTTPRequestAbort,service,158,24381,38,16,True,3,G+L+R,False,True,14,G+M+R,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+INC-8A150CB184ED,aiops2022,k8s容器cpu负载,service,85,426056,41,21,True,9,G+R,True,True,3,G,False,added220,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.3333333333333333,0.0,1.0,1.0
+INC-8A53EAA2C3E6,aegislab,HTTPRequestReplaceMethod,service,104,65749,34,12,True,4,G+R,True,True,3,L+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0
+INC-8A855CDF6AFA,aiops2025,pod failure,mixed,63,19682,34,14,False,0,none,False,False,0,none,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-8BEB63A758E0,aiops2022,k8s容器内存负载,pod,85,75917,41,20,True,1,M,False,True,7,L+M,True,legacy_validation140,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-8CC33D0D2DA2,aiops2025,code error,service,63,12033,35,16,True,5,G+L+R,True,True,9,G+L+M+R,True,legacy_validation140,0.2,0.0,0.0,1.0,0.3333333333333333,0.0,1.0,1.0,0.25,0.0,0.0,1.0
+INC-8D35B559EA9F,aiops2022,k8s容器进程中止,pod,85,424570,41,21,True,3,G+R,True,True,2,M,True,legacy_validation140,0.0,0.0,0.0,0.0,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-8DB8888131AF,aiops2022,k8s容器网络丢包,pod,85,133932,43,23,True,6,G+R,True,True,6,L+M+R,True,legacy_validation140,0.0,0.0,0.0,0.0,0.2,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-8E382FBCCB36,aiops2022,k8s容器网络丢包,service,85,103765,44,24,True,2,M+R,False,True,2,G,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-8EFE3C3B3296,aiops2025,memory stress,mixed,63,41540,34,15,True,4,G+L+R,True,False,0,none,True,legacy_validation140,0.5,0.0,1.0,1.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-8F1C17180E28,aiops2025,dns error,mixed,63,16681,34,15,True,7,G+R,True,True,7,G+L,True,legacy_validation140,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.3333333333333333,0.0,1.0,1.0
+INC-8F450DB34849,aiops2022,k8s容器写io负载,pod,85,454914,44,25,False,0,none,False,True,2,M,False,added220,0.0,0.0,0.0,0.0,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-8F4EB8B52B68,aegislab,HTTPRequestReplaceMethod,service,104,62368,38,16,True,3,G+R,True,True,11,G+L+R,False,added220,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,1.0,1.0,1.0,1.0
+INC-8F5FC124F345,aiops2025,node disk fill,node,63,14532,34,15,True,1,G,False,True,2,G+M,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-90683DBA264D,aegislab,HTTPResponseReplaceCode,service,104,61744,41,20,True,4,G+R,True,True,5,G+L+M+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-9299E6F84FD8,aegislab,HTTPResponseReplaceCode,service,104,24727,38,16,True,2,G+R,True,True,3,G+M,False,added220,0.2,0.0,0.0,1.0,0.3333333333333333,0.0,1.0,1.0,1.0,1.0,1.0,1.0
+INC-92A35E66F03A,aiops2025,jvm gc,mixed,63,17143,35,16,True,3,G+L+R,True,True,2,G,True,legacy_validation140,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-93D9EA50D239,aiops2025,code error,service,63,8637,33,14,True,7,G+L+M+R,True,True,12,G+M+R,False,added220,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.25,0.0,0.0,1.0
+INC-93E715B82D2A,aegislab,HTTPResponseReplaceBody,service,104,67308,43,23,True,1,R,False,True,2,G+R,False,added220,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-93F4B786B5A0,aegislab,NetworkLoss,service,104,47045,38,16,True,5,G+R,True,True,6,G+L+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.2,0.0,0.0,1.0
+INC-94A5423A4333,aiops2022,k8s容器网络延迟,pod,85,379483,45,26,True,1,L,False,True,1,M,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0
+INC-96BDB3736FAF,aegislab,HTTPResponseReplaceCode,service,104,53362,43,23,True,17,G+R,True,True,1,R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0
+INC-96E44EFC26AE,aiops2025,memory stress,mixed,63,14709,34,15,True,3,G+L+R,True,True,6,G+L+M,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-97918F62CE62,aiops2022,node 磁盘写IO消耗,node,85,359516,41,20,True,1,G,False,True,4,G+M,False,added220,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-9849C1EB1539,aiops2025,pod failure,service,63,32403,35,16,True,5,G+L+M+R,True,True,3,G,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.0,0.0,1.0
+INC-99614369B523,aiops2022,k8s容器内存负载,service,85,423666,42,22,False,0,none,False,True,15,G+L+M,False,added220,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-99C0CC7316C4,aiops2025,pod failure,mixed,63,12496,34,15,False,0,none,False,False,0,none,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-99F83B71EAAB,aiops2022,k8s容器网络资源包重复发送,service,85,104549,44,24,True,25,G+R,True,True,9,G+R,True,legacy_validation140,0.0,0.0,0.0,0.0,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-9A3C1A2F13C6,aiops2022,k8s容器网络资源包重复发送,service,85,101506,41,21,True,1,L,False,True,1,L,False,added220,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0
+INC-9A501B062372,aiops2022,k8s容器读io负载,service,85,368434,47,28,True,1,M,False,True,6,G+M,False,added220,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-9ACB23FF8A1B,aegislab,NetworkPartition,service,102,22610,41,20,True,2,G+R,True,True,10,G+L+M+R,False,added220,0.2,0.0,0.0,1.0,1.0,1.0,1.0,1.0,0.5,0.0,1.0,1.0
+INC-9C296DB6BFF2,aiops2025,network delay,service,63,16845,35,16,True,8,G+R,True,True,2,L,True,legacy_validation140,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0
+INC-9C9CDC2F2FE1,aiops2025,network delay,service,63,11539,34,15,True,10,G+R,True,True,12,G+R,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0
+INC-9C9D3906A05A,aiops2025,dns error,service,63,28659,35,16,True,7,G+R,True,False,0,none,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+INC-9DE016D44E31,aegislab,JVMMemoryStress,service,104,54924,44,24,True,4,G+R,True,True,13,G+M,False,added220,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-9F063049B960,aiops2025,io fault,mixed,61,14851,32,14,False,0,none,False,True,3,G+M,True,legacy_validation140,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-9F1CE622917E,aiops2022,k8s容器进程中止,service,85,136342,38,16,True,1,M,False,True,5,G+M,False,added220,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.25,0.0,0.0,1.0
+INC-9F2955C3F3D8,aiops2025,dns error,mixed,61,32280,23,8,True,1,G,False,True,1,G,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-A0741E6B149C,aiops2025,pod kill,service,61,14335,27,7,True,5,G+L+M,True,True,4,G+M,True,legacy_validation140,0.25,0.0,0.0,1.0,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-A20B851E54E6,aegislab,HTTPRequestAbort,service,104,29134,38,16,True,7,G+R,True,True,1,R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-A5071CA130AE,aiops2025,network corrupt,service,63,30066,34,14,True,13,G+L+M+R,True,True,15,G+M+R,True,legacy_validation140,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-A53580381B67,aegislab,HTTPRequestReplaceMethod,service,104,35554,41,20,True,9,G+R,True,True,12,G+M+R,False,added220,0.2,0.0,0.0,1.0,0.25,0.0,0.0,1.0,0.5,0.0,1.0,1.0
+INC-A61552ACE427,aiops2025,code error,service,65,14230,36,16,True,7,G+R,True,True,6,G+R,True,legacy_validation140,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-A69F6839C56A,aiops2022,k8s容器写io负载,pod,85,133986,38,16,True,1,G,False,True,9,M,True,legacy_validation140,0.3333333333333333,0.0,1.0,1.0,0.3333333333333333,0.0,1.0,1.0,1.0,1.0,1.0,1.0
+INC-A6F9D14BD8BE,aiops2025,pod failure,mixed,63,40853,32,14,False,0,none,False,True,2,G+M,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-A7A72B37D6DB,aiops2025,cpu stress,service,63,5814,34,15,True,6,G+L+M+R,True,True,2,R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-AA0CE0AABFDA,aiops2022,k8s容器网络资源包损坏,pod,85,332274,47,28,True,1,M,False,False,0,none,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0
+INC-AA1D6C6D0066,aiops2025,dns error,mixed,63,36200,35,16,True,8,G+R,True,False,0,none,True,legacy_validation140,0.2,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-AAC8CD84A6DE,aiops2025,cpu stress,service,63,15334,34,15,True,4,G+L+R,True,True,5,G+M+R,False,added220,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-AC4E4486FC5B,aiops2025,io fault,mixed,63,32285,35,16,False,0,none,False,True,3,G+M,True,legacy_validation140,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-ACB74D8C760F,aegislab,HTTPResponseReplaceCode,service,104,49776,38,16,True,2,G+R,True,True,5,G,False,added220,0.0,0.0,0.0,0.0,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-ACF24910D331,aiops2025,node cpu stress,node,61,1037,17,0,True,1,G,False,True,2,G+M,False,added220,0.2,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-AD066F874C95,aiops2025,io fault,mixed,63,14254,34,15,False,0,none,False,True,1,G,False,added220,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-AD09526152C6,aegislab,ContainerKill,service,104,56989,41,20,True,1,L,False,True,7,G+M,False,added220,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-AEB281D07998,aiops2022,k8s容器进程中止,pod,85,201913,41,20,True,7,G+R,True,True,4,M+R,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-AFF01C116D36,aiops2025,network corrupt,service,63,9100,34,15,True,8,G+R,True,True,13,G+M+R,False,added220,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-B06FB07F38E4,aiops2022,node 磁盘读IO消耗,node,74,65361,44,24,False,0,none,False,True,3,G+M,True,legacy_validation140,0.2,0.0,0.0,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-B0D2C1ACC678,aiops2022,k8s容器网络资源包损坏,service,85,52106,47,28,True,15,G+R,True,True,4,G,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-B17F26605D32,aiops2025,jvm gc,mixed,63,32218,35,16,True,3,G+L+R,True,True,2,G,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-B280FED96AE7,aiops2025,network corrupt,service,63,8225,35,16,True,11,G+R,True,True,16,G+L+M+R,True,legacy_validation140,0.5,0.0,1.0,1.0,0.5,0.0,1.0,1.0,0.25,0.0,0.0,1.0
+INC-B2B6C8603669,aiops2022,k8s容器写io负载,service,85,300392,38,16,True,6,G+R,True,True,4,G+R,True,legacy_validation140,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-B2DD98213A40,aegislab,JVMMemoryStress,service,104,51530,44,24,True,6,G+R,True,True,21,G+L+M+R,False,added220,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.2,0.0,0.0,1.0
+INC-B3545FF4B61E,aegislab,NetworkPartition,service,104,24863,42,22,True,16,G+L+R,True,True,2,L+R,False,added220,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0
+INC-B5026322A20A,aegislab,HTTPRequestReplaceMethod,service,104,60942,41,20,True,9,G+R,True,True,10,G+L+M+R,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-B5258003ED9B,aiops2022,k8s容器cpu负载,pod,85,152782,41,20,True,7,G+M+R,True,True,1,M,True,legacy_validation140,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.5,0.0,1.0,1.0
+INC-B5B233EFC566,aiops2022,k8s容器网络丢包,service,85,75725,41,20,True,5,G+L+M+R,True,True,7,G+M,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-B5EBC1C6D129,aiops2025,code error,service,63,27537,35,15,True,9,G+R,True,True,10,G+L+M,False,added220,0.3333333333333333,0.0,1.0,1.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-B629D7DA45A4,aegislab,HTTPRequestDelay,service,104,36990,41,20,True,11,G+L+R,True,True,1,R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-B62C196714FF,aiops2025,jvm exception,service,63,42787,34,15,True,3,G+L+M,False,True,3,G+L,True,legacy_validation140,0.5,0.0,1.0,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-B7556C401EA5,aiops2022,k8s容器网络延迟,service,85,357149,41,20,True,18,G+R,True,True,13,G+M+R,True,legacy_validation140,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-B84F44AA3D09,aiops2025,jvm latency,service,63,36437,34,15,True,5,G+L+M+R,True,True,4,G+L,False,added220,0.25,0.0,0.0,1.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-B9A4C363376A,aegislab,ContainerKill,service,104,33540,38,16,True,1,M,False,True,13,G+M,False,added220,1.0,1.0,1.0,1.0,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-BB92542AAE4C,aiops2022,k8s容器内存负载,pod,85,446180,40,19,False,0,none,False,True,1,M,True,legacy_validation140,0.5,0.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+INC-BD41FC7350E3,aegislab,HTTPResponseReplaceCode,service,104,61103,40,19,True,13,G+R,True,True,4,L+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+INC-BD7AF434EB35,aiops2025,pod failure,service,63,36358,35,16,True,7,G+L+M+R,True,False,0,none,True,legacy_validation140,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.2,0.0,0.0,1.0
+INC-BDFA6FFC3C13,aegislab,JVMMemoryStress,service,103,40340,40,19,True,4,G+R,True,True,18,G+M+R,False,added220,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.3333333333333333,0.0,1.0,1.0
+INC-BF265C79B06C,aiops2025,node memory stress,node,63,14172,35,16,False,0,none,False,True,5,G+M,True,legacy_validation140,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.2,0.0,0.0,1.0
+INC-C031EC1E9D72,aiops2025,pod kill,service,63,22937,32,13,True,5,G+L+R,True,True,4,G+R,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0
+INC-C07AC67CFD5C,aiops2022,k8s容器写io负载,pod,85,374132,47,28,True,9,G+R,True,True,8,M+R,True,legacy_validation140,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-C180C0D10563,aiops2025,pod failure,mixed,63,27779,34,15,False,0,none,False,False,0,none,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-C20C4658C251,aiops2025,code error,service,63,8801,35,16,True,5,G+R,True,True,10,G+M+R,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.5,0.0,1.0,1.0
+INC-C2DD175AD39A,aegislab,HTTPResponseReplaceCode,service,104,28398,41,20,True,11,G+R,True,True,4,G+L+R,False,added220,0.5,0.0,1.0,1.0,0.5,0.0,1.0,1.0,0.25,0.0,0.0,1.0
+INC-C305041CCECC,aiops2022,node 磁盘空间消耗,node,85,185501,47,28,True,1,G,False,True,4,G+M,True,legacy_validation140,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.5,0.0,1.0,1.0
+INC-C49A7BB5C8A5,aiops2022,node节点CPU故障,node,85,298475,44,24,False,0,none,False,True,1,G,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-CAAA02CEACB2,aiops2025,pod failure,mixed,61,9765,28,7,False,0,none,False,False,0,none,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-CAB4FD7155B7,aegislab,HTTPRequestReplaceMethod,service,104,60775,41,20,True,9,G+M+R,True,True,3,L+R,False,added220,0.5,0.0,1.0,1.0,0.5,0.0,1.0,1.0,0.3333333333333333,0.0,1.0,1.0
+INC-CBF743B34DB3,aiops2025,jvm latency,service,61,15999,35,16,True,3,G+L+R,True,True,4,G+L,True,legacy_validation140,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-CCC4854350F2,aiops2025,io fault,mixed,64,13000,32,13,False,0,none,False,True,1,G,True,legacy_validation140,0.3333333333333333,0.0,1.0,1.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-CD9119E16888,aiops2025,network loss,mixed,61,11152,27,7,True,3,G+M,False,True,4,G+L+M,True,legacy_validation140,0.5,0.0,1.0,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-CFC68E066273,aiops2025,network loss,mixed,63,29057,33,15,True,6,G+L+M+R,True,True,13,G+L+M+R,True,legacy_validation140,0.3333333333333333,0.0,1.0,1.0,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-CFDAA9F88CD5,aiops2025,io fault,mixed,63,14584,34,14,False,0,none,False,True,5,G+M,True,legacy_validation140,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-D14A32858234,aiops2025,pod failure,service,63,8469,34,15,True,6,G+L+R,True,True,13,G+M+R,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-D286BA57BF93,aiops2025,jvm exception,service,63,17932,35,16,True,3,G+L+R,True,True,2,G+L,False,added220,0.5,0.0,1.0,1.0,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-D2A069028C26,aegislab,PodFailure,service,104,23064,41,21,True,4,G+M+R,True,True,5,G+M,False,added220,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-D2CA3AA13DDC,aiops2025,network corrupt,service,63,18133,33,15,True,14,G+M+R,True,True,14,G+L+M+R,True,legacy_validation140,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,1.0,1.0,1.0,1.0
+INC-D2CF3AB7152B,aiops2025,network delay,service,63,31441,34,15,True,8,G+R,True,True,10,G+L+M+R,False,added220,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.5,0.0,1.0,1.0
+INC-D3D6898E3DF8,aiops2025,dns error,service,63,23394,34,14,True,8,G+M+R,True,True,5,G,True,legacy_validation140,1.0,1.0,1.0,1.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-D583BAA68A3F,aiops2022,k8s容器网络资源包重复发送,pod,85,444960,44,24,False,0,none,False,False,0,none,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-D5E22BD4E996,aiops2022,k8s容器网络丢包,pod,85,115835,41,20,True,3,G+R,True,True,3,L+M,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-D6CF4BA65A45,aiops2022,k8s容器网络丢包,service,85,114327,41,20,True,4,G+R,True,True,4,G,False,added220,0.0,0.0,0.0,0.0,0.2,0.0,0.0,1.0,0.3333333333333333,0.0,1.0,1.0
+INC-D6F9C49B4934,aiops2025,node memory stress,node,63,28452,35,16,False,0,none,False,True,4,G+M,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-D7A5BB368F21,aiops2022,node节点CPU爬升,node,85,138836,39,19,False,0,none,False,False,0,none,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-D92B641222B0,aiops2025,jvm gc,mixed,63,40660,34,15,True,1,G,False,True,14,G+M,False,added220,0.3333333333333333,0.0,1.0,1.0,1.0,1.0,1.0,1.0,0.25,0.0,0.0,1.0
+INC-D95E421EF650,aiops2025,node disk fill,node,63,39633,34,15,True,1,G,False,False,0,none,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-D9C48DB209A4,aiops2025,memory stress,service,59,1030,17,0,True,1,G,False,True,5,G+M,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-DA085ABDC1FD,aiops2022,k8s容器写io负载,pod,85,137877,44,24,True,2,G+R,True,True,2,M,True,legacy_validation140,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-DADC0FB62194,aiops2025,jvm exception,service,63,44373,34,15,True,5,G+L+M+R,True,False,0,none,True,legacy_validation140,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-DB6DF7FF962C,aiops2022,node 磁盘空间消耗,node,85,184195,47,28,False,0,none,False,True,1,G,True,legacy_validation140,0.0,0.0,0.0,0.0,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-DB959D206005,aegislab,JVMCPUStress,service,104,30160,36,15,True,5,G+L+R,True,True,8,G+M,False,added220,0.25,0.0,0.0,1.0,0.3333333333333333,0.0,1.0,1.0,0.3333333333333333,0.0,1.0,1.0
+INC-DC3B4A0C852D,aegislab,HTTPResponseReplaceCode,service,104,20812,41,20,True,7,G+R,True,True,4,G+M+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+INC-DCF1A762EE6A,aiops2025,node memory stress,node,63,16202,35,16,False,0,none,False,True,6,G+M,True,legacy_validation140,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-DD11D9B14281,aegislab,NetworkLoss,service,104,49527,41,20,True,4,G+R,True,True,9,G+L+M+R,False,added220,0.2,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-DDD88A9030A2,aegislab,PodKill,service,105,45919,41,20,True,3,G+L+R,True,True,10,G+L+M,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.2,0.0,0.0,1.0
+INC-DE592D11BFD6,aiops2025,code error,service,65,31070,36,15,True,8,G+L+R,True,True,3,G+R,True,legacy_validation140,0.0,0.0,0.0,0.0,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-DEA12441DC2F,aegislab,HTTPRequestDelay,service,104,44814,39,18,True,11,G+R,True,True,4,L+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.0,0.0,1.0
+INC-DEA288583C10,aiops2025,code error,service,65,16817,36,16,True,8,G+L+R,True,True,8,G+M+R,True,legacy_validation140,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.3333333333333333,0.0,1.0,1.0
+INC-DED147CC84EE,aiops2022,k8s容器cpu负载,service,85,134575,39,19,True,14,G+M+R,True,True,17,G+M+R,True,legacy_validation140,0.2,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-DFFA92F16A92,aegislab,HTTPResponseReplaceCode,service,104,50545,43,23,True,2,G+R,True,True,4,G+M,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.25,0.0,0.0,1.0
+INC-E0975F15E88B,aiops2022,node 内存消耗,node,85,185840,44,25,True,1,G,False,True,2,G+M,True,legacy_validation140,0.3333333333333333,0.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+INC-E165CBC6DF1D,aiops2022,k8s容器内存负载,service,85,467437,40,19,False,0,none,False,True,2,G+M,False,added220,0.3333333333333333,0.0,1.0,1.0,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-E18F78F10DB2,aegislab,JVMReturn,service,104,30797,41,20,True,3,G+R,True,True,5,G+L+M,False,added220,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+INC-E2F836D2BEAA,aiops2025,pod kill,mixed,63,24909,30,12,True,3,G+L+R,False,True,5,G+L+R,True,legacy_validation140,0.5,0.0,1.0,1.0,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-E3593F07F1EF,aiops2025,pod failure,mixed,63,9815,35,16,False,0,none,False,True,1,G,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-E385B81E6CAD,aiops2025,jvm latency,mixed,63,14749,35,16,True,4,G+L+M+R,True,True,2,G,True,legacy_validation140,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-E4773F966DF8,aiops2022,k8s容器进程中止,pod,85,406561,41,20,True,1,G,False,True,4,M,True,legacy_validation140,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-E597C0A9DD0D,aiops2025,code error,service,63,24585,34,14,True,5,G+L+R,True,True,5,G+L+R,True,legacy_validation140,0.2,0.0,0.0,1.0,0.2,0.0,0.0,1.0,0.5,0.0,1.0,1.0
+INC-E5AB16AE311F,aiops2025,node disk fill,node,63,16751,34,16,False,0,none,False,False,0,none,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-E5AC8B5D69F1,aegislab,JVMMemoryStress,service,104,47074,38,16,True,6,G+R,True,True,17,G+M+R,False,added220,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+INC-E5ADE851254B,aiops2022,k8s容器网络资源包重复发送,pod,85,346577,44,24,False,0,none,False,False,0,none,True,legacy_validation140,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-E5C85BD11808,aegislab,HTTPRequestAbort,service,104,40452,38,16,True,2,G+R,True,True,3,G+M,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.5,0.0,1.0,1.0
+INC-E66AF0CC36E0,aiops2022,k8s容器网络资源包损坏,service,85,173732,41,20,True,7,G+R,True,True,4,G+L,True,legacy_validation140,0.0,0.0,0.0,0.0,0.2,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-E74A7A5234DB,aiops2022,node 磁盘读IO消耗,node,85,433488,44,24,True,1,M,False,True,1,G,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-E815A969BD89,aegislab,NetworkPartition,service,151,46756,41,20,False,0,none,False,True,1,G,False,added220,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-E87D009C5F20,aiops2025,node cpu stress,node,63,35911,34,15,False,0,none,False,True,3,G+M,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-E97FE2638655,aegislab,HTTPRequestReplaceMethod,service,104,37379,44,24,True,5,G+L+R,True,True,5,G+L+M,False,added220,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,1.0,1.0,1.0,1.0
+INC-EA5D4E5866EA,aegislab,JVMException,service,104,23963,44,24,True,2,G,False,True,7,G+L+M,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-EA85BFC2A22B,aegislab,NetworkCorrupt,service,104,40726,44,25,True,1,R,False,True,8,G+L+M+R,False,added220,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-EB5BF739136A,aegislab,JVMMemoryStress,service,104,48617,41,20,True,6,G+R,True,True,17,G+M+R,False,added220,0.0,0.0,0.0,0.0,0.2,0.0,0.0,1.0,0.2,0.0,0.0,1.0
+INC-EC6E078C2B42,aegislab,JVMMemoryStress,service,104,27037,38,16,True,2,G+R,True,True,7,G+M,False,added220,0.5,0.0,1.0,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-EC772D41BABC,aegislab,JVMMemoryStress,service,104,32557,36,14,True,3,G+M+R,True,True,16,G+M+R,False,added220,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+INC-ED5E09AC5267,aiops2022,node 内存消耗,node,85,361885,44,24,False,0,none,False,True,4,G+M,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-ED698D1233BC,aiops2022,k8s容器内存负载,pod,85,135265,47,28,True,1,R,False,True,5,M,True,legacy_validation140,0.25,0.0,0.0,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-EDC4C512FE08,aegislab,JVMMemoryStress,service,104,61858,41,20,True,1,R,False,True,4,G+L+M,False,added220,0.2,0.0,0.0,1.0,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-EEF9D2A19CF8,aiops2025,node disk fill,node,63,43525,34,15,False,0,none,False,True,1,G,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-EF46061C8B5A,aiops2022,node 内存消耗,node,85,365742,44,24,False,0,none,False,True,6,G+M,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-F15758695C46,aegislab,ContainerKill,service,104,22674,38,16,True,2,G+R,True,True,7,G+L+M,False,added220,0.25,0.0,0.0,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-F184BD9ED1EA,aegislab,NetworkPartition,service,104,20800,41,20,True,11,G+R,True,True,2,G,False,added220,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0,0.5,0.0,1.0,1.0
+INC-F263C503EF62,aiops2022,node 磁盘写IO消耗,node,85,135167,47,28,True,1,G,False,False,0,none,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-F27892051BFB,aiops2022,k8s容器内存负载,service,85,417680,40,19,True,6,G+M+R,True,True,8,G+M,True,legacy_validation140,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-F35E77FC2A74,aiops2022,k8s容器cpu负载,pod,85,429282,47,28,True,6,G+M+R,True,True,1,R,False,added220,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.25,0.0,0.0,1.0
+INC-F383924AAEDC,aiops2022,k8s容器读io负载,service,85,334418,41,20,False,0,none,False,True,3,G+M,True,legacy_validation140,0.5,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-F39B35888A54,aiops2022,k8s容器cpu负载,pod,85,183190,46,28,True,1,L,False,True,4,M,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-F3CFD20A6D64,aiops2025,network corrupt,service,63,21815,35,16,True,12,G+L+M+R,True,True,17,G+L+M+R,True,legacy_validation140,0.5,0.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.0,0.0,1.0
+INC-F3E7F7B4D5A4,aiops2025,memory stress,mixed,63,14635,34,15,True,4,G+L+M+R,True,True,4,G+M+R,True,legacy_validation140,0.3333333333333333,0.0,1.0,1.0,0.5,0.0,1.0,1.0,1.0,1.0,1.0,1.0
+INC-F406BFF0B559,aegislab,HTTPResponseReplaceCode,service,104,53010,41,20,True,1,G,False,False,0,none,False,added220,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.5,0.0,1.0,1.0
+INC-F521B339975D,aiops2025,network corrupt,mixed,63,26124,34,14,True,9,G+L+M+R,True,True,19,G+L+M+R,True,legacy_validation140,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+INC-F55F36073E70,aegislab,HTTPResponseDelay,service,104,38381,38,16,True,9,G+L+R,True,True,6,G+M+R,False,added220,0.0,0.0,0.0,0.0,0.25,0.0,0.0,1.0,0.5,0.0,1.0,1.0
+INC-F56FAA90E394,aiops2025,dns error,service,63,35893,34,15,True,8,G+R,True,True,8,G+L+M+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-F577AF2A782C,aiops2022,k8s容器进程中止,service,85,393559,44,24,True,1,G,False,True,5,G+M,True,legacy_validation140,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.0,0.0,1.0
+INC-F64B1B0FC0DD,aiops2025,pod kill,service,63,18367,33,15,True,4,G+L+R,True,True,1,R,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,1.0,1.0
+INC-F837C3736568,aegislab,NetworkLoss,service,104,45918,41,20,True,11,G+R,True,True,7,G+M+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+INC-F88F7568BB01,aiops2022,k8s容器内存负载,pod,85,148481,44,24,False,0,none,False,True,7,M,True,legacy_validation140,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-F9AABD4527A1,aiops2025,memory stress,service,63,32043,31,13,True,5,G+L+M+R,True,True,11,G+L+M+R,False,added220,0.5,0.0,1.0,1.0,0.25,0.0,0.0,1.0,1.0,1.0,1.0,1.0
+INC-FA2ABDB06665,aiops2025,jvm gc,mixed,63,17448,34,14,True,2,G+L,False,True,5,G+L+M+R,True,legacy_validation140,0.0,0.0,0.0,0.0,0.25,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+INC-FAA1218A8DAF,aiops2025,node memory stress,node,61,6849,27,7,False,0,none,False,True,4,G+M,True,legacy_validation140,0.5,0.0,1.0,1.0,0.2,0.0,0.0,1.0,1.0,1.0,1.0,1.0
+INC-FC44831AC65A,aiops2025,pod failure,mixed,63,44260,34,14,True,3,G+L+R,True,True,2,G+R,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-FC4A9CAF1B8A,aiops2022,node节点CPU故障,node,85,137552,41,20,True,1,G,False,True,8,G+M,True,legacy_validation140,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+INC-FDF5CEBF9933,aegislab,HTTPRequestAbort,service,104,28933,41,20,True,12,G+R,True,True,8,G+M+R,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,1.0,1.0
+INC-FEE094102180,aiops2025,jvm latency,service,59,1017,17,0,True,2,G,False,True,2,G+M,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-FF6B8B63972D,aiops2025,node memory stress,node,63,35080,33,15,False,0,none,False,False,0,none,True,legacy_validation140,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+INC-FFA1FF534729,aiops2022,k8s容器网络丢包,service,85,390806,41,20,False,0,none,False,True,5,G+M,False,added220,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0

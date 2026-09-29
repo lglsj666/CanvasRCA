@@ -1,0 +1,167 @@
+{
+  "schema_version": "RQ34IntegratedDesignV1",
+  "registration_id": "rq34_integrated_design_v1",
+  "status": "qualified_formal_authorized",
+  "execution_enabled": true,
+  "entry_point": "RQs/RQ3_4/scripts/entry.sh",
+  "implementation": {
+    "version": "rq34_integrated_v1",
+    "output_root": "RQs/RQ3_4/results/integrated_v1",
+    "source_run": "RQs/RQ3_3/results/witness_v2",
+    "source_registration": "RQs/RQ3_3/results/witness_v2/registration.json",
+    "qualification_only_authorized": false,
+    "prior_call_ledgers": ["RQs/RQ3_3/results/witness_v2/calls.sqlite"]
+  },
+  "selection_parameters": {
+    "mad_scale": 1.4826,
+    "relative_floor": 0.01,
+    "deviation_threshold": 3.0,
+    "reference_bins_min": 8,
+    "current_bins_min": 3,
+    "measurement_resolution": {},
+    "redundancy_positive_correlation": 0.95,
+    "redundancy_common_bins_min": 8,
+    "zero_scale_policy": "finite_absolute_change_within_same_semantics_only",
+    "pareto_objectives": ["absolute_change", "sustained_fraction", "observed_support"],
+    "scope_pack_limit": 2,
+    "unknown_persistence": 0.0
+  },
+  "date": "2026-09-24",
+  "supersedes": "Standalone six-condition 738-call GPU proposal in chat; do not add it to this matrix",
+  "protocol": "RQs/RQ3_4/descriptions/RQ3_4_experiments.md",
+  "seed": 42,
+  "models": ["qwen3.8-27b", "gemma-4-26b-a4b"],
+  "primary_model": "qwen3.8-27b",
+  "runtime_authority": "RQs/RQ3_3/configs/research_v2.json",
+  "unified": {
+    "inference": "configs/vllm_inference_local.yaml",
+    "segmentation": "configs/dataset_segmentation.yaml",
+    "scorer": "configs/rca_scorer.yaml"
+  },
+  "data": {
+    "screen": {
+      "source_analysis": "RQs/RQ3_3/results/witness_v2/analysis/screen.json",
+      "case_selection": "all unique case identities including historical failed units; not paired-only method_lock",
+      "expected_cases": 60,
+      "per_dataset": {"aiops2022": 20, "aiops2025": 20, "aegislab": 20}
+    },
+    "check": {
+      "source_analysis": "RQs/RQ3_3/results/witness_v2/analysis/check.json",
+      "expected_cases": 120,
+      "per_dataset": {"aiops2022": 40, "aiops2025": 40, "aegislab": 40}
+    },
+    "evidentiary_class": "both cohorts repeated-exposed development; check is locked regression, not untouched confirmation",
+    "new_test_opening": false,
+    "event_group_audit_before_execution": true
+  },
+  "method": {
+    "baseline": "frozen TPV backbone, never evicted by appendices",
+    "training": false,
+    "model_calls_per_cell": 1,
+    "automatic_answer_repair": false,
+    "new_attention": false,
+    "clock_projection": {
+      "version": "relative_clock_v1",
+      "source_seconds_metrics": ["container_start_time_seconds", "container_last_seen", "istio_agent_process_start_time_seconds"],
+      "output_unit": "relative_clock_seconds",
+      "origin": "minimum_finite_reference_or_current_median_over_registered_clock_observations",
+      "selection_statistics": "unchanged_source_statistics",
+      "unsupported_clock_values": "fail_closed_before_request"
+    },
+    "observation_budget_tokens_each_tokenizer": 2048,
+    "observation_max_packs": 4,
+    "observations_per_pack_max": 4,
+    "relation_block_tokens_each_tokenizer_max": 512,
+    "host_scope_max_packs": 2,
+    "common_fact_selection_across_models": true,
+    "primary_arm": "P1H1K1_G",
+    "numeric_details_freeze": "required after label-blind CPU semantic audit, before any new inference"
+  },
+  "experiments": [
+    {
+      "id": "exp_contract_alignment",
+      "cohort": "screen",
+      "arms": ["SIRCL_NATIVE", "SIRCL_IDS", "SIRCL_IDS_ALT"],
+      "logical_conditions": 3,
+      "new_conditions_upper": 3,
+      "formal_calls_upper": 360,
+      "smoke_calls_upper": 18
+    },
+    {
+      "id": "exp_evidence_reasoning_factorial",
+      "cohort": "screen",
+      "arms": ["TPV", "P0_MORE_TRUE", "P0H0K0_G", "P1H0K0_G", "P0H1K0_G", "P1H1K0_G", "P0H0K1_G", "P1H0K1_G", "P0H1K1_G", "P1H1K1_G"],
+      "factor_levels": {"P": [0, 1], "H": [0, 1], "K": [0, 1]},
+      "logical_conditions": 10,
+      "new_conditions_upper": 10,
+      "formal_calls_upper": 1200,
+      "smoke_calls_upper": 18
+    },
+    {
+      "id": "exp_verified_visual_binding",
+      "cohort": "screen",
+      "fixed_factors": {"P": 1, "H": 1},
+      "arms": ["T_NONE", "T_REPEAT", "T_VERIFIED", "G_NONE", "G_REPEAT", "G_VERIFIED"],
+      "reuse": {
+        "G_NONE": {"experiment": "exp_evidence_reasoning_factorial", "arm": "P1H1K0_G"},
+        "G_VERIFIED": {"experiment": "exp_evidence_reasoning_factorial", "arm": "P1H1K1_G"}
+      },
+      "logical_conditions": 6,
+      "new_conditions_upper": 4,
+      "formal_calls_upper": 480,
+      "smoke_calls_upper": 18
+    },
+    {
+      "id": "exp_integrated_locked_check",
+      "cohort": "check",
+      "conditional": true,
+      "arms": ["TPV", "P0_MORE_TRUE", "SIRCL_IDS", "P1H1K0_G", "P1H1K1_G", "P1H1K1_T"],
+      "logical_conditions": 6,
+      "new_conditions_upper": 6,
+      "formal_calls_upper": 1440,
+      "smoke_calls_upper": 18
+    }
+  ],
+  "advancement": {
+    "source": "screen, Qwen only, three-dataset equal-weight macro MRR, paired cases",
+    "fixed_primary_arm": "P1H1K1_G",
+    "delta_mrr_vs_tpv_min": 0.03,
+    "delta_mrr_vs_more_min": 0.01,
+    "each_dataset_delta_vs_tpv_min": -0.03,
+    "protocol_and_artifact_checks_required": true,
+    "fallback_to_runner_up": false,
+    "claim_of_significance_from_advancement": false
+  },
+  "budget": {
+    "screen_formal_calls_upper": 2040,
+    "screen_smoke_calls_upper": 54,
+    "screen_total_upper": 2094,
+    "conditional_check_total_upper": 1458,
+    "formal_calls_upper": 3480,
+    "smoke_calls_upper": 72,
+    "planned_new_calls_upper": 3552,
+    "unplanned_retries_included_in_planned_upper": false,
+    "existing_authorized_major_rq_hard_limit": 40000,
+    "reset_prior_spend": false,
+    "budget_linkage_before_launch": "Reconcile prior model-request counts with the applicable existing major-RQ budget before freezing execution; local compute, no API billing"
+  },
+  "qualification": {
+    "max_calls_per_logical_smoke": 18,
+    "max_seconds_per_logical_smoke": 600,
+    "datasets": ["aiops2022", "aiops2025", "aegislab"],
+    "cpu_regression_target_seconds": 1800,
+    "inherit_prior_gpu_qualification": false,
+    "new_roster_prompts_and_contract_freeze_required": true
+  },
+  "execution_requirements": {
+    "local_only": true,
+    "max_cpu_workers": 8,
+    "distinct_physical_cores": true,
+    "cloudbed_aware_dispatch": true,
+    "models_sequential": true,
+    "resume": "trust atomic done/fail flags; no automatic retry of failed units and no bulk artifact rebuild",
+    "request_timeout": "record terminal failure and continue",
+    "other_infrastructure_failure": "fail_fast",
+    "automatic_full_scale_expansion": false
+  }
+}

@@ -1,0 +1,1897 @@
+[
+  {
+    "case": "INC-DD972245679A",
+    "dataset": "aiops2022",
+    "selected": 2,
+    "request_pool": 2,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "insufficient_observed_groups": 291
+    },
+    "source_audit": {
+      "rows": 462863,
+      "accepted_rows": 450595,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 0
+    }
+  },
+  {
+    "case": "INC-E518E9800304",
+    "dataset": "aiops2022",
+    "selected": 4,
+    "request_pool": 137,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": true,
+    "root_entry_selected": true,
+    "request_audit": {
+      "incomplete_or_cyclic_trace": 136,
+      "insufficient_observed_groups": 133
+    },
+    "source_audit": {
+      "rows": 411285,
+      "accepted_rows": 399020,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 0
+    }
+  },
+  {
+    "case": "INC-65CE2F2F3440",
+    "dataset": "aiops2022",
+    "selected": 4,
+    "request_pool": 96,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "insufficient_observed_groups": 80
+    },
+    "source_audit": {
+      "rows": 124289,
+      "accepted_rows": 121062,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 0
+    }
+  },
+  {
+    "case": "INC-B63F1516296F",
+    "dataset": "aiops2022",
+    "selected": 4,
+    "request_pool": 97,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "insufficient_observed_groups": 87
+    },
+    "source_audit": {
+      "rows": 125387,
+      "accepted_rows": 122156,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 0
+    }
+  },
+  {
+    "case": "INC-D639854EA9F7",
+    "dataset": "aiops2022",
+    "selected": 4,
+    "request_pool": 102,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": true,
+    "root_entry_selected": false,
+    "request_audit": {
+      "insufficient_observed_groups": 73
+    },
+    "source_audit": {
+      "rows": 123622,
+      "accepted_rows": 120532,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 0
+    }
+  },
+  {
+    "case": "INC-07B8919442D8",
+    "dataset": "aiops2022",
+    "selected": 4,
+    "request_pool": 118,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": true,
+    "root_entry_selected": false,
+    "request_audit": {
+      "insufficient_observed_groups": 26
+    },
+    "source_audit": {
+      "rows": 116230,
+      "accepted_rows": 112887,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 0
+    }
+  },
+  {
+    "case": "INC-1E6DCFC0A453",
+    "dataset": "aiops2022",
+    "selected": 4,
+    "request_pool": 29,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "insufficient_observed_groups": 199
+    },
+    "source_audit": {
+      "rows": 283251,
+      "accepted_rows": 275642,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 0
+    }
+  },
+  {
+    "case": "INC-1FDDC9D9F646",
+    "dataset": "aiops2022",
+    "selected": 4,
+    "request_pool": 129,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "insufficient_observed_groups": 93
+    },
+    "source_audit": {
+      "rows": 233196,
+      "accepted_rows": 226443,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 0
+    }
+  },
+  {
+    "case": "INC-8682AD2CADE1",
+    "dataset": "aiops2022",
+    "selected": 4,
+    "request_pool": 72,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "insufficient_observed_groups": 104
+    },
+    "source_audit": {
+      "rows": 123567,
+      "accepted_rows": 121264,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 0
+    }
+  },
+  {
+    "case": "INC-0986D6C54EC6",
+    "dataset": "aiops2022",
+    "selected": 4,
+    "request_pool": 79,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "insufficient_observed_groups": 39
+    },
+    "source_audit": {
+      "rows": 124446,
+      "accepted_rows": 121460,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 0
+    }
+  },
+  {
+    "case": "INC-335A9F3A663E",
+    "dataset": "aiops2022",
+    "selected": 4,
+    "request_pool": 120,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": true,
+    "root_entry_selected": false,
+    "request_audit": {
+      "insufficient_observed_groups": 42
+    },
+    "source_audit": {
+      "rows": 120202,
+      "accepted_rows": 117189,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 0
+    }
+  },
+  {
+    "case": "INC-2CABCD159021",
+    "dataset": "aiops2022",
+    "selected": 4,
+    "request_pool": 85,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "insufficient_observed_groups": 96
+    },
+    "source_audit": {
+      "rows": 108501,
+      "accepted_rows": 108139,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 0
+    }
+  },
+  {
+    "case": "INC-123B5115D9C1",
+    "dataset": "aiops2022",
+    "selected": 4,
+    "request_pool": 133,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "insufficient_observed_groups": 160
+    },
+    "source_audit": {
+      "rows": 458265,
+      "accepted_rows": 446908,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 0
+    }
+  },
+  {
+    "case": "INC-CCE2A7ACCA59",
+    "dataset": "aiops2022",
+    "selected": 4,
+    "request_pool": 130,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "insufficient_observed_groups": 163
+    },
+    "source_audit": {
+      "rows": 436709,
+      "accepted_rows": 425689,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 0
+    }
+  },
+  {
+    "case": "INC-9ACC29B9B330",
+    "dataset": "aiops2022",
+    "selected": 4,
+    "request_pool": 138,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "insufficient_observed_groups": 99
+    },
+    "source_audit": {
+      "rows": 367009,
+      "accepted_rows": 357565,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 0
+    }
+  },
+  {
+    "case": "INC-91DCB951C96E",
+    "dataset": "aiops2022",
+    "selected": 4,
+    "request_pool": 137,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": true,
+    "root_entry_selected": false,
+    "request_audit": {
+      "insufficient_observed_groups": 149
+    },
+    "source_audit": {
+      "rows": 364874,
+      "accepted_rows": 355251,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 0
+    }
+  },
+  {
+    "case": "INC-9293D99C285C",
+    "dataset": "aiops2022",
+    "selected": 4,
+    "request_pool": 153,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": true,
+    "root_entry_selected": false,
+    "request_audit": {
+      "incomplete_or_cyclic_trace": 448,
+      "insufficient_observed_groups": 72
+    },
+    "source_audit": {
+      "rows": 251730,
+      "accepted_rows": 245249,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 0
+    }
+  },
+  {
+    "case": "INC-68BAACF4BB36",
+    "dataset": "aiops2022",
+    "selected": 4,
+    "request_pool": 110,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "insufficient_observed_groups": 41
+    },
+    "source_audit": {
+      "rows": 125214,
+      "accepted_rows": 122212,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 0
+    }
+  },
+  {
+    "case": "INC-7D95F2013B97",
+    "dataset": "aiops2022",
+    "selected": 4,
+    "request_pool": 125,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "insufficient_observed_groups": 27
+    },
+    "source_audit": {
+      "rows": 126878,
+      "accepted_rows": 123787,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 0
+    }
+  },
+  {
+    "case": "INC-FDC8B6B87BEB",
+    "dataset": "aiops2022",
+    "selected": 4,
+    "request_pool": 64,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "insufficient_observed_groups": 127
+    },
+    "source_audit": {
+      "rows": 124745,
+      "accepted_rows": 121618,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 0
+    }
+  },
+  {
+    "case": "INC-7CA062069501",
+    "dataset": "aiops2025",
+    "selected": 4,
+    "request_pool": 5,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": true,
+    "root_entry_selected": false,
+    "request_audit": {
+      "insufficient_observed_groups": 20
+    },
+    "source_audit": {
+      "rows": 90387,
+      "accepted_rows": 87713,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "process",
+        "service_name",
+        "span_id",
+        "startTime",
+        "startTimeMillis",
+        "tags",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 11
+    }
+  },
+  {
+    "case": "INC-3D65ABCF1DD8",
+    "dataset": "aiops2025",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "insufficient_observed_groups": 25
+    },
+    "source_audit": {
+      "rows": 86235,
+      "accepted_rows": 84019,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "process",
+        "service_name",
+        "span_id",
+        "startTime",
+        "startTimeMillis",
+        "tags",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 12
+    }
+  },
+  {
+    "case": "INC-375083DFDFBE",
+    "dataset": "aiops2025",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 520,
+      "incomplete_or_cyclic_trace": 533,
+      "insufficient_observed_groups": 18
+    },
+    "source_audit": {
+      "rows": 79748,
+      "accepted_rows": 78133,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "process",
+        "service_name",
+        "span_id",
+        "startTime",
+        "startTimeMillis",
+        "tags",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 12
+    }
+  },
+  {
+    "case": "INC-B9652C6DC060",
+    "dataset": "aiops2025",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "insufficient_observed_groups": 25
+    },
+    "source_audit": {
+      "rows": 96339,
+      "accepted_rows": 93352,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "process",
+        "service_name",
+        "span_id",
+        "startTime",
+        "startTimeMillis",
+        "tags",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 12
+    }
+  },
+  {
+    "case": "INC-6FDD214ABC63",
+    "dataset": "aiops2025",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 1,
+      "insufficient_observed_groups": 25
+    },
+    "source_audit": {
+      "rows": 341191,
+      "accepted_rows": 331002,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "process",
+        "service_name",
+        "span_id",
+        "startTime",
+        "startTimeMillis",
+        "tags",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 11
+    }
+  },
+  {
+    "case": "INC-9C8982A9736C",
+    "dataset": "aiops2025",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 1,
+      "insufficient_observed_groups": 25
+    },
+    "source_audit": {
+      "rows": 87132,
+      "accepted_rows": 84355,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "process",
+        "service_name",
+        "span_id",
+        "startTime",
+        "startTimeMillis",
+        "tags",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 12
+    }
+  },
+  {
+    "case": "INC-E687A1412352",
+    "dataset": "aiops2025",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "incomplete_or_cyclic_trace": 73,
+      "non_single_observed_root": 37,
+      "insufficient_observed_groups": 25
+    },
+    "source_audit": {
+      "rows": 289114,
+      "accepted_rows": 281230,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "process",
+        "service_name",
+        "span_id",
+        "startTime",
+        "startTimeMillis",
+        "tags",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 12
+    }
+  },
+  {
+    "case": "INC-7E5014ED408C",
+    "dataset": "aiops2025",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 3,
+      "incomplete_or_cyclic_trace": 1,
+      "insufficient_observed_groups": 25
+    },
+    "source_audit": {
+      "rows": 104741,
+      "accepted_rows": 102135,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "process",
+        "service_name",
+        "span_id",
+        "startTime",
+        "startTimeMillis",
+        "tags",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 12
+    }
+  },
+  {
+    "case": "INC-8E1DFDBC7F96",
+    "dataset": "aiops2025",
+    "selected": 4,
+    "request_pool": 10,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": true,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 1,
+      "insufficient_observed_groups": 15
+    },
+    "source_audit": {
+      "rows": 46891,
+      "accepted_rows": 44084,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "process",
+        "service_name",
+        "span_id",
+        "startTime",
+        "startTimeMillis",
+        "tags",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 12
+    }
+  },
+  {
+    "case": "INC-AC9FBC0EC13D",
+    "dataset": "aiops2025",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {},
+    "source_audit": {
+      "no_trace_clock": 1
+    }
+  },
+  {
+    "case": "INC-ABA10DF868CA",
+    "dataset": "aiops2025",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {},
+    "source_audit": {
+      "no_trace_clock": 1
+    }
+  },
+  {
+    "case": "INC-94EB4C70EFB7",
+    "dataset": "aiops2025",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "incomplete_or_cyclic_trace": 123,
+      "non_single_observed_root": 75,
+      "insufficient_observed_groups": 25
+    },
+    "source_audit": {
+      "rows": 306777,
+      "accepted_rows": 298889,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "process",
+        "service_name",
+        "span_id",
+        "startTime",
+        "startTimeMillis",
+        "tags",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 12
+    }
+  },
+  {
+    "case": "INC-9DDF62CAF256",
+    "dataset": "aiops2025",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "insufficient_observed_groups": 25
+    },
+    "source_audit": {
+      "rows": 174453,
+      "accepted_rows": 168560,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "process",
+        "service_name",
+        "span_id",
+        "startTime",
+        "startTimeMillis",
+        "tags",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 12
+    }
+  },
+  {
+    "case": "INC-1B936A4C6354",
+    "dataset": "aiops2025",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 16,
+      "incomplete_or_cyclic_trace": 28,
+      "insufficient_observed_groups": 25
+    },
+    "source_audit": {
+      "rows": 82513,
+      "accepted_rows": 79578,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "process",
+        "service_name",
+        "span_id",
+        "startTime",
+        "startTimeMillis",
+        "tags",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 12
+    }
+  },
+  {
+    "case": "INC-9C225C04C814",
+    "dataset": "aiops2025",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "incomplete_or_cyclic_trace": 83,
+      "non_single_observed_root": 65,
+      "insufficient_observed_groups": 25
+    },
+    "source_audit": {
+      "rows": 207114,
+      "accepted_rows": 201494,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "process",
+        "service_name",
+        "span_id",
+        "startTime",
+        "startTimeMillis",
+        "tags",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 12
+    }
+  },
+  {
+    "case": "INC-80540E51533D",
+    "dataset": "aiops2025",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 40,
+      "incomplete_or_cyclic_trace": 23,
+      "insufficient_observed_groups": 25
+    },
+    "source_audit": {
+      "rows": 277751,
+      "accepted_rows": 269181,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "process",
+        "service_name",
+        "span_id",
+        "startTime",
+        "startTimeMillis",
+        "tags",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 11
+    }
+  },
+  {
+    "case": "INC-B8CEA35848D0",
+    "dataset": "aiops2025",
+    "selected": 2,
+    "request_pool": 2,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 1,
+      "insufficient_observed_groups": 9
+    },
+    "source_audit": {
+      "rows": 141101,
+      "accepted_rows": 134881,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "process",
+        "service_name",
+        "span_id",
+        "startTime",
+        "startTimeMillis",
+        "tags",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 11
+    }
+  },
+  {
+    "case": "INC-38605D04F34F",
+    "dataset": "aiops2025",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "incomplete_or_cyclic_trace": 35,
+      "non_single_observed_root": 16,
+      "insufficient_observed_groups": 25
+    },
+    "source_audit": {
+      "rows": 320852,
+      "accepted_rows": 312737,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "process",
+        "service_name",
+        "span_id",
+        "startTime",
+        "startTimeMillis",
+        "tags",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 11
+    }
+  },
+  {
+    "case": "INC-8201EB3924F3",
+    "dataset": "aiops2025",
+    "selected": 3,
+    "request_pool": 3,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": true,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 139,
+      "incomplete_or_cyclic_trace": 263,
+      "insufficient_observed_groups": 20
+    },
+    "source_audit": {
+      "rows": 36847,
+      "accepted_rows": 34394,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "process",
+        "service_name",
+        "span_id",
+        "startTime",
+        "startTimeMillis",
+        "tags",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 11
+    }
+  },
+  {
+    "case": "INC-E324D405FD70",
+    "dataset": "aiops2025",
+    "selected": 4,
+    "request_pool": 6,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": true,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 2,
+      "insufficient_observed_groups": 14
+    },
+    "source_audit": {
+      "rows": 263708,
+      "accepted_rows": 255795,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "process",
+        "service_name",
+        "span_id",
+        "startTime",
+        "startTimeMillis",
+        "tags",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 11
+    }
+  },
+  {
+    "case": "INC-A195F9A69AFC",
+    "dataset": "aegislab",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "incomplete_or_cyclic_trace": 2,
+      "non_single_observed_root": 1,
+      "insufficient_observed_groups": 1448,
+      "insufficient_entry_reference": 1030
+    },
+    "source_audit": {
+      "rows": 194097,
+      "accepted_rows": 191699,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "attr.http.response.status_code",
+        "attr.k8s.pod.name",
+        "attr.k8s.service.name",
+        "attr.status_code",
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "span_name",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 29
+    }
+  },
+  {
+    "case": "INC-6C8EA77140FF",
+    "dataset": "aegislab",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 1,
+      "insufficient_observed_groups": 1185,
+      "insufficient_entry_reference": 2274
+    },
+    "source_audit": {
+      "rows": 385718,
+      "accepted_rows": 382973,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "attr.http.response.status_code",
+        "attr.k8s.pod.name",
+        "attr.k8s.service.name",
+        "attr.status_code",
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "span_name",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 30
+    }
+  },
+  {
+    "case": "INC-6A048DD0C35E",
+    "dataset": "aegislab",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 2,
+      "insufficient_observed_groups": 1121,
+      "insufficient_entry_reference": 1147
+    },
+    "source_audit": {
+      "rows": 200912,
+      "accepted_rows": 200855,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "attr.http.response.status_code",
+        "attr.k8s.pod.name",
+        "attr.k8s.service.name",
+        "attr.status_code",
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "span_name",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 29
+    }
+  },
+  {
+    "case": "INC-0BA573DA51CC",
+    "dataset": "aegislab",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 1,
+      "insufficient_observed_groups": 998,
+      "insufficient_entry_reference": 457
+    },
+    "source_audit": {
+      "rows": 82501,
+      "accepted_rows": 81995,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "attr.http.response.status_code",
+        "attr.k8s.pod.name",
+        "attr.k8s.service.name",
+        "attr.status_code",
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "span_name",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 29
+    }
+  },
+  {
+    "case": "INC-BF08743A4A7D",
+    "dataset": "aegislab",
+    "selected": 2,
+    "request_pool": 2,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 4,
+      "incomplete_or_cyclic_trace": 7,
+      "insufficient_entry_reference": 1025,
+      "insufficient_observed_groups": 5570
+    },
+    "source_audit": {
+      "rows": 308727,
+      "accepted_rows": 307522,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "attr.http.response.status_code",
+        "attr.k8s.pod.name",
+        "attr.k8s.service.name",
+        "attr.status_code",
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "span_name",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 30
+    }
+  },
+  {
+    "case": "INC-331437929E47",
+    "dataset": "aegislab",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 2,
+      "insufficient_observed_groups": 1033,
+      "insufficient_entry_reference": 826
+    },
+    "source_audit": {
+      "rows": 139489,
+      "accepted_rows": 139152,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "attr.http.response.status_code",
+        "attr.k8s.pod.name",
+        "attr.k8s.service.name",
+        "attr.status_code",
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "span_name",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 29
+    }
+  },
+  {
+    "case": "INC-C426468D92A8",
+    "dataset": "aegislab",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 3,
+      "incomplete_or_cyclic_trace": 63,
+      "insufficient_observed_groups": 1322,
+      "insufficient_entry_reference": 860
+    },
+    "source_audit": {
+      "rows": 345017,
+      "accepted_rows": 339288,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "attr.http.response.status_code",
+        "attr.k8s.pod.name",
+        "attr.k8s.service.name",
+        "attr.status_code",
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "span_name",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 30
+    }
+  },
+  {
+    "case": "INC-332110D70FB3",
+    "dataset": "aegislab",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "insufficient_observed_groups": 764
+    },
+    "source_audit": {
+      "rows": 124916,
+      "accepted_rows": 123329,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "attr.http.response.status_code",
+        "attr.k8s.pod.name",
+        "attr.k8s.service.name",
+        "attr.status_code",
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "span_name",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 30
+    }
+  },
+  {
+    "case": "INC-1A47F4D45593",
+    "dataset": "aegislab",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 2,
+      "insufficient_observed_groups": 1274,
+      "insufficient_entry_reference": 965
+    },
+    "source_audit": {
+      "rows": 187819,
+      "accepted_rows": 186621,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "attr.http.response.status_code",
+        "attr.k8s.pod.name",
+        "attr.k8s.service.name",
+        "attr.status_code",
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "span_name",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 29
+    }
+  },
+  {
+    "case": "INC-97B043342751",
+    "dataset": "aegislab",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 3,
+      "insufficient_observed_groups": 2980,
+      "insufficient_entry_reference": 1223
+    },
+    "source_audit": {
+      "rows": 275542,
+      "accepted_rows": 275079,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "attr.http.response.status_code",
+        "attr.k8s.pod.name",
+        "attr.k8s.service.name",
+        "attr.status_code",
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "span_name",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 30
+    }
+  },
+  {
+    "case": "INC-1F5529D2CA5E",
+    "dataset": "aegislab",
+    "selected": 4,
+    "request_pool": 364,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 2,
+      "insufficient_observed_groups": 425,
+      "insufficient_entry_reference": 3
+    },
+    "source_audit": {
+      "rows": 280650,
+      "accepted_rows": 267419,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "attr.http.response.status_code",
+        "attr.k8s.pod.name",
+        "attr.k8s.service.name",
+        "attr.status_code",
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "span_name",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 30
+    }
+  },
+  {
+    "case": "INC-34562D2C5CC4",
+    "dataset": "aegislab",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 3,
+      "insufficient_observed_groups": 971,
+      "insufficient_entry_reference": 1357
+    },
+    "source_audit": {
+      "rows": 226928,
+      "accepted_rows": 226545,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "attr.http.response.status_code",
+        "attr.k8s.pod.name",
+        "attr.k8s.service.name",
+        "attr.status_code",
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "span_name",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 30
+    }
+  },
+  {
+    "case": "INC-A89422C045DE",
+    "dataset": "aegislab",
+    "selected": 4,
+    "request_pool": 112,
+    "scope_pool": 0,
+    "no_op": false,
+    "root_local_selected": true,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 1,
+      "incomplete_or_cyclic_trace": 1,
+      "insufficient_observed_groups": 4012,
+      "insufficient_entry_reference": 644
+    },
+    "source_audit": {
+      "rows": 370938,
+      "accepted_rows": 361667,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "attr.http.response.status_code",
+        "attr.k8s.pod.name",
+        "attr.k8s.service.name",
+        "attr.status_code",
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "span_name",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 30
+    }
+  },
+  {
+    "case": "INC-B5C0BC6A223E",
+    "dataset": "aegislab",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 1,
+      "insufficient_observed_groups": 1140,
+      "insufficient_entry_reference": 764
+    },
+    "source_audit": {
+      "rows": 309083,
+      "accepted_rows": 296385,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "attr.http.response.status_code",
+        "attr.k8s.pod.name",
+        "attr.k8s.service.name",
+        "attr.status_code",
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "span_name",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 30
+    }
+  },
+  {
+    "case": "INC-8E91494BF92F",
+    "dataset": "aegislab",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 1,
+      "insufficient_observed_groups": 2967,
+      "insufficient_entry_reference": 668
+    },
+    "source_audit": {
+      "rows": 279234,
+      "accepted_rows": 273277,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "attr.http.response.status_code",
+        "attr.k8s.pod.name",
+        "attr.k8s.service.name",
+        "attr.status_code",
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "span_name",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 30
+    }
+  },
+  {
+    "case": "INC-992C09A89DC9",
+    "dataset": "aegislab",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 1,
+      "incomplete_or_cyclic_trace": 2,
+      "insufficient_observed_groups": 1077,
+      "insufficient_entry_reference": 722
+    },
+    "source_audit": {
+      "rows": 257033,
+      "accepted_rows": 248225,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "attr.http.response.status_code",
+        "attr.k8s.pod.name",
+        "attr.k8s.service.name",
+        "attr.status_code",
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "span_name",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 30
+    }
+  },
+  {
+    "case": "INC-B4C69A1E0459",
+    "dataset": "aegislab",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 3,
+      "insufficient_observed_groups": 781,
+      "insufficient_entry_reference": 722
+    },
+    "source_audit": {
+      "rows": 120466,
+      "accepted_rows": 120119,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "attr.http.response.status_code",
+        "attr.k8s.pod.name",
+        "attr.k8s.service.name",
+        "attr.status_code",
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "span_name",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 29
+    }
+  },
+  {
+    "case": "INC-39B0C8694807",
+    "dataset": "aegislab",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 2,
+      "insufficient_observed_groups": 979,
+      "insufficient_entry_reference": 1047
+    },
+    "source_audit": {
+      "rows": 319798,
+      "accepted_rows": 308960,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "attr.http.response.status_code",
+        "attr.k8s.pod.name",
+        "attr.k8s.service.name",
+        "attr.status_code",
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "span_name",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 30
+    }
+  },
+  {
+    "case": "INC-85C93CE3CB89",
+    "dataset": "aegislab",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 1,
+      "duplicate_span_trace": 1,
+      "incomplete_or_cyclic_trace": 1,
+      "insufficient_observed_groups": 3854,
+      "insufficient_entry_reference": 748
+    },
+    "source_audit": {
+      "rows": 295461,
+      "accepted_rows": 293108,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "attr.http.response.status_code",
+        "attr.k8s.pod.name",
+        "attr.k8s.service.name",
+        "attr.status_code",
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "span_name",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 30
+    }
+  },
+  {
+    "case": "INC-CEA641BA3229",
+    "dataset": "aegislab",
+    "selected": 0,
+    "request_pool": 0,
+    "scope_pool": 0,
+    "no_op": true,
+    "root_local_selected": false,
+    "root_entry_selected": false,
+    "request_audit": {
+      "non_single_observed_root": 1,
+      "incomplete_or_cyclic_trace": 1,
+      "insufficient_observed_groups": 1116,
+      "insufficient_entry_reference": 515
+    },
+    "source_audit": {
+      "rows": 101390,
+      "accepted_rows": 99250,
+      "duration_scale": 0.001,
+      "whitelisted_columns": [
+        "attr.http.response.status_code",
+        "attr.k8s.pod.name",
+        "attr.k8s.service.name",
+        "attr.status_code",
+        "duration_ms",
+        "operation_name",
+        "parent_span_id",
+        "service_name",
+        "span_id",
+        "span_name",
+        "timestamp",
+        "trace_id"
+      ],
+      "explicit_ownership": 29
+    }
+  }
+]

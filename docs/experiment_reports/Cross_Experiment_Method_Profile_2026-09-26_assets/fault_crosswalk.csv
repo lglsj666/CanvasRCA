@@ -1,0 +1,69 @@
+dataset,fault_family,fault_type,cases
+aegislab,application_jvm,JVMException,7
+aegislab,application_jvm,JVMLatency,1
+aegislab,application_jvm,JVMMySQLLatency,1
+aegislab,application_jvm,JVMReturn,3
+aegislab,availability,ContainerKill,14
+aegislab,availability,PodFailure,4
+aegislab,availability,PodKill,3
+aegislab,clock,TimeSkew,1
+aegislab,cpu,JVMCPUStress,1
+aegislab,http_injection,HTTPRequestAbort,13
+aegislab,http_injection,HTTPRequestDelay,12
+aegislab,http_injection,HTTPRequestReplaceMethod,32
+aegislab,http_injection,HTTPRequestReplacePath,1
+aegislab,http_injection,HTTPResponseAbort,7
+aegislab,http_injection,HTTPResponseDelay,10
+aegislab,http_injection,HTTPResponseReplaceBody,6
+aegislab,http_injection,HTTPResponseReplaceCode,36
+aegislab,memory_gc,JVMMemoryStress,30
+aegislab,network_corrupt,NetworkCorrupt,7
+aegislab,network_delay,NetworkDelay,2
+aegislab,network_loss,NetworkLoss,7
+aegislab,network_partition_bandwidth,NetworkBandwidth,3
+aegislab,network_partition_bandwidth,NetworkPartition,19
+aiops2022,availability,k8s容器进程中止,16
+aiops2022,cpu,k8s容器cpu负载,19
+aiops2022,cpu,node节点CPU故障,10
+aiops2022,cpu,node节点CPU爬升,7
+aiops2022,disk_io,k8s容器写io负载,13
+aiops2022,disk_io,k8s容器读io负载,20
+aiops2022,disk_io,node 磁盘写IO消耗,11
+aiops2022,disk_io,node 磁盘空间消耗,11
+aiops2022,disk_io,node 磁盘读IO消耗,10
+aiops2022,memory_gc,k8s容器内存负载,21
+aiops2022,memory_gc,node 内存消耗,11
+aiops2022,network_corrupt,k8s容器网络资源包损坏,15
+aiops2022,network_delay,k8s容器网络延迟,18
+aiops2022,network_duplicate,k8s容器网络资源包重复发送,15
+aiops2022,network_loss,k8s容器网络丢包,23
+aiops2025,application_jvm,code error,11
+aiops2025,application_jvm,jvm exception,9
+aiops2025,application_jvm,jvm latency,12
+aiops2025,availability,pod failure,26
+aiops2025,availability,pod kill,8
+aiops2025,cpu,cpu stress,12
+aiops2025,cpu,jvm cpu,6
+aiops2025,cpu,node cpu stress,10
+aiops2025,disk_io,io fault,14
+aiops2025,disk_io,node disk fill,12
+aiops2025,memory_gc,jvm gc,10
+aiops2025,memory_gc,memory stress,14
+aiops2025,memory_gc,node memory stress,20
+aiops2025,network_config_socket,dns error,13
+aiops2025,network_config_socket,target port misconfig,5
+aiops2025,network_corrupt,network corrupt,15
+aiops2025,network_delay,network delay,13
+aiops2025,network_loss,network loss,10
+re2_ob,cpu,cpu,15
+re2_ob,disk_io,disk,15
+re2_ob,memory_gc,mem,15
+re2_ob,network_config_socket,socket,15
+re2_ob,network_delay,delay,15
+re2_ob,network_loss,loss,15
+re2_tt,cpu,cpu,15
+re2_tt,disk_io,disk,15
+re2_tt,memory_gc,mem,15
+re2_tt,network_config_socket,socket,15
+re2_tt,network_delay,delay,15
+re2_tt,network_loss,loss,15

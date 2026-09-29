@@ -1,0 +1,18 @@
+{
+  "schema": "DashboardComponentCatalogV1",
+  "components": [
+    {"index": 1, "id": "metric.line", "kind": "metric", "file": "MetricLine.tsx", "name": "Time-series line"},
+    {"index": 2, "id": "metric.time_bars", "kind": "metric", "file": "MetricTimeBars.tsx", "name": "Time-bin bars"},
+    {"index": 3, "id": "metric.heatmap", "kind": "metric", "file": "MetricHeatmap.tsx", "name": "Time-bin heatmap"},
+    {"index": 4, "id": "trace.paired_bars", "kind": "trace", "file": "TracePairedBars.tsx", "name": "Paired latency bars"},
+    {"index": 5, "id": "trace.dumbbell", "kind": "trace", "file": "TraceDumbbell.tsx", "name": "Latency dumbbell"},
+    {"index": 6, "id": "trace.table", "kind": "trace", "file": "TraceTable.tsx", "name": "Latency table"},
+    {"index": 7, "id": "log.timeline", "kind": "log", "file": "LogTimeline.tsx", "name": "Template timeline"},
+    {"index": 8, "id": "log.table", "kind": "log", "file": "LogTable.tsx", "name": "Template-bin table"},
+    {"index": 9, "id": "graph.node_link", "kind": "graph", "file": "RelationshipGraph.tsx", "name": "Typed directed graph"},
+    {"index": 10, "id": "graph.matrix", "kind": "graph", "file": "RelationshipMatrix.tsx", "name": "Typed adjacency matrix"},
+    {"index": 11, "id": "events.onset", "kind": "events", "file": "AnomalyOnset.tsx", "name": "Observed anomaly onset timeline"},
+    {"index": 12, "id": "graph.edge_pairs", "kind": "graph", "file": "RelationshipPairs.tsx", "name": "Pairwise directed relationships"},
+    {"index": 13, "id": "graph.deployment_groups", "kind": "graph", "file": "DeploymentGroups.tsx", "name": "Grouped node/pod and service/pod memberships"}
+  ]
+}

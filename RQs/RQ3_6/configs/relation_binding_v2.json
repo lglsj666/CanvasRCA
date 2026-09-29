@@ -1,0 +1,89 @@
+{
+  "schema_version": "RQ36MechanismExpansionV2",
+  "status": "registered_pending_qualification",
+  "stage": "B",
+  "models": [
+    "qwen3.8-27b",
+    "gemma-4-26b-a4b"
+  ],
+  "runtime_authority": "RQs/RQ3_3/configs/research_v2.json",
+  "unified": {
+    "inference": "configs/vllm_inference_local.yaml"
+  },
+  "qualification": {
+    "datasets": [
+      "aiops2022",
+      "aiops2025",
+      "aegislab"
+    ],
+    "max_calls": 18,
+    "max_seconds": 600,
+    "cpu_seconds": 1800
+  },
+  "execution": {
+    "workers": 8,
+    "concurrency": 36,
+    "min_free_disk_gib": 10,
+    "attention": false,
+    "training": false
+  },
+  "budget": {
+    "hard_limit": 40000,
+    "formal_new_calls_max": 4320,
+    "qualification_new_calls_max": 18,
+    "reset_prior_spend": false
+  },
+  "guide_boundaries": {
+    "parent_verify": "Before committing the final ranking,",
+    "sircl_verify": "INITIAL: Consider three ranked hypotheses"
+  },
+  "witness": {
+    "max_packs": 4,
+    "max_members": 3,
+    "max_tokens": 2048,
+    "host_scope_max_packs": 2,
+    "eligibility_version": "observed_change_scope_v1",
+    "exclude_static_patterns": "(?:resource.*(?:request|limit)|(?:memory|cpu)[_.](?:request|limit)|(?:request|limit).*bytes|config|capacity|timestamp|start_time|last_seen)"
+  },
+  "visual": {
+    "version": "rq36_mechanisms_graph_v2",
+    "width": 2304,
+    "height": 3072,
+    "font_size": 20,
+    "line_height": 26,
+    "graph_height": 1100,
+    "margin": 32,
+    "max_height": 8192
+  },
+  "registration_id": "rq36_relation_binding_v2",
+  "family": "relation_binding",
+  "experiment": "exp_relation_provenance_binding",
+  "arms": [
+    "ALL_ID_T",
+    "ALL_ID_G",
+    "ALL_BIND_T",
+    "ALL_BIND_G",
+    "CALL_ID_T",
+    "CALL_ID_G",
+    "CALL_BIND_T",
+    "CALL_BIND_G",
+    "DEPLOY_ID_T",
+    "DEPLOY_ID_G",
+    "DEPLOY_BIND_T",
+    "DEPLOY_BIND_G"
+  ],
+  "smoke_arms": [
+    "ALL_BIND_G",
+    "CALL_ID_T",
+    "DEPLOY_BIND_G"
+  ],
+  "implementation": {
+    "output_root": "RQs/RQ3_6/results/mechanisms_v2/relation_binding",
+    "shared_ledger": "RQs/RQ3_6/results/mechanisms_v2/calls.sqlite",
+    "roster_run": "RQs/RQ3_5/results/outcome_linked_v1",
+    "source_run": "RQs/RQ3_4/results/integrated_v1",
+    "prior_call_ledgers": [
+      "RQs/RQ3_6/results/visual_mechanisms_v1/calls.sqlite"
+    ]
+  }
+}

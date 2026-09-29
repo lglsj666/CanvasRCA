@@ -1,0 +1,49 @@
+{
+  "schema_version": "RQ33RegistrationV1",
+  "registration_id": "rq33_witness_v1",
+  "status": "implementation_only_pending_runtime_qualification",
+  "seed": 42,
+  "unified": {"vllm": "configs/vllm_inference_local.yaml", "segmentation": "configs/dataset_segmentation.yaml", "scorer": "configs/rca_scorer.yaml"},
+  "models": ["qwen3.8-27b", "gemma-4-26b-a4b"],
+  "primary_model": "qwen3.8-27b",
+  "data": {
+    "private_registration": "RQs/RQ3_1/results/data_registration_v1/private/split.json",
+    "parent_contexts": {"eval": "RQs/RQ3_1/results/formal_contexts_eval_direct_per_case_v2", "test": "RQs/RQ3_1/results/formal_contexts_test_direct_per_case_v3_text_contrast"},
+    "parent_config": "RQs/RQ1_1/configs/rq1.yaml",
+    "source_adapter_config": "RQs/RQ2_1/configs/rq2_1.yaml",
+    "diagnostic_ids": [],
+    "exposure_audit": null,
+    "calibration_manifest": null,
+    "bridge_manifest": null
+  },
+  "witness": {
+    "budget_tokens": 2048, "max_packs": 4,
+    "expanded_tokens": 4096, "expanded_packs": 8,
+    "cohort_reserve_tokens": 512,
+    "max_observations_per_pack": 4,
+    "reference_bins_min": 8, "current_bins_min": 3,
+    "mad_multiplier": 4.4478, "sustained_fraction": 0.5,
+    "cohort_min_group": 5, "cohort_reference_min": 20,
+    "reference_quantile": 0.95,
+    "semantics": "RQs/RQ3_3/configs/measurement_semantics_v1.json"
+  },
+  "request": {"max_tokens": 8192, "timeout_seconds": 300, "attention": false, "timeout": "terminal_continue", "other_infrastructure": "fail_fast"},
+  "execution": {"workers": 8, "request_concurrency": 36, "context_cache_cases": 2, "automatic_full_queue": false},
+  "budget": {"planned_calls": 20670, "hard_limit": 40000, "include_retries": true},
+  "smoke": {"max_calls": 18, "max_seconds": 600, "datasets": ["aiops2022", "aiops2025", "aegislab"]},
+  "stages": {
+    "calibration": {"experiment": "exp_semantic_calibration", "cohort": "screen", "arms": ["TPV_BRIDGE", "SC_TEXT_AS_RUN", "SC_TEXT_GUIDE_FIXED", "SC_TEXT_SOURCE_FIXED"], "calls_max": 480},
+    "screen": {"experiment": "exp_witness_development", "cohort": "screen", "arms": ["TPV", "P0_MORE_TRUE", "W_RAW", "W_SEM", "W_EXEC", "W_SEM_EXEC", "W_COHORT", "W_FRONT"], "calls_max": 960},
+    "budget": {"experiment": "exp_witness_development", "cohort": "screen", "arms": ["W_G", "P0_MORE_TRUE"], "budget_tokens": 4096, "calls_max": 240},
+    "check": {"experiment": "exp_witness_development", "cohort": "check", "arms": ["TPV", "SIRCL_TEXT", "P0_MORE_TRUE", "W_T", "W_G"], "calls_max": 1200},
+    "effectiveness": {"experiment": "exp_witness_effectiveness", "cohort": "eval", "arms": ["C_LEGACY", "TPV", "SIRCL_TEXT", "P0_MORE_TRUE", "P0_T_TWIN", "W_T", "W_G"], "calls_max": 6720},
+    "organization": {"experiment": "exp_visual_and_diagnostic_mechanisms", "cohort": "mechanism120", "arms": ["W_T_FLAT", "W_G_FLAT", "W_G_SCREENSHOT", "W_G_SCENE_CAL", "W_G_RELAYOUT", "W_NO_SCOPE", "W_NO_FLOW"], "calls_max": 1680},
+    "interventions": {"experiment": "exp_visual_and_diagnostic_mechanisms", "cohort": "mechanism90", "carriers": ["T", "G"], "conditions": ["REMOVE_TARGET", "REMOVE_CONTROL", "REANONYMIZE", "CANDIDATE_ORDER", "REPLICATE_1", "REPLICATE_2"], "calls_max": 2160},
+    "events": {"experiment": "exp_visual_and_diagnostic_mechanisms", "cohort": "screen", "arms": ["EVENT_TEXT", "EVENT_SCREEN", "EVENT_GRAPH"], "calls_max": 360},
+    "diagnostic": {"experiment": "exp_semantic_calibration", "cohort": "screen", "arms": ["FIRST_TPV", "REPEAT", "VERIFY_SAME", "VERIFY_WITNESS"], "calls_max": 480},
+    "regression": {"experiment": "exp_witness_locked_generalization", "cohort": "test", "arms": ["C_LEGACY", "TPV", "SIRCL_TEXT", "P0_MORE_TRUE", "P0_T_TWIN", "W_T", "W_G"], "calls_max": 5040},
+    "fresh": {"experiment": "exp_witness_locked_generalization", "cohort": "fresh", "arms": ["C_LEGACY", "TPV", "SIRCL_TEXT", "P0_MORE_TRUE", "P0_T_TWIN", "W_T", "W_G"], "calls_max": 1260}
+  },
+  "selection": {"tie_mrr": 0.01, "check_tpv_delta": 0.03, "check_more_delta": 0.01, "check_sircl_delta": -0.02, "dataset_floor": -0.03},
+  "artifacts": {"root": "RQs/RQ3_3/results/witness_v1"}
+}

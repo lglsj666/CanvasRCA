@@ -1,0 +1,43 @@
+{
+  "A/qwen3.8-27b": {
+    "excluded": [
+      "INC-7E5014ED408C",
+      "INC-8201EB3924F3"
+    ],
+    "n": 58,
+    "per_dataset": {
+      "aiops2022": 20,
+      "aegislab": 20,
+      "aiops2025": 18
+    }
+  },
+  "A/gemma-4-26b-a4b": {
+    "excluded": [],
+    "n": 60,
+    "per_dataset": {
+      "aiops2022": 20,
+      "aegislab": 20,
+      "aiops2025": 20
+    }
+  },
+  "B/qwen3.8-27b": {
+    "excluded": [
+      "INC-91DCB951C96E"
+    ],
+    "n": 59,
+    "per_dataset": {
+      "aegislab": 20,
+      "aiops2025": 20,
+      "aiops2022": 19
+    }
+  },
+  "B/gemma-4-26b-a4b": {
+    "excluded": [],
+    "n": 60,
+    "per_dataset": {
+      "aiops2022": 20,
+      "aegislab": 20,
+      "aiops2025": 20
+    }
+  }
+}

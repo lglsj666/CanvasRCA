@@ -1,5 +1,113 @@
 # CanvasRCA Project Rules
 
+## RQ3.1 fast resume — 2026-09-17 latest authority
+
+The user removes RQ3.1's bulk restart verification after it kept the loaded
+Qwen server idle for more than two hours. A successfully written
+`completed/<call_key>.json` is the atomic per-call commit boundary and a
+`phase_complete.<model>.json` marker is the model-phase boundary. Resume must
+trust these markers, skip a complete model before starting vLLM, and skip
+previously committed units before loading/materializing their contexts. It
+must not re-hash, rewrite or reopen the full prompt/render/conversation/
+trajectory graph merely because a process restarted. An older run without a
+phase marker may rebuild only the small logical-key index from result headers
+plus completion-marker presence; this is bookkeeping, not artifact validation.
+New calls retain their normal pre-submit identity checks and commit-time
+integrity audit. Missing commit markers remain incomplete and are rerun under
+the existing call-accounting rules. This operational change does not alter
+model inputs, outputs, scoring, existing scientific results or call budgets.
+
+## RQ3.1 call-budget authority — 2026-09-16
+
+The user removes the lower agent-drafted cap. RQ3.1 uses the user's explicit
+40,000-call per-major-RQ ceiling, including prior calls, smoke and retries.
+Do not attribute the removed restriction to a user decision. Current cumulative
+core allocation is 23,752, leaving 16,248 unallocated. This does not increase
+the registered experiment matrix, relax the 18-call/600-second logical-smoke
+limits, reset spent calls or authorize execution; the static-only pause remains.
+
+## RQ3.1 direct-per-case revision — current stopping boundary
+
+The latest user instruction authorizes experiment-code changes and static
+checks only, followed by a pause. Do not run CPU tests, preparation, rendering,
+smoke, inference or training in this revision. P0 and SIRCL own their analyzer
+branches; X starts independently from per-case public telemetry. The shared
+layer may normalize schema/clocks/identities but must not filter through
+MET-Z/TRC-L/LOG-R/Denum/topology analyzers. Earlier smoke success applies only
+to its earlier code/config; current runtime qualification is pending. Attention
+remains disabled. This paragraph supersedes conflicting execution permissions
+below without changing historical records, model recipes or data partitions.
+
+## Single-agent execution — 2026-09-16 latest authority
+
+Current stopping boundary: finish code and static source/configuration checks,
+then pause. Do not run CPU tests, preparation, rendering, smoke, inference or
+training in this work session. Runtime qualification remains pending and must
+not be inferred from static-check success.
+
+The user subsequently authorizes the next qualification step and raises the
+five-module limit to 7,500 lines. CPU preparation may use at most eight process
+workers pinned to distinct physical cores. Dispatch AIOPS cases from distinct
+registered source/cloudbed groups first whenever possible; source reuse is
+allowed only when the available roster cannot fill the workers otherwise.
+After CPU bugs are repaired and all CPU qualification checks pass, run the
+registered bounded smokes. This paragraph supersedes only the stopping boundary
+above; single-agent execution and all scientific/runtime gates remain active.
+
+The user ended the active multi-agent workflow because its token cost was too
+high. From this point, one primary agent owns implementation, CPU review,
+qualification, experiment operation, statistics and academic critique. Do not
+start or resume A--E subagents unless the user later explicitly reauthorizes a
+multi-agent workflow. Preserve their completed source edits and handoffs as
+historical implementation evidence; do not repeat completed work merely because
+the worker session ended. This changes collaboration only: the registered
+RQ3.1 scientific design, data roles, call budget, review standards, local-only
+runtime and stage gates remain in force. The primary agent must still perform
+the previously assigned statistical and reviewer checks at the corresponding
+stage boundaries.
+
+## RQ3.1 autonomous research execution — 2026-09-15 latest authority
+
+The user now authorizes implementing, qualifying and executing the current
+RQ3.1 first-paper research plan with a native multi-agent team. This supersedes
+earlier planning-only, data-only and stop-after-qualification restrictions for
+RQ3.1; historical RQ/tournament/training statuses remain unchanged. The first
+paper uses frozen one-call Solvers and no new SFT/RL. Preserve the registered
+train300/eval480/test360/unused1403 identities. Use eval for method development;
+freeze the recommended method and all test comparisons before new test scores.
+Do not repeatedly tune on test until a requested performance threshold passes.
+
+A owns evidence engineering, B representation, C execution/evaluation. D may
+start only after a predefined complete experimental batch has durable outputs,
+drained writers and no unexplained omissions, confirmed by the leader or C.
+E performs read-only academic review at every completed substantive stage;
+result-bearing stages require D's finished analysis first. Each assignment has
+an explicit deliverable and stopping boundary. No idle D/E warm-up or monitoring.
+
+The leader owns scientific registration, integration and acceptance. The first
+stage is executable method/protocol implementation with CPU and visual checks;
+its E review precedes model qualification. Later stages are complete eval
+development/selection, complete mechanism/robustness evidence, and final locked
+test plus synthesis. Stage reviews and dispositions are kept separately under
+RQ3.1 results; the project-wide log remains devlog/CONSOLIDATED.md.
+
+The requested completion target is a single preselected deployed method using
+the primary Qwen Solver: test360 MRR at least 0.65 and AIOPS-2022/AIOPS-2025
+test MRR each at least 0.60, together with completed necessary experiments and
+a credible publication evidence chain. Gemma is reported separately as transfer
+evidence. These are measured goals, not guarantees or reasons to change scores,
+test identities or failure denominators. The current 40,000-call RQ3.1 budget
+still applies; all attempts and qualification count.
+
+RQ3.1 may implement its explicitly inherited local renderer snapshot at
+RQs/RQ3_1/src/renderer/ under the existing renderer exception. Its remaining
+code follows the five-module, 7,500-line rule. Shared recipes, earlier RQs and
+the canonical processed corpus remain protected. New qualification uses three
+primary-dataset eval cases because validation is retired; test is never smoke.
+Existing aggregate smoke limits remain 18 initiated calls and 600 seconds per
+registered experiment. Do not start model calls before integrated checks and
+the first-stage review are complete.
+
 ## First-paper train/eval/test/unused — 2026-09-15 latest amendment
 
 The first paper does not train SFT/RL models. RQ480 is now explicitly the
@@ -686,7 +794,7 @@ gates.py      gate definitions, verification, and decision metrics
 __init__.py   package marker with version information in comments
 ```
 
-The five functional modules together may not exceed 6,000 nonblank,
+The five functional modules together may not exceed 7,500 nonblank,
 non-comment source lines (docstrings count as source). Do not evade
 the limit with generated source, embedded code strings, hidden RQ packages, or
 copies under `src/vlmrca/`. Move genuinely global, reusable behavior into the
@@ -695,7 +803,7 @@ RQ versions once their successor preserves the required behavior.
 
 The only current exception is `RQs/RQ1_1/src/renderer/`. It contains the
 versioned, provisional dashboard implementation being evaluated by RQ1.1 and is
-counted separately from the five-module 6,000-line limit. This exception must
+counted separately from the five-module 7,500-line limit. This exception must
 not be used for unrelated experiment code or as a line-limit escape hatch.
 
 `RQs/RQx/configs/` contains only RQ-specific configuration. It references the

@@ -4,6 +4,16 @@ __pycache__/
 .ruff_cache/
 *.egg-info/
 .env
+.env.*
+!.env.example
+!.env.template
+# Local credentials (including the historical misspelling).
+secert.md
+secret.md
+secrets.md
+credentials.json
+*.pem
+*.key
 .venv/
 .venv-base/
 .venv-inference/
@@ -39,6 +49,32 @@ slurm-*.log
 /RQs/**/trajectories/**
 /RQs/**/conversations/**
 /RQs/**/prepared/**
+/RQs/**/preparation/
+/RQs/**/cache/
+/RQs/**/caches/
+/RQs/**/logs/
+
+# Standalone generated workspaces and model downloads/state.
+/preparation/
+/prepared/
+/cache/
+/caches/
+/renders/
+/dashboards/
+/checkpoints/
+/attention/
+/trajectories/
+/conversations/
+.cache/
+hf_cache/
+huggingface_cache/
+torch_cache/
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.gguf
+*.onnx
 
 # Local experiment workspace
 /tmp/rq1_matched_rca_local/
@@ -51,3 +87,28 @@ slurm-*.log
 # Large generated deletion inventory remains local; the small retirement
 # manifest, findings, protected-source hashes and report aggregates are kept.
 /docs/RQ2_retirement_assets/deleted_file_inventory.json
+
+/info_theory.pdf
+
+# Unified renderer: installed dependencies/build outputs and local font copy.
+/src/renderer/web/node_modules/
+/src/renderer/web/dist/
+/src/renderer/web/assets/
+/src/renderer/outputs/
+/src/renderer/previews/
+
+# Bulky reproducible case-level report attachments stay local. Keep report
+# Markdown, figures, and compact aggregate tables in version control.
+/docs/experiment_reports/**/per_record.csv
+/docs/experiment_reports/**/source_provenance.csv
+/docs/experiment_reports/**/qa_semantic_v2_per_record.csv
+/docs/experiment_reports/**/observations.csv
+/docs/experiment_reports/**/scored_cases_enriched.csv
+/docs/experiment_reports/**/logical_results.csv
+/docs/experiment_reports/**/normalized_results.csv
+/docs/experiment_reports/**/method_profiles.csv
+/docs/experiment_reports/**/paired_case_features.csv
+/docs/experiment_reports/**/paired_profiles.csv
+/docs/experiment_reports/**/source_manifest.csv
+/docs/experiment_reports/**/selected_evidence_features.json
+/docs/experiment_reports/**/final_call_records.csv

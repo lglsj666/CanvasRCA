@@ -5,12 +5,19 @@ import json
 from copy import deepcopy
 
 import pytest
+
 from unified_scripts.dataset_segmentation import connected_row_groups
 
 from .exps import _choose_groups, build_registration
 from .gates import audit_registration
 from .main import DEFAULT_CONFIG
-from .utils import exact_write, read_json, read_selected_object_field, read_selected_top_level, related
+from .utils import (
+    exact_write,
+    read_json,
+    read_selected_object_field,
+    read_selected_top_level,
+    related,
+)
 
 
 def test_selected_private_reader_skips_forbidden_value(tmp_path):
@@ -77,3 +84,39 @@ def test_exact_write_is_idempotent_and_refuses_overwrite(tmp_path):
     with pytest.raises(ValueError, match="existing registration differs"):
         exact_write(path, {"schema": "fixture", "value": [1, 2, 4]})
     assert path.read_bytes() == original
+
+
+def test_exact_write_preserves_binary_payloads(tmp_path):
+    path = tmp_path / "render.png"
+    payload = b"\x89PNG\r\n\x1a\nfixture"
+    digest = exact_write(path, payload)
+    assert path.read_bytes() == payload
+    assert exact_write(path, payload) == digest
+    with pytest.raises(ValueError, match="existing registration differs"):
+        exact_write(path, payload + b"changed")
+    assert path.read_bytes() == payload
+
+
+def test_research_execution_registration_is_bounded_and_cpu_only():
+    """The registration gate is exercised from the RQ-local test entry point."""
+    from .gates import audit_research_config
+    from .main import RESEARCH_CONFIG, build_research_registration
+
+    config = read_json(RESEARCH_CONFIG)
+    audit = audit_research_config(config)
+    registration = build_research_registration(config)
+    assert audit["core_calls"] == 26432
+    assert audit["hard_limit"] == 40000
+    assert registration["status"].endswith("model_execution_not_started")
+    assert registration["smoke"]["source_partition"] == "eval"
+    assert registration["smoke"]["max_calls"] == 18
+
+
+def test_call_key_is_stable_and_case_local():
+    from .main import build_call_key
+
+    case = {"dataset": "aiops2022", "case_id": "case-1", "opaque_incident_id": "INC-A"}
+    dimensions = {"arm": "X_V_CONTRAST"}
+    first = build_call_key("exp_contrastive_rca_effectiveness", "qwen3.8-27b", case, dimensions)
+    second = build_call_key("exp_contrastive_rca_effectiveness", "qwen3.8-27b", dict(case), dict(dimensions))
+    assert first == second and len(first) == 64

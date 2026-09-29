@@ -1,0 +1,11 @@
+stage,model,a,b,n,identical_requests
+calibration,qwen3.8-27b,SC_TEXT_SOURCE_FIXED,SC_TEXT_GUIDE_FIXED,60,60
+calibration,gemma-4-26b-a4b,SC_TEXT_SOURCE_FIXED,SC_TEXT_GUIDE_FIXED,60,60
+screen,qwen3.8-27b,W_SEM,W_RAW,59,1
+screen,gemma-4-26b-a4b,W_SEM,W_RAW,60,1
+screen,qwen3.8-27b,W_EXEC,W_RAW,60,0
+screen,gemma-4-26b-a4b,W_EXEC,W_RAW,60,0
+screen,qwen3.8-27b,W_COHORT,W_COHORT_MARGINAL,60,50
+screen,gemma-4-26b-a4b,W_COHORT,W_COHORT_MARGINAL,60,50
+screen,qwen3.8-27b,W_COHORT,W_SEM_EXEC,60,50
+screen,gemma-4-26b-a4b,W_COHORT,W_SEM_EXEC,60,50

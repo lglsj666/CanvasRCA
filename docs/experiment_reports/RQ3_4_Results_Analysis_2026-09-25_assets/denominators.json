@@ -1,0 +1,122 @@
+[
+  {
+    "stage": "contract",
+    "model": "qwen3.8-27b",
+    "planned": 60,
+    "paired": 58,
+    "excluded": [
+      "INC-68BAACF4BB36",
+      "INC-6FDD214ABC63"
+    ],
+    "datasets": {
+      "aiops2022": 19,
+      "aegislab": 20,
+      "aiops2025": 19
+    },
+    "groups": 49
+  },
+  {
+    "stage": "contract",
+    "model": "gemma-4-26b-a4b",
+    "planned": 60,
+    "paired": 60,
+    "excluded": [],
+    "datasets": {
+      "aiops2022": 20,
+      "aegislab": 20,
+      "aiops2025": 20
+    },
+    "groups": 50
+  },
+  {
+    "stage": "factor",
+    "model": "qwen3.8-27b",
+    "planned": 60,
+    "paired": 59,
+    "excluded": [
+      "INC-A89422C045DE"
+    ],
+    "datasets": {
+      "aiops2022": 20,
+      "aegislab": 19,
+      "aiops2025": 20
+    },
+    "groups": 49
+  },
+  {
+    "stage": "factor",
+    "model": "gemma-4-26b-a4b",
+    "planned": 60,
+    "paired": 60,
+    "excluded": [],
+    "datasets": {
+      "aiops2022": 20,
+      "aegislab": 20,
+      "aiops2025": 20
+    },
+    "groups": 50
+  },
+  {
+    "stage": "binding",
+    "model": "qwen3.8-27b",
+    "planned": 60,
+    "paired": 58,
+    "excluded": [
+      "INC-39B0C8694807",
+      "INC-8E91494BF92F"
+    ],
+    "datasets": {
+      "aiops2022": 20,
+      "aegislab": 18,
+      "aiops2025": 20
+    },
+    "groups": 48
+  },
+  {
+    "stage": "binding",
+    "model": "gemma-4-26b-a4b",
+    "planned": 60,
+    "paired": 60,
+    "excluded": [],
+    "datasets": {
+      "aiops2022": 20,
+      "aegislab": 20,
+      "aiops2025": 20
+    },
+    "groups": 50
+  },
+  {
+    "stage": "check",
+    "model": "qwen3.8-27b",
+    "planned": 120,
+    "paired": 113,
+    "excluded": [
+      "INC-01BF937825D4",
+      "INC-1D40A642FA86",
+      "INC-776EE000D01C",
+      "INC-7C2B878AC3BB",
+      "INC-7FCA48559A2E",
+      "INC-CCCFF766DA4B",
+      "INC-D573DF313B5A"
+    ],
+    "datasets": {
+      "aiops2022": 38,
+      "aiops2025": 39,
+      "aegislab": 36
+    },
+    "groups": 91
+  },
+  {
+    "stage": "check",
+    "model": "gemma-4-26b-a4b",
+    "planned": 120,
+    "paired": 120,
+    "excluded": [],
+    "datasets": {
+      "aiops2022": 40,
+      "aegislab": 40,
+      "aiops2025": 40
+    },
+    "groups": 96
+  }
+]

@@ -1,0 +1,56 @@
+{
+  "status": {
+    "pid": 51831,
+    "attempt": "1790360298006492655",
+    "contract_hash": "bbab76d1f70d479ebdb27cd5d274282ffb51e0350f4efab86f734a99392abdf9",
+    "started_unix": 1790360298.0064993,
+    "state": "completed",
+    "updated_unix": 1790366720.8632884,
+    "child_pid": null,
+    "server_pid": null,
+    "cohort": "check",
+    "experiment": "exp_integrated_locked_check",
+    "model": null,
+    "child_log": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_4/results/integrated_v1/logs/1790360298006492655_exp_integrated_locked_check_gemma-4-26b-a4b.log",
+    "server_log": "/home/lglsj/CanvasRCA_nibi/RQs/RQ3_4/results/integrated_v1/logs/1790360298006492655_exp_integrated_locked_check_gemma-4-26b-a4b_server.log"
+  },
+  "flags": {
+    "done": 3708,
+    "fail": 12
+  },
+  "failure_classes": {
+    "request_timeout": 12
+  },
+  "unique_complete_artifacts": 3460,
+  "accounting": {
+    "other_including_history_qualification:complete": 3388,
+    "other_including_history_qualification:interrupted": 7,
+    "rq34_formal:complete": 3460,
+    "rq34_formal:infrastructure_failure": 12
+  },
+  "finish_reasons": {
+    "stop": 3460
+  },
+  "model_statuses": {
+    "model_failure": 17,
+    "complete": 3443
+  },
+  "contract_hash": "bbab76d1f70d479ebdb27cd5d274282ffb51e0350f4efab86f734a99392abdf9",
+  "advancement": {
+    "passed": true,
+    "paired_n": 59,
+    "excluded": [
+      "INC-A89422C045DE"
+    ],
+    "delta_tpv": 0.03918128654970765,
+    "delta_more": 0.042251461988304095,
+    "per_dataset_delta_tpv": {
+      "aiops2022": -0.025,
+      "aiops2025": 0.125,
+      "aegislab": 0.017543859649122813
+    },
+    "primary_arm": "P1H1K1_G",
+    "class": "development_advancement_not_significance",
+    "contract_hash": "bbab76d1f70d479ebdb27cd5d274282ffb51e0350f4efab86f734a99392abdf9"
+  }
+}

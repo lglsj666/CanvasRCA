@@ -1,0 +1,35 @@
+{
+  "schema_version": "RQ35DesignV1",
+  "registration_id": "rq35_outcome_linked_v1",
+  "execution_enabled": false,
+  "seed": 42,
+  "models": ["qwen3.8-27b", "gemma-4-26b-a4b"],
+  "runtime_authority": "RQs/RQ3_3/configs/research_v2.json",
+  "unified": {"inference": "configs/vllm_inference_local.yaml"},
+  "implementation": {
+    "output_root": "RQs/RQ3_5/results/outcome_linked_v1",
+    "source_run": "RQs/RQ3_4/results/integrated_v1",
+    "prior_call_ledgers": ["RQs/RQ3_4/results/integrated_v1/calls.sqlite"]
+  },
+  "method": {
+    "reference_min": 20, "group_min": 5, "scope_group_min": 2,
+    "max_packs": 4, "max_entity_packs": 2, "appendix_tokens": 2048,
+    "current_unit": "observed request", "support_scale": 20,
+    "training": false, "attention": false,
+    "comparison": "same entry and operation, same public current window",
+    "x": ["explicit local error", "local duration above same-operation reference p95"],
+    "scope_x": ["observed readiness false", "observed positive restart counter increment"]
+  },
+  "renderer": {"width": 1600, "g_height": 1100, "joint_height": 1600, "font_px": 22, "g_projection": "registered_two_source_crops_stacked"},
+  "qualification": {
+    "datasets": ["aiops2022", "aiops2025", "aegislab"],
+    "max_calls": 18, "max_seconds": 600, "cpu_seconds": 1800
+  },
+  "budget": {"hard_limit": 40000, "planned_new_calls": 15312, "reset_prior_spend": false},
+  "experiments": [
+    {"id": "exp_evidence_instruction_cross", "arms": ["E_P_D_P", "E_P_D_S", "E_S_D_P", "E_S_D_S", "T_NATIVE", "SIRCL_IDS_NATIVE"], "smoke_arms": ["E_P_D_P", "E_S_D_S", "SIRCL_IDS_NATIVE"]},
+    {"id": "exp_outcome_linked_evidence", "arms": ["TPV", "MORE", "W_NO_K", "J_MARG", "J_JOINT", "J_COND"], "smoke_arms": ["J_MARG", "J_JOINT", "J_COND"]},
+    {"id": "exp_joint_representation", "arms": ["G_TEXT_J_TEXT", "G_IMAGE_CAL_J_TEXT", "G_TEXT_J_IMAGE", "G_IMAGE_J_IMAGE"], "smoke_arms": ["G_IMAGE_CAL_J_TEXT", "G_TEXT_J_IMAGE", "G_IMAGE_J_IMAGE"]},
+    {"id": "exp_locked_outcome_linked_rca", "arms": ["REPEAT_1", "REPEAT_2", "REANONYMIZE", "NO_DERIVED"], "smoke_arms": ["REPEAT_1", "REANONYMIZE", "NO_DERIVED"], "final_arms": ["TPV", "MORE", "SIRCL_IDS_NATIVE", "J_COND", "G_TEXT_J_TEXT", "G_IMAGE_J_IMAGE"]}
+  ]
+}
