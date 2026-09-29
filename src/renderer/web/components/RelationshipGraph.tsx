@@ -11,15 +11,6 @@ export default function RelationshipGraph({card,rect}:{card:Card;rect:Rect}) {
       const a=positions[e.source],b=positions[e.target];
       let d:string;
       if(e.source===e.target)d=`M${a.x+60},${a.y-12} C${a.x+105},${a.y-52} ${a.x+105},${a.y+52} ${a.x+62},${a.y+12}`;
-      else if(nodes.length>30){
-        // Route the large-graph lattice through gutters, not through the boxes
-        // of intermediate entities (which visually suggests nonexistent hops).
-        const side=b.x>=a.x?1:-1,port=(i%5-2)*3;
-        const sx=a.x+side*62,tx=b.x-side*62;
-        const laneA=a.x+side*78,laneB=b.x-side*78;
-        const laneY=b.y+(a.y>b.y?38:-38)+(i%3-1)*2;
-        d=`M${sx},${a.y+port} L${laneA},${a.y+port} L${laneA},${laneY} L${laneB},${laneY} L${laneB},${b.y+port} L${tx},${b.y+port}`;
-      }
       else {const dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy)||1;
         const bend=12+(Object.keys(relationColors).indexOf(e.kind))*11;
         const cx=(a.x+b.x)/2-dy/len*bend,cy=(a.y+b.y)/2+dx/len*bend;

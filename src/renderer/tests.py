@@ -149,6 +149,33 @@ def test_service_instances_use_public_resources_not_names_or_calls():
     assert not service_pod_relations(lambda:iter(rows),mapping)[0]
 
 
+def test_hosted_pod_name_correspondence_fills_only_unbound_public_identities():
+    from .topology import public_name_service_pod_relations, cards_from_topology
+    mapping = {"svc":"111", "svc-0":"12345", "svc-1":"12346",
+               "checkout":"222", "checkout-abcdef12-abcde":"22345",
+               "foreign-0":"22346", "host":"1234"}
+    metadata = {"node_pod_map":{"host":["svc-0", "svc-1", "checkout-abcdef12-abcde"]}}
+    pairs, audit = public_name_service_pod_relations(metadata, mapping)
+    assert pairs == {("svc", "svc-0"), ("svc", "svc-1"),
+                     ("checkout", "checkout-abcdef12-abcde")}
+    assert audit["name_derived_service_pod_pairs"] == 3
+    assert not any(pod == "foreign-0" for _, pod in pairs)
+    graph = {"nodes": [{"id": name} for name in mapping], "edges": []}
+    cards, _ = cards_from_topology(graph, metadata, mapping, service_pairs=pairs)
+    assert len(cards[2]["data"]["edges"]) == 3
+    assert all(edge["kind"] == "has_instance" for edge in cards[2]["data"]["edges"])
+
+    explicit = {**metadata, "service_pod_map": {"checkout": ["svc-1"]}}
+    pairs, audit = public_name_service_pod_relations(
+        explicit, mapping, observed_pairs={("checkout", "svc-0")})
+    assert pairs == {("checkout", "checkout-abcdef12-abcde")}
+    assert audit["conflicting_binding_skipped"] == 2
+    pairs, audit = public_name_service_pod_relations(
+        metadata, mapping, ambiguous_pods={"svc-0"}, ambiguous_services={"checkout"})
+    assert pairs == {("svc", "svc-1")}
+    assert audit["ambiguous_namespace_skipped"] == 2
+
+
 def membership_sample():
     nodes=[{"id":"111","type":"service"},{"id":"222","type":"service"},
            {"id":"1234","type":"node"},{"id":"9999","type":"node"}]

@@ -237,7 +237,7 @@ def compile_design(evidence, design):
     validate_evidence(evidence)
     required = {"schema", "viewport", "theme", "font_size", "gap", "padding",
                 "scale", "tree", "bindings", "indexing"}
-    keys(design, required | {"graph"}, required)
+    keys(design, required | {"graph", "presentation"}, required)
     graph_settings = design.get("graph", {"show_isolates": False})
     keys(graph_settings, {"show_isolates"})
     if type(graph_settings["show_isolates"]) is not bool:
@@ -253,11 +253,26 @@ def compile_design(evidence, design):
             raise ValueError(f"Invalid {name}")
     if design["theme"] not in {"light", "dark"} or type(design["scale"]) not in {float, int} or design["scale"] not in {0.75, 1, 1.25, 1.5, 2}:
         raise ValueError("Unregistered theme/scale")
-    keys(design["indexing"], {"visible", "start"})
+    keys(design["indexing"], {"visible", "start", "indices"}, {"visible", "start"})
     if type(design["indexing"]["visible"]) is not bool or type(design["indexing"]["start"]) is not int or not 0 <= design["indexing"]["start"] <= 999:
         raise ValueError("Invalid indexing policy")
     cards = {c["id"]: c for c in evidence["cards"]}
+    presentation = design.get("presentation", {})
+    if not isinstance(presentation, dict) or not set(presentation) <= set(cards):
+        raise ValueError("Unknown presentation card")
+    for cid, options in presentation.items():
+        keys(options, {"marks", "details", "neutral_trace"}, {"marks", "details"})
+        if cards[cid]["kind"] not in {"metric", "trace"} or any(type(v) is not bool for v in options.values()):
+            raise ValueError("Presentation ablations require numeric cards and boolean switches")
+        if options.get("neutral_trace") and cards[cid]["kind"] != "trace":
+            raise ValueError("Neutral trace lengths require a trace card")
     indices = {cid: i + design["indexing"]["start"] for i, cid in enumerate(cards)}
+    if "indices" in design["indexing"]:
+        indices = design["indexing"]["indices"]
+        if (not isinstance(indices, dict) or set(indices) != set(cards)
+                or any(type(v) is not int or not 0 <= v <= 999 for v in indices.values())
+                or len(set(indices.values())) != len(indices)):
+            raise ValueError("Explicit component indices must be unique and cover selected cards")
     catalog = {c["id"]: c for c in read(RENDERER/"configs/components.json")["components"]}
     rects, used, tree_ids = [], set(), set()
 
@@ -269,10 +284,14 @@ def compile_design(evidence, design):
             raise ValueError("Layout nesting too deep")
         common = {"id", "type"}
         typ = node.get("type")
-        keys(node, common | ({"card", "component"} if typ == "panel" else {"children", "columns"} if typ == "grid" else {"children", "weights"}))
+        keys(node, common | (set() if typ == "spacer" else {"card", "component"} if typ == "panel" else {"children", "columns"} if typ == "grid" else {"children", "weights"}))
         if not re.fullmatch(r"[A-Za-z][A-Za-z0-9_-]{0,40}", node["id"]) or node["id"] in tree_ids:
             raise ValueError("Invalid/nonunique layout ID")
         tree_ids.add(node["id"])
+        if typ == "spacer":
+            # A declared empty layout slot, not an invisible evidence panel.
+            # Selected cards must still all have real visible panel bindings.
+            return
         if typ == "panel":
             cid = node["card"]
             if cid not in cards or cid in used or node["component"] not in catalog or catalog[node["component"]]["kind"] != cards[cid]["kind"]:
@@ -282,6 +301,10 @@ def compile_design(evidence, design):
             used.add(cid)
             rects.append({"card": cid, "node": node["id"], "component": node["component"], "index": indices[cid],
                           "x": x, "y": y, "width": w, "height": h})
+            if cid in presentation:
+                if node["component"] not in {"metric.line", "trace.paired_bars"}:
+                    raise ValueError("Presentation switches unsupported for this component")
+                rects[-1]["presentation"] = presentation[cid]
             if node["component"] == "graph.edge_pairs":
                 geometry = pair_layout(cards[cid], w, design["font_size"], graph_settings["show_isolates"])
                 if h < geometry["min_height"]:
@@ -332,8 +355,14 @@ def compile_design(evidence, design):
             raise ValueError("Observation ownership does not match public evidence")
         if by_id[b["graph"]]["component"] != "graph.node_link":
             raise ValueError("Ownership connector requires a visible node-link anchor")
+    expected = expected_bindings(evidence, graph_settings["show_isolates"])
+    suppressed = [key for key in expected if any(
+        (not options["details"] and key.startswith(cid+".detail.")) or
+        (not options["marks"] and cards[cid]["kind"] == "metric" and key.startswith(cid+".sample."))
+        for cid, options in presentation.items())]
     return {"rectangles": rects, "width": width, "height": height,
-            "expected_bindings": expected_bindings(evidence, graph_settings["show_isolates"]),
+            "expected_bindings": [key for key in expected if key not in suppressed],
+            "suppressed_visual_bindings": suppressed,
             "hidden_graph_isolates": {c["id"]: sorted({n["id"] for n in c["data"]["nodes"]} -
                 {n["id"] for n in visible_nodes(c, graph_settings["show_isolates"])})
                 for c in evidence["cards"] if c["kind"] == "graph"},

@@ -1,5 +1,163 @@
 # CanvasRCA consolidated devlog
 
+## 2026-09-29 — RQ3.8 v7 Nibi qualification, cache transfer and four formal jobs
+
+The v7 GPU smoke job22942268 completed in25m59s with18/18 live Qwen/Gemma
+calls and passed the persisted image/conversation review. Static qualification
+passed. CPU regression was explicitly waived for formal execution and remains
+**not run**. This is operational qualification, not an MRR result. The earlier
+zero-call startup and v6 over-context attempts remain failed historical
+records. See `docs/issues/RQ3_8_nibi_startup_2026-09-29.md` for the full
+failure/recovery timeline and remaining startup-time caveat.
+
+The first multi-source cache transfer omitted `rsync -R`, misplacing roughly
+31GB of new copies at the Nibi checkout root. After verifying their exact
+scope, only those misplaced root targets were removed; originals/results were
+preserved. The retry used `rsync -aR --partial`, and the symlinked historical
+SQLite ledger was dereferenced with `-aL`. Both final transfers exited0. A
+lightweight presence audit found all required files for the840-case formal
+roster (480 eval,360 exposed test), missing0; formal export retains its
+per-case source-hash check. This does not constitute a full CPU regression or
+prove all future exports will succeed.
+
+Nibi accepted three Qwen eight-hour shard jobs22945130/22945133/22945134 and
+one Gemma eight-hour full-cohort job22945136 (`afterany` dependency). At the
+submission snapshot all four were pending and no formal model call was
+claimed complete. Detailed receipts, evidence class, caveats and next action:
+`RQs/RQ3_8/results/ops_components_v7/logs/2026-09-29_formal_submission.md`.
+
+## 2026-09-29 — RQ3.8 v6 GPU smoke submitted:22941413
+
+Nibi authenticated connection restored via `canvasrca-nibi-login-v7` and its
+multiplexed SSH socket. SCP transfer SHA256 matched
+`a86bcb903e3439fbf0fd9c71753abe15b7bac4a668ae706ffca7a104b5f0cb23`.
+Code, compiled bundle and the three frozen smoke inputs were copied to
+`/scratch/lglsj/CanvasRCA`; old source backup is
+`build/rq38_deployment/v6-pre-sync.8Wz1hG/pre-v6.tar.gz`.
+Remote static entry passed (1885 nonblank/noncomment RQ-source lines); roster
+and budget initialization succeeded:19440 formal positions,18 smoke,542reserve.
+This initialization is metadata only, not full840-case preparation.
+
+Slurm acknowledged `rq38v6-smoke-attempt7`, job22941413, account
+`def-jacobsen_gpu`: one fullH10080GB, eight CPU cores,96GB host RAM,30minutes.
+Two models run sequentially; FULL_PAIRS/MR_NO_MARKS/METRIC_TIME_PERMUTED on
+three registered development cases, at most18 initiated requests in total.
+No CPU-regression/pytest job or formal job submitted. Stop after submission;
+no live completion, success, numerical outcome or visual review claimed.
+Next action is to inspect this job's persisted logs, conversations and PNGs
+when the user requests; submission alone does not qualify formal inference.
+
+## 2026-09-29 — RQ3.8 v6 direct GPU smoke authorization
+
+After the static-only expansion the user authorized direct GPU smoke submission.
+DD-20260929-04 records one additional Nibi30m fullH10080GB job, shared18calls,
+both models sequential; no CPU regression job/pytest or formal run authorized.
+The submitter permits only this one new smoke. Necessary public-input renders
+and processor capacity checks are in its allocation, not local tests. A narrow
+smoke-only exception records CPU regression as not run; it does not qualify
+formal execution. Compiled renderer bundle is now part of source attestation.
+
+Deployment check: existing authenticated tmux SSH no longer responds; a fresh
+noninteractive connection reaches Nibi but requires interactive MFA. Asked user
+to log in to `canvasrca-nibi-v6`. Submission status remains pending until an
+actual Slurm acknowledgement; no job is claimed from code/static completion.
+
+After login, Nibi's previous successful smoke was confirmed to use only the
+portable v2 preparation. Package the three existing canonical/public cases,
+frozen parent contexts/exports, scoring records and registration/ledger for v6;
+do not rerun raw preparation. Known workstation context paths are narrowly
+rebased and still hash-checked. Old ledger symlinks must be dereferenced during
+copy. The first large terminal transfer lost its SSH session before extraction;
+switch to a multiplexed SSH connection and SCP. No job submitted at this point.
+
+## 2026-09-29 — RQ3.8 v6 mechanism-complete expansion (static-only)
+
+User requests approximately20000 calls and stopping after code/static work.
+Registered16 eval arms, six extra mechanism/repeat arms on hash-selected100
+cases, and four locked methods on exposed test360:19440 formal +18 shared
+smoke, reserve542 within a20000 new-round cap. DD-20260929-03 in RQ3.8
+descriptions explains the superseded cumulative budget and retained history.
+No new Slurm/CPU/GPU authorization or old-result reclassification is implied.
+
+Implementation adds explicit renderer mark/footer switches with suppressed
+binding manifests, an independently chosen edge-pairs component, shared
+canvas capacity, visual-conflict probes, independent repeat identities,
+cohort-aware bounded jobs and contrast-local analysis. The approved node-link,
+deployment mappings and log grouping are unchanged. The same complete text
+remains in all arms; deliberately corrupted visual stress is labeled as such.
+The renderer/experiment/design-decision/devlog workflows informed boundaries,
+history preservation and provenance; runtime/visual acceptance is deferred.
+
+Current limitations: no new performance results; no independent heldout claim;
+Nibi test360 predecessor caches and eight-hour throughput not verified in this
+static-only session. Runtime qualification and any exhausted job allowance
+must be resolved before launching. Old v5 gallery is not a v6 qualification.
+
+Session completion: AST/compile and unresolved-global checks on13 Python files,
+JSON/source matrix-budget checks, bash-n, TypeScript noEmit, esbuild and diff
+whitespace checks passed. Regression definitions were updated but not run.
+Review receipt: RQs/RQ3_8/descriptions/RQ3_8_v6_Static_Review_2026-09-29.md.
+No dataset processing, browser launch, inference, Slurm submission or Nibi sync.
+
+## 2026-09-29 — RQ3.8 G03 service→pod public identity recovery
+
+Scope/status: RQ3.8 `ops_components_v4` source change; no v4 CPU/GPU
+qualification or model efficacy result yet. No v3 model call was committed.
+The prior AIOPS-2022 smoke image `INC-0060628741E9` showed an empty G03 despite
+42 public `node_pod_map` pod identities. Its Trace rows omit same-row
+`k8s.pod.name`, the only G03 extraction path in v3. The established RQ1.1/RQ3.1
+public `pod_to_service` projection resolves all 42 hosted names to service
+identities, but v3 used it only for alias registration, not relationships.
+
+Decision: retain explicit metadata and same-row Trace relations; supplement
+unbound, hosted pods with name-derived service correspondence only when both
+typed aliases exist. Skip conflicting explicit/observed bindings and names
+ambiguous across namespaces. Keep a separate source audit. G03 does not claim
+Kubernetes ownership or create invocation edges. The common text ledger and
+visual evidence both receive the corrected facts; the reading guide now uses
+instance identity rather than calling every G03 pair an observed deployment
+relation. The v3 config/artifacts remain historical. v4 has its own prepared
+and result namespace, and old CPU/smoke evidence is not qualification for it.
+
+Next: sync v4 source to Nibi, run static source/config checks there, then obtain
+fresh Nibi renderer/CPU and live smoke qualification under the user's job limits
+before formal inference. Previously exhausted CPU/GPU job allowances are not
+silently reset by the new version. Existing source exports may be reused;
+existing v2/v3 model outcomes may not.
+
+## 2026-09-29 — RQ3.8 C09统一为网格布局与折线路由
+
+用户在 smoke PNG 人工复核后决定：`graph.node_link` 只保留原有大图分支的
+确定性有界网格与折线路由，删除节点数≤30时的环形布局和曲线分支。实现同时将
+自环改为矩形折线；节点、边、类型、ID、证据选择和 prompt 均不改变。原先同名
+组件按节点数暗中切换视觉语法的问题已移除。
+
+该动作会改变所有 C09 PNG，故 RQ3.8 前向登记为 `ops_components_v3`，使用独立
+preparation/results 根。v2 配置与 artifacts 保留为历史，不得资格证明或续跑 v3。
+正式实验仍未提交；v3 在新的 renderer/CPU 和 live smoke 资格完成前不可启动。
+
+## 2026-09-29 — RQ3.8 Nibi部署推进与空值兼容修复
+
+最新用户追加：GPU smoke最多3个Slurm job，每个30分钟；通过后不额外提交。
+CPU回归最多8个Slurm job，每个最多1小时；提交器计数且阻止重复活跃资格job。
+用户明确后续测试直接在Nibi运行，本地通过不能替代远端资格。停止本地preparation，
+保留已完成公共导出/渲染；剩余渲染和所有后续资格测试在Nibi Slurm上执行。
+Nibi CPU job22921386失败：47pass/1fail/1skip，失败为跨机器PNG像素严格相等。
+字体与web bundle两机哈希一致；不据此断言图形无问题。后继测试在Nibi从冻结原始
+design/evidence生成参考图，校对原始geometry/font/bundle/CSS/依赖hash，再严格对比
+同机FULL及消融留存组件像素。跨环境差图/浏览器版本仍保存并人工审查。
+测试临时PNG改存job专属scratch结果，避免计算节点/tmp随job结束而不可取。
+逻辑smoke仍18次/600秒，不能通过拆job重置调用数。正式job仍最多6个、各8小时。
+
+继续ops_components_v2，不恢复被用户放弃的拓扑改动。旧Nibi登录会话仍可执行命令；
+远端Qwen3.8-27B/Gemma31下载receipt complete，Qwen9B原目录保留，尚无正式job。
+新增六分片独立调用计数、done/fail快速续跑、只恢复未提交事务、300秒timeout终态继续
+及其他基础设施fail-fast；统一Nibi launcher允许显式版本profile和关闭attention，旧默认不变。
+每分片500次中断/修复预留后累计最大38914，不能每个job重置40000预算。
+48项CPU/浏览器/恢复回归通过（local_cpu.xml）；完整480公共导出首次发现log_r=null
+导致成员查询TypeError，修为无统计字典时保留模板及已有计数、不虚构rate。
+已完成导出可直接复用，新增空值回归待检查。GPU smoke及正式提交仍未执行。
+
 ## 2026-09-28 — RQ3.7 CPU/GPU资格通过，A→B正式已启动
 
 用户授权回归、smoke后启动实验。真实CPU回归修复父版k/M/G数值缩写解析，补入来源核实的RQ37-local OTel精确指标定义（未修改旧证据选择/配置）；A smoke暴露并发进度写盘共用.partial的竞争，改用项目unique-temp atomic_write。修复后17个单元测试、3案例63编译目标通过，17.26秒，两processor容量检查通过。
@@ -1503,3 +1661,144 @@ found no tracked files matching ignore rules. Remaining visible untracked files
 have no individual file above 5 MiB. `git add --dry-run --all` passed; no actual
 staging, commit, push, history rewrite or experiment intervention was performed.
 Previously committed data remains in Git history; ignore rules do not erase it.
+## 2026-09-29 — Nibi successor after user-requested rollback
+
+Both worktrees were restored to Git 19c40f52e as requested; rejected RQ3.8
+layout/code is not a runtime or qualification authority. The authenticated
+`canvasrca-nibi-login` tmux session was rechecked live. Nibi has completed pinned
+Qwen3.8-27B and Gemma-4-31B-it download receipts, no current queued jobs, and the
+other-project Qwen3.5-9B directory remains untouched. The new login-2 session
+is independent and still awaiting user authentication at this check.
+
+The resumed user goal authorizes Nibi execution (superseding local-only for
+this round), up to six full-H100 80GB formal jobs of eight hours each. Local
+Gemma replacement is deferred until those submissions; the user's typo was
+corrected to Gemma-4-31B-it. No new job/model service has been started yet.
+
+### 2026-09-29 — RQ3.8 smoke AIOPS-2025 empty-topology source audit
+
+The inspected 1800x3408 FULL dashboard is the smoke case
+`aiops2025/INC-03A46BA87920` (`source_case_id=aiops2025_d0c7cd07-267`), not a
+topology-ablation arm.  Its registered UTC telemetry window is
+2025-06-13 14:56:27--15:35:27.  The canonical per-case projection contains 39
+metric rows but zero trace and log rows; `graph.json` contains 58 inventory
+nodes and zero edges, and public `node_pod_map` is empty.
+
+This is not evidence that the RQ3.8 selector discarded traces.  The raw
+AIOPS-2025 June-13 trace directory contains 19 Parquet files and 5,950,881
+spans, but their maximum `startTimeMillis` is 2025-06-13 11:12:56.536 UTC.
+The next date directory begins at 2025-06-13 17:01:01.204 UTC.  A direct
+predicate over all 41 files from both dates finds exactly zero raw spans in
+the case window.  The source has a telemetry coverage gap spanning the entire
+incident.  Consequently the empty call graph is a faithful observability
+condition; the metrics-derived onset rows do not imply trace availability.
+This audit does not settle the separate cross-granularity service-to-pod
+binding concern in trace-bearing cases, which remains a formal-launch hold.
+
+New plan: docs/experiment_plans/CanvasRCA_RQ3_8_Operational_Components_Plan.md.
+Use original wide topology and normal lower card grid, fixed complete text and
+fixed-position visual-redundancy ablations. No added topology isolates,
+ownership connectors or graph-layout algorithm. Historical Qwen findings guide
+the protocol; old Gemma MoE efficacy does not. RQ3.7 ledger currently contains
+28,216 calls. Planned 7,680 formal plus 18 qualification stays within the shared
+40,000 ceiling. Implementation and CPU/GPU qualification remain pending.
+
+### Nibi-only qualification follow-up
+
+The user forbids further local testing. Local preparation was stopped; all
+subsequent static/CPU/browser/processor/GPU checks use Nibi Slurm allocations.
+User ceilings: eight CPU jobs <=1h each, three GPU smoke jobs <=30m each;
+the single logical smoke retains its aggregate 18-call/600s bounds.
+
+CPU job 22921386 failed only the cross-host historical PNG byte comparison
+(47 passed, 1 failed, 1 skipped). Font, bundle, CSS and dependency hashes plus
+design/geometry are frozen. Job 22921513 established exact same-Nibi frozen
+reference/FULL equality and unchanged-component equality; historical-host
+pixel differences are recorded, not silently rebaselined. Browser versions
+match; the precise environmental raster difference is not yet established.
+The Slurm completed-job lookup was also repaired to consult sacct when squeue
+reports an expired ID; this prevents duplicate qualification submissions.
+
+Job 22921513 exited 0 in 158s but its processor report says context_exceeded:
+verbose redundant component JSON is too large (e.g. TEXT_DUP Qwen45394,
+Gemma47453 input tokens). Therefore qualification is NOT complete and no GPU
+job was submitted. Preflight now exits nonzero on a failed report. Before any
+model call, change only the generated ledger serialization to exact reversible
+tables/ranges; original ALL_ID text, evidence, PNG, model lengths and decoding
+stay intact. Nibi CPU attempt3 tests this repair; no local tests are run.
+
+CPU attempt5 (22922052): 58 regressions passed and all three-case/eight-arm/
+two-model processor checks passed after reversible table encoding, excluding
+unprinted internal edge IDs, exact bin-range notation and JSON whitespace-only
+compaction. The original RCA wording, selected numeric quantities, relations,
+sampling, dimensions and PNGs are unchanged. No model calls have started.
+
+Its subsequent full gallery preparation stopped at 34/480 cases because
+Chromium Page.captureScreenshot returned `Unable to capture screenshot` for
+INC-9CE8985F3DCB/NO_ONSET. Job peak RSS was about5 GiB, not a recorded Slurm OOM.
+This is a browser-capture failure, not evidence of a topology algorithm change.
+Keep completed images and failed artifacts. Add a per-render browser log and
+at most one fresh-browser retry for exactly that capture error, using identical
+inputs; all other browser/validation errors still fail closed. Attempt6 will
+qualify this operational repair and resume gallery generation on Nibi.
+
+CPU attempt6 (22922484) completed in19m45s: 60 tests passed; both processors
+passed all24 case/arm checks; all480 galleries are now persisted. Existing
+successful renders were reused. The inspected FULL images for AIOPS22,
+AIOPS25 and AegisLab retain the approved layout. The dense AIOPS22 graph remains
+a readability limitation of the approved graph, not a newly changed routing.
+
+GPU smoke attempt1 (22922720), full80GB H100, terminated at its600s bound with
+zero model calls. The supervisor's timeout-only status does NOT establish live
+inference coverage and is not sufficient for manual artifact approval. Full log
+inspection found repeated FlashInfer `Could not find nvcc` and DeepGEMM CUDA
+discovery warnings. Weight loading took21.99s (model-loading phase32.12s);
+engine profile/warmup took292.01s. This is a project launcher environment
+omission, not evidence of a defective Nibi driver or an inherently huge-model
+load. The new environment loaded Arrow but omitted the CUDA toolkit. Adopt
+cuda/12.9 to match installed PyTorch2.11's CUDA12.9 build; assert nvcc/headers
+before serving. Retain identical models, prompt, rendering and sampling.
+
+Also replace per-job Triton/vLLM compiler-cache roots with a persistent
+RQ/runtime-specific cache. Inspection of installed Triton cache.py confirms
+UUID temporary files and atomic os.replace commits. Ports stay per-job; model
+outputs are never cached/reused through compiler caches. CPU attempt7 must
+qualify these deployment changes on Nibi. No formal jobs have been submitted.
+Any additional GPU smoke time beyond the exhausted logical600s window awaits
+explicit clarification; the aggregate18-call and three-job caps remain intact.
+
+CPU attempt7 (22923347) subsequently completed in4m32s, exit0: all61 tests
+passed, including live nvcc12.9/header/PyTorch CUDA compatibility checks, and
+the24 dual-processor checks passed in9.71s. All480 gallery flags remain valid
+and were reused. GPU attempt1's manual artifact review is explicitly blocked:
+there were no persisted model conversations to examine and deployment warnings
+were found. The user correctly identified the problem as our launch code rather
+than a general Nibi/H100 defect. No second GPU smoke or formal job has been
+submitted, and the local Gemma model remains unchanged pending formal submission.
+
+The user then explicitly authorized at most two additional GPU smoke attempts.
+Register this narrowly under RQ3.8 descriptions: two new600s windows, <=30m
+Slurm allocation each, at most three GPU smoke jobs total and the same18-call
+aggregate ledger. No further CPU job or model/renderer change is needed for
+attempt2; CPU job22923347 qualified the current source. Resume qualification
+on Nibi, preserving attempt1's zero-call report and blocked manual review.
+2026-09-29 RQ3.8 v7 capacity repair: the seventh v6 Nibi GPU smoke failed
+before vLLM/model calls because a 35,011-token Qwen FULL request exceeded the
+32,768-token input allowance after reserving 8,192 output tokens. User chose
+to preserve the image and preserve the fixed-text/redundant-image estimand.
+Implemented exact public-card duplication checks and a reversible compact G
+edge ledger, shared by every arm; `TEXT_DUP` remains intentional. Reused the
+same v6 three-case public/PNG preparation, without regenerating or changing
+images. Nibi CPU-only audit: all non-graph cards matched existing anchor facts;
+dual-processor preflight passed for 66 case×arm rows in 45.64s, zero context
+failures. Qwen Aegis FULL fell from 35,011 to 27,769 input tokens. Nibi static
+source check passed (2,019 source lines after targeted regression test). No new GPU smoke, model request, CPU
+regression job or formal job was started. v7 qualification remains pending
+fresh authorization and full prepared-case audit.
+
+2026-09-29 RQ3.8 v7 GPU smoke submission: the user authorized one additional
+30-minute job. Nibi source/static check passed; prior job22941413 was terminal
+FAILED and no RQ3.8 job was active. `rq38v7-smoke-attempt8` was accepted as
+Slurm job **22942268**, receipt `--time=00:30:00`. No CPU regression or formal
+job was submitted. Smoke completion, model readiness and inference results
+remain unverified at this handoff.

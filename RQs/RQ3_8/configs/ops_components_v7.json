@@ -1,0 +1,22 @@
+{
+  "version": "rq38_ops_components_v7",
+  "experiment": "exp_operational_component_utility",
+  "models": ["qwen3.8-27b", "gemma-4-31b"],
+  "arms": ["TEXT", "TEXT_DUP", "MR00", "MR10", "MR01", "FULL", "NO_LOG", "NO_ONSET", "NO_CALLS", "NO_DEPLOY", "NO_G", "FULL_PAIRS", "MR00_PAIRS", "MR_NO_MARKS", "MR_NO_DETAILS", "MR_NO_MARKS_DETAILS"],
+  "mechanisms": {"experiment": "exp_graphical_reliance", "per_dataset": 20, "seed": 42, "arms": ["METRIC_TIME_PERMUTED", "TRACE_LENGTH_NEUTRAL", "FULL_REPEAT", "TEXT_REPEAT", "FULL_PAIRS_REPEAT", "MR_NO_MARKS_REPEAT"]},
+  "regression": {"experiment": "exp_locked_operations_regression", "arms": ["TEXT", "FULL", "FULL_PAIRS", "MR00"], "cases": 360, "scope": "previously exposed test; not independent validation"},
+  "parent_export": "RQs/RQ3_8/preparation/export_v1",
+  "preparation": "RQs/RQ3_8/preparation/ops_components_v6",
+  "results": "RQs/RQ3_8/results/ops_components_v7",
+  "inference_base": "configs/vllm_inference.yaml",
+  "runtime_profile": "runtime/inference.triton_v2.yaml",
+  "old_ledger": "RQs/RQ3_7/results/fusion_v2_pruned/calls.sqlite",
+  "budget": {"new_round_limit": 20000, "prior_observed": 28216, "formal_upper": 19440, "smoke_upper": 18, "reserve": 542, "authority": "v7 replaces v6 zero-call failed smoke; formal and model-call budgets unchanged; cumulative accounting must include all historical roots"},
+  "execution": {"workers": 8, "concurrency": 36, "formal_shards": {"qwen3.8-27b": 3, "gemma-4-31b": 1}, "max_formal_jobs": 4, "max_job_seconds": 28800, "request_timeout": 300, "min_free_disk_gib": 10, "attention": false},
+  "smoke": {"max_calls": 18, "max_seconds": null, "max_jobs": 8, "job_seconds": 1800, "arms": ["FULL_PAIRS", "MR_NO_MARKS", "METRIC_TIME_PERMUTED"]},
+  "cpu_qualification": {"max_jobs": 8, "job_seconds": 3600},
+  "request": {"max_tokens": 8192},
+  "primary": [["FULL", "TEXT"], ["FULL", "TEXT_DUP"], ["FULL", "MR00"], ["FULL_PAIRS", "FULL"], ["FULL", "MR_NO_MARKS"]],
+  "secondary": [["FULL", "NO_LOG"], ["FULL", "NO_ONSET"], ["FULL", "NO_CALLS"], ["FULL", "NO_DEPLOY"], ["FULL", "MR_NO_DETAILS"]],
+  "submission_authorization": {"qualification_roots": ["ops_components_v1", "ops_components_v2", "ops_components_v3", "ops_components_v4", "ops_components_v5", "ops_components_v6", "ops_components_v7"], "status": "runtime_authorized", "new_smoke_jobs": 1, "direct_smoke_after_static": true, "formal_cpu_waived": true, "authority": "After v7 GPU smoke completed 18/18 calls, user explicitly waived CPU regression and authorized at most four full formal Nibi jobs, each at most eight hours, covering all registered arms. The waiver does not claim that CPU regression passed."}
+}

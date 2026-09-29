@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import base64
 import json
+import logging
 import os
 import time
 import urllib.request
@@ -122,7 +123,14 @@ def count_vllm_prompt_tokens(
             request, timeout=cfg.request_timeout_s or 1800.0
         ) as response:
             return int(json.loads(response.read()).get("count", 0))
-    except Exception:  # noqa: BLE001 - tokenizer preflight reports failure as None
+    except Exception as exc:  # preflight failure remains None; do not log payloads/keys
+        from urllib.parse import urlsplit
+        address = urlsplit(request.full_url)
+        logging.getLogger(__name__).warning(
+            "Live tokenizer failed: model=%s endpoint=%s://%s:%s%s exception=%s http_status=%s",
+            cfg.tag, address.scheme, address.hostname, address.port, address.path,
+            type(exc).__name__, getattr(exc, "code", None),
+        )
         return None
 
 
@@ -342,7 +350,7 @@ def _call_openai(
 
     messages = _openai_messages(parts, system)
 
-    if cfg.tag in {"qwen3.8-27b", "gemma-4-26b-a4b"}:
+    if cfg.tag in {"qwen3.8-27b", "gemma-4-26b-a4b", "gemma-4-31b"}:
         assert_request_sampling(
             temperature=cfg.temperature,
             top_p=cfg.top_p,

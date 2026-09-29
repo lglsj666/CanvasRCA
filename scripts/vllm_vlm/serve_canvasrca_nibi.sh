@@ -5,7 +5,7 @@ PROJECT_ROOT="$(git rev-parse --show-toplevel)"
 cd "$PROJECT_ROOT"
 # shellcheck disable=SC1091
 source scripts/env.sh
-export CANVASRCA_VLLM_CONFIG="$PROJECT_ROOT/configs/vllm_inference.yaml"
+export CANVASRCA_VLLM_CONFIG="${CANVASRCA_VLLM_CONFIG:-$PROJECT_ROOT/configs/vllm_inference.yaml}"
 
 MODEL="${1:?usage: serve_canvasrca_nibi.sh qwen3.8-27b|gemma-4-26b-a4b}"
 PYTHON_BIN="${CANVASRCA_PYTHON:-python}"
@@ -26,9 +26,11 @@ export TOKENIZERS_PARALLELISM=false
 export CUBLAS_WORKSPACE_CONFIG=:4096:8
 export CUBLASLT_WORKSPACE_SIZE=1
 # shellcheck disable=SC1091
-source scripts/vllm_vlm/enable_attention_probe.sh "$MODEL"
-export CANVASRCA_ATTENTION_MODEL_PATH="$MODEL_PATH"
-if [[ "$MODEL" == "gemma-4-26b-a4b" ]]; then
+if [[ "${CANVASRCA_RECORD_ATTENTION:-1}" == "1" ]]; then
+  source scripts/vllm_vlm/enable_attention_probe.sh "$MODEL"
+  export CANVASRCA_ATTENTION_MODEL_PATH="$MODEL_PATH"
+fi
+if [[ "$MODEL" == "gemma-4-26b-a4b" || "$MODEL" == "gemma-4-31b" ]]; then
   export VLLM_BATCH_INVARIANT=1
 else
   export VLLM_BATCH_INVARIANT=0

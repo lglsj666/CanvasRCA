@@ -59,6 +59,17 @@ Three identities are deliberately separate:
 | Appearance | light/dark, font size, gap, padding, viewport, raster scale | No hidden auto-truncation |
 | Ownership | validated card → graph entity references | Separate from calls/hosts/owns |
 | Graph visibility | `graph.show_isolates` (default false) | Never deletes edges or observation cards |
+| Registered diagnostic ablations | optional `presentation[card_id]` with `marks`, `details`, and optional `neutral_trace` | Explicitly audited changes, default unchanged; not equal-image-fact claims |
+
+RQ3.8 v6 uses `presentation` only on `metric.line` and `trace.paired_bars`.
+`marks=false` removes the line/sample marks or colored bars but retains axes,
+printed values and their positions. `details=false` omits the statistical footer.
+`neutral_trace=true` deliberately equalizes colored bar lengths while retaining
+true printed values; it is a graphical-conflict diagnostic, NOT a valid telemetry
+display for deployment. All switches default to the existing drawing. The emitted
+`suppressed_visual_bindings` explicitly identifies removed visual encodings;
+the browser does not falsely certify them as visible. Experiments using these
+switches must preserve a truthful textual counterpart and register their scope.
 
 ## Complete observed topology, not selected Trace summaries
 
@@ -90,10 +101,15 @@ persistence interval. Its current adapter reuses existing P0 onset observations;
 it is **not full-network anomaly recomputation**. Graph connectivity does not depend
 on these selected onset rows, and equal/no onset does not suppress an edge.
 
-“Complete” means complete **observed per-case relationships**, not knowledge of
-unrecorded calls. The offline source audit records counts, unresolved joins and
-graph edges without scoped Trace confirmation. No relations are fabricated in an
-empty-Trace case. Dense graphs retain all edges; their readability and eventual
+"Complete" means complete **public per-case relationship evidence**, not knowledge
+of unrecorded calls. Calls still require observed graph/trace edges. Service→pod
+identity may additionally be derived from a hosted pod's public Kubernetes name,
+using the established RQ1.1/RQ3.1 `pod_to_service` projection, only if the exact
+service and pod have correctly typed case-local IDs. This is not an observed
+Trace witness or a claim about Kubernetes ownerReferences. The offline audit
+separates explicit, trace-observed and name-derived pairs, and records conflicts
+or ambiguous namespace names excluded from the projection. An empty-Trace case
+does not acquire invented call edges. Dense graphs retain all edges; their readability and eventual
 VLM processor capacity remain separate checks, not assumed from source coverage.
 
 `preset --evidence ... --name operations|relations_first|matrix|pairs --out ...` produces
@@ -105,7 +121,13 @@ the emitted rectangles with `renderer.gates.compare`, not just config diffs.
 
 ### Three interchangeable topology encodings
 
-- `graph.node_link` (C09): one node per entity, all directed relationships together.
+- `graph.node_link` (C09): the reference dashboard's deterministic radial
+  node placement and direct directed links. Its first two rings and link paths
+  reproduce the reference-image code exactly; additional rings extend the
+  same grammar for larger graphs. RQ3.8 projects pod-level calls to service
+  edges only where public service→pod ownership is unambiguous; otherwise the
+  pod endpoint stays visible. Raw calls remain in the common text ledger.
+  Node→pod and service→pod use their separate deployment-group components unchanged.
 - `graph.matrix` (C10): source rows and target columns, typed edge marks.
 - `graph.edge_pairs` (C12): a separate graphical source→target tile for **every
   original edge**. A→B→C→A becomes A→B, B→C, C→A, not a spanning tree.
@@ -198,12 +220,16 @@ For controlled comparisons, explicitly freeze shared geometry rather than compar
 different auto-sized presets.
 
 The public adapter separates G02 (node/pod) and G03 (service/pod). `node_pod_map`
-supplies hosts; `service_pod_map` supplies existing declared associations. Complete
-Trace resource observations supply additional `has_instance` relations only when
-service_name and k8s.pod.name have compatible, unambiguous public aliases. This is
-an observed service instance, not a claim about Kubernetes ownerReferences. No
-prefix-name heuristic, top-k trace table or model answer supplies membership.
-Unknown or namespace-ambiguous bindings stay in the offline source audit.
+supplies observed hosting; `service_pod_map` supplies declared associations.
+Complete Trace resource observations supply `has_instance` relations when the
+same row binds `service_name` and `k8s.pod.name`. For hosted pods lacking such a
+pair, the existing, deterministic Kubernetes pod-name projection supplies a
+name-derived `has_instance` correspondence if the projected service is in the
+public identity map. A name projection never overrides an explicit or observed
+binding, and namespace-ambiguous names are excluded. It does not use selected
+top-k trace rows, metric/log ranks, a model answer, or a private label. The
+three sources are distinguished in the offline audit; G03 does not assert
+ownerReferences or causal propagation.
 
 Examples: `build/renderer_previews/deployment_groups_v1/aegislab_deployment/`
 (node and service groups) and `aegislab_dashboard/` (complete dashboard).

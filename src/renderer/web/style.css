@@ -19,6 +19,10 @@ svg text {fill:var(--muted);font-family:DashboardSans,sans-serif;font-size:calc(
 .detail {display:flex;align-items:baseline;gap:7px;justify-content:space-between;font-size:calc(var(--font)*.75);line-height:1.4;overflow-wrap:anywhere}
 .detail .label {color:var(--muted)}
 .detail .value {font-variant-numeric:tabular-nums;color:var(--text)}
+/* log-detail-sides-v1: keep each label with its value at its own card edge. */
+.details-log {column-gap:28px}
+.details-log .detail:nth-child(odd) {justify-self:start;justify-content:flex-start;max-width:100%}
+.details-log .detail:nth-child(even) {justify-self:end;justify-content:flex-end;max-width:100%}
 .template {padding:10px 12px;border-left:3px solid var(--accent);background:var(--bg);font-family:DashboardSans,sans-serif;font-size:calc(var(--font)*.875);line-height:1.5;overflow-wrap:anywhere}
 .legend {display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:calc(var(--font)*.75);line-height:1.5;flex:none}
 .swatch {width:22px;display:inline-block;vertical-align:middle;border-top:3px solid var(--accent);margin-right:5px}

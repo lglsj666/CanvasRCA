@@ -8,6 +8,7 @@ export type Card = {id:string; kind:'metric'|'trace'|'log'|'graph'|'events'; tit
          before?:number; after?:number; template?:string; nodes?:Node[]; edges?:Edge[];
          events?:{entity:string;minute:number;severity:string;source:string}[]}};
 export type Rect = {card:string; node:string; component:string; index:number; x:number; y:number; width:number; height:number;
+  presentation?:{marks:boolean;details:boolean;neutral_trace?:boolean};
   pair_layout?:{columns:number;cell_width:number;cell_height:number;gap:number;rows:number;min_height:number};
   deployment_layout?:{cell_width:number;member_columns:number;scale:number;min_height:number;
     groups:{source:string;kind:string;edges:string[];height:number;x:number;y:number}[]}};
@@ -20,7 +21,7 @@ export const relationColors:Record<string,string> = {calls:'var(--accent)',hosts
 export const n = (v:number) => v === 0 ? '0' : Math.abs(v)>=1e5 || Math.abs(v)<.001 ? v.toExponential(3) : String(Number(v.toPrecision(5)));
 export const field = (key:string) => ({'data-binding':key});
 export function Details({card}:{card:Card}) {
-  return <div className="details">{(card.data.details??[]).map((d,i)=><div className="detail" key={i} {...field(`${card.id}.detail.${i}`)}>
+  return <div className={`details details-${card.kind}`}>{(card.data.details??[]).map((d,i)=><div className="detail" key={i} {...field(`${card.id}.detail.${i}`)}>
     <span className="label">{d.name}</span><span className="value">{d.value}</span></div>)}</div>;
 }
 export function seriesGeometry(card:Card,domain:'extent'|'zero'){
@@ -53,32 +54,14 @@ export function Axes({card,p,quantitative=true}:{card:Card;p:SeriesGeometry;quan
 export function graphPositions(nodes:Node[],width:number,height:number,edges:Edge[]=[]) {
   const sorted=[...nodes].sort((a,b)=>Number(a.id)-Number(b.id));
   const positions:Record<string,{x:number;y:number}>={};
-  if(nodes.length>30){
-    // Bounded lattice, connected-component BFS ordering; no rank/top-k and no
-    // overlapping concentric inner rings for large public graphs.
-    const neighbours:Record<string,Set<string>>=Object.fromEntries(sorted.map(n=>[n.id,new Set<string>()]));
-    for(const e of edges){neighbours[e.source]?.add(e.target);neighbours[e.target]?.add(e.source);}
-    const order:string[]=[],seen=new Set<string>();
-    for(const start of sorted){
-      if(seen.has(start.id))continue;
-      const queue=[start.id];seen.add(start.id);
-      for(let q=0;q<queue.length;q++){
-        const id=queue[q];order.push(id);
-        for(const next of [...neighbours[id]].sort((a,b)=>Number(a)-Number(b)))
-          if(!seen.has(next)){seen.add(next);queue.push(next);}
-      }
-    }
-    const cols=Math.min(8,Math.max(1,Math.floor(width/160))),rows=Math.ceil(order.length/cols);
-    order.forEach((id,i)=>{positions[id]={x:90+(i%cols)*(width-180)/Math.max(1,cols-1),
-      y:48+Math.floor(i/cols)*(height-96)/Math.max(1,rows-1)};});
-    return positions;
-  }
-  // One ring for small graphs, two for medium graphs; sorted identities only.
+  // The reference dashboard's ring placement is the only node-link grammar.
+  // Rings zero and one retain its exact coordinates; later rings extend the
+  // same construction without the old large-graph lattice switch.
   const ringSize=18;
   sorted.forEach((node,i)=>{
     const ring=Math.floor(i/ringSize),start=ring*ringSize,count=Math.min(ringSize,sorted.length-start);
     const angle=2*Math.PI*(i-start)/count-Math.PI/2;
-    const fraction=1-ring*.50;
+    const fraction=1/(ring+1);
     positions[node.id]={x:width/2+Math.cos(angle)*Math.max(0,width/2-85)*fraction,
       y:height/2+Math.sin(angle)*Math.max(0,height/2-46)*fraction};
   });

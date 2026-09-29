@@ -257,6 +257,17 @@ VLM_CONFIGS: Dict[str, VLMConfig] = {
         base_url_env="VLLM_BASE_URL",
         api_key_env="VLLM_API_KEY",
     ),
+    "gemma-4-31b": VLMConfig(
+        tag="gemma-4-31b",
+        backend="openai",
+        model_id="google/gemma-4-31B-it",
+        max_tokens=16384,
+        temperature=1.0,
+        top_p=0.95,
+        thinking_via_template=True,
+        base_url_env="VLLM_BASE_URL",
+        api_key_env="VLLM_API_KEY",
+    ),
     # --- Pipeline debugging without spending tokens ------------------------ #
     "mock": VLMConfig(tag="mock", backend="mock", model_id="mock"),
 }
@@ -275,7 +286,7 @@ def get_config(tag: str, **overrides: Any) -> VLMConfig:
     if tag not in VLM_CONFIGS:
         raise KeyError(f"Unknown model tag {tag!r}. Known: {sorted(VLM_CONFIGS)}")
     cfg = VLM_CONFIGS[tag]
-    if tag in {"qwen3.8-27b", "gemma-4-26b-a4b"}:
+    if tag in {"qwen3.8-27b", "gemma-4-26b-a4b", "gemma-4-31b"}:
         # The registry is an API adapter; the global YAML remains the authority.
         from unified_scripts.vllm_inference import VLLMInferenceConfig
 

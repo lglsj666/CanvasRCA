@@ -33,8 +33,9 @@ def render(evidence_path, design_path, output):
     write(output / "geometry.json", compiled)
     env = dict(os.environ, PLAYWRIGHT_BROWSERS_PATH=str(ROOT / "build/renderer_tooling/browsers"))
     started = time.monotonic()
+    browser_log = (output / "browser.log").open("w")
     process = subprocess.Popen([str(node_runtime()), str(bundle), str(output)], cwd=RENDERER / "web", env=env,
-                               start_new_session=True)
+                               stdout=browser_log, stderr=subprocess.STDOUT, start_new_session=True)
     try:
         code = process.wait(timeout=90)
         if code:
@@ -52,6 +53,8 @@ def render(evidence_path, design_path, output):
         if not (output / "manifest.json").exists():
             write(output / "manifest.json", {"status": "failed", "error": str(exc), "phase": "browser_runtime"})
         raise
+    finally:
+        browser_log.close()
     report = read(output / "manifest.json")
     from .gates import source_fingerprint
     report["renderer_source"] = source_fingerprint()

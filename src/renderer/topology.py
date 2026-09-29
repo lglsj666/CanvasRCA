@@ -122,8 +122,53 @@ def service_pod_relations(records, mapping):
     audit["ambiguous_namespace_pairs"] = len(witnesses)-len(pairs)
     audit["observed_service_pod_pairs"] = len(pairs)
     return pairs, {**audit, "source": "same-row service_name + k8s.pod.name resource attribute",
+                   "namespace_ambiguous_pods": sorted(p for p, values in namespaces.items() if len(values) > 1),
+                   "namespace_ambiguous_services": sorted(s for s, values in service_namespaces.items() if len(values) > 1),
                    "witness_rows": [{"service": a, "pod": b, "rows": witnesses[a,b]}
                                     for a,b in sorted(pairs)]}
+
+
+def public_name_service_pod_relations(metadata, mapping, observed_pairs=(),
+                                      ambiguous_pods=(), ambiguous_services=()):
+    """Recover public service→pod identity without inventing deployment edges.
+
+    A hosted pod in ``node_pod_map`` is an observed pod identity.  The existing
+    RQ1.1/RQ3.1 name projection can resolve its service only when that exact
+    service has a registered three-digit alias.  This is a name-derived
+    correspondence, never a trace-resource witness or Kubernetes ownership.
+    Explicit/observed conflicting associations and ambiguous namespace names
+    take precedence; they are not overwritten by a suffix convention.
+    """
+    from RQs.RQ1_1.src.renderer.onset import pod_to_service
+
+    hosted = {str(pod) for pods in metadata.get("node_pod_map", {}).values()
+              for pod in (pods or ())}
+    explicit = defaultdict(set)
+    for service, pods in metadata.get("service_pod_map", {}).items():
+        for pod in (pods or ()):
+            explicit[str(pod)].add(str(service))
+    observed = defaultdict(set)
+    for service, pod in observed_pairs:
+        observed[str(pod)].add(str(service))
+    blocked_pods = set(map(str, ambiguous_pods))
+    blocked_services = set(map(str, ambiguous_services))
+    pairs, audit = set(), Counter()
+    for pod in sorted(hosted):
+        audit["hosted_pods_considered"] += 1
+        service = pod_to_service(pod)
+        if pod in blocked_pods or service in blocked_services:
+            audit["ambiguous_namespace_skipped"] += 1
+        elif service == pod or len(mapping.get(pod, "")) != 5 or len(mapping.get(service, "")) != 3:
+            audit["unbound_or_unprojectable_skipped"] += 1
+        elif explicit[pod] or observed[pod]:
+            audit["already_bound" if (explicit[pod] | observed[pod]) == {service}
+                  else "conflicting_binding_skipped"] += 1
+        else:
+            pairs.add((service, pod))
+    audit["name_derived_service_pod_pairs"] = len(pairs)
+    return pairs, {**audit,
+                   "source": "metadata.json node_pod_map pod identity + public pod_to_service name projection",
+                   "witness_pairs": [{"service": a, "pod": b} for a, b in sorted(pairs)]}
 
 
 def cards_from_topology(graph, metadata, mapping, trace_edges=(), peer_roles=None, service_pairs=()):
@@ -195,7 +240,7 @@ def onset_card(packet):
         if f["field"] != "propagation_service":
             continue
         p = f["payload"]
-        match = re.fullmatch(r"([+-]?[\d.]+)m", p.get("onset_rel_min_display", ""))
+        match = re.fullmatch(r"([+-]?[\d.]+)m", str(p.get("onset_rel_min_display") or ""))
         if not match:
             continue
         events.append({"entity": p["service"], "minute": float(match[1]),
@@ -254,9 +299,15 @@ def development_topology(row, context):
             yield from batch.to_pylist()
     trace_edges, roles, trace_audit = trace_relations(records)
     service_pairs, service_audit = service_pod_relations(records, mapping)
-    cards, audit = cards_from_topology(graph, metadata, mapping, trace_edges, roles, service_pairs)
+    name_pairs, name_audit = public_name_service_pod_relations(
+        metadata, mapping, service_pairs,
+        service_audit["namespace_ambiguous_pods"],
+        service_audit["namespace_ambiguous_services"])
+    cards, audit = cards_from_topology(graph, metadata, mapping, trace_edges, roles,
+                                      service_pairs | name_pairs)
     audit.update(source_directory=str(directory), source_hashes=hashes, trace_audit=trace_audit,
                  service_pod_audit=service_audit,
+                 service_pod_name_audit=name_audit,
                  trace_columns_read=columns, trace_rows=parquet.metadata.num_rows,
                  trace_row_coverage=trace_audit.get("source_rows",0)/max(1,parquet.metadata.num_rows),
                  timing_scope="Existing P0 public onset rows only, not full-network anomaly discovery",

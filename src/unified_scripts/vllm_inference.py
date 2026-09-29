@@ -63,18 +63,26 @@ class VLLMInferenceConfig(FrozenConfig):
         for key in ("python", "vllm_bin"):
             if not str(deployment.get(key) or ""):
                 raise ConfigError(f"deployment.{key} is required")
-        for tag in ("qwen3.8-27b", "gemma-4-26b-a4b"):
-            if tag not in models:
-                raise ConfigError(f"missing registered model: {tag}")
+        if "qwen3.8-27b" not in models:
+            raise ConfigError("missing registered model: qwen3.8-27b")
+        gemmas = set(models) & {"gemma-4-26b-a4b", "gemma-4-31b"}
+        if not gemmas:
+            raise ConfigError("missing registered Gemma model")
         qwen = models["qwen3.8-27b"]
         if qwen.get("mm_processor_kwargs") is not None:
             raise ConfigError("Qwen must use its native image processor policy")
         compact_json = {"backend": "xgrammar", "disable_any_whitespace": True}
-        for tag in ("qwen3.8-27b", "gemma-4-26b-a4b"):
+        for tag in {"qwen3.8-27b"} | gemmas:
             if models[tag].get("structured_outputs_config") != compact_json:
                 raise ConfigError(
                     f"{tag} must use xgrammar with arbitrary JSON whitespace disabled"
                 )
+        if "gemma-4-31b" in models:
+            dense = models["gemma-4-31b"]
+            if (dense.get("served_model_name") != "google/gemma-4-31B-it"
+                    or dense.get("mm_processor_kwargs") != {"max_soft_tokens": 1120}
+                    or dense.get("enable_chunked_prefill") is not True):
+                raise ConfigError("Gemma31 requires its own identity, high-detail processor and chunked prefill")
     def model(self, tag: str) -> dict[str, Any]:
         models = self.data["models"]
         if tag not in models:
@@ -163,7 +171,7 @@ class VLLMInferenceConfig(FrozenConfig):
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("model", choices=("qwen3.8-27b", "gemma-4-26b-a4b"))
+    parser.add_argument("model", choices=("qwen3.8-27b", "gemma-4-26b-a4b", "gemma-4-31b"))
     parser.add_argument("--config", default=VLLMInferenceConfig.DEFAULT_PATH)
     parser.add_argument("--format", choices=("json", "argv"), default="json")
     args = parser.parse_args(argv)

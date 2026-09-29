@@ -47,6 +47,16 @@ def export_development(index):
     oid = row["opaque_incident_id"]
     source = ROOT / "RQs/RQ3_4/results/integrated_v1/contexts" / (oid + ".pkl")
     context = pickle.loads(source.read_bytes())
+    return export_public_case(row, context, source)
+
+
+def export_public_case(row, context, source):
+    """Project a frozen public case using the unchanged development components.
+
+    The caller supplies an authorized roster row and a trusted public context.
+    No case loader, ranking or private-label access is introduced here.
+    """
+    oid = row["opaque_incident_id"]
     if context["prepared"].private:
         raise ValueError("Public cache contains private object")
     packet = context["prepared"].public["packet"]
@@ -90,7 +100,7 @@ def export_development(index):
             for name, value in p.get("numeric_preview", {}).items():
                 detail.append({"name": name, "value": f"first {value['first']}; last {value['last']}; samples {value['sample_count']}"})
             for k in ("error_count_base", "error_count_fault", "error_rate_base", "error_rate_fault", "log_rate_base", "log_rate_fault"):
-                if k in p.get("log_r", {}):
+                if k in (p.get("log_r") or {}):
                     detail.append({"name": k.replace("_", " "), "value": str(p["log_r"][k])})
             cards.append(dict(id=cid, kind="log", title="Template "+p["template_id"], entity=p["entity_id"], unit="events",
                               data={"bins": [p["relative_bin"]], "counts": [p["count"]], "template": p["template"], "details": detail}))

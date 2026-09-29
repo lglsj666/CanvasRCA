@@ -19,7 +19,7 @@ function Panel({card,rect,design}:{card:Card;rect:Rect;design:Design}) {
       {card.entity&&<span className="identity" data-binding={card.id+'.entity'}>{entityType} {card.entity}</span>}</div>
     {card.unit&&<div className="unit" data-binding={card.id+'.unit'}>{card.unit.replaceAll('_',' ')}</div>}
     <Component card={displayed} rect={rect}/>
-    {!['graph','events'].includes(card.kind)&&<Details card={card}/>}
+    {!['graph','events'].includes(card.kind)&&rect.presentation?.details!==false&&<Details card={card}/>}
   </section>;
 }
 
