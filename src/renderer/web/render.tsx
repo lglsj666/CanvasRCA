@@ -6,6 +6,9 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
 import {Dashboard,Card,Design,Scene} from './dashboard.js';
+import {drawRelationBindings} from './relationBindings.js';
+import {drawRelationMarkers} from './relationMarkers.js';
+import {colorRelationBindings} from './relationColorBindings.js';
 
 const sha=(buffer:string|Buffer)=>createHash('sha256').update(buffer).digest('hex');
 const out=path.resolve(process.argv[2]);
@@ -15,7 +18,7 @@ const evidence:{cards:Card[]}=await json('evidence.json'),design:Design=await js
 const css=await fs.readFile(path.join(web,'style.css'),'utf8');
 const font=await fs.readFile(path.join(web,'assets/DejaVuSans.ttf'));
 const style=`@font-face{font-family:DashboardSans;src:url(data:font/ttf;base64,${font.toString('base64')})} :root{--font:${design.font_size}px} ${css}`;
-const markup=renderToStaticMarkup(<Dashboard cards={evidence.cards} design={design} scene={scene}/>);
+  const markup=renderToStaticMarkup(<Dashboard cards={evidence.cards} design={design} scene={scene}/>);
 const html='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Telemetry dashboard</title><style>'+style+'</style></head><body class="'+design.theme+'">'+markup+'</body></html>';
 await fs.writeFile(path.join(out,'dashboard.html'),html);
 const started=performance.now();
@@ -62,6 +65,11 @@ try {
     if(links.length)document.querySelector('main')!.append(svg);
     return report;
   },design.bindings);
+  const relationOverlay=design.relation_binding_style==='color'
+    ?await page.evaluate(colorRelationBindings,design.relation_bindings??[])
+    :design.relation_binding_style==='numbered'
+      ?await page.evaluate(drawRelationMarkers,design.relation_bindings??[])
+      :await page.evaluate(drawRelationBindings,design.relation_bindings??[]);
   const audit=await page.evaluate((expected)=>{
     const box=(e:Element)=>{const b=e.getBoundingClientRect();return {x:b.x,y:b.y,width:b.width,height:b.height};};
     const panels=[...document.querySelectorAll('[data-card]')].map(e=>({card:e.getAttribute('data-card')!,...box(e)}));
@@ -100,7 +108,7 @@ try {
         issues.push('membership endpoint mismatch '+item.id);
       return item;
     });
-    for(const e of document.querySelectorAll('.panel,.title,.template,.detail,.unit')){
+    for(const e of document.querySelectorAll('.panel,.title,.template,.detail,.unit,.scope-reading,.diagnostic-reading,[data-scope-cell]')){
       if(e.scrollWidth>e.clientWidth+2||e.scrollHeight>e.clientHeight+2)issues.push('overflow '+e.closest('[data-card]')?.getAttribute('data-card')+' '+e.className);
     }
     for(let i=0;i<panels.length;i++){
@@ -136,6 +144,48 @@ try {
     for(const e of expected)if(actual.filter(a=>a.id===e.id&&a.source===e.source&&a.target===e.target&&a.kind===e.kind).length!==1)
       audit.issues.push('missing/changed membership '+rect.card+'.'+e.id);
   }
+  for(const rect of scene.rectangles.filter(r=>r.component==='graph.membership_matrix')) {
+    const card=evidence.cards.find(c=>c.id===rect.card)!;
+    const actual=await page.evaluate((id)=>[...document.querySelectorAll(`[data-card="${id}"] [data-matrix-edge]`)].map(e=>({id:e.getAttribute('data-matrix-edge'),source:e.getAttribute('data-source'),target:e.getAttribute('data-target'),kind:e.getAttribute('data-relation')})),rect.card);
+    if(actual.length!==card.data.edges!.length) audit.issues.push('membership matrix edge count');
+    for(const edge of card.data.edges!)if(actual.filter(e=>e.id===edge.id&&e.source===edge.source&&e.target===edge.target&&e.kind===edge.kind).length!==1)
+      audit.issues.push('membership matrix changed edge '+edge.id);
+  }
+  // RQ3.12's additive grammar checks actual rendered atoms and individual
+  // cell footprints. A binding/metadata declaration alone cannot pass parity.
+  const diagnosticIssues=await page.evaluate((cards)=>{
+    const issues:string[]=[];
+    const value=(key:string)=>document.querySelector(`[data-binding="${key}"]`)?.textContent;
+    for(const card of cards){
+      for(const [j,target] of card.data.targets!.entries())
+        if(value(`${card.id}.target.${j}`)!==target)issues.push('diagnostic target mismatch');
+      for(const [i,row] of card.data.rows!.entries())for(const [j,cell] of row.cells.entries()){
+        const group=document.querySelector(`[data-card="${card.id}"] [data-diagnostic-cell="${i}.${j}"]`);
+        if(cell===null){
+          if(!card.data.sparse||group)issues.push('unavailable diagnostic cell was rendered');
+          continue;
+        }
+        for(const [k,key] of (['observed','expected','residual','error_scale'] as const).entries()){
+          if(card.data.sparse&&i===0&&key!=='observed'){
+            if(value(`${card.id}.cell.${i}.${j}.${key}`)!==undefined)issues.push('inapplicable OBS field was rendered');
+            continue;
+          }
+          const expected=['A','E','R','S'][k]+'='+(cell[key]??(cell.status==='conditioned'?'/':'?'));
+          if(value(`${card.id}.cell.${i}.${j}.${key}`)!==expected)issues.push('diagnostic value mismatch');
+        }
+        if((!card.data.sparse||i>0)&&value(`${card.id}.cell.${i}.${j}.status`)!==cell.status)issues.push('diagnostic status mismatch');
+        if(!group){issues.push('available diagnostic cell missing');continue;}
+        const box=group.querySelector('[data-diagnostic-cell-box]')!.getBoundingClientRect();
+        for(const text of group.querySelectorAll('text')){
+          const b=text.getBoundingClientRect();
+          if(b.left<box.left-1||b.right>box.right+1||b.top<box.top-1||b.bottom>box.bottom+1)
+            issues.push('diagnostic text crosses cell '+text.textContent);
+        }
+      }
+    }
+    return issues;
+  },evidence.cards.filter(c=>c.kind==='diagnostic'));
+  audit.issues.push(...diagnosticIssues);
   audit.issues.push(...errors);
   const completeHtml=await page.content();
   await fs.writeFile(path.join(out,'dashboard.html'),completeHtml);
@@ -146,6 +196,7 @@ try {
     css_sha256:sha(css),dependency_lock_sha256:sha(await fs.readFile(path.join(web,'package-lock.json'))),
     html_sha256:sha(completeHtml),png_sha256:sha(png),scale:design.scale,
     source_png:{width:Math.round(scene.width*design.scale),height:Math.round(scene.height*design.scale)},
+    ...(design.relation_bindings!==undefined?{relation_overlay:relationOverlay}:{}),
     evidence_scope:'Only projected CanvasEvidenceV1 fields. Not a whole historical RCA prompt.',overlay,audit};
   await fs.writeFile(path.join(out,'manifest.json'),JSON.stringify(manifest,null,2)+'\n');
   if(audit.issues.length)throw new Error('Render audit failed: '+audit.issues.join('; '));

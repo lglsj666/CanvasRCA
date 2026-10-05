@@ -1,15 +1,106 @@
 {
   "schema": "DashboardOperationCatalogV1",
   "operations": [
-    {"index": 1, "id": "spacing", "file": "spacing.py", "args": ["gap", "padding"]},
-    {"index": 2, "id": "resolution", "file": "resolution.py", "args": ["scale"]},
-    {"index": 3, "id": "viewport", "file": "viewport.py", "args": ["width", "height"]},
-    {"index": 4, "id": "appearance", "file": "appearance.py", "args": ["theme", "font_size"]},
-    {"index": 5, "id": "indexing", "file": "indexing.py", "args": ["visible", "start"]},
-    {"index": 6, "id": "layout", "file": "layout.py", "args": ["tree"]},
-    {"index": 7, "id": "bindings", "file": "bindings.py", "args": ["links"]},
-    {"index": 8, "id": "component", "file": "component.py", "args": ["card", "component"]},
-    {"index": 9, "id": "reorder", "file": "reorder.py", "args": ["container", "order"]},
-    {"index": 10, "id": "graph_visibility", "file": "graph_visibility.py", "args": ["show_isolates"]}
+    {
+      "index": 1,
+      "id": "spacing",
+      "file": "spacing.py",
+      "args": [
+        "gap",
+        "padding"
+      ]
+    },
+    {
+      "index": 2,
+      "id": "resolution",
+      "file": "resolution.py",
+      "args": [
+        "scale"
+      ]
+    },
+    {
+      "index": 3,
+      "id": "viewport",
+      "file": "viewport.py",
+      "args": [
+        "width",
+        "height"
+      ]
+    },
+    {
+      "index": 4,
+      "id": "appearance",
+      "file": "appearance.py",
+      "args": [
+        "theme",
+        "font_size"
+      ]
+    },
+    {
+      "index": 5,
+      "id": "indexing",
+      "file": "indexing.py",
+      "args": [
+        "visible",
+        "start"
+      ]
+    },
+    {
+      "index": 6,
+      "id": "layout",
+      "file": "layout.py",
+      "args": [
+        "tree"
+      ]
+    },
+    {
+      "index": 7,
+      "id": "bindings",
+      "file": "bindings.py",
+      "args": [
+        "links"
+      ]
+    },
+    {
+      "index": 8,
+      "id": "component",
+      "file": "component.py",
+      "args": [
+        "card",
+        "component"
+      ],
+      "optional_args": [
+        "node_layout=layered_grid (graph.node_link only)",
+        "dashed_width_scale (graph.node_link only; default 1)"
+      ]
+    },
+    {
+      "index": 9,
+      "id": "reorder",
+      "file": "reorder.py",
+      "args": [
+        "container",
+        "order"
+      ]
+    },
+    {
+      "index": 10,
+      "id": "graph_visibility",
+      "file": "graph_visibility.py",
+      "args": [
+        "show_isolates"
+      ]
+    },
+    {
+      "index": 11,
+      "id": "relation_bindings",
+      "file": "relation_bindings.py",
+      "args": [
+        "links"
+      ],
+      "optional_args": [
+        "style=numbered|color (default connectors unchanged)"
+      ]
+    }
   ]
 }

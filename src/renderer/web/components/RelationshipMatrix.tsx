@@ -14,7 +14,7 @@ export default function RelationshipMatrix({card,rect}:{card:Card;rect:Rect}) {
         <line x1={ox} x2={ox+size*nodes.length} y1={oy+i*size} y2={oy+i*size} stroke="var(--border)"/>
         <line x1={ox+i*size} x2={ox+i*size} y1={oy} y2={oy+size*nodes.length} stroke="var(--border)"/></g>)}
       {edges.map(e=>{const r=nodes.findIndex(n=>n.id===e.source),c=nodes.findIndex(n=>n.id===e.target),k=types.indexOf(e.kind);
-        return <rect key={e.id} {...field(`${card.id}.edge.${e.id}`)} x={ox+c*size+1+(k%subdivisions)*size/subdivisions} y={oy+r*size+1+Math.floor(k/subdivisions)*size/subdivisions}
+        return <rect key={e.id} {...field(`${card.id}.edge.${e.id}`)} data-source={e.source} data-target={e.target} data-relation={e.kind} x={ox+c*size+1+(k%subdivisions)*size/subdivisions} y={oy+r*size+1+Math.floor(k/subdivisions)*size/subdivisions}
           width={Math.max(1,size/subdivisions-2)} height={Math.max(1,size/subdivisions-2)} fill={relationColors[e.kind]}/>;})}
     </svg><RelationLegend edges={edges}/></>;
 }

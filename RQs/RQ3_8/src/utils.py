@@ -44,10 +44,41 @@ def config():
             or c["execution"]["formal_shards"] != {"qwen3.8-27b": 3, "gemma-4-31b": 1}
             or c["execution"]["max_formal_jobs"] != 4
             or c["execution"]["max_job_seconds"] != 28800
+            or c["execution"].get("concurrency") != 36
+            or c["execution"].get("concurrency_by_model") != {"qwen3.8-27b": 36, "gemma-4-31b": 8}
             or c["submission_authorization"].get("formal_cpu_waived") is not True
             or c["cpu_qualification"] != {"max_jobs": 8, "job_seconds": 3600}):
         raise ValueError("Unregistered RQ3.8 contract")
+    validate_queue_subset(c)
     return c
+
+
+def validate_queue_subset(c):
+    """Restrict scheduling without changing historical request/arm identities."""
+    subset = c.get("queue_subset")
+    if subset is None:
+        return
+    expected = {
+        "A": ("TEXT", "TEXT_DUP", "MR00", "MR10", "MR01", "FULL", "FULL_PAIRS", "MR_NO_MARKS"),
+        "B": ("METRIC_TIME_PERMUTED", "TRACE_LENGTH_NEUTRAL", "FULL_REPEAT"),
+        "C": ("TEXT", "FULL"),
+    }
+    if (subset.get("id") != "reduced_20260929" or subset.get("formal_upper") != 9720
+            or subset.get("historical_ceiling_only") is not True
+            or any(tuple(subset.get(k, ())) != v for k, v in expected.items())):
+        raise ValueError("Unregistered RQ3.8 queue subset")
+
+
+def queue_arms(c, block):
+    original = {"A": ARMS, "B": MECHANISMS, "C": LOCKED}
+    return tuple(c.get("queue_subset", {}).get(block, original[block]))
+
+
+def request_concurrency(c, model):
+    """Bound submitted request/case tasks per model; CPU worker count is separate."""
+    if model not in MODELS:
+        raise ValueError("Unknown model for request concurrency")
+    return c["execution"]["concurrency_by_model"][model]
 
 
 def path(value):
@@ -82,22 +113,27 @@ def prior_calls(c):
 
 
 def make_profile(c, destination):
-    """Materialize a recorded Nibi adapter; never rewrite historical YAML."""
+    """Materialize the selected deployment adapter; never rewrite historical YAML."""
     import yaml
-    base = path(c["inference_base"])
+    local = os.environ.get("CANVASRCA_RQ38_DEPLOYMENT") == "local"
+    base = path("configs/vllm_inference_local.yaml" if local else c["inference_base"])
     profile = yaml.safe_load(base.read_text())
-    profile["deployment"].update(python=".venv-inference/bin/python", vllm_bin=".venv-inference/bin/vllm")
+    if not local:
+        profile["deployment"].update(python=".venv-inference/bin/python", vllm_bin=".venv-inference/bin/vllm")
     old = profile["models"].pop("gemma-4-26b-a4b")
     profile["models"]["gemma-4-31b"] = {
-        **old, "model_path": "models/gemma-4-31B-it", "served_model_name": "google/gemma-4-31B-it",
+        **old, "model_path": ("/home/lglsj/CanvasRCA/models/gemma-4-31b-it" if local else "models/gemma-4-31B-it"),
+        "served_model_name": "google/gemma-4-31B-it",
         "repository_revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
         "mm_processor_kwargs": {"max_soft_tokens": 1120},
     }
     # auto chooses FlashInfer SM90 JIT on H100 but Triton/FLA on our local
     # RTX PRO6000. Pin the working backend explicitly; retain the old YAML.
     profile["models"]["qwen3.8-27b"]["gdn_prefill_backend"] = "triton"
-    profile["status"] = "rq38_explicit_nibi_dense_gemma_adapter_pending_qualification"
-    profile["rq38_adapter"] = {"version": "NibiGemma31QwenTritonV2", "base_sha256": sha_file(base)}
+    profile["status"] = ("rq38_explicit_local_dense_gemma_adapter" if local else
+                         "rq38_explicit_nibi_dense_gemma_adapter_pending_qualification")
+    profile["rq38_adapter"] = {"version": "LocalGemma31QwenTritonV1" if local else
+                              "NibiGemma31QwenTritonV2", "base_sha256": sha_file(base)}
     text = yaml.safe_dump(profile, allow_unicode=True, sort_keys=False).encode()
     destination = Path(destination)
     if destination.exists() and destination.read_bytes() != text:
@@ -197,8 +233,8 @@ def case_arms(c, row, smoke=False):
     if smoke:
         return tuple(c["smoke"]["arms"])
     if row.get("cohort") == "test":
-        return LOCKED
-    return ARMS + (MECHANISMS if row.get("mechanism") else ())
+        return queue_arms(c, "C")
+    return queue_arms(c, "A") + (queue_arms(c, "B") if row.get("mechanism") else ())
 
 
 def formal_rows(c, roster, model, shard):

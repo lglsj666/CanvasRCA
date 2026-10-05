@@ -1,7 +1,4 @@
-model,condition,n,rho,p,p_holm
-gemma-4-26b-a4b,S,124,,,
-gemma-4-26b-a4b,T,124,0.1206057135267729,0.1821111894758936,0.1821111894758936
-gemma-4-26b-a4b,V,124,,,
-qwen3.8-27b,S,124,,,
-qwen3.8-27b,T,124,0.0217885922402784,0.810176184344295,1.0
-qwen3.8-27b,V,124,0.0263303506313829,0.7715995574159,1.0
+model,condition,n,rho,p,p_holm,raw_statistic_source,p_holm_family_n,analysis_scope
+qwen3.8-27b,S,124,,,,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,0,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,T,124,0.0217885922402784,0.810176184344295,1.0,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,2,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,V,124,0.0263303506313829,0.7715995574159,1.0,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,2,Qwen-only post-hoc; original case masks and comparisons

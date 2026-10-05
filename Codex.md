@@ -1,5 +1,32 @@
 # CanvasRCA Project Rules
 
+## Dashboard rendering and missing samples — 2026-10-02 latest authority
+
+Connecting lines across missing data points is allowed, and lines must never
+be broken because of missing data points.
+
+Do not give missing samples special visual treatment. In line charts, connect
+successive available observations across missing sample positions, preserving
+their original time coordinates. Do not break the line at missing samples or
+mark them with question marks, missing-value symbols, shading, warnings, or
+other special annotations. Retain the original missing values in the source
+data and audit artifacts; drawing a connecting segment does not create an
+observed value at an unobserved position.
+
+All experiments must generate their dashboards through the unified renderer
+at `src/renderer/`, including previews, smoke tests, formal runs, and visual
+control arms. Compose dashboards using its registered component and operation
+libraries, reusing existing components and operations wherever possible. Add
+a new component or operation only when it is genuinely necessary and existing
+components and operations cannot meet the requirement; document that unmet
+requirement and register the addition in the unified renderer. Do not bypass
+the unified renderer with an experiment-local drawing implementation.
+
+These rules supersede conflicting earlier renderer exceptions and missing-point
+display proposals for subsequent work. Preserve historical inputs, rendered
+artifacts, and results. The user's experience motivating the missing-sample
+rule is recorded in [dashboard pitfalls](docs/issues/Dashboard_pitfalls.md).
+
 ## RQ3.1 fast resume — 2026-09-17 latest authority
 
 The user removes RQ3.1's bulk restart verification after it kept the loaded

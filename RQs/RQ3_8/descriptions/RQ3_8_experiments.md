@@ -1,5 +1,185 @@
 # RQ3.8 experimental contract
 
+## DD-20260930-12: Gemma deferred; future development uses Qwen only
+
+**Status:** adopted by explicit user direction. This supersedes the future
+dual-model scheduling part of DD-20260930-10 and DD-20260930-11; it does not
+rewrite their historical run conditions or the original v7 registration.
+
+**Decision.** Do not resume the local Gemma-4-31B-it shard or schedule Gemma in
+new development experiments. Keep every existing Gemma result, timeout flag,
+partial response, conversation, image, config and log for audit. The local
+RQ3.8 queue now runs only the Qwen shards. Preserve v7's historical dual-model
+config and call accounting so previously initiated calls remain traceable.
+Future experiment protocols should register Qwen as the sole development
+Solver until the user explicitly reopens cross-model validation.
+
+**Evidence and limitation.** Qwen's reduced v7 queue completed; Gemma's local
+run was stopped with 231 completed responses, 78 request timeouts, 47
+design-infeasible cells and 7 submitted/uncommitted targets. All 231 scored
+Gemma responses supplied only one final candidate. These are incomplete,
+heavily timeout-affected development observations, not evidence that the
+dense model is intrinsically incapable of RCA. The decision prioritizes
+establishing a strong single-model pipeline before paying for transfer tests.
+
+**Artifact action.** The dedicated local model directory
+`/home/lglsj/CanvasRCA/models/gemma-4-31b-it` (59 GiB by `du -sh`) was deleted
+after confirming it was not a symlink and no Gemma process remained. It can be
+restored only by downloading the checkpoint again. Nibi is not covered by this
+local deletion: SSH requires a fresh MFA login, so no remote model or job was
+modified. Existing Nibi submissions must not be mistaken for new authorized
+Gemma development work.
+
+## DD-20260930-11: pause local Gemma and bound its request concurrency
+
+**Status:** adopted for future RQ3.8 execution; no experiment restart authorized.
+The user ordered an immediate stop of the local run and changed the submitted
+case/request-task limit from 36 to 8 for `gemma-4-31b` only. Qwen remains at 36.
+This is an operational scheduler amendment, not a change to case membership,
+evidence, PNGs, request payloads, model weights, sampling, scorer, timeout, or
+the registered arm matrix. The eight CPU preparation workers and vLLM server
+`max_num_seqs=256` are separate limits and are unchanged.
+
+**Evidence.** During the local Gemma run, vLLM usually reported 1–2 running
+requests and about 33–34 waiting/deferred requests. Completed requests had a
+292.6-second median first-output latency, near the frozen 300-second request
+timeout. The initial 66 inspected timeout partials all had zero output chunks;
+the server remained alive and GPU-bound. This supports queue pressure as the
+leading operational explanation, not a proven model-quality failure. Reducing
+the driver submission bound may reduce waiting; it has not yet been validated.
+
+**Stop and recovery.** The first safe-stop signal allowed active requests to
+drain, but the user then explicitly required a force stop without further
+waiting. Exact RQ3.8 local runner, server and queue process groups were killed;
+no new work was launched. At the stop snapshot Gemma had 356 terminal flags:
+231 done, 78 request-timeout failures and 47 design-infeasible cells. Seven
+submitted calls had no terminal flag and remain interrupted/incomplete. Existing
+done and terminal timeout flags keep their status; this amendment does not
+retroactively rerun or reclassify them. A later user instruction is required
+before any resume or a decision to revisit the prior timeout cells. If resumed,
+record the 36→8 operational boundary in analysis; do not interpret the two
+periods as identical throughput conditions or assume this change cured timeouts.
+
+## DD-20260930-10: user-approved reduced queue; unchanged v7 requests
+
+**Status:** adopted. The user approved the cost/necessity audit and requested
+a safe stop followed by a reduced continuation, skipping completed work.
+This supersedes DD-03/DD-07/DD-08 for future scheduling only, not artifact
+validity, request identity, input, inference or scoring.
+
+**Active schedule.** `configs/ops_components_v7.json::queue_subset` is the
+`reduced_20260929` amendment (audit began September29). Original arm definitions
+remain readable for historical artifacts; only the queue subset is active:
+
+| Block | Unchanged cases/models | Active arms | Logical positions |
+|---|---|---|---:|
+| A | eval480, both models | TEXT, TEXT_DUP, MR00, MR10, MR01, FULL, FULL_PAIRS, MR_NO_MARKS | 7680 |
+| B | original hash-selected100, both models | METRIC_TIME_PERMUTED, TRACE_LENGTH_NEUTRAL, FULL_REPEAT | 600 |
+| C | exposed test360, both models | TEXT, FULL | 1440 |
+| Total | | | 9720 |
+
+Stop A's NO_LOG, NO_ONSET, NO_CALLS, NO_DEPLOY, NO_G, MR00_PAIRS,
+MR_NO_DETAILS and MR_NO_MARKS_DETAILS; B's TEXT_REPEAT, FULL_PAIRS_REPEAT and
+MR_NO_MARKS_REPEAT; C's FULL_PAIRS and MR00. Preserve their persisted outputs
+and incurred calls as incomplete exploratory branches, not complete trials.
+
+**Reason.** Resource reduction follows historical RQ1.1/3.6/3.7 findings,
+registered questions and throughput, not interim v7 MRR, labels or wins/losses.
+Keep end-to-end efficacy, repetition control, M/R factorial, topology grammar,
+mark reliance, corruption versus FULL-repeat and locked TEXT/FULL regression.
+Defer calls/deployment, marks/footer and grammar-by-M/R interactions,
+log/onset deletion and secondary repeats. Historical related experiments do
+not prove the deferred graphical-only questions already answered.
+
+**Accounting.** The9720 positions include compatible completed targets; they
+are not9720 additional calls. Add all initiated calls outside the retained
+schedule and the18-call v7 smoke when reporting spending. The audit snapshot
+had567 outside calls; use the post-drain stop receipt for the final number.
+Deduplication and design-infeasible no-call cells reduce actual requests.
+Existing20000 ledger and shard ceilings remain immutable historical limits
+for SQLite compatibility, not permission to schedule dropped arms or consume
+unused allowance. Never reset the ledger, counters, results or request version.
+
+**Analysis scope.** Retain all five A primary contrasts, pooled across the two
+models in the original ten-test family, plus the M/R secondary factorial.
+B retains each corruption minus FULL and FULL_REPEAT, and FULL_REPEAT minus
+FULL. C retains FULL minus TEXT. Filter other contrasts out prospectively;
+do not impute dropped arms or select retained arms by observed performance.
+FULL_PAIRS has development comparison only, not locked C validation.
+Exposed test remains exposed. DD-09 design-infeasible exclusion still applies;
+the old zero-fill analysis implementation must be corrected before final
+scientific aggregation. No analysis is executed during this queue amendment.
+
+**Compatibility/operations.** VERSION, logical/call identities, prepared
+public evidence/PNGs, shared canvas, roster, prompt, model recipes and scorer
+stay unchanged. This subset uses the already qualified v7 request paths and
+the existing local qualification waiver. New checks cover syntax, target
+counts and small synthetic flag/timeout/dedup tests; do not claim a new full
+CPU regression or GPU smoke. Safe stop drains requests/writes before shutting
+down the model. Resume reads small terminal flags: done, timeout-fail and
+design-infeasible skip; uncommitted interrupted targets remain pending.
+Prepared resume bypasses export/render and checks preparation commit flags,
+not completed contexts, images or their hashes. This action changes the local
+queue only; no Nibi job is cancelled or resubmitted.
+
+## DD-20260929-09: exclude design-infeasible cells from accuracy denominators
+
+**Status:** adopted by explicit user decision during the running local v7
+formal experiment. This entry supersedes every earlier RQ3.8 sentence that
+assigns zero MRR or another zero accuracy score to a `design_infeasible` cell.
+It changes analysis only: no input, PNG, arm, roster, model call, scorer output,
+completed artifact or running process is changed or rerun.
+
+**Decision.** A cell whose registered dashboard cannot be constructed within
+the 8192-pixel canvas limit is structurally unavailable, not an incorrect RCA
+prediction. Exclude it from MRR, AC@1/3/5, AVG@3/5 and every other diagnostic
+accuracy denominator. Report its count and executable rate separately by
+model, dataset, cohort and arm. Do not impute zero, one, or a best/worst
+accuracy value for it. Any legacy flag field such as `end_to_end_mrr: 0` is an
+operational artifact from the earlier rule and must be ignored by scientific
+aggregation.
+
+For a contrast or factorial effect, use only the common cases on which every
+required arm is executable. Report the number excluded for design
+infeasibility separately from timeout/missing pairs. A case that is infeasible
+for an unrelated arm remains eligible for comparisons that do not require that
+arm. Request timeouts retain their separately registered infrastructure-
+missing treatment and sensitivity analysis; parse failures, illegal candidates
+and other completed model outcomes retain the ordinary scorer semantics.
+
+**Evidence and scope.** The trigger was 56 Qwen shard-0 logical cells from six
+AegisLab cases whose shared fixed-slot canvases required 8194--8318 pixels.
+They initiated no model calls. This is an analysis-policy correction, not
+evidence that the visual methods work, and it does not erase the renderer's
+capacity limitation. The same rule applies to local and Nibi v7 results.
+
+**Execution boundary.** Per the user's instruction, record this decision now
+without a regression test, code change, rerender, new smoke or queue restart.
+The final analysis implementation must cite this DD and audit that no
+`design_infeasible` row enters an accuracy mean, macro average, paired test,
+repair/break count or missing-value accuracy bound.
+
+## DD-20260929-08: local WSL execution of the unchanged v7 matrix
+
+The user requested a second, local full execution (including preparation) after
+the Nibi v7 smoke, using local Qwen3.8-27B and newly transferred dense
+Gemma-4-31B-it. This does not cancel or replace the four submitted Nibi jobs.
+The local queue retains the 840-case roster, 19,440 logical positions, v7
+evidence and dashboard renderer, frozen requests, scorer, per-shard budget and
+done/fail resume semantics. It prepares all three Qwen shards before starting
+the GPU, then runs Qwen shards 0–2 and Gemma shard 0 sequentially. Local WSL
+does not use Slurm or the Nibi eight-hour allocation deadline.
+
+Only deployment differs: the versioned local vLLM profile resolves model files
+under `/home/lglsj/CanvasRCA/models`, uses the registered local 0.75 VRAM
+fraction and the local RTX PRO 6000. Local source, profile, device and checkpoint
+identity are recorded at startup. The user explicitly requested proceeding
+without repeating the Nibi CPU/smoke qualification locally. Record those local
+checks as **not repeated**, never as locally passed. Any failure of local
+model startup, input integrity or persistence stops the queue; completed
+targets are not silently replayed. Hardware-specific latency/cost is not
+pooled with the H100 results.
+
 ## DD-20260929-07: four-job formal authorization with explicit CPU waiver
 
 **Authority.** After v7 smoke job 22942268 completed all 18/18 registered

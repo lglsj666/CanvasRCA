@@ -1,0 +1,7 @@
+model,baseline,has_bars,new_mean,old_mean,n,delta,p,dz,holm_p,raw_statistic_source,holm_p_family_n,analysis_scope
+qwen3.8-27b,T_MATCH,False,0.28125,0.328125,16,-0.046875,0.5360492122965215,-0.13617619485048055,1.0,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,6,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,T_MATCH,True,0.7386363636363636,0.6022727272727273,44,0.13636363636368182,0.06466707285195142,0.2635105292831763,0.3880024371117085,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,6,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,REMOTE_ID,False,0.28125,0.25,16,0.03125,0.5637028616507731,0.141233170716508,1.0,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,6,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,REMOTE_ID,True,0.7386363636363636,0.6893939393939393,44,0.04924242424243182,0.30068205388051494,0.2150583536299412,1.0,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,6,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,B3_G_REF,False,0.28125,0.23958333333333331,16,0.0416666666666875,0.5880492777043057,0.15504341823660597,1.0,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,6,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,B3_G_REF,True,0.7558139534883721,0.7441860465116279,43,0.011627906976744186,0.6627558966489885,0.04549036464485936,1.0,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,6,Qwen-only post-hoc; original case masks and comparisons

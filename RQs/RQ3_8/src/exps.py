@@ -169,7 +169,10 @@ def _already_in_parent(card, parent_text):
             if line.startswith("propagation_service: "):
                 try:
                     row = json.loads(line.split(": ", 1)[1])
-                    rows.append((row["service"], float(row["onset_rel_min_display"].removeprefix("+").removesuffix("m")),
+                    onset = row["onset_rel_min_display"]
+                    if not isinstance(onset, str):
+                        return False  # Missing public time is not an exact duplicate.
+                    rows.append((row["service"], float(onset.removeprefix("+").removesuffix("m")),
                                  str(row["severity_z_display"]), row["evidence_source_display"]))
                 except (KeyError, ValueError, TypeError):
                     return False

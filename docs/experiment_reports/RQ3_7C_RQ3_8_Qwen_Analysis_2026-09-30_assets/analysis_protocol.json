@@ -1,0 +1,9 @@
+{
+  "model": "qwen3.8-27b",
+  "inference_calls": 0,
+  "rule": "RQ38 DD-09 exclude design infeasible; request_timeout missing; model failures retained",
+  "source_scope": "RQ37 C eval480/test360; RQ38 reduced A480/B100/C360 only",
+  "families": "RQ37 four comparisons per cohort/scope; RQ38 A five primary, three MR; B four stress plus separate one repeat; C one locked. Qwen only. Subgroups exploratory Holm within RQ/block.",
+  "primary": "three-main-dataset macro effect; case-paired Pratt p and event-mean sensitivity; no CI",
+  "code_sha256": "0ffd243fd3c677cb45490cce3dbb51453636943a986ddd5754079816e92fb679"
+}

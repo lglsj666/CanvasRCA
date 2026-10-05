@@ -1,0 +1,178 @@
+{
+  "version": "rq314_unified_observed_v1",
+  "experiment": "exp_unified_observed",
+  "model": "qwen3.8-27b",
+  "seed": 42,
+  "case_counts": {
+    "aiops2022": 60,
+    "aiops2025": 60,
+    "aegislab": 100
+  },
+  "primary_datasets": [
+    "aiops2022",
+    "aiops2025"
+  ],
+  "arms": [
+    "RAW_TEXT",
+    "RAW_REPEAT",
+    "CANON_TEXT",
+    "SAFE_TEXT",
+    "WINDOW_MARKLESS",
+    "WINDOW_TEXT",
+    "WINDOW_VISUAL",
+    "WINDOW_PIXEL",
+    "WINDOW_REPEAT"
+  ],
+  "smoke_arms": [
+    "RAW_TEXT",
+    "RAW_REPEAT",
+    "CANON_TEXT",
+    "SAFE_TEXT",
+    "WINDOW_MARKLESS",
+    "WINDOW_TEXT",
+    "WINDOW_VISUAL",
+    "WINDOW_PIXEL",
+    "WINDOW_REPEAT"
+  ],
+  "parent": "RQs/RQ3_8/preparation/ops_components_v6",
+  "parent_export": "RQs/RQ3_8/preparation/export_v1",
+  "base_preparation": "RQs/RQ3_12/preparation/conditional_v4",
+  "preparation": "RQs/RQ3_14/preparation/unified_observed_v1",
+  "results": "RQs/RQ3_14/results/unified_observed_v1",
+  "roster_registration": "RQs/RQ3_10/results/scope_v1/registration.json",
+  "roster_sha256": "ca25b701da4f4c5ca3f81d09c0b5d637dea9a64408d6c41ce99d539863b78a8e",
+  "inference_base": "configs/vllm_inference_local.yaml",
+  "runtime_profile": "runtime/qwen_local.yaml",
+  "port": 21954,
+  "workers": 8,
+  "concurrency": 36,
+  "request_timeout": 300,
+  "max_tokens": 8192,
+  "formal_positions": 1980,
+  "formal_attempt_limit": 2022,
+  "total_attempt_limit": 2040,
+  "smoke_attempt_limit": 18,
+  "smoke_seconds": 600,
+  "cpu_seconds": 1800,
+  "launch_policy": "explicit_command_after_qualification",
+  "full_launch_authorized": true,
+  "global_contracts": [
+    "configs/vllm_inference.yaml",
+    "configs/dataset_segmentation.yaml",
+    "configs/rca_scorer.yaml"
+  ],
+  "canvas": {
+    "width": 1120,
+    "panel_height": 238,
+    "font_size": 18,
+    "gap": 10,
+    "padding": 20,
+    "maximum_height": 2800
+  },
+  "readiness": {
+    "max_mean_input_ratio": 1.2
+  },
+  "primary_contrasts": [
+    [
+      "WINDOW_VISUAL",
+      "RAW_TEXT",
+      "aiops"
+    ],
+    [
+      "WINDOW_VISUAL",
+      "RAW_TEXT",
+      "aegislab"
+    ],
+    [
+      "WINDOW_VISUAL",
+      "WINDOW_TEXT",
+      "all"
+    ],
+    [
+      "WINDOW_VISUAL",
+      "WINDOW_PIXEL",
+      "all"
+    ]
+  ],
+  "secondary_contrasts": [
+    [
+      "CANON_TEXT",
+      "RAW_TEXT"
+    ],
+    [
+      "SAFE_TEXT",
+      "CANON_TEXT"
+    ],
+    [
+      "WINDOW_TEXT",
+      "SAFE_TEXT"
+    ],
+    [
+      "WINDOW_VISUAL",
+      "WINDOW_MARKLESS"
+    ],
+    [
+      "RAW_REPEAT",
+      "RAW_TEXT"
+    ],
+    [
+      "WINDOW_REPEAT",
+      "WINDOW_VISUAL"
+    ]
+  ],
+  "preselected_method": "WINDOW_VISUAL",
+  "success": {
+    "deployment_delta_min": 0.03,
+    "visual_delta_min": 0.02,
+    "max_paired_total_token_ratio": 1.2,
+    "holm_alpha": 0.05,
+    "event_group_significance_required": true,
+    "positive_each_primary_dataset_required": true,
+    "aegislab_delta_min": 0.02
+  },
+  "reason_review": {
+    "per_dataset": 12,
+    "seed": 42,
+    "selection": "outcome_blind_hash",
+    "axes": [
+      "numeric_unit",
+      "temporal_order",
+      "entity_binding",
+      "missing_as_health",
+      "unsupported_causal_claim"
+    ],
+    "salt": "rq314_reason_review_v1"
+  },
+  "major_budget": {
+    "ceiling": 40000,
+    "require_current_ledger_review": true,
+    "scope": "RQ3.14 all versions share2040; all historical experiment ledgers retained and disclosed separately."
+  },
+  "smoke_matrix": {
+    "aiops2022": [
+      "RAW_TEXT",
+      "RAW_REPEAT",
+      "CANON_TEXT",
+      "SAFE_TEXT",
+      "WINDOW_MARKLESS",
+      "WINDOW_TEXT"
+    ],
+    "aiops2025": [
+      "RAW_TEXT",
+      "RAW_REPEAT",
+      "CANON_TEXT",
+      "WINDOW_VISUAL",
+      "WINDOW_PIXEL",
+      "WINDOW_REPEAT"
+    ],
+    "aegislab": [
+      "SAFE_TEXT",
+      "WINDOW_MARKLESS",
+      "WINDOW_TEXT",
+      "WINDOW_VISUAL",
+      "WINDOW_PIXEL",
+      "WINDOW_REPEAT"
+    ]
+  },
+  "legacy_raw": "RQs/RQ3_13/preparation/observed_excursion_v1"
+}

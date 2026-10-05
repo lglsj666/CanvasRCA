@@ -1,0 +1,198 @@
+{
+  "version": "rq316_marginal_coverage_v1",
+  "experiment": "exp_marginal_coverage",
+  "model": "qwen3.8-27b",
+  "seed": 42,
+  "case_counts": {
+    "aiops2022": 60,
+    "aiops2025": 60,
+    "aegislab": 100
+  },
+  "primary_datasets": [
+    "aiops2022",
+    "aiops2025"
+  ],
+  "arms": [
+    "BASE_FLEX",
+    "PAIR_FLEX",
+    "MARGINAL_FLEX",
+    "BASE_FIVE",
+    "PAIR_FIVE",
+    "MARGINAL_FIVE",
+    "MARKLESS_FIVE",
+    "MARGINAL_REPEAT"
+  ],
+  "smoke_arms": [
+    "BASE_FLEX",
+    "PAIR_FLEX",
+    "MARGINAL_FLEX",
+    "BASE_FIVE",
+    "PAIR_FIVE",
+    "MARGINAL_FIVE",
+    "MARKLESS_FIVE",
+    "MARGINAL_REPEAT"
+  ],
+  "parent": "RQs/RQ3_8/preparation/ops_components_v6",
+  "parent_export": "RQs/RQ3_8/preparation/export_v1",
+  "base_preparation": "RQs/RQ3_15/preparation/request_joint_v1",
+  "preparation": "RQs/RQ3_16/preparation/marginal_coverage_v1",
+  "results": "RQs/RQ3_16/results/marginal_coverage_v1",
+  "roster_registration": "RQs/RQ3_15/results/request_joint_v1/registration.json",
+  "roster_sha256": "847aa31ba6ae787e92d35c401a32121d8b704e1e9bee5ea9f2c219c43a0ea768",
+  "inference_base": "configs/vllm_inference_local.yaml",
+  "runtime_profile": "runtime/qwen_local.yaml",
+  "port": 21956,
+  "workers": 8,
+  "concurrency": 36,
+  "request_timeout": 300,
+  "max_tokens": 8192,
+  "formal_positions": 1760,
+  "formal_attempt_limit": 1802,
+  "total_attempt_limit": 1820,
+  "smoke_attempt_limit": 18,
+  "smoke_seconds": 600,
+  "cpu_seconds": 1800,
+  "launch_policy": "explicit_command_after_qualification",
+  "full_launch_authorized": false,
+  "global_contracts": [
+    "configs/vllm_inference.yaml",
+    "configs/dataset_segmentation.yaml",
+    "configs/rca_scorer.yaml"
+  ],
+  "canvas": {
+    "width": 1120,
+    "height": 800,
+    "font_size": 18,
+    "gap": 12,
+    "padding": 20
+  },
+  "readiness": {
+    "max_mean_base_input_ratio": 1.2,
+    "max_mean_pair_input_ratio": 1.1
+  },
+  "primary_contrasts": [
+    [
+      "MARGINAL_FIVE",
+      "PAIR_FIVE",
+      "all"
+    ],
+    [
+      "MARGINAL_FIVE",
+      "MARKLESS_FIVE",
+      "all"
+    ],
+    [
+      "MARGINAL_FIVE",
+      "BASE_FIVE",
+      "aiops"
+    ],
+    [
+      "MARGINAL_FIVE",
+      "BASE_FIVE",
+      "aegislab"
+    ]
+  ],
+  "secondary_contrasts": [
+    [
+      "BASE_FIVE",
+      "BASE_FLEX"
+    ],
+    [
+      "PAIR_FIVE",
+      "PAIR_FLEX"
+    ],
+    [
+      "MARGINAL_FIVE",
+      "MARGINAL_FLEX"
+    ],
+    [
+      "MARGINAL_FLEX",
+      "PAIR_FLEX"
+    ],
+    [
+      "PAIR_FLEX",
+      "BASE_FLEX"
+    ],
+    [
+      "MARGINAL_REPEAT",
+      "MARGINAL_FIVE"
+    ]
+  ],
+  "preselected_method": "MARGINAL_FIVE",
+  "success": {
+    "deployment_delta_min": 0.03,
+    "visual_delta_min": 0.02,
+    "max_paired_total_token_ratio": 1.2,
+    "holm_alpha": 0.05,
+    "event_group_significance_required": true,
+    "positive_each_primary_dataset_required": true,
+    "aegislab_delta_min": 0.02,
+    "top5_nonnegative_each_dataset": true
+  },
+  "reason_review": {
+    "per_dataset": 12,
+    "seed": 42,
+    "selection": "outcome_blind_hash",
+    "axes": [
+      "numeric_unit",
+      "temporal_order",
+      "entity_binding",
+      "missing_as_health",
+      "unsupported_causal_claim"
+    ],
+    "salt": "rq316_reason_review_v1"
+  },
+  "major_budget": {
+    "ceiling": 40000,
+    "require_current_ledger_review": true,
+    "scope": "RQ3.16 all versions share1820; historical RQ ledgers retained separately, no reset or relabeling."
+  },
+  "smoke_matrix": {
+    "aiops2022": [
+      "BASE_FLEX",
+      "PAIR_FLEX",
+      "MARGINAL_FLEX",
+      "PAIR_FIVE",
+      "MARGINAL_FIVE",
+      "MARKLESS_FIVE"
+    ],
+    "aiops2025": [
+      "BASE_FLEX",
+      "BASE_FIVE",
+      "PAIR_FIVE",
+      "MARGINAL_FIVE",
+      "MARKLESS_FIVE",
+      "MARGINAL_REPEAT"
+    ],
+    "aegislab": [
+      "BASE_FIVE",
+      "PAIR_FLEX",
+      "MARGINAL_FLEX",
+      "PAIR_FIVE",
+      "MARGINAL_FIVE",
+      "MARGINAL_REPEAT"
+    ]
+  },
+  "method": {
+    "min_requests_per_phase": 20,
+    "max_relations": 2,
+    "max_points_per_phase": 32,
+    "conditional_min": 5,
+    "min_distinct_pairs_in_binary_group": 4,
+    "minimum_dataset_applicability": 0.5
+  },
+  "secondary_interaction": {
+    "MARGINAL_FIVE": 1,
+    "PAIR_FIVE": -1,
+    "MARGINAL_FLEX": -1,
+    "PAIR_FLEX": 1
+  },
+  "output_adapter": {
+    "version": "rq316_cardinality_v1",
+    "flex_min_items": 1,
+    "fixed_min_items": 5,
+    "max_items": 5,
+    "scorer": "unchanged canonical; invalid outcomes zero; no posthoc completion"
+  },
+  "registration_reason": "Prospective contemporaneous replication of three FLEX inputs in an interleaved output-policy factorial; new independently charged calls, not replacement/resume of old commits."
+}

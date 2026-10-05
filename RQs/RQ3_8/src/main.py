@@ -15,7 +15,7 @@ from .utils import (ROOT, MODELS, VERSION, config, exclusive, immutable_json,
                     interleaved, load_roster, make_profile, path, prior_calls,
                     read_json, sha_file, stable_hash, write_json, logical_key, read_flag,
                     bind_client_endpoint, supervisor_failure_record, case_arms, base_arm, experiment_for, ALL_ARMS,
-                    FORMAL_ROSTER, formal_rows)
+                    FORMAL_ROSTER, formal_rows, request_concurrency)
 
 
 def initialize(c):
@@ -36,7 +36,8 @@ def initialize(c):
                 + reserve//len(jobs) + int(i < reserve % len(jobs))
                 for i,(m,s) in enumerate(jobs)}
         planned = sum(len(case_arms(c,r)) for r in roster["cases"])*len(MODELS)
-        if planned != c["budget"]["formal_upper"] or sum(caps.values()) + 18 > c["budget"]["new_round_limit"]:
+        expected = c.get("queue_subset", {}).get("formal_upper", c["budget"]["formal_upper"])
+        if planned != expected or sum(caps.values()) + 18 > c["budget"]["new_round_limit"]:
             raise ValueError("Expanded roster exceeds registered new-round budget")
         immutable_json(budget_path, {"prior": prior, "caps": caps, "smoke_cap": 18,
                                     "hard_limit": c["budget"]["new_round_limit"], "planned": planned,
@@ -44,6 +45,16 @@ def initialize(c):
                                     "historical_snapshot_not_all_project_calls": True,
                                     "authority": c["budget"]["authority"],
                                     "maximum_plus_prior_snapshot": prior+sum(caps.values())+18})
+    if c.get("queue_subset"):
+        subset = c["queue_subset"]
+        planned = sum(len(case_arms(c, row)) for row in roster["cases"])*len(MODELS)
+        if planned != subset["formal_upper"]:
+            raise ValueError("Reduced queue disagrees with the unchanged roster")
+        immutable_json(root/("queue_"+subset["id"]+".json"), {
+            "subset": subset, "planned_logical_positions": planned,
+            "roster": FORMAL_ROSTER, "request_version": VERSION,
+            "budget_note": "Existing ledger limits are immutable historical ceilings, not active targets. "
+                           "All previously initiated calls, including dropped arms, remain spent."})
     runtime = make_profile(c, root/c["runtime_profile"])
     return {"roster": roster, "runtime": runtime, "budget": read_json(budget_path)}
 
@@ -311,6 +322,11 @@ def run_model(c, model, shard, *, smoke=False):
     cap = init["budget"]["smoke_cap"] if smoke else init["budget"]["caps"][job]
     with exclusive(root/"runner.lock"):
         remaining = pending_rows(root, rows, model, arms, smoke)
+        print(json.dumps({"queue_start": c.get("queue_subset", {}).get("id", "full_v7"),
+                          "model": model, "shard": shard,
+                          "scheduled_targets": sum(len(arms(row)) for row in rows),
+                          "pending_cases": len(remaining),
+                          "resume": "terminal flags only; no completed-input rebuild"}), flush=True)
         if not remaining:
             return {"status": "complete", "new_work": 0}
         ledger = DurableCallRegister(root/"calls.sqlite", limit=cap, scope=VERSION)
@@ -322,11 +338,12 @@ def run_model(c, model, shard, *, smoke=False):
                         for sig in (signal.SIGTERM, signal.SIGINT, signal.SIGUSR1)}
         errors = []
         iterator = iter(interleaved(remaining))
+        concurrency = request_concurrency(c, model)
         try:
-            with ThreadPoolExecutor(max_workers=c["execution"]["concurrency"]) as pool:
+            with ThreadPoolExecutor(max_workers=concurrency) as pool:
                 active = set()
                 def replenish():
-                    while not stop.is_set() and len(active) < c["execution"]["concurrency"]:
+                    while not stop.is_set() and len(active) < concurrency:
                         row = next(iterator, None)
                         if row is None:
                             break
@@ -356,7 +373,8 @@ def run_model(c, model, shard, *, smoke=False):
 
 def supervisor_deadline(c, started, smoke):
     """Smoke lifetime belongs to Slurm, not a second hidden script timer."""
-    return float("inf") if smoke else started+c["execution"]["max_job_seconds"]-360
+    return (float("inf") if smoke or os.environ.get("CANVASRCA_RQ38_DEPLOYMENT") == "local"
+            else started+c["execution"]["max_job_seconds"]-360)
 
 
 def supervise(c, model=None, shard=0, smoke=False):

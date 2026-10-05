@@ -1,0 +1,103 @@
+{
+  "version": "rq311_protected_compression_v2",
+  "experiment": "exp_protected_compression",
+  "model": "qwen3.8-27b",
+  "seed": 42,
+  "case_counts": {
+    "aiops2022": 60,
+    "aiops2025": 60,
+    "aegislab": 20
+  },
+  "primary_datasets": [
+    "aiops2022",
+    "aiops2025"
+  ],
+  "arms": [
+    "EXACT_TEXT",
+    "EXACT_REPEAT",
+    "COARSE_VISUAL_LOW",
+    "COARSE_VISUAL_HIGH",
+    "PROTECTED_TEXT_LOW",
+    "PROTECTED_TEXT_HIGH",
+    "PROTECTED_VISUAL_LOW",
+    "PROTECTED_VISUAL_HIGH"
+  ],
+  "parent": "RQs/RQ3_8/preparation/ops_components_v6",
+  "parent_export": "RQs/RQ3_8/preparation/export_v1",
+  "preparation": "RQs/RQ3_11/preparation/protected_v2",
+  "results": "RQs/RQ3_11/results/protected_v2",
+  "inference_base": "configs/vllm_inference_local.yaml",
+  "runtime_profile": "runtime/qwen_local.yaml",
+  "port": 21941,
+  "workers": 8,
+  "concurrency": 36,
+  "request_timeout": 300,
+  "max_tokens": 8192,
+  "formal_positions": 1120,
+  "formal_attempt_limit": 1162,
+  "total_attempt_limit": 1180,
+  "smoke_attempt_limit": 18,
+  "smoke_seconds": 600,
+  "cpu_seconds": 1800,
+  "launch_policy": "explicit_command_after_qualification",
+  "primary_contrasts": [
+    [
+      "PROTECTED_VISUAL_HIGH",
+      "PROTECTED_TEXT_HIGH"
+    ],
+    [
+      "PROTECTED_VISUAL_HIGH",
+      "EXACT_TEXT"
+    ],
+    [
+      "PROTECTED_VISUAL_HIGH",
+      "COARSE_VISUAL_HIGH"
+    ],
+    [
+      "PROTECTED_VISUAL_LOW",
+      "PROTECTED_VISUAL_HIGH"
+    ]
+  ],
+  "secondary_contrasts": [
+    [
+      "PROTECTED_VISUAL_LOW",
+      "PROTECTED_TEXT_LOW"
+    ],
+    [
+      "PROTECTED_VISUAL_LOW",
+      "COARSE_VISUAL_LOW"
+    ],
+    [
+      "EXACT_REPEAT",
+      "EXACT_TEXT"
+    ]
+  ],
+  "roster_registration": "RQs/RQ3_10/results/scope_v1/registration.json",
+  "smoke_arms": [
+    "EXACT_TEXT",
+    "COARSE_VISUAL_LOW",
+    "PROTECTED_TEXT_LOW",
+    "PROTECTED_TEXT_HIGH",
+    "PROTECTED_VISUAL_LOW",
+    "PROTECTED_VISUAL_HIGH"
+  ],
+  "budgets": {
+    "LOW": {
+      "levels": 8,
+      "width": 800
+    },
+    "HIGH": {
+      "levels": 32,
+      "width": 1120
+    }
+  },
+  "operators": {
+    "samples_min": 3,
+    "mad_multiplier": 1.4826,
+    "relative_floor": 0.01,
+    "change_threshold": 3.0,
+    "sustained_min": 0.5,
+    "prune_redundant_overrides": true
+  },
+  "render_parent": "RQs/RQ3_11/preparation/protected_v1"
+}

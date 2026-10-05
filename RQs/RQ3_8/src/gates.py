@@ -8,7 +8,7 @@ import os
 
 from .utils import (ROOT, ARMS, ALL_ARMS, MECHANISMS, MODELS, VERSION, path,
                     read_json, sha_file, stable_hash, write_json, logical_key, case_arms, experiment_for,
-                    FORMAL_ROSTER)
+                    FORMAL_ROSTER, queue_arms)
 
 
 def source_contract():
@@ -30,6 +30,10 @@ def source_contract():
     for name in ("scripts/vllm_vlm/serve_canvasrca_nibi.sh", "scripts/env.sh",
                  "src/renderer/web/dist/render.mjs"):
         files[name] = sha_file(ROOT/name)
+    if os.environ.get("CANVASRCA_RQ38_DEPLOYMENT") == "local":
+        for name in ("configs/vllm_inference_local.yaml", "scripts/env_local.sh",
+                     "scripts/vllm_vlm/serve_canvasrca_local.sh"):
+            files[name] = sha_file(ROOT/name)
     return {"version": VERSION, "files": files, "renderer": source_fingerprint()}
 
 
@@ -131,6 +135,15 @@ def require_execution(c, *, smoke):
                        "not_run_user_authorized_direct_gpu_smoke"),
             "formal_eligible": bool(formal_waiver),
             "authority": authority["authority"], "source_contract": source_contract()})
+    if os.environ.get("CANVASRCA_RQ38_DEPLOYMENT") == "local" and not smoke:
+        if not formal_waiver:
+            raise ValueError("Local formal run needs explicit formal authorization")
+        write_json(root/"qualification/local-qualification.json", {
+            "status": "local_cpu_and_gpu_smoke_not_repeated",
+            "basis": "User requested direct local full run after Nibi v7 GPU smoke; "
+                     "this is not a claim that the local runtime passed a separate smoke",
+            "source_contract": source_contract()})
+        return
     else:
         suites = ET.parse(root/"qualification/cpu.xml").getroot()
         suites = [suites] if suites.tag == "testsuite" else list(suites.iter("testsuite"))
@@ -163,14 +176,24 @@ def attest(c, root, model, pid):
     if client_endpoint != spec["base_url"].rstrip("/"):
         raise ValueError("Client and attested server endpoints differ")
     gpu = subprocess.check_output(["nvidia-smi", "--query-gpu=name,memory.total,uuid", "--format=csv,noheader,nounits"], text=True)
-    # Allocation authority must request a whole H100; exclude a MIG UUID/device.
-    if "h100" not in gpu.lower() or "MIG-" in os.environ.get("CUDA_VISIBLE_DEVICES", ""):
-        raise ValueError("A full 80GB H100 allocation is required")
-    if any(int(line.split(",")[1].strip()) < 78000 for line in gpu.strip().splitlines()):
-        raise ValueError("GPU framebuffer is below full80GB capacity")
-    receipt = read_json(profile.model_path(model)/"canvasrca_download_receipt.json")
-    if receipt.get("status") != "complete" or receipt.get("revision") != spec["repository_revision"]:
-        raise ValueError("Checkpoint receipt differs from registered revision")
+    local = os.environ.get("CANVASRCA_RQ38_DEPLOYMENT") == "local"
+    if "MIG-" in os.environ.get("CUDA_VISIBLE_DEVICES", ""):
+        raise ValueError("MIG partition is not an authorized runtime")
+    minimum = 96000 if local else 78000
+    required_name = "RTX PRO 6000" if local else "h100"
+    if required_name.lower() not in gpu.lower() or any(
+            int(line.split(",")[1].strip()) < minimum for line in gpu.strip().splitlines()):
+        raise ValueError("GPU is not the registered full-capacity deployment device")
+    model_dir = profile.model_path(model)
+    if local and model == "qwen3.8-27b":
+        receipt = read_json(model_dir/"download_manifest.json")
+        if (receipt.get("observed_revision") != spec["repository_revision"] or
+                len(list(model_dir.glob("model-*-of-*.safetensors"))) != 18):
+            raise ValueError("Local Qwen checkpoint manifest/shards differ from registered revision")
+    else:
+        receipt = read_json(model_dir/"canvasrca_download_receipt.json")
+        if receipt.get("status") != "complete" or receipt.get("revision") != spec["repository_revision"]:
+            raise ValueError("Checkpoint receipt differs from registered revision")
     command = Path(f"/proc/{pid}/cmdline").read_bytes().split(b"\0")
     expected = profile.server_argv(model)
     actual = [p.decode() for p in command if p]
@@ -301,6 +324,14 @@ def analyze(c):
 
 
 def registered_contrasts(c, block):
+    active = set(queue_arms(c, block))
+    if block == "B":
+        active.update(queue_arms(c, "A"))  # Original requests are inherited from A.
+    return [(name, weights, family) for name, weights, family in _historical_contrasts(c, block)
+            if set(weights) <= active]
+
+
+def _historical_contrasts(c, block):
     if block == "C":
         return [(a+"-"+b, {a:1,b:-1}, "locked") for a,b in
                 (("FULL","TEXT"),("FULL_PAIRS","FULL"),("FULL","MR00"))]

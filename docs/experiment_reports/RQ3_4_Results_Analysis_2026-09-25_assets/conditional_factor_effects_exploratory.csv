@@ -1,97 +1,49 @@
-model,factor,a,b,dataset,n,delta,p,dz
-qwen3.8-27b,P,P1H0K0_G,P0H0K0_G,aiops2022,20,5.000166947155549e-14,0.3589266003128748,1.7795724589329477e-13
-qwen3.8-27b,P,P1H0K0_G,P0H0K0_G,aiops2025,20,0.1166666666667,0.16535959349382046,0.32489314482703174
-qwen3.8-27b,P,P1H0K0_G,P0H0K0_G,aegislab,19,-0.043859649122789474,0.9695218137783999,-0.18690228437097214
-qwen3.8-27b,P,P1H0K0_G,P0H0K0_G,pooled,59,0.025423728813593224,0.1503418386004719,0.0848118799544896
-qwen3.8-27b,P,P1H0K1_G,P0H0K1_G,aiops2022,20,0.075,0.0832645166635504,0.40944726012458477
-qwen3.8-27b,P,P1H0K1_G,P0H0K1_G,aiops2025,20,0.09166666666664999,0.18796661366394507,0.27329719724992774
-qwen3.8-27b,P,P1H0K1_G,P0H0K1_G,aegislab,19,0.03508771929826316,0.3466381813543177,0.09914647006900652
-qwen3.8-27b,P,P1H0K1_G,P0H0K1_G,pooled,59,0.06779661016949153,0.02463112696257611,0.22948515912071218
-qwen3.8-27b,P,P1H1K0_G,P0H1K0_G,aiops2022,20,-0.04166666666665,0.9710830405113143,-0.1822547206981262
-qwen3.8-27b,P,P1H1K0_G,P0H1K0_G,aiops2025,20,0.07083333333335,0.04589500454530428,0.3893601484931902
-qwen3.8-27b,P,P1H1K0_G,P0H1K0_G,aegislab,19,0.03508771929826316,0.31731050786291415,0.2294157338705618
-qwen3.8-27b,P,P1H1K0_G,P0H1K0_G,pooled,59,0.021186440677983052,0.06457487248469199,0.10940867754757391
-qwen3.8-27b,P,P1H1K1_G,P0H1K1_G,aiops2022,20,-0.03333333333335,0.5640624737376693,-0.12966942311914179
-qwen3.8-27b,P,P1H1K1_G,P0H1K1_G,aiops2025,20,0.024999999999950007,0.7072108480696189,0.09583148474980163
-qwen3.8-27b,P,P1H1K1_G,P0H1K1_G,aegislab,19,0.0,1.0,
-qwen3.8-27b,P,P1H1K1_G,P0H1K1_G,pooled,59,-0.002824858757084746,0.9953764917337912,-0.013386285685497892
-qwen3.8-27b,H,P0H1K0_G,P0H0K0_G,aiops2022,20,0.05,0.31731050786291415,0.22360679774997902
-qwen3.8-27b,H,P0H1K0_G,P0H0K0_G,aiops2025,20,0.0875,0.3052012685765888,0.25954987196053914
-qwen3.8-27b,H,P0H1K0_G,P0H0K0_G,aegislab,19,-0.043859649122789474,0.9695218137783999,-0.18690228437097214
-qwen3.8-27b,H,P0H1K0_G,P0H0K0_G,pooled,59,0.03248587570622034,0.25993108038171875,0.11961551538609959
-qwen3.8-27b,H,P0H1K1_G,P0H0K1_G,aiops2022,20,0.06666666666665,0.15743564336211624,0.2874172848875777
-qwen3.8-27b,H,P0H1K1_G,P0H0K1_G,aiops2025,20,0.05,0.31731050786291415,0.22360679774997902
-qwen3.8-27b,H,P0H1K1_G,P0H0K1_G,aegislab,19,0.03508771929826316,0.3466381813543177,0.09914647006900652
-qwen3.8-27b,H,P0H1K1_G,P0H0K1_G,pooled,59,0.05084745762711865,0.06167909520896008,0.18814275607444886
-qwen3.8-27b,H,P1H1K0_G,P1H0K0_G,aiops2022,20,0.008333333333299999,0.6057844075942842,0.029951172098873678
-qwen3.8-27b,H,P1H1K0_G,P1H0K0_G,aiops2025,20,0.04166666666665,0.5640624737376693,0.14097686685206953
-qwen3.8-27b,H,P1H1K0_G,P1H0K0_G,aegislab,19,0.03508771929826316,0.31731050786291415,0.2294157338705618
-qwen3.8-27b,H,P1H1K0_G,P1H0K0_G,pooled,59,0.02824858757061017,0.6757878601300022,0.11395674904682665
-qwen3.8-27b,H,P1H1K1_G,P1H0K1_G,aiops2022,20,-0.041666666666700006,0.15743564336211624,-0.2745848236827008
-qwen3.8-27b,H,P1H1K1_G,P1H0K1_G,aiops2025,20,-0.0166666666667,0.15729920705028502,-0.32489314482696546
-qwen3.8-27b,H,P1H1K1_G,P1H0K1_G,aegislab,19,0.0,1.0,0.0
-qwen3.8-27b,H,P1H1K1_G,P1H0K1_G,pooled,59,-0.01977401129945763,0.10568232053535905,-0.1502411237945623
-qwen3.8-27b,K,P0H0K1_G,P0H0K0_G,aiops2022,20,-0.07499999999995,0.28045015614831614,-0.30652250154912575
-qwen3.8-27b,K,P0H0K1_G,P0H0K0_G,aiops2025,20,0.05833333333335,0.5237760432803329,0.22360679775006545
-qwen3.8-27b,K,P0H0K1_G,P0H0K0_G,aegislab,19,-0.01754385964910526,0.9695218137783999,-0.062057160283737194
-qwen3.8-27b,K,P0H0K1_G,P0H0K0_G,pooled,59,-0.011299435028220336,0.73914104727349,-0.04277098597333153
-qwen3.8-27b,K,P0H1K1_G,P0H1K0_G,aiops2022,20,-0.0583333333333,0.5237760432803329,-0.24571555687356564
-qwen3.8-27b,K,P0H1K1_G,P0H1K0_G,aiops2025,20,0.02083333333335,0.9140505330483957,0.11136466572872296
-qwen3.8-27b,K,P0H1K1_G,P0H1K0_G,aegislab,19,0.06140350877194737,0.1574507891114032,0.33010544848029116
-qwen3.8-27b,K,P0H1K1_G,P0H1K0_G,pooled,59,0.0070621468926779654,0.7209430220561412,0.0339886110822938
-qwen3.8-27b,K,P1H0K1_G,P1H0K0_G,aiops2022,20,0.0,1.0,
-qwen3.8-27b,K,P1H0K1_G,P1H0K0_G,aiops2025,20,0.0333333333333,0.673656220290509,0.10189462037409068
-qwen3.8-27b,K,P1H0K1_G,P1H0K0_G,aegislab,19,0.06140350877194737,0.1574507891114032,0.33010544848029116
-qwen3.8-27b,K,P1H0K1_G,P1H0K0_G,pooled,59,0.031073446327677966,0.25995818635867063,0.14420577793040698
-qwen3.8-27b,K,P1H1K1_G,P1H1K0_G,aiops2022,20,-0.05,0.31731050786291415,-0.22360679774997902
-qwen3.8-27b,K,P1H1K1_G,P1H1K0_G,aiops2025,20,-0.02500000000005,0.3313601848403024,-0.17141016101471415
-qwen3.8-27b,K,P1H1K1_G,P1H1K0_G,aegislab,19,0.02631578947368421,0.31731050786291415,0.22941573387056174
-qwen3.8-27b,K,P1H1K1_G,P1H1K0_G,pooled,59,-0.016949152542389833,0.4185596714462825,-0.10049794761038723
-gemma-4-26b-a4b,P,P1H0K0_G,P0H0K0_G,aiops2022,20,0.0,1.0,
-gemma-4-26b-a4b,P,P1H0K0_G,P0H0K0_G,aiops2025,20,0.0,1.0,
-gemma-4-26b-a4b,P,P1H0K0_G,P0H0K0_G,aegislab,20,0.0,1.0,
-gemma-4-26b-a4b,P,P1H0K0_G,P0H0K0_G,pooled,60,0.0,1.0,
-gemma-4-26b-a4b,P,P1H0K1_G,P0H0K1_G,aiops2022,20,0.0,1.0,
-gemma-4-26b-a4b,P,P1H0K1_G,P0H0K1_G,aiops2025,20,-0.025,0.31731050786291415,-0.22360679774997902
-gemma-4-26b-a4b,P,P1H0K1_G,P0H0K1_G,aegislab,20,0.0,1.0,
-gemma-4-26b-a4b,P,P1H0K1_G,P0H0K1_G,pooled,60,-0.008333333333333333,0.31731050786291415,-0.12909944487358055
-gemma-4-26b-a4b,P,P1H1K0_G,P0H1K0_G,aiops2022,20,0.0,1.0,
-gemma-4-26b-a4b,P,P1H1K0_G,P0H1K0_G,aiops2025,20,0.0,1.0,
-gemma-4-26b-a4b,P,P1H1K0_G,P0H1K0_G,aegislab,20,0.0,1.0,
-gemma-4-26b-a4b,P,P1H1K0_G,P0H1K0_G,pooled,60,0.0,1.0,
-gemma-4-26b-a4b,P,P1H1K1_G,P0H1K1_G,aiops2022,20,0.0,1.0,
-gemma-4-26b-a4b,P,P1H1K1_G,P0H1K1_G,aiops2025,20,-0.025,0.31731050786291415,-0.22360679774997902
-gemma-4-26b-a4b,P,P1H1K1_G,P0H1K1_G,aegislab,20,0.0,1.0,
-gemma-4-26b-a4b,P,P1H1K1_G,P0H1K1_G,pooled,60,-0.008333333333333333,0.31731050786291415,-0.12909944487358055
-gemma-4-26b-a4b,H,P0H1K0_G,P0H0K0_G,aiops2022,20,0.0,1.0,
-gemma-4-26b-a4b,H,P0H1K0_G,P0H0K0_G,aiops2025,20,0.0,1.0,
-gemma-4-26b-a4b,H,P0H1K0_G,P0H0K0_G,aegislab,20,0.0,1.0,
-gemma-4-26b-a4b,H,P0H1K0_G,P0H0K0_G,pooled,60,0.0,1.0,
-gemma-4-26b-a4b,H,P0H1K1_G,P0H0K1_G,aiops2022,20,0.0,1.0,
-gemma-4-26b-a4b,H,P0H1K1_G,P0H0K1_G,aiops2025,20,0.0,1.0,
-gemma-4-26b-a4b,H,P0H1K1_G,P0H0K1_G,aegislab,20,0.0,1.0,
-gemma-4-26b-a4b,H,P0H1K1_G,P0H0K1_G,pooled,60,0.0,1.0,
-gemma-4-26b-a4b,H,P1H1K0_G,P1H0K0_G,aiops2022,20,0.0,1.0,
-gemma-4-26b-a4b,H,P1H1K0_G,P1H0K0_G,aiops2025,20,0.0,1.0,
-gemma-4-26b-a4b,H,P1H1K0_G,P1H0K0_G,aegislab,20,0.0,1.0,
-gemma-4-26b-a4b,H,P1H1K0_G,P1H0K0_G,pooled,60,0.0,1.0,
-gemma-4-26b-a4b,H,P1H1K1_G,P1H0K1_G,aiops2022,20,0.0,1.0,
-gemma-4-26b-a4b,H,P1H1K1_G,P1H0K1_G,aiops2025,20,0.0,1.0,
-gemma-4-26b-a4b,H,P1H1K1_G,P1H0K1_G,aegislab,20,0.0,1.0,
-gemma-4-26b-a4b,H,P1H1K1_G,P1H0K1_G,pooled,60,0.0,1.0,
-gemma-4-26b-a4b,K,P0H0K1_G,P0H0K0_G,aiops2022,20,0.0,1.0,
-gemma-4-26b-a4b,K,P0H0K1_G,P0H0K0_G,aiops2025,20,0.0,1.0,
-gemma-4-26b-a4b,K,P0H0K1_G,P0H0K0_G,aegislab,20,0.0,1.0,
-gemma-4-26b-a4b,K,P0H0K1_G,P0H0K0_G,pooled,60,0.0,1.0,
-gemma-4-26b-a4b,K,P0H1K1_G,P0H1K0_G,aiops2022,20,0.0,1.0,
-gemma-4-26b-a4b,K,P0H1K1_G,P0H1K0_G,aiops2025,20,0.0,1.0,
-gemma-4-26b-a4b,K,P0H1K1_G,P0H1K0_G,aegislab,20,0.0,1.0,
-gemma-4-26b-a4b,K,P0H1K1_G,P0H1K0_G,pooled,60,0.0,1.0,
-gemma-4-26b-a4b,K,P1H0K1_G,P1H0K0_G,aiops2022,20,0.0,1.0,
-gemma-4-26b-a4b,K,P1H0K1_G,P1H0K0_G,aiops2025,20,-0.025,0.31731050786291415,-0.22360679774997902
-gemma-4-26b-a4b,K,P1H0K1_G,P1H0K0_G,aegislab,20,0.0,1.0,
-gemma-4-26b-a4b,K,P1H0K1_G,P1H0K0_G,pooled,60,-0.008333333333333333,0.31731050786291415,-0.12909944487358055
-gemma-4-26b-a4b,K,P1H1K1_G,P1H1K0_G,aiops2022,20,0.0,1.0,
-gemma-4-26b-a4b,K,P1H1K1_G,P1H1K0_G,aiops2025,20,-0.025,0.31731050786291415,-0.22360679774997902
-gemma-4-26b-a4b,K,P1H1K1_G,P1H1K0_G,aegislab,20,0.0,1.0,
-gemma-4-26b-a4b,K,P1H1K1_G,P1H1K0_G,pooled,60,-0.008333333333333333,0.31731050786291415,-0.12909944487358055
+model,factor,a,b,dataset,n,delta,p,dz,raw_statistic_source,p_holm,p_holm_family_n,analysis_scope
+qwen3.8-27b,P,P1H0K0_G,P0H0K0_G,aiops2022,20,5.551115123125783e-18,0.3589266003128748,1.9756563518549473e-17,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,P,P1H0K0_G,P0H0K0_G,aiops2025,20,0.11666666666666667,0.16535959349382046,0.3248931448269655,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,P,P1H0K0_G,P0H0K0_G,aegislab,19,-0.043859649122807015,0.9695218137783999,-0.18690228437106013,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,P,P1H0K0_G,P0H0K0_G,pooled,59,0.02542372881355933,0.1503418386004719,0.08481187995438656,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,P,P1H0K1_G,P0H0K1_G,aiops2022,20,0.075,0.0832645166635504,0.40944726012458477,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,P,P1H0K1_G,P0H0K1_G,aiops2025,20,0.09166666666666666,0.18796661366394507,0.2732971972499742,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,P,P1H0K1_G,P0H0K1_G,aegislab,19,0.0350877192982631,0.3466381813543177,0.0991464700690065,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,P,P1H0K1_G,P0H0K1_G,pooled,59,0.0677966101694915,0.0246311269625761,0.2294851591207121,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,P,P1H1K0_G,P0H1K0_G,aiops2022,20,-0.041666666666666664,0.9710830405113143,-0.18225472069821183,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,P,P1H1K0_G,P0H1K0_G,aiops2025,20,0.07083333333333333,0.04589500454530428,0.38936014849323886,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,P,P1H1K0_G,P0H1K0_G,aegislab,19,0.0350877192982631,0.3173105078629141,0.2294157338705618,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,P,P1H1K0_G,P0H1K0_G,pooled,59,0.021186440677983,0.0645748724846919,0.1094086775475739,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,P,P1H1K1_G,P0H1K1_G,aiops2022,20,-0.03333333333333334,0.5640624737376693,-0.12966942311908158,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,P,P1H1K1_G,P0H1K1_G,aiops2025,20,0.025,0.7072108480696189,0.09583148474999098,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,P,P1H1K1_G,P0H1K1_G,aegislab,19,0.0,1.0,,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,P,P1H1K1_G,P0H1K1_G,pooled,59,-0.0028248587570847,0.9953764917337912,-0.0133862856854978,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,H,P0H1K0_G,P0H0K0_G,aiops2022,20,0.05,0.31731050786291415,0.22360679774997902,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,H,P0H1K0_G,P0H0K0_G,aiops2025,20,0.0875,0.3052012685765888,0.25954987196053914,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,H,P0H1K0_G,P0H0K0_G,aegislab,19,-0.0438596491227894,0.9695218137784,-0.1869022843709721,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,H,P0H1K0_G,P0H0K0_G,pooled,59,0.0324858757062203,0.2599310803817187,0.1196155153860995,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,H,P0H1K1_G,P0H0K1_G,aiops2022,20,0.06666666666666667,0.15743564336211624,0.2874172848876245,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,H,P0H1K1_G,P0H0K1_G,aiops2025,20,0.05,0.31731050786291415,0.22360679774997902,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,H,P0H1K1_G,P0H0K1_G,aegislab,19,0.0350877192982631,0.3466381813543177,0.0991464700690065,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,H,P0H1K1_G,P0H0K1_G,pooled,59,0.0508474576271186,0.06167909520896,0.1881427560744488,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,H,P1H1K0_G,P1H0K0_G,aiops2022,20,0.008333333333333328,0.6057844075942842,0.02995117209899924,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,H,P1H1K0_G,P1H0K0_G,aiops2025,20,0.041666666666666664,0.5640624737376693,0.14097686685214597,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,H,P1H1K0_G,P1H0K0_G,aegislab,19,0.03508771929824562,0.31731050786291415,0.2294157338705618,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,H,P1H1K0_G,P1H0K0_G,pooled,59,0.028248587570621465,0.6757878601300022,0.11395674904689591,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,H,P1H1K1_G,P1H0K1_G,aiops2022,20,-0.04166666666666667,0.15743564336211624,-0.274584823682638,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,H,P1H1K1_G,P1H0K1_G,aiops2025,20,-0.01666666666666667,0.15729920705028502,-0.3248931448269654,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,H,P1H1K1_G,P1H0K1_G,aegislab,19,0.0,1.0,0.0,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,H,P1H1K1_G,P1H0K1_G,pooled,59,-0.0197740112994576,0.105682320535359,-0.1502411237945623,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,K,P0H0K1_G,P0H0K0_G,aiops2022,20,-0.07499999999999998,0.28045015614831614,-0.3065225015493054,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,K,P0H0K1_G,P0H0K0_G,aiops2025,20,0.058333333333333334,0.5237760432803329,0.22360679774997896,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,K,P0H0K1_G,P0H0K0_G,aegislab,19,-0.0175438596491052,0.9695218137784,-0.0620571602837371,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,K,P0H0K1_G,P0H0K0_G,pooled,59,-0.0112994350282203,0.73914104727349,-0.0427709859733315,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,K,P0H1K1_G,P0H1K0_G,aiops2022,20,-0.05833333333333333,0.5237760432803329,-0.24571555687370214,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,K,P0H1K1_G,P0H1K0_G,aiops2025,20,0.020833333333333336,0.9140505330483957,0.11136466572861409,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,K,P0H1K1_G,P0H1K0_G,aegislab,19,0.0614035087719473,0.1574507891114032,0.3301054484802911,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,K,P0H1K1_G,P0H1K0_G,pooled,59,0.0070621468926779,0.7209430220561412,0.0339886110822938,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,K,P1H0K1_G,P1H0K0_G,aiops2022,20,0.0,1.0,,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,K,P1H0K1_G,P1H0K0_G,aiops2025,20,0.033333333333333326,0.673656220290509,0.10189462037419923,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,K,P1H0K1_G,P1H0K0_G,aegislab,19,0.06140350877192983,0.1574507891114032,0.33010544848030376,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,K,P1H0K1_G,P1H0K0_G,pooled,59,0.031073446327683614,0.25995818635867063,0.14420577793045158,recomputed_case_pairs_N_and_mean_verified,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,K,P1H1K1_G,P1H1K0_G,aiops2022,20,-0.05,0.3173105078629141,-0.223606797749979,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,K,P1H1K1_G,P1H1K0_G,aiops2025,20,-0.02500000000005,0.3313601848403024,-0.1714101610147141,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,K,P1H1K1_G,P1H1K0_G,aegislab,19,0.0263157894736842,0.3173105078629141,0.2294157338705617,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,1.0,48,Qwen-only post-hoc; original case masks and comparisons
+qwen3.8-27b,K,P1H1K1_G,P1H1K0_G,pooled,59,-0.0169491525423898,0.4185596714462825,-0.1004979476103872,Qwen_raw_statistic_unchanged_same_cases; Holm_recomputed,1.0,48,Qwen-only post-hoc; original case masks and comparisons

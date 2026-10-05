@@ -1,5 +1,19 @@
 # RQ3.8 qualitative roadmap
 
+## Current direction — reduced v7 continuation
+
+The user approved keeping the scientific core and deferring secondary
+interactions to shorten execution. Preserve fixed-text fidelity, the text
+repetition control, M/R contributions, topology grammar and mark reliance;
+retain corrupt-graphic checks and FULL's locked comparison against TEXT.
+All previously registered cohorts and both models remain. Reuse inputs and
+terminal flags; preserve sunk calls and incomplete branch outputs. The active
+schedule is DD-20260930-10 and `configs/ops_components_v7.json::queue_subset`.
+This local continuation does not change remote jobs, infer efficacy from a
+smoke or turn the exposed regression set into independent validation.
+
+## Historical roadmap (superseded operational steps)
+
 Active version: v6 (2026-09-29); static checks passed; one direct GPU smoke
 subsequently authorized by the user (DD-20260929-04), not yet a runtime pass.
 Registered blocks:

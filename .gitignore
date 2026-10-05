@@ -112,3 +112,23 @@ torch_cache/
 /docs/experiment_reports/**/source_manifest.csv
 /docs/experiment_reports/**/selected_evidence_features.json
 /docs/experiment_reports/**/final_call_records.csv
+
+# Large case-level exports and duplicate publication staging are local audit
+# artifacts. Preserve report Markdown, analysis scripts, and small summaries.
+/docs/experiment_reports/**/per_case.csv
+/docs/experiment_reports/**/paired_case_deltas.csv
+/docs/experiment_reports/**/evidence_composition.csv
+/docs/experiment_reports/**/selected_method_profiles.csv
+/docs/experiment_reports/**/response_audit.csv
+/docs/experiment_reports/**/A_core_records.csv
+/docs/experiment_reports/**/rq21_strata.csv
+/docs/experiment_reports/**/rq21_attention_correlations_exploratory.csv
+/docs/experiment_reports/_qwen_only_reanalysis/staged_assets/
+/docs/experiment_plans/RQ3_6_gain_harm_assets/paired_deltas.csv
+
+# Vendored benchmark downloads and decompressed log payloads are not code.
+# Keep their local copies; removing a tracked file from the index is separate.
+/packages/ReAct/data/*.json
+/packages/ReAct/data/*.jsonl
+/packages/Denum/Logs/**/*.log
+/packages/Denum/decompress_output/

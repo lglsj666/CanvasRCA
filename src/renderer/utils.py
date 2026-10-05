@@ -11,8 +11,13 @@ ENCODINGS = {
     "metric": {"line", "time_bars", "heatmap"},
     "trace": {"paired_bars", "dumbbell", "table"},
     "log": {"timeline", "table"},
-    "graph": {"node_link", "matrix", "edge_pairs", "deployment_groups"},
+    "graph": {"node_link", "matrix", "edge_pairs", "deployment_groups", "membership_matrix"},
     "events": {"onset"},
+    "scope": {"matrix", "tiles"},
+    "diagnostic": {"matrix", "compact"},
+    "literal": {"text"},
+    "trace_joint": {"scatter", "marginals"},
+    "trace_profile": {"quantiles"},
 }
 
 
@@ -85,7 +90,7 @@ def validate_evidence(evidence):
             raise ValueError("Unsupported card kind")
         text(card["title"])
         text(card["unit"])
-        if kind not in {"graph", "events"}:
+        if kind not in {"graph", "events", "scope", "diagnostic", "literal", "trace_joint", "trace_profile"}:
             entity(card["entity"])
         elif card["entity"] is not None:
             raise ValueError("Graph has no single owner")
@@ -113,6 +118,57 @@ def validate_evidence(evidence):
             if min(data["before"], data["after"]) < 0:
                 raise ValueError("Negative latency")
             details(data["details"])
+        elif kind == "trace_joint":
+            keys(data, {"parent", "child", "parent_operation", "child_operation", "samples", "support"})
+            for key in ("parent", "child"): entity(data[key])
+            if data["parent"] == data["child"]: raise ValueError("Joint relation must cross entities")
+            for key in ("parent_operation", "child_operation"): text(data[key])
+            if card["unit"] != "ms" or not 2 <= len(data["samples"]) <= 64:
+                raise ValueError("Joint duration unit/sample capacity")
+            if len(data["support"]) != 2 or any(type(n) is not int or n < 20 for n in data["support"]):
+                raise ValueError("Joint support must describe both captured phases")
+            phases = {"reference": 0, "current": 0}
+            for sample in data["samples"]:
+                keys(sample, {"phase", "parent_ms", "child_ms"})
+                if sample["phase"] not in phases: raise ValueError("Unknown sample phase")
+                phases[sample["phase"]] += 1
+                for key in ("parent_ms", "child_ms"):
+                    number(sample[key])
+                    if sample[key] < 0: raise ValueError("Negative joint duration")
+            if any(phases[p] != min(32, n) for p,n in zip(phases,data["support"])):
+                raise ValueError("Joint sample counts differ from registered rank sampling")
+        elif kind == "trace_profile":
+            keys(data, {"parent", "child", "parent_operation", "child_operation", "support", "sampled", "quantiles", "duration_type"})
+            for key in ("parent", "child"): entity(data[key])
+            if data["parent"] == data["child"] or card["unit"] != "ms" or data["duration_type"] != "inclusive":
+                raise ValueError("Population profile requires cross-entity inclusive milliseconds")
+            for key in ("parent_operation", "child_operation"): text(data[key])
+            if len(data["support"]) != 2 or any(type(n) is not int or n < 20 for n in data["support"]):
+                raise ValueError("Population support")
+            if data["sampled"] != [min(n,32) for n in data["support"]]:
+                raise ValueError("Population/sample count mismatch")
+            if not isinstance(data["quantiles"], list) or len(data["quantiles"]) != 4:
+                raise ValueError("Expected parent p50,p95 then child p50,p95")
+            for row in data["quantiles"]:
+                if not isinstance(row,list) or len(row) != 2: raise ValueError("Reference/current endpoints required")
+                for v in row:
+                    number(v)
+                    if v < 0: raise ValueError("Negative population duration")
+            for offset in (0,2):
+                if any(data["quantiles"][offset][j] > data["quantiles"][offset+1][j] for j in (0,1)):
+                    raise ValueError("p50 exceeds p95")
+        elif kind == "literal":
+            keys(data, {"lines"})
+            if not isinstance(data["lines"], list) or not data["lines"] or len(data["lines"]) > 256:
+                raise ValueError("Literal component requires 1..256 public lines")
+            for line in data["lines"]:
+                text(line)
+                if not line or "\n" in line or "\r" in line:
+                    raise ValueError("Literal lines must be nonempty single lines")
+        elif kind == "scope":
+            validate_scope(data)
+        elif kind == "diagnostic":
+            validate_diagnostic(data)
         elif kind == "events":
             keys(data, {"events"})
             for event in data["events"]:
@@ -170,6 +226,15 @@ def expected_bindings(evidence, show_isolates=False):
             result.append(cid + ".time")
         if kind == "trace":
             result.extend([cid + ".before", cid + ".after"])
+        if kind == "trace_joint":
+            result.extend(cid + "." + key for key in ("parent", "child", "parent_operation", "child_operation", "support", "axes"))
+            result.extend(f"{cid}.sample.{i}" for i in range(len(d["samples"])))
+        if kind == "trace_profile":
+            result.extend(cid + "." + key for key in ("parent", "child", "parent_operation", "child_operation", "support", "axes", "duration_type"))
+            result.extend(f"{cid}.quantile.{i}.{phase}" for i in range(4) for phase in ("reference","current"))
+            result.extend(f"{cid}.glyph.{i}" for i in range(4))
+        if kind == "literal":
+            result.extend(f"{cid}.line.{i}" for i in range(len(d["lines"])))
         if kind == "log":
             result.append(cid + ".template")
         if "details" in d:
@@ -179,7 +244,163 @@ def expected_bindings(evidence, show_isolates=False):
             result.extend(f"{cid}.edge.{e['id']}" for e in d["edges"])
         if kind == "events":
             result.extend(f"{cid}.event.{i}" for i in range(len(d["events"])))
+        if kind == "scope":
+            # A field binding covers the complete readable value, not merely
+            # a hidden manifest row. Nullable readings have visible '?' text.
+            result.extend(f"{cid}.record.{i}.{key}" for i in range(len(d["records"])) for key in
+                          ("identity", "metric", "unit", "reference", "current", "delta", "qualifier", "activity", "mark"))
+        if kind == "diagnostic":
+            result.extend(f"{cid}.target.{i}" for i in range(len(d["targets"])))
+            for i, row in enumerate(d["rows"]):
+                result.append(f"{cid}.row.{i}")
+                for j, cell in enumerate(row["cells"]):
+                    if cell is None:
+                        continue
+                    fields = (("observed", "mark") if i == 0 else
+                              ("status", "observed", "expected", "residual", "error_scale", "mark")) if d.get("sparse") else (
+                              "status", "observed", "expected", "residual", "error_scale", "mark")
+                    result.extend(f"{cid}.cell.{i}.{j}.{key}" for key in fields)
     return sorted(result)
+
+
+def validate_diagnostic(data):
+    """Additive v1 comparison matrix; no overloaded telemetry/time schema."""
+    keys(data, {"targets", "rows", "delta_limit", "sparse"}, {"targets", "rows", "delta_limit"})
+    sparse = data.get("sparse", False)
+    if "sparse" in data and sparse is not True:
+        raise ValueError("Sparse diagnostic grammar must be explicitly true")
+    if data["delta_limit"] != 6 or not 1 <= len(data["targets"]) <= 12 or not 1 <= len(data["rows"]) <= 7:
+        raise ValueError("Diagnostic matrix capacity/axis")
+    if len(set(data["targets"])) != len(data["targets"]):
+        raise ValueError("Duplicate diagnostic target")
+    for target in data["targets"]:
+        if not re.fullmatch(r"M\d{2}", target):
+            raise ValueError("Public metric reference required")
+    for i, row in enumerate(data["rows"]):
+        keys(row, {"entity", "anchors", "cells"})
+        if i == 0:
+            if row["entity"] is not None or row["anchors"]:
+                raise ValueError("First diagnostic row must be observation")
+        else:
+            entity(row["entity"])
+            if (len(row["entity"]) not in {3, 4, 5} or not row["anchors"] or
+                    (not sparse and not set(row["anchors"]) <= set(data["targets"])) or
+                    any(not re.fullmatch(r"M\d{2}", a) for a in row["anchors"])):
+                raise ValueError("Invalid candidate anchor binding")
+        if len(row["cells"]) != len(data["targets"]):
+            raise ValueError("Diagnostic row/column mismatch")
+        if sparse and not any(cell is not None for cell in row["cells"]):
+            raise ValueError("Empty diagnostic row must be omitted")
+        for cell in row["cells"]:
+            if cell is None:
+                if sparse: continue
+                raise ValueError("Null cell is only supported by compact diagnostic grammar")
+            keys(cell, {"status", "observed", "expected", "residual", "error_scale"})
+            if sparse and cell["status"] in {"unknown", "conditioned"}:
+                raise ValueError("Unavailable diagnostic cells must be omitted")
+            if sparse and i == 0 and cell["observed"] is None:
+                raise ValueError("Compact OBS requires an actual measurement")
+            if sparse and i > 0 and cell["status"] == "observed":
+                raise ValueError("Compact candidate cells require a prediction state")
+            if cell["status"] not in {"observed", "unknown", "conditioned", "compatible", "mismatch", "over_predicted", "unexplained"}:
+                raise ValueError("Unregistered diagnostic state")
+            for key in ("observed", "expected", "residual", "error_scale"):
+                value = cell[key]
+                if value is not None and (not isinstance(value, str) or not re.fullmatch(r"-?\d+(?:\.\d+)?(?:e[+-]?\d+)?", value)
+                                          or not math.isfinite(float(value))):
+                    raise ValueError("Exact finite display string required")
+            if cell["status"] in {"unknown", "conditioned"} and any(cell[k] is not None for k in ("observed", "expected", "residual", "error_scale")):
+                raise ValueError("Unknown/conditioned cell cannot invent a prediction")
+            if i == 0 and (cell["status"] not in {"observed", "unknown"} or any(cell[k] is not None for k in ("expected", "residual", "error_scale"))):
+                raise ValueError("Observation row cannot contain model output")
+            if i > 0 and cell["status"] not in {"unknown", "conditioned"} and any(cell[k] is None for k in ("observed", "expected", "residual", "error_scale")):
+                raise ValueError("Prediction needs measured/predicted/error operands")
+    if sparse and any(all(row["cells"][j] is None for row in data["rows"]) for j in range(len(data["targets"]))):
+        raise ValueError("Entirely unavailable diagnostic column must be omitted")
+
+
+def validate_scope(data):
+    """Additive v1 resource-comparison component; existing contracts unchanged."""
+    keys(data, {"records", "delta_limit"})
+    number(data["delta_limit"])
+    if data["delta_limit"] != 6 or not isinstance(data["records"], list) or not 1<=len(data["records"])<=12:
+        raise ValueError("Registered scope scale/capacity")
+    fields = {"id", "entity", "service", "node", "metric", "unit", "reference", "current", "reference_mad",
+              "scale", "delta", "reference_samples", "current_samples", "reference_bins", "current_bins",
+              "coverage", "up_fraction", "down_fraction", "max_current_bin_deviation", "activity", "status", "reason"}
+    cadence_fields = {"native_cadence_s", "reference_expected_slots", "current_expected_slots",
+                      "reference_coverage", "current_coverage"}
+    ids = set()
+    for r in data["records"]:
+        keys(r, fields | cadence_fields, fields)
+        for key in cadence_fields & r.keys():
+            number(r[key], nullable=True)
+        if not re.fullmatch(r"O[a-f0-9]{12}", r["id"]) or r["id"] in ids:
+            raise ValueError("Invalid/nonunique scope observation")
+        ids.add(r["id"])
+        entity(r["entity"])
+        for key, length in (("service",3), ("node",4)):
+            if r[key] is not None:
+                entity(r[key])
+                if len(r[key]) != length:
+                    raise ValueError("Scope owner type mismatch")
+        for key in ("metric", "unit", "reason"):
+            text(r[key])
+        for key in fields-{"id", "entity", "service", "node", "metric", "unit", "activity", "status", "reason"}:
+            number(r[key], nullable=True)
+        if r["status"] not in {"changed", "stable", "unknown"} or not 0<=r["coverage"]<=1:
+            raise ValueError("Invalid scope qualification")
+        a = r["activity"]
+        keys(a, {"status", "source", "operation", "metric", "reference", "current"}, {"status", "source"})
+        if a["status"] not in {"observed_active", "unknown"}:
+            raise ValueError("Unregistered activity assertion")
+        for key in ("source", "operation", "metric"):
+            if key in a:
+                text(a[key])
+        for key in ("reference", "current"):
+            if key in a:
+                number(a[key])
+        if a["status"] == "observed_active" and not {"reference", "current"}.issubset(a):
+            raise ValueError("Activity needs observed operands")
+
+
+def scope_layout(card, panel_width, font_size=16):
+    """Freeze same cells and footprints in matrix and tiles; never crop a record."""
+    records = card["data"]["records"]
+    services = sorted({r["service"] or "unknown" for r in records})
+    hosts = sorted({r["node"] or "unknown" for r in records})
+    if len(services)>5 or len(hosts)>4:
+        raise ValueError("Scope component exceeds registered row/column capacity")
+    cells = []
+    for si, service in enumerate(services):
+        for hi, host in enumerate(hosts):
+            indices = [i for i,r in enumerate(records) if (r["service"] or "unknown")==service and (r["node"] or "unknown")==host]
+            cells.append({"service": service, "node": host, "records": indices, "row": si, "column": hi})
+    scale = font_size/16
+    width = panel_width-34
+    cell_width = (width-96*scale-12*(len(hosts)-1))/len(hosts)
+    if cell_width<310*scale:
+        raise ValueError("Scope labels require explicit wider canvas, not smaller fonts")
+    # Intrinsic cell heights avoid multiplying the fullest cell across the
+    # entire Cartesian board. Both arms keep every cell's exact dimensions.
+    record_height = 340*scale
+    for cell in cells:
+        cell["height"] = 62*scale+record_height*len(cell["records"]) if cell["records"] else 142*scale
+    matrix_y = tiles_y = 0
+    permuted = sorted(cells, key=lambda cell: f"{cell['node']}.{cell['service']}", reverse=True)
+    for row in range(len(services)):
+        matrix_row = [v for v in cells if v["row"] == row]
+        tile_row = permuted[row*len(hosts):(row+1)*len(hosts)]
+        for cell in matrix_row:
+            cell["matrix_y"] = matrix_y
+        for j, cell in enumerate(tile_row):
+            cell["tiles_y"], cell["tiles_column"] = tiles_y, j
+        matrix_y += max(v["height"] for v in matrix_row)+12
+        tiles_y += max(v["height"] for v in tile_row)+12
+    cell_height = max(v["height"] for v in cells)
+    return {"services": services, "hosts": hosts, "cells": cells, "cell_width": cell_width,
+            "cell_height": cell_height, "record_height": record_height, "scale": scale,
+            "min_height": math.ceil(170*scale+max(matrix_y, tiles_y))}
 
 
 def pair_layout(card, panel_width, font_size=16, show_isolates=False):
@@ -232,12 +453,53 @@ def deployment_layout(card, panel_width, font_size=16, show_isolates=False):
             "scale": scale, "min_height": max(180, math.ceil(y-gap+110))}
 
 
+def node_link_layout(card, panel_width, font_size=18):
+    """Explicit opt-in SCC layers; all original directed edges remain intact."""
+    import networkx as nx
+    graph = nx.DiGraph()
+    nodes = sorted(card['data']['nodes'], key=lambda n: int(n['id']))
+    graph.add_nodes_from(n['id'] for n in nodes)
+    graph.add_edges_from((e['source'], e['target']) for e in card['data']['edges'])
+    components = sorted(nx.strongly_connected_components(graph), key=lambda s: min(map(int, s)))
+    condensed = nx.condensation(graph, components)
+    layers = list(nx.topological_generations(condensed))
+    width = panel_width - 34
+    columns = max(1, int((width - 80) // 180))
+    if width < 260 or font_size > 20:
+        raise ValueError('Layered node graph needs explicit larger readable slots')
+    positions = {}; row = 0
+    for layer in layers:
+        members = sorted((n for c in layer for n in condensed.nodes[c]['members']), key=int)
+        for i, entity in enumerate(members):
+            positions[entity] = {'x':(width - columns*180)/2 + 90 + (i % columns)*180,
+                                 'y':70 + (row + i//columns)*100}
+        row += (len(members)+columns-1)//columns
+    return {'positions':positions, 'rows':row, 'columns':columns,
+            'min_height':max(360, 250 + row*100), 'layout':'layered_grid'}
+
+
+def membership_layout(card, panel_width, font_size=18):
+    nodes={n['id']:n for n in card['data']['nodes']}; edges=card['data']['edges']
+    rows=sorted({e['source'] for e in edges},key=int)
+    columns=sorted({e['target'] for e in edges},key=int)
+    if not edges or set(rows)&set(columns) or set(nodes)!=set(rows)|set(columns):
+        raise ValueError('Membership axes require exactly observed disjoint endpoints')
+    if any(e['kind'] not in {'hosts','owns','has_instance'} or nodes[e['source']]['type'] not in {'node','service'}
+           or nodes[e['target']]['type']!='pod' for e in edges):
+        raise ValueError('Membership must be a typed owner-to-pod relation')
+    cell=min(28,(panel_width-34-220-32)/len(columns)); row=max(22,font_size+4)
+    if cell<22: raise ValueError('Membership columns exceed readable capacity')
+    return {'rows':rows,'columns':columns,'cell_width':cell,'row_height':row,'min_height':170+row*len(rows)}
+
+
 def compile_design(evidence, design):
     """Layout is an explicit tree, not an implicit responsive/browser reflow."""
     validate_evidence(evidence)
     required = {"schema", "viewport", "theme", "font_size", "gap", "padding",
                 "scale", "tree", "bindings", "indexing"}
-    keys(design, required | {"graph", "presentation"}, required)
+    keys(design, required | {"graph", "presentation", "relation_bindings", "relation_binding_style"}, required)
+    if design.get('relation_binding_style', 'connectors') not in {'connectors', 'numbered', 'color'}:
+        raise ValueError('Unknown relation binding style')
     graph_settings = design.get("graph", {"show_isolates": False})
     keys(graph_settings, {"show_isolates"})
     if type(graph_settings["show_isolates"]) is not bool:
@@ -246,7 +508,10 @@ def compile_design(evidence, design):
         raise ValueError("Unknown design version")
     keys(design["viewport"], {"width", "height"})
     width, height = design["viewport"]["width"], design["viewport"]["height"]
-    for name, value, low, high in [("width", width, 800, 4096), ("height", height, 600, 8192),
+    compact_only = (len(evidence["cards"]) == 1 and evidence["cards"][0]["kind"] == "diagnostic"
+                    and design["tree"].get("type") == "panel"
+                    and design["tree"].get("component") == "diagnostic.compact")
+    for name, value, low, high in [("width", width, 800, 4096), ("height", height, 360 if compact_only else 600, 8192),
                                   ("font", design["font_size"], 12, 28), ("gap", design["gap"], 0, 64),
                                   ("padding", design["padding"], 0, 96)]:
         if type(value) is not int or not low <= value <= high:
@@ -262,7 +527,7 @@ def compile_design(evidence, design):
         raise ValueError("Unknown presentation card")
     for cid, options in presentation.items():
         keys(options, {"marks", "details", "neutral_trace"}, {"marks", "details"})
-        if cards[cid]["kind"] not in {"metric", "trace"} or any(type(v) is not bool for v in options.values()):
+        if cards[cid]["kind"] not in {"metric", "trace", "trace_joint", "trace_profile"} or any(type(v) is not bool for v in options.values()):
             raise ValueError("Presentation ablations require numeric cards and boolean switches")
         if options.get("neutral_trace") and cards[cid]["kind"] != "trace":
             raise ValueError("Neutral trace lengths require a trace card")
@@ -284,7 +549,8 @@ def compile_design(evidence, design):
             raise ValueError("Layout nesting too deep")
         common = {"id", "type"}
         typ = node.get("type")
-        keys(node, common | (set() if typ == "spacer" else {"card", "component"} if typ == "panel" else {"children", "columns"} if typ == "grid" else {"children", "weights"}))
+        fields = common | (set() if typ == "spacer" else {"card", "component"} if typ == "panel" else {"children", "columns"} if typ == "grid" else {"children", "weights"})
+        keys(node, fields | ({'node_layout','dashed_width_scale'} if typ == 'panel' else set()), fields)
         if not re.fullmatch(r"[A-Za-z][A-Za-z0-9_-]{0,40}", node["id"]) or node["id"] in tree_ids:
             raise ValueError("Invalid/nonunique layout ID")
         tree_ids.add(node["id"])
@@ -301,20 +567,59 @@ def compile_design(evidence, design):
             used.add(cid)
             rects.append({"card": cid, "node": node["id"], "component": node["component"], "index": indices[cid],
                           "x": x, "y": y, "width": w, "height": h})
+            if 'node_layout' in node:
+                if node['component'] != 'graph.node_link' or node['node_layout'] != 'layered_grid':
+                    raise ValueError('Invalid explicit node layout')
+                geometry = node_link_layout(cards[cid], w, design['font_size'])
+                if h < geometry['min_height']:
+                    raise ValueError('Node-link panel below nonoverlapping capacity')
+                rects[-1]['node_link_layout'] = geometry
+            if 'dashed_width_scale' in node:
+                scale = node['dashed_width_scale']
+                if node['component'] != 'graph.node_link' or type(scale) not in (int,float) or not 1 <= scale <= 10:
+                    raise ValueError('Invalid node-link dashed width scale')
+                rects[-1]['dashed_width_scale'] = scale
             if cid in presentation:
-                if node["component"] not in {"metric.line", "trace.paired_bars"}:
+                if node["component"] not in {"metric.line", "trace.paired_bars", "trace_joint.marginals", "trace_profile.quantiles"}:
                     raise ValueError("Presentation switches unsupported for this component")
                 rects[-1]["presentation"] = presentation[cid]
+            if node["component"] == "diagnostic.matrix":
+                if cards[cid]["data"].get("sparse"):
+                    raise ValueError("Sparse comparison requires diagnostic.compact")
+                count = len(cards[cid]["data"]["targets"])
+                if w < 1220 or h < 160+110*len(cards[cid]["data"]["rows"]):
+                    raise ValueError("Diagnostic matrix too small; never crop cells")
+                rects[-1]["diagnostic_layout"] = {"label_width":150,"cell_width":(w-184)/count,"row_height":110}
+            if node["component"] == "diagnostic.compact":
+                data = cards[cid]["data"]
+                if not data.get("sparse"):
+                    raise ValueError("Compact comparison requires sparse diagnostic DTO")
+                # Compact tables may contain fewer than twelve targets. Keep
+                # the previous12-column bound, and reserve readable widths
+                # for each actual cell rather than twelve absent columns.
+                min_width = min(1220, 184+90*len(data["targets"]))
+                if w < min_width or h < 220+110*(len(data["rows"])-1):
+                    raise ValueError("Compact diagnostic content exceeds actual footprint")
+                rects[-1]["diagnostic_layout"] = {"label_width":150,"cell_width":(w-184)/len(data["targets"]),"row_height":110}
             if node["component"] == "graph.edge_pairs":
                 geometry = pair_layout(cards[cid], w, design["font_size"], graph_settings["show_isolates"])
                 if h < geometry["min_height"]:
                     raise ValueError("Pair component exceeds fixed capacity; enlarge explicitly, never drop edges")
                 rects[-1]["pair_layout"] = geometry
+            if node["component"] == "graph.membership_matrix":
+                geometry = membership_layout(cards[cid], w, design["font_size"])
+                if h < geometry["min_height"]: raise ValueError("Membership rows exceed readable capacity")
+                rects[-1]["membership_layout"] = geometry
             if node["component"] == "graph.deployment_groups":
                 geometry = deployment_layout(cards[cid], w, design["font_size"], graph_settings["show_isolates"])
                 if h < geometry["min_height"]:
                     raise ValueError("Deployment groups exceed fixed capacity; enlarge explicitly, never drop pods")
                 rects[-1]["deployment_layout"] = geometry
+            if node["component"] in {"scope.matrix", "scope.tiles"}:
+                geometry = scope_layout(cards[cid], w, design["font_size"])
+                if h < geometry["min_height"]:
+                    raise ValueError("Scope board exceeds declared capacity; never hide cells")
+                rects[-1]["scope_layout"] = geometry
             return
         kids, gap = node["children"], design["gap"]
         if not kids or typ not in {"row", "column", "grid"}:
@@ -344,6 +649,9 @@ def compile_design(evidence, design):
     if used != set(cards):
         raise ValueError("Layout must reference every selected card exactly once")
     by_id = {r["card"]: r for r in rects}
+    for cid in presentation:
+        if cards[cid]["kind"] == "trace_joint" and by_id[cid]["component"] != "trace_joint.marginals":
+            raise ValueError("Joint presentation controls are supported only by trace_joint.marginals")
     seen_links = set()
     for b in design["bindings"]:
         keys(b, {"card", "graph", "entity"})
@@ -355,12 +663,28 @@ def compile_design(evidence, design):
             raise ValueError("Observation ownership does not match public evidence")
         if by_id[b["graph"]]["component"] != "graph.node_link":
             raise ValueError("Ownership connector requires a visible node-link anchor")
+    relations=design.get('relation_bindings',[])
+    if not isinstance(relations,list): raise ValueError('Relation bindings must be a list')
+    seen_relations=set()
+    for b in relations:
+        keys(b, {'card','graph','edge'})
+        if b['card'] not in by_id or b['graph'] not in by_id or b['card'] in seen_relations:
+            raise ValueError('Unknown or duplicate relation binding')
+        seen_relations.add(b['card']); owner=cards[b['card']]; graph=cards[b['graph']]
+        allowed = {'graph.matrix', 'graph.node_link'} if design.get('relation_binding_style') in {'numbered', 'color'} else {'graph.matrix'}
+        if owner['kind']!='trace_joint' or graph['kind']!='graph' or by_id[b['graph']]['component'] not in allowed:
+            raise ValueError('Relation binding requires a pair card and compatible directed graph')
+        edges=[e for e in graph['data']['edges'] if e['id']==b['edge']]
+        if len(edges)!=1 or (edges[0]['source'],edges[0]['target'],edges[0]['kind'])!=(owner['data']['parent'],owner['data']['child'],'request_parent'):
+            raise ValueError('Relation binding does not match exact public parent-to-child identity')
     expected = expected_bindings(evidence, graph_settings["show_isolates"])
     suppressed = [key for key in expected if any(
         (not options["details"] and key.startswith(cid+".detail.")) or
-        (not options["marks"] and cards[cid]["kind"] == "metric" and key.startswith(cid+".sample."))
+        (not options["marks"] and (cards[cid]["kind"] == "metric" or
+         by_id[cid]["component"] == "trace_joint.marginals") and key.startswith(cid+".sample."))
+        or (not options["marks"] and cards[cid]["kind"] == "trace_profile" and key.startswith(cid+".glyph."))
         for cid, options in presentation.items())]
-    return {"rectangles": rects, "width": width, "height": height,
+    return { "rectangles": rects, "width": width, "height": height,
             "expected_bindings": [key for key in expected if key not in suppressed],
             "suppressed_visual_bindings": suppressed,
             "hidden_graph_isolates": {c["id"]: sorted({n["id"] for n in c["data"]["nodes"]} -

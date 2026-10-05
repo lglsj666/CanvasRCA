@@ -1,0 +1,136 @@
+{
+  "version": "rq312_conditional_residual_v1",
+  "experiment": "exp_conditional_residual",
+  "model": "qwen3.8-27b",
+  "seed": 42,
+  "case_counts": {
+    "aiops2022": 60,
+    "aiops2025": 60,
+    "aegislab": 20
+  },
+  "primary_datasets": [
+    "aiops2022",
+    "aiops2025"
+  ],
+  "arms": [
+    "EXACT_TEXT",
+    "EXACT_REPEAT",
+    "OBS_TEXT",
+    "OBS_VISUAL",
+    "COND_TEXT",
+    "COND_VISUAL"
+  ],
+  "parent": "RQs/RQ3_8/preparation/ops_components_v6",
+  "parent_export": "RQs/RQ3_8/preparation/export_v1",
+  "preparation": "RQs/RQ3_12/preparation/conditional_v1",
+  "results": "RQs/RQ3_12/results/conditional_v1",
+  "inference_base": "configs/vllm_inference_local.yaml",
+  "runtime_profile": "runtime/qwen_local.yaml",
+  "port": 21951,
+  "workers": 8,
+  "concurrency": 36,
+  "request_timeout": 300,
+  "max_tokens": 8192,
+  "formal_positions": 840,
+  "formal_attempt_limit": 882,
+  "total_attempt_limit": 900,
+  "smoke_attempt_limit": 18,
+  "smoke_seconds": 600,
+  "cpu_seconds": 1800,
+  "launch_policy": "explicit_command_after_qualification",
+  "primary_contrasts": [
+    [
+      "COND_VISUAL",
+      "COND_TEXT"
+    ],
+    [
+      "COND_VISUAL",
+      "OBS_VISUAL"
+    ],
+    [
+      "COND_VISUAL",
+      "EXACT_TEXT"
+    ]
+  ],
+  "secondary_contrasts": [
+    [
+      "COND_TEXT",
+      "OBS_TEXT"
+    ],
+    [
+      "OBS_VISUAL",
+      "OBS_TEXT"
+    ],
+    [
+      "EXACT_REPEAT",
+      "EXACT_TEXT"
+    ]
+  ],
+  "roster_registration": "RQs/RQ3_10/results/scope_v1/registration.json",
+  "smoke_arms": [
+    "EXACT_TEXT",
+    "EXACT_REPEAT",
+    "OBS_TEXT",
+    "OBS_VISUAL",
+    "COND_TEXT",
+    "COND_VISUAL"
+  ],
+  "global_contracts": [
+    "configs/vllm_inference.yaml",
+    "configs/dataset_segmentation.yaml",
+    "configs/rca_scorer.yaml"
+  ],
+  "response_model": {
+    "reference_pairs_min": 12,
+    "fold_samples_min": 6,
+    "current_pairs_min": 3,
+    "phase_coverage_min": 0.6,
+    "ridge": 0.1,
+    "cv_rmse_ratio_max": 0.8,
+    "mad_multiplier": 1.4826,
+    "relative_floor": 0.01,
+    "support_margin_sd": 1.0,
+    "change_threshold": 3.0,
+    "hypotheses_max": 6,
+    "common_targets_min": 2,
+    "disagreement_min": 0.5,
+    "display_significant_digits": 4
+  },
+  "canvas": {
+    "width": 1360,
+    "height": 1120,
+    "font_size": 16,
+    "delta_limit": 6
+  },
+  "readiness": {
+    "primary_competing_cases_min": 30,
+    "per_primary_dataset_competing_cases_min": 10,
+    "max_mean_input_ratio": 1.2
+  },
+  "success": {
+    "deployment_delta_min": 0.03,
+    "visual_delta_min": 0.02,
+    "max_paired_total_token_ratio": 1.2,
+    "holm_alpha": 0.05,
+    "event_group_significance_required": true,
+    "positive_each_primary_dataset_required": true
+  },
+  "reason_review": {
+    "per_dataset": 12,
+    "seed": 42,
+    "selection": "outcome_blind_hash",
+    "axes": [
+      "numeric_unit",
+      "temporal_order",
+      "entity_binding",
+      "prediction_as_observation",
+      "unsupported_causal_claim"
+    ]
+  },
+  "major_budget": {
+    "ceiling": 40000,
+    "require_current_ledger_review": true,
+    "scope": "inherited major RQ; new900 ceiling is an allocation, not a reset or execution permission"
+  },
+  "roster_sha256": "ca25b701da4f4c5ca3f81d09c0b5d637dea9a64408d6c41ce99d539863b78a8e"
+}

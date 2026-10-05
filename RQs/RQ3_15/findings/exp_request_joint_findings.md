@@ -1,0 +1,29 @@
+# RQ3.15 request_joint_v1 findings
+
+2026-10-03 final: **complete; preselected PAIR_VISUAL not adopted**. Formal completed at11:42:16 America/Toronto; all1320 positions terminal,1279 real responses+36 exact-input fallback references+5 request timeouts. Two duplicate-ID model answers retain zero scores.1284 formal attempts+18 smoke=1302/1380; unknown timeout usage is not zero. Owned service stopped. No successor or automatic retries.
+
+The [detailed final report](../../../docs/experiment_reports/RQ3_15_Qwen_Analysis_2026-10-03.md) is authoritative for results; earlier running/pause paragraphs below are historical snapshots. Analysis artifacts: [analysis_detailed_v1](../results/request_joint_v1/analysis_detailed_v1/).
+
+- Pooled MRR BASE .4329, BINARY .4212, PAIR_TEXT .4280, PAIR_VISUAL .4560, MARGINAL .4692, REPEAT .4577. Arm denominators differ slightly due infrastructure-unknown outcomes; use paired contrasts for inference.
+- Registered V−PAIR_TEXT +.028135 (n218), V−MARGINAL −.013441 (n217), V−BASE AIOPS +.042373 (n118), Aegis +.000667 (n100). All case/group Holm comparisons fail significance; Aegis minimum gain and positive-every-dataset conditions also fail. Marginal control is not selected post hoc as a confirmed method.
+- Aegis top1 rises45%→50%, top5 falls80%→71%; top5 repairs/breaks7/16. V−PAIR_TEXT is−.005219. Independent repeat preserves all100 Aegis MRRs. This is heterogeneous evidence/ranking displacement, not simply random repeat noise.
+- CPU applicability211/220 remains valid. Scorer-compatible root endpoint coverage24/60,18/60,41/100; public parent-p95-decrease strata show opposite descriptive effects. These are offline exploratory annotations, not deployed selectors or causal estimates.
+- All1279 unique completion graphs,1315 position rescoring/input checks,630 actual image transports and176-file source compatibility passed. Independent Pratt/Holm and actual processor-token checks passed. No experiment source, preparation, responses or scores changed.
+- Read216 explanations from the registered36-case sample; directed checks of26 claims across15 cases/22 responses found18 contradictions,6 local supports,2 unsupported causal conclusions. Nonblind targeted review, unchecked axes unknown; no overall error prevalence or trust improvement claim. Six actual joint/marginal PNGs reopened.
+- V/BASE actual paired total-token ratios1.1535/1.1857/1.1945 pass allowed overhead, with no cost reduction. V/PAIR_TEXT1.0403/1.0418/1.0355. Known formal+smoke tokens28,467,410, plus5 attempts with unknown usage.
+
+The registered stopping condition now applies: close this continuous joint-duration visualization route and retain its negative results/limitations. Do not automatically change layouts, choose the best repeat, spend the remaining78 attempts, or launch another experiment. The wider RQ3 deployment/performance/visual-contribution/trust goals remain unmet on this exposed eval evidence.
+
+## Historical execution snapshots
+
+2026-10-03: **resumed and running**, launched10:50:22 and verified10:53:42 America/Toronto following the user's explicit request. Scientific results remain incomplete. Source/qualification unchanged; resumed queue correctly has486 real calls and12 references after skipping822 terminal positions. Snapshot804 responses committed (10 new),36 active,0 new failures;4 historical timeouts retained. No previous attempt resubmitted or budget reset. Live attestation and actual0.75 memory parameter verified. [Resume receipt](../results/request_joint_v1/formal/resume_receipt.json) supersedes the historical pause below. No interim efficacy tuning.
+
+2026-10-03 01:10:34 America/Toronto: **safely paused by user; experiment incomplete**. All36 active requests drained with no new submissions/failures.794 real responses+24 fallback references committed;4 earlier request-timeout positions preserved.822/1320 terminal,498 pending; formal798 attempts+smoke18 remain spent. Owned processes exited, port closed, completion markers and SQLite checked. Do not resume without a new explicit user request. See [pause verification](../results/request_joint_v1/formal/pause_verification_20261003.json). No partial efficacy analysis performed. The launch snapshot below is historical.
+
+2026-10-02: formal execution **running**, launch verified at23:53:42 America/Toronto with17 committed responses,36 in-flight attempts and no failed position. Scientific results are **incomplete**. This is development on the existing220 exposed eval cases, not independent confirmation. Counts describe the launch snapshot, not a live counter.
+
+Full CPU qualification and actual image review passed; bounded GPU smoke18/18 passed in203.26s. See the [qualification report](../../../docs/issues/RQ3_15_qualification_2026-10-02.md). Those checks establish executable inputs, graphs, accounting and scoring; they do not establish visual benefit or reliable explanations.
+
+The user subsequently requested the registered full experiment. Only execution authorization and its source-compatibility checks were added; scientific source, configuration, evidence, rendering, scoring, decoding and thresholds remain identical to the measured version. The original source archive and qualification records remain immutable. See [activation review](../results/request_joint_v1/qualification/activation_v1/activation_review.json) and [live launch record](../results/request_joint_v1/formal/launch_receipt.json).
+
+Run all1320 registered positions across BASE_TEXT, BINARY_TEXT, PAIR_TEXT, PAIR_VISUAL, MARGINAL_VISUAL and PAIR_REPEAT. Preserve no-applicability fallbacks, genuine repeats, failure denominators and total1380-attempt budget including18 spent smoke calls. Do not tune from partial formal outcomes. Registered final analysis and adoption gates remain pending; no automatic successor or layout search is authorized by this launch.

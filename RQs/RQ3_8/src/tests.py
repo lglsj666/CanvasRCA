@@ -73,6 +73,15 @@ def test_shared_text_compaction_never_omits_unproven_facts():
     assert evidence == original
 
 
+def test_missing_parent_onset_is_not_assumed_duplicate():
+    card = {"kind": "events", "data": {"events": [
+        {"entity": "123", "minute": 1.0, "severity": "2", "source": "M"}]}}
+    parent = ('propagation_service: {"service":"123",'
+              '"onset_rel_min_display":null,"severity_z_display":"2",'
+              '"evidence_source_display":"none"}')
+    assert exps._already_in_parent(card, parent) is False
+
+
 def test_ledger_repair_preserves_parent_text_and_image():
     parent = {"system":"RCA", "parts":[{"type":"text","text":"Exact original facts"},
         {"type":"text","text":"Question"}],"metrics":[],"candidates":["123"],
@@ -411,13 +420,44 @@ def test_non_timeout_failure_blocks_but_timeout_is_skipped(tmp_path):
         terminal(tmp_path,"qwen3.8-27b","INC-X","FULL",False)
 
 
-def test_shared_budget_caps_include_all_six_shards_and_smoke():
+def test_historical_budget_and_reduced_queue_are_separate():
     c = config()
+    from .utils import request_concurrency
+    assert request_concurrency(c, "qwen3.8-27b") == 36
+    assert request_concurrency(c, "gemma-4-31b") == 8
     assert len(ARMS)*480*2 + len(MECHANISMS)*100*2 + len(LOCKED)*360*2 == 19440
     assert c["budget"]["formal_upper"]+18+c["budget"]["reserve"] == 20000
+    assert case_arms(c,{"cohort":"test","mechanism":True}) == ("TEXT", "FULL")
+    assert len(case_arms(c,{"cohort":"eval","mechanism":True})) == 11
+    assert len(case_arms(c,{"cohort":"eval","mechanism":False})) == 8
+    assert 480*8*2+100*3*2+360*2*2 == c["queue_subset"]["formal_upper"]
+    assert case_arms(c,{},smoke=True) == tuple(c["smoke"]["arms"])
+    del c["queue_subset"]
     assert case_arms(c,{"cohort":"test","mechanism":True}) == LOCKED
     assert case_arms(c,{"cohort":"eval","mechanism":True}) == ALL_ARMS
-    assert case_arms(c,{"cohort":"eval","mechanism":False}) == ARMS
+
+
+@pytest.mark.parametrize("block", ["A", "B", "C"])
+def test_queue_subset_rejects_unregistered_schedule(block):
+    from .utils import validate_queue_subset
+    c = config()
+    c["queue_subset"][block].append("NO_G")
+    with pytest.raises(ValueError, match="queue subset"):
+        validate_queue_subset(c)
+
+
+def test_reduced_resume_skips_flags_without_reading_context(tmp_path):
+    from .main import pending_rows
+    c = config()
+    row = {"opaque_incident_id":"INC-QUEUE", "cohort":"eval", "mechanism":True}
+    wanted = case_arms(c,row)
+    for arm in wanted:
+        key = logical_key("qwen3.8-27b",row["opaque_incident_id"],arm)
+        write_json(tmp_path/"flags"/(key+".json"), {
+            "status":"fail" if arm=="FULL_REPEAT" else "done", "logical_key":key,
+            "failure_class":"request_timeout" if arm=="FULL_REPEAT" else None})
+    assert pending_rows(tmp_path,[row],"qwen3.8-27b",lambda r:case_arms(c,r),False) == []
+    assert "NO_G" not in wanted and not (tmp_path/"public").exists()
 
 
 @pytest.mark.parametrize("failure", [None,"timeout","infrastructure","context"])
@@ -527,10 +567,17 @@ def test_text_repeat_is_identical_and_neutral_bars_do_not_rewrite_readings():
 
 def test_preregistered_factorials_are_zero_sum_and_complete():
     from .gates import registered_contrasts
+    from .utils import queue_arms
     for block in ("A","B","C"):
+        allowed = set(queue_arms(config(), block))
+        if block == "B":
+            allowed.update(queue_arms(config(), "A"))
         for _,weights,_ in registered_contrasts(config(),block):
             assert sum(weights.values())==0
-            assert set(weights)<=set(ALL_ARMS)
+            assert set(weights)<=allowed
+    assert len(registered_contrasts(config(),"A")) == 8
+    assert len(registered_contrasts(config(),"B")) == 5
+    assert len(registered_contrasts(config(),"C")) == 1
 
 
 def test_call_and_deployment_deletions_are_separate():

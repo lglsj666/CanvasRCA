@@ -1,0 +1,125 @@
+{
+  "schema": "CanvasRCAAttentionDiscussionAuditV1",
+  "date": "2026-10-05",
+  "document": "important_docs/CanvasRCA_Attention_Storage_and_Sink_2026-10-05.md",
+  "status": "documentation_only_provisional_no_attention_or_model_calls",
+  "sources": [
+    {
+      "path": "Codex.md",
+      "sha256": "f155e5d624f391a767052980f30d8956c2a6e71ae9108568109b34f309f689a9"
+    },
+    {
+      "path": "src/vlmrca/vlm/attention_probe.py",
+      "sha256": "6fa2e45b7e2b32f7793ea78611aa15a773c5c521d526b7aba6382c33a19537e6"
+    },
+    {
+      "path": "RQs/RQ1_1/src/main.py",
+      "sha256": "aa98494561b3c226e7733b45e421e205074a7760447296376323651ab61bd0c7"
+    },
+    {
+      "path": "RQs/RQ1_1/results/ATTENTION_ARCHIVE_20260909.md",
+      "sha256": "35d91c0d74e836f54fb7c4f8fae6df91a57ca7c4f59df1f0291ba7cf9471a1f8"
+    },
+    {
+      "path": "important_docs/CanvasRCA_Counterintuitive_Findings_2026-10-05.md",
+      "sha256": "8ae7a85c0bc193d27e02a0d145eceb18a2e6fc5bd18dc4274f8d77734f02c137"
+    },
+    {
+      "path": "docs/experiment_reports/RQ1_1_RQ2_1_findings/assets/rq11_attention_all_arms.csv",
+      "sha256": "8187bd8654cdfe952c6f92bdf041b5bf261772eee8bc770d8b5338b753ede874"
+    },
+    {
+      "path": "docs/experiment_reports/RQ1_1_RQ2_1_findings/assets/qa_semantic_v2_qa_rca_correlations.csv",
+      "sha256": "ae85c9897dcd4942598b1d91838a3d5346e54379692e3d987845141637c68781"
+    }
+  ],
+  "external_model_config": {
+    "path_template": "${CANVASRCA_QWEN_MODEL}/config.json",
+    "sha256": "191e0af232104ed8b65258cf3fb2b842e288008baca7633c11b82a1ac7203aab",
+    "text_model_type": "qwen3_5_text",
+    "attention_heads": 24,
+    "kv_heads": 4,
+    "num_layers": 64,
+    "full_attention_layers": [
+      3,
+      7,
+      11,
+      15,
+      19,
+      23,
+      27,
+      31,
+      35,
+      39,
+      43,
+      47,
+      51,
+      55,
+      59,
+      63
+    ]
+  },
+  "historical_archive": {
+    "file_count": 251800,
+    "bytes": 111453790762,
+    "scope": "seven archived directory trees; not a per-10000-call storage measurement",
+    "archive_files_restored_or_measured_this_session": false
+  },
+  "budget": {
+    "status": "arithmetic_only_not_runtime_or_filesystem_qualification",
+    "decimal_limit_bytes": 1000000000,
+    "attempts_including_retries": 10000,
+    "layers": 4,
+    "query_views": 2,
+    "heads": 24,
+    "region_slots": 24,
+    "dtype": "float32",
+    "grid": [
+      32,
+      32
+    ],
+    "region_bytes_per_call": 18432,
+    "grid_bytes_per_call": 32768,
+    "metadata_and_framing_bytes_per_call": 14336,
+    "total_bytes_per_call": 65536,
+    "all_summary_bytes": 655360000,
+    "max_detail_records": 100,
+    "max_bytes_per_detail": 1048576,
+    "all_detail_bytes": 104857600,
+    "shared_persistent_allowance_bytes": 33554432,
+    "persistent_total_bytes": 793772032,
+    "global_temporary_and_preview_allowance_bytes": 67108864,
+    "peak_total_bytes": 860880896,
+    "arithmetic_pass": true,
+    "compression_ratio_assumed": null,
+    "filesystem_allocation_tested": false,
+    "extra_sink_statistics_must_fit_existing_caps_or_trigger_new_audit": true
+  },
+  "primary_sources": [
+    {
+      "title": "See What You Are Told: Visual Attention Sink in Large Multimodal Models",
+      "authors": [
+        "Seil Kang",
+        "Jinyeong Kim",
+        "Junhyeok Kim",
+        "Seong Jae Hwang"
+      ],
+      "venue": "ICLR 2025",
+      "arxiv_v1_date": "2025-03-05",
+      "paper": "https://arxiv.org/html/2503.03321",
+      "official_proceedings": "https://proceedings.iclr.cc/paper_files/paper/2025/hash/da8a39bc39ae1c89dd6ebb1e3bcbb3f3-Abstract-Conference.html",
+      "official_code": "https://github.com/seilk/VisAttnSink",
+      "accessed_date": "2026-10-05",
+      "scope": "focused verification of previously discussed paper",
+      "repository_review": "page/README only; no implementation compatibility qualification"
+    }
+  ],
+  "execution": {
+    "code_changed": false,
+    "logger_implemented": false,
+    "new_attention_enabled": false,
+    "gpu_qualification_run": false,
+    "new_model_calls": 0,
+    "existing_runs_changed": false
+  }
+}

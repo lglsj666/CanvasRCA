@@ -1,0 +1,81 @@
+> 2026-10-03 v4: only CALLS-panel dashed stroke width changes1.4→4.2; DEPLOY panel entirely unchanged; dashed arrowheads also3x; solid lines/arrowheads and other inputs/geometry unchanged. Code/examples only; inference paused. [Amendment](../../../docs/experiment_plans/RQ3_17_Dashed_Width_2026-10-03.md).
+
+> 2026-10-03 v3 authority: direct color correspondence replaces circles/numbers; fourteen arms unchanged; code/examples only, GPU/formal paused. See [v3 amendment](../../../docs/experiment_plans/RQ3_17_Direct_Color_Binding_2026-10-03.md). Prior registrations below are historical.
+
+> 2026-10-03 v2 amendment: code/examples only; inference remains paused. Current design has14 arms/3080 positions, two topology encodings and numbered bindings. See [authoritative amendment](../../../docs/experiment_plans/RQ3_17_Topology_Encoding_Amendment_2026-10-03.md). Original v1 registration below is preserved as history.
+
+# RQ3.17：完整拓扑与耗时边际图的受控视觉组合
+
+2026-10-03，用户已明确授权实施、静态检查、CPU 回归、实际例图审查、GPU smoke；全部资格通过后直接启动完整实验。单 agent 执行。当前状态：实施开始，尚未通过新资格，尚未启动模型。
+
+## 1. 主线、证据与假设
+
+保留有效 M/R/L/G 诊断证据，在同事实强文本基础上证明可分离的视觉排名收益，再研究压缩降本。RQ1.1、RQ3.6、RQ3.7 的条件性关系视觉收益支持一次受控组合；RQ3.7 已测试数值与关系融合，不能声称首次提出。RQ3.8 的退化说明增加图形并不自动有效。RQ3.16 MARGINAL_FIVE 整体 MRR 0.5054、PAIR_FIVE 0.4436，主要比较未通过校正；相对去点仅 +0.0091，点标记贡献尚未建立。边际图是 reference/current 耗时分布，不是时间先后、传播路径或关键路径。
+
+本轮检验组合是否超过两种单图、明确绑定是否有益、耗时点是否有独立收益。预选 TOPO_MARGINAL_BOUND，不按结果选择最高均值臂。历史报告复核范围、哈希和设计含义另存登记审计。
+
+## 2. 九臂与数据
+
+继承 RQ3.16 的已暴露 eval220：AIOPS-2022/2025 各60、AegisLab100；候选、评分器、固定五个不同候选、关系选择/采样/统计均保持。正式位置1980。
+
+| Arm | 输入与目的 |
+|---|---|
+| BASE_FIVE | 冻结 WINDOW_TEXT，固定五候选，基础参照 |
+| PAIR_TEXT (T) | 完整基础文本、连续配对事实、统一绑定说明，同事实强文本 |
+| TOPOLOGY_VISUAL (G) | T＋完整调用和部署关系图 |
+| MARGINAL_MATCHED (D) | T＋边际图，组合画布与位置 |
+| TOPO_MARGINAL_BOUND (C) | T＋拓扑＋边际图＋准确关系绑定线，预选方法、正式第一阶段 |
+| TOPO_MARGINAL_UNBOUND (U) | C 仅去掉绑定线 |
+| TOPO_MARGINAL_MARKLESS (K) | C 仅去掉耗时点 |
+| MARGINAL_NATIVE (N) | T＋原1120×800边际图，原尺寸参照 |
+| TOPO_MARGINAL_REPEAT (R) | C 的独立新调用 |
+
+除 BASE 的登记内容差异，所有臂文本事实、候选和输出要求相同；绑定说明所有 T 系列臂一致，无截图臂。G/D/C/U/K 每病例画布、字体和位置一致，移除组件用无标注留白，U 仅变连接线、K 仅变点。
+
+拓扑严格来自强文本已经包含的完整公共关系账本，不替换成内容不同的旧 full_relations 导出。保留调用、node–pod、service–pod；不扩大候选、不添加异常严重度或推测因果边。图与配对同时存在的只读核查为60/60、55/60、96/100。无配对组合回退拓扑，无可用图形回退文本，仍保留全部分母。精确相同本轮请求可引用已提交答案；R 永远新调用。
+
+## 3. 统计与采用
+
+主要族六项：C−T、C−G、C−D、C−N、C−U、C−K，全220例；病例与事件组分别进行同族Holm。双侧Pratt-zero Wilcoxon，逐例差round12，配对dz，不报告CI。模型无效回答零分，基础设施缺失未知，配对分析及全分母紧界限并列。
+
+次要族：G−T、D−T、U−T、D−N、T−BASE、C−BASE(AIOPS)、C−BASE(AegisLab)、R−C，以及U−G−D＋T。只有该交互得到校正支持才称超出相加的协同。
+
+采用必须同时满足：六主要比较正且病例/组pH<.05；整体C−T≥.02；C−BASE在AIOPS≥.03、Aegis≥.02；每数据集对T/BASE的MRR正、Top5不降，对N的Top5不降；R对T/G/D/N收益方向与C一致。每数据集实际C input+output / T≤1.35，CPU先检查平均input比例。旧部署成本≤1.20BASE和≤1.10T单列，增成本不称降本。
+
+报告完整MRR、AC@1/3/5、Precision@1/3、逐数据集/宏平均、修复破坏、失败分母、成本、重复。固定哈希每数据集12例，全部臂解释审核，核对实体绑定、单位、阶段、无依据因果断言，不能由排名改善推出可信度改善。
+
+## 4. 实现
+
+RQs/RQ3_17 独立五功能模块、7500行、冻结归档、调用记账、快速恢复。公共 TopologyMarginalPacketV1 引用冻结 RequestPairPacketV1，含类型关系、稳定边ID、配对到父→子边绑定；来源证明仅审计侧，无私有标签或历史回答。历史源/输入/结果/共享推理配方保护。
+
+全部图形经过 src/renderer。复用trace_joint.marginals、graph.matrix、布局/外观/去点。调用图行源列目标。登记graph.membership_matrix：node/service为行、pod为列，保留全部部署边。必要性：原方阵重复两侧身份，分组/逐边过高，容量估算部分病例会超上下文。登记relation_bindings：配对卡片绑定准确request_parent有向边；原单owner操作无法表达一对端点，历史语义不变。request_parent与聚合调用分开，中性观测归属线非因果，按实际DOM锚点确定性避障路由。
+
+组合宽1440、字体18，高度由公共实体数决定；调用上、边际中、部署下。调用单元至少24px、部署至少22px，保留边际图元尺度；不删边、不缩字、不裁极值、不更改processor像素限制。原折线跨缺测连线、无缺测标记；无效组件不画空板/缺失警告。新组件/操作注册、类型/字段/几何审核和回归；正式默认关闭，资格与冻结版本一致才激活。
+
+## 5. 资格顺序
+
+静态→CPU→实际例图→GPU，前级通过再进入后级。静态审核模块/配置/九臂/白名单/标签边界/冻结依赖/启动与阶段顺序/历史保护。
+
+数值与关系覆盖父子方向、重复边、多种关系同格、自环、同实体不同操作、跨trace同名span、重复身份、循环、零值、缺失duration、单位、阶段边界、确定性采样；独立计算复核。完整220×9 CPU事实/全部边与图元/回退/引用、实际processor input+8192≤40960、每数据集预算。验证原子提交、分类、恢复、组合全完成前其他臂不得发起。最多8个不同物理核worker，优先分散source/cloudbed。
+
+实际打开三数据集固定例、最密/稀疏/长操作/极值/单配对/回退，检查方向图例遮挡裁切绑定，U/C仅线变、K/C仅点变、重绘一致，历史默认图像不变。
+
+一个逻辑GPU smoke总18调用/600秒，含启动持久化验证：A22 C/T/G/D/U/K；A25 C/BASE/G/N/R/U；Aegis C/T/D/N/R/K。沿用三个固定eval身份。本地Qwen3.8-27B、既有配方、40960context、8192输出、显存.75、并发36；无训练/attention/额外模型。检查逐份输入PNG输出评分记账，不按MRR调参。修复后重检受影响内容，失败与消耗保留，不重置额度。timeout-only依现行规则通过且披露覆盖；未解决语义/完整性/基础设施错误禁止正式，额度耗尽但还需GPU资格则记录阻塞。
+
+## 6. 全量、恢复和停止
+
+资格通过按当前授权直接启动。阶段A先完成C全部220位置，引用依赖也不得提前发其他臂；终态全提交、写入排空、阶段标记后再阶段B。B其余8臂按登记哈希跨病例交错，含R；所有配置在A之前冻结，不按中间分数改队列。披露运行时间分块，R敏感性不被声称完全消除顺序影响。
+
+正式attempt上限2022、smoke18、total2040，启动核对继承累计账本。只恢复允许的未提交基础设施中断，不重答已提交错误或无效模型输出。恢复信任原子标记，不批量重开全部历史输入。启动期近查，稳定600秒监控，仅操作自有服务。完成排空、1980位置审核、完整结果/详细报告、自有服务关闭、索引/devlog更新。
+
+失败则结束本候选并记录适用边界，不自动换布局/追跑事后赢家。成功仍是暴露eval开发；RQ3完成还需冻结方法后的验证、成本和解释证据，不能由本轮最高MRR宣布完成。
+
+## DD-RQ317-02: paired topology encodings and numbered relation marks
+**Date:** 2026-10-03
+**Status:** adopted for implementation and examples; execution paused
+
+**Context.** User questioned matrix-only topology and long ambiguous cross-panel connectors.
+**Decision.** Add five NODE counterparts, share four nongraph controls, preserve the matrix preselection, use14 arms/3080 positions and identical cross-encoding facts/slots. Numbered marks bind exact parent-child edges, with many operation cards allowed per edge. Use the current amendment linked above as the v2 protocol.
+**Evidence.** RQ2.1 layered .3943 versus matrix .3644 five-dataset macro is directional historical evidence, not a confirmed layout advantage. RQ3.6/3.7 used node-arrow diagrams under different inputs/cohorts. Three current public examples pass artifact checks; no new inference result exists.
+**Alternatives rejected.** Silently replacing the matrix cannot isolate encoding; retaining long binding paths does not address user feedback; default shrinking rings crowd105-node graphs. A development orthogonal routing draft had visually merged lanes and is preserved but superseded by the existing curved-edge grammar.
+**Consequences.** Both encodings' bound combinations finish before controls after future explicit resumption. Fourteen arms use new immutable namespaces and need fresh complete qualification. No automatic adoption of the best node variant. Current stopping point is user example review; no GPU or formal launch.

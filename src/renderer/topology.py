@@ -250,17 +250,52 @@ def onset_card(packet):
             "unit":"minutes from public observation start", "data":{"events":events}}
 
 
-def development_topology(row, context):
-    """Targeted public-column reads: no log messages, metric values or analyzers.
+def frozen_candidate_mapping(row, context, directory, meta):
+    """Recreate the frozen parent candidate universe from public telemetry.
 
-    A legacy identity bridge uses column names / distinct owners, not selections.
-    Verify graph and metadata hashes against the frozen public context and verify
-    its relation bindings, so old M/R/L cannot silently attach to different IDs.
+    The parent admits a metric owner only when ``score_series`` accepts an
+    observed series. Column-name-only enumeration can add all-NaN, flat or
+    under-sampled metric owners and shift every seeded numeric alias. Read the
+    complete metric values for that one public rule, but only distinct identity
+    columns from logs/traces; never read messages, labels or private metadata.
+    """
+    import pandas as pd
+    import pyarrow.parquet as pq
+    from RQs.RQ1_1.src.exps import _entities
+    from RQs.RQ3_1.src.exps import _numeric_entity_map_for_view
+
+    owners = {}
+    for filename, column in (("logs.parquet", "container_name"),
+                             ("traces.parquet", "service_name")):
+        source = directory / filename
+        if column in pq.read_schema(source).names:
+            owners[column] = pd.DataFrame({column: pq.read_table(
+                source, columns=[column])[column].unique().to_pandas()})
+        else:
+            owners[column] = pd.DataFrame()
+    services = sorted(map(str, meta["services"]))
+    view = SimpleNamespace(
+        services=services, graph=SimpleNamespace(nodes=services),
+        metrics_df=pq.read_table(directory/"metrics.parquet").to_pandas(),
+        logs_df=owners["container_name"], traces_df=owners["service_name"],
+        metadata=meta["metadata"],
+    )
+    names = _entities(view)
+    mapping, _ = _numeric_entity_map_for_view(
+        view, tuple(names), row["opaque_incident_id"], 42)
+    if set(mapping.values()) != set(context["candidates"]):
+        raise ValueError("Public identity inventory differs from cached M/R/L")
+    return mapping
+
+
+def development_topology(row, context):
+    """Rebuild the frozen public identity universe before extracting topology.
+
+    Metric values are needed only to reproduce the parent's series-eligibility
+    rule. Logs and traces contribute distinct owner identities without reading
+    messages. Verify source hashes and relation bindings before exporting cards.
     """
     import pyarrow.parquet as pq
-    from RQs.RQ3_1.src.exps import _numeric_entity_map_for_view
-    from RQs.RQ1_1.src.renderer.kpi_select import split_service_metric
-    from RQs.RQ1_1.src.renderer.onset import pod_to_service
 
     directory = ROOT / "build/local_processed_v3/public" / row["dataset"] / "cases" / row["opaque_incident_id"]
     graph, meta = read(directory/"graph.json"), read(directory/"metadata.json")
@@ -271,19 +306,7 @@ def development_topology(row, context):
     if any(context["source_hashes"][k] != v for k,v in hashes.items()):
         raise ValueError("Public graph/identity metadata differs from cached context")
     metadata = meta["metadata"]
-    names = set(meta["services"])
-    for host, pods in metadata.get("node_pod_map", {}).items():
-        names.add(host); names.update(pods)
-    for column in pq.read_schema(directory/"metrics.parquet").names:
-        if column != "timestamp":
-            names.add(split_service_metric(column, meta["services"])[0])
-    for file, column in (("traces.parquet","service_name"),("logs.parquet","container_name")):
-        if column in pq.read_schema(directory/file).names:
-            names.update(str(x) for x in pq.read_table(directory/file, columns=[column])[column].unique().to_pylist() if x is not None and str(x))
-    names.update(pod_to_service(n) for n in tuple(names))
-    mapping, _ = _numeric_entity_map_for_view(SimpleNamespace(metadata=metadata),tuple(names),row["opaque_incident_id"],42)
-    if set(mapping.values()) != set(context["candidates"]):
-        raise ValueError("Public identity inventory differs from cached M/R/L")
+    mapping = frozen_candidate_mapping(row, context, directory, meta)
     source_pairs = {f"graph:edge:{e['source']}:{e['target']}":(e['source'],e['target']) for e in graph["edges"]}
     for rel in context["relations"]:
         if rel["kind"] == "calls":

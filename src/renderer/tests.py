@@ -108,6 +108,36 @@ def test_complete_topology_not_selected_traces_or_candidate_only():
     assert "G01.node.333" in scene["expected_bindings"]
 
 
+def test_topology_identity_ignores_unscorable_metric_owner(tmp_path):
+    """A column name alone must not renumber the frozen M/R/L candidates."""
+    import pandas as pd
+    from types import SimpleNamespace
+    from RQs.RQ1_1.src.exps import _entities
+    from RQs.RQ3_1.src.exps import _numeric_entity_map_for_view
+    from .topology import frozen_candidate_mapping
+
+    metrics = pd.DataFrame({"timestamp": range(20),
+                            "good_usage": [1.0] * 10 + [2.0] * 10,
+                            "ghost_usage": [float("nan")] * 20})
+    metrics.to_parquet(tmp_path / "metrics.parquet")
+    pd.DataFrame({"container_name": pd.Series(dtype="str")}).to_parquet(
+        tmp_path / "logs.parquet")
+    pd.DataFrame({"service_name": pd.Series(dtype="str")}).to_parquet(
+        tmp_path / "traces.parquet")
+    meta = {"services": ["good"], "metadata": {}}
+    parent_view = SimpleNamespace(
+        services=["good"], graph=SimpleNamespace(nodes=["good"]),
+        metrics_df=metrics, logs_df=pd.DataFrame(), traces_df=pd.DataFrame(),
+        metadata={})
+    oid = "INC-SYNTHETIC"
+    expected, _ = _numeric_entity_map_for_view(
+        parent_view, tuple(_entities(parent_view)), oid, 42)
+    actual = frozen_candidate_mapping(
+        {"opaque_incident_id": oid}, {"candidates": list(expected.values())},
+        tmp_path, meta)
+    assert actual == expected and "ghost" not in actual
+
+
 def test_trace_join_is_trace_scoped_and_retains_normal_rows():
     from .topology import trace_relations
     rows=[dict(trace_id="t1",span_id="1",parent_span_id="0",service_name="a"),
@@ -270,7 +300,11 @@ def test_browser_complete_graph_and_onset_component(tmp_path):
         "onset_rel_min_display":"+1.0m","severity_z_display":"999","evidence_source_display":"M"}}]}
     e["cards"].append(onset_card(p))
     ep,dp=tmp_path/"e.json",tmp_path/"d.json"
-    write(ep,e);write(dp,preset(e));report=render(ep,dp,tmp_path/"network")
+    # The frozen ring renderer requires explicit capacity for four rings.
+    # The default fixture's small graph panel overlaps nodes at this density;
+    # do not disable the collision audit or change legacy graph positions.
+    design=preset(e);design["viewport"]={"width":4096,"height":3600}
+    write(ep,e);write(dp,design);report=render(ep,dp,tmp_path/"network")
     assert report["status"]=="passed"
     assert 'database' in (tmp_path/"network/dashboard.html").read_text()
     write(dp,preset(e,"matrix"));assert render(ep,dp,tmp_path/"matrix")["status"]=="passed"

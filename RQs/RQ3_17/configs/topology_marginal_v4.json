@@ -1,0 +1,327 @@
+{
+  "version": "rq317_topology_marginal_v4",
+  "experiment": "exp_topology_marginal",
+  "model": "qwen3.8-27b",
+  "seed": 42,
+  "case_counts": {
+    "aiops2022": 60,
+    "aiops2025": 60,
+    "aegislab": 100
+  },
+  "primary_datasets": [
+    "aiops2022",
+    "aiops2025"
+  ],
+  "arms": [
+    "BASE_FIVE",
+    "PAIR_TEXT",
+    "TOPOLOGY_VISUAL",
+    "MARGINAL_MATCHED",
+    "TOPO_MARGINAL_BOUND",
+    "TOPO_MARGINAL_UNBOUND",
+    "TOPO_MARGINAL_MARKLESS",
+    "MARGINAL_NATIVE",
+    "TOPO_MARGINAL_REPEAT",
+    "TOPOLOGY_VISUAL_NODE",
+    "TOPO_MARGINAL_BOUND_NODE",
+    "TOPO_MARGINAL_UNBOUND_NODE",
+    "TOPO_MARGINAL_MARKLESS_NODE",
+    "TOPO_MARGINAL_REPEAT_NODE"
+  ],
+  "smoke_arms": [
+    "BASE_FIVE",
+    "PAIR_TEXT",
+    "TOPOLOGY_VISUAL",
+    "MARGINAL_MATCHED",
+    "TOPO_MARGINAL_BOUND",
+    "TOPO_MARGINAL_UNBOUND",
+    "TOPO_MARGINAL_MARKLESS",
+    "MARGINAL_NATIVE",
+    "TOPO_MARGINAL_REPEAT",
+    "TOPOLOGY_VISUAL_NODE",
+    "TOPO_MARGINAL_BOUND_NODE",
+    "TOPO_MARGINAL_UNBOUND_NODE",
+    "TOPO_MARGINAL_MARKLESS_NODE",
+    "TOPO_MARGINAL_REPEAT_NODE"
+  ],
+  "parent": "RQs/RQ3_8/preparation/ops_components_v6",
+  "parent_export": "RQs/RQ3_8/preparation/export_v1",
+  "base_preparation": "RQs/RQ3_16/preparation/marginal_coverage_v1",
+  "preparation": "RQs/RQ3_17/preparation/topology_marginal_v4",
+  "results": "RQs/RQ3_17/results/topology_marginal_v4",
+  "roster_registration": "RQs/RQ3_15/results/request_joint_v1/registration.json",
+  "roster_sha256": "847aa31ba6ae787e92d35c401a32121d8b704e1e9bee5ea9f2c219c43a0ea768",
+  "inference_base": "configs/vllm_inference_local.yaml",
+  "runtime_profile": "runtime/qwen_local.yaml",
+  "port": 21957,
+  "workers": 8,
+  "concurrency": 36,
+  "request_timeout": 300,
+  "max_tokens": 8192,
+  "formal_positions": 3080,
+  "formal_attempt_limit": 3122,
+  "total_attempt_limit": 3140,
+  "smoke_attempt_limit": 18,
+  "smoke_seconds": 600,
+  "cpu_seconds": 1800,
+  "launch_policy": "explicit_command_after_qualification",
+  "full_launch_authorized": false,
+  "global_contracts": [
+    "configs/vllm_inference.yaml",
+    "configs/dataset_segmentation.yaml",
+    "configs/rca_scorer.yaml"
+  ],
+  "canvas": {
+    "width": 1440,
+    "font_size": 18,
+    "gap": 12,
+    "padding": 20,
+    "call_cell_min": 24,
+    "membership_cell_min": 22,
+    "marginal_height": 694,
+    "calls_dashed_width_scale": 3
+  },
+  "readiness": {
+    "max_mean_pair_input_ratio": 1.35
+  },
+  "primary_contrasts": [
+    [
+      "TOPO_MARGINAL_BOUND",
+      "PAIR_TEXT",
+      "all"
+    ],
+    [
+      "TOPO_MARGINAL_BOUND",
+      "TOPOLOGY_VISUAL",
+      "all"
+    ],
+    [
+      "TOPO_MARGINAL_BOUND",
+      "MARGINAL_MATCHED",
+      "all"
+    ],
+    [
+      "TOPO_MARGINAL_BOUND",
+      "MARGINAL_NATIVE",
+      "all"
+    ],
+    [
+      "TOPO_MARGINAL_BOUND",
+      "TOPO_MARGINAL_UNBOUND",
+      "all"
+    ],
+    [
+      "TOPO_MARGINAL_BOUND",
+      "TOPO_MARGINAL_MARKLESS",
+      "all"
+    ]
+  ],
+  "secondary_contrasts": [
+    [
+      "TOPOLOGY_VISUAL",
+      "PAIR_TEXT",
+      "all"
+    ],
+    [
+      "MARGINAL_MATCHED",
+      "PAIR_TEXT",
+      "all"
+    ],
+    [
+      "TOPO_MARGINAL_UNBOUND",
+      "PAIR_TEXT",
+      "all"
+    ],
+    [
+      "MARGINAL_MATCHED",
+      "MARGINAL_NATIVE",
+      "all"
+    ],
+    [
+      "PAIR_TEXT",
+      "BASE_FIVE",
+      "all"
+    ],
+    [
+      "TOPO_MARGINAL_BOUND",
+      "BASE_FIVE",
+      "aiops"
+    ],
+    [
+      "TOPO_MARGINAL_BOUND",
+      "BASE_FIVE",
+      "aegislab"
+    ],
+    [
+      "TOPO_MARGINAL_REPEAT",
+      "TOPO_MARGINAL_BOUND",
+      "all"
+    ]
+  ],
+  "preselected_method": "TOPO_MARGINAL_BOUND",
+  "success": {
+    "deployment_delta_min": 0.03,
+    "visual_delta_min": 0.02,
+    "max_paired_total_token_ratio": 1.35,
+    "holm_alpha": 0.05,
+    "event_group_significance_required": true,
+    "positive_each_primary_dataset_required": true,
+    "aegislab_delta_min": 0.02,
+    "top5_nonnegative_each_dataset": true,
+    "positive_each_dataset_required": true,
+    "repeat_direction_required": true
+  },
+  "reason_review": {
+    "per_dataset": 12,
+    "seed": 42,
+    "selection": "outcome_blind_hash",
+    "axes": [
+      "numeric_unit",
+      "temporal_order",
+      "entity_binding",
+      "missing_as_health",
+      "unsupported_causal_claim"
+    ],
+    "salt": "rq317_reason_review_v1"
+  },
+  "major_budget": {
+    "ceiling": 40000,
+    "require_current_ledger_review": true,
+    "scope": "RQ3.17 all versions share3140; v1/v2/v3 consumed0 model calls. No budget reset."
+  },
+  "smoke_matrix": {
+    "aiops2022": [
+      "TOPO_MARGINAL_BOUND",
+      "PAIR_TEXT",
+      "TOPOLOGY_VISUAL",
+      "MARGINAL_MATCHED",
+      "TOPO_MARGINAL_UNBOUND",
+      "TOPO_MARGINAL_MARKLESS"
+    ],
+    "aiops2025": [
+      "TOPO_MARGINAL_BOUND_NODE",
+      "BASE_FIVE",
+      "TOPOLOGY_VISUAL_NODE",
+      "MARGINAL_NATIVE",
+      "TOPO_MARGINAL_REPEAT",
+      "TOPO_MARGINAL_UNBOUND_NODE"
+    ],
+    "aegislab": [
+      "TOPO_MARGINAL_BOUND_NODE",
+      "PAIR_TEXT",
+      "MARGINAL_MATCHED",
+      "TOPO_MARGINAL_MARKLESS_NODE",
+      "TOPO_MARGINAL_REPEAT_NODE",
+      "MARGINAL_NATIVE"
+    ]
+  },
+  "method": {
+    "min_requests_per_phase": 20,
+    "max_relations": 2,
+    "max_points_per_phase": 32,
+    "conditional_min": 5,
+    "min_distinct_pairs_in_binary_group": 4,
+    "minimum_dataset_applicability": 0.5
+  },
+  "secondary_interaction": {
+    "TOPO_MARGINAL_UNBOUND": 1,
+    "TOPOLOGY_VISUAL": -1,
+    "MARGINAL_MATCHED": -1,
+    "PAIR_TEXT": 1
+  },
+  "output_adapter": {
+    "version": "rq317_fixed_five_v1",
+    "flex_min_items": 1,
+    "fixed_min_items": 5,
+    "max_items": 5,
+    "scorer": "unchanged canonical; invalid outcomes zero; no posthoc completion"
+  },
+  "registration_reason": "Latest user scope: CALLS dashed widths and arrowheads3x; solid lines/arrowheads and entire DEPLOY unchanged; examples only, execution paused.",
+  "native_canvas": {
+    "width": 1120,
+    "height": 800,
+    "font_size": 18,
+    "gap": 12,
+    "padding": 20
+  },
+  "formal_phases": [
+    [
+      "TOPO_MARGINAL_BOUND",
+      "TOPO_MARGINAL_BOUND_NODE"
+    ],
+    [
+      "BASE_FIVE",
+      "PAIR_TEXT",
+      "TOPOLOGY_VISUAL",
+      "MARGINAL_MATCHED",
+      "TOPO_MARGINAL_UNBOUND",
+      "TOPO_MARGINAL_MARKLESS",
+      "MARGINAL_NATIVE",
+      "TOPO_MARGINAL_REPEAT",
+      "TOPOLOGY_VISUAL_NODE",
+      "TOPO_MARGINAL_UNBOUND_NODE",
+      "TOPO_MARGINAL_MARKLESS_NODE",
+      "TOPO_MARGINAL_REPEAT_NODE"
+    ]
+  ],
+  "execution_hold": true,
+  "layout_contrasts": [
+    [
+      "TOPOLOGY_VISUAL_NODE",
+      "TOPOLOGY_VISUAL",
+      "all"
+    ],
+    [
+      "TOPO_MARGINAL_BOUND_NODE",
+      "TOPO_MARGINAL_BOUND",
+      "all"
+    ],
+    [
+      "TOPO_MARGINAL_UNBOUND_NODE",
+      "TOPO_MARGINAL_UNBOUND",
+      "all"
+    ],
+    [
+      "TOPO_MARGINAL_MARKLESS_NODE",
+      "TOPO_MARGINAL_MARKLESS",
+      "all"
+    ],
+    [
+      "TOPO_MARGINAL_REPEAT_NODE",
+      "TOPO_MARGINAL_REPEAT",
+      "all"
+    ]
+  ],
+  "node_contrasts": [
+    [
+      "TOPO_MARGINAL_BOUND_NODE",
+      "PAIR_TEXT",
+      "all"
+    ],
+    [
+      "TOPO_MARGINAL_BOUND_NODE",
+      "TOPOLOGY_VISUAL_NODE",
+      "all"
+    ],
+    [
+      "TOPO_MARGINAL_BOUND_NODE",
+      "MARGINAL_MATCHED",
+      "all"
+    ],
+    [
+      "TOPO_MARGINAL_BOUND_NODE",
+      "MARGINAL_NATIVE",
+      "all"
+    ],
+    [
+      "TOPO_MARGINAL_BOUND_NODE",
+      "TOPO_MARGINAL_UNBOUND_NODE",
+      "all"
+    ],
+    [
+      "TOPO_MARGINAL_BOUND_NODE",
+      "TOPO_MARGINAL_MARKLESS_NODE",
+      "all"
+    ]
+  ]
+}

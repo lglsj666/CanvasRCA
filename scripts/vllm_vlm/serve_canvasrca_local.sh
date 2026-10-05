@@ -27,5 +27,5 @@ export CUBLASLT_WORKSPACE_SIZE=1
 # shellcheck disable=SC1091
 source scripts/vllm_vlm/enable_attention_probe.sh "$MODEL"
 export CANVASRCA_ATTENTION_MODEL_PATH="$MODEL_PATH"
-export VLLM_BATCH_INVARIANT=$([[ "$MODEL" == "gemma-4-26b-a4b" ]] && echo 1 || echo 0)
+export VLLM_BATCH_INVARIANT=$([[ "$MODEL" == "gemma-4-26b-a4b" || "$MODEL" == "gemma-4-31b" ]] && echo 1 || echo 0)
 exec "$CANVASRCA_VLLM_BIN" serve "${SERVER_ARGS[@]}"

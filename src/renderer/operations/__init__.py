@@ -1,13 +1,13 @@
 """Explicit operation registry. Operators transform design, never evidence."""
 from copy import deepcopy
-from . import appearance, bindings, component, indexing, layout, reorder, resolution, spacing, viewport, graph_visibility
+from . import appearance, bindings, component, indexing, layout, reorder, resolution, spacing, viewport, graph_visibility, relation_bindings
 from ..utils import compile_design, digest
 
 REGISTRY = {
     "spacing": spacing.apply, "resolution": resolution.apply, "viewport": viewport.apply,
     "appearance": appearance.apply, "indexing": indexing.apply, "layout": layout.apply,
     "bindings": bindings.apply, "component": component.apply, "reorder": reorder.apply,
-    "graph_visibility": graph_visibility.apply,
+    "graph_visibility": graph_visibility.apply, "relation_bindings": relation_bindings.apply,
 }
 
 
@@ -22,9 +22,9 @@ def apply_operations(evidence, design, operations):
         REGISTRY[operation["op"]](result, **deepcopy(operation["args"]))
         before = compile_design(evidence, result)
         old_rects = {r["card"]: r for r in old["rectangles"]}
-        changes = {r["card"]: sorted(k for k in r.keys() | old_rects[r["card"]].keys()
-                                     if r.get(k) != old_rects[r["card"]].get(k))
-                   for r in before["rectangles"] if r != old_rects[r["card"]]}
+        changes = {r["card"]: sorted(k for k in r.keys() | old_rects.get(r["card"], {}).keys()
+                                     if r.get(k) != old_rects.get(r["card"], {}).get(k))
+                   for r in before["rectangles"] if r != old_rects.get(r["card"])}
         audit.append({"operation": operation, "changed_rectangles": changes,
                       "before_hidden_isolates": old["hidden_graph_isolates"],
                       "after_hidden_isolates": before["hidden_graph_isolates"],

@@ -1,0 +1,19 @@
+model,baseline,direction,case,dataset,level,fault_type,group,new,old,delta,repair,break,new_top5,lost_top5,tail_to_top,out_to_top
+qwen3.8-27b,TPV_REF,repair,INC-38A22FDFB326,aiops2022,pod,k8s容器网络资源包损坏,04c98a994c033f7d4d30c5c0ce69981a99032061793204d6115ea1fb6c7abb5f,1.0,0.25,0.75,True,False,False,False,True,False
+qwen3.8-27b,TPV_REF,repair,INC-77C683F9B6C0,aiops2025,service,cpu stress,dbb30aae78b6ad50e9a32857ca7a4427374dfa1c404ca15e5a2e1d2ed9634ced,1.0,0.5,0.5,True,False,False,False,True,False
+qwen3.8-27b,TPV_REF,repair,INC-E196793B7152,aegislab,service,ContainerKill,4f7950a46ac25115474205fb5806febbc1c682bce0748b9d498c48cac67b621f,1.0,0.0,1.0,True,False,True,False,False,True
+qwen3.8-27b,TPV_REF,break,INC-FB637C1175C2,aegislab,service,HTTPResponseDelay,15de6f6c47dd36be0223a93d934cd66f0a5b4c975b7e468ad1b2b151233cfb4a,0.5,1.0,-0.5,False,True,False,False,False,False
+qwen3.8-27b,B3_G_REF,repair,INC-B63AC53AB86F,aiops2022,pod,k8s容器网络延迟,8543bc22d0e6edb78c14abfbdcb11edf631cbb278a2335f02e07f164c91e66b4,1.0,0.0,1.0,True,False,True,False,False,True
+qwen3.8-27b,B3_G_REF,repair,INC-9D1784608F61,aiops2025,node,node disk fill,69fba588f4efebde8333d2ebe41a6b652509345c289c1b56054542037fdc3973,1.0,0.0,1.0,True,False,True,False,False,True
+qwen3.8-27b,B3_G_REF,repair,INC-6D1C8225111D,aegislab,service,HTTPRequestDelay,897585d0afeb50d82342a9f2c5da00353ef6c9d3b1592c8943aaef67bd601d64,1.0,0.0,1.0,True,False,True,False,False,True
+qwen3.8-27b,B3_G_REF,break,INC-D87134FF9ACF,aiops2025,pod/service,dns error,42d2a2b061cc46b2f28060a5df4d5f6bc138f2eb72c8d9a410ddd43683102de6,0.0,1.0,-1.0,False,True,False,True,False,False
+qwen3.8-27b,B3_G_REF,break,INC-A30E2AFB40B0,aegislab,service,JVMMemoryStress,14f4a5c43b48087a39d99a827f4a73a3250db937ea00e2ac74f530636801c346,0.0,1.0,-1.0,False,True,False,True,False,False
+qwen3.8-27b,T_MATCH,repair,INC-38A22FDFB326,aiops2022,pod,k8s容器网络资源包损坏,04c98a994c033f7d4d30c5c0ce69981a99032061793204d6115ea1fb6c7abb5f,1.0,0.3333333333333333,0.6666666666666667,True,False,False,False,True,False
+qwen3.8-27b,T_MATCH,repair,INC-77C683F9B6C0,aiops2025,service,cpu stress,dbb30aae78b6ad50e9a32857ca7a4427374dfa1c404ca15e5a2e1d2ed9634ced,1.0,0.3333333333333333,0.6666666666666667,True,False,False,False,True,False
+qwen3.8-27b,T_MATCH,repair,INC-B77D2FD0C248,aegislab,service,NetworkPartition,32d7f6ec14e4e638fe0c6d3c7e59fa1045fd4b620ba1b9eae193845d4801906c,1.0,0.5,0.5,True,False,False,False,True,False
+qwen3.8-27b,T_MATCH,break,INC-FDC8B6B87BEB,aiops2022,node,node 磁盘写IO消耗,4f1b85788b1a43fd22922d1ed8ebdca9acda3c68f27b354f727e1bfd43d723a0,0.0,1.0,-1.0,False,True,False,True,False,False
+qwen3.8-27b,T_MATCH,break,INC-6E6E1B20F2D5,aiops2025,node,node cpu stress,4b6e88f528a371957766b76b253f9e47336443e7b4c0383c95233d121ae10aa9,0.0,1.0,-1.0,False,True,False,True,False,False
+qwen3.8-27b,T_MATCH,break,INC-992C09A89DC9,aegislab,service,HTTPResponseReplaceCode,a9a455a30c7b08c6cec5a284cd642339403fd458368111d283d2e52463dbac37,0.5,1.0,-0.5,False,True,False,False,False,False
+qwen3.8-27b,REMOTE_ID,repair,INC-B63AC53AB86F,aiops2022,pod,k8s容器网络延迟,8543bc22d0e6edb78c14abfbdcb11edf631cbb278a2335f02e07f164c91e66b4,1.0,0.0,1.0,True,False,True,False,False,True
+qwen3.8-27b,REMOTE_ID,repair,INC-ABA10DF868CA,aiops2025,service,network corrupt,c52589b74c57e717fac5906d64c426c3748d3a1979c4f86147c2d8c785d8cdd2,1.0,0.5,0.5,True,False,False,False,True,False
+qwen3.8-27b,REMOTE_ID,repair,INC-EDA23ECB5C82,aegislab,service,HTTPResponseReplaceCode,8b9fcc5cb5376a8bc78aadf948ad874e6549e23ad4290d5efdc16d1c7b97cae0,1.0,0.0,1.0,True,False,True,False,False,True

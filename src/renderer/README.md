@@ -37,10 +37,22 @@ The user renamed **silhouettes to dashboard components**. New code/docs use the
 new term; historical experimental labels are not rewritten.
 
 `web/components/` has **one file per component**; `primitives.tsx` only shares
-coordinate/axis/mark helpers, and `index.ts` registers the twelve components.
+coordinate/axis/mark helpers, and `index.ts` registers the components in the numbered catalog.
 `configs/components.json` is the numbered catalog of the available design space.
 `operations/` has **one file per operation**; `configs/operations.json` catalogs
-the ten operations. The libraries are not hidden behind a monolithic renderer.
+the registered operations. The libraries are not hidden behind a monolithic renderer.
+
+### Additive RQ3.10 scope components (2026-10-01)
+
+Catalog14 `scope.matrix` and15 `scope.tiles` share `ScopeCell.tsx`: qualified
+resource readings, exact values, signed normalized-change glyphs, activity and
+anonymous service/host memberships. Matrix shares service-by-host coordinates;
+tiles permutes the same cells and removes shared headers, preserving local
+labels and common geometry. Empty/unknown cells do not mean healthy instances.
+The new kind is validated separately; existing13 components and all operations
+remain available with unchanged behavior. Catalog is authoritative, not the
+original prototype component count above. Source/type checks do not establish
+runtime visibility; new components still need CPU/real-image qualification.
 
 Three identities are deliberately separate:
 
@@ -243,3 +255,35 @@ RENDER_BROWSER_TESTS=1 PYTHONPATH=src:RQs:. /home/lglsj/CanvasRCA/venvs/tools/bi
 
 No inference qualification is implied by renderer tests. A future scientific
 renderer snapshot needs separate model-input and experimental-contract checks.
+# Additive literal control (2026-10-02)
+
+`literal.text` renders an ordered list of exact public text lines with a visible
+binding for every line. It is needed for matched text/screenshot controls:
+existing metric/trace/log tables impose modality-specific fields and cannot
+render arbitrary mixed summary lines without changing their meaning. This is
+the only new component for RQ3.14; no operation is added. The main dashboard
+reuses `metric.line` and `trace.paired_bars`. Their behavior is unchanged:
+metric lines connect available observations across missing positions without
+special missing-point decorations. Historical artifacts remain unchanged.
+
+### RQ3.15 observed request pairs (C19/C20)
+
+Existing metric lines require time bins, trace components require two exclusive
+p95 values, and scope matrices require resource cells. None represents actual
+parent/child duration pairs with two continuous coordinates. The additive
+`trace_joint.scatter` and `trace_joint.marginals` therefore consume the same
+strict public packet and share RequestPairPlot geometry. They preserve both
+phases, sampling/support counts, units and entity/operation bindings. The
+marginal control deliberately removes the visual pairing; the exact paired
+observations remain in the experiment's common text. These are observed
+associations, not critical paths or local/waiting-time estimates. Existing
+components and operations retain their behavior.
+
+
+### Additive RQ3.17 topology-duration grammar (2026-10-03)
+
+C21 `graph.membership_matrix` uses rectangular owner/pod axes without dropping observed deployment edges. O11 `relation_bindings` validates both public parent/child endpoints and connects duration cards to exact `request_parent` matrix cells. Historical components and single-owner bindings keep their default semantics. See [the concrete gaps and grammar](RELATION_BINDINGS.md); the catalogs now contain21 components and11 operations. Current qualification artifacts are under RQ3.17, not the older dated qualification sections.
+
+## RQ3.18 population duration profiles — 2026-10-04
+
+C22 `trace_profile.quantiles` explicitly compares population inclusive parent/child p50/p95 across reference/current on one log1p(ms) axis. Existing C05 hardcodes exclusive p95 and C20 displays rank-sampled observations, so neither can express these semantics without changing historical behavior. This additive component has strict typed fields, bindings and the existing marks control. The abandoned RQ3.18-only neutral_canvas operation was removed at the user’s request. Normal empty evidence remains illegal.

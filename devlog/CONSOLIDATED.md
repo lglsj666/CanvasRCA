@@ -1,5 +1,37 @@
 # CanvasRCA consolidated devlog
 
+## 2026-10-05 — Empirical evidence and a joint accuracy/cost method objective
+
+Reviewed22 historical reports/retrospectives plus current constraints/protocol/status, and primary empirical/perception/compression literature. Saved [research objectives and provisional method](../important_docs/CanvasRCA_Empirical_to_Method_2026-10-05.md), [reading/novelty review](../important_docs/CanvasRCA_Empirical_Literature_Review_2026-10-05.md), source manifest and reproducible RQ3.16 cost audit. Paired220 MARGINAL_FIVE versus PAIR_FIVE MRR .50538/.44364 at total-token ratio1.03887; against BASE_FLEX ratio1.18396 with content/output differences. Original significance/adoption status unchanged. Latest user objective jointly targets MRR≈.60 and ≤5% added actual cost. Proposed offline joint-reading calibration and one-call representation allocation is not implemented or validated;2,880 calls are a non-authorizing envelope. Existing RQ3.18 remains frozen and running;0 additional model calls. [Project log](2026-10-05_empirical_method_review.md).
+
+## 2026-10-04 — RQ3.17 v4 complete; combination not adopted
+
+All3080 positions terminal:2983 responses,76 exact-input references,21 timeouts;5 duplicate-ID model failures retain zero. OwnedGPU service stopped. Full artifact/score/public-compiler audit and70 independent statistical checks passed; CPU qualification remains user-waived. C MRR .4957 vsT .4670, D .4988, N .5048; CN .4778. Primary six comparisons fail, Aegis C−T−.0340 andTop5−4pp. Research cost gate passes at1.163–1.211T but no cost saving.36-case explanation sample:503 rule screens,119 manually read reasons,12 directed source checks; not exhaustive grounding. No new model calls, frozen inference source unchanged. [Final report](../docs/experiment_reports/RQ3_17_Qwen_Analysis_2026-10-04.md); [RQ log](../RQs/RQ3_17/results/topology_marginal_v4/logs/2026-10-04_final_analysis.md). Stop current candidate; no automatic successor or post-hoc adoption.
+
+## 2026-10-04 — RQ3.17 v4 resumed from committed pause
+
+User explicitly resumed. Frozen source matches; existing18-call GPU smoke reused, CPU waiver preserved. Skipped phase0 and committed positions; dispatch phase1 starts770 new-call tasks plus4 references. Local Qwen service active at0.75 GPU fraction and new atomic commits verified. All historical results/timeouts and pause receipts retained. [Resume log](../RQs/RQ3_17/results/topology_marginal_v4/logs/2026-10-04_resume.md).
+
+## 2026-10-04 — RQ3.17 v4 safely paused by user
+
+Stopped new submissions, drained active calls and writers, verified2306 terminal positions (2288 successful incl72 references;18 request timeouts) and774 remaining. All owned GPU processes stopped; port21957 closed; SQLite quick_check and atomic commit presence passed. Resume authorization revoked until explicit user resumption. [Pause record](../RQs/RQ3_17/results/topology_marginal_v4/PAUSED_BY_USER_2026-10-04.md).
+
+## 2026-10-03 — RQ3.17 v4 GPU qualification resumed; CPU waived by user
+
+All220 preparations committed. User stopped remaining CPU audit after logged160/220 and explicitly requested immediate GPU smoke; no CPU-pass claim. Source-bound waiver preserves static/visual/scientific/budget/runtime gates. Smoke passed18/18 in235.28s, all14 arms covered, no infrastructure failures/truncation/invalid outputs. Formal3080-position supervisor launched;440 matrix/node bound-combination positions first. [Log](../RQs/RQ3_17/results/topology_marginal_v4/logs/2026-10-03_execution.md).
+
+## 2026-10-03 — RQ3.17 v4 CALLS dashed width and heads3×
+
+User narrowed scope to CALLS only and included dashed arrowheads.1.4→4.2; solid edges/heads and all DEPLOY unchanged. Static/type/build and three-case artifact comparisons passed;15 node examples differ only as requested,21 other PNGs unchanged. Examples under `Downloads/例图/10_02/RQ3_17_v4`; GPU/formal remain paused,0 calls. [Log](../RQs/RQ3_17/results/topology_marginal_v4/logs/2026-10-03_calls_dashed_width.md).
+
+## 2026-10-03 — RQ3.17 v3 direct-color examples; paused
+
+User requested replacing circles with direct relation colors. Unified renderer now recolors exact matrix glyphs / full directed arrows (including isolated per-edge arrowheads) and matching duration-card labels.14 arms unchanged; static/type/build,35 shared renderer tests and three-case regressions passed. Six actual matrix/node PNGs reviewed. Full CPU/GPU/formal remain paused,0 model calls. [Amendment](../docs/experiment_plans/RQ3_17_Direct_Color_Binding_2026-10-03.md); [log](../RQs/RQ3_17/results/topology_marginal_v3/logs/2026-10-03_direct_color_examples.md). Windows examples: `Downloads/例图/10_02/RQ3_17_v3/compare.html`; prior galleries preserved.
+
+## 2026-10-03 — RQ3.17 v2 topology controls; paused for example review
+
+Added five node-arrow counterparts (14 arms/3,080 registered positions) and numbered relation binding through the unified renderer. Code/static,35 renderer tests and three-case example checks passed; full v2 CPU, GPU and formal execution remain pending,0 model calls. Windows examples are under `Downloads/例图/10_02/RQ3_17_v2/compare.html`. v1 artifacts preserved. See [amendment](../docs/experiment_plans/RQ3_17_Topology_Encoding_Amendment_2026-10-03.md) and [RQ log](../RQs/RQ3_17/results/topology_marginal_v2/logs/2026-10-03_node_topology_examples.md). User requested review before further work; no automatic launch.
+
 ## 2026-09-29 — RQ3.8 v7 Nibi qualification, cache transfer and four formal jobs
 
 The v7 GPU smoke job22942268 completed in25m59s with18/18 live Qwen/Gemma
@@ -1802,3 +1834,485 @@ FAILED and no RQ3.8 job was active. `rq38v7-smoke-attempt8` was accepted as
 Slurm job **22942268**, receipt `--time=00:30:00`. No CPU regression or formal
 job was submitted. Smoke completion, model readiness and inference results
 remain unverified at this handoff.
+
+2026-09-30 Qwen-only report reanalysis (user-requested reporting scope change):
+backed up the complete docs tree before editing to
+`/home/lglsj/CanvasRCA-report-backup-20260930.zJzQJW/docs`; the initial recursive
+comparison found no differences. Revised all 11 experiment reports and their
+active scientific attachments to use Qwen only. Published 233 CSV tables and
+28 Qwen-only plots; restored four exact Qwen input PNGs with source hashes.
+Original results, logs, model outputs, scoring and historical validity states
+under RQs were not modified. The new report index is
+`docs/experiment_reports/README.md`.
+
+Recomputed available case-paired, factorial and event-group tests and restricted
+Holm families to their full Qwen comparison sets, retaining negative contrasts.
+Auxiliary tests retaining an identical original Qwen raw statistic are explicitly
+marked; CSV/tie-policy sensitivities are recorded separately. No claim that all
+exploratory statistics were rebuilt from raw conversations. This is a documented
+retrospective reanalysis, not a new preregistration. Qwen discoveries no longer
+require cross-model agreement and do not claim generality beyond Qwen.
+
+Important revised evidence: RQ3.6-A text-interface calibration has delta MRR
++0.1017, Qwen Holm p=0.00277. RQ3.6-B HP_DEDUP Graph-minus-Text has delta
++0.0750, B2 carrier-family Holm p=0.03910 (the wider carrier sensitivity remains
+non-significant). RQ3.7 LOCAL_LINK-minus-TPV has delta +0.07714, Holm p=0.00854;
+LOCAL_LINK-minus-T_MATCH is positive with event-group Holm p=0.03672 but
+case-level Holm p=0.10392. Reports distinguish these endpoints and preserve
+the node, resource-selection and visual-reading regressions.
+
+Offline verification passed: 433 original backup files hash-checked; 141,436
+Holm rows independently checked against their declared families; 493,923
+model-tagged rows contain only Qwen; 145,092 source-record rows retain their
+original identities/statuses/scores; no broken main-report links. Four analysis
+scripts pass AST parsing. Verification and provenance live in
+`docs/experiment_reports/_qwen_only_reanalysis/`.
+No model service, inference/API call, experiment queue, CPU regression or GPU
+smoke was launched; no experiment implementation/configuration was changed by
+this reporting task. Next work, if requested, should use the revised Qwen-only
+reports and explicitly separate development discoveries from later independent
+and cross-model validation.
+
+## 2026-09-30 — Qwen positive/negative findings inventory
+
+Scope/status: cross-RQ synthesis of the 11 current Qwen-only experiment reports,
+not a new experiment or inference batch. User requested short summaries of all
+positive and negative discoveries, saved under docs.
+
+Delivered `docs/Experiment_Findings_Qwen_2026-09-30.md`: 43 positive findings or
+signals, 38 negative findings, 17 unresolved/null/identifiability statements,
+and 12 implementation/validity observations. Every item links to its source
+report. Added a navigation link in `docs/experiment_reports/README.md`.
+
+Validity: kept case-level versus event-group significance, Holm-family scope,
+pooled versus macro endpoints, post-hoc fault/granularity strata, and no-op/input
+confounds explicit. Did not promote point estimates to significant findings or
+interpret unexecuted mechanisms as negative results. RQ3.7-C and RQ3.8 partial
+outcomes are outside this report-backed inventory. Older evidence statuses,
+scores, experimental code, queues and raw outputs are unchanged.
+
+Checks: all 110 item IDs are unique and sequential within category; all 11
+source references and inline links resolve; no out-of-scope model content in
+the inventory; Markdown diff whitespace check passed. Zero model calls, no
+preparation, training, CPU regression, GPU smoke or experiment launch.
+
+Next: inventory is ready for user review. Further experiments require a separate
+request; the synthesis itself does not modify the research queue.
+
+## 2026-09-30 — Findings inventory: readable configuration descriptions
+
+User requested replacing arm shorthand with configurations understandable without
+opening the experiment protocols. Updated only the findings inventory and this
+log. The inventory now describes evidence selection, added observations,
+text/image allocation, relation coverage, and numeric-panel placement directly
+in each relevant finding. A configuration table retains source aliases solely
+for traceability.
+
+Applied the baseline skill to check names against RQ2.1 protocols, RQ3.2 selection
+code, RQ3.3–3.6 input compilers and the RQ3.7 protocol. In particular, SC is a
+selection policy rather than one fixed renderer; W's added observations remain
+text in the compared carriers; ALL_ID retains observed call/deployment relations
+and ID correspondence, not a claim of complete raw-system observability.
+
+All 110 finding IDs, evidence-status labels, source-report references and
+statistical values are preserved. Clarified that perception levels count evidence
+regions, and that the scale intervention enlarges both canvas dimensions by 1.5.
+This is a readability/provenance revision, not a new statistical analysis or
+change to experiment validity. No experimental code, configurations, queues,
+raw results, model services or inference calls were changed or started.
+
+## 2026-09-30 — Literature gaps, current evidence and storyline review
+
+User requested the current storyline/progress, remaining validation, and a
+2024–2026 primary-literature gaps report. Applied status, literature-review,
+design-decision and devlog workflows; used the PDF workflow to inspect
+accessible paper text. No delegation, inference or experimental implementation.
+
+Delivered `docs/CanvasRCA_Literature_Gaps_and_Storyline_2026-09-30.md`.
+The report links all 11 Qwen-only experiment reports and reviews 23 papers,
+distinguishing published proceedings, an upcoming ASE 2026 program paper and
+three venue-unconfirmed preprints. Reading scope and inaccessible full-text
+limitations are explicit; repository venue labels alone are not acceptance
+evidence. Recorded DD-20260930-GAP-REVIEW as a recommendation, not a frozen
+protocol or authorization to run.
+
+Status checks: RQ3.7-C Qwen progress is complete with 4,200 terminal logical
+targets; reduced local RQ3.8 Qwen completion is supported by its latest decision
+and all three shard completions in the queue log. Terminal counts are not
+successful/new-call counts. Both need complete analysis before efficacy or
+generalization claims. No remote-job status was inferred from local artifacts.
+
+Main recommendation: identify when a fixed model can use real graphics to
+perform a specific diagnostic comparison beyond matched text and repetition.
+Analyze RQ3.7-C/RQ3.8 first, then pursue only evidence-backed mechanisms. Keep
+positive Qwen evidence, primary versus event-group uncertainty, node-scope
+harms, perceptual limits and input cost explicit. No new model calls, CPU/GPU
+tests, preparation, queue changes or raw-result changes were made.
+# 2026-09-30 — RQ3.7-C / reduced RQ3.8 completed Qwen analysis
+
+- Scope: offline analysis only; no inference, CPU regression, smoke, preparation,
+  model service or agent launch. Original results and runtime code unchanged.
+- Audited 4,200 RQ3.7-C and 4,860 reduced RQ3.8 terminal positions. Resolved
+  historical references via original artifact roots. Kept model failures;
+  excluded 78 RQ3.8 design-infeasible positions (20 distinct cases), separately
+  from request timeouts and three unavailable historical references.
+- Implemented reproducible analysis scripts under RQ3.8/scripts; Qwen-only
+  paired Pratt/dz/Holm, connected-event sensitivity, missing bounds, complete
+  metric tables, root/fault/observability profiles, cost and no-op audits.
+  This bypasses but does not modify the old analyzer's superseded zero-fill.
+- Actual delivered RQ3.8 evidence text agrees across nonduplicate conditions;
+  graphical arms share full text. The fixed dashboard guide is an explicitly
+  reported difference from text-only. No global large-artifact rehash performed.
+- Report: docs/experiment_reports/RQ3_7C_RQ3_8_Qwen_Analysis_2026-09-30.md,
+  six analytical figures, four unchanged delivered PNG examples, 60 sampled
+  paired-case records; 16 pairs of reasons reviewed, four targeted fact/image
+  checks. Not a double-annotator grounding study.
+- Findings/recommendation: see DD-20260930-C38-ANALYSIS. RQ3.7 retains conditional
+  positive evidence; current RQ3.8 FULL is worse than matched text. No new
+  experimental route has been scheduled. User can inspect the report first.
+
+# 2026-10-01 — RQ3.10 implementation and static-only handoff
+
+- Authorization: design/implement next study and source-only checks, then stop.
+  No subagents, CPU regression, case registration/preparation, browser rendering,
+  tokenizer, GPU smoke, model service, formal inference or training launched.
+  Qualified RQ3.9 and its interrupted artifacts remain paused/unmodified.
+- User reminded that competitive-root experiments already had limited gains.
+  Rechecked RQ3.6-B2 scope_competition source/report: host+peer−anchor pooled
+  paired+.0123 Graph/+.0059 Text, both Holm1. RQ3.1 X also regressed. New study
+  does not claim that peer addition, grouping or competition wording is novel.
+- Registered narrow hypotheses: independently active stable control and
+  coverage-qualified soft conflict/unknown, then exact-computation text versus
+  shared service-by-host board versus the same permuted visual cells.
+- Delivered RQ3.10 five modules/package marker, six-arm config, three canonical
+  descriptions, plan/history audit, future preparation/CPU/smoke/formal/recovery
+  and analysis entry points.140 exposed eval cases,60/60 AIOPS+20 Aegis;
+  840 formal positions;900 initiated-call cap includes18 smoke+42 recovery.
+- Preserved original complete text and existing renderer components/operations;
+  added scope.matrix/tiles and shared glyph helper. Recompiled browser bundle;
+  no actual dashboard generated or visually qualified in this session.
+- Corrected untested anchor voting, negative text in positive-only rules,
+  direction qualification, boundary counter resets, sample/clock binding,
+  nonfinite-derived-value handling, unknown cost accounting and launch gates.
+- Static outcomes: AST/bytecode/JSON/bash/import/DTO/placeholder checks,
+  Ruff F-series, renderer TypeScript and bundle compilation, targeted diff
+  whitespace checks. No runtime tests were substituted for static review.
+  Record: RQs/RQ3_10/descriptions/static_review_2026-10-01.md and version-bound
+  RQs/RQ3_10/results/scope_v1/qualification/static.json.
+- Next only on user instruction: actual source/canvas/processor CPU qualification
+  and independent visual review. First report real stable-active/conflict/testable
+  peer counts; do not automatically spend inference on a mostly inapplicable
+  design. Efficacy, baseline superiority and generalization remain unknown.
+
+# 2026-10-01 — RQ3.10 CPU qualification and source applicability blocker
+
+- User authorized CPU/GPU tests then preparation/formal if passed. Added
+  distinct smoke-only preparation/CPU scope; formal still requires all140-case
+  processor checks. No scientific rules or cohort changes.
+- Repaired invalid synthetic renderer fixture; ten regression categories pass.
+  Three smoke cases prepared in1.52/2.03/3.89s, CPU capacity/equality checks
+  initially7.30s; maxinput28,342+8,192output fits40,960context.
+- Source-only eligibility audit:140 cases,8 pinned workers,21.88s. All489
+  selected readings fail64-bin coverage; zero testable scope/soft-conflict cases.
+  No-anchor counts44/60 AIOPS22,10/60 AIOPS25,19/20 Aegis. This is a real
+  qualification failure of the design assumptions, not a model result.
+- Actual1800×7894 MATRIX inspected: excessive Cartesian-cell whitespace.
+  DOM equality/overflow checks passing does not imply useful readable encoding.
+- Did not lower thresholds, infer pod activity from aggregate service traces,
+  relabel counters as gauges, change anchors or select convenient cases.
+  GPU smoke and formal remain unstarted (0calls); RQ3.9 stays paused.
+- Current blocker and proposed unadopted revisions are recorded in
+  docs/issues/RQ3_10_qualification_2026-10-01.md. Scientific/visual qualification
+  must be resolved by a registered revision before expensive inference.
+
+
+# 2026-10-01 — RQ3.10 v2 qualified and full local experiment submitted
+
+- Latest explicit user goal authorizes deployment, CPU/GPU regression, complete
+  experiment submission and then stop. Single primary agent; local Qwen only.
+  RQ3.9 stays paused; earlier reports/data/results and dirty user edits preserved.
+- Adopted DD-RQ310-NATIVE-SCOPE: fixed public acquisition cadence coverage at
+  the same80% threshold, exact-source gauge aliases, public-entity hash anchor
+  fallback and compact matrix/tiles. Exact140-case/three-smoke roster, base text,
+  six arms, scoring/model recipes and900-call ceiling preserved. v1 stays blocked
+  with0 calls; no label/outcome-driven selection, health inference or interpolation.
+- Full CPU regression passes12 categories/840 processor checks in73.38s;
+  max29,411 input +8,192 output <40,960; no design/context exclusions.280 actual
+  boards pass DOM;35 renderer tests pass; direct PNG and deterministic hash review.
+- GPU smoke completed18 positions/16 actual calls/2 same-input references in
+  180.25s including startup. All responses/IDs/usage/commit artifacts passed
+  runtime review; output reasoning remains imperfect and is not an efficacy gate.
+  Final offline partial-cost directory fix was separately checked with real and
+  interrupted streams plus full CPU; byte-identical inference chain proven.
+  Original smoke source/attestation retained, no replay or budget/clock reset.
+- Formal queue acknowledged751 actual requests +89 references =840 positions
+  over60/60/20 AIOPS22/AIOPS25/Aegis eval cases.36 request workers,8 aggregate
+  writer threads. PID supervisor44540/server44548/runner45040; first
+  34 atomic completions verified at receipt. Official BF16 Qwen local GPU,
+  no Slurm/Gemma/training/attention/new test or automatic follow-up.
+- Source archive SHA256 5f417056831fcc8c1b32116590ee81cf4a11debc8ce432cdfe3ce6d241117548;
+  durable receipt RQs/RQ3_10/results/scope_v2/formal/submission.json and handoff
+  RQs/RQ3_10/results/scope_v2/logs/2026-10-01_formal_submission.md. Resume entry
+  `bash RQs/RQ3_10/scripts/local.sh supervise --execute` trusts committed flags;
+  no completed artifact graph reconstruction. Owned server stops after queue.
+- Limited mechanism applicability:23 AIOPS22 shared stable-conflict cases,0 in
+  AIOPS25/Aegis. All cases are exposed eval. No final MRR/credibility/cost claim,
+  no tuning with partial scores. Stopping now as requested; background run continues.
+
+
+## 2026-10-01 — RQ3.10 complete analysis; RQ3.11 frozen protected compression successor
+
+- Latest user goal explicitly requests complete analysis/report, next plan/code, static/CPU/GPU qualification, then next full submission. One primary agent, no delegation.
+- RQ3.10 complete840positions/836done/4timeout,747independent completions and89references; all747calls and836positions final input/PNG/artifact/unchanged-score audits passed,84 frozen files verified. Four timeouts remain unknown, not zero; one real model failure retained zero.
+- Primary AIOPS MATRIX−BASE +.0181/Holm.8626, MATRIX−TEXT +.0340/p1, MATRIX−TILES −.0078/p1; no registered contrast significant. MATRIX total-token mean23,857 vsBASE13,628, +75.1%. Limited qualified negative controls do not identify cross-dataset scope mechanism. Report docs/experiment_reports/RQ3_10_Qwen_Analysis_2026-10-01.md.
+- Fixed an offline CPU reporter confidence numeric/schema error in separately derived analysis; original rankings unchanged, legal confidence="low"; original report and allVLMoutputs/scores preserved. Reviewed24pairs/10unique cases,4actual PNG crops; other queue entries are not claimed manually adjudicated. Ranking success does not establish grounded explanation.
+- Next plan docs/experiment_plans/CanvasRCA_RQ3_11_Protected_Compression_Plan.md. Same140exposed eval,8arms,2fixed budgets,HIGH preselected; strong lossless exactTEXT + independent repeat, encodedTEXT twins, coarseV patch ablations. No newtest/training/attention/Gemma; formal1120positions,1180total initiated ceiling incl18smoke.
+- Before any GPU call, v1 CPU showed37,906overrides and visual inputs exceeding strong exactTEXT. Preserve v1 source/plan/static/CPU/preparation; v2 removes an override only if the complete finite signature remains exact. Public numeric/cost feedback only; zeroGPU/model outcome feedback. Quantized q/design unchanged, all280compatible PNGs reused with hashes/renderer identity checked; deterministic actual repeat identicalPNG/HTML. Static passed; refreshed complete CPU qualification pending at this log boundary.
+
+
+## 2026-10-01 — RQ3.11 v2 qualification passed; full queue submitted
+
+- Static/CPU/visual/academic review passed;140×8actualprocessor checks62.93s,max18914+8192<40960,zeroexclusions;280same qPNGs/DOM records retained, source and byte hashes checked, actual direct image/deterministic review passed. Public-only redundant patch removal reduced37,906→20,121; finite signatures equal, no minimum/causality/accuracy guarantee. v1 preserved,0GPUcalls.
+- GPU18/18calls completed170.24s inclstartup; all completion graphs verified270.88s<600; full responses read, enriched actual inputs/PNG/stream/conversation/scoring audit passed.18finish_stop,124–307outputtokens; confidence10high/8medium. Reason-unit and chronology/topology errors remainmodeldiagnostics; no answer-guided changes.
+- Fullqueue1103actualrequests+17exactreferences=1120positions,140exposed eval,140independentTEXTrepeats; HIGHpreselected.36requestthreads,8artifactwriters, localofficialBF16Qwen/triton. Receipt at2026-10-01T19:04:58.874014+00:00 observed92atomic commits/noerrors; first3graphs separatelyaudited; GPU100%,10running/25waiting atacceptance. PIDs103303/103310/103764.
+- Receipt RQs/RQ3_11/results/protected_v2/formal/submission.json; fullhandoff results/protected_v2/logs/2026-10-01_formal_submission.md. ArchiveSHA8cd66de375ff4f2cede5474d95bd8aedb6acf8cfac20d2fb9d27993d4f77fb7b; config protected_compression_v2.json. Formal1162+smoke18 total1180ceiling; oldRQ3.10consumption767preserved. No efficacy claims/partial tuning/newtest/training/attention/Gemma/follow-on. Agent stops at submission, supervisor finishes queue then closes ownedserver.
+
+
+## 2026-10-01 — RQ3.11 complete result analysis and report
+
+- Status: exposed development batch ended normally at 16:12 Toronto; 1120 terminal positions, 1108 with results including17 references, 12 explicit request timeouts. Formal1103 initiated/1091 complete, smoke18 complete. Two duplicate-ID model answers retain zero scores; no request retry or new GPU work in this analysis.
+- Final offline audit reproduced all1091 unique completion graphs and1108 scores,140 public compiler inputs,280 PNGs,85 archived source files,20 checkpoint SHA256 entries and8 tokenizer/processor blob identities. Global configs/recipe/renderer/scorer and frozen roster match. Independent Pratt/Holm statistical verification passed. Reporting-only main/gates additions have separate source provenance.
+- Primary AIOPS HIGH visual−exact text ΔMRR +.004861/n120/Holm1, paired total tokens +3.103%; HIGH visual−encoded text −.000700/n119/Holm1, tokens +5.704%; protected−coarseHIGH −.018091/n117/Holm.6091. LOW−HIGH +.029412/rawp.0414 but Holm.1656/group.3893. No registered comparison significant and no post-result candidate substitution.
+- Known-side missing-outcome bounds keep HIGH visual−text and HIGH patch−coarse full120 mean deltas below0; these are algebraic unknown ranges, not confidence intervals. All3360 finite numerical signatures preserved,20,121 patches; neither RCA utility nor causal/explanation fidelity follows.
+- Read24 paired explanation entries/12 unique cases plus4 full actual PNGs; remaining67 review-queue entries not adjudicated. Confirmed unit/chronology/binding/attribution errors include correct-ranked but faulty explanations. Confidence categories are not calibrated probabilities.
+- Detailed Chinese report: docs/experiment_reports/RQ3_11_Qwen_Analysis_2026-10-01.md. Tables, PNG/SVG, audits, manual selection and reviewer disposition: RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/. Findings/roadmap/report index updated. No successor experiment, training, attention, Gemma or test initiated.
+
+
+## 2026-10-01 — RQ3.12 next experiment deployed; static-only boundary complete
+
+- User goal: synthesize historical/current results and conversation_oct_01.md, write next plan, deploy code, perform static checks, then stop. Single primary agent, no delegation.
+- Adopted rq312_conditional_residual_v1: reference-only blocked-CV dependency predictions, candidate anchor profiles, observed/expected/residual/error-scale comparison and disagreement-first probes. Associations are not interventions. Preserve exact12M plus R/L/G, identities, candidates and original scorer. No healthy-peer or node-affects-all assumption.
+- Six arms over the existing140 exposed eval: exactTEXT and real independent repeat, observedTEXT/VISUAL twins, conditionalTEXT/VISUAL twins; COND_VISUAL preselected. CPU residual heuristic is limited/non-CIRCA and keeps fallback applicability. Future840positions,900attempt allocation incl18smoke; current-major40000 budget review required without resetting spent calls.
+- Plan, literature/claim ledger and design decision consolidated in RQs/RQ3_12/descriptions/RQ3_12_experiments.md; three canonical descriptions and one findings file. Additive diagnostic.matrix shared renderer preserves existing component semantics and source edits; prior results continue to use their original frozen archives.
+- Static AST/compile, JSON, bash-n, all local exported-symbol linkage and TypeScript noEmit pass; source1589total lines, one shell. Source review/completion audit retained under results/conditional_v1/qualification/. All4 global scientific/local-projection config hashes match frozenRQ3.11 authority.
+- No preparation, reference-model fitting, CPU tests, renderer build/PNG, tokenizer loading, smoke, formal, newtest, Gemma, attention or SFT/RL run. Runtime/efficacy remains pending. Stop at requested static boundary; future execution requires whole-roster CPU applicability/cost/capacity and actual visual/scientific/budget review before model qualification.
+
+
+## 2026-10-01 — RQ3.12 CPU资格失败，未启动GPU
+
+用户授权CPU回归、GPU smoke及资格通过后全量启动。六组CPU方法检查、25个renderer CPU tests、280张实际DOM及deterministic PNG、官方模型28文件身份、全840输入容量通过；两个AIOPS竞争案例各0，COND_VISUAL/ET主要范围input比1.339239，适用性/成本失败。全候选亦无两共同目标竞争对；105个参考拟合与独立NumPy一致。Aegis问号图的12条指标均参考16/32有效格，低于60%；均匀格缺失不等于原采集失败。按预注册GPU前停止规则保留失败，0模型调用；未改变阈值/队列/配方/score。已请求用户决定新版本采样支持/响应及传输修订。证据：RQs/RQ3_12/results/conditional_v1/logs/2026-10-01_cpu_qualification.md、qualification/cpu.json、diagnostic_failure.json。
+
+## 2026-10-01 — RQ3.12 v2 删除不可计算展示，按用户要求停在代码边界
+
+- 用户授权修改问号图相关代码、删除无诊断信息的缺失内容，随后明确“代码改完之后就先停下”。该指令暂停此前 CPU/GPU/formal 后续执行；单一主 agent，无委派。
+- 新版 rq312_conditional_residual_v2 从冻结 label-free context 所绑定 canonical metrics 的 timestamp 列提取独立采样支持，覆盖率不把未采样画布格当缺失；真实采样格的 null 仍计分母。样本/CV/60%/支持域阈值不放宽，未插值或添加新指标。
+- 新增 diagnostic.compact：OBS 只画 A，不可计算/conditioned 比较不绘制；删除空候选行和无观测列；整表为空不生成 PNG，保留 exact 原始文本、所有候选与病例分母。text/visual 共用稀疏表，精简重复附录和按有效行数定高；不能推定成本或预测资格已修复。
+- v1 原源码/renderer/bundle 保存为 failed_cpu_source_v1.tar.gz；原 140 例/280 图/CPU 失败、预算和记录保留。v2 使用独立准备/结果目录，继承同一 900 allocation，不重置消耗。
+- 静态 AST/compile、JSON/config、bash-n、模块接口、compiler 依赖边界、TypeScript noEmit 通过；新增测试定义未运行。v2 未准备/渲染/build、CPU 回归、tokenizer、GPU smoke 或全量运行，模型调用 0。代码效果、竞争覆盖和成本仍需用户继续后重新验证。记录：RQs/RQ3_12/results/conditional_v2/logs/2026-10-01_static_repair.md；qualification/static.json。
+
+## 2026-10-01 — 按用户追加请求导出历史原图和新版三例预览
+
+- 新请求仅授权例图与Windows文件导出，不恢复完整CPU/GPU/formal。今天RQ3.10、RQ3.11正式队列结束；RQ3.9正式中断，RQ3.12 v1 CPU方法资格失败。原有失败和分母保留。
+- 历史图来自模型实际input和atomic completion对应的PNG，复制后逐张SHA核对；纯文本臂附原始输入。RQ3.11一个固定case/arm超时，按同数据集opaque排序选择另一已提交完成例并标注，不按正确率选图。
+- 仅三个固定exposed-eval案例生成RQ3.12 v2六PNG。预览发现并修复新compact高度/SVG尾部空间接口问题，两次失败保留；六图DOM审计、三张COND目视和单例确定性PNG通过。观测列7/9/12、预测行0/1/0，不推定竞争覆盖/成本资格。预览使用独立bundle，canonical bundle和准备/资格不改写，0模型调用。
+- Windows目的地 /mnt/c/Users/10511/Downloads/例图/10_01；共78个arm×dataset记录、30PNG、48纯文本输入，含额外v1失败对照；index.html/CSV/manifest已生成，浏览器筛选通过。记录 RQs/RQ3_12/results/conditional_v2/logs/2026-10-01_preview_export.md，完整实验目标仍暂停。
+
+## 2026-10-01 — 用户恢复 RQ3.12 v2 资格：CPU回归通过，参考竞争适用性失败
+
+- 用户授权CPU回归、GPU smoke，均通过后full；解除代码/例图暂停，single primary agent执行。显式canonical build→static→登记→完整140准备→CPU；八distinct physical cores，254实际PNG、13空表回退，完整病例分母不变。
+- 八组方法/隔离/稀疏/commit回归、renderer25 CPU tests（10 opt-in browser tests skipped）、254实际DOM/field/SHA审计、六固定例独立PNG repeat通过。840输入零容量排除，max21206+8192≤40960；official checkpoint/tokenizer/processor28 files verified。CPU132.843s，主要input比1.134522≤1.20。
+- 方法readiness失败：AIOPS2022/2025竞争案例各0/60，低于合计30/各10。全候选仅2/6例有任何预测，4/12有效预测单元，没有两个共同目标的候选对；非六行显示选择问题。Aegis3例有共同目标对，但无注册分歧竞争案例。
+- 独立NumPy正规方程核对823个参考拟合一致（最大相对差3.54e−14）。观测1075/1680较v1 497改善，输入成本/图形修复没有建立候选比较适用性。保留failed report、全部准备及failed_cpu_source_v2.tar.gz，不降低门槛/改队列/做外推/试模型成绩；0模型调用，GPU smoke/full未启动。证据 RQs/RQ3_12/results/conditional_v2/logs/2026-10-01_cpu_qualification.md；下一步需版本化修订参考响应或数据支撑。
+
+
+## 2026-10-01 — RQ3.12参考适用性修订完成；CPU/GPU通过，完整六臂已启动
+
+- 用户授权先解决参考预测适用性，再启动全量；单一主agent执行，无委派。当前rq312_conditional_residual_v4从同案例完整label-free公开参考池选择受原CV/支持标准约束的共同目标与anchors，新增最多6原始操作数在六臂相同，保留原12M/R/L/G、完整候选/140exposed-eval，比较2共同目标/2candidate。旧失败/接口尝试保存，参考阈值/队列/统计/成功条件未降低；compact宽容量仅按实际列数适配，旧12列/旧matrix行为保留。
+- CPU完整140/266实际PNG/840inputs，9方法组、25renderer tests/10旧opt-in skipped、266真实DOM/hash、4目视及确定性重绘通过。1120独立reference fit差7.54e-13、115068source-clock向量一致/6臂同新增事实；A22/A25竞争54/50，input CV/ET1.092284，max21940+8192<40960，0排除/28官方文件核对。CPU389.49s+三例47.83s，源94文件与3补充recipe依赖冻结。
+- GPU smoke18/18完成含startup212.272s≤600，完整graphs及全部18actualinput/output阅读审核通过；18JSON/IDs有效，输出107–223tokens，15high/3medium。保留明确单位/log2/时间/理由粒度错误，不宣称信任提升，不按答案调参/重试。
+- 全量840位置=811预期真实请求+29exactreferences，140独立重复真实；注册source/病例/6臂/主要统计族/CV预选保持。提交确认14原子commit/36在途、首3完整图谱审计通过，0infra失败、GPU99%，supervisor67677/server67685/runner68101。本轮全版本同一900 allocation含18smoke，旧调用保留，RQ3.1预算/旧RQ3 blanketcap权限范围纠正在协议0V3。
+- Receipt RQs/RQ3_12/results/conditional_v4/formal/submission.json；交接logs/2026-10-01_formal_submission.md。后台完成队列后关闭ownedserver，agent停在全量启动确认；整批MRR/视觉价值/总成本/理由审核未完成，无新test/Gemma/attention/SFT/RL/follow-on。新版18arm×dataset例图/6PNG在Windows原目录05_RQ3.12_v4_参考预测修订，旧例图保留。
+
+
+## 2026-10-02 — RQ3.12完整分析
+
+840终态，811formal调用/801响应/10超时，18smoke。801完整graph和评分、140公开compiler parity、94冻结源/3附加runtime、实际transport及token守恒审核通过；离线operand接口修复限定report，不改变原输入/答案/分数。主要CV−ET+.0384/CV−CT+.0365/CV−OV−.0275，pH均.5671，成本+9.06%，不采用CV。参考竞争104/120但目标真实变化23/120、精确root目标0/预测行2。36case/216位置214解释阅读，未知轴保留，不宣称信任增益。报告docs/experiment_reports/RQ3_12_Qwen_Analysis_2026-10-02.md。用户授权继续结果驱动新plan/实施/全部资格及启动完整队列，single primary。
+
+
+## 2026-10-02 — RQ3.13观测时间画布资格完成；按最新指令停在smoke
+
+- 用户将目标改为代码/static/CPU/GPU smoke完成后停止，暂不启动全量。full_launch_authorized=false门禁已验证，formal0；单一主agent，无委派。
+- 原始12M真实采样/观测包络，原v4全部exact事实和候选保留；同信息强文本、时间图、原文字截图及文字/时间图两类真实独立重复，140exposed-eval/未来840矩阵。无需依赖拟合或非零scale，参考仍非健康/因果认证；7空表原文回退，不排除病例。历史RQ3.12输入/分数/811+18calls不变。
+- 静态1144有效行/五模块、全140准备/266独立PNG/8物理核；7回归组、1680独立数值复算最大reldiff2.78e-17、全部source timestamp、266实际像素/文字盒、六真实确定性重绘、840processor输入/28官方文件通过。A22/A25适用性57/55，input比1.087043，max22143+8192<40960。CPU141.054s+三例7.841s；8实际PNG目视、primary科学/预算审查完成，未称独立评审。
+- 129文件source/runtime/font冻结；GPU18真实/18done、含加载185.152s<600，无超时/retry/infra/model格式失败。18完整graph及实际输入/body/PNG/评分/token守恒通过；输入340414=文字333979+image6435、输出3557。
+- 全18解释阅读并按M/R/E01核对，单位×1000、M实体绑定、更早onset及把公共split/偏差当因果认证等反例保留。unknown轴未穷尽审核，不宣称视觉价值/可信度改善，不按smoke正确率改方案/挑重复。
+- 全门禁及archive identity复核；ownedserver/runner关闭，GPU释放，无formal、新test、Gemma、attention、训练或后台后续。报告docs/experiment_reports/RQ3_13_Qualification_2026-10-02.md，计划docs/experiment_plans/RQ3_13_Observed_Excursion_Plan_2026-10-02.md，交接qualification/completion.json。
+
+
+## 2026-10-02 — RQ3.13用户授权全量启动
+
+- 最新请求“好的，现在帮我启动全量实验吧。”解除smoke停止边界，不扩大科学矩阵。冻结config/registration/preparation、原资格/18smoke及source archive保留。仅执行门禁局部后继；128其他冻结文件字节不变，非门禁AST及原资格检查结构一致。qualification/activation_v1/保存源兼容/新archive/授权receipt；静态、11授权检查、7CPU-unit组通过，0新增烟测。single primary，无委派。
+- 正式140×6=840位置，819真实请求+21精确引用，280真实独立重复；A22/A25各60/Aegis20 exposed eval，Qwen本地，36并发/8writer；18既花调用在同900分配/882formal cap中保留。未改prompt/score/figure/tokenizer/模型解码或使用新test/Gemma/attention/training。
+- 首次nohup launcher未存活且0调用；改用独立setsid后台会话。supervisor21497/server21505/runner21930，加载99.195秒后队列正常；启动快照25atomiccommit/36started/61initiated，0failureflags，GPU100%/78946MiB，首3完整graph/实际body/PNG/policy审计通过。
+- 启动receipt RQs/RQ3_13/results/observed_excursion_v1/formal/submission.json；交接formal/logs/2026-10-02_full_submission.md。后台完成registered队列后关闭ownedserver，无后续任务。当前仅启动确认，整批MRR/成本/理由审核待完整结果；不从部分成绩改方法或扩大队列。
+
+启动follow-up：105complete/36started/1request_timeout；已确认是登记300秒客户端超时，消费/partial/未知usage保留，未自动retry或改recipe，完整队列继续。formal/launch_followup.json记录实测，不将早期0失败快照误当持续零失败。
+
+
+## 2026-10-02 — RQ3.13 full completion and quantitative status review
+
+- User asks to check the completed run. Formal ended12:51 Toronto,4117.58s includingstartup;840terminal positions,808real responses/21references/11timeouts;6invalid-ID answers retain0,802valid.18smoke+819formal=837attempts. OwnedGPU services stopped, no unexplained missing position or active ledger call.
+- Frozen source unchanged. Offline artifact/scorer/transport checks passed808graphs/bodies,829scores,140public replays/266PNGs,2x129archives and28officialmodel/tokenizer/processorfiles. Independent round12Pratt/Holm matches; per-dataset/fault/common110primary/repeat/missingbounds/fullattemptusage saved analysis_reviewed_v1. Hash definitions normalized at their own layers; scoped ledger call keys resolved to artifact keys. No model replay or source/output/score mutation.
+- Primary EV−EXACT+.066377/n115/Holm.454856/group.833692;EV−TEXT+.057902/n116/Holm.454856;EV−PIXEL+.001449/n115/Holm.801547,groupdelta−.012949. DeploymentA22+.103216,A25+.030172;Aegis−.129167. Paired total EV/EXACT1.087973, no cost reduction. Registered significance gates fail; not adopted and no best-arm/repeat selection.
+- Completion status was reported with216-position explanation review pending at that boundary; the former simple report is now replaced by docs/experiment_reports/RQ3_13_Qwen_Analysis_2026-10-02.md at the user's request. The detailed analysis entry below records the subsequent review. No reason-trust/calibration/independent-test or publication-ready claim. No new experiment/test/Gemma/training/attention launched.
+
+## 2026-10-02 — RQ3.13详细分析完成；RQ3.14仅设计
+
+- 用户要求详细分析最新实验、以详细报告替代并删除旧简报、综合历史报告并设计兼顾AIOPS/Aegis的下一轮；single primary，无委派。此次0模型调用、无CPU/GPU运行资格、准备、训练或新推理。
+- 详细报告 docs/experiment_reports/RQ3_13_Qwen_Analysis_2026-10-02.md。30准确率/30成本行、6登记对比、20Aegis全病例核对原CSV；829响应副本与原输出一致、17历史报告SHA/本轮source哈希和本地链接核对。旧简报仅保留SHA/size删除审计，独立资格报告/原日志/所有模型输入输出分数不变。
+- 完成登记36case/216位置解释阅读，213响应/3超时；全20Aegis扩展并集44case/264位置/260响应，定向source检查14claim：13事实/算术矛盾+1未充分支持的因果先后。未知轴保留，不宣称全量grounding率。原/新增M数字后缀映射1551/1680不一致，是真实接口歧义，不是literal-ID冲突或1551模型错误。
+- A22 EV−EXACT+.103216/n57、A25+.030172/n58；Aegis−.129167/n20，4好/7坏/9同，top1修复/破坏2/5，三例1→0在截图与视觉重复重现。参考期瞬态被包络摘要压平、资源症状压过局部Trace、编号/单位/时序/排除推论问题均落盘。现有主要显著性失败、成本+8.8%，不采用EV；不把观察路径当已识别独立因果贡献。
+- 回读17份canonical历史报告/综述并保存identity/read-scope；所有历史batch、smoke、exposed test及原统计族保留各自有效性边界。新完整18项数据集探索族pH均1，不以事后子组救主结论。
+- 新方案 docs/experiment_plans/RQ3_14_Typed_Window_Comparison_Plan_2026-10-02.md，RQ3_14三description与provisional DD/未运行findings已建。9arms、220exposed eval（AIOPS60+60/Aegis100）、唯一编号/类型规则/全窗口摘要分开控制，预选SHAPE_VISUAL，Aegis正向增益纳入主要门槛；拟1980正式位置/2040allocation不清零历史支出、不构成执行权限。本次停在报告与设计，尚未实施或启动新实验。
+
+
+## 2026-10-02 — RQ3.14用户授权替换设计并资格后全量启动
+
+旧RQ3.14只有文档，无代码/准备/调用。删除旧未执行计划与findings并保存最小SHA审计；新计划RQ3_14_Observed_Binding_Plan_2026-10-02.md。9臂220 exposed eval，停止候选响应预测的默认主线，验证观测/绑定修复。继承基础输入与公共附加operand，不显示预测。1980正式位置，2040allocation，门禁未通过前不调用GPU。用户目标止于全量可靠启动。
+
+
+## 2026-10-02 — RQ3.14 unified rewrite qualified; full supervisor submitted
+
+Deleted bespoke RQ3.14 code was not restored. New five-module implementation uses registered metric.line/trace.paired_bars and appearance/indexing/spacing; only literal.text is added for a screenshot control. Missing positions are connected without decoration. Full220-case/9-arm CPU,660 actual PNGs,2640 numeric rows,9 deterministic rerenders and35 renderer tests passed. Input ratios1.155633/1.184700/1.154480; max23399+8192<40960, no exclusions. Official model identities and167 source files frozen. GPU18/18 completed in185.20s, no infrastructure/timeout/truncation; every actual input/output reviewed. Reasoning errors remain model outcomes, no score-based tuning. Full1980-position supervisor submitted; authoritative live receipt under RQs/RQ3_14/results/unified_observed_v1/formal/. Task stops once queue commits, not on full experiment completion. Detailed log: RQs/RQ3_14/results/unified_observed_v1/logs/2026-10-02_qualification.md.
+
+
+Formal launch verified: supervisor 70617, runner 71339, server 70624 alive; 31 atomic completed markers at verification. Ledger states: {'complete': 31, 'started': 36}. No partial efficacy scores inspected. The authorized launch stopping boundary has been reached; detached full experiment continues unchanged.
+
+
+## 2026-10-02 — RQ3.14显存只读检查；用户保留0.75
+
+用户撤回降至0.65的要求；从未修改配置或重启。当前argv/YAML/metrics均为0.75。整卡约84.92/95.59GiB；Windows WSL vmwp约81.6GiB，不能仅归因桌面程序。启动weights51.1GiB、KV12.92GiB；保留池/动态分配/WSL驱动开销是待区分解释，没有worker内部allocated/reserved快照，尚未确诊。日志无CUDA OOM；另有5请求超时，未归因显存。完整原始只读证据：RQs/RQ3_14/results/unified_observed_v1/logs/vram_observation_20261002_191540.json。正式实验继续；无新调用、重试、源码或实验条件改动。
+
+## 2026-10-02 — RQ3.14正式完成与详细分析落盘
+
+- 用户请求完整总结与报告。single primary，无委派；仅离线分析，没有新模型调用、实验源码/输入/输出/评分改动，未恢复显存诊断。正式21:49:50 Toronto结束，自有模型服务退出。
+- 全1980终态=1966真实响应+14request_timeout。WSL中断的36尝试保留并补齐未commit位置，2016formal+18smoke=2034/2040；50次失败/中断usage未知，不填0。16未知/重复实体回答保留原零分；所有1966 finish=stop，无输出截断。
+- 全1966completion graph/独立评分/实际prompt，877image transport、220public invariants、167冻结文件审计通过。手工Pratt含零并列秩方差+独立Holm核对20统计项一致。分析中修正仅offline子组mask的注册分母/缺失界限记账，重建分析后校验，正式分数不变。
+- V−RAW A22 +.117251/A25 −.020904/Aegis −.011167；四主要采用门槛未过。V−TEXT全体−.052294，Holm病例.113887/组.052700，均不显著；V−MARKLESS−.006957无优势。唯一显著次要TEXT−SAFE n218 +.046942，Holm病例.016502/组.014463，属于exposed-eval文本摘要收益。
+- 同旧Aegis20例视觉损失−.129167→−.058333，新增80差+.000625；不是完全修复。四侧共同54个A22病例上视觉绝对MRR下降、基线也下降，净差近似不变；不宣称A22跨轮进一步进步。总token V/RAW为1.154909/1.183810/1.153888，无降本。
+- 完成固定36case/324位置的321份解释阅读，3未知；15case/21response/25定向claim检查=17矛盾/6局部支持/2证据不足。未核验轴保留unknown，非盲、定向审核不估计总体错误率。源单位泛化标签357条、历史alias后缀差2429/2640仍可见；作为输入局限记录，不冒充模型错误计数。正确MRR也可能伴随错单位、时间、实体与因果理由。
+- 详细报告 docs/experiment_reports/RQ3_14_Qwen_Analysis_2026-10-02.md；原始派生CSV/JSON、两组PNG/SVG及再现脚本在 RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/。更新findings/roadmap/报告索引。按注册边界停止本实现，不自动使用剩余6调用；RQ3整体目标尚未达成。
+
+
+## 2026-10-02 — RQ3.15 implemented and qualified; stopped after smoke
+
+User-authorized endpoint: code, full CPU, actual image review and bounded GPU smoke, then stop. Single primary agent. Implemented public RequestPairPacketV1 and two registered unified-renderer components; five modules / 1161 functional lines, 176 source files frozen. Historical source/component/operation semantics and artifacts preserved.
+
+Full220 CPU passed: applicability A22 60/60, A25 55/60, Aegis96/100; 9 complete BASE fallbacks retained. 422 PNGs, 58496 bindings, 341635 independently checked selected population pairs; six byte-identical rerenders and 11 actual image inspections. V/BASE input ratios1.154363/1.187519/1.194581, V/PAIR_TEXT1.039072/1.042095/1.035798. All input budgets/capacity passed. GPU18/18 in203.26s, no timeout/truncation/infrastructure failure; unique real repeats and actual input/PNG/provider-usage/scorer equality audited. Local Qwen BF16, context40960/output8192, GPU memory utilization0.75. Owned service stopped and completed-phase fast resume verified.
+
+No smoke-based tuning. Ranking/explanation contradictions and a numerical comparison error are preserved; graph understanding, RCA improvement and trustworthy explanation remain unestablished. Formal1320 positions registered only, formal calls0, full_launch_authorized=false. Stop as requested; no automatic continuation. Detailed report: docs/issues/RQ3_15_qualification_2026-10-02.md. Plan: docs/experiment_plans/RQ3_15_Request_Joint_Plan_2026-10-02.md. RQ log: RQs/RQ3_15/results/request_joint_v1/logs/qualification_20261002.md.
+
+## 2026-10-02 — RQ3.15 full experiment explicitly authorized and started
+
+Latest user request: “我们不是注册了最新的实验吗？而且你做的test都通过了吧。那就启动全量实验吧。” This supersedes the fulfilled post-smoke pause for this frozen matrix only. Single primary agent. Reused all220 CPU preparations, actual PNG reviews and18 measured smoke calls; no extra smoke or outcome tuning.
+
+Operational activation modifies only two authorization/compatibility functions in RQ3_15/src/gates.py, with an explicit user receipt bound to immutable config/registration and current source.176-file set, all scientific dependencies, renderer and the rest of the gate AST are identical to the measured archive. Original seven passed reports and source archive preserved. Activation static and negative checks passed; effective source archived separately. No scientific thresholds, arm definitions, budget or model settings changed.
+
+Detached formal launch2026-10-02 23:49:54 America/Toronto; verified23:53:42.220 cases×6 arms=1320 positions; expected first pass1284 real calls+36 no-applicability references, with genuine PAIR_REPEAT for all220. Formal limit1362+spent smoke18=total1380. Local Qwen BF16/context40960/output8192/memory-utilization0.75, canonical launcher and live attestation passed. Snapshot17 committed responses+36 in flight,0 failures; supervisor2426/server2439/runner2980 alive, GPU utilization100%. No interim efficacy scores inspected. Background supervisor will stop its owned service on completion; no automatic next experiment. RQ log: RQs/RQ3_15/results/request_joint_v1/logs/formal_launch_20261002.md. Durable launch receipt and verification: RQs/RQ3_15/results/request_joint_v1/formal/.
+
+## 2026-10-03 — RQ3.15 safely paused at the user's request
+
+User: “我准备睡觉了，帮我立刻安全暂停实验。” This supersedes the previous full-run execution authorization until the user explicitly resumes. Sent SIGUSR1 to the verified runner2980 and supervisor2426 at01:06:58 America/Toronto. No new calls were initiated after the pause; all36 in-flight requests completed normally, with no new failed attempts during draining.
+
+Shutdown verified01:10:34: runner/supervisor/server2439/engine2573 gone, port21955 closed, GPU memory2421MiB for the whole device.794 real responses and24 no-op references durably committed;4 earlier request-timeout positions preserved,822 terminal positions and498 pending of1320. Formal798 attempts+smoke18=816 spent; original limits and accounting remain intact. SQLite quick check passed; every done flag has its completed marker. Phase correctly remains incomplete; no partial efficacy analysis or source/config changes. Do not restart inference, services or automatic monitoring without explicit user resumption. Evidence: RQs/RQ3_15/results/request_joint_v1/formal/pause_verification_20261003.json and PAUSED_BY_USER.md. Latest launch receipt, roadmap, findings and plan index now record the pause.
+
+## 2026-10-03 — RQ3.15 explicitly resumed from the safe pause
+
+Latest user: “帮我重启实验吧。” This lifts the pause for the remaining frozen matrix. Single primary agent; no source/config/model/preparation changes, additional smoke or budget reset. All source-bound qualification gates passed unchanged. Fast resume checks use small flags and completed-marker presence; no bulk historical prompt/render/conversation/trajectory verification. Prior794 responses+24 references+4 timeout outcomes retained,822 terminal positions skipped; native queue correctly reports486 pending real calls+12 references.
+
+Detached resume10:50:22 America/Toronto, verified10:53:42. Supervisor1925/server1939/runner2338 alive, live attestation ready, actual GPU utilization parameter0.75, context40960/output8192, BF16. Snapshot804 committed responses (10 new),36 new active calls,0 new failures; no old call key resubmitted. Formal798+smoke18 previously spent remain charged, with original1362/1380 limits. No partial efficacy inspection. Owned service closes on completion; no automatic successor. Historical pause records and pre-resume operational metadata preserved. Evidence: RQs/RQ3_15/results/request_joint_v1/formal/resume_receipt.json and resumes/20261003_105022/verification.json; RQ log: results/request_joint_v1/logs/resume_20261003.md. Latest roadmap/findings/plan index now reflect running status.
+
+## 2026-10-03 — RQ3.15正式完成，详细分析与停止决定落盘
+
+- 用户要求详细总结分析；single primary，0新增模型调用，无源码/准备/原回答/分数改动。正式11:42:16 Toronto完成，1320终态=1279真实响应+36精确输入引用+5超时；2重复ID模型失败保留零分。1284formal+18smoke=1302/1380，已知28,467,410 tokens，5次usage未知不补0。服务退出；历史启动/暂停/恢复快照保留。
+- 审核1279唯一completion graphs、1315位置的评分/实际prompt/processor token、630图像传输、220公共输入约束及176文件资格兼容。独立Pratt含零/并列秩方差和Holm一致；42汇总行独立重算，报告30准确率行和33本地链接核对通过。有效源hash d988af3aa1a701d68d1831fd7ddfa140bc3ca4a20ac37123967a8ef2735978bc 不变。
+- 主要V−PAIR_TEXT+.028135/n218，V−MARGINAL−.013441/n217，V−BASE AIOPS+.042373/n118、Aegis+.000667/n100；病例/事件组Holm均不显著。Aegis实际收益门槛失败，对PAIR_TEXT−.005219；预选方法不采用。共同215例敏感性及全注册缺失紧界限不改变决定；次要比较也均不显著。
+- Aegis Top-1 45%→50%，Top-5 80%→71%（修复7/破坏16），平均输出候选4.05→3.61；没有固定长度干预，不将其当完整因果解释。重复与视觉100/100 Aegis MRR相同；联合/边际206/217同MRR，二维关系独有收益未建立。
+- 适用性211/220仍通过；scorer粒度root端点覆盖24/60、18/60、41/100，下降关系与故障子组仅事后描述，不可按私有标签选方法或事后筛样本。阅读固定36例216解释，重新打开6实际PNG，26定向claim核验跨15例/22响应：18矛盾、6局部支持、2因果证据不足。unknown轴、单人非盲与非总体错误率限制明示。
+- V/BASE总token1.1535/1.1857/1.1945，V/PAIR_TEXT1.0403/1.0418/1.0355；通过允许开销而非降本。BASE对RQ3.14 WINDOW_TEXT220输入完全一致，218共同完成病例Δ−.000917，无明显基线漂移；已暴露eval非独立确认。
+- 最终报告 docs/experiment_reports/RQ3_15_Qwen_Analysis_2026-10-03.md；派生CSV/JSON、图、脚本、审核和完成receipt在 RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/。更新findings/roadMap/报告与计划索引；执行原注册停止条件，结束此连续配对图路线，不自动修改布局、挑最高臂或花费剩余78次。RQ3整体部署/性能/视觉贡献/解释可信目标仍未达成。详细RQ日志 results/request_joint_v1/logs/final_analysis_20261003.md。
+
+## 2026-10-03 — RQ3.16新计划与资格完成，按用户要求停止
+
+- 用户授权下一步设计、落盘代码、静态/CPU/GPU smoke后停止。单一主agent复核19份历史权威实验/综合报告及当前Codex、对话主线；新计划 docs/experiment_plans/RQ3_16_Marginal_Coverage_Plan_2026-10-03.md。保留RQ3.15联合图不采用结论，不追认事后最高均值。研究边际数据点增量贡献与输出候选容量，固定公共事实、原PNG、220 exposed eval及事件组。
+- 八臂BASE/PAIR/MARGINAL×FLEX/FIVE，加MARKLESS_FIVE及真实MARGINAL_REPEAT。FIVE仅schema minItems1→5及全FIVE共享说明，scorer/候选/配方不变；同期FLEX重复独立计费。正式1760位置/1802attempt，仅登记；加18smoke总1820，历史消耗保留。四项主要Holm病例/组比较、七项次要MRR及AC@5族、成本和跨数据集Top5护栏预注册，失败停止候选。
+- 五功能模块1192有效源行；TypeScript构建和静态通过。复用211原图、新绘211去点对照，全部统一renderer；C20接通既有presentation开关，不增加组件/操作，不改缺测规则。完整CPU220/220、422图/32624绑定、3默认历史图字节相同＋3控制重绘、12实际PNG审查通过；9病例完整回退，45精确引用不排除病例。最大输入26141，输入比率对BASE为1.1540/1.1870/1.1941、对PAIR为1.0390/1.0420/1.0357，均通过。原341635对源数据数值资格继承并明示非重新抽取。
+- GPU smoke18/18完成，205.27秒执行、392.91秒含逐请求审查；12个FIVE均五个不同合法ID，9次实际PNG传输，397439总tokens，评分/请求/schema/processor/usage一致，无基础设施错误/超时/截断。仍有时间排序、列表与理由、方向和因果解释错误，保留为模型结果，不按smoke分数调参，不宣称可信度改善。
+- 自有server26529/engine26689/runner27065退出，端口21956关闭；真实完成态resume不加载模型、调用数保持18。当前源码合同612c92660201ece2cd6cdbbaf7cc7b33fe31ca18deebbea824be96b3641f82d1冻结184文件。**正式调用0、全量启动关闭，已按要求停止。** 下一步须新用户明确授权，不自动跑正式或后继实验。
+- 详细资格报告 docs/issues/RQ3_16_qualification_2026-10-03.md；例图库 RQs/RQ3_16/results/marginal_coverage_v1/qualification/gallery/index.html；RQ日志 RQs/RQ3_16/results/marginal_coverage_v1/logs/2026-10-03_qualification.md。工程资格、单人科学审查不等于正式性能、视觉贡献或外部独立确认。
+
+## 2026-10-03 — 用户授权RQ3.16全量启动
+
+用户明确“行，启动新的全量实验吧。”，解除上一阶段资格后停止边界。只修改两处权限/资格兼容函数，AST及184文件依赖证明科学代码/renderer/输入/配置/评分/配方/门槛不变，原资格与归档保留；不重复18-call smoke、不重置已花调用。新有效源hash fbd23ac5b419c2a229c667a75403c0bceb3f04a28d32c1c3cfdc6e1d39f897a1。13:22:16 Toronto后台启动原八臂220例/1760位置，预计1715真实调用＋45回退引用；formal1802加既有smoke18，总1820不变。13:25:17核验7份已提交、36在途、无失败；supervisor2175/server2182/runner2928运行，attestation ready、显存利用率参数0.75、40960/8192、BF16。抽查新完成graph、实际完整prompt/PNG及token一致；未分析部分效果。自有服务随正式队列结束关闭，无自动后继。证据 RQs/RQ3_16/results/marginal_coverage_v1/formal/launch_verification.json；RQ日志 logs/2026-10-03_full_launch.md。
+
+
+## 2026-10-03 — RQ3.16完整结果分析落盘，边际候选停止
+
+正式1760终态：1713真实响应、45精确回退引用、2超时；9重复实体model_failure保持零分。正式1715加18smoke共1733/1820，自有服务退出。完整审计220公共/1713graph/1758prompt评分processor/843PNG及36项独立Pratt/Holm通过；36固定hash病例288解释阅读与12定向核验完成，未知轴仍unknown，无信任改善声明。详细报告 docs/experiment_reports/RQ3_16_Qwen_Analysis_2026-10-03.md，离线证据 RQs/RQ3_16/results/marginal_coverage_v1/analysis_detailed_v1/。
+
+MARGINAL_FIVE MRR .5054，PAIR_FIVE .4436，MARKLESS .4963；四主比较病例/事件组Holm均失败，去点增量+.0091未建立，A25/Aegis对PAIR Top5−3.33/−3pp。已知配对成本符合预算但A25完整BASE未知界限[1.1776,1.2072]跨1.20，不称全量预算已实测通过。固定五相对边际FLEX次要MRR+.0315和AC5+.0776显著；不将次要正结果改称视觉机制成功。按原注册停止边际耗时候选，无自动换布局/选repeat/新实验/test；RQ3整体研究目标仍未完成。冻结科学源、原始输入/图像/响应/分数/资格/历史报告保持不变，本次0模型调用。RQ日志 logs/2026-10-03_analysis.md。
+
+
+## 2026-10-04 — RQ3.18归因实现、静态与完整CPU资格通过，按要求停止（旧版，后续已由用户要求删除）
+
+> 本段为历史过程记录。旧六臂计划、代码、测试及冻结产物已按用户后续明确要求删除，不是有效恢复入口；当前唯一方案是 population_readout_v1，见文末更新。
+
+单一主agent复核RQ1.1/RQ2.1、旧RQ3及RQ3.1—17历史报告和当前Codex，按用户批准方案实施原生边际图归因，不增加诊断机制或继续拓扑组合。计划 docs/experiment_plans/RQ3_18_Marginal_Attribution_Plan_2026-10-04.md；六臂1320位置仅登记。统一renderer新增显式neutral_canvas，保留证据/设计/被抑制字段审计；原生V/K和历史默认语义保持，未改缺测规则。
+
+5功能模块/1459行；TypeScript/静态/37项renderer浏览器回归通过。完整220例CPU通过：适用60/60、55/60、96/100，9完整文本回退；633 PNG/32624绑定、18重绘、15实际PNG人工审查；1320输入计数，最大26632+8192=34824/40960，逐数据集各臂平均输入/T最大1.065095。原Trace抽取资格明确继承，不称重新抽取。补齐未来报告Precision@1/3并加入完整离线结果分析与分数篡改回归，重跑静态/CPU；初始失败/旧通过报告与修复日志保留。
+
+198文件源合同 `302da6e8647cf2e3b157ef0075e8eb6c6948b1137da8cd2b3c54714f48e29b15` 已冻结，历史来源/报告保护时序限制如实记录。唯一findings、路线图、计划索引已更新；详细资格 RQs/RQ3_18/results/marginal_attribution_v1/qualification/report.md；RQ日志 logs/2026-10-04_qualification.md。当前无新MRR/解释可信/实际总成本结论。**GPU smoke未运行，正式未启动，模型调用0；两类启动权限关闭，无激活凭据，停止等待指示。** 后续先核对累计调用账本及冻结身份，不自动使用历史授权恢复运行。
+
+
+## 2026-10-04 — RQ3.18替代方案完成静态与CPU资格，停止
+
+用户否定旧六臂归因方案，明确要求先重写计划、再完全删除旧计划/代码/脚本/测试结果，并确认CPU通过后停下。新总体耗时读数方案保留完整证据，以2×4呈现矩阵+3真重复检验文本读数与可分离视觉RCA收益；11臂2420位置，总预算2500，仅登记。旧版6485文件约792MB及旧计划已删除，无备份、旧调用0；其他历史610保护哈希保持。
+
+五模块1315行；静态、共享renderer35项回归、220例/2420输入CPU和15份实际PNG审查通过，197源文件冻结，合同 `d24634c5caf064c62d41d8df0be2b2540d87487fcff6c680681c9b256c7e6f1c`。最大输入+8192=35003；全部逐集平均输入/T≤1.10。SIGUSR1导入覆盖与smoke回退等实现问题已修复重测；27离线替身请求验证停止恢复，真实模型调用0。**GPU smoke未运行、正式未启动、入口关闭，按用户要求停止。** 无新性能结论。详见 RQs/RQ3_18/results/population_readout_v1/qualification/report.md、同目录上级logs/2026-10-04_rewrite_cpu_qualification.md，以及新计划 docs/experiment_plans/RQ3_18_Population_Readout_Plan_2026-10-04.md。
+
+
+## 2026-10-04 — RQ3.18 GPU smoke通过，授权正式启动
+
+用户明确要求GPU smoke修复通过后直接全量，取代先前CPU后停止。仅执行门禁函数变化，原197文件科学资格通过AST/依赖精确兼容保留，activation_v1单独冻结；实际输入/配方/renderer/评分/矩阵不变。GPU smoke18/18通过，246.32秒；含逐份真实输入输出/PNG/账本审查342.96秒。零基础设施错误、超时、截断或无效五候选；解释错误原样保留，不用于调参。自有smoke服务关闭。
+
+正式supervisor PID258591于23:54:09 America/Toronto启动，11臂2420位置、预期2357新请求+63引用，concurrency36、显存0.75；smoke18已消耗，正式硬限2482/总2500。当前启动核验中，后续状态见 RQs/RQ3_18/results/population_readout_v1/logs/2026-10-04_gpu_and_formal_execution.md 和唯一findings。正式结果尚未形成，smoke不是性能结论。
+
+RQ3.18启动核验补充：2026-10-04T23:58:42.057848-04:00确认2357真实请求+63引用队列、16份新原子提交通过审核；账本{'complete': 16, 'started': 36}、无基础设施错误。服务身份及显存0.75已验证，后台继续。启动收据位于formal/launch_verification.json。
+
+
+## 2026-10-05 — WWW2027投稿冲刺与研究收敛
+
+用户要求带明确目的加速成果。官网核实摘要10月18日、全文10月25日AoE；内部16/23日交付。项目主线仍为保留有效证据、证明同事实强文本上的选择性视觉RCA收益；10月7日18:00 Toronto设方法/论文主张决策截止。RQ3.18继续原2420矩阵和2500预算，本次没有改输入/源/模型配方/阈值，也未新增实验。现有eval480和test360均已暴露，强基线可比性、新意及可用验证事件需前置核验。计划含证据账本、最小验证、倒排日期及8页结构：docs/experiment_plans/CanvasRCA_WWW2027_Submission_Sprint_2026-10-05.md；决定DD-20261005-WWW-SPRINT；详细日志devlog/2026-10-05_www_submission_sprint.md。
+
+## 2026-10-05 — 反直觉发现收敛为三条重点
+
+按用户要求记录 QA–RCA 关联弱与标题带 attention 聚集，并只新增一条幅度明显、已有校正支持的现象：RQ3.7 科学计数法首选翻转12/84与10/84，相同原输入独立重复为1/84与0/84，原六项探索家族 pH=.005859/.009766。原表计数及六项配对检验/Holm独立复算一致，保存来源哈希。QA相关接近零不证明独立，标题密度6.16/2.08倍不证明有害，翻转显著不等于MRR下降。小幅图元/布局差异不扩为新任务；QA驱动表示分配仍待诊断相关性验证。记录 important_docs/CanvasRCA_Counterintuitive_Findings_2026-10-05.md，决定DD-20261005-COUNTERINTUITIVE，日志devlog/2026-10-05_counterintuitive_findings.md。更新两类索引及候选计划限定，历史完整报告保留；本次零新增模型调用，无新attention、代码、渲染或实验启动，不改变RQ3.18。
+
+同日用户要求补入两项显著干预，现记录共五条：CF-04为RQ3.8保留完整文本再加dashboard，已暴露test342宏平均MRR .4110→.3339，病例/组pH=.001115/.000679；CF-05为RQ3.6-A同证据文本接口整包校准，共同97例pooled ΔMRR+.1017，病例/组pH=.002771/.004863。明确图像＋读法与接口整包范围，不称单一像素/标题或attention因果效果；原统计家族、缺失与不可执行分母保留。补充来源快照及索引、计划说明、决定和日志；历史原报告不变，零新增调用。
+
+
+## 2026-10-05 — 三份重要文档及配套材料正式迁移
+
+按用户“剪切粘贴”要求，研究计划、文献复核、反直觉发现三份主文档统一迁至important_docs；四份配套文件分别迁入important_docs/artifacts下与三文档同名的独立目录。文献来源review_manifest归入文献复核目录。原docs主文件及两个旧_assets目录移除，没有保留复制件或软链接；同步调整入站引用和文档相对链接，历史实验报告与原始结果保留原位。important_docs/README.md提供入口，artifacts/migration_2026-10-05.json仅记录迁移映射和哈希，无原文备份。未运行实验或增加模型调用。
+
+## 2026-10-05 — Attention 存储与 sink 讨论单独归档
+
+按用户要求新增 important_docs/CanvasRCA_Attention_Storage_and_Sink_2026-10-05.md，并更新目录入口。记录在线摘要、FP32二进制、有界明细、共享来源及其信息损失；10,000次尝试预算为持久化793,772,032字节、含临时文件860,880,896字节，属于可复算的设计预算，非实测压缩率。复核旧归档/采集代码、实际模型层类型及ICLR2025 VisAttnSink原文，区分识别、屏蔽与重分配；提出未来四条件诊断验证和成本要求。配套目录保存来源哈希与预算；决定DD-20261005-ATTENTION为provisional。仅文档与来源核查，未修改采集代码、启用attention或调用GPU，不改变任何既有实验。
+
+## 2026-10-05 — Git 忽略规则补齐
+
+用户要求检查大实验产物并提供代码同步命令。既有结果/准备/模型/缓存忽略有效；补充大型逐病例CSV、发布暂存副本和第三方数据/解压输出规则。39个已跟踪文件（46,010,689字节）仅从Git索引移除，磁盘文件逐一哈希不变；未提交、推送或改写历史。剩余Git可见大于1MiB文件仅代码notebook。详情：devlog/2026-10-05_git_artifact_hygiene.md。
+
+## 2026-10-05 — RQ3.18 安全暂停后恢复
+
+睡前暂停已完成排空，自有服务退出；断点1193/2420终态（1179 done含42引用、14原超时），1227 pending，无遗留started。用户上午授权继续，原资格/输入/预算不变，监督PID2517恢复1206新请求＋21引用；新服务与首批新增原子结果核验通过，显存0.75、并发36。无新增smoke或历史批量复验。当前后台运行，详情见RQ3.18唯一findings及formal/resume_verification_20261005.json。

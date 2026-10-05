@@ -3,7 +3,7 @@ import {Card,Rect,graphPositions,field,relationColors,RelationLegend} from './pr
 // C09: all selected nodes and typed edges; no diagnostic ranking or filtering.
 export default function RelationshipGraph({card,rect}:{card:Card;rect:Rect}) {
   const nodes=card.data.nodes!,edges=card.data.edges!,w=rect.width-34,h=rect.height-110;
-  const positions=graphPositions(nodes,w,h,edges);
+  const positions=rect.node_link_layout?.positions??graphPositions(nodes,w,h,edges);
   if(!nodes.length)return <div className="empty-graph">No observed relationships in this window</div>;
   return <><svg className="chart" viewBox={`0 0 ${w} ${h}`} role="img" aria-label="Directed system relationship graph">
     <defs>{Object.entries(relationColors).map(([k,color])=><marker key={k} id={`${card.id}_${k}`} markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill={color}/></marker>)}</defs>
@@ -20,7 +20,8 @@ export default function RelationshipGraph({card,rect}:{card:Card;rect:Rect}) {
         const start=boundary(a),end=boundary(b);
         d=`M${start.x},${start.y} Q${cx},${cy} ${end.x},${end.y}`;
       }
-      return <path key={e.id} {...field(`${card.id}.edge.${e.id}`)} d={d} className="graph-edge" stroke={relationColors[e.kind]}
+      return <path key={e.id} {...field(`${card.id}.edge.${e.id}`)} data-source={e.source} data-target={e.target} data-relation={e.kind} d={d} className="graph-edge" stroke={relationColors[e.kind]}
+        style={e.kind!=='calls'&&rect.dashed_width_scale!==undefined?{strokeWidth:Number((1.4*rect.dashed_width_scale).toFixed(6))}:undefined}
         strokeDasharray={e.kind==='calls'?undefined:e.kind==='hosts'?'6 3':'2 3'} markerEnd={`url(#${card.id}_${e.kind})`}/>;
     })}
     {nodes.map(node=>{const {x,y}=positions[node.id];return <g key={node.id} className="node" transform={`translate(${x},${y})`}
