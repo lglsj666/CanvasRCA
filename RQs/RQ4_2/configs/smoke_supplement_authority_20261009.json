@@ -1,0 +1,14 @@
+{
+  "schema": "RQ42AdditionalSmokeAuthorityV1",
+  "authorized_additional_rounds": 5,
+  "calls_per_round": 18,
+  "seconds_per_round": 600,
+  "total_additional_call_ceiling": 90,
+  "base_registered_budget": 1500,
+  "combined_registered_ceiling": 1590,
+  "base_scope": "gpu_smoke_v1",
+  "base_charged_attempts": 17,
+  "stop_after": "affected qualification passes; no automatic use of remaining rounds",
+  "formal_authorized": false,
+  "user_authority": "修复之后对于修复影响的地方进行smoke test，再给你5次机会，每次18 calls。"
+}

@@ -1,5 +1,13 @@
+import NumericSourceGraph from './NumericSourceGraph.js';
+import MetricHorizon from './MetricHorizon.js';
+import PackedSource from './PackedSource.js';
+import SourceGraph from './SourceGraph.js';
+import SourceCompact from './SourceCompact.js';
 import type {ComponentType} from 'react';
 import type {Card,Rect} from './primitives.js';
+import QuantileContrast from './QuantileContrast.js';
+import PairedObservations from './PairedObservations.js';
+import EvidenceInventory from './EvidenceInventory.js';
 import MetricLine from './MetricLine.js';
 import MetricTimeBars from './MetricTimeBars.js';
 import MetricHeatmap from './MetricHeatmap.js';
@@ -23,6 +31,23 @@ import RequestJointScatter from './RequestJointScatter.js';
 import RequestPairMarginals from './RequestPairMarginals.js';
 import PopulationProfile from './PopulationProfile.js';
 export const components:Record<string,ComponentType<{card:Card;rect:Rect}>>={
+  'metric_horizon.source_compact':MetricHorizon,
+  'metric_packed.source_compact':PackedSource,
+  'trace_packed.source_compact':PackedSource,
+  'log_packed.source_compact':PackedSource,
+  'inventory_packed.source_compact':PackedSource,
+  'comparison_packed.source_compact':PackedSource,
+
+  'graph.numeric_source':NumericSourceGraph,
+  'graph.source_compact':SourceGraph,
+  'metric.source_compact':SourceCompact,
+  'trace.source_compact':SourceCompact,
+  'log.source_compact':SourceCompact,
+  'inventory.source_compact':SourceCompact,
+  'comparison.source_compact':SourceCompact,
+  'contrast.quantile_contrast':QuantileContrast,
+  'comparison.paired':PairedObservations,
+  'inventory.identities':EvidenceInventory,
   'metric.line':MetricLine,'metric.time_bars':MetricTimeBars,'metric.heatmap':MetricHeatmap,
   'trace.paired_bars':TracePairedBars,'trace.dumbbell':TraceDumbbell,'trace.table':TraceTable,
   'log.timeline':LogTimeline,'log.table':LogTable,'graph.node_link':RelationshipGraph,'graph.matrix':RelationshipMatrix,'graph.membership_matrix':MembershipMatrix,

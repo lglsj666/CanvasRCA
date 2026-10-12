@@ -1,0 +1,7 @@
+# 人工资格检查
+
+两模型18/18逻辑单元完成，实际16次调用；AegisLab的HOST_PEER与PEER因无合格宿主观测自然同输入，同模型结果复用，不能计作独立推理。自动检查通过，包括CPU预构造输入与实际prompt/PNG identity、raw response、完整conversation和cost。
+
+逐份阅读16个不同conversation的完整公开回答，核查AIOPS两组附加文本、固定宿主关系及去重变化；查看实际HOST_PEER_G输入PNG。补充观测始终是公共文本，G条件的图像是父版TPV的G区，而非宣称把新的宿主观测画在图内。主体M/R/L、候选和任务保持父版；HOST与PEER只控制已登记的观测内容，DEDUP保留所有唯一观测。未发现输入缺失、私有标签泄漏、持久化或基础设施错误。
+
+回答仍有将node称service、未给出的传播因果判断、以未见上游异常推断根因等模型行为；这些原样保留，不作为修prompt、挑arm或重采样的依据。smoke仅用于资格检查，不报告其MRR为科学结果。

@@ -1,0 +1,304 @@
+{
+  "schema": "RQ41GPUSmokeV20",
+  "authority": "user_2026_10_07_five_prior_repair_smokes",
+  "output": "RQs/RQ4_1/results/comparison_coding_v1/gpu_smoke_v22_round01",
+  "model_path": "/home/lglsj/CanvasRCA/models/Qwen3.8-27B",
+  "gpu_allocator_fraction": 0.75,
+  "max_calls": 18,
+  "wall_seconds": 600,
+  "formal_enabled": false,
+  "generation": {
+    "max_new_tokens": 8192,
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 0
+  },
+  "cases": [
+    {
+      "id": "INC-6E627662CA32",
+      "dataset": "aiops2022"
+    },
+    {
+      "id": "INC-D9245047C658",
+      "dataset": "aiops2025"
+    },
+    {
+      "id": "INC-37ABFB78A80E",
+      "dataset": "aegislab"
+    }
+  ],
+  "hf_groups": [
+    {
+      "name": "aiops2022_native_greedy",
+      "slots": [
+        1
+      ],
+      "requests": [
+        "INC-6E627662CA32__BASE"
+      ],
+      "mode": "native",
+      "arm": "V_FULL",
+      "attention": false,
+      "greedy": true,
+      "pair_role": "native",
+      "pair_key": "INC-6E627662CA32"
+    },
+    {
+      "name": "aiops2022_SCOPE_greedy",
+      "slots": [
+        2
+      ],
+      "requests": [
+        "INC-6E627662CA32__BASE"
+      ],
+      "mode": "select",
+      "arm": "SCOPE_ANCHOR_E50",
+      "attention": false,
+      "greedy": true,
+      "method": "SCOPE",
+      "anchor_policy": "shared_anchors_v22"
+    },
+    {
+      "name": "aiops2022_S2PRUNE_greedy",
+      "slots": [
+        3
+      ],
+      "requests": [
+        "INC-6E627662CA32__BASE"
+      ],
+      "mode": "prior",
+      "arm": "S2PRUNE_ANCHOR_E50",
+      "attention": false,
+      "greedy": true,
+      "method": "S2PRUNE",
+      "anchor_policy": "shared_anchors_v22"
+    },
+    {
+      "name": "aiops2022_SCOPE_sampled",
+      "slots": [
+        4
+      ],
+      "requests": [
+        "INC-6E627662CA32__BASE"
+      ],
+      "mode": "select",
+      "arm": "SCOPE_ANCHOR_E50",
+      "attention": false,
+      "greedy": false,
+      "method": "SCOPE",
+      "anchor_policy": "shared_anchors_v22"
+    },
+    {
+      "name": "aiops2022_S2PRUNE_sampled",
+      "slots": [
+        5
+      ],
+      "requests": [
+        "INC-6E627662CA32__BASE"
+      ],
+      "mode": "prior",
+      "arm": "S2PRUNE_ANCHOR_E50",
+      "attention": false,
+      "greedy": false,
+      "method": "S2PRUNE",
+      "anchor_policy": "shared_anchors_v22"
+    },
+    {
+      "name": "aiops2025_native_greedy",
+      "slots": [
+        6
+      ],
+      "requests": [
+        "INC-D9245047C658__BASE"
+      ],
+      "mode": "native",
+      "arm": "V_FULL",
+      "attention": false,
+      "greedy": true,
+      "pair_role": "native",
+      "pair_key": "INC-D9245047C658"
+    },
+    {
+      "name": "aiops2025_SCOPE_greedy",
+      "slots": [
+        7
+      ],
+      "requests": [
+        "INC-D9245047C658__BASE"
+      ],
+      "mode": "select",
+      "arm": "SCOPE_ANCHOR_E50",
+      "attention": false,
+      "greedy": true,
+      "method": "SCOPE",
+      "anchor_policy": "shared_anchors_v22"
+    },
+    {
+      "name": "aiops2025_S2PRUNE_greedy",
+      "slots": [
+        8
+      ],
+      "requests": [
+        "INC-D9245047C658__BASE"
+      ],
+      "mode": "prior",
+      "arm": "S2PRUNE_ANCHOR_E50",
+      "attention": false,
+      "greedy": true,
+      "method": "S2PRUNE",
+      "anchor_policy": "shared_anchors_v22"
+    },
+    {
+      "name": "aiops2025_SCOPE_sampled",
+      "slots": [
+        9
+      ],
+      "requests": [
+        "INC-D9245047C658__BASE"
+      ],
+      "mode": "select",
+      "arm": "SCOPE_ANCHOR_E50",
+      "attention": false,
+      "greedy": false,
+      "method": "SCOPE",
+      "anchor_policy": "shared_anchors_v22"
+    },
+    {
+      "name": "aiops2025_S2PRUNE_sampled",
+      "slots": [
+        10
+      ],
+      "requests": [
+        "INC-D9245047C658__BASE"
+      ],
+      "mode": "prior",
+      "arm": "S2PRUNE_ANCHOR_E50",
+      "attention": false,
+      "greedy": false,
+      "method": "S2PRUNE",
+      "anchor_policy": "shared_anchors_v22"
+    },
+    {
+      "name": "aegislab_native_greedy",
+      "slots": [
+        11
+      ],
+      "requests": [
+        "INC-37ABFB78A80E__BASE"
+      ],
+      "mode": "native",
+      "arm": "V_FULL",
+      "attention": false,
+      "greedy": true,
+      "pair_role": "native",
+      "pair_key": "INC-37ABFB78A80E"
+    },
+    {
+      "name": "aegislab_SCOPE_greedy",
+      "slots": [
+        12
+      ],
+      "requests": [
+        "INC-37ABFB78A80E__BASE"
+      ],
+      "mode": "select",
+      "arm": "SCOPE_ANCHOR_E50",
+      "attention": false,
+      "greedy": true,
+      "method": "SCOPE",
+      "anchor_policy": "shared_anchors_v22"
+    },
+    {
+      "name": "aegislab_S2PRUNE_greedy",
+      "slots": [
+        13
+      ],
+      "requests": [
+        "INC-37ABFB78A80E__BASE"
+      ],
+      "mode": "prior",
+      "arm": "S2PRUNE_ANCHOR_E50",
+      "attention": false,
+      "greedy": true,
+      "method": "S2PRUNE",
+      "anchor_policy": "shared_anchors_v22"
+    },
+    {
+      "name": "aegislab_SCOPE_sampled",
+      "slots": [
+        14
+      ],
+      "requests": [
+        "INC-37ABFB78A80E__BASE"
+      ],
+      "mode": "select",
+      "arm": "SCOPE_ANCHOR_E50",
+      "attention": false,
+      "greedy": false,
+      "method": "SCOPE",
+      "anchor_policy": "shared_anchors_v22"
+    },
+    {
+      "name": "aegislab_S2PRUNE_sampled",
+      "slots": [
+        15
+      ],
+      "requests": [
+        "INC-37ABFB78A80E__BASE"
+      ],
+      "mode": "prior",
+      "arm": "S2PRUNE_ANCHOR_E50",
+      "attention": false,
+      "greedy": false,
+      "method": "S2PRUNE",
+      "anchor_policy": "shared_anchors_v22"
+    },
+    {
+      "name": "SCOPE_protected_identity",
+      "slots": [
+        16
+      ],
+      "requests": [
+        "INC-6E627662CA32__BASE"
+      ],
+      "mode": "identity",
+      "method": "SCOPE",
+      "arm": "SCOPE_ANCHOR_IDENTITY",
+      "anchor_policy": "shared_anchors_v22",
+      "identity": true,
+      "attention": false,
+      "greedy": true,
+      "pair_role": "identity",
+      "pair_key": "INC-6E627662CA32"
+    },
+    {
+      "name": "S2PRUNE_protected_identity",
+      "slots": [
+        17
+      ],
+      "requests": [
+        "INC-6E627662CA32__BASE"
+      ],
+      "mode": "prior",
+      "method": "S2PRUNE",
+      "arm": "S2PRUNE_ANCHOR_IDENTITY",
+      "anchor_policy": "shared_anchors_v22",
+      "identity": true,
+      "attention": false,
+      "greedy": true,
+      "pair_role": "identity",
+      "pair_key": "INC-6E627662CA32"
+    }
+  ],
+  "native_slot": null,
+  "execution_order": "Three-case paired protected-prior usability, then full-retention identities",
+  "untested_prior_paths": [],
+  "input_root": "RQs/RQ4_1/results/comparison_coding_v1/gpu_smoke_v18/inputs",
+  "allowance": "RQs/RQ4_1/configs/gpu_smoke_allowance_v22.json",
+  "round": 1,
+  "ledger_scope": "rq41_smoke_v22_round01",
+  "previous_smoke_attempts": 46,
+  "monitor_before_handoff_seconds": 180,
+  "supplement": "RQ4_1_Protected_Prior_Repair_2026-10-07",
+  "expected_parity_pairs": 2
+}

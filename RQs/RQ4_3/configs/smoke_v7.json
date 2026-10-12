@@ -1,0 +1,10 @@
+{
+  "schema":"RQ43SmokeV7", "gpu_smoke_enabled":false,"formal_enabled":false,"model_calls_enabled":false,
+  "cap":18,"seconds":600,"attention_pair_same_seed":true,
+  "cases":{"aiops2022":"INC-5A5C12F46667","aiops2025":"INC-6DCAE95A54B2","aegislab":"INC-E92A6FFD9DC0"},
+  "matrix":{
+    "aiops2022":[["P_LOCAL_BI","BASE",false],["P_LOCAL_BI","BASE",true],["C_LOCAL_FORWARD","BASE",false],["C_SHAM_BI","BASE",false],["C_GLOBAL_BI","BASE",false],["U","QA",false]],
+    "aiops2025":[["P_SOFT_IMAGE","BASE",false],["P_DUAL","BASE",false],["S_JOINT","BASE",false],["C_SOURCE_HASH","BASE",false],["X_SP","BASE",false],["P_LOCAL_BI","QA",false]],
+    "aegislab":[["U","ORDER",false],["P_LOCAL_BI","ORDER",false],["C_GLOBAL_BI","QA",false],["P_DUAL","BASE",false],["X_SP","BASE",false],["T_FULL","TIMING",false]]
+  }
+}

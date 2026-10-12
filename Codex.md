@@ -1,5 +1,144 @@
 # CanvasRCA Project Rules
 
+## Lossless experiment retention budget — 2026-10-11
+
+After an experiment finishes and all writers drain, its retained experiment
+artifacts must occupy at most 25 decimal GB per 10,000 completed model calls
+(2,500,000 bytes per call). Exact-result references do not increase the call
+denominator. Count the final result files, indexes, retained sidecars and experiment-specific
+input dependencies; moving files elsewhere or leaving duplicate copies does not
+reduce the accounted footprint. Shared immutable model weights and the canonical
+corpus are identified by provenance rather than copied, but the actual diagnostic
+inputs presented to the model remain fully recoverable.
+
+Keep ordinary, directly readable files without compressed archives or an
+extraction step. Do not use ZIP, TAR, compressed containers or custom compressed
+blobs to satisfy the budget. Deduplicate identical immutable content using
+verified references or hard links. Preserve exact prompts,
+model-visible images, outputs and complete conversation history, including
+invalid answers; preserve scoring labels/mappings, manifests, token operations,
+cost/timing/failure accounting and the source/configuration needed for complete
+statistical analysis. Preserve all attention measurements actually collected,
+their query/layer definitions and text/image geometry and mappings. This does
+not claim uncollected full attention matrices are available. The existing
+attention-specific limit of 1 decimal GB per 10,000 calls still applies.
+
+Provide direct conversation-viewing and analysis tools. Verify every retained
+object's hash, all required references and the final size before removing redundant
+copies. Runtime caches needed for correctness or speed are allowed while running;
+after all calls commit and writers drain, automatically remove those caches without
+losing unique experiment information. Keep resume dependencies until they are no
+longer needed; interrupted finalization resumes without regenerating answers. Do not change model
+inputs, scores or the sampling/attention protocol to satisfy the storage limit.
+
+
+## Suggested balance for future experiments — 2026-10-10
+
+When planning future experiments, consider allocating roughly three arms to
+improving the current strongest pure-visual method, with the remaining arms
+exploring and testing hypotheses and counterintuitive phenomena. Choose the
+optimization starting point using completed experiments and their measured
+ranking performance and deployment cost, retaining improvements that have
+already proved useful.
+
+Possible optimization directions include improving MRR at comparable cost,
+reducing cost while preserving MRR, and testing a complementary improvement
+or a well-motivated combination. This is a flexible planning recommendation,
+not a mandatory arm count or allocation ratio. Adjust the balance according
+to the available evidence, distinct research questions, budget and time.
+This advice applies to future plans and does not alter frozen running experiments.
+
+## Central RCA scoring imports — 2026-10-06 latest authority
+
+Import RCA scoring functions from `/home/lglsj/CanvasRCA_nibi/src/scorer`
+(Python package `scorer`). Do not import RCA scorers from external repositories
+or directories under `RQs/`. This rule covers ranking metrics and entity
+normalization, matching and granularity checks. The scorer uses
+`configs/rca_scorer.yaml` and requires no external RCA checkout or
+`RL_SLM_RCA_ROOT`.
+
+Existing scripts retain their original imports, and existing scorer files,
+including the RQ2.1 implementation, remain in place unchanged. No migration of
+those scripts is required. New scripts use `scorer` exclusively; the old
+`unified_scripts.rca_scorer`, `vlmrca.eval.scoring` and RQ-local paths are not
+import sources for new scoring code. Do not add compatibility aliases or
+forwarding modules at those paths. Preserve historical snapshots, inputs,
+scores and reports.
+
+## RQ4 and pure-visual diagnostic evidence — 2026-10-06 latest authority
+
+All new research and experiments start under RQ4. The user has discontinued
+the previous RQ3 development route; do not create further RQ3.x experiments or
+resume the cancelled RQ3.22. Existing completed experiments remain historical
+evidence, not an active queue. RQ4 is a new research direction, not a claim that
+the earlier performance or scientific objectives have been achieved.
+
+All future CanvasRCA method candidates must use purely visual diagnostic
+evidence and perform RCA in a single model call. The research objective is to
+outperform strong text RCA baselines in root-cause ranking while keeping actual
+deployment cost comparable or lower. Do not continue hybrid text-plus-image
+method development or append textual diagnostic evidence as a safety net.
+
+Pure visual refers to diagnostic evidence, NOT to a complete ban on text.
+Use text for the necessary RCA task definition, instructions explaining how
+to read the dashboard, visual encoding conventions, and response-format or
+schema requirements. Such instructions may explain what to do and how to
+interpret the representation, but must not describe a particular incident's
+observations or suggest its root cause.
+
+All incident-specific M/R/L/G evidence, numerical values, summaries, log
+content, and relationships presented to the
+diagnostic model must be carried by images generated through `src/renderer/`.
+The dashboard is the sole carrier of incident diagnostic information; do not
+duplicate or supplement that information in textual evidence blocks. Do not
+leak incident facts through prompts, filenames,
+image metadata, tool responses, or auxiliary model-visible text.
+
+Pure visual does not mean wordless: labels, units, entity identifiers and
+necessary log/template strings may appear inside real evidence graphics.
+Rasterizing the old full diagnostic prompt into a text screenshot is not the
+intended visual method. Renderer provenance and entity/signal/time bindings
+may be retained for deterministic preprocessing and audit; they must not
+silently become a separate textual diagnostic input.
+
+Do not fall back to full-text diagnosis when an image is unavailable or exceeds
+capacity. Resolve the visual representation before qualification, or record
+the failure/inapplicability under the registered full-denominator policy.
+Strong text systems remain legitimate evaluation baselines, not components of
+the proposed visual pipeline; new baseline calls require their own registered
+execution scope. Preserve completed pre-RQ3.22 experiments and their original
+hybrid/text inputs and results. RQ3.22 was explicitly cancelled and deleted by
+the user. This authority supersedes earlier prospective hybrid/text allowances
+but does not itself authorize new code, training, model calls or full runs.
+
+## Single-stage RCA only — 2026-10-06 latest authority
+
+All future RCA methods and experiments must perform diagnosis in one model
+call. Do not design, implement, qualify, or run two-stage or multi-stage RCA.
+In particular, do not use a model call to select or fetch evidence, compose
+diagnostic inputs, or propose a preliminary diagnosis for a subsequent model
+call that produces the final root-cause ranking. The user has closed this
+research direction after earlier attempts and RQ3.20.
+
+Deterministic CPU preprocessing, evidence compilation, and dashboards generated
+through the unified renderer remain compatible with a single diagnostic call.
+Independent QA experiments and passive attention measurements are separate
+measurements under their applicable protocols; their outputs must not become
+an earlier stage of an RCA pipeline. An independent repeat repeats the complete
+single-call diagnosis and does not feed one answer into another.
+
+This supersedes prospective suggestions to repair or rerun RQ3.20's model-driven
+acquisition pipeline. Preserve completed experiments, frozen inputs, results,
+and historical reports. Revisit multi-stage RCA only if the user explicitly
+reverses this restriction; a new name or repaired selector is not an exception.
+
+## Attention collection — 2026-10-05 latest authority
+
+The project-wide prohibition on recording attention is removed. Future
+experiments may record attention under their applicable experiment protocol.
+Preserve historical artifacts and records of whether collection actually ran.
+This documentation change does not enable instrumentation or launch experiments.
+
 ## Dashboard rendering and missing samples — 2026-10-02 latest authority
 
 Connecting lines across missing data points is allowed, and lines must never
@@ -61,8 +200,8 @@ smoke, inference or training in this revision. P0 and SIRCL own their analyzer
 branches; X starts independently from per-case public telemetry. The shared
 layer may normalize schema/clocks/identities but must not filter through
 MET-Z/TRC-L/LOG-R/Denum/topology analyzers. Earlier smoke success applies only
-to its earlier code/config; current runtime qualification is pending. Attention
-remains disabled. This paragraph supersedes conflicting execution permissions
+to its earlier code/config; current runtime qualification is pending.
+This paragraph supersedes conflicting execution permissions
 below without changing historical records, model recipes or data partitions.
 
 ## Single-agent execution — 2026-09-16 latest authority
@@ -175,7 +314,7 @@ are selected, with the same per-case field budgets and membership closure rule.
 Use the pending catalogue `RQs/RQ3/configs/selection_only_suite_v1.yaml`; historical
 display, transport and modality-dropping configurations are not its queue.
 Every actual round still registers and runs ALL unretired cases per model,
-sequentially, with no training or attention. A CPU inspection subset is never
+sequentially, with no training. A CPU inspection subset is never
 an inference cohort. See the selection-only decision in RQ3_experiments.md.
 The updated goal allows new selectors and silhouette drawing changes only if
 the pending selectors are exhausted before reaching the stopping thresholds;
@@ -188,7 +327,7 @@ move at most one of M/R/L/G into an adjacent text evidence block; the other
 three modalities remain in the single PNG. Candidates and static instructions
 remain text. This supersedes the older tournament-wide pure-vision sentence,
 but does not authorize two or more text evidence modalities, multiple images,
-training, attention collection, private-label access, or a changed RCA task
+training, private-label access, or a changed RCA task
 structure. Each method still runs every case unretired for that model.
 
 ## Tournament resumed by user — latest 2026-09-13
@@ -198,7 +337,7 @@ Reuse the completed 323-case gallery and registered full remaining cohorts
 (265 per model); do not regenerate it or repeat rounds 1–3. Complete the
 pending CPU/visual and input-integrity checks, then run Qwen and Gemma
 sequentially. Continue full-remaining rounds with 900-second monitoring and
-no work during sleeps. No attention or training during the tournament;
+no work during sleeps. No training during the tournament;
 per-dataset 80% AC@1 union remains the stopping criterion for both models.
 
 ## Tournament user pause after round-4 rendering — latest 2026-09-13
@@ -294,8 +433,8 @@ Updated post-SFT/RL objectives are **AIOPS-2022 MRR >0.65, AIOPS-2025 MRR
 reported. RQ480 and TrainTicket remain excluded from optimizer training;
 adaptive exposure must remain explicit in later performance interpretation.
 Preserve all old results, processed data, checkpoints and source snapshots.
-Use local, unquantized models and exactly one real diagnostic PNG; collect no
-new attention. The latest user amendment restores pure-visual diagnostic
+Use local, unquantized models and exactly one real diagnostic PNG.
+The latest user amendment restores pure-visual diagnostic
 evidence, superseding the intervening one-text-modality permission. All selected
 M/R/L/G evidence is in that PNG; candidates and global instructions stay in the
 prompt. Choose a template structure from the RQ1.1/RQ2.1 visual arms before the
@@ -336,8 +475,7 @@ Pause evidence: `RQs/RQ3/results/search_first_v1/PAUSED_20260912.md`.
 
 ## RQ3 search-first pipeline successor — 2026-09-12
 
-Latest same-day amendment: new RQ3 exploration and training collect **no
-attention**. Preserve old attention artifacts and historical contracts. The
+Preserve old attention artifacts and historical contracts. The
 successor main path is strictly visual for diagnostic evidence: diagnostic
 facts are painted in the single image. The candidate entity list stays in the
 prompt, NOT the image, alongside static task/format/reading instructions.
@@ -750,7 +888,7 @@ Their only global Python authorities are:
 1. `src/unified_scripts/raw_data_processor.py`
 2. `src/unified_scripts/vllm_inference.py`
 3. `src/unified_scripts/dataset_segmentation.py`
-4. `src/unified_scripts/rca_scorer.py`
+4. `src/scorer/` (RCA scoring authority; existing legacy imports are preserved)
 
 The raw-data processor has no dataset-specific root YAML. It converts the
 complete raw loader index into the one V3 per-case corpus before any RQ roster
@@ -1116,12 +1254,18 @@ as repeated-exposed design evaluation rather than untouched confirmation.
 
 ## RCA scoring
 
-All root-cause results use `src/unified_scripts/rca_scorer.py` and
-`configs/rca_scorer.yaml`. The model output is frozen ranked top-five JSON:
+RCA scoring uses `src/scorer/` and `configs/rca_scorer.yaml`, with existing
+legacy imports preserved as specified above.
+Historical scoring sources and results stay unchanged. The canonical scoring
+input is ranked top-five JSON:
 
 ```json
 {"services":["..."],"reason":"...","confidence":"high|medium|low"}
 ```
+
+Future experiments may register experiment-specific model output formats with
+explicit adapters to this scoring input. Preserve the original output contracts
+and artifacts of completed experiments.
 
 The primary metric is MRR. Record AC@1, AC@3, AC@5, AVG@3, and AVG@5 per case
 and in aggregate. Recall@K is recorded only for a separately registered true
@@ -1194,7 +1338,6 @@ RCA prompts must explain the model-visible evidence fields, relative-time and
 missingness semantics, caller/callee direction, the RCA objective, and how to
 distinguish an originating fault from propagated symptoms. Non-RCA Q&A prompts
 explain their M/R/L/G data structures and fields but must not add an RCA guide.
-The registered final RCA JSON schema remains frozen.
 
 Representation decoding is separated from the shared scientific task prompt.
 The shared RCA/QA field semantics, question, candidate/output contract, and RCA

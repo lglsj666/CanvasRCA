@@ -1,0 +1,7 @@
+extends: RQs/RQ3/configs/tournament_full_candidate_binding_v3.yaml
+search:
+  selectors: [heterogeneous_consensus_v1]
+  selection_only_suite: RQs/RQ3/configs/selection_only_suite_v2.yaml
+tournament:
+  method_id: HETEROGENEOUS_CONSENSUS_selection_only_v5
+

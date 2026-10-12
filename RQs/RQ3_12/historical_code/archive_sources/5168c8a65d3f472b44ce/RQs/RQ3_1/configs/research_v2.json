@@ -1,0 +1,155 @@
+{
+  "schema_version": "RQ31ResearchRegistrationV2",
+  "registration_id": "rq31_research_v3_direct_text_contrast",
+  "status": "static_only_runtime_requalification_required",
+  "evidence_entry": {
+    "version": "rq31_direct_per_case_v2",
+    "shared": "per_case_load_schema_clock_identity_only",
+    "p0": "frozen_RQ1_1_analyzer_and_selection_branch",
+    "sircl": "vendored_native_analyzers_in_comparator_only",
+    "x": "independent_metrics_traces_logs_graph_from_per_case",
+    "x_reference_split": "public_observation_interval_midpoint",
+    "p0_calibration": "preserve_parent_facts_no_X_projection",
+    "between_pipeline_parity_required": false,
+    "within_X_representation_parity_required": true
+  },
+  "context_compatibility": {
+    "predecessor_config_hash": "33df080c28df2fa838816803b99cbc2c5a47088a4057f426207bacc9f164589d",
+    "predecessor_implementation_hash": "3e4e2464da228abc8fd85f5f38a4dcc4d807aa68cfefd4e1aded7444a900b528",
+    "successor_implementation_hash": "0001a18fdb62c1d7c023a0848ece664af4d987685b6dd9eeb2430d0727eee072",
+    "scope": "context_reuse_validation_and_sircl_capacity_adapter_only"
+  },
+  "seed": 42,
+  "data": {
+    "registration": "RQs/RQ3_1/results/data_registration_v1/registration.json",
+    "visibility": "public_identity_only",
+    "registration_schema": "RQ31DataSplitV1",
+    "development_partition": "eval",
+    "final_test_partition": "test",
+    "test_telemetry_allowed_during_stage1": false,
+    "test_outcomes_allowed_during_stage1": false,
+    "eval_cases": 480,
+    "test_cases": 360
+  },
+  "models": {
+    "order": ["qwen3.8-27b", "gemma-4-26b-a4b"],
+    "primary": "qwen3.8-27b",
+    "cross_model": "gemma-4-26b-a4b",
+    "ensemble": false,
+    "per_test_oracle": false,
+    "sampling_contract": "configs/vllm_inference_local.yaml"
+  },
+  "request_adapter": {
+    "version": "rq31_solver_request_v1",
+    "max_tokens": 8192,
+    "disable_thinking": true,
+    "attention": "disabled_by_protocol",
+    "structured_output": "frozen_top5_json"
+  },
+  "selector": {
+    "version": "contrast_selector_v1",
+    "standard_semantic_budget": null,
+    "capacity_status": "pending_runtime_qualification",
+    "candidate_semantic_budget": 96,
+    "budget_fractions": [0.5, 0.75, 1.0],
+    "fact_cost_version": "contrast_fact_cost_v1",
+    "matched_removal_max_payload_char_delta_fraction": 0.1,
+    "tie_break": "stable_bundle_hash",
+    "q_f_ablation": "only_disable_contrast_gain_term"
+  },
+  "arms": [
+    {"id": "T", "family": "strong_baseline", "representation": "natural_text"},
+    {"id": "V", "family": "strong_baseline", "representation": "visual_dashboard"},
+    {"id": "TPV", "family": "strong_baseline", "representation": "text_plus_visual"},
+    {"id": "T_COMPACT", "family": "strong_baseline", "representation": "lossless_compact_text"},
+    {"id": "P0_T_CAL", "family": "calibration", "representation": "natural_text"},
+    {"id": "P0_V_STANDARD", "family": "calibration", "representation": "visual_dashboard"},
+    {"id": "P0_V_CONTRAST", "family": "calibration", "representation": "visual_dashboard"},
+    {"id": "X_T", "family": "selector_x", "representation": "natural_text"},
+    {"id": "X_C", "family": "selector_x", "representation": "comparative_compact_text"},
+    {"id": "X_C_TABLE", "family": "selector_x", "representation": "direct_comparison_table_text"},
+    {"id": "X_S", "family": "selector_x", "representation": "pixel_screenshot"},
+    {"id": "X_V_STANDARD", "family": "selector_x", "representation": "visual_dashboard"},
+    {"id": "X_V_CONTRAST", "family": "selector_x", "representation": "visual_dashboard"},
+    {"id": "X_MTEXT", "family": "selector_x", "representation": "mixed_metrics_text"},
+    {"id": "SIRCL_TEXT", "family": "existing_comparator", "representation": "natural_text"}
+  ],
+  "mechanisms": [
+    {"id": "NO_CONTRAST_SELECTION", "kind": "selection", "representations": ["X_C", "X_V_CONTRAST"]},
+    {"id": "NO_GROUPING", "kind": "organization", "representations": ["X_V_CONTRAST"]},
+    {"id": "NO_SHARED_TIME", "kind": "organization", "representations": ["X_V_CONTRAST"]},
+    {"id": "REMOVE_TARGET_BUNDLE", "kind": "content", "representations": ["X_C", "X_V_CONTRAST"]},
+    {"id": "REMOVE_NON_TARGET_BUNDLE", "kind": "content", "representations": ["X_C", "X_V_CONTRAST"]}
+  ],
+  "mechanism_conditions": [
+    "NO_CONTRAST_SELECTION:X_C", "NO_CONTRAST_SELECTION:X_V_CONTRAST",
+    "NO_GROUPING:X_V_CONTRAST", "NO_SHARED_TIME:X_V_CONTRAST",
+    "REMOVE_TARGET_BUNDLE:X_C", "REMOVE_TARGET_BUNDLE:X_V_CONTRAST",
+    "REMOVE_NON_TARGET_BUNDLE:X_C", "REMOVE_NON_TARGET_BUNDLE:X_V_CONTRAST"
+  ],
+  "logical_experiments": [
+    {"id": "logical_effectiveness", "batches": ["exp_contrastive_rca_effectiveness"], "smoke_parent": "exp_contrastive_rca_effectiveness"},
+    {"id": "logical_mechanisms", "batches": ["exp_visual_diagnostic_mechanisms", "exp_table_screenshot", "exp_replicate_stability", "exp_budget_curve"], "smoke_parent": "exp_visual_diagnostic_mechanisms"},
+    {"id": "logical_robustness", "batches": ["exp_transfer_and_diagnostic_robustness", "exp_redundant_load", "exp_final_test"], "smoke_parent": "exp_transfer_and_diagnostic_robustness"}
+  ],
+  "experiments": [
+    {"id": "exp_contrastive_rca_effectiveness", "population": "eval", "cases": 480, "arms": 15, "models": 2, "calls": 14400},
+    {"id": "exp_visual_diagnostic_mechanisms", "population": "eval_mechanism_subset", "cases": 100, "conditions": 8, "models": 2, "calls": 1600},
+    {"id": "exp_table_screenshot", "population": "eval_mechanism_subset", "cases": 100, "representations": ["X_C_TABLE_S"], "models": 2, "calls": 200},
+    {"id": "exp_replicate_stability", "population": "eval_mechanism_subset", "cases": 100, "conditions": 3, "extra_replicates": 2, "models": 2, "calls": 1200},
+    {"id": "exp_transfer_and_diagnostic_robustness", "population": "eval_mechanism_subset", "cases": 100, "transforms": 2, "representations": 2, "models": 2, "calls": 800},
+    {"id": "exp_budget_curve", "population": "eval_mechanism_subset", "cases": 100, "budgets": [0.5, 0.75], "representations": ["X_C", "X_C_TABLE", "X_V_CONTRAST"], "models": 2, "calls": 1200},
+    {"id": "exp_redundant_load", "population": "eval_mechanism_subset", "cases": 100, "loads": [0.25, 0.5], "representations": ["X_C", "X_C_TABLE", "X_V_CONTRAST"], "models": 2, "calls": 1200},
+    {"id": "exp_final_test", "population": "test", "cases": 360, "methods": 8, "models": 2, "calls": 5760}
+  ],
+  "final_methods": ["T", "T_COMPACT", "TPV", "SIRCL_TEXT", "X_C", "X_C_TABLE", "X_V_CONTRAST", "X_MTEXT"],
+  "smoke": {
+    "experiments": ["exp_contrastive_rca_effectiveness", "exp_visual_diagnostic_mechanisms", "exp_transfer_and_diagnostic_robustness"],
+    "source_partition": "eval",
+    "datasets": ["aegislab", "aiops2022", "aiops2025"],
+    "cases_per_dataset": 1,
+    "model_order": ["qwen3.8-27b", "gemma-4-26b-a4b"],
+    "max_calls": 18,
+    "max_seconds": 600,
+    "planned_calls_per_experiment": 6,
+    "retries_count_as_calls": true,
+    "models_sequential": true
+  },
+  "budget": {
+    "core_calls": 26432,
+    "historical_calls_before_revision": 18,
+    "prospective_core_calls": 26414,
+    "hard_limit": 40000,
+    "reserve_calls": 13568,
+    "reserve_policy": "only_registered_repairs_or_user_authorized_evorca; never automatic_search",
+    "count_retries": true,
+    "count_reused_results": false,
+    "count_replicates_as_new_calls": true
+  },
+  "selection_rule": {
+    "candidates": ["X_V_CONTRAST", "X_MTEXT"],
+    "score_model": "qwen3.8-27b",
+    "primary_metric": "five_dataset_equal_macro_mrr",
+    "tie_tolerance": 0.01,
+    "tie_break_1": "maximize_minimum_aiops2022_aiops2025_mrr",
+    "tie_break_2": "five_dataset_macro_input_plus_output_relative_to_T_baseline",
+    "tie_break_3": "fixed_method_id_lexicographic",
+    "freeze_before_test": true,
+    "gemma_role": "independent_cross_model_recheck",
+    "no_ensemble": true,
+    "no_per_test_case_oracle": true
+  },
+  "artifacts": {
+    "ledger": "RQs/RQ3_1/results/team_stage1/rq31_call_ledger.sqlite",
+    "ledger_scope": "rq31_global_across_output_directories",
+    "smoke_scope": "registration_id_plus_logical_smoke_id",
+    "cpu_workers": 8,
+    "directories": ["conversations", "inputs", "outputs", "cost", "prompts", "renders", "trajectories", "partial", "errors", "completed"],
+    "writer": "RQs.RQ2.src.utils.AsyncWriter",
+    "client": "vlmrca.vlm.client.call_vlm",
+    "scorer": "unified_scripts.rca_scorer.RCAScorer",
+    "resume": "vlmrca.run_state.DurableCallRegister + persisted_model_call",
+    "atomic_records": true,
+    "hashes_required": true
+  }
+}

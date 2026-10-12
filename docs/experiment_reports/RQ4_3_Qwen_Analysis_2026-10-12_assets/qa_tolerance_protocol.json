@@ -1,0 +1,13 @@
+{
+  "status": "posthoc_user_requested",
+  "original_strict_scores_preserved": true,
+  "rule": "User-requested post-hoc QA tolerance and linked-answer audit; no new calls.\n\nRules: parse original complete JSON; exact q keys take precedence; otherwise\nonly punctuation/case aliases of q1..q6 with one unambiguous value qualify.\nScore each available question independently. For structured subanswers, decode\none valid JSON-string object, select only requested fields, normalize punctuation\naround field names, and strip a trailing right-arrow from a relation type. Never\nreverse relation endpoints. Preserve expected numeric precision,\nentity ID, unit, phase and direction. No reconstruction of malformed JSON, no\nidentifier guessing, no truth-dependent choice among conflicting answers.\n",
+  "numeric_units_entities_direction_unchanged": true,
+  "missing_ambiguous_unparseable": 0,
+  "full_question_denominator_preserved": true,
+  "new_model_calls": 0,
+  "analysis_cannot_be_fed_to_running_RCA": true,
+  "manual_sample_cases": 12,
+  "manual_sample_pairs": 36,
+  "U_linked_RCA": "contemporary REPEAT; main historical U BASE remains unchanged"
+}

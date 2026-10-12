@@ -1,0 +1,30 @@
+{
+  "schema": "RQ41RuntimeAcceptanceV26",
+  "authority": "user_2026_10_07_accept_attention_time_and_request_deployment",
+  "attention_gate": "passed_by_explicit_user_acceptance",
+  "attention_observed_slowdown_pct": [
+    0.68,
+    5.01
+  ],
+  "attention_measurements_unchanged": true,
+  "time_gate": "passed_by_explicit_user_acceptance",
+  "previous_48_device_hour_admission_cap_superseded": true,
+  "accepted_queue_hours_scenarios": [
+    40.52,
+    65.66
+  ],
+  "accepted_total_with_overhead_recovery_hours_scenarios": [
+    45.49,
+    70.62
+  ],
+  "new_numeric_time_cap": null,
+  "record_actual_device_and_wall_time": true,
+  "storage_limit_bytes_per_10000": 1000000000,
+  "supplement_rounds": 2,
+  "calls_per_round": 18,
+  "seconds_per_round": 600,
+  "new_call_ceiling": 36,
+  "older_unused_smoke_windows_available_for_this_task": false,
+  "formal_launch_authorized": false,
+  "codex_changed": false
+}

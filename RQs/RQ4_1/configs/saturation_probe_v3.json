@@ -1,0 +1,49 @@
+{
+  "schema": "SaturationInvestigationV3",
+  "selection": "sha256(rq41_saturation_probe_v1:opaque_id) minimum per dataset from fixed eval220; no model outcomes",
+  "cases": [
+    {
+      "id": "INC-540349CB2170",
+      "dataset": "aiops2022",
+      "png_sha256": "4d7257dec59f021b49c350a40906aa4dcd317224ef9cb77595e9790389f03d07",
+      "original_pixels": [
+        8192,
+        4494
+      ],
+      "png": "RQs/RQ4_1/results/comparison_coding_v1/foreground_v1/INC-540349CB2170/render/dashboard.png"
+    },
+    {
+      "id": "INC-5D92F3402F88",
+      "dataset": "aiops2025",
+      "png_sha256": "2fb419f512b2594d532b458a3145544c8cdd6f6741717c775a177dce9db5e3fc",
+      "original_pixels": [
+        8192,
+        4494
+      ],
+      "png": "RQs/RQ4_1/results/comparison_coding_v1/foreground_v1/INC-5D92F3402F88/render/dashboard.png"
+    },
+    {
+      "id": "INC-1EF3346D26B2",
+      "dataset": "aegislab",
+      "png_sha256": "a8d060c786eb851b3d02916fbac652f32cc9267444675b423ec3418005bdf1dd",
+      "original_pixels": [
+        8192,
+        4558
+      ],
+      "png": "RQs/RQ4_1/results/comparison_coding_v1/foreground_v1/INC-1EF3346D26B2/render/dashboard.png"
+    }
+  ],
+  "scope": "vision encoder only plus CPU selection; not RCA/smoke qualification",
+  "max_cases": 3,
+  "max_encoder_passes": 3,
+  "max_llm_calls": 0,
+  "encoder_wall_seconds": 600,
+  "gpu_allocator_fraction": 0.75,
+  "selector_seconds": 30,
+  "model_path": "/home/lglsj/CanvasRCA/models/Qwen3.8-27B",
+  "old_budget": "ceil(0.5*N)",
+  "proposed_budget": "A plus ceil(0.5*unique_optional_support); all matched selectors draw optional tokens from the same support union",
+  "proposed_name": "CVC_E50; E25/E75 descriptive only",
+  "rewire_scope": "same typed degree/phase/unit/quantity + area/dispersion/distance tertiles fitted on these three fixed cases only; not full220 gate",
+  "full_activation": false
+}

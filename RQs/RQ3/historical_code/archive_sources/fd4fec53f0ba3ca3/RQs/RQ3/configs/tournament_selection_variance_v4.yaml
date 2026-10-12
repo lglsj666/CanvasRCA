@@ -1,0 +1,5 @@
+extends: RQs/RQ3/configs/tournament_selection_only_v4.yaml
+search:
+  selectors: [variance_shift_v2]
+tournament:
+  method_id: VARIANCE_SHIFT_selection_only_v4

@@ -1,0 +1,16 @@
+extends: RQs/RQ3/configs/tournament_full_metric_text_rlg_v3.yaml
+search:
+  diagnostic_transport: log_text_with_mrg_visual_v1
+  conditions:
+    - {prompt: tournament_hybrid_log_v1, request_profile: card_nonthinking_v1}
+tournament:
+  method_id: LOG_TEXT_MRG_VISUAL_RESOURCE24_full_remaining_v3
+  prompt:
+    schema: RQ3FrozenHybridLogTemplateV1
+    structure_parent: RQ3FrozenVisualTemplateV1
+    frozen_between_rounds: true
+    text_slots: [task, visual_guide, log_evidence, candidates, closing]
+    image_slots: 1
+    task_file: RQs/RQ3/configs/prompts/tournament_task_v1.txt
+    guide_file: RQs/RQ3/configs/prompts/tournament_hybrid_log_guide_v1.txt
+    system_file: RQs/RQ3/configs/prompts/tournament_system_v1.txt

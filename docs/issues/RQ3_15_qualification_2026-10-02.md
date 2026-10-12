@@ -34,7 +34,7 @@
 - 数值回归覆盖跨 Trace 同名 span、重复身份、循环、重复调用、缺失与零耗时、单位转换、窗口边界、确定性秩抽样。额外用独立 pandas 分组/连接核对最长直接子调用与完整合成配对集合，见[补充数值审核](../../RQs/RQ3_15/results/request_joint_v1/qualification/numeric_pairing_addendum.json)。
 - 完整 220 例重新核对公共源哈希、身份映射、单位与公开时钟，独立 NumPy 计算核对 **341,635 个选中总体配对**的样本、分位数、二值计数及条件统计；源扫描共 46,676,512 行，不把全部源行误称为独立统计核对数。
 - **422 张 PNG、58,496 个图元绑定**核对通过；两个视觉臂的共同标签位置/尺寸在全部 211 对图中一致。三固定病例两臂共 6 次重绘 PNG SHA256 完全相同。
-- 实际打开了 **11 张当前例图**，覆盖三个数据集、双视觉臂、最低 20 请求支持、最大 3,610,007.149ms 观测与长操作名。[例图索引](../../RQs/RQ3_15/results/request_joint_v1/qualification/gallery.html)；[逐图审查记录](../../RQs/RQ3_15/results/request_joint_v1/qualification/visual_inspection.json)。坐标不裁切所选样本中的零值或极值；按父耗时秩抽样不保证展示总体每个子端极值。长名字完整换行，不显示缺失符号。
+- 实际打开了 **11 张当前例图**，覆盖三个数据集、双视觉臂、最低 20 请求支持、最大 3,610,007.149ms 观测与长操作名。[例图索引](../experiment_reports/through_RQ3_15_preserved/assets/RQs/RQ3_15/results/request_joint_v1/qualification/gallery.html)；[逐图审查记录](../../RQs/RQ3_15/results/request_joint_v1/qualification/visual_inspection.json)。坐标不裁切所选样本中的零值或极值；按父耗时秩抽样不保证展示总体每个子端极值。长名字完整换行，不显示缺失符号。
 - 密集点有真实重叠，未用 jitter 伪造观测；普通病例的刻度字体偏小，完整精确值同时在文本中。当前全量没有单关系病例，不虚构此类真实例图。图中点密度不等于总体概率；这是按父耗时秩抽样的展示。
 - 完整 CPU 审核耗时 **648.81 秒**；本地 checkpoint/tokenizer/processor 的 28 个文件身份通过。使用现有 infer 环境完成实际 processor 计数，CUDA 关闭，没有为 CPU 审核启动模型服务。
 - 所有输入都满足上下文容量：最大 **26,093 输入 token + 8,192 输出预算 = 34,285 < 40,960**。全部基础部分完整保留，无裁切或上下文排除。
@@ -59,7 +59,7 @@
 | MARGINAL_VISUAL | 23322.93 | 19901.57 | 24360.84 |
 | PAIR_REPEAT | 23322.93 | 19901.57 | 24360.84 |
 
-每张图实际新增 877 个 image token。两视觉臂以及真实重复使用相同尺寸和输入文本，输入 token 数一致。逐臂统计见[CPU CSV](../../RQs/RQ3_15/results/request_joint_v1/qualification/cpu_dataset_summary.csv)，逐病例输入见[完整 CPU 报告](../../RQs/RQ3_15/results/request_joint_v1/qualification/cpu.json)。
+每张图实际新增 877 个 image token。两视觉臂以及真实重复使用相同尺寸和输入文本，输入 token 数一致。逐臂统计见[CPU CSV](../experiment_reports/through_RQ3_15_preserved/assets/RQs/RQ3_15/results/request_joint_v1/qualification/cpu_dataset_summary.csv)，逐病例输入见[完整 CPU 报告](../../RQs/RQ3_15/results/request_joint_v1/qualification/cpu.json)。
 
 **成本余量有限。** AegisLab 的完整输入比 1.194581 接近 1.20；未来仍必须核对实际 input+output，CPU 通过不保证总成本采用门槛通过。固定 Aegis smoke 单例的输入比为 1.2000667；协议门槛是完整数据集平均值，并非单病例上限，因此该值未导致换病例或修改门槛。CPU smoke 只检查该固定三例的完整性与容量，继承已通过的全量预算判断。
 
@@ -70,7 +70,7 @@
 - **18/18 完成，203.26 秒（含服务启动），600 秒同一逻辑预算。** 无超时、截断或基础设施失败，全部 finish_reason=stop；3 次重复具有不同 call_key 和服务端 request_id，未复用历史答案。
 - 全部持久化文本/system/schema/PNG 与冻结准备一致，逻辑请求哈希与产物 envelope 哈希分别按其定义校验；provider prompt token 与 CPU 实际计数完全相同。所有输出 JSON/候选校验、canonical scorer 重算和 token 守恒通过。
 - 合计 **388,615 input token（含 7,893 image token）+ 3,313 output token = 391,928 total token**。9 个请求有图；每个请求恰为一次新 generation call。
-- 18 份输出理由均已阅读；完整明细见[输入/输出审查](../../RQs/RQ3_15/results/request_joint_v1/smoke/input_output_review.json)和[逐调用结果 CSV](../../RQs/RQ3_15/results/request_joint_v1/qualification/smoke_outcomes.csv)。已关闭自有服务，端口 21955 关闭；结束后 GPU 总占用约 3,959 MiB，启动前约 3,993 MiB，未停止其他工作负载。
+- 18 份输出理由均已阅读；完整明细见[输入/输出审查](../../RQs/RQ3_15/results/request_joint_v1/smoke/input_output_review.json)和[逐调用结果 CSV](../experiment_reports/through_RQ3_15_preserved/assets/RQs/RQ3_15/results/request_joint_v1/qualification/smoke_outcomes.csv)。已关闭自有服务，端口 21955 关闭；结束后 GPU 总占用约 3,959 MiB，启动前约 3,993 MiB，未停止其他工作负载。
 
 以下是 smoke 的完整评分，**每数据集只有一个固定病例，不用于估计效果、显著性或决定调参**。
 

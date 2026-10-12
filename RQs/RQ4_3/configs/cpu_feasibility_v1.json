@@ -1,0 +1,19 @@
+{
+  "schema": "RQ43CPUFeasibilityV1",
+  "protocol": "docs/experiment_plans/RQ4_3_Blind_Review_2026-10-10/technical_contract_v5.md",
+  "plan": "docs/experiment_plans/RQ4_3_Selection_Rendering_Processing_Plan_v5_2026-10-10.md",
+  "scope": "prerequisite_feasibility_not_complete_cpu_qualification",
+  "gpu_smoke_enabled": false,
+  "formal_enabled": false,
+  "model_calls_enabled": false,
+  "max_workers": 8,
+  "cohort": {"aiops2022":60,"aiops2025":60,"aegislab":100},
+  "minimum_processed_font": 18,
+  "source_optional_fraction": 0.60,
+  "required_applicability": 0.50,
+  "gdn_lambda": 0.25,
+  "gdn_chunk_size": 64,
+  "kernel_sha256": "0e2cd8dc50885b2701d26b116c585eedcdc62a24080ec34345af55b963126ded",
+  "new_call_ceiling": 8000,
+  "allocated_calls": 6548
+}

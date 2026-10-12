@@ -1,0 +1,42 @@
+{
+  "missing_local_links": [],
+  "counts": {
+    "optimization": 1980,
+    "controls": 1540,
+    "combinations": 880,
+    "qa": 540,
+    "order": 120,
+    "repeat": 48
+  },
+  "formal": 5108,
+  "allocated": 5360,
+  "unallocated": 2640,
+  "ceiling": 8000,
+  "optimization_arms": 9,
+  "main_conditions": 20,
+  "historical_references": 660,
+  "model_calls_started": 0,
+  "experiment_tests_run": false,
+  "budget_amendment": {
+    "date": "2026-10-10",
+    "timezone": "America/Toronto",
+    "previous_ceiling": 5000,
+    "matrix_changed": false,
+    "power_assessment_completed": false,
+    "scope": "planning_documents_only"
+  },
+  "control_amendment": {
+    "date": "2026-10-10",
+    "timezone": "America/Toronto",
+    "review_type": "primary_agent_design_audit_not_blind_review",
+    "new_controls": [
+      "C_PACK_BG_FILL",
+      "C_GLOBAL_BI"
+    ],
+    "new_rca_positions": 440,
+    "new_qa_positions": 120,
+    "attribution_comparisons": 11,
+    "preselected_method_changed": false,
+    "power_assessment_completed": false
+  }
+}

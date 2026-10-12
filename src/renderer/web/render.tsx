@@ -1,4 +1,11 @@
+import {alignSourceCaptions} from './components/SourceCompact.js';
 import React from 'react';
+import {drawFactualQA} from './factualQA.js';
+import {applyAnchorOffsets,packingBlocks} from './anchorPacking.js';
+import {cardForegroundAudit} from './cardForegroundAudit.js';
+import {cardStyles,applyReadabilityFloor} from './readableCards.js';
+import {drawQABadges} from './qaBadges.js';
+import {foregroundAudit} from './foregroundAudit.js';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {chromium} from 'playwright';
 import fs from 'node:fs/promises';
@@ -17,7 +24,7 @@ const json=async(name:string)=>JSON.parse(await fs.readFile(path.join(out,name),
 const evidence:{cards:Card[]}=await json('evidence.json'),design:Design=await json('design.json'),scene:Scene=await json('geometry.json');
 const css=await fs.readFile(path.join(web,'style.css'),'utf8');
 const font=await fs.readFile(path.join(web,'assets/DejaVuSans.ttf'));
-const style=`@font-face{font-family:DashboardSans;src:url(data:font/ttf;base64,${font.toString('base64')})} :root{--font:${design.font_size}px} ${css}`;
+const style=`@font-face{font-family:DashboardSans;src:url(data:font/ttf;base64,${font.toString('base64')})} :root{--font:${design.font_size}px} ${css}${cardStyles(design.readable_cards)}`;
   const markup=renderToStaticMarkup(<Dashboard cards={evidence.cards} design={design} scene={scene}/>);
 const html='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Telemetry dashboard</title><style>'+style+'</style></head><body class="'+design.theme+'">'+markup+'</body></html>';
 await fs.writeFile(path.join(out,'dashboard.html'),html);
@@ -31,6 +38,15 @@ try {
   page.on('pageerror',error=>errors.push(String(error)));
   await page.setContent(html,{waitUntil:'load'});
   await page.evaluate(()=>document.fonts.ready);
+  if(design.readable_cards)await page.evaluate(applyReadabilityFloor);
+  await page.evaluate(alignSourceCaptions);
+  if(design.anchor_pack){
+    // Function serialization cannot capture imported lexical helpers. Install
+    // the shared enumeration first using its bundled source (no network).
+    await page.addScriptTag({content:`const packingBlocks=${packingBlocks.toString()};window.applyRegisteredAnchorOffsets=${applyAnchorOffsets.toString()};`});
+    await page.evaluate(offsets=>(window as any).applyRegisteredAnchorOffsets(offsets),design.anchor_pack.offsets);
+  }
+  const factualQA=design.factual_qa?await page.evaluate(drawFactualQA,design.factual_qa):undefined;
   // Ownership is a separate overlay. Coordinates come from actual visible DOM
   // boxes, never from a causal/root-cause prediction or a system-edge mutation.
   const overlay=await page.evaluate((links)=>{
@@ -70,6 +86,30 @@ try {
     :design.relation_binding_style==='numbered'
       ?await page.evaluate(drawRelationMarkers,design.relation_bindings??[])
       :await page.evaluate(drawRelationBindings,design.relation_bindings??[]);
+  const questionColors=design.question_colors?await page.evaluate((targets)=>{
+    const colors={'1A':'#ff88aa','1B':'#ffe08a','2A':'#88cfff','2B':'#ffad66'};
+    return targets.map(t=>{
+      const root=document.querySelector(`[data-binding="${t.binding}"]`)!;
+      const value=root.querySelector<HTMLElement>('.value');if(!value)throw new Error('QA color target is not a detail value');
+      const before=value.getBoundingClientRect().toJSON(),text=value.textContent;
+      value.style.color=colors[t.slot];value.style.textDecoration='underline';value.style.textDecorationThickness='1.5px';
+      value.setAttribute('data-question-color',t.slot);
+      const after=value.getBoundingClientRect().toJSON();
+      if(JSON.stringify(before)!==JSON.stringify(after)||text!==value.textContent)throw new Error('QA changed value/geometry');
+      return {...t,color:colors[t.slot],box:after};
+    });
+  },design.question_colors):[];
+  const qaBadges=design.qa_badges?await page.evaluate(drawQABadges,design.qa_badges):[];
+  const controlGlyph=design.control_glyph?await page.evaluate((t)=>{
+    const root=document.querySelector(`[data-binding="${t.binding}"]`)!;
+    const value=t.part==='value'?root.querySelector('.value'):t.part==='marks_and_value'?root.querySelector('text.chart-value'):root;
+    if(!value)throw new Error('Control requires a scalar glyph');
+    const b=value.getBoundingClientRect(),x=innerWidth/2-b.width/2,y=20;
+    if(b.height>32||b.width>innerWidth/4)throw new Error('No matched header footprint');
+    const span=document.createElement('span');span.setAttribute('data-control-glyph','true');
+    span.style.cssText=`position:absolute;left:${x}px;top:${y}px;width:${b.width}px;height:${b.height}px;background:repeating-linear-gradient(90deg,transparent 0px,transparent 4px,#93a4b3 4px,#93a4b3 5px);pointer-events:none`;
+    document.querySelector('main')!.append(span);return {width:b.width,height:b.height,x,y,area:b.width*b.height};
+  },design.control_glyph):null;
   const audit=await page.evaluate((expected)=>{
     const box=(e:Element)=>{const b=e.getBoundingClientRect();return {x:b.x,y:b.y,width:b.width,height:b.height};};
     const panels=[...document.querySelectorAll('[data-card]')].map(e=>({card:e.getAttribute('data-card')!,...box(e)}));
@@ -128,7 +168,7 @@ try {
         if(a.x<b.x+b.width&&b.x<a.x+a.width&&a.y<b.y+b.height&&b.y<a.y+a.height)issues.push('graph node overlap '+a.id+' '+b.id);
       }
     }
-    return {panels,bindings,references,pairs,memberships,issues};
+    return {panels,bindings,references,pairs,memberships,issues,header:box(document.querySelector('header')!)};
   },scene.expected_bindings);
   for(const rect of scene.rectangles.filter(r=>r.component==='graph.edge_pairs')){
     const expected=evidence.cards.find(c=>c.id===rect.card)!.data.edges!;
@@ -190,7 +230,15 @@ try {
   const completeHtml=await page.content();
   await fs.writeFile(path.join(out,'dashboard.html'),completeHtml);
   const png=await page.screenshot({path:path.join(out,'dashboard.png'),fullPage:false,animations:'disabled'});
-  const manifest={schema:'RenderManifestV1',status:audit.issues.length?'failed':'passed',...scene,
+  const regionExports=[];
+  if(design.evidence_regions){
+    for(let i=0;i<4;i++){
+      const clip={x:i*scene.width/4,y:0,width:scene.width/4,height:scene.height};
+      const part=await page.screenshot({path:path.join(out,`region_${i}.png`),clip,animations:'disabled'});
+      regionExports.push({index:i,...clip,sha256:sha(part)});
+    }
+  }
+  const manifest={...(factualQA?{factual_qa:factualQA}:{}),...(design.question_colors?{question_colors:questionColors}:{}),...(design.evidence_regions?{region_exports:regionExports}:{}),...(design.qa_badges?{qa_badges:qaBadges}:{}),...(controlGlyph?{control_glyph:controlGlyph}:{}),schema:'RenderManifestV1',status:audit.issues.length?'failed':'passed',...scene,
     card_count:evidence.cards.length,binding_count:audit.bindings.length,renderer_seconds:(performance.now()-started)/1000,
     browser_version:browser.version(),gpu_disabled:true,font_sha256:sha(font),bundle_sha256:sha(await fs.readFile(fileURLToPath(import.meta.url))),
     css_sha256:sha(css),dependency_lock_sha256:sha(await fs.readFile(path.join(web,'package-lock.json'))),
@@ -199,6 +247,25 @@ try {
     ...(design.relation_bindings!==undefined?{relation_overlay:relationOverlay}:{}),
     evidence_scope:'Only projected CanvasEvidenceV1 fields. Not a whole historical RCA prompt.',overlay,audit};
   await fs.writeFile(path.join(out,'manifest.json'),JSON.stringify(manifest,null,2)+'\n');
+  if(design.evidence_regions||design.readability_audit){
+    const readable=await page.evaluate(()=>{
+      const glyphs=[...document.querySelectorAll('.panel *')].filter(e=>[...e.childNodes].some(n=>n.nodeType===Node.TEXT_NODE&&n.textContent?.trim()));
+      const fonts=glyphs.map(e=>{let scale=1;if(e instanceof SVGGraphicsElement){const m=e.getScreenCTM()!;scale=Math.min(Math.hypot(m.a,m.b),Math.hypot(m.c,m.d));}return parseFloat(getComputedStyle(e).fontSize)*scale;});
+      const prefixes=[...document.querySelectorAll<HTMLElement>('[data-detail-index]')].map(row=>{
+        const names:string[]=[];let parent=row.parentElement;
+        while(parent&&!parent.hasAttribute('data-card')){if(parent.classList.contains('source-scope'))names.unshift(parent.querySelector(':scope > [data-source-prefix]')!.textContent!);parent=parent.parentElement;}
+        return {binding:row.dataset.binding,name:[...names,row.querySelector('[data-source-suffix]')!.getAttribute('data-source-suffix')!].join(' · '),value:row.querySelector('.value')!.textContent!};
+      });
+      return {min_font:Math.min(...fonts),prefixes};
+    });
+    await fs.writeFile(path.join(out,'readability.json'),JSON.stringify(readable)+'\n');
+    if(readable.min_font<17.999)throw new Error('Processed glyph font below floor');
+    if(design.evidence_regions)await cardForegroundAudit(page,out);
+  }
+  if(design.provenance){
+    const provenance=await foregroundAudit(page,design.provenance,out);
+    if(provenance.issues.length)throw new Error('Foreground audit failed: '+provenance.issues.join('; '));
+  }
   if(audit.issues.length)throw new Error('Render audit failed: '+audit.issues.join('; '));
   console.log(`rendered ${evidence.cards.length} cards / ${audit.bindings.length} field bindings`);
 } finally {await browser.close();}

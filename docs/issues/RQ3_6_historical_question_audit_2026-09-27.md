@@ -60,7 +60,7 @@
 ## 4. 来源与状态
 
 - [RQ1.1/RQ2.1完整报告](../experiment_reports/RQ1_1_RQ2_1_findings/findings.md)：§4、§6、§8–9及F01/F04。
-- [旧SEARCH逐轮回顾](../../RQs/RQ3/findings/search_retrospective_20260912.md) 与 [51项配对对照](../../RQs/RQ3/results/search_first_v1/retrospective_through39_20260912/matched_contrasts.md)。对应协议：`RQ3_temporal_sensitivity_20260912.md`、`RQ3_observations_20260912.md`、`RQ3_hosting_axis_development_20260912.md`；实际paired JSON与时间对照JSON均在原结果根下。
+- [旧SEARCH逐轮回顾](../../RQs/RQ3/findings/search_retrospective_20260912.md) 与 [51项配对对照](../experiment_reports/pre_unified_preserved/RQs/RQ3/results/search_first_v1/retrospective_through39_20260912/matched_contrasts.md)。对应协议：`RQ3_temporal_sensitivity_20260912.md`、`RQ3_observations_20260912.md`、`RQ3_hosting_axis_development_20260912.md`；实际paired JSON与时间对照JSON均在原结果根下。
 - [Tournament报告](../experiment_reports/Tournament_Analysis_2026-09-15.md)：R15/R16和node/pod分析；对应 `RQ3/src/renderer/owner_groups.py`。
 - [RQ3.1报告](../experiment_reports/RQ3_1_Results_Analysis_2026-09-19.md)、[RQ3.2报告](../experiment_reports/RQ3_2_Results_Analysis_2026-09-22.md)：选择/组织/承载机制及其实际实现边界。
 - [RQ3.3报告](../experiment_reports/RQ3_3_Results_Analysis_2026-09-24.md)：§1未执行清单、§7–8修复破坏；`RQ3_3/configs/research_v2.json`为注册而非完成凭证。

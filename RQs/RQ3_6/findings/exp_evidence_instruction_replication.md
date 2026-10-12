@@ -14,6 +14,6 @@ S包增加根因关联M/R/L记录，但某些内存等机制信号仍被其他�
 
 ## 资格检查历史
 
-CPU覆盖11条件/3病例/两模型，共66请求；GPU覆盖两新指令条件及W_NO_K，共18/18完成，原窗口558.820秒。修复后处理image_hashes接口并离线恢复9个已保存回答，无额外调用。人工审阅见 [manual_review](../results/replication_v1/manual_review.md)，检查记录见 [qualification](../../../docs/issues/RQ3_6_qualification_2026-09-26.md)。
+CPU覆盖11条件/3病例/两模型，共66请求；GPU覆盖两新指令条件及W_NO_K，共18/18完成，原窗口558.820秒。修复后处理image_hashes接口并离线恢复9个已保存回答，无额外调用。人工审阅见 [manual_review](../../../docs/experiment_reports/pre_unified_preserved/RQs/RQ3_6/results/replication_v1/manual_review.md)，检查记录见 [qualification](../../../docs/issues/RQ3_6_qualification_2026-09-26.md)。
 
 协议见 ../descriptions/RQ3_6_experiments.md；资格检查与正式来源 ../results/replication_v1/。历史资格结论不改，正式效果以上述报告为准。

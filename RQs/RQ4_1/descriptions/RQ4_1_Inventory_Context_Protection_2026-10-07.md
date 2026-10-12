@@ -1,0 +1,13 @@
+# RQ4.1 candidate-inventory context protection — 2026-10-07
+
+Prospective fourth window within the five additional smoke windows. This is an input-preservation check, not a claim that pruning explains every invalid answer: full-image sampled controls also fail candidate membership. The static syntax repair excludes malformed IDs but does not solve all visual transcription/selection errors.
+
+Existing protected anchors cover the identity glyph support. They do not preserve all token cells inside the compact candidate inventory. In the three fixed cases, the smallest rectangle enclosing its measured title/identity boxes, expanded by one merged-token cell and clipped to the image, adds 89/100/102 previously unprotected cells. Test whether preserving this local region improves interface usability. No more halo sizes or adaptive case-specific tuning are registered.
+
+Use the same public DOM geometry and processor grid. Union that fixed rectangle with all existing anchors; preserve the ORIGINAL E50 K computed from the original support packet. Charge the extra guard cells against the original optional budget, and retain the original SCOPE/S2Prune algorithm for remaining slots. Stop before GPU if the guard cannot fit the fixed K on any registered case. The guard contains no candidate string enumeration, label, private score, model answer or CVC dependency edge. It adds no image, prompt fact or new evidence. Keep the exact window-3 PNG, prompt, static syntax grammar and decoding recipe.
+
+Names: SCOPE_INVENTORY_E50 and S2PRUNE_INVENTORY_E50. These are explicitly protected Qwen adaptations, not unmodified published algorithms. They remain prospective prior replacements, not new formal matrix arms. Earlier failed variants remain archived.
+
+Check the changed geometry/budget operation on CPU, including all 220 manifests/support packets and an independent geometric fixture; retain already passed renderer/encoder/numerical tests. No full rendering, feature extraction, selector-roster or earlier CPU rerun.
+
+The fourth window retains the 18 logical positions of window 3. Reuse its four unchanged full-image reference calls with exact request/group hashes; perform 12 real guarded-prior greedy/sampled calls plus two real all-token identities. Thus at most14 newly initiated calls, shared600 seconds. All12 actual-pruning answers must contain five distinct real candidates. The two identities must satisfy the original output/logit parity tests. No root-rank threshold or correctness retry. Preserve failures, keep the passive-attention/resource gates separate, and do not launch formal inference.

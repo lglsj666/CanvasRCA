@@ -157,6 +157,118 @@
       "kind": "trace_profile",
       "file": "PopulationProfile.tsx",
       "name": "Population inclusive duration p50/p95 phase comparison"
+    },
+    {
+      "index": 23,
+      "id": "inventory.identities",
+      "kind": "inventory",
+      "file": "EvidenceInventory.tsx",
+      "name": "Typed candidate/observation identity inventory with public metadata"
+    },
+    {
+      "index": 24,
+      "id": "comparison.paired",
+      "kind": "comparison",
+      "file": "PairedObservations.tsx",
+      "name": "Typed reference/current public observation pairs, independent native-unit axes"
+    },
+    {
+      "index": 25,
+      "id": "contrast.quantile_contrast",
+      "kind": "contrast",
+      "file": "QuantileContrast.tsx",
+      "name": "Typed quantile phase-change and peer-deviation strips; no time-axis overload"
+    },
+    {
+      "index": 26,
+      "id": "metric.source_compact",
+      "kind": "metric",
+      "file": "SourceCompact.tsx",
+      "name": "Source-bound side-by-side chart and complete captions"
+    },
+    {
+      "index": 27,
+      "id": "trace.source_compact",
+      "kind": "trace",
+      "file": "SourceCompact.tsx",
+      "name": "Source-bound side-by-side chart and complete captions"
+    },
+    {
+      "index": 28,
+      "id": "log.source_compact",
+      "kind": "log",
+      "file": "SourceCompact.tsx",
+      "name": "Source-bound side-by-side chart and complete captions"
+    },
+    {
+      "index": 29,
+      "id": "inventory.source_compact",
+      "kind": "inventory",
+      "file": "SourceCompact.tsx",
+      "name": "Source-bound side-by-side chart and complete captions"
+    },
+    {
+      "index": 30,
+      "id": "comparison.source_compact",
+      "kind": "comparison",
+      "file": "SourceCompact.tsx",
+      "name": "Source-bound side-by-side chart and complete captions"
+    },
+    {
+      "index": 31,
+      "id": "graph.source_compact",
+      "kind": "graph",
+      "file": "SourceGraph.tsx",
+      "name": "Complete typed directed graph with compact node padding"
+    },
+    {
+      "index": 32,
+      "id": "metric_packed.source_compact",
+      "kind": "metric",
+      "file": "PackedSource.tsx",
+      "name": "Explicit reversible compact field glossary v2"
+    },
+    {
+      "index": 33,
+      "id": "trace_packed.source_compact",
+      "kind": "trace",
+      "file": "PackedSource.tsx",
+      "name": "Explicit reversible compact field glossary v2"
+    },
+    {
+      "index": 34,
+      "id": "log_packed.source_compact",
+      "kind": "log",
+      "file": "PackedSource.tsx",
+      "name": "Explicit reversible compact field glossary v2"
+    },
+    {
+      "index": 35,
+      "id": "inventory_packed.source_compact",
+      "kind": "inventory",
+      "file": "PackedSource.tsx",
+      "name": "Explicit reversible compact field glossary v2"
+    },
+    {
+      "index": 36,
+      "id": "comparison_packed.source_compact",
+      "kind": "comparison",
+      "file": "PackedSource.tsx",
+      "name": "Explicit reversible compact field glossary v2"
+    },
+    {
+      "index": 37,
+      "id": "metric_horizon.source_compact",
+      "kind": "metric",
+      "file": "MetricHorizon.tsx",
+      "name": "Zero-based signed two-band horizon with complete source captions"
+    },
+    {
+      "index": 38,
+      "id": "graph.numeric_source",
+      "kind": "graph",
+      "file": "NumericSourceGraph.tsx",
+      "name": "Full typed graph with exact numeric IDs and fixed digit-length type grammar"
     }
   ]
 }

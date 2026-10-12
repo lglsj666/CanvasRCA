@@ -1,0 +1,29 @@
+schema_version: CanvasRCAScorerConfigV1
+status: frozen_global_base
+effective_date: 2026-08-09
+
+prediction_schema:
+  required_keys: [services, reason, confidence]
+  services_type: ranked_unique_strings
+  confidence_values: [high, medium, low]
+prediction_limit: 5
+cutoffs: [1, 3, 5]
+
+matching:
+  function: vlmrca.eval.scoring.is_granularity_aware_hit
+  service_level_accepts_hashed_pod_projection: true
+  pod_level_exact: true
+  node_level_exact: true
+  unknown_id_is_miss: true
+
+metrics:
+  primary: mrr
+  case_level: [mrr, ac@1, ac@3, ac@5, avg@3, avg@5]
+  recall_only_for_registered_multi_root: true
+  paired_test: wilcoxon_pratt
+  effect_size: paired_cohens_dz
+confidence_intervals_reported: false
+
+adapters:
+  policy: subclass_matching_only_with_registered_contract
+  metric_definitions_frozen: true

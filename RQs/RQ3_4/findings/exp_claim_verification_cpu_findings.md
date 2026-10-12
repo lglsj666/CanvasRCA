@@ -57,7 +57,7 @@
 
 ## 4. 抽查也暴露了形式化风险
 
-从两模型 × 两类 refuted claim 中，按 `SHA256(call_key + sorted JSON claim)` 各取两个，共八条，逐字阅读 reason 与证据；不是按根因是否正确挑选。结果记录在 [人工式核对表](../results/claim_audit_v4/manual_review.md)（由本助手阅读，不是双人标注或人工研究）。
+从两模型 × 两类 refuted claim 中，按 `SHA256(call_key + sorted JSON claim)` 各取两个，共八条，逐字阅读 reason 与证据；不是按根因是否正确挑选。结果记录在 [人工式核对表](../../../docs/experiment_reports/pre_unified_preserved/RQs/RQ3_4/results/claim_audit_v4/manual_review.md)（由本助手阅读，不是双人标注或人工研究）。
 
 其中 `INC-8E0FB1B7B3FE / Qwen / P0_MORE_TRUE` 声称的是 **exclusive-latency onset 34m**，核验器匹配到的 G 字段却是 **M 来源的实体 onset 33m**。两者不是同一个量，不能仅因数字不同确认它幻觉。这是候选 claim 形式化的边界，不是 SMT 求解错误。
 

@@ -1,0 +1,23 @@
+{
+  "schema": "RQ41AdditionalSmokeAllowanceV1",
+  "authority": "user_2026_10_07_five_prior_repair_smokes",
+  "user_instruction": "那就要修改一下这两个arm，修改到能用为止。修改完成后再做smoke test。我为你再增加5次smoke test机会，每次18 calls。",
+  "additional_rounds": 5,
+  "calls_per_round": 18,
+  "seconds_per_round": 600,
+  "total_call_ceiling": 12000,
+  "registered_allocation_before": 9080,
+  "registered_allocation_upper_bound": 9170,
+  "prior_allowance": "RQs/RQ4_1/configs/gpu_smoke_allowance_v20.json",
+  "prior_smoke_attempts": 46,
+  "historical_probe_calls": 12,
+  "formal_enabled": false,
+  "registry": "RQs/RQ4_1/results/comparison_coding_v1/smoke_allowance_v22",
+  "round_configs": {
+    "1": "RQs/RQ4_1/configs/gpu_smoke_v22_round01.json",
+    "2": "RQs/RQ4_1/configs/gpu_smoke_v22_round02.json",
+    "3": "RQs/RQ4_1/configs/gpu_smoke_v22_round03.json",
+    "4": "RQs/RQ4_1/configs/gpu_smoke_v22_round04.json",
+    "5": "RQs/RQ4_1/configs/gpu_smoke_v22_round05.json"
+  }
+}

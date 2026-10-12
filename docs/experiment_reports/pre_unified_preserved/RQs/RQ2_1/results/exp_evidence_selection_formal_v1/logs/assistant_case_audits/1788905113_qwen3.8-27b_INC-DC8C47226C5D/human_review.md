@@ -1,0 +1,9 @@
+# Hourly inspection: INC-DC8C47226C5D / Qwen3.8
+
+Inspected all 16 logical targets, all 15 complete responses, the complete ordered prompt/conversation inventory (deduplicated identical lines with mappings), and all seven actual submitted PNGs. Checked every metric series and its statistics, trace entries, log-template/numeric projections, onset rows, concrete edges, candidate list and common instructions. Artifact/request/PNG consistency and both attention phases passed machine checks. No private labels or RCA scores were inspected.
+
+The requested selection interventions are real: BARO/SIGMA replace metric evidence, TRACE_SC replaces trace entries, LOG_FREQ changes logs, and COVERAGE/DIVERSITY change selected evidence across regions. The submitted diagrams preserve the selected numeric IDs and show the trace table headed by 146/GetProduct with the large local latency increase. Curves, panel identifiers, log rows and edge ledgers are visible. Random-V is an explicitly recorded full-log-card footprint failure, not an omitted request or silently shortened log.
+
+All completed responses stopped normally (111–268 output tokens), parsed, and persisted with prefill and answer-generation attention. Several responses conflate log-template bins with the onset of an aggregate error-rate change, invent an entity relationship, or misread scientific/magnitude units (for example the text response calling the displayed 13.65 million bytes 13.65 GB). The underlying input supplies the actual row/count/entity and displayed units; these are model mistakes, not proof of an input-binding defect. Preserve these results, do not retry for correctness, and retain them for later failure analysis.
+
+No newly identified implementation or severe prompt blocker in this inspected case. Continue unchanged; inspection does not certify every unreviewed case.

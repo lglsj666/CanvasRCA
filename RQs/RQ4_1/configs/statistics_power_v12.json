@@ -1,0 +1,43 @@
+{
+  "schema": "ClusterBootstrapPowerRevisionV12",
+  "method": "paired_cluster_ratio_bootstrap_t_equal_tails_v1",
+  "inputs": [
+    {
+      "name": "qa",
+      "registration": "RQs/RQ4_1/results/comparison_coding_v1/cpu_remaining_v10/qa_calibration/statistics_registration.json",
+      "sha256": "7fdd97a2bc5d91af9cc5a984dd2d95769b45f2b364b63baa9db76023093d8651",
+      "family_size": 2
+    },
+    {
+      "name": "development",
+      "registration": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/statistics_registration.json",
+      "sha256": "f6c045abb8d6840f78c835cbbbe3f05a9163d0d348c0be3d9a2118973c3cb3ae",
+      "family_size": 6
+    }
+  ],
+  "output": "RQs/RQ4_1/results/comparison_coding_v1/statistics_power_v12",
+  "replicates": 2000,
+  "bootstrap_draws": 4999,
+  "alpha": 0.05,
+  "calibration_alarm": 0.07,
+  "planning_power_reference": 0.8,
+  "banks": [
+    {
+      "data_seed": 2068456439840525133,
+      "bootstrap_seed": 13142267859298503209
+    },
+    {
+      "data_seed": 8216251920653624573,
+      "bootstrap_seed": 16420178744051251538
+    }
+  ],
+  "gpu_enabled": false,
+  "smoke_enabled": false,
+  "formal_enabled": false,
+  "llm_calls": 0,
+  "original_budget_clock": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/started.json",
+  "amendment": "RQs/RQ4_1/descriptions/RQ4_1_Statistics_Power_Revision_2026-10-07.md",
+  "source_freeze": "RQs/RQ4_1/results/comparison_coding_v1/statistics_power_v12/source_snapshot/receipt.json",
+  "no_new_outcome_access": true,
+  "amendment_sha256": "6fd60d561f4c97c9efbf76ec0c6a91cc5633fe5cb77f5795ed453ef461a848b8"
+}

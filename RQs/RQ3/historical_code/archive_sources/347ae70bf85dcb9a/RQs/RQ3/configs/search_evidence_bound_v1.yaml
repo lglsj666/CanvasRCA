@@ -1,0 +1,21 @@
+extends: RQs/RQ3/configs/rq3.yaml
+execution_enabled: false
+delivery_boundary: train_subset_search_only
+solver:
+  attention: "off"
+  candidate_binding: enum_top5_v1
+budget:
+  hard_limit: null
+search:
+  enabled: true
+  stage: development
+  max_batch_calls: 24
+  concurrency: 4
+  wall_seconds: 3600
+  cases_per_dataset: 6
+  selectors: [ranked_v1]
+  metric_limit: 8
+  conditions:
+    - {prompt: evidence_bound_v1, request_profile: legacy_v1}
+    - {prompt: evidence_bound_v1, request_profile: card_nonthinking_v1}
+  diagnostic_transport: pure_visual_with_text_candidates

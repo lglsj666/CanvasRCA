@@ -136,9 +136,9 @@ MRR为首个评分器认可根因的倒数排名均值，未命中或模型契�
 | WINDOW_PIXEL | 220 | 0.3973 | 0.2955 | 0.5045 | 0.5500 | 0.4076 | 0.4627 | 0.3772 | 0.2811 |
 | WINDOW_REPEAT | 219 | 0.3833 | 0.2831 | 0.4886 | 0.5297 | 0.3957 | 0.4466 | 0.3576 | 0.2614 |
 
-完整macro其余指标与AIOPS合并指标也在 [aggregate.csv](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/aggregate.csv)。T在三个数据集合计的MRR最高为0.4292，macro为0.3957；这是本矩阵的描述性排序，不能把“九臂最佳”替换成预先选择的V。
+完整macro其余指标与AIOPS合并指标也在 [aggregate.csv](through_RQ3_15_preserved/assets/RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/aggregate.csv)。T在三个数据集合计的MRR最高为0.4292，macro为0.3957；这是本矩阵的描述性排序，不能把“九臂最佳”替换成预先选择的V。
 
-![三数据集全部九臂MRR](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/mrr_by_dataset.png)
+![三数据集全部九臂MRR](through_RQ3_15_preserved/assets/RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/mrr_by_dataset.png)
 
 ## 5. 注册比较与采用判定
 
@@ -182,7 +182,7 @@ MRR为首个评分器认可根因的倒数排名均值，未命中或模型契�
 | 两个AIOPS各正向 | 未通过 |
 | 每数据集配对总token≤R×1.20 | 通过 |
 
-因此 **不采用 WINDOW_VISUAL**。统计原表：[registered_contrasts.csv](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/registered_contrasts.csv)。
+因此 **不采用 WINDOW_VISUAL**。统计原表：[registered_contrasts.csv](through_RQ3_15_preserved/assets/RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/registered_contrasts.csv)。
 
 ## 6. 数据集异质性：收益与破坏来自哪里
 
@@ -222,9 +222,9 @@ V−R的100对中25好、31坏，Top1修复19、破坏20；V−T有20好、34坏
 
 故障子类同时有明显正负：ContainerKill 8例+0.1563、HTTPResponseReplaceCode 13例+0.1474；HTTPRequestAbort 6例−0.3750、HTTPResponseDelay 7例−0.2619、NetworkCorrupt 3例−0.5000。它们提示“重启/资源重置可见”与“请求语义/时延故障”可能需要不同的证据辨别，但不是已验证的路由器；不得使用真实fault_type为线上选择arm。
 
-全故障、粒度与公开Trace可用性表：[per_fault.csv](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/per_fault.csv)、[fault_contrasts_exploratory.json](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/fault_contrasts_exploratory.json)、[strata_descriptive.json](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/strata_descriptive.json)。最后一份只有描述性探索与未校正p，不承担显著性结论。
+全故障、粒度与公开Trace可用性表：[per_fault.csv](through_RQ3_15_preserved/assets/RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/per_fault.csv)、[fault_contrasts_exploratory.json](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/fault_contrasts_exploratory.json)、[strata_descriptive.json](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/strata_descriptive.json)。最后一份只有描述性探索与未校正p，不承担显著性结论。
 
-![配对差异](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/paired_deltas.png)
+![配对差异](through_RQ3_15_preserved/assets/RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/paired_deltas.png)
 
 ## 7. 与RQ3.13的同病例比较：修复到了哪里
 
@@ -289,7 +289,7 @@ V明确引用30秒DB停顿，却因624观测onset略早和931→624而排除757�
 
 `INC-992C09A89DC9`：V根因排名正确，却称“没有指向746的调用边”；实际上有374→746。V2也排名正确，却称6.2m早于5.5m和4.2m。**排序分数与证据可信度必须分别测量。**
 
-已目视复核实际模型PNG：[重启正例](../../RQs/RQ3_14/preparation/unified_observed_v1/renders/INC-1899A22CF097/WINDOW_VISUAL/dashboard.png)、[资源竞争负例](../../RQs/RQ3_14/preparation/unified_observed_v1/renders/INC-FD27B5B35F1F/WINDOW_VISUAL/dashboard.png)。原图保持不变，未以报告绘图替代模型输入。
+已目视复核实际模型PNG：[重启正例](through_RQ3_15_preserved/assets/RQs/RQ3_14/preparation/unified_observed_v1/renders/INC-1899A22CF097/WINDOW_VISUAL/dashboard.png)、[资源竞争负例](through_RQ3_15_preserved/assets/RQs/RQ3_14/preparation/unified_observed_v1/renders/INC-FD27B5B35F1F/WINDOW_VISUAL/dashboard.png)。原图保持不变，未以报告绘图替代模型输入。
 
 ## 9. 解释可信度审核：完成范围与明确局限
 
@@ -486,22 +486,22 @@ MRR相同不代表次级排名、置信度、文字理由一致；理由层面�
 
 | 产物 | 用途 |
 | --- | --- |
-| [case_metrics.csv](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/case_metrics.csv) | 1980位置的完整分数/失败/成本/调用索引 |
-| [aggregate.csv](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/aggregate.csv) | 全部准确率与token/wall时间汇总，包括macro所有指标 |
+| [case_metrics.csv](through_RQ3_15_preserved/assets/RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/case_metrics.csv) | 1980位置的完整分数/失败/成本/调用索引 |
+| [aggregate.csv](through_RQ3_15_preserved/assets/RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/aggregate.csv) | 全部准确率与token/wall时间汇总，包括macro所有指标 |
 | [registered_contrasts.json](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/registered_contrasts.json) | 注册主要/次要病例与组统计、配对ID、成本和缺失界限 |
-| [dataset_contrasts_exploratory.csv](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/dataset_contrasts_exploratory.csv) | 27项数据集探索族，正负结果全部保留 |
-| [per_fault.csv](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/per_fault.csv) | 每数据集×故障×arm六项准确率 |
-| [aegis_all_case_mrr.csv](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/aegis_all_case_mrr.csv) | 全部100例Aegis九臂MRR与V−R/V−T差异 |
+| [dataset_contrasts_exploratory.csv](through_RQ3_15_preserved/assets/RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/dataset_contrasts_exploratory.csv) | 27项数据集探索族，正负结果全部保留 |
+| [per_fault.csv](through_RQ3_15_preserved/assets/RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/per_fault.csv) | 每数据集×故障×arm六项准确率 |
+| [aegis_all_case_mrr.csv](through_RQ3_15_preserved/assets/RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/aegis_all_case_mrr.csv) | 全部100例Aegis九臂MRR与V−R/V−T差异 |
 | [common_complete.json](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/common_complete.json) | 206例全臂共同子集敏感性 |
 | [history_matched.json](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/history_matched.json) | RQ3.13共同病例及Aegis旧20/新80 |
 | [source_claim_checks.json](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/source_claim_checks.json) | 25条定向主张、原理由与源证据 |
 | [reason_review_annotations.json](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/reason_review_annotations.json) | 324位置阅读状态、核验ID及未知轴 |
 | [evidence_inventory.json](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/evidence_inventory.json) | metric/trace卡可用性、单位、历史排名字符串 |
-| [attempts.csv](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/attempts.csv) | 2016正式尝试及usage未知状态 |
+| [attempts.csv](through_RQ3_15_preserved/assets/RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/attempts.csv) | 2016正式尝试及usage未知状态 |
 | [independent_statistics_check.json](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/independent_statistics_check.json) | 独立Pratt/Holm重建 |
 | [adoption_gates.json](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/adoption_gates.json) | 逐条采用门槛机器可读结果 |
-| [mrr_by_dataset.svg](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/mrr_by_dataset.svg) | 可导出的准确率图 |
-| [paired_deltas.svg](../../RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/paired_deltas.svg) | 可导出的配对差异图 |
+| [mrr_by_dataset.svg](through_RQ3_15_preserved/assets/RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/mrr_by_dataset.svg) | 可导出的准确率图 |
+| [paired_deltas.svg](through_RQ3_15_preserved/assets/RQs/RQ3_14/results/unified_observed_v1/analysis_detailed_v1/paired_deltas.svg) | 可导出的配对差异图 |
 
 在项目根目录执行以下命令可离线重建。不会启动模型；source_claim_checks的判断由人工写入，不是脚本自动判定事实正确性。
 

@@ -1,0 +1,26 @@
+{
+  "schema": "PriorCompletionCPUv13",
+  "execution_enabled": true,
+  "gpu_enabled": false,
+  "smoke_enabled": false,
+  "formal_enabled": false,
+  "resource_cases": [
+    "INC-0ABCFE10D32D",
+    "INC-A7CCB675D07B",
+    "INC-C58423A7459F"
+  ],
+  "passed_unit_log": "RQs/RQ4_1/results/comparison_coding_v1/prior_completion_v13/unit_attempt_01.log",
+  "passed_unit_log_sha256": "aa2e30e7b5ae606b6b3f21cfeadff90115a5e5e70abba3e63eb172e1ce334253",
+  "methods": [
+    "SCOPE",
+    "DART",
+    "S2PRUNE"
+  ],
+  "cpu_workers": 3,
+  "max_selector_seconds": 30,
+  "max_worker_rss_bytes": 2147483648,
+  "original_cpu_clock": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/started.json",
+  "signal_scope": "synthetic resource fixtures plus actual installed Qwen classes with tiny random weights; no checkpoint selection",
+  "amendment": "../descriptions/RQ4_1_Prior_Completion_2026-10-07.md",
+  "amendment_sha256": "67afe9928794195562f17e0eb8cbf190cec4237080d22c8ccf868395d8184609"
+}

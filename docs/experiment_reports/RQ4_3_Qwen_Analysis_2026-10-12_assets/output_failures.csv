@@ -1,0 +1,1119 @@
+key,id,dataset,group,arm,variant,fault_type,root_kind,actual_calls,reference,backend,input,output,image_tokens,image_original,total,model_seconds,vision_seconds,language_seconds,cold_seconds,cached_seconds,compile_seconds,timing_policy,attention,attention_error,attention_missed,branch_calls,output_cap_hit,operation,historical,text_tokens,rank,mrr,ac@1,ac@3,ac@5,avg@3,avg@5,tolerant_mrr,precision@1,precision@3,precision@5,invalid,unknown,duplicate,top1,ranked,confidence,error,unknown_values,duplicate_values
+INC-0060628741E9__C_SOURCE_HASH__BASE,INC-0060628741E9,aiops2022,b160cd77d4b1f8fad5a7e7201ad486d352a1cf22e31ef0cb10a1696488ce1557,C_SOURCE_HASH,BASE,k8s容器网络延迟,service,1,,vllm,5026,228,4605,16275,5254,48.35169836200021,2.4511932890000026,39.354288387,1065.9978797479998,,8.332387455000116,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""711"", ""715"", ""740"", ""710"", ""752""]",medium,unknown/duplicate entity,['710'],[]
+INC-0986D6C54EC6__C_GLOBAL_BI__BASE,INC-0986D6C54EC6,aiops2022,c7e0f504b476a2da13878a6d8ffc6b7dc18ec42f51e0cb8828eb0824d1bf4bad,C_GLOBAL_BI,BASE,node 磁盘写IO消耗,node,1,,hf_legacy,5749,216,5328,16198,5965,21.384905971999615,2.3523440029994163,18.10536335300003,29.076779598999565,,7.2958526539996456,continuous_cold_including_queue,True,,0,3,False,C_GLOBAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""94905"", ""82400"", ""93361"", ""82400"", ""94905""]",high,"['94905', '82400', '93361', '82400', '94905'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['94905', '82400', '93361', '82400', '94905']",[],"['82400', '94905']"
+INC-0986D6C54EC6__C_READ_GUIDE__BASE,INC-0986D6C54EC6,aiops2022,c7e0f504b476a2da13878a6d8ffc6b7dc18ec42f51e0cb8828eb0824d1bf4bad,C_READ_GUIDE,BASE,node 磁盘写IO消耗,node,1,,vllm,6896,225,5328,16198,7121,46.77032117899944,2.3453064120003546,42.841536645002634,,7143.4660663199975,2.248308561000158,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""94905"", ""93361"", ""82400"", ""84119"", ""87957""]",high,unknown/duplicate entity,['84119'],[]
+INC-0986D6C54EC6__C_SHAM_BI__BASE,INC-0986D6C54EC6,aiops2022,c7e0f504b476a2da13878a6d8ffc6b7dc18ec42f51e0cb8828eb0824d1bf4bad,C_SHAM_BI,BASE,node 磁盘写IO消耗,node,1,,concurrency_v11,5749,229,5328,16198,5978,164.66177363800125,2.4435079979994043,160.85559032399942,347.87177648800025,,7.174012579000191,continuous_cold_including_queue,False,,0,3,False,C_SHAM_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""94905"", ""82400"", ""93361"", ""82400"", ""94905""]",high,"['94905', '82400', '93361', '82400', '94905'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['94905', '82400', '93361', '82400', '94905']",[],"['82400', '94905']"
+INC-0986D6C54EC6__C_SOURCE_HASH__BASE,INC-0986D6C54EC6,aiops2022,c7e0f504b476a2da13878a6d8ffc6b7dc18ec42f51e0cb8828eb0824d1bf4bad,C_SOURCE_HASH,BASE,node 磁盘写IO消耗,node,1,,vllm,5354,170,4933,16198,5524,37.54550541699973,2.521131591000085,23.122974064001028,1196.5936108350006,,8.104299241000263,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""94905"", ""82400"", ""93361"", ""82400"", ""94905""]",high,"['94905', '82400', '93361', '82400', '94905'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['94905', '82400', '93361', '82400', '94905']",[],"['82400', '94905']"
+INC-0986D6C54EC6__U__REPEAT,INC-0986D6C54EC6,aiops2022,c7e0f504b476a2da13878a6d8ffc6b7dc18ec42f51e0cb8828eb0824d1bf4bad,U,REPEAT,node 磁盘写IO消耗,node,1,,vllm,5749,204,5328,16198,5953,41.69906532600089,2.4721595159999197,36.15099594900039,435.986988818001,,8.769601352000791,continuous_cold_including_queue,True,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""94905"", ""82400"", ""93361"", ""82400"", ""94905""]",high,"['94905', '82400', '93361', '82400', '94905'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['94905', '82400', '93361', '82400', '94905']",[],"['82400', '94905']"
+INC-0986D6C54EC6__X_SR__BASE,INC-0986D6C54EC6,aiops2022,c7e0f504b476a2da13878a6d8ffc6b7dc18ec42f51e0cb8828eb0824d1bf4bad,X_SR,BASE,node 磁盘写IO消耗,node,1,,vllm,6531,157,4963,16198,6688,38.00643305599806,2.3447867629984103,29.75155639500008,,4293.584321247003,2.12781304300006,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,True,__INVALID__,"[""8419"", ""841"", ""84419"", ""8441"", ""8419""]",high,"['8419', '841', '84419', '8441', '8419'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['8419', '841', '84419', '8441', '8419']","['8419', '8441']",['8419']
+INC-1595063C5B11__C_PACK_BG_FILL__BASE,INC-1595063C5B11,aiops2022,2a4997ca8cb426d8b76cc166bedeacc6a2ff48bc9592b66b901a3c21b60278bf,C_PACK_BG_FILL,BASE,k8s容器网络资源包损坏,pod,0,INC-1595063C5B11__R_PATCH_PACK__BASE,vllm,6812,225,5244,15860,7037,34.75387251400025,2.3316691520012682,31.29750578400126,,2508.0718258119996,1.6078861349997169,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""84394"", ""33620"", ""60764"", ""85170"", ""84335""]",high,unknown/duplicate entity,['84335'],[]
+INC-1595063C5B11__C_SHAM_BI__BASE,INC-1595063C5B11,aiops2022,2a4997ca8cb426d8b76cc166bedeacc6a2ff48bc9592b66b901a3c21b60278bf,C_SHAM_BI,BASE,k8s容器网络资源包损坏,pod,1,,hf_legacy,5665,192,5244,16168,5857,18.809504838000066,2.34500757800015,15.693003950000275,25.3348843520007,,6.173223118000351,continuous_cold_including_queue,False,,0,3,False,C_SHAM_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""832"", ""811"", ""832"", ""832"", ""832""]",medium,"['832', '811', '832', '832', '832'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['832', '811', '832', '832', '832']",[],"['832', '832', '832']"
+INC-1595063C5B11__R_PACK_HORIZON__BASE,INC-1595063C5B11,aiops2022,2a4997ca8cb426d8b76cc166bedeacc6a2ff48bc9592b66b901a3c21b60278bf,R_PACK_HORIZON,BASE,k8s容器网络资源包损坏,pod,1,,vllm,6812,255,5244,15860,7067,36.84450505000132,2.2917088029971637,33.22033512099733,,7647.950948337999,1.745447981000325,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""84394"", ""33620"", ""60764"", ""85170"", ""84394""]",high,"['84394', '33620', '60764', '85170', '84394'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['84394', '33620', '60764', '85170', '84394']",[],['84394']
+INC-1595063C5B11__R_PATCH_PACK__BASE,INC-1595063C5B11,aiops2022,2a4997ca8cb426d8b76cc166bedeacc6a2ff48bc9592b66b901a3c21b60278bf,R_PATCH_PACK,BASE,k8s容器网络资源包损坏,pod,1,,vllm,6812,225,5244,15860,7037,34.75387251400025,2.3316691520012682,31.29750578400126,,2508.0718258119996,1.6078861349997169,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""84394"", ""33620"", ""60764"", ""85170"", ""84335""]",high,unknown/duplicate entity,['84335'],[]
+INC-1595063C5B11__X_RP__BASE,INC-1595063C5B11,aiops2022,2a4997ca8cb426d8b76cc166bedeacc6a2ff48bc9592b66b901a3c21b60278bf,X_RP,BASE,k8s容器网络资源包损坏,pod,1,,vllm,6812,429,5244,15860,7241,77.76457169700006,2.2918073020009615,74.28101085700109,,7120.354621316001,1.7639621029993577,qualified_input_cache; excludes offline compilation/rendering,False,,0,3,False,P_LOCAL_BI,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""84394"", ""33620"", ""60764"", ""85170"", ""84335""]",high,unknown/duplicate entity,['84335'],[]
+INC-16A4DF199613__C_READ_GUIDE__BASE,INC-16A4DF199613,aiops2022,c997b29fb043f67f4017d6e690e4ea01c6c940c405c0f9ee693015581032a9b0,C_READ_GUIDE,BASE,k8s容器cpu负载,pod,0,INC-16A4DF199613__R_HORIZON__BASE,vllm,6989,201,5421,16182,7190,38.937391166,2.3151448460000097,34.99556794200004,,184.14429676199998,2.3873629969999968,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""42751"", ""41368"", ""526"", ""341"", ""42911""]",high,unknown/duplicate entity,['42911'],[]
+INC-16A4DF199613__C_SOURCE_HASH__BASE,INC-16A4DF199613,aiops2022,c997b29fb043f67f4017d6e690e4ea01c6c940c405c0f9ee693015581032a9b0,C_SOURCE_HASH,BASE,k8s容器cpu负载,pod,1,,vllm,5021,271,4600,16182,5292,47.732798527999876,2.3967283350002617,42.90555820500049,1198.6485604179998,,8.652123893999487,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""42751"", ""41368"", ""41943"", ""42191"", ""42562""]",medium,unknown/duplicate entity,['42562'],[]
+INC-16A4DF199613__P_LOCAL_BI__ORDER,INC-16A4DF199613,aiops2022,c997b29fb043f67f4017d6e690e4ea01c6c940c405c0f9ee693015581032a9b0,P_LOCAL_BI,ORDER,k8s容器cpu负载,pod,1,,vllm,5842,190,5421,16182,6032,36.83657133399902,2.371899454999948,30.4955296499993,1351.164345311,,8.823883360999389,continuous_cold_including_queue,True,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""63663"", ""6475"", ""9812"", ""64291"", ""64751""]",high,unknown/duplicate entity,"['64291', '64751']",[]
+INC-16A4DF199613__R_HORIZON__BASE,INC-16A4DF199613,aiops2022,c997b29fb043f67f4017d6e690e4ea01c6c940c405c0f9ee693015581032a9b0,R_HORIZON,BASE,k8s容器cpu负载,pod,1,,vllm,6989,201,5421,16182,7190,38.937391166,2.3151448460000097,34.99556794200004,,184.14429676199998,2.3873629969999968,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""42751"", ""41368"", ""526"", ""341"", ""42911""]",high,unknown/duplicate entity,['42911'],[]
+INC-16A4DF199613__S_JOINT__BASE,INC-16A4DF199613,aiops2022,c997b29fb043f67f4017d6e690e4ea01c6c940c405c0f9ee693015581032a9b0,S_JOINT,BASE,k8s容器cpu负载,pod,1,,vllm,5068,247,4647,16182,5315,42.636673479999445,2.4934213579999778,38.07475676099966,629.0042517159991,,8.842545700999835,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""42751"", ""41368"", ""42911"", ""429"", ""476""]",high,unknown/duplicate entity,['42911'],[]
+INC-16A4DF199613__U__ORDER,INC-16A4DF199613,aiops2022,c997b29fb043f67f4017d6e690e4ea01c6c940c405c0f9ee693015581032a9b0,U,ORDER,k8s容器cpu负载,pod,1,,concurrency_v12,5842,277,5421,16182,6119,177.01199560900204,3.6071039409980585,171.73468585400042,269.206482657999,,8.849485267001,continuous_cold_including_queue,True,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""63663"", ""6475"", ""9812"", ""64291"", ""64751""]",high,unknown/duplicate entity,"['64291', '64751']",[]
+INC-16A4DF199613__X_SP__BASE,INC-16A4DF199613,aiops2022,c997b29fb043f67f4017d6e690e4ea01c6c940c405c0f9ee693015581032a9b0,X_SP,BASE,k8s容器cpu负载,pod,1,,concurrency_v11,5068,200,4647,16182,5268,143.4272328570005,2.4235399280005367,139.24255242900108,227.35152920200017,,8.65889594500004,continuous_cold_including_queue,False,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""42751"", ""41368"", ""42911"", ""429"", ""476""]",high,unknown/duplicate entity,['42911'],[]
+INC-1FDDC9D9F646__C_SOURCE_HASH__BASE,INC-1FDDC9D9F646,aiops2022,68b366669f30a86d548a9bc6a62ef3a27f7870eddecb1e879ae222e5379c060a,C_SOURCE_HASH,BASE,k8s容器内存负载,pod,1,,vllm,5413,183,4992,16284,5596,39.980047331000605,2.380968794999717,35.59049715800029,3519.314161651999,,8.948281498000142,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""344"", ""324"", ""413"", ""311"", ""324""]",medium,"['344', '324', '413', '311', '324'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['344', '324', '413', '311', '324']",[],['324']
+INC-28E6F5E88478__C_READ_GUIDE__BASE,INC-28E6F5E88478,aiops2025,70c6f8ecd5059cb5dfe666ba58dbbbf826163b7e52f3f4fa07b5484edda1ab3c,C_READ_GUIDE,BASE,node memory stress,node,1,,vllm,6435,275,4867,16275,6710,55.69734599500225,2.7285638309986098,50.66864565299693,,4439.133561458002,2.5006923559994902,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""613"", ""277"", ""656"", ""869"", ""898""]",high,unknown/duplicate entity,['613'],[]
+INC-28E6F5E88478__S_JOINT__BASE,INC-28E6F5E88478,aiops2025,70c6f8ecd5059cb5dfe666ba58dbbbf826163b7e52f3f4fa07b5484edda1ab3c,S_JOINT,BASE,node memory stress,node,1,,vllm,4430,159,4009,16275,4589,31.915382289000263,2.468517269000131,26.42806433299984,863.8285101329998,,7.693295328000204,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""613"", ""288"", ""656"", ""277"", ""869""]",medium,unknown/duplicate entity,['613'],[]
+INC-28E6F5E88478__X_SP__BASE,INC-28E6F5E88478,aiops2025,70c6f8ecd5059cb5dfe666ba58dbbbf826163b7e52f3f4fa07b5484edda1ab3c,X_SP,BASE,node memory stress,node,1,,vllm,4430,186,4009,16275,4616,51.70823739000025,2.454188286000317,43.36160697200012,892.327669965,,7.681291856999906,continuous_cold_including_queue,False,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""613"", ""288"", ""656"", ""869"", ""277""]",medium,unknown/duplicate entity,['613'],[]
+INC-2A292B511B14__C_GLOBAL_BI__BASE,INC-2A292B511B14,aiops2025,dbcb894717ab635af599829443f7e009a49e072111d3dabd61fd092c30523fae,C_GLOBAL_BI,BASE,memory stress,service,1,,vllm,5405,131,4984,16200,5536,19.84945303600034,2.5222107320005307,13.584063225999671,28.604107903000113,,8.132074396999997,continuous_cold_including_queue,False,,0,3,False,C_GLOBAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""783"", ""952"", ""951"", ""950"", ""949""]",high,unknown/duplicate entity,"['951', '950', '949']",[]
+INC-2A292B511B14__C_LOCAL_FORWARD__BASE,INC-2A292B511B14,aiops2025,dbcb894717ab635af599829443f7e009a49e072111d3dabd61fd092c30523fae,C_LOCAL_FORWARD,BASE,memory stress,service,1,,vllm,5405,131,4984,16200,5536,35.648332032000326,2.5888493780003046,21.538037157999497,191.5426483520023,,8.293720722998842,continuous_cold_including_queue,False,,0,3,False,C_LOCAL_FORWARD,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""783"", ""952"", ""951"", ""950"", ""949""]",high,unknown/duplicate entity,"['951', '950', '949']",[]
+INC-2A292B511B14__C_READ_GUIDE__BASE,INC-2A292B511B14,aiops2025,dbcb894717ab635af599829443f7e009a49e072111d3dabd61fd092c30523fae,C_READ_GUIDE,BASE,memory stress,service,1,,vllm,6552,142,4984,16200,6694,21.197863122999934,2.3687786949999463,15.766847679999955,,2181.6857265480003,1.8870579690000113,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""952"", ""952"", ""952"", ""952"", ""952""]",low,"['952', '952', '952', '952', '952'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['952', '952', '952', '952', '952']",[],"['952', '952', '952', '952']"
+INC-2A292B511B14__C_SHAM_BI__BASE,INC-2A292B511B14,aiops2025,dbcb894717ab635af599829443f7e009a49e072111d3dabd61fd092c30523fae,C_SHAM_BI,BASE,memory stress,service,1,,vllm,5405,104,4984,16200,5509,28.779956118998598,2.354666024000835,24.454641349999292,1390.4116037619997,,8.287583166000331,continuous_cold_including_queue,False,,0,3,False,C_SHAM_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""783"", ""952"", ""951"", ""950"", ""949""]",medium,unknown/duplicate entity,"['951', '950', '949']",[]
+INC-2A292B511B14__C_SOURCE_HASH__BASE,INC-2A292B511B14,aiops2025,dbcb894717ab635af599829443f7e009a49e072111d3dabd61fd092c30523fae,C_SOURCE_HASH,BASE,memory stress,service,1,,vllm,4649,195,4228,16200,4844,48.580791700999725,2.4617578990000766,38.415678974,97.56925446900004,,7.678249522999977,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""245"", ""952"", ""952"", ""952"", ""952""]",medium,"['245', '952', '952', '952', '952'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['245', '952', '952', '952', '952']",[],"['952', '952', '952']"
+INC-2A292B511B14__P_DUAL__BASE,INC-2A292B511B14,aiops2025,dbcb894717ab635af599829443f7e009a49e072111d3dabd61fd092c30523fae,P_DUAL,BASE,memory stress,service,1,,vllm,5405,170,4984,16200,5575,35.88470027199946,2.383573064000302,31.34292269300022,3709.336722438,,8.415634442000737,continuous_cold_including_queue,False,,0,4,False,P_DUAL,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""783"", ""952"", ""951"", ""950"", ""949""]",low,unknown/duplicate entity,"['951', '950', '949']",[]
+INC-2A292B511B14__P_LOCAL_BI__BASE,INC-2A292B511B14,aiops2025,dbcb894717ab635af599829443f7e009a49e072111d3dabd61fd092c30523fae,P_LOCAL_BI,BASE,memory stress,service,1,,vllm,5405,94,4984,16200,5499,50.57851135599776,2.5774667670011695,13.372349180997844,1821.7262510729997,,8.458300416001293,continuous_cold_including_queue,False,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""783"", ""952"", ""951"", ""950"", ""949""]",low,unknown/duplicate entity,"['951', '950', '949']",[]
+INC-2A292B511B14__P_SOFT_IMAGE__BASE,INC-2A292B511B14,aiops2025,dbcb894717ab635af599829443f7e009a49e072111d3dabd61fd092c30523fae,P_SOFT_IMAGE,BASE,memory stress,service,1,,vllm,5405,104,4984,16200,5509,20.07091014499929,2.393839852000383,15.227571389001241,1548.7194139420008,,8.315720407999834,continuous_cold_including_queue,False,,0,1,False,P_SOFT_IMAGE,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""783"", ""952"", ""951"", ""950"", ""949""]",medium,unknown/duplicate entity,"['951', '950', '949']",[]
+INC-2A292B511B14__S_JOINT__BASE,INC-2A292B511B14,aiops2025,dbcb894717ab635af599829443f7e009a49e072111d3dabd61fd092c30523fae,S_JOINT,BASE,memory stress,service,1,,vllm,4485,149,4064,16200,4634,26.656456409000384,2.4446633849993304,21.836781971000164,454.6237388689997,,7.795474964999812,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""952"", ""952"", ""952"", ""952"", ""952""]",medium,"['952', '952', '952', '952', '952'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['952', '952', '952', '952', '952']",[],"['952', '952', '952', '952']"
+INC-2A292B511B14__X_SP__BASE,INC-2A292B511B14,aiops2025,dbcb894717ab635af599829443f7e009a49e072111d3dabd61fd092c30523fae,X_SP,BASE,memory stress,service,1,,vllm,4485,113,4064,16200,4598,27.628110982999715,2.4410772350001935,17.67559543400057,894.3971537499992,,7.734202138000001,continuous_cold_including_queue,False,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""952"", ""952"", ""952"", ""952"", ""952""]",high,"['952', '952', '952', '952', '952'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['952', '952', '952', '952', '952']",[],"['952', '952', '952', '952']"
+INC-2CABCD159021__C_PACK_BG_FILL__BASE,INC-2CABCD159021,aiops2022,4e464975546ae5403f11b6c0abe85012984a0f0f7eb4391d2764e9fbfdcf30af,C_PACK_BG_FILL,BASE,node 内存消耗,node,1,,vllm,6817,175,5249,14625,6992,38.99427880999997,2.1408175199999278,34.679505284000015,,1599.5105071409998,1.5745500869999773,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""165"", ""168"", ""174"", ""185"", ""174""]",medium,"['165', '168', '174', '185', '174'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['165', '168', '174', '185', '174']",[],['174']
+INC-2CABCD159021__C_SHAM_BI__BASE,INC-2CABCD159021,aiops2022,4e464975546ae5403f11b6c0abe85012984a0f0f7eb4391d2764e9fbfdcf30af,C_SHAM_BI,BASE,node 内存消耗,node,1,,vllm,5670,248,5249,16290,5918,73.1583339630015,2.811943077998876,55.00658405699869,441.6782729229999,,8.519473471998936,continuous_cold_including_queue,False,,0,3,False,C_SHAM_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""948"", ""981"", ""8871"", ""88871"", ""94413""]",medium,unknown/duplicate entity,['8871'],[]
+INC-2CABCD159021__P_LOCAL_BI__BASE,INC-2CABCD159021,aiops2022,4e464975546ae5403f11b6c0abe85012984a0f0f7eb4391d2764e9fbfdcf30af,P_LOCAL_BI,BASE,node 内存消耗,node,1,,vllm,5670,248,5249,16290,5918,48.15170264999688,2.547251302999939,43.48002811499828,1832.2580029790006,,8.42574235199936,continuous_cold_including_queue,True,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""948"", ""981"", ""8871"", ""88871"", ""94413""]",medium,unknown/duplicate entity,['8871'],[]
+INC-2CABCD159021__P_SOFT_IMAGE__BASE,INC-2CABCD159021,aiops2022,4e464975546ae5403f11b6c0abe85012984a0f0f7eb4391d2764e9fbfdcf30af,P_SOFT_IMAGE,BASE,node 内存消耗,node,1,,vllm,5670,200,5249,16290,5870,40.01382995400036,2.4056057389998386,35.7019926869998,1123.6878009870002,,8.54680588500014,continuous_cold_including_queue,False,,0,1,False,P_SOFT_IMAGE,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""948"", ""981"", ""8871"", ""88871"", ""94413""]",high,unknown/duplicate entity,['8871'],[]
+INC-2CABCD159021__R_PACK_HORIZON__BASE,INC-2CABCD159021,aiops2022,4e464975546ae5403f11b6c0abe85012984a0f0f7eb4391d2764e9fbfdcf30af,R_PACK_HORIZON,BASE,node 内存消耗,node,1,,vllm,6817,209,5249,14625,7026,34.1357850179993,1.9382929070015962,31.105434304001392,,5242.0197974309995,1.7071979959982855,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""165"", ""168"", ""174"", ""185"", ""174""]",medium,"['165', '168', '174', '185', '174'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['165', '168', '174', '185', '174']",[],['174']
+INC-2CABCD159021__U__REPEAT,INC-2CABCD159021,aiops2022,4e464975546ae5403f11b6c0abe85012984a0f0f7eb4391d2764e9fbfdcf30af,U,REPEAT,node 内存消耗,node,1,,hf_legacy,5670,207,5249,16290,5877,19.66235643300024,2.3781981579995772,16.54264116700051,25.852717810000286,,5.842940786000327,continuous_cold_including_queue,True,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""948"", ""981"", ""8871"", ""88871"", ""94413""]",high,unknown/duplicate entity,['8871'],[]
+INC-2CABCD159021__X_RP__BASE,INC-2CABCD159021,aiops2022,4e464975546ae5403f11b6c0abe85012984a0f0f7eb4391d2764e9fbfdcf30af,X_RP,BASE,node 内存消耗,node,1,,vllm,6817,403,5249,14625,7220,112.71787429900002,2.0917918689999624,70.323561052,,121.47167120699999,1.735453739999997,qualified_input_cache; excludes offline compilation/rendering,False,,0,3,False,P_LOCAL_BI,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""165"", ""168"", ""174"", ""185"", ""174""]",medium,"['165', '168', '174', '185', '174'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['165', '168', '174', '185', '174']",[],['174']
+INC-316B59616EA8__C_GLOBAL_BI__BASE,INC-316B59616EA8,aiops2025,3628e5a6d0711aef41a539f5115f4f6b2b8765e1e04f94a7a9b4f4c2f9c0cfbe,C_GLOBAL_BI,BASE,cpu stress,service,1,,vllm,5222,188,4801,16284,5410,42.80546484100023,2.4331499390000317,38.48303899700022,347.1139005619998,,8.120783665999625,continuous_cold_including_queue,False,,0,3,False,C_GLOBAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,True,__INVALID__,"[""548"", ""786"", ""746"", ""785"", ""746""]",high,"['548', '786', '746', '785', '746'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['548', '786', '746', '785', '746']",['785'],['746']
+INC-316B59616EA8__C_READ_GUIDE__BASE,INC-316B59616EA8,aiops2025,3628e5a6d0711aef41a539f5115f4f6b2b8765e1e04f94a7a9b4f4c2f9c0cfbe,C_READ_GUIDE,BASE,cpu stress,service,1,,vllm,6369,232,4801,16284,6601,42.21537121599977,2.497046815999056,38.117002634997334,,7932.968343020002,2.5148059980019752,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""548"", ""786"", ""746"", ""785"", ""798""]",medium,unknown/duplicate entity,['785'],[]
+INC-316B59616EA8__C_SHAM_BI__BASE,INC-316B59616EA8,aiops2025,3628e5a6d0711aef41a539f5115f4f6b2b8765e1e04f94a7a9b4f4c2f9c0cfbe,C_SHAM_BI,BASE,cpu stress,service,1,,vllm,5222,192,4801,16284,5414,62.96225053299713,2.4935022850004316,28.673982324999088,955.7706130510014,,9.286236249001377,continuous_cold_including_queue,False,,0,3,False,C_SHAM_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""548"", ""786"", ""746"", ""785"", ""978""]",high,unknown/duplicate entity,['785'],[]
+INC-316B59616EA8__S_JOINT__BASE,INC-316B59616EA8,aiops2025,3628e5a6d0711aef41a539f5115f4f6b2b8765e1e04f94a7a9b4f4c2f9c0cfbe,S_JOINT,BASE,cpu stress,service,1,,vllm,4606,233,4185,16284,4839,46.174050428000555,2.3899037380015216,39.497622001999844,1597.606518703,,8.267245510000066,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""548"", ""786"", ""746"", ""785"", ""798""]",medium,unknown/duplicate entity,['785'],[]
+INC-316B59616EA8__X_SP__BASE,INC-316B59616EA8,aiops2025,3628e5a6d0711aef41a539f5115f4f6b2b8765e1e04f94a7a9b4f4c2f9c0cfbe,X_SP,BASE,cpu stress,service,1,,vllm,4606,230,4185,16284,4836,62.76630004799881,2.6854681489967334,18.72688177600139,956.7230742169995,,8.585739844998898,continuous_cold_including_queue,False,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""548"", ""786"", ""746"", ""785"", ""798""]",high,unknown/duplicate entity,['785'],[]
+INC-32757906019C__C_PACK_BG_FILL__BASE,INC-32757906019C,aiops2022,2e0d6bd3c49323bfb0e977a215ab1a49d996690b2d3710ef353069d23fbf94c2,C_PACK_BG_FILL,BASE,k8s容器网络资源包损坏,pod,1,,vllm,7004,170,5436,15714,7174,36.264080569002545,2.2233086279993586,30.376590833999217,,6910.7679369299985,1.6396779879978567,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""524"", ""524"", ""524"", ""524"", ""524""]",high,"['524', '524', '524', '524', '524'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['524', '524', '524', '524', '524']",[],"['524', '524', '524', '524']"
+INC-358CBE8D4527__C_GLOBAL_BI__BASE,INC-358CBE8D4527,aiops2022,2a4997ca8cb426d8b76cc166bedeacc6a2ff48bc9592b66b901a3c21b60278bf,C_GLOBAL_BI,BASE,k8s容器网络延迟,pod,1,,concurrency_v9,5833,193,5412,16356,6026,130.09357718700085,2.4631653059987,125.79087923000043,207.6968696490003,,9.277680937999321,continuous_cold_including_queue,False,,0,3,False,C_GLOBAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""913"", ""998"", ""913"", ""913"", ""913""]",high,"['913', '998', '913', '913', '913'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['913', '998', '913', '913', '913']",[],"['913', '913', '913']"
+INC-358CBE8D4527__C_LOCAL_FORWARD__BASE,INC-358CBE8D4527,aiops2022,2a4997ca8cb426d8b76cc166bedeacc6a2ff48bc9592b66b901a3c21b60278bf,C_LOCAL_FORWARD,BASE,k8s容器网络延迟,pod,1,,vllm,5833,196,5412,16356,6029,43.03901495499986,2.440791936000096,38.73512080499995,142.6815853420003,,8.958502382000006,continuous_cold_including_queue,False,,0,3,False,C_LOCAL_FORWARD,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""913"", ""998"", ""913"", ""913"", ""913""]",medium,"['913', '998', '913', '913', '913'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['913', '998', '913', '913', '913']",[],"['913', '913', '913']"
+INC-358CBE8D4527__C_PACK_BG_FILL__BASE,INC-358CBE8D4527,aiops2022,2a4997ca8cb426d8b76cc166bedeacc6a2ff48bc9592b66b901a3c21b60278bf,C_PACK_BG_FILL,BASE,k8s容器网络延迟,pod,1,,vllm,6980,207,5412,15957,7187,38.0014646990021,2.375734448000003,34.4431936660003,,7572.532570092,1.7300151669987827,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""9123"", ""1458"", ""9147"", ""9122"", ""9121""]",high,unknown/duplicate entity,"['9122', '9121']",[]
+INC-358CBE8D4527__C_SHAM_BI__BASE,INC-358CBE8D4527,aiops2022,2a4997ca8cb426d8b76cc166bedeacc6a2ff48bc9592b66b901a3c21b60278bf,C_SHAM_BI,BASE,k8s容器网络延迟,pod,1,,vllm,5833,195,5412,16356,6028,39.76553840700035,2.5161170970004605,27.414798540999982,1207.6726634789993,,9.271233036000012,continuous_cold_including_queue,False,,0,3,False,C_SHAM_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""913"", ""998"", ""913"", ""913"", ""913""]",high,"['913', '998', '913', '913', '913'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['913', '998', '913', '913', '913']",[],"['913', '913', '913']"
+INC-358CBE8D4527__P_DUAL__BASE,INC-358CBE8D4527,aiops2022,2a4997ca8cb426d8b76cc166bedeacc6a2ff48bc9592b66b901a3c21b60278bf,P_DUAL,BASE,k8s容器网络延迟,pod,1,,vllm,5833,152,5412,16356,5985,31.173220039001535,2.383232918000431,25.16363003799961,2016.4305191780004,,9.04512497900032,continuous_cold_including_queue,False,,0,4,False,P_DUAL,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""913"", ""998"", ""913"", ""913"", ""913""]",medium,"['913', '998', '913', '913', '913'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['913', '998', '913', '913', '913']",[],"['913', '913', '913']"
+INC-358CBE8D4527__P_LOCAL_BI__BASE,INC-358CBE8D4527,aiops2022,2a4997ca8cb426d8b76cc166bedeacc6a2ff48bc9592b66b901a3c21b60278bf,P_LOCAL_BI,BASE,k8s容器网络延迟,pod,1,,vllm,5833,152,5412,16356,5985,33.08890485400025,2.539640846000111,25.734716536000178,1101.578933245,,8.880783731000065,continuous_cold_including_queue,False,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""913"", ""998"", ""913"", ""913"", ""913""]",medium,"['913', '998', '913', '913', '913'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['913', '998', '913', '913', '913']",[],"['913', '913', '913']"
+INC-358CBE8D4527__P_SOFT_IMAGE__BASE,INC-358CBE8D4527,aiops2022,2a4997ca8cb426d8b76cc166bedeacc6a2ff48bc9592b66b901a3c21b60278bf,P_SOFT_IMAGE,BASE,k8s容器网络延迟,pod,1,,vllm,5833,170,5412,16356,6003,41.44335590300034,2.5182722979989194,36.874422273000164,4391.132465176999,,9.090524370998537,continuous_cold_including_queue,False,,0,1,False,P_SOFT_IMAGE,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""913"", ""998"", ""913"", ""913"", ""913""]",medium,"['913', '998', '913', '913', '913'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['913', '998', '913', '913', '913']",[],"['913', '913', '913']"
+INC-358CBE8D4527__R_PATCH_PACK__BASE,INC-358CBE8D4527,aiops2022,2a4997ca8cb426d8b76cc166bedeacc6a2ff48bc9592b66b901a3c21b60278bf,R_PATCH_PACK,BASE,k8s容器网络延迟,pod,1,,vllm,6980,258,5412,15957,7238,54.05891232299996,2.3769724390001556,47.890277046000165,,1249.107461683,1.874182525000009,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""9123"", ""1458"", ""9147"", ""9122"", ""9121""]",high,unknown/duplicate entity,"['9122', '9121']",[]
+INC-358CBE8D4527__X_RP__BASE,INC-358CBE8D4527,aiops2022,2a4997ca8cb426d8b76cc166bedeacc6a2ff48bc9592b66b901a3c21b60278bf,X_RP,BASE,k8s容器网络延迟,pod,1,,vllm,6980,190,5412,15957,7170,32.96988784900009,2.3378099660001226,29.479139652999947,,1178.150640848,1.698236331000004,qualified_input_cache; excludes offline compilation/rendering,False,,0,3,False,P_LOCAL_BI,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""9123"", ""1458"", ""9147"", ""9122"", ""9121""]",high,unknown/duplicate entity,"['9122', '9121']",[]
+INC-358CBE8D4527__X_SP__BASE,INC-358CBE8D4527,aiops2022,2a4997ca8cb426d8b76cc166bedeacc6a2ff48bc9592b66b901a3c21b60278bf,X_SP,BASE,k8s容器网络延迟,pod,1,,vllm,5198,161,4777,16356,5359,27.43208588599964,2.508451606000108,22.83135209000011,719.654829435,,9.083607363999818,continuous_cold_including_queue,False,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""913"", ""998"", ""913"", ""913"", ""913""]",medium,"['913', '998', '913', '913', '913'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['913', '998', '913', '913', '913']",[],"['913', '913', '913']"
+INC-358CBE8D4527__X_SRP__BASE,INC-358CBE8D4527,aiops2022,2a4997ca8cb426d8b76cc166bedeacc6a2ff48bc9592b66b901a3c21b60278bf,X_SRP,BASE,k8s容器网络延迟,pod,1,,vllm,6326,191,5412,14144,6517,17.181491402001484,1.8382055010006297,11.349452206000933,,4987.146092413999,1.7692271710002387,qualified_input_cache; excludes offline compilation/rendering,False,,0,3,False,P_LOCAL_BI,False,914,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""9123"", ""9147"", ""9123"", ""9147"", ""9123""]",high,"['9123', '9147', '9123', '9147', '9123'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['9123', '9147', '9123', '9147', '9123']",[],"['9123', '9147', '9123']"
+INC-39682657768A__R_PATCH_PACK__BASE,INC-39682657768A,aegislab,db809344683ddd621d623adb8a04ecea71f3dace250e1ea4cec39b13594cff21,R_PATCH_PACK,BASE,JVMMemoryStress,service,1,,vllm,6841,206,5273,15275,7047,33.997344084999895,2.1803882829999566,28.38352153699998,,870.613153943,1.771800641999988,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""866"", ""965"", ""888"", ""905"", ""965""]",high,"['866', '965', '888', '905', '965'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['866', '965', '888', '905', '965']",[],['965']
+INC-39682657768A__X_RP__BASE,INC-39682657768A,aegislab,db809344683ddd621d623adb8a04ecea71f3dace250e1ea4cec39b13594cff21,X_RP,BASE,JVMMemoryStress,service,1,,vllm,6841,227,5273,15275,7068,37.3525300780002,2.1055401200001143,34.0891055420002,,1748.781317074,1.6164610820000007,qualified_input_cache; excludes offline compilation/rendering,False,,0,3,False,P_LOCAL_BI,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""866"", ""965"", ""888"", ""905"", ""965""]",high,"['866', '965', '888', '905', '965'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['866', '965', '888', '905', '965']",[],['965']
+INC-3D65ABCF1DD8__S_JOINT__BASE,INC-3D65ABCF1DD8,aiops2025,0007d7c1c0d79936d442a9e82023c510b9e3bbbe0d569cda8ceceb8accae1c7d,S_JOINT,BASE,jvm latency,pod/service,1,,vllm,4622,143,4201,16290,4765,30.669924265999725,2.635370628999226,22.52575245800108,1468.5036454039982,,8.411347352997836,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""5770"", ""5767"", ""5728"", ""5742"", ""5797""]",medium,unknown/duplicate entity,"['5767', '5728', '5742', '5797']",[]
+INC-3D79B00A900E__C_SHAM_BI__BASE,INC-3D79B00A900E,aiops2022,2e0d6bd3c49323bfb0e977a215ab1a49d996690b2d3710ef353069d23fbf94c2,C_SHAM_BI,BASE,k8s容器内存负载,pod,1,,vllm,5813,176,5392,16182,5989,42.357902892999846,2.4012555660001453,35.14086082799986,247.93434816799981,,8.587785935999818,continuous_cold_including_queue,False,,0,3,False,C_SHAM_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""181"", ""25501"", ""25595"", ""25501"", ""25595""]",medium,"['181', '25501', '25595', '25501', '25595'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['181', '25501', '25595', '25501', '25595']",[],"['25501', '25595']"
+INC-493A8D7F2EC5__P_DUAL__BASE,INC-493A8D7F2EC5,aiops2025,5968f3d383f6c8980e69215d50e5663709989380485af8b9c345316b02c52c8f,P_DUAL,BASE,memory stress,pod/service,1,,concurrency_v9,5325,187,4904,16200,5512,121.83834249599931,2.452728345999276,117.16832041500129,246.983198068001,,7.7587557030001335,continuous_cold_including_queue,False,,0,4,False,P_DUAL,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""953"", ""506"", ""510"", ""704"", ""966""]",medium,unknown/duplicate entity,['966'],[]
+INC-4D72A823F397__C_LOCAL_FORWARD__BASE,INC-4D72A823F397,aiops2022,2e0d6bd3c49323bfb0e977a215ab1a49d996690b2d3710ef353069d23fbf94c2,C_LOCAL_FORWARD,BASE,k8s容器网络丢包,pod,1,,vllm,5825,230,5404,16356,6055,44.39510365000024,2.498919901998306,39.657967679999274,1888.7132622480021,,10.135943047000183,continuous_cold_including_queue,False,,0,3,False,C_LOCAL_FORWARD,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""26993"", ""74404"", ""33942"", ""26993"", ""74404""]",medium,"['26993', '74404', '33942', '26993', '74404'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['26993', '74404', '33942', '26993', '74404']",[],"['26993', '74404']"
+INC-4D72A823F397__C_READ_GUIDE__BASE,INC-4D72A823F397,aiops2022,2e0d6bd3c49323bfb0e977a215ab1a49d996690b2d3710ef353069d23fbf94c2,C_READ_GUIDE,BASE,k8s容器网络丢包,pod,1,,vllm,6972,211,5404,16356,7183,37.097899705997406,2.3803010570009064,31.400207941998815,,2790.6680886329996,2.2118275609973352,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""26993"", ""74404"", ""26993"", ""74404"", ""26993""]",medium,"['26993', '74404', '26993', '74404', '26993'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['26993', '74404', '26993', '74404', '26993']",[],"['26993', '74404', '26993']"
+INC-4D72A823F397__C_SHAM_BI__BASE,INC-4D72A823F397,aiops2022,2e0d6bd3c49323bfb0e977a215ab1a49d996690b2d3710ef353069d23fbf94c2,C_SHAM_BI,BASE,k8s容器网络丢包,pod,1,,vllm,5825,214,5404,16356,6039,46.274529727999834,2.3976670459996967,42.022151794999445,3415.5770845219995,,9.553135785999984,continuous_cold_including_queue,False,,0,3,False,C_SHAM_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""26993"", ""74404"", ""33942"", ""26993"", ""74404""]",high,"['26993', '74404', '33942', '26993', '74404'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['26993', '74404', '33942', '26993', '74404']",[],"['26993', '74404']"
+INC-4D72A823F397__P_DUAL__BASE,INC-4D72A823F397,aiops2022,2e0d6bd3c49323bfb0e977a215ab1a49d996690b2d3710ef353069d23fbf94c2,P_DUAL,BASE,k8s容器网络丢包,pod,1,,concurrency_v11,5825,199,5404,16356,6024,129.96401187599986,2.50043055399874,125.7713691329991,349.4707807269988,,7.475134539999999,continuous_cold_including_queue,False,,0,4,False,P_DUAL,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""26993"", ""74404"", ""33942"", ""26993"", ""74404""]",high,"['26993', '74404', '33942', '26993', '74404'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['26993', '74404', '33942', '26993', '74404']",[],"['26993', '74404']"
+INC-4D72A823F397__P_LOCAL_BI__BASE,INC-4D72A823F397,aiops2022,2e0d6bd3c49323bfb0e977a215ab1a49d996690b2d3710ef353069d23fbf94c2,P_LOCAL_BI,BASE,k8s容器网络丢包,pod,1,,vllm,5825,230,5404,16356,6055,41.18484054200053,2.479301064000083,30.752693491000173,1345.590424851,,8.99422027699984,continuous_cold_including_queue,False,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""26993"", ""74404"", ""33942"", ""26993"", ""74404""]",medium,"['26993', '74404', '33942', '26993', '74404'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['26993', '74404', '33942', '26993', '74404']",[],"['26993', '74404']"
+INC-50AFA840E6F8__C_GLOBAL_BI__BASE,INC-50AFA840E6F8,aiops2025,a75cd5a09b32c8521c0e451d8e22d811dac9a64ea25397f5c554b40d7055c746,C_GLOBAL_BI,BASE,pod failure,service,1,,vllm,5303,271,4882,16289,5574,52.171726525999475,2.5481067479995545,47.11376939699949,4362.469736007999,,8.687566631999289,continuous_cold_including_queue,True,,0,3,False,C_GLOBAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""850"", ""835"", ""923"", ""862"", ""886""]",medium,unknown/duplicate entity,['862'],[]
+INC-50AFA840E6F8__C_LOCAL_FORWARD__BASE,INC-50AFA840E6F8,aiops2025,a75cd5a09b32c8521c0e451d8e22d811dac9a64ea25397f5c554b40d7055c746,C_LOCAL_FORWARD,BASE,pod failure,service,1,,vllm,5303,284,4882,16289,5587,55.025667026999145,2.3871008030000667,45.2353003900007,1498.4960402469997,,8.387562762000016,continuous_cold_including_queue,False,,0,3,False,C_LOCAL_FORWARD,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""850"", ""835"", ""923"", ""862"", ""886""]",medium,unknown/duplicate entity,['862'],[]
+INC-50AFA840E6F8__P_DUAL__BASE,INC-50AFA840E6F8,aiops2025,a75cd5a09b32c8521c0e451d8e22d811dac9a64ea25397f5c554b40d7055c746,P_DUAL,BASE,pod failure,service,1,,vllm,5303,223,4882,16289,5526,42.72064670799955,2.4032648769989464,38.30123475400069,4150.347677684,,9.040596036998977,continuous_cold_including_queue,False,,0,4,False,P_DUAL,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""850"", ""835"", ""923"", ""862"", ""886""]",high,unknown/duplicate entity,['862'],[]
+INC-50AFA840E6F8__P_SOFT_IMAGE__BASE,INC-50AFA840E6F8,aiops2025,a75cd5a09b32c8521c0e451d8e22d811dac9a64ea25397f5c554b40d7055c746,P_SOFT_IMAGE,BASE,pod failure,service,1,,hf_legacy,5303,177,4882,16289,5480,17.23824479399991,2.346375944999636,14.100416544999462,23.556716289000178,,5.9792866930001765,continuous_cold_including_queue,False,,0,1,False,P_SOFT_IMAGE,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""850"", ""835"", ""923"", ""862"", ""886""]",high,unknown/duplicate entity,['862'],[]
+INC-50AFA840E6F8__U__REPEAT,INC-50AFA840E6F8,aiops2025,a75cd5a09b32c8521c0e451d8e22d811dac9a64ea25397f5c554b40d7055c746,U,REPEAT,pod failure,service,1,,vllm,5303,269,4882,16289,5572,51.64983987699998,2.535539239001082,44.95896231000006,405.3654567249996,,7.990804795000258,continuous_cold_including_queue,True,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""850"", ""835"", ""923"", ""862"", ""886""]",high,unknown/duplicate entity,['862'],[]
+INC-540349CB2170__R_PACK_HORIZON__BASE,INC-540349CB2170,aiops2022,d02895b5a399a6fb04c56d6c2e44573f256b7149489eb755c3dd03c592dfd8d5,R_PACK_HORIZON,BASE,k8s容器进程中止,pod,1,,vllm,6988,205,5420,15990,7193,40.239304457998514,2.269562457000575,36.52349153199975,,7396.008110548999,1.7589260620006826,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,0.0,0.0,True,True,False,__INVALID__,"[""99137"", ""82353"", ""45905"", ""34069"", ""9137""]",high,unknown/duplicate entity,['9137'],[]
+INC-540349CB2170__S_JOINT__BASE,INC-540349CB2170,aiops2022,d02895b5a399a6fb04c56d6c2e44573f256b7149489eb755c3dd03c592dfd8d5,S_JOINT,BASE,k8s容器进程中止,pod,1,,concurrency_v11,5210,351,4789,16168,5561,128.40975886500019,2.50782485200034,123.33784630099944,527.1211841109998,,8.539352692998364,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""45905"", ""99137"", ""82353"", ""18949"", ""99137""]",high,"['45905', '99137', '82353', '18949', '99137'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['45905', '99137', '82353', '18949', '99137']",[],['99137']
+INC-540349CB2170__X_SP__BASE,INC-540349CB2170,aiops2022,d02895b5a399a6fb04c56d6c2e44573f256b7149489eb755c3dd03c592dfd8d5,X_SP,BASE,k8s容器进程中止,pod,1,,vllm,5210,218,4789,16168,5428,37.17894217399953,2.3477380809999886,28.917647480000596,4111.579495705,,8.363409584000692,continuous_cold_including_queue,False,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""45905"", ""99137"", ""82353"", ""18949"", ""99137""]",medium,"['45905', '99137', '82353', '18949', '99137'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['45905', '99137', '82353', '18949', '99137']",[],['99137']
+INC-56A429CF3650__C_SOURCE_HASH__BASE,INC-56A429CF3650,aiops2022,e7fa923e78ce682692f6945a0e2ade90fb9a644839f0c2ed3cea71ba57d5ed74,C_SOURCE_HASH,BASE,k8s容器进程中止,service,1,,vllm,5269,258,4848,16340,5527,51.084563034000894,2.3934577479994914,44.20973248299924,3754.595713719,,9.376045110999257,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""2749"", ""95391"", ""31548"", ""24521"", ""27749""]",medium,unknown/duplicate entity,['27749'],[]
+INC-5A5C12F46667__C_LOCAL_FORWARD__BASE,INC-5A5C12F46667,aiops2022,b046372a5bb7538116aaa4da9ca33777b47b79d2264a075b0983ee9a4dcdad77,C_LOCAL_FORWARD,BASE,node节点CPU故障,node,1,,vllm,5753,187,5332,16340,5940,41.982135850001214,2.4036595710003894,37.47385801699966,3428.5702573200015,,8.948744794000959,continuous_cold_including_queue,False,,0,3,False,C_LOCAL_FORWARD,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""13558"", ""10363"", ""10715"", ""13958"", ""16213""]",medium,unknown/duplicate entity,"['13558', '10363']",[]
+INC-5A5C12F46667__C_SOURCE_HASH__BASE,INC-5A5C12F46667,aiops2022,b046372a5bb7538116aaa4da9ca33777b47b79d2264a075b0983ee9a4dcdad77,C_SOURCE_HASH,BASE,node节点CPU故障,node,1,,vllm,5171,213,4750,16340,5384,43.26904648000027,2.496376701000372,37.27574821799999,886.9788847520003,,8.43771781400028,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""10313"", ""10636"", ""10715"", ""10742"", ""10754""]",medium,unknown/duplicate entity,"['10742', '10754']",[]
+INC-5A5C12F46667__P_LOCAL_BI__REPEAT,INC-5A5C12F46667,aiops2022,b046372a5bb7538116aaa4da9ca33777b47b79d2264a075b0983ee9a4dcdad77,P_LOCAL_BI,REPEAT,node节点CPU故障,node,1,,vllm,5753,187,5332,16340,5940,44.6840887809999,2.486443759999929,36.78733637899995,931.3146632980001,,8.39906189200019,continuous_cold_including_queue,True,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""13558"", ""10363"", ""10715"", ""13958"", ""16213""]",high,unknown/duplicate entity,"['13558', '10363']",[]
+INC-5CE6915288DD__C_SOURCE_HASH__BASE,INC-5CE6915288DD,aiops2025,6df517a6f2173633c051703873a78facbc49b9ff1dd765643cdbaf5c83cf376a,C_SOURCE_HASH,BASE,node disk fill,node,1,,vllm,4522,193,4101,16275,4715,43.83411066999997,2.5310016630000973,36.017368415999954,527.771466571,,9.001513958000032,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""615"", ""823"", ""159"", ""630"", ""510""]",medium,unknown/duplicate entity,['510'],[]
+INC-5CE6915288DD__P_LOCAL_BI__BASE,INC-5CE6915288DD,aiops2025,6df517a6f2173633c051703873a78facbc49b9ff1dd765643cdbaf5c83cf376a,P_LOCAL_BI,BASE,node disk fill,node,1,,vllm,5439,178,5018,16275,5617,35.51692953299971,2.3724245370012795,28.669314390999716,3406.9062121509996,,8.505501783998625,continuous_cold_including_queue,False,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,0.0,0.0,True,True,False,__INVALID__,"[""603"", ""751"", ""4882"", ""901"", ""615""]",high,unknown/duplicate entity,['751'],[]
+INC-5CE6915288DD__P_SOFT_IMAGE__BASE,INC-5CE6915288DD,aiops2025,6df517a6f2173633c051703873a78facbc49b9ff1dd765643cdbaf5c83cf376a,P_SOFT_IMAGE,BASE,node disk fill,node,1,,vllm,5439,163,5018,16275,5602,29.596261145000426,2.4987317159998383,25.00544186499974,904.1117130990001,,7.8223167770001965,continuous_cold_including_queue,False,,0,1,False,P_SOFT_IMAGE,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,0.0,0.0,True,True,False,__INVALID__,"[""603"", ""751"", ""4882"", ""901"", ""615""]",medium,unknown/duplicate entity,['751'],[]
+INC-65CE2F2F3440__C_GLOBAL_BI__BASE,INC-65CE2F2F3440,aiops2022,f2a596e593f119e6bb00c31169327404d2b6387db412b1b1ff78908a91436fba,C_GLOBAL_BI,BASE,node 磁盘读IO消耗,node,1,,concurrency_v9,5718,229,5297,16192,5947,138.96458897000048,2.7950361969997175,134.5768421800003,193.2265073409999,,8.794976052000493,continuous_cold_including_queue,True,,0,3,False,C_GLOBAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""8158"", ""8728"", ""5152"", ""87242"", ""82742""]",high,unknown/duplicate entity,['87242'],[]
+INC-65CE2F2F3440__C_LOCAL_FORWARD__BASE,INC-65CE2F2F3440,aiops2022,f2a596e593f119e6bb00c31169327404d2b6387db412b1b1ff78908a91436fba,C_LOCAL_FORWARD,BASE,node 磁盘读IO消耗,node,1,,vllm,5718,205,5297,16192,5923,39.45168026600004,2.4615099050006393,29.172704378999697,661.9890204820003,,9.330980079000256,continuous_cold_including_queue,False,,0,3,False,C_LOCAL_FORWARD,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""8158"", ""8728"", ""5152"", ""87242"", ""51394""]",high,unknown/duplicate entity,['87242'],[]
+INC-65CE2F2F3440__C_PACK_BG_FILL__BASE,INC-65CE2F2F3440,aiops2022,f2a596e593f119e6bb00c31169327404d2b6387db412b1b1ff78908a91436fba,C_PACK_BG_FILL,BASE,node 磁盘读IO消耗,node,1,,vllm,6865,215,5297,15210,7080,44.45915982299999,2.2426464670000428,40.64478443999997,,232.723959778,1.7161404349999998,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,0.0,0.0,True,True,True,__INVALID__,"[""87154"", ""8728"", ""8158"", ""87242"", ""87242""]",medium,"['87154', '8728', '8158', '87242', '87242'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['87154', '8728', '8158', '87242', '87242']",['87242'],['87242']
+INC-65CE2F2F3440__C_READ_GUIDE__BASE,INC-65CE2F2F3440,aiops2022,f2a596e593f119e6bb00c31169327404d2b6387db412b1b1ff78908a91436fba,C_READ_GUIDE,BASE,node 磁盘读IO消耗,node,1,,vllm,6865,233,5297,16192,7098,42.963066519001586,2.3298983489985403,39.00336446399888,,7308.85561296,2.2192368190007983,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""8158"", ""5152"", ""527"", ""8728"", ""8742""]",high,unknown/duplicate entity,['8742'],[]
+INC-65CE2F2F3440__C_SOURCE_HASH__BASE,INC-65CE2F2F3440,aiops2022,f2a596e593f119e6bb00c31169327404d2b6387db412b1b1ff78908a91436fba,C_SOURCE_HASH,BASE,node 磁盘读IO消耗,node,1,,vllm,5193,250,4772,16192,5443,50.198284924999825,2.4549214499998016,44.266098887000226,1047.7918028160002,,8.000442624000243,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""8158"", ""8728"", ""5152"", ""806"", ""87242""]",medium,unknown/duplicate entity,['87242'],[]
+INC-65CE2F2F3440__P_LOCAL_BI__BASE,INC-65CE2F2F3440,aiops2022,f2a596e593f119e6bb00c31169327404d2b6387db412b1b1ff78908a91436fba,P_LOCAL_BI,BASE,node 磁盘读IO消耗,node,1,,vllm,5718,259,5297,16192,5977,54.04994158399995,2.454014851000011,44.92209309400005,422.3982875390002,,7.878493397000057,continuous_cold_including_queue,True,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""8158"", ""8728"", ""5152"", ""87242"", ""82742""]",medium,unknown/duplicate entity,['87242'],[]
+INC-65CE2F2F3440__R_HORIZON__BASE,INC-65CE2F2F3440,aiops2022,f2a596e593f119e6bb00c31169327404d2b6387db412b1b1ff78908a91436fba,R_HORIZON,BASE,node 磁盘读IO消耗,node,1,,vllm,6865,146,5297,15210,7011,32.833388815000944,2.078543482999521,27.579188951000106,,2566.970282636001,1.689800716998434,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""87154"", ""15764"", ""35661"", ""87154"", ""15764""]",high,"['87154', '15764', '35661', '87154', '15764'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['87154', '15764', '35661', '87154', '15764']",[],"['87154', '15764']"
+INC-65CE2F2F3440__R_PACK_HORIZON__BASE,INC-65CE2F2F3440,aiops2022,f2a596e593f119e6bb00c31169327404d2b6387db412b1b1ff78908a91436fba,R_PACK_HORIZON,BASE,node 磁盘读IO消耗,node,1,,vllm,6865,238,5297,15210,7103,36.709338221997314,2.1129474729968933,33.50539950700113,,7862.416030638997,1.782561790998443,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,0.0,0.0,True,True,True,__INVALID__,"[""87154"", ""8728"", ""8158"", ""87242"", ""87242""]",medium,"['87154', '8728', '8158', '87242', '87242'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['87154', '8728', '8158', '87242', '87242']",['87242'],['87242']
+INC-65CE2F2F3440__R_PATCH_PACK__BASE,INC-65CE2F2F3440,aiops2022,f2a596e593f119e6bb00c31169327404d2b6387db412b1b1ff78908a91436fba,R_PATCH_PACK,BASE,node 磁盘读IO消耗,node,1,,vllm,6865,233,5297,15210,7098,40.72347550699851,2.11565360700115,36.56730682900161,,8134.390938946999,1.7125782120019721,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,0.0,0.0,True,True,False,__INVALID__,"[""87154"", ""8728"", ""8158"", ""8721"", ""87242""]",medium,unknown/duplicate entity,"['8721', '87242']",[]
+INC-68BAACF4BB36__P_LOCAL_BI__ORDER,INC-68BAACF4BB36,aiops2022,c9f2a004a409d09ef372dea10aa581039709b5b3d330e0597335eb9bebf7f3fb,P_LOCAL_BI,ORDER,k8s容器网络资源包损坏,pod,1,,vllm,5655,189,5234,16275,5844,38.31593514499946,2.452673073000369,30.175856671000474,938.8829556129995,,8.892247519000193,continuous_cold_including_queue,True,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""27948"", ""27116"", ""2790"", ""27116"", ""27948""]",high,"['27948', '27116', '2790', '27116', '27948'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['27948', '27116', '2790', '27116', '27948']",[],"['27116', '27948']"
+INC-68BAACF4BB36__R_HORIZON__BASE,INC-68BAACF4BB36,aiops2022,c9f2a004a409d09ef372dea10aa581039709b5b3d330e0597335eb9bebf7f3fb,R_HORIZON,BASE,k8s容器网络资源包损坏,pod,1,,vllm,6802,236,5234,15066,7038,41.873702142002,2.075162105000345,38.69795931800036,,4177.893734695001,1.602198047999991,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""27948"", ""62825"", ""73031"", ""31476"", ""27948""]",high,"['27948', '62825', '73031', '31476', '27948'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['27948', '62825', '73031', '31476', '27948']",[],['27948']
+INC-68BAACF4BB36__S_JOINT__BASE,INC-68BAACF4BB36,aiops2022,c9f2a004a409d09ef372dea10aa581039709b5b3d330e0597335eb9bebf7f3fb,S_JOINT,BASE,k8s容器网络资源包损坏,pod,1,,hf_legacy,5057,210,4636,16275,5267,19.386668850000206,2.3417674760003138,16.28835489999983,25.803701773000284,,6.059565609999481,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""2790"", ""27116"", ""87929"", ""27948"", ""87246""]",medium,unknown/duplicate entity,['87246'],[]
+INC-68BAACF4BB36__U__ORDER,INC-68BAACF4BB36,aiops2022,c9f2a004a409d09ef372dea10aa581039709b5b3d330e0597335eb9bebf7f3fb,U,ORDER,k8s容器网络资源包损坏,pod,1,,vllm,5655,185,5234,16275,5840,46.26943660800043,2.477623898999809,41.255107778999445,959.9799274449997,,8.449385666000126,continuous_cold_including_queue,True,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""27948"", ""27116"", ""2790"", ""27116"", ""27948""]",high,"['27948', '27116', '2790', '27116', '27948'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['27948', '27116', '2790', '27116', '27948']",[],"['27116', '27948']"
+INC-68BAACF4BB36__U__REPEAT,INC-68BAACF4BB36,aiops2022,c9f2a004a409d09ef372dea10aa581039709b5b3d330e0597335eb9bebf7f3fb,U,REPEAT,k8s容器网络资源包损坏,pod,1,,vllm,5655,181,5234,16275,5836,40.11726957800056,2.533089069000198,29.770028945000377,1141.2497360219995,,8.65726441300012,continuous_cold_including_queue,True,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""2790"", ""87929"", ""88746"", ""27116"", ""87929""]",medium,"['2790', '87929', '88746', '27116', '87929'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['2790', '87929', '88746', '27116', '87929']",[],['87929']
+INC-6E627662CA32__P_DUAL__BASE,INC-6E627662CA32,aiops2022,cc7ccc61451c6f09a832f3e1af16a62b35827a20269d66509e3cc363d8774b43,P_DUAL,BASE,k8s容器cpu负载,pod,1,,vllm,5871,276,5450,16275,6147,51.46400347600138,2.355894705000537,42.99203289700017,,,,continuous_cold_including_queue,False,,0,4,False,P_DUAL,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""63581"", ""87955"", ""45365"", ""537"", ""5937""]",medium,unknown/duplicate entity,['537'],[]
+INC-6E6E1B20F2D5__R_PACK_HORIZON__BASE,INC-6E6E1B20F2D5,aiops2025,0ceaf7fc5cf6a0e0deddf55f923fcac6ce2dc555cdf6f033caee9a8d87b86ca1,R_PACK_HORIZON,BASE,node cpu stress,node,1,,vllm,6446,167,4878,14453,6613,30.93877216599867,1.921226973998273,27.930956655000045,,5535.991608504999,1.5483726870006649,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""8820"", ""882"", ""977"", ""8820"", ""882""]",medium,"['8820', '882', '977', '8820', '882'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['8820', '882', '977', '8820', '882']",[],"['8820', '882']"
+INC-6E6E1B20F2D5__S_JOINT__BASE,INC-6E6E1B20F2D5,aiops2025,0ceaf7fc5cf6a0e0deddf55f923fcac6ce2dc555cdf6f033caee9a8d87b86ca1,S_JOINT,BASE,node cpu stress,node,1,,vllm,4452,201,4031,16275,4653,42.44715887699931,2.5707478369986347,36.31713499500074,1029.77416757,,8.231473562000247,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""977"", ""882"", ""546"", ""939"", ""886""]",medium,unknown/duplicate entity,['886'],[]
+INC-6FDD214ABC63__R_HORIZON__BASE,INC-6FDD214ABC63,aiops2025,be32394b8d35a6359353becd1d52973a8d308f458410161701165415101bc57c,R_HORIZON,BASE,jvm gc,service,1,,vllm,6548,225,4980,14235,6773,41.905698978000146,1.8657512799982214,38.35476395700243,,4480.0860273670005,1.5276724850009487,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""8130"", ""88409"", ""96228"", ""88409"", ""96228""]",medium,"['8130', '88409', '96228', '88409', '96228'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['8130', '88409', '96228', '88409', '96228']",[],"['88409', '96228']"
+INC-7CA062069501__C_SHAM_BI__BASE,INC-7CA062069501,aiops2025,03b7c3ecfd49cd52df8035eca4c983a73cfc9098dc0b076c7856f56cd25b674b,C_SHAM_BI,BASE,network corrupt,service,1,,vllm,5240,131,4819,16275,5371,27.36226705900117,2.5301496669999324,21.08930966999833,2183.5919235719994,,8.157500051001989,continuous_cold_including_queue,False,,0,3,False,C_SHAM_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""9765"", ""9752"", ""9739"", ""9753"", ""9763""]",high,unknown/duplicate entity,"['9752', '9739', '9753', '9763']",[]
+INC-7D95F2013B97__R_PATCH_PACK__BASE,INC-7D95F2013B97,aiops2022,c9f2a004a409d09ef372dea10aa581039709b5b3d330e0597335eb9bebf7f3fb,R_PATCH_PACK,BASE,k8s容器cpu负载,pod,1,,vllm,6903,167,5335,14661,7070,28.843437616997107,2.1818221249995986,24.711534733000008,,7894.131614548001,1.6148598450017744,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""31316"", ""997"", ""336"", ""358"", ""368""]",high,unknown/duplicate entity,['336'],[]
+INC-7D95F2013B97__X_RP__BASE,INC-7D95F2013B97,aiops2022,c9f2a004a409d09ef372dea10aa581039709b5b3d330e0597335eb9bebf7f3fb,X_RP,BASE,k8s容器cpu负载,pod,1,,vllm,6903,167,5335,14661,7070,37.478464859999804,2.015199321002001,33.63889937800195,,8019.528617199998,1.5825518919991737,qualified_input_cache; excludes offline compilation/rendering,False,,0,3,False,P_LOCAL_BI,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""31316"", ""997"", ""336"", ""358"", ""368""]",high,unknown/duplicate entity,['336'],[]
+INC-7F84D3BE3772__C_PACK_BG_FILL__BASE,INC-7F84D3BE3772,aiops2022,e7fa923e78ce682692f6945a0e2ade90fb9a644839f0c2ed3cea71ba57d5ed74,C_PACK_BG_FILL,BASE,node 磁盘空间消耗,node,1,,vllm,6833,211,5265,15600,7044,44.29640949700115,2.2178518769978837,36.54832201299723,,7016.513541821001,2.410961084999144,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""3740"", ""99293"", ""59553"", ""33740"", ""22784""]",high,unknown/duplicate entity,['3740'],[]
+INC-7F84D3BE3772__R_PACK_HORIZON__BASE,INC-7F84D3BE3772,aiops2022,e7fa923e78ce682692f6945a0e2ade90fb9a644839f0c2ed3cea71ba57d5ed74,R_PACK_HORIZON,BASE,node 磁盘空间消耗,node,1,,vllm,6833,206,5265,15600,7039,35.23672488400189,2.2900407729975996,31.800235704999068,,7752.559010186,1.724289857000258,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""3740"", ""99293"", ""59553"", ""33740"", ""92811""]",medium,unknown/duplicate entity,['3740'],[]
+INC-7F84D3BE3772__R_PATCH_PACK__BASE,INC-7F84D3BE3772,aiops2022,e7fa923e78ce682692f6945a0e2ade90fb9a644839f0c2ed3cea71ba57d5ed74,R_PATCH_PACK,BASE,node 磁盘空间消耗,node,1,,vllm,6833,190,5265,15600,7023,39.15854560900016,2.20440609499974,35.88482044700004,,2101.4398830210002,1.6759066989999951,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""3740"", ""99293"", ""59553"", ""33740"", ""22784""]",medium,unknown/duplicate entity,['3740'],[]
+INC-7F84D3BE3772__X_RP__BASE,INC-7F84D3BE3772,aiops2022,e7fa923e78ce682692f6945a0e2ade90fb9a644839f0c2ed3cea71ba57d5ed74,X_RP,BASE,node 磁盘空间消耗,node,1,,vllm,6833,188,5265,15600,7021,34.93799260700007,2.3730277670000532,31.42306457199993,,671.318537689,1.6080396129999883,qualified_input_cache; excludes offline compilation/rendering,False,,0,3,False,P_LOCAL_BI,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""3740"", ""99293"", ""59553"", ""33740"", ""22784""]",medium,unknown/duplicate entity,['3740'],[]
+INC-7FCA48559A2E__C_PACK_BG_FILL__BASE,INC-7FCA48559A2E,aegislab,88c1661366a23d2beb9916cddf4480152a863ccd11d1e927764af78a8c8d92e1,C_PACK_BG_FILL,BASE,NetworkCorrupt,service,1,,vllm,6896,172,5328,15080,7068,37.09564700999999,2.1260169059999043,33.07074374600006,,1765.5632705790001,1.6194070569999894,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""832"", ""980"", ""724"", ""832"", ""946""]",high,"['832', '980', '724', '832', '946'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['832', '980', '724', '832', '946']",[],['832']
+INC-83BCD48B2886__C_GLOBAL_BI__BASE,INC-83BCD48B2886,aiops2022,e7fa923e78ce682692f6945a0e2ade90fb9a644839f0c2ed3cea71ba57d5ed74,C_GLOBAL_BI,BASE,node节点CPU爬升,node,1,,vllm,5785,210,5364,16182,5995,43.9460171339997,2.4341638169998987,37.06469717200025,988.7640427269998,,8.286167465999824,continuous_cold_including_queue,False,,0,3,False,C_GLOBAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""54870"", ""941"", ""66888"", ""46790"", ""23696""]",medium,unknown/duplicate entity,['66888'],[]
+INC-83BCD48B2886__C_LOCAL_FORWARD__BASE,INC-83BCD48B2886,aiops2022,e7fa923e78ce682692f6945a0e2ade90fb9a644839f0c2ed3cea71ba57d5ed74,C_LOCAL_FORWARD,BASE,node节点CPU爬升,node,1,,hf_legacy,5785,222,5364,16182,6007,20.696670445999644,2.3489323569997396,17.558605609000097,27.469002492000072,,6.424638440999843,continuous_cold_including_queue,False,,0,3,False,C_LOCAL_FORWARD,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""54870"", ""941"", ""66888"", ""46790"", ""23696""]",high,unknown/duplicate entity,['66888'],[]
+INC-83BCD48B2886__C_READ_GUIDE__BASE,INC-83BCD48B2886,aiops2022,e7fa923e78ce682692f6945a0e2ade90fb9a644839f0c2ed3cea71ba57d5ed74,C_READ_GUIDE,BASE,node节点CPU爬升,node,0,INC-83BCD48B2886__R_HORIZON__BASE,vllm,6932,216,5364,16182,7148,40.746847030000936,2.3785782619997917,36.29640396100149,,3760.6871912960014,2.3369426999997813,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""54870"", ""941"", ""66888"", ""46790"", ""23696""]",high,unknown/duplicate entity,['66888'],[]
+INC-83BCD48B2886__C_SHAM_BI__BASE,INC-83BCD48B2886,aiops2022,e7fa923e78ce682692f6945a0e2ade90fb9a644839f0c2ed3cea71ba57d5ed74,C_SHAM_BI,BASE,node节点CPU爬升,node,1,,concurrency_v12,5785,191,5364,16182,5976,131.1476008080026,2.4344272759990417,126.37592380600108,195.08736447999763,,9.24099104799825,continuous_cold_including_queue,False,,0,3,False,C_SHAM_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""941"", ""54870"", ""66888"", ""46790"", ""275""]",high,unknown/duplicate entity,['66888'],[]
+INC-83BCD48B2886__C_SOURCE_HASH__BASE,INC-83BCD48B2886,aiops2022,e7fa923e78ce682692f6945a0e2ade90fb9a644839f0c2ed3cea71ba57d5ed74,C_SOURCE_HASH,BASE,node节点CPU爬升,node,1,,vllm,5210,217,4789,16182,5427,36.95130124399839,2.3504454720005015,31.55202526100038,2546.7592721280016,,8.769764034001128,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""54870"", ""941"", ""66888"", ""46790"", ""46798""]",high,unknown/duplicate entity,['66888'],[]
+INC-83BCD48B2886__P_DUAL__BASE,INC-83BCD48B2886,aiops2022,e7fa923e78ce682692f6945a0e2ade90fb9a644839f0c2ed3cea71ba57d5ed74,P_DUAL,BASE,node节点CPU爬升,node,1,,vllm,5785,231,5364,16182,6016,41.819841053000346,2.448098630000459,37.19829243800086,751.3310413500003,,9.351533489999383,continuous_cold_including_queue,False,,0,4,False,P_DUAL,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""54870"", ""941"", ""66888"", ""46790"", ""23696""]",medium,unknown/duplicate entity,['66888'],[]
+INC-83BCD48B2886__P_LOCAL_BI__BASE,INC-83BCD48B2886,aiops2022,e7fa923e78ce682692f6945a0e2ade90fb9a644839f0c2ed3cea71ba57d5ed74,P_LOCAL_BI,BASE,node节点CPU爬升,node,1,,vllm,5785,213,5364,16182,5998,39.9246458990001,2.346488387000136,32.787851188000786,4308.824465884001,,9.040829486000803,continuous_cold_including_queue,False,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""941"", ""54870"", ""66888"", ""46790"", ""275""]",medium,unknown/duplicate entity,['66888'],[]
+INC-83BCD48B2886__P_SOFT_IMAGE__BASE,INC-83BCD48B2886,aiops2022,e7fa923e78ce682692f6945a0e2ade90fb9a644839f0c2ed3cea71ba57d5ed74,P_SOFT_IMAGE,BASE,node节点CPU爬升,node,1,,vllm,5785,233,5364,16182,6018,50.467384211000535,2.3968851050012745,45.4416932510012,1941.8275635240007,,9.077082892999897,continuous_cold_including_queue,False,,0,1,False,P_SOFT_IMAGE,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""54870"", ""941"", ""66888"", ""46790"", ""23696""]",high,unknown/duplicate entity,['66888'],[]
+INC-83BCD48B2886__R_HORIZON__BASE,INC-83BCD48B2886,aiops2022,e7fa923e78ce682692f6945a0e2ade90fb9a644839f0c2ed3cea71ba57d5ed74,R_HORIZON,BASE,node节点CPU爬升,node,1,,vllm,6932,216,5364,16182,7148,40.746847030000936,2.3785782619997917,36.29640396100149,,3760.6871912960014,2.3369426999997813,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""54870"", ""941"", ""66888"", ""46790"", ""23696""]",high,unknown/duplicate entity,['66888'],[]
+INC-83BCD48B2886__S_JOINT__BASE,INC-83BCD48B2886,aiops2022,e7fa923e78ce682692f6945a0e2ade90fb9a644839f0c2ed3cea71ba57d5ed74,S_JOINT,BASE,node节点CPU爬升,node,1,,vllm,5259,167,4838,16182,5426,31.43602840099993,2.343009823000102,25.439420926999446,3034.4133506670005,,8.968703243001073,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""941"", ""54870"", ""66888"", ""46610"", ""2473""]",high,unknown/duplicate entity,['66888'],[]
+INC-83BCD48B2886__X_SP__BASE,INC-83BCD48B2886,aiops2022,e7fa923e78ce682692f6945a0e2ade90fb9a644839f0c2ed3cea71ba57d5ed74,X_SP,BASE,node节点CPU爬升,node,1,,vllm,5259,192,4838,16182,5451,43.448885535000045,2.482868061999852,33.8231306130001,920.693802105,,8.982759816999987,continuous_cold_including_queue,False,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""941"", ""54870"", ""66888"", ""46610"", ""69927""]",high,unknown/duplicate entity,['66888'],[]
+INC-83BCD48B2886__X_SRP__BASE,INC-83BCD48B2886,aiops2022,e7fa923e78ce682692f6945a0e2ade90fb9a644839f0c2ed3cea71ba57d5ed74,X_SRP,BASE,node节点CPU爬升,node,0,INC-83BCD48B2886__X_SP__BASE,vllm,5259,192,4838,16182,5451,43.448885535000045,2.482868061999852,33.8231306130001,920.693802105,,8.982759816999987,continuous_cold_including_queue,False,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""941"", ""54870"", ""66888"", ""46610"", ""69927""]",high,unknown/duplicate entity,['66888'],[]
+INC-873FE163DCDF__C_PACK_BG_FILL__BASE,INC-873FE163DCDF,aiops2022,2e0d6bd3c49323bfb0e977a215ab1a49d996690b2d3710ef353069d23fbf94c2,C_PACK_BG_FILL,BASE,node 磁盘空间消耗,node,1,,vllm,6650,216,5082,14755,6866,50.2834422119995,2.0763229180010967,42.477258599999914,,6191.038882115001,1.6854357050033286,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""90025"", ""953"", ""93303"", ""9025"", ""93816""]",high,unknown/duplicate entity,['9025'],[]
+INC-873FE163DCDF__P_LOCAL_BI__ORDER,INC-873FE163DCDF,aiops2022,2e0d6bd3c49323bfb0e977a215ab1a49d996690b2d3710ef353069d23fbf94c2,P_LOCAL_BI,ORDER,node 磁盘空间消耗,node,1,,vllm,5503,205,5082,16198,5708,41.19899067299957,2.3762358230014797,36.77264789600122,3285.787129102,,8.308177340000839,continuous_cold_including_queue,True,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""5905"", ""9303"", ""51386"", ""90025"", ""31227""]",high,unknown/duplicate entity,['9303'],[]
+INC-873FE163DCDF__U__ORDER,INC-873FE163DCDF,aiops2022,2e0d6bd3c49323bfb0e977a215ab1a49d996690b2d3710ef353069d23fbf94c2,U,ORDER,node 磁盘空间消耗,node,1,,vllm,5503,205,5082,16198,5708,37.874392507001176,2.3419269630012423,33.509951811000064,3943.610738395999,,8.761793966999903,continuous_cold_including_queue,True,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""5905"", ""9303"", ""51386"", ""90025"", ""31227""]",high,unknown/duplicate entity,['9303'],[]
+INC-90722DCD5A51__C_GLOBAL_BI__BASE,INC-90722DCD5A51,aiops2022,b046372a5bb7538116aaa4da9ca33777b47b79d2264a075b0983ee9a4dcdad77,C_GLOBAL_BI,BASE,node 磁盘写IO消耗,node,1,,vllm,5953,232,5532,16340,6185,40.08200338200004,2.3838842870009103,31.553483329998926,4296.850974726,,9.301484403000359,continuous_cold_including_queue,False,,0,3,False,C_GLOBAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""859"", ""837"", ""911"", ""859"", ""837""]",medium,"['859', '837', '911', '859', '837'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['859', '837', '911', '859', '837']",[],"['859', '837']"
+INC-90722DCD5A51__C_LOCAL_FORWARD__BASE,INC-90722DCD5A51,aiops2022,b046372a5bb7538116aaa4da9ca33777b47b79d2264a075b0983ee9a4dcdad77,C_LOCAL_FORWARD,BASE,node 磁盘写IO消耗,node,1,,vllm,5953,289,5532,16340,6242,77.91512251600216,2.6084726150002098,60.76465567299965,589.0840429839991,,8.710128965998592,continuous_cold_including_queue,False,,0,3,False,C_LOCAL_FORWARD,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""859"", ""837"", ""911"", ""841"", ""836""]",medium,unknown/duplicate entity,['836'],[]
+INC-90722DCD5A51__C_SOURCE_HASH__BASE,INC-90722DCD5A51,aiops2022,b046372a5bb7538116aaa4da9ca33777b47b79d2264a075b0983ee9a4dcdad77,C_SOURCE_HASH,BASE,node 磁盘写IO消耗,node,1,,vllm,5191,235,4770,16340,5426,61.586262284999975,2.4842608620001556,54.720896373999494,224.250751519,,7.649031703000219,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""859"", ""911"", ""859"", ""911"", ""859""]",medium,"['859', '911', '859', '911', '859'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['859', '911', '859', '911', '859']",[],"['859', '911', '859']"
+INC-90722DCD5A51__P_DUAL__BASE,INC-90722DCD5A51,aiops2022,b046372a5bb7538116aaa4da9ca33777b47b79d2264a075b0983ee9a4dcdad77,P_DUAL,BASE,node 磁盘写IO消耗,node,1,,vllm,5953,235,5532,16340,6188,43.798154049000004,2.3595505409994075,39.842149952999534,3445.7428147600003,,9.38503178999963,continuous_cold_including_queue,False,,0,4,False,P_DUAL,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""859"", ""837"", ""911"", ""859"", ""837""]",medium,"['859', '837', '911', '859', '837'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['859', '837', '911', '859', '837']",[],"['859', '837']"
+INC-90722DCD5A51__P_SOFT_IMAGE__BASE,INC-90722DCD5A51,aiops2022,b046372a5bb7538116aaa4da9ca33777b47b79d2264a075b0983ee9a4dcdad77,P_SOFT_IMAGE,BASE,node 磁盘写IO消耗,node,1,,vllm,5953,199,5532,16340,6152,32.227479334000236,2.3809549409998,27.522811553999418,2697.482290795,,9.252651308999702,continuous_cold_including_queue,False,,0,1,False,P_SOFT_IMAGE,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""859"", ""837"", ""911"", ""841"", ""836""]",high,unknown/duplicate entity,['836'],[]
+INC-924208910E84__C_GLOBAL_BI__BASE,INC-924208910E84,aiops2022,ceddfc4d2343e38dd13ee61fdc0c3314793b188f59790061ae48620f215fb2f8,C_GLOBAL_BI,BASE,k8s容器内存负载,pod,1,,vllm,5739,267,5318,16192,6006,54.52660995300084,2.4884608229995138,45.925636162000046,441.64298164900083,,8.918970208000246,continuous_cold_including_queue,True,,0,3,False,C_GLOBAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""97265"", ""4260"", ""77462"", ""97265"", ""4260""]",high,"['97265', '4260', '77462', '97265', '4260'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['97265', '4260', '77462', '97265', '4260']",[],"['97265', '4260']"
+INC-924208910E84__C_LOCAL_FORWARD__BASE,INC-924208910E84,aiops2022,ceddfc4d2343e38dd13ee61fdc0c3314793b188f59790061ae48620f215fb2f8,C_LOCAL_FORWARD,BASE,k8s容器内存负载,pod,1,,vllm,5739,202,5318,16192,5941,42.819755598000484,2.428536471999905,36.824346900999444,777.4572624309994,,8.849327722999988,continuous_cold_including_queue,False,,0,3,False,C_LOCAL_FORWARD,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""97265"", ""4260"", ""77462"", ""97265"", ""4260""]",high,"['97265', '4260', '77462', '97265', '4260'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['97265', '4260', '77462', '97265', '4260']",[],"['97265', '4260']"
+INC-924208910E84__C_READ_GUIDE__BASE,INC-924208910E84,aiops2022,ceddfc4d2343e38dd13ee61fdc0c3314793b188f59790061ae48620f215fb2f8,C_READ_GUIDE,BASE,k8s容器内存负载,pod,1,,vllm,6886,263,5318,16192,7149,56.422345777999,2.44257448999997,51.974878154996986,,3829.7326117679986,2.2527448759974504,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""97265"", ""4260"", ""77462"", ""52571"", ""97265""]",medium,"['97265', '4260', '77462', '52571', '97265'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['97265', '4260', '77462', '52571', '97265']",[],['97265']
+INC-924208910E84__C_SHAM_BI__BASE,INC-924208910E84,aiops2022,ceddfc4d2343e38dd13ee61fdc0c3314793b188f59790061ae48620f215fb2f8,C_SHAM_BI,BASE,k8s容器内存负载,pod,1,,vllm,5739,204,5318,16192,5943,36.111894698999095,2.4538225840005907,29.387364044001515,4364.918863339999,,8.859367084000041,continuous_cold_including_queue,False,,0,3,False,C_SHAM_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""97265"", ""4260"", ""77462"", ""97265"", ""4260""]",medium,"['97265', '4260', '77462', '97265', '4260'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['97265', '4260', '77462', '97265', '4260']",[],"['97265', '4260']"
+INC-924208910E84__P_DUAL__BASE,INC-924208910E84,aiops2022,ceddfc4d2343e38dd13ee61fdc0c3314793b188f59790061ae48620f215fb2f8,P_DUAL,BASE,k8s容器内存负载,pod,1,,vllm,5739,49,5318,16192,5788,22.116091723000864,2.456236841997452,16.520098586999666,228.92054229299902,,7.8457182419988385,continuous_cold_including_queue,False,,0,4,False,P_DUAL,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""97265"", ""4260"", ""77462"", ""52571"", ""97265""]",low,"['97265', '4260', '77462', '52571', '97265'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['97265', '4260', '77462', '52571', '97265']",[],['97265']
+INC-924208910E84__P_LOCAL_BI__BASE,INC-924208910E84,aiops2022,ceddfc4d2343e38dd13ee61fdc0c3314793b188f59790061ae48620f215fb2f8,P_LOCAL_BI,BASE,k8s容器内存负载,pod,1,,vllm,5739,269,5318,16192,6008,50.870795363999605,2.4285851430004186,45.13679995500024,241.60946956899988,,8.575273190000189,continuous_cold_including_queue,True,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""97265"", ""4260"", ""77462"", ""97265"", ""4260""]",high,"['97265', '4260', '77462', '97265', '4260'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['97265', '4260', '77462', '97265', '4260']",[],"['97265', '4260']"
+INC-924208910E84__P_LOCAL_BI__REPEAT,INC-924208910E84,aiops2022,ceddfc4d2343e38dd13ee61fdc0c3314793b188f59790061ae48620f215fb2f8,P_LOCAL_BI,REPEAT,k8s容器内存负载,pod,1,,hf_legacy,5739,193,5318,16192,5932,19.880013844000132,2.343501729000309,16.626196526000058,27.261025744000108,,6.983327840000129,continuous_cold_including_queue,True,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""97265"", ""4260"", ""77462"", ""97265"", ""4260""]",high,"['97265', '4260', '77462', '97265', '4260'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['97265', '4260', '77462', '97265', '4260']",[],"['97265', '4260']"
+INC-924208910E84__P_SOFT_IMAGE__BASE,INC-924208910E84,aiops2022,ceddfc4d2343e38dd13ee61fdc0c3314793b188f59790061ae48620f215fb2f8,P_SOFT_IMAGE,BASE,k8s容器内存负载,pod,1,,vllm,5739,176,5318,16192,5915,43.35782095500008,2.60836708800025,30.527482416999646,830.6448880819999,,8.319073085000127,continuous_cold_including_queue,False,,0,1,False,P_SOFT_IMAGE,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""97265"", ""4260"", ""77462"", ""97265"", ""4260""]",high,"['97265', '4260', '77462', '97265', '4260'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['97265', '4260', '77462', '97265', '4260']",[],"['97265', '4260']"
+INC-924208910E84__S_JOINT__BASE,INC-924208910E84,aiops2022,ceddfc4d2343e38dd13ee61fdc0c3314793b188f59790061ae48620f215fb2f8,S_JOINT,BASE,k8s容器内存负载,pod,1,,vllm,5072,196,4651,16192,5268,39.12116951000098,2.4811632229993847,32.55375967399959,946.2344748389996,,8.348726519000593,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,True,True,False,__INVALID__,"[""570"", ""97265"", ""97492"", ""4260"", ""556""]",medium,unknown/duplicate entity,['97492'],[]
+INC-924208910E84__U__REPEAT,INC-924208910E84,aiops2022,ceddfc4d2343e38dd13ee61fdc0c3314793b188f59790061ae48620f215fb2f8,U,REPEAT,k8s容器内存负载,pod,1,,vllm,5739,193,5318,16192,5932,32.56540197200229,2.432153769001161,25.17495597499874,482.41222042299705,,8.284668562999286,continuous_cold_including_queue,True,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""97265"", ""4260"", ""77462"", ""97265"", ""4260""]",high,"['97265', '4260', '77462', '97265', '4260'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['97265', '4260', '77462', '97265', '4260']",[],"['97265', '4260']"
+INC-9293D99C285C__X_SR__BASE,INC-9293D99C285C,aiops2022,937a0750452eaae922cfeb78020caf7999b741b15c9d89ef906f6917cafbd21b,X_SR,BASE,k8s容器网络资源包损坏,service,1,,vllm,6196,144,4628,16275,6340,36.35478476100002,2.566577544999973,31.989402628000107,,1258.3488485,2.521422021999996,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""12247"", ""61305"", ""39926"", ""57683"", ""97777""]",high,unknown/duplicate entity,['97777'],[]
+INC-96E8C237EFAF__C_READ_GUIDE__BASE,INC-96E8C237EFAF,aiops2025,1852523058bc82a269f0c52450e2ca8ecd8ed2bef551dfb4db37ecf52d2383cb,C_READ_GUIDE,BASE,jvm cpu,service,1,,vllm,6442,266,4874,16262,6708,47.61309171799803,2.4167215739980747,42.82485814499887,,5768.662464036999,2.2287430409996887,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,True,True,False,__INVALID__,"[""888"", ""240"", ""173"", ""2619"", ""7223""]",high,unknown/duplicate entity,['7223'],[]
+INC-96E8C237EFAF__C_SHAM_BI__BASE,INC-96E8C237EFAF,aiops2025,1852523058bc82a269f0c52450e2ca8ecd8ed2bef551dfb4db37ecf52d2383cb,C_SHAM_BI,BASE,jvm cpu,service,1,,concurrency_v9,5295,238,4874,16262,5533,166.22763237500112,2.45987393500036,162.09118053699967,404.125378226001,,8.38697219200003,continuous_cold_including_queue,False,,0,3,False,C_SHAM_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,True,True,False,__INVALID__,"[""888"", ""240"", ""173"", ""2619"", ""7223""]",high,unknown/duplicate entity,['7223'],[]
+INC-96E8C237EFAF__P_DUAL__BASE,INC-96E8C237EFAF,aiops2025,1852523058bc82a269f0c52450e2ca8ecd8ed2bef551dfb4db37ecf52d2383cb,P_DUAL,BASE,jvm cpu,service,1,,hf_legacy,5295,176,4874,16262,5471,17.30112732699945,2.3388382490002186,14.137619081000594,24.057731554000384,,6.419464303000495,continuous_cold_including_queue,False,,0,4,False,P_DUAL,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,True,True,False,__INVALID__,"[""888"", ""240"", ""173"", ""2619"", ""7223""]",medium,unknown/duplicate entity,['7223'],[]
+INC-96E8C237EFAF__P_LOCAL_BI__BASE,INC-96E8C237EFAF,aiops2025,1852523058bc82a269f0c52450e2ca8ecd8ed2bef551dfb4db37ecf52d2383cb,P_LOCAL_BI,BASE,jvm cpu,service,1,,hf_legacy,5295,205,4874,16262,5500,19.465259356999923,2.3576841149997563,16.33226347800064,25.825426173999404,,6.002384020000136,continuous_cold_including_queue,True,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,True,True,False,__INVALID__,"[""888"", ""240"", ""173"", ""2619"", ""7223""]",high,unknown/duplicate entity,['7223'],[]
+INC-96E8C237EFAF__P_LOCAL_BI__REPEAT,INC-96E8C237EFAF,aiops2025,1852523058bc82a269f0c52450e2ca8ecd8ed2bef551dfb4db37ecf52d2383cb,P_LOCAL_BI,REPEAT,jvm cpu,service,1,,vllm,5295,231,4874,16262,5526,36.827805348000766,2.4502319099992746,30.38037289100066,4256.212914661999,,8.80691867600035,continuous_cold_including_queue,True,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,True,True,False,__INVALID__,"[""888"", ""240"", ""173"", ""2619"", ""7223""]",high,unknown/duplicate entity,['7223'],[]
+INC-96E8C237EFAF__U__REPEAT,INC-96E8C237EFAF,aiops2025,1852523058bc82a269f0c52450e2ca8ecd8ed2bef551dfb4db37ecf52d2383cb,U,REPEAT,jvm cpu,service,1,,hf_legacy,5295,185,4874,16262,5480,17.895855377999396,2.337545438000234,14.760374547000538,24.524851392999153,,6.297051444999852,continuous_cold_including_queue,True,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,True,True,False,__INVALID__,"[""888"", ""240"", ""173"", ""2619"", ""7223""]",high,unknown/duplicate entity,['7223'],[]
+INC-977EEEDB6E71__C_SOURCE_HASH__BASE,INC-977EEEDB6E71,aiops2022,70fa09771ef96a395767ca231cef04b2c89933c69581c4800ccca8560bff52cb,C_SOURCE_HASH,BASE,node 磁盘空间消耗,node,1,,vllm,5110,126,4689,16198,5236,25.260139487999822,2.416316181000184,20.732139612000083,257.289879896,,8.335140008000053,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,True,__INVALID__,"[""17336"", ""17535"", ""17335"", ""17535"", ""17336""]",medium,"['17336', '17535', '17335', '17535', '17336'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['17336', '17535', '17335', '17535', '17336']",['17335'],"['17535', '17336']"
+INC-9DDF62CAF256__C_GLOBAL_BI__BASE,INC-9DDF62CAF256,aiops2025,64e7c2c33f0c3588da4959557e4fa84b9b42a2b7cd20b285caa2be6c45ac4740,C_GLOBAL_BI,BASE,memory stress,pod/service,1,,vllm,5293,271,4872,16275,5564,156.38520294000045,2.4475989140009915,106.71404697899925,233.73014337800123,,7.306285430000571,continuous_cold_including_queue,False,,0,3,False,C_GLOBAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""960"", ""918"", ""530"", ""917"", ""114""]",high,unknown/duplicate entity,['114'],[]
+INC-9DDF62CAF256__C_LOCAL_FORWARD__BASE,INC-9DDF62CAF256,aiops2025,64e7c2c33f0c3588da4959557e4fa84b9b42a2b7cd20b285caa2be6c45ac4740,C_LOCAL_FORWARD,BASE,memory stress,pod/service,1,,vllm,5293,309,4872,16275,5602,64.74131062800006,2.520558159999837,53.56079440200028,783.452542684,,7.899382351999975,continuous_cold_including_queue,False,,0,3,False,C_LOCAL_FORWARD,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""960"", ""918"", ""530"", ""917"", ""114""]",medium,unknown/duplicate entity,['114'],[]
+INC-9DDF62CAF256__P_LOCAL_BI__BASE,INC-9DDF62CAF256,aiops2025,64e7c2c33f0c3588da4959557e4fa84b9b42a2b7cd20b285caa2be6c45ac4740,P_LOCAL_BI,BASE,memory stress,pod/service,1,,vllm,5293,337,4872,16275,5630,62.420396941000035,2.484878677999859,56.52819314699991,1029.162175427,,8.0777254919999,continuous_cold_including_queue,False,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""960"", ""918"", ""530"", ""917"", ""114""]",medium,unknown/duplicate entity,['114'],[]
+INC-9DDF62CAF256__R_PATCH_PACK__BASE,INC-9DDF62CAF256,aiops2025,64e7c2c33f0c3588da4959557e4fa84b9b42a2b7cd20b285caa2be6c45ac4740,R_PATCH_PACK,BASE,memory stress,pod/service,1,,vllm,6440,187,4872,14300,6627,34.071494116000395,1.919366264002747,27.02025178799886,,4611.586755573,1.5907458950023283,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""2020"", ""9674"", ""2519"", ""3352"", ""9666""]",medium,unknown/duplicate entity,['9666'],[]
+INC-9DDF62CAF256__X_RP__BASE,INC-9DDF62CAF256,aiops2025,64e7c2c33f0c3588da4959557e4fa84b9b42a2b7cd20b285caa2be6c45ac4740,X_RP,BASE,memory stress,pod/service,1,,vllm,6440,187,4872,14300,6627,39.177898271000004,1.746355789000063,34.221693205000065,,1625.8083908790002,1.8612668570000324,qualified_input_cache; excludes offline compilation/rendering,False,,0,3,False,P_LOCAL_BI,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""2020"", ""9674"", ""2519"", ""3352"", ""9666""]",medium,unknown/duplicate entity,['9666'],[]
+INC-9FE4614C417F__S_JOINT__BASE,INC-9FE4614C417F,aegislab,30c6467b76c549ef3bfa1498e8da4f43bd7eebccc522a27751137d2c4089ee49,S_JOINT,BASE,JVMMemoryStress,service,1,,vllm,4983,377,4562,16198,5360,69.90318167199985,2.428775203999976,65.43920346899995,637.427677915,,7.935291808999864,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,0.0,0.0,True,True,False,__INVALID__,"[""7119"", ""50042"", ""32402"", ""713"", ""407""]",medium,unknown/duplicate entity,['7119'],[]
+INC-9FE4614C417F__X_SP__BASE,INC-9FE4614C417F,aegislab,30c6467b76c549ef3bfa1498e8da4f43bd7eebccc522a27751137d2c4089ee49,X_SP,BASE,JVMMemoryStress,service,1,,vllm,4983,208,4562,16198,5191,52.89772309000182,2.84714362700106,43.4601141359999,715.1382002290011,,8.586433118001878,continuous_cold_including_queue,False,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,0.0,0.0,True,True,False,__INVALID__,"[""7119"", ""50042"", ""32402"", ""713"", ""407""]",high,unknown/duplicate entity,['7119'],[]
+INC-A140F0C90613__C_SOURCE_HASH__BASE,INC-A140F0C90613,aiops2022,290842fdf15dbe3153547d3f01b1ad6227e3aecd2e6945737e42f142ee028acd,C_SOURCE_HASH,BASE,k8s容器内存负载,pod,1,,hf_legacy,5119,245,4698,16284,5364,22.723017009000614,2.366438661000757,19.551976027999444,29.99417048000032,,6.828632779000145,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""954"", ""324"", ""873"", ""430"", ""98223""]",high,unknown/duplicate entity,['98223'],[]
+INC-A19BB8DA9651__C_READ_GUIDE__BASE,INC-A19BB8DA9651,aiops2022,e7fa923e78ce682692f6945a0e2ade90fb9a644839f0c2ed3cea71ba57d5ed74,C_READ_GUIDE,BASE,node节点CPU爬升,node,1,,vllm,6746,390,5178,16284,7136,85.36764403200141,2.375485711003421,74.42398737099938,,2343.952693564999,2.192894346000685,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""73981"", ""67831"", ""92491"", ""82323"", ""42017""]",high,unknown/duplicate entity,['82323'],[]
+INC-A1C6591B0184__C_PACK_BG_FILL__BASE,INC-A1C6591B0184,aegislab,64b330d74dc25999d81798401faeceae387b12d4058f961d1beeeef33a90f874,C_PACK_BG_FILL,BASE,HTTPRequestReplacePath,service,1,,vllm,5328,181,3760,11417,5509,37.52693014000033,1.408693008001137,35.228340121000656,,2363.051144701003,1.231407814000704,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""169"", ""5672"", ""26010"", ""450"", ""337""]",medium,unknown/duplicate entity,['5672'],[]
+INC-A1C6591B0184__R_PACK_HORIZON__BASE,INC-A1C6591B0184,aegislab,64b330d74dc25999d81798401faeceae387b12d4058f961d1beeeef33a90f874,R_PACK_HORIZON,BASE,HTTPRequestReplacePath,service,1,,vllm,5396,155,3828,11417,5551,25.10909483499927,1.2952327279999736,22.809431315999973,,4411.787250205001,1.3117658290029794,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""169"", ""5672"", ""26010"", ""143"", ""231""]",medium,unknown/duplicate entity,['5672'],[]
+INC-A30E2AFB40B0__C_PACK_BG_FILL__BASE,INC-A30E2AFB40B0,aegislab,5b306a08e31ff164759c2e7fea54a4f716c4ffd5ff96f8cf63640f848b76d378,C_PACK_BG_FILL,BASE,JVMMemoryStress,service,1,,vllm,6734,248,5166,15665,6982,40.07150907899995,2.342977639997116,36.5236252470022,,3481.1670637980023,1.6365779680018022,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""816"", ""838"", ""833"", ""832"", ""840""]",high,unknown/duplicate entity,['838'],[]
+INC-A30E2AFB40B0__R_PACK_HORIZON__BASE,INC-A30E2AFB40B0,aegislab,5b306a08e31ff164759c2e7fea54a4f716c4ffd5ff96f8cf63640f848b76d378,R_PACK_HORIZON,BASE,JVMMemoryStress,service,1,,vllm,6734,213,5166,15665,6947,43.04151233599987,2.2847611110009893,38.757413388000714,,7290.702592599002,1.7988511910007219,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""816"", ""837"", ""838"", ""832"", ""833""]",high,unknown/duplicate entity,['838'],[]
+INC-A30E2AFB40B0__R_PATCH_PACK__BASE,INC-A30E2AFB40B0,aegislab,5b306a08e31ff164759c2e7fea54a4f716c4ffd5ff96f8cf63640f848b76d378,R_PATCH_PACK,BASE,JVMMemoryStress,service,1,,vllm,6734,159,5166,15665,6893,27.93547628500164,2.336679322997952,24.40546180399906,,2370.4997482,1.6028784010013624,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""816"", ""838"", ""514"", ""233"", ""837""]",high,unknown/duplicate entity,['838'],[]
+INC-A30E2AFB40B0__X_RP__BASE,INC-A30E2AFB40B0,aegislab,5b306a08e31ff164759c2e7fea54a4f716c4ffd5ff96f8cf63640f848b76d378,X_RP,BASE,JVMMemoryStress,service,1,,vllm,6734,188,5166,15665,6922,32.158714190001774,2.1878138259999105,24.700979881999956,,4142.300573692999,1.6549866960012878,qualified_input_cache; excludes offline compilation/rendering,False,,0,3,False,P_LOCAL_BI,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""816"", ""838"", ""514"", ""233"", ""837""]",high,unknown/duplicate entity,['838'],[]
+INC-A630AAF01518__R_PACK_HORIZON__BASE,INC-A630AAF01518,aiops2022,c24722134e20a7032bc49ce3ff407733ecfa876cb1635893cff151fb3e3346a3,R_PACK_HORIZON,BASE,k8s容器cpu负载,pod,1,,vllm,6776,243,5208,14950,7019,46.83148627600167,2.042376798002806,43.33136675800051,,2507.129671308001,1.5838852340020821,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,True,False,True,__INVALID__,"[""6653"", ""64716"", ""83464"", ""88157"", ""6653""]",medium,"['6653', '64716', '83464', '88157', '6653'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['6653', '64716', '83464', '88157', '6653']",[],['6653']
+INC-A826539241B0__C_GLOBAL_BI__BASE,INC-A826539241B0,aegislab,7e556b87ce5c5c2ea4a04798eb7eb96d561f21b981be428c03290a6b359b5e59,C_GLOBAL_BI,BASE,JVMMemoryStress,service,1,,vllm,5869,210,5448,16340,6079,39.936885221999546,2.5439194089995,33.56594045899874,1175.1077353850005,,8.56424815399987,continuous_cold_including_queue,False,,0,3,False,C_GLOBAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""738"", ""753"", ""743"", ""741"", ""738""]",high,"['738', '753', '743', '741', '738'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['738', '753', '743', '741', '738']",[],['738']
+INC-A826539241B0__C_LOCAL_FORWARD__BASE,INC-A826539241B0,aegislab,7e556b87ce5c5c2ea4a04798eb7eb96d561f21b981be428c03290a6b359b5e59,C_LOCAL_FORWARD,BASE,JVMMemoryStress,service,1,,vllm,5869,203,5448,16340,6072,46.666340282999954,2.562479393999638,41.84268399299981,416.2034973690006,,9.025310426000033,continuous_cold_including_queue,False,,0,3,False,C_LOCAL_FORWARD,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""738"", ""753"", ""743"", ""741"", ""738""]",high,"['738', '753', '743', '741', '738'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['738', '753', '743', '741', '738']",[],['738']
+INC-A826539241B0__C_SHAM_BI__BASE,INC-A826539241B0,aegislab,7e556b87ce5c5c2ea4a04798eb7eb96d561f21b981be428c03290a6b359b5e59,C_SHAM_BI,BASE,JVMMemoryStress,service,1,,vllm,5869,189,5448,16340,6058,41.042707744999916,2.466378163999707,33.797390752999945,683.1674891799998,,8.489325480999923,continuous_cold_including_queue,False,,0,3,False,C_SHAM_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""738"", ""753"", ""743"", ""741"", ""738""]",medium,"['738', '753', '743', '741', '738'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['738', '753', '743', '741', '738']",[],['738']
+INC-A826539241B0__C_SOURCE_HASH__BASE,INC-A826539241B0,aegislab,7e556b87ce5c5c2ea4a04798eb7eb96d561f21b981be428c03290a6b359b5e59,C_SOURCE_HASH,BASE,JVMMemoryStress,service,1,,vllm,4588,164,4167,16340,4752,39.68782062199989,2.604267026999878,33.563054859000204,423.7139403169999,,8.33462853600031,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""738"", ""743"", ""753"", ""738"", ""743""]",high,"['738', '743', '753', '738', '743'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['738', '743', '753', '738', '743']",[],"['738', '743']"
+INC-A826539241B0__P_DUAL__BASE,INC-A826539241B0,aegislab,7e556b87ce5c5c2ea4a04798eb7eb96d561f21b981be428c03290a6b359b5e59,P_DUAL,BASE,JVMMemoryStress,service,1,,vllm,5869,163,5448,16340,6032,41.09061544899987,2.463224147999881,31.974363110000013,1216.6379403639999,,8.719431377000092,continuous_cold_including_queue,False,,0,4,False,P_DUAL,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""738"", ""753"", ""743"", ""741"", ""738""]",high,"['738', '753', '743', '741', '738'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['738', '753', '743', '741', '738']",[],['738']
+INC-A826539241B0__P_LOCAL_BI__BASE,INC-A826539241B0,aegislab,7e556b87ce5c5c2ea4a04798eb7eb96d561f21b981be428c03290a6b359b5e59,P_LOCAL_BI,BASE,JVMMemoryStress,service,1,,vllm,5869,193,5448,16340,6062,39.80817150099983,2.63006526900017,34.7629359030002,399.3437164679999,,8.48681038199993,continuous_cold_including_queue,False,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""738"", ""753"", ""743"", ""741"", ""738""]",high,"['738', '753', '743', '741', '738'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['738', '753', '743', '741', '738']",[],['738']
+INC-A826539241B0__P_SOFT_IMAGE__BASE,INC-A826539241B0,aegislab,7e556b87ce5c5c2ea4a04798eb7eb96d561f21b981be428c03290a6b359b5e59,P_SOFT_IMAGE,BASE,JVMMemoryStress,service,1,,vllm,5869,164,5448,16340,6033,39.725646421999045,2.508494529000018,28.273112890001357,987.5313152319995,,9.074792431999413,continuous_cold_including_queue,False,,0,1,False,P_SOFT_IMAGE,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""738"", ""753"", ""743"", ""741"", ""738""]",high,"['738', '753', '743', '741', '738'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['738', '753', '743', '741', '738']",[],['738']
+INC-A826539241B0__X_SP__BASE,INC-A826539241B0,aegislab,7e556b87ce5c5c2ea4a04798eb7eb96d561f21b981be428c03290a6b359b5e59,X_SP,BASE,JVMMemoryStress,service,1,,concurrency_v11,4626,214,4205,16340,4840,151.28514419099884,2.4780904409999494,146.80761681199874,328.46912697800144,,7.152857457000209,continuous_cold_including_queue,False,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,0.0,0.0,True,False,True,__INVALID__,"[""743"", ""753"", ""738"", ""738"", ""741""]",high,"['743', '753', '738', '738', '741'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['743', '753', '738', '738', '741']",[],['738']
+INC-AE71A9C68D35__C_LOCAL_FORWARD__BASE,INC-AE71A9C68D35,aiops2025,570a07d214f29d92cb9b3367d01299c7f0311edf9b5e239b477848d74a92af5e,C_LOCAL_FORWARD,BASE,network corrupt,service,1,,vllm,5224,270,4803,16275,5494,47.90573314400035,2.4666693990002386,43.52937981700006,685.8644400920002,,8.09639951600002,continuous_cold_including_queue,False,,0,3,False,C_LOCAL_FORWARD,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,True,True,False,__INVALID__,"[""853"", ""871"", ""634"", ""553"", ""162""]",high,unknown/duplicate entity,['553'],[]
+INC-AE71A9C68D35__P_SOFT_IMAGE__BASE,INC-AE71A9C68D35,aiops2025,570a07d214f29d92cb9b3367d01299c7f0311edf9b5e239b477848d74a92af5e,P_SOFT_IMAGE,BASE,network corrupt,service,1,,vllm,5224,270,4803,16275,5494,59.54089717399984,2.3983792399994854,54.809852574000615,3671.3320261360004,,9.68802982499983,continuous_cold_including_queue,False,,0,1,False,P_SOFT_IMAGE,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,0.0,0.0,True,True,False,__INVALID__,"[""853"", ""793"", ""871"", ""634"", ""855""]",high,unknown/duplicate entity,['855'],[]
+INC-B4C69A1E0459__R_PACK_HORIZON__BASE,INC-B4C69A1E0459,aegislab,50f205c939e5ff71866396bd8a3225d85798c13beaba5ad526454b44a43c480d,R_PACK_HORIZON,BASE,HTTPResponseDelay,service,1,,vllm,7098,244,5530,15535,7342,56.57788077300006,2.262749139000107,50.96542613299994,,1269.198590906,1.7784411160000104,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""113"", ""556"", ""692"", ""567"", ""174""]",medium,unknown/duplicate entity,['567'],[]
+INC-B8CEA35848D0__C_GLOBAL_BI__BASE,INC-B8CEA35848D0,aiops2025,f54426c34c59dfd526b65b1adadd66b2afb02b3587d956cdcb72d119d33315c5,C_GLOBAL_BI,BASE,target port misconfig,service,1,,vllm,5240,357,4819,16262,5597,71.41119440799957,2.401182161000179,64.38746238900058,2326.3426143340002,,9.172601254002075,continuous_cold_including_queue,True,,0,3,False,C_GLOBAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,0.0,0.0,True,True,False,__INVALID__,"[""917"", ""755"", ""262"", ""969"", ""415""]",medium,unknown/duplicate entity,['755'],[]
+INC-B8CEA35848D0__C_LOCAL_FORWARD__BASE,INC-B8CEA35848D0,aiops2025,f54426c34c59dfd526b65b1adadd66b2afb02b3587d956cdcb72d119d33315c5,C_LOCAL_FORWARD,BASE,target port misconfig,service,1,,vllm,5240,227,4819,16262,5467,44.288330617999236,2.4546595359988714,35.54680534700128,761.5671778750002,,8.249193350000496,continuous_cold_including_queue,False,,0,3,False,C_LOCAL_FORWARD,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,0.0,0.0,True,True,False,__INVALID__,"[""917"", ""755"", ""262"", ""969"", ""415""]",medium,unknown/duplicate entity,['755'],[]
+INC-B8CEA35848D0__C_READ_GUIDE__BASE,INC-B8CEA35848D0,aiops2025,f54426c34c59dfd526b65b1adadd66b2afb02b3587d956cdcb72d119d33315c5,C_READ_GUIDE,BASE,target port misconfig,service,1,,vllm,6387,173,4819,16262,6560,36.419845020998764,2.3515778589971887,27.899717856998905,,2460.5921158870005,2.240277215001697,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,0.0,0.0,True,True,False,__INVALID__,"[""917"", ""755"", ""262"", ""969"", ""415""]",high,unknown/duplicate entity,['755'],[]
+INC-B8CEA35848D0__C_SHAM_BI__BASE,INC-B8CEA35848D0,aiops2025,f54426c34c59dfd526b65b1adadd66b2afb02b3587d956cdcb72d119d33315c5,C_SHAM_BI,BASE,target port misconfig,service,1,,hf_legacy,5240,185,4819,16262,5425,18.78053776699926,2.3596217169997544,15.535149968000042,26.23096235600042,,7.059783474000142,continuous_cold_including_queue,False,,0,3,False,C_SHAM_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,0.0,0.0,True,True,False,__INVALID__,"[""917"", ""755"", ""262"", ""969"", ""415""]",high,unknown/duplicate entity,['755'],[]
+INC-B8CEA35848D0__P_DUAL__BASE,INC-B8CEA35848D0,aiops2025,f54426c34c59dfd526b65b1adadd66b2afb02b3587d956cdcb72d119d33315c5,P_DUAL,BASE,target port misconfig,service,1,,vllm,5240,275,4819,16262,5515,60.248776907999854,2.44534290699994,50.48111443000016,165.5894299219999,,8.294694657000036,continuous_cold_including_queue,False,,0,4,False,P_DUAL,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,0.0,0.0,True,True,False,__INVALID__,"[""917"", ""755"", ""262"", ""969"", ""415""]",medium,unknown/duplicate entity,['755'],[]
+INC-B8CEA35848D0__P_LOCAL_BI__BASE,INC-B8CEA35848D0,aiops2025,f54426c34c59dfd526b65b1adadd66b2afb02b3587d956cdcb72d119d33315c5,P_LOCAL_BI,BASE,target port misconfig,service,1,,hf_legacy,5240,187,4819,16262,5427,18.158751151000615,2.338260040000023,14.980655737999768,24.77452181099943,,6.287512011999752,continuous_cold_including_queue,True,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,0.0,0.0,True,True,False,__INVALID__,"[""917"", ""755"", ""262"", ""969"", ""795""]",medium,unknown/duplicate entity,['755'],[]
+INC-B8CEA35848D0__P_LOCAL_BI__ORDER,INC-B8CEA35848D0,aiops2025,f54426c34c59dfd526b65b1adadd66b2afb02b3587d956cdcb72d119d33315c5,P_LOCAL_BI,ORDER,target port misconfig,service,1,,hf_legacy,5240,203,4819,16262,5443,19.314327902000514,2.3363924189998215,16.155709705000845,25.966786832001162,,6.311549289999675,continuous_cold_including_queue,True,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""142"", ""219"", ""969"", ""755"", ""463""]",high,unknown/duplicate entity,['755'],[]
+INC-B8CEA35848D0__P_LOCAL_BI__REPEAT,INC-B8CEA35848D0,aiops2025,f54426c34c59dfd526b65b1adadd66b2afb02b3587d956cdcb72d119d33315c5,P_LOCAL_BI,REPEAT,target port misconfig,service,1,,hf_legacy,5240,212,4819,16262,5452,19.84718587899988,2.335929953998857,16.721762633000253,26.285903324000174,,6.0984180940013175,continuous_cold_including_queue,True,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,0.0,0.0,True,True,False,__INVALID__,"[""917"", ""755"", ""262"", ""969"", ""795""]",high,unknown/duplicate entity,['755'],[]
+INC-B8CEA35848D0__P_SOFT_IMAGE__BASE,INC-B8CEA35848D0,aiops2025,f54426c34c59dfd526b65b1adadd66b2afb02b3587d956cdcb72d119d33315c5,P_SOFT_IMAGE,BASE,target port misconfig,service,1,,vllm,5240,255,4819,16262,5495,40.25071858599949,2.3624654639988876,33.7796047289994,2707.7561771029996,,8.443620080000983,continuous_cold_including_queue,False,,0,1,False,P_SOFT_IMAGE,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,0.0,0.0,True,True,False,__INVALID__,"[""917"", ""755"", ""262"", ""969"", ""415""]",medium,unknown/duplicate entity,['755'],[]
+INC-B8CEA35848D0__S_JOINT__BASE,INC-B8CEA35848D0,aiops2025,f54426c34c59dfd526b65b1adadd66b2afb02b3587d956cdcb72d119d33315c5,S_JOINT,BASE,target port misconfig,service,1,,vllm,4318,99,3897,16262,4417,22.818298209000204,2.5048583020002297,17.827562914000282,667.7235377939996,,8.053428008999617,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""969"", ""917"", ""775"", ""917"", ""775""]",low,"['969', '917', '775', '917', '775'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['969', '917', '775', '917', '775']",[],"['917', '775']"
+INC-B8CEA35848D0__U__ORDER,INC-B8CEA35848D0,aiops2025,f54426c34c59dfd526b65b1adadd66b2afb02b3587d956cdcb72d119d33315c5,U,ORDER,target port misconfig,service,1,,vllm,5240,212,4819,16262,5452,45.16688648700074,2.503332088001116,40.03570566599956,441.4579560940001,,8.468111492999924,continuous_cold_including_queue,True,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.2,0.0,0.0,0.0,True,True,False,__INVALID__,"[""142"", ""219"", ""969"", ""755"", ""262""]",high,unknown/duplicate entity,['755'],[]
+INC-B8CEA35848D0__U__REPEAT,INC-B8CEA35848D0,aiops2025,f54426c34c59dfd526b65b1adadd66b2afb02b3587d956cdcb72d119d33315c5,U,REPEAT,target port misconfig,service,1,,vllm,5240,199,4819,16262,5439,35.59273827300058,2.3668698080000468,31.240206468000906,3854.7221605470004,,9.09443246400042,continuous_cold_including_queue,True,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,0.0,0.0,True,True,False,__INVALID__,"[""917"", ""755"", ""262"", ""969"", ""415""]",high,unknown/duplicate entity,['755'],[]
+INC-B8CEA35848D0__X_SP__BASE,INC-B8CEA35848D0,aiops2025,f54426c34c59dfd526b65b1adadd66b2afb02b3587d956cdcb72d119d33315c5,X_SP,BASE,target port misconfig,service,1,,vllm,4318,110,3897,16262,4428,19.947540190001746,2.3896234140011074,14.310006375002558,1770.8181096749977,,9.088019533999613,continuous_cold_including_queue,False,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""969"", ""917"", ""775"", ""917"", ""775""]",medium,"['969', '917', '775', '917', '775'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['969', '917', '775', '917', '775']",[],"['917', '775']"
+INC-B9652C6DC060__P_DUAL__BASE,INC-B9652C6DC060,aiops2025,1e04e7e8da5ab99eeac124cbc785bf2223407ad103b3843a659ba84f7e312ace,P_DUAL,BASE,cpu stress,pod/service,1,,vllm,5409,188,4988,16289,5597,33.551360138000746,2.348353441000654,29.658171578999827,1974.0796939030006,,9.281571092000377,continuous_cold_including_queue,False,,0,4,False,P_DUAL,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,0.0,0.0,True,True,False,__INVALID__,"[""598"", ""565"", ""969"", ""118"", ""12288""]",high,unknown/duplicate entity,['118'],[]
+INC-C10F5EA649A5__C_SOURCE_HASH__BASE,INC-C10F5EA649A5,aiops2025,4dbb7da8047e2b1c26c762a245b251a0e763db3c613eb5745c65ee7eedd08450,C_SOURCE_HASH,BASE,node memory stress,node,1,,vllm,4706,154,4285,16289,4860,30.125772715000494,2.4531883349991404,25.27939171199978,2016.7845681860017,,8.286248692002118,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""392"", ""696"", ""417"", ""611"", ""942""]",high,unknown/duplicate entity,['611'],[]
+INC-C2222DBA0446__R_PACK_HORIZON__BASE,INC-C2222DBA0446,aiops2025,b393ba074d9bea0828d73074e6f1a9bd76576f4d88ee4bfeb50ded65632e1280,R_PACK_HORIZON,BASE,network delay,service,1,,vllm,6531,208,4963,14495,6739,34.97669238599997,1.9442256199999974,30.11756279799988,,1588.964259942,1.5321628269999792,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,True,__INVALID__,"[""5185"", ""51185"", ""51497"", ""51497"", ""51497""]",low,"['5185', '51185', '51497', '51497', '51497'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['5185', '51185', '51497', '51497', '51497']",['51185'],"['51497', '51497']"
+INC-C83F01A1BA7F__C_PACK_BG_FILL__BASE,INC-C83F01A1BA7F,aiops2022,290842fdf15dbe3153547d3f01b1ad6227e3aecd2e6945737e42f142ee028acd,C_PACK_BG_FILL,BASE,node 磁盘空间消耗,node,1,,vllm,6930,285,5362,14885,7215,49.0817159319995,2.0527421130027506,45.886247529000684,,5766.310072327,1.663497459001519,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,True,True,False,__INVALID__,"[""316"", ""3775"", ""3540"", ""922"", ""375""]",high,unknown/duplicate entity,['375'],[]
+INC-C83F01A1BA7F__C_SOURCE_HASH__BASE,INC-C83F01A1BA7F,aiops2022,290842fdf15dbe3153547d3f01b1ad6227e3aecd2e6945737e42f142ee028acd,C_SOURCE_HASH,BASE,node 磁盘空间消耗,node,1,,vllm,5362,284,4941,16200,5646,49.571274006999374,2.4153915450006025,44.90888362899932,1562.7044925769987,,8.092581604999395,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""158"", ""134"", ""137"", ""13034"", ""134""]",high,"['158', '134', '137', '13034', '134'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['158', '134', '137', '13034', '134']",[],['134']
+INC-C83F01A1BA7F__X_SP__BASE,INC-C83F01A1BA7F,aiops2022,290842fdf15dbe3153547d3f01b1ad6227e3aecd2e6945737e42f142ee028acd,X_SP,BASE,node 磁盘空间消耗,node,1,,vllm,5371,206,4950,16200,5577,46.4428222789993,2.503784390999499,35.843812181999965,522.1830328960004,,8.33909509500063,continuous_cold_including_queue,False,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""158"", ""134"", ""137"", ""13034"", ""134""]",high,"['158', '134', '137', '13034', '134'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['158', '134', '137', '13034', '134']",[],['134']
+INC-C94A18F2915E__S_JOINT__BASE,INC-C94A18F2915E,aiops2025,99b53e82d2e015f9261d7219c2cff82a3b1ac258eb32baf2ac9343b8aecc1b1f,S_JOINT,BASE,memory stress,pod/service,1,,vllm,4809,225,4388,16198,5034,41.21060888700049,2.3591225809996104,35.42997472299976,4040.768901186,,8.486754438999924,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""251"", ""484"", ""501"", ""3485"", ""4773""]",medium,unknown/duplicate entity,['4773'],[]
+INC-CD6BD563E846__P_DUAL__BASE,INC-CD6BD563E846,aiops2022,5c0c3d36f500cef9c4be2daeda0a7b7c8ba47f91a7af354be7f6aeeea5bd5498,P_DUAL,BASE,node节点CPU爬升,node,1,,hf_legacy,5822,211,5401,16284,6033,20.455289304999496,2.3608321310002793,17.308507314000053,26.881782099000702,,6.07196591400043,continuous_cold_including_queue,False,,0,4,False,P_DUAL,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,0.0,0.0,True,True,False,__INVALID__,"[""832"", ""1343"", ""2708"", ""483"", ""805""]",high,unknown/duplicate entity,['805'],[]
+INC-CDC8083CEEE3__C_SOURCE_HASH__BASE,INC-CDC8083CEEE3,aiops2022,604f0793d90928d4e9b26062b537966d68288375ffd5521955cf8e63b03ef856,C_SOURCE_HASH,BASE,k8s容器网络延迟,service,1,,vllm,5113,188,4692,16284,5301,44.36548983100056,2.4561645009998756,36.69165380800041,377.47113867900043,,8.18817742200008,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""40194"", ""43766"", ""40581"", ""43766"", ""40194""]",high,"['40194', '43766', '40581', '43766', '40194'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['40194', '43766', '40581', '43766', '40194']",[],"['43766', '40194']"
+INC-CEA641BA3229__C_GLOBAL_BI__BASE,INC-CEA641BA3229,aegislab,9f7bcf6d742f16891c16fb024c902b7d05a5965a9b5836db0e00610ba2bd8944,C_GLOBAL_BI,BASE,HTTPRequestAbort,service,1,,vllm,5924,168,5503,16192,6092,33.58069823199912,2.543883130998438,23.790241652997793,1475.6938042539987,,8.93928719700125,continuous_cold_including_queue,True,,0,3,False,C_GLOBAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""517"", ""681"", ""654"", ""517"", ""681""]",high,"['517', '681', '654', '517', '681'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['517', '681', '654', '517', '681']",[],"['517', '681']"
+INC-CEA641BA3229__C_LOCAL_FORWARD__BASE,INC-CEA641BA3229,aegislab,9f7bcf6d742f16891c16fb024c902b7d05a5965a9b5836db0e00610ba2bd8944,C_LOCAL_FORWARD,BASE,HTTPRequestAbort,service,1,,concurrency_v12,5924,168,5503,16192,6092,104.47385402299915,2.452841542999522,100.08378864599945,162.7440813760004,,9.042830761001824,continuous_cold_including_queue,False,,0,3,False,C_LOCAL_FORWARD,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""517"", ""681"", ""654"", ""517"", ""681""]",medium,"['517', '681', '654', '517', '681'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['517', '681', '654', '517', '681']",[],"['517', '681']"
+INC-CEA641BA3229__C_READ_GUIDE__BASE,INC-CEA641BA3229,aegislab,9f7bcf6d742f16891c16fb024c902b7d05a5965a9b5836db0e00610ba2bd8944,C_READ_GUIDE,BASE,HTTPRequestAbort,service,1,,vllm,7071,189,5503,16192,7260,37.06116999399819,2.348138960001961,33.08862631399825,,5380.294529827999,2.1965157199992973,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""517"", ""681"", ""654"", ""517"", ""681""]",medium,"['517', '681', '654', '517', '681'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['517', '681', '654', '517', '681']",[],"['517', '681']"
+INC-CEA641BA3229__C_SHAM_BI__BASE,INC-CEA641BA3229,aegislab,9f7bcf6d742f16891c16fb024c902b7d05a5965a9b5836db0e00610ba2bd8944,C_SHAM_BI,BASE,HTTPRequestAbort,service,1,,vllm,5924,192,5503,16192,6116,42.22425542000201,2.7201890319993254,31.79941930700079,2113.3166304100014,,8.997871442999894,continuous_cold_including_queue,False,,0,3,False,C_SHAM_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""517"", ""681"", ""654"", ""517"", ""681""]",medium,"['517', '681', '654', '517', '681'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['517', '681', '654', '517', '681']",[],"['517', '681']"
+INC-CEA641BA3229__P_DUAL__BASE,INC-CEA641BA3229,aegislab,9f7bcf6d742f16891c16fb024c902b7d05a5965a9b5836db0e00610ba2bd8944,P_DUAL,BASE,HTTPRequestAbort,service,1,,vllm,5924,181,5503,16192,6105,85.71369864099961,2.3887594070001796,35.935897635999936,479.76747236899973,,9.43155713499982,continuous_cold_including_queue,False,,0,4,False,P_DUAL,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""517"", ""681"", ""654"", ""517"", ""681""]",high,"['517', '681', '654', '517', '681'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['517', '681', '654', '517', '681']",[],"['517', '681']"
+INC-CEA641BA3229__P_LOCAL_BI__BASE,INC-CEA641BA3229,aegislab,9f7bcf6d742f16891c16fb024c902b7d05a5965a9b5836db0e00610ba2bd8944,P_LOCAL_BI,BASE,HTTPRequestAbort,service,1,,hf_legacy,5924,171,5503,16192,6095,17.29558429000008,2.323004657000638,14.156815903000279,24.008456007999484,,6.376297709999562,continuous_cold_including_queue,True,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""517"", ""681"", ""654"", ""517"", ""681""]",medium,"['517', '681', '654', '517', '681'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['517', '681', '654', '517', '681']",[],"['517', '681']"
+INC-CEA641BA3229__P_LOCAL_BI__REPEAT,INC-CEA641BA3229,aegislab,9f7bcf6d742f16891c16fb024c902b7d05a5965a9b5836db0e00610ba2bd8944,P_LOCAL_BI,REPEAT,HTTPRequestAbort,service,1,,vllm,5924,179,5503,16192,6103,34.98009934699985,2.4447525710002083,28.02800242400008,365.706109193,,8.398916359000395,continuous_cold_including_queue,True,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""517"", ""681"", ""654"", ""517"", ""681""]",high,"['517', '681', '654', '517', '681'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['517', '681', '654', '517', '681']",[],"['517', '681']"
+INC-CEA641BA3229__P_SOFT_IMAGE__BASE,INC-CEA641BA3229,aegislab,9f7bcf6d742f16891c16fb024c902b7d05a5965a9b5836db0e00610ba2bd8944,P_SOFT_IMAGE,BASE,HTTPRequestAbort,service,1,,concurrency_v9,5924,163,5503,16192,6087,97.43058279899924,2.4368632289988454,93.18803916600154,186.60011073600072,,8.632434662000378,continuous_cold_including_queue,False,,0,1,False,P_SOFT_IMAGE,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""517"", ""681"", ""654"", ""517"", ""681""]",medium,"['517', '681', '654', '517', '681'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['517', '681', '654', '517', '681']",[],"['517', '681']"
+INC-CEA641BA3229__U__REPEAT,INC-CEA641BA3229,aegislab,9f7bcf6d742f16891c16fb024c902b7d05a5965a9b5836db0e00610ba2bd8944,U,REPEAT,HTTPRequestAbort,service,1,,vllm,5924,144,5503,16192,6068,31.941771437999705,2.6436334360005276,26.50180764200195,1498.7993235239992,,8.992460176999884,continuous_cold_including_queue,True,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""517"", ""681"", ""654"", ""517"", ""681""]",high,"['517', '681', '654', '517', '681'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['517', '681', '654', '517', '681']",[],"['517', '681']"
+INC-D195A4C0D9B6__C_PACK_BG_FILL__BASE,INC-D195A4C0D9B6,aiops2022,c24722134e20a7032bc49ce3ff407733ecfa876cb1635893cff151fb3e3346a3,C_PACK_BG_FILL,BASE,k8s容器读io负载,pod,1,,vllm,6618,179,5050,14904,6797,39.854841183001554,2.2569086590010556,35.95423800400022,,5819.048547719998,1.6183681869988504,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""103"", ""123"", ""122"", ""1283"", ""128""]",medium,unknown/duplicate entity,['1283'],[]
+INC-D195A4C0D9B6__C_PACK_OFFSET__BASE,INC-D195A4C0D9B6,aiops2022,c24722134e20a7032bc49ce3ff407733ecfa876cb1635893cff151fb3e3346a3,C_PACK_OFFSET,BASE,k8s容器读io负载,pod,1,,vllm,6618,167,5050,14904,6785,31.857089161000204,2.0929348810000192,25.00538698599985,,1054.330375161,1.682290653999985,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""103"", ""122"", ""123"", ""1283"", ""12608""]",high,unknown/duplicate entity,['1283'],[]
+INC-D195A4C0D9B6__R_PACK_HORIZON__BASE,INC-D195A4C0D9B6,aiops2022,c24722134e20a7032bc49ce3ff407733ecfa876cb1635893cff151fb3e3346a3,R_PACK_HORIZON,BASE,k8s容器读io负载,pod,1,,vllm,6618,188,5050,14904,6806,31.6200430530007,2.0700847939988307,25.10848785899725,,7319.4886998699985,1.7107011769985547,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""123"", ""103"", ""1283"", ""128"", ""122""]",high,unknown/duplicate entity,['1283'],[]
+INC-D195A4C0D9B6__R_PATCH_PACK__BASE,INC-D195A4C0D9B6,aiops2022,c24722134e20a7032bc49ce3ff407733ecfa876cb1635893cff151fb3e3346a3,R_PATCH_PACK,BASE,k8s容器读io负载,pod,1,,vllm,6618,179,5050,14904,6797,35.469690128000366,2.0699262249981984,30.320228243999736,,6451.056015842001,1.784418351999193,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""103"", ""123"", ""122"", ""1283"", ""128""]",medium,unknown/duplicate entity,['1283'],[]
+INC-D195A4C0D9B6__X_RP__BASE,INC-D195A4C0D9B6,aiops2022,c24722134e20a7032bc49ce3ff407733ecfa876cb1635893cff151fb3e3346a3,X_RP,BASE,k8s容器读io负载,pod,1,,vllm,6618,223,5050,14904,6841,43.36194435599998,2.2480471899999657,39.89678178700001,,542.6351893660001,1.642897597000001,qualified_input_cache; excludes offline compilation/rendering,False,,0,3,False,P_LOCAL_BI,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""103"", ""123"", ""122"", ""1283"", ""128""]",high,unknown/duplicate entity,['1283'],[]
+INC-D87134FF9ACF__P_DUAL__BASE,INC-D87134FF9ACF,aiops2025,78eb2535b3ace0933831725e8375f46feb43b125ae342cf720098f430620d18f,P_DUAL,BASE,dns error,pod/service,1,,hf_legacy,5403,232,4982,16290,5635,21.19796499899894,2.341575307000312,18.08943782999995,27.63148411899965,,6.094597485000122,continuous_cold_including_queue,False,,0,4,False,P_DUAL,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.3333333333333333,0.0,0.0,0.0,True,True,False,__INVALID__,"[""541"", ""645"", ""380"", ""441"", ""585""]",high,unknown/duplicate entity,['585'],[]
+INC-EAA097A406D6__C_GLOBAL_BI__BASE,INC-EAA097A406D6,aiops2022,2e0d6bd3c49323bfb0e977a215ab1a49d996690b2d3710ef353069d23fbf94c2,C_GLOBAL_BI,BASE,k8s容器网络资源包损坏,service,1,,vllm,5780,175,5359,16340,5955,42.4171776889998,2.523646915000427,36.89930235199972,889.3804476469995,,8.87014001100033,continuous_cold_including_queue,False,,0,3,False,C_GLOBAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0,True,True,False,__INVALID__,"[""850"", ""849"", ""858"", ""897"", ""896""]",high,unknown/duplicate entity,['896'],[]
+INC-EAA097A406D6__P_DUAL__BASE,INC-EAA097A406D6,aiops2022,2e0d6bd3c49323bfb0e977a215ab1a49d996690b2d3710ef353069d23fbf94c2,P_DUAL,BASE,k8s容器网络资源包损坏,service,1,,vllm,5780,231,5359,16340,6011,45.56665400699967,2.4720895030004613,39.93710665799972,1172.9372720250003,,8.627946286000224,continuous_cold_including_queue,False,,0,4,False,P_DUAL,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""849"", ""850"", ""847"", ""329"", ""1510""]",medium,unknown/duplicate entity,['847'],[]
+INC-EAA097A406D6__P_LOCAL_BI__BASE,INC-EAA097A406D6,aiops2022,2e0d6bd3c49323bfb0e977a215ab1a49d996690b2d3710ef353069d23fbf94c2,P_LOCAL_BI,BASE,k8s容器网络资源包损坏,service,1,,vllm,5780,216,5359,16340,5996,38.17454676400121,2.4227002120005636,32.69263733799926,2324.701489621999,,9.465610137998738,continuous_cold_including_queue,False,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""849"", ""850"", ""847"", ""329"", ""1510""]",high,unknown/duplicate entity,['847'],[]
+INC-F162EC56F576__C_SOURCE_HASH__BASE,INC-F162EC56F576,aiops2025,3c29db26ebb857465b782d378be95b3f8dc6f22f48a20721ffe2679f4a340ae2,C_SOURCE_HASH,BASE,pod failure,service,1,,hf_legacy,4563,204,4142,16284,4767,19.021774312999696,2.367398900999433,15.90890109799966,25.318745457999285,,5.950932189999548,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.25,0.0,0.0,0.0,True,True,False,__INVALID__,"[""640"", ""544"", ""238"", ""564"", ""935""]",medium,unknown/duplicate entity,['935'],[]
+INC-F5B2E7B7AD42__S_JOINT__BASE,INC-F5B2E7B7AD42,aiops2022,64720db017ae2acdb1e550b85948cc08afdd35933e944991726352a8fe41dd01,S_JOINT,BASE,k8s容器进程中止,service,1,,concurrency_v9,4829,200,4408,16168,5029,123.87487781199889,2.4015642490012397,119.76856532999955,185.15683163200083,,8.709158810999725,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""93863"", ""66259"", ""40319"", ""11941"", ""63390""]",high,unknown/duplicate entity,['63390'],[]
+INC-F5B2E7B7AD42__X_SP__BASE,INC-F5B2E7B7AD42,aiops2022,64720db017ae2acdb1e550b85948cc08afdd35933e944991726352a8fe41dd01,X_SP,BASE,k8s容器进程中止,service,1,,hf_legacy,4829,250,4408,16168,5079,23.263103756999953,2.3411283109999204,19.997202962999836,30.866664802999367,,7.216125400999772,continuous_cold_including_queue,False,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""93863"", ""66259"", ""40319"", ""11941"", ""63390""]",high,unknown/duplicate entity,['63390'],[]
+INC-F8B9BD5ADA9C__R_HORIZON__BASE,INC-F8B9BD5ADA9C,aiops2022,19fdb666629f0bf5e2af70a09f70bbd9b4f3affeef2c3d327640a963b4cff551,R_HORIZON,BASE,k8s容器网络资源包重复发送,service,1,,vllm,6851,264,5283,14625,7115,48.11288812299972,1.9704946609999752,42.2426473380001,,6332.106931508999,1.5580504419995123,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""416"", ""453"", ""7036"", ""2887"", ""416""]",high,"['416', '453', '7036', '2887', '416'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['416', '453', '7036', '2887', '416']",[],['416']
+INC-FC843F9AD625__C_LOCAL_FORWARD__BASE,INC-FC843F9AD625,aiops2022,71eecb91802c272609bb0a51adaf67425e7a14403997749ce2fb25a73c96b9ef,C_LOCAL_FORWARD,BASE,node 磁盘写IO消耗,node,1,,vllm,5737,189,5316,16198,5926,44.25654180199945,2.413114986000437,39.70771059600065,920.7335356269996,,8.576104173000203,continuous_cold_including_queue,False,,0,3,False,C_LOCAL_FORWARD,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""12277"", ""74085"", ""15435"", ""15435"", ""15435""]",high,"['12277', '74085', '15435', '15435', '15435'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['12277', '74085', '15435', '15435', '15435']",[],"['15435', '15435']"
+INC-FC843F9AD625__C_READ_GUIDE__BASE,INC-FC843F9AD625,aiops2022,71eecb91802c272609bb0a51adaf67425e7a14403997749ce2fb25a73c96b9ef,C_READ_GUIDE,BASE,node 磁盘写IO消耗,node,1,,vllm,6884,275,5316,16198,7159,46.42775248899852,2.543649403996824,42.317446916000335,,2331.7955504799975,2.224619941000128,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""12277"", ""74085"", ""15435"", ""15435"", ""15435""]",medium,"['12277', '74085', '15435', '15435', '15435'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['12277', '74085', '15435', '15435', '15435']",[],"['15435', '15435']"
+INC-FC843F9AD625__C_SHAM_BI__BASE,INC-FC843F9AD625,aiops2022,71eecb91802c272609bb0a51adaf67425e7a14403997749ce2fb25a73c96b9ef,C_SHAM_BI,BASE,node 磁盘写IO消耗,node,1,,hf_legacy,5737,223,5316,16198,5960,21.828503335000278,2.356178369999725,18.593311330999313,29.051003319999836,,6.801307146999534,continuous_cold_including_queue,False,,0,3,False,C_SHAM_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""12277"", ""74085"", ""15435"", ""15435"", ""15435""]",high,"['12277', '74085', '15435', '15435', '15435'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['12277', '74085', '15435', '15435', '15435']",[],"['15435', '15435']"
+INC-FC843F9AD625__P_DUAL__BASE,INC-FC843F9AD625,aiops2022,71eecb91802c272609bb0a51adaf67425e7a14403997749ce2fb25a73c96b9ef,P_DUAL,BASE,node 磁盘写IO消耗,node,1,,vllm,5737,161,5316,16198,5898,38.311532007001006,2.3712282500000583,27.919068372000766,3917.7883849009995,,8.641216292999161,continuous_cold_including_queue,False,,0,4,False,P_DUAL,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""12277"", ""74085"", ""15435"", ""15435"", ""15435""]",medium,"['12277', '74085', '15435', '15435', '15435'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['12277', '74085', '15435', '15435', '15435']",[],"['15435', '15435']"
+INC-FC843F9AD625__P_LOCAL_BI__BASE,INC-FC843F9AD625,aiops2022,71eecb91802c272609bb0a51adaf67425e7a14403997749ce2fb25a73c96b9ef,P_LOCAL_BI,BASE,node 磁盘写IO消耗,node,1,,vllm,5737,221,5316,16198,5958,36.09221592199992,2.4394224400002713,28.284530179000285,361.49794994700005,,8.593859727000563,continuous_cold_including_queue,False,,0,3,False,P_LOCAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,False,True,__INVALID__,"[""12277"", ""74085"", ""15435"", ""15435"", ""15435""]",medium,"['12277', '74085', '15435', '15435', '15435'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['12277', '74085', '15435', '15435', '15435']",[],"['15435', '15435']"
+INC-FC843F9AD625__X_RP__BASE,INC-FC843F9AD625,aiops2022,71eecb91802c272609bb0a51adaf67425e7a14403997749ce2fb25a73c96b9ef,X_RP,BASE,node 磁盘写IO消耗,node,1,,vllm,6884,186,5316,14820,7070,37.62417578500026,2.0845353410004464,29.184635207999236,,6580.7978887829995,1.7015111340006115,qualified_input_cache; excludes offline compilation/rendering,False,,0,3,False,P_LOCAL_BI,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""12277"", ""74085"", ""93207"", ""52065"", ""10652""]",medium,unknown/duplicate entity,['93207'],[]
+INC-FDC8B6B87BEB__C_GLOBAL_BI__BASE,INC-FDC8B6B87BEB,aiops2022,c9f2a004a409d09ef372dea10aa581039709b5b3d330e0597335eb9bebf7f3fb,C_GLOBAL_BI,BASE,node 磁盘写IO消耗,node,1,,vllm,5596,135,5175,16289,5731,40.00092462699968,2.646618498999942,27.95231218500021,980.6047136729999,,8.532879305000279,continuous_cold_including_queue,False,,0,3,False,C_GLOBAL_BI,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""6950"", ""68315"", ""94699"", ""5588"", ""5958""]",high,unknown/duplicate entity,['5588'],[]
+INC-FDC8B6B87BEB__C_LOCAL_FORWARD__BASE,INC-FDC8B6B87BEB,aiops2022,c9f2a004a409d09ef372dea10aa581039709b5b3d330e0597335eb9bebf7f3fb,C_LOCAL_FORWARD,BASE,node 磁盘写IO消耗,node,1,,vllm,5596,135,5175,16289,5731,27.766523733999747,2.5150877360001687,19.545456531000127,206.45910532800008,,7.054252154000096,continuous_cold_including_queue,False,,0,3,False,C_LOCAL_FORWARD,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""6950"", ""68315"", ""94699"", ""5588"", ""5958""]",high,unknown/duplicate entity,['5588'],[]
+INC-FDC8B6B87BEB__P_DUAL__BASE,INC-FDC8B6B87BEB,aiops2022,c9f2a004a409d09ef372dea10aa581039709b5b3d330e0597335eb9bebf7f3fb,P_DUAL,BASE,node 磁盘写IO消耗,node,1,,vllm,5596,135,5175,16289,5731,26.83786791700004,2.4179161109987035,20.87449858400032,3547.8175945269995,,8.920279680000021,continuous_cold_including_queue,False,,0,4,False,P_DUAL,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""6950"", ""68315"", ""94699"", ""5588"", ""5958""]",high,unknown/duplicate entity,['5588'],[]
+INC-FFA0A74A0439__C_READ_GUIDE__BASE,INC-FFA0A74A0439,aegislab,f015f55567160627486d5a6d32b75feade7d95c08f98ee8e856ea7e9ddb515d3,C_READ_GUIDE,BASE,NetworkDelay,service,1,,vllm,6732,432,5164,16287,7164,86.94203833899883,2.438969503997214,76.8615258380014,,7058.534469113001,2.8055132949994004,qualified_input_cache; excludes offline compilation/rendering,False,,0,0,False,U,False,1568,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,True,__INVALID__,"[""792"", ""576"", ""559"", ""576"", ""792""]",medium,"['792', '576', '559', '576', '792'] has non-unique elements
+
+Failed validating 'uniqueItems' in schema['properties']['services']:
+    {'type': 'array',
+     'minItems': 5,
+     'maxItems': 5,
+     'uniqueItems': True,
+     'items': {'type': 'string'}}
+
+On instance['services']:
+    ['792', '576', '559', '576', '792']",['559'],"['576', '792']"
+INC-FFA0A74A0439__C_SOURCE_HASH__BASE,INC-FFA0A74A0439,aegislab,f015f55567160627486d5a6d32b75feade7d95c08f98ee8e856ea7e9ddb515d3,C_SOURCE_HASH,BASE,NetworkDelay,service,1,,vllm,4610,165,4189,16287,4775,42.130896595000195,2.4935159629994814,31.471099874000174,861.7053694850001,,7.642034965999301,continuous_cold_including_queue,False,,0,0,False,U,False,421,,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,True,True,False,__INVALID__,"[""792"", ""576"", ""553"", ""292"", ""912""]",high,unknown/duplicate entity,['912'],[]

@@ -9,4 +9,4 @@
 资格：10单元测试、84CPU请求、18/18 GPU smoke，分别18.351秒与276.903秒。新增18调用，累计10917。输入、raw、conversation、PNG与cost均保存；没有attention。模型回答中仍有不实关系、类型混淆和正确排名下的错误解释，全部保留，不用资格结果选择方法。
 
 协议：[experiments](../descriptions/RQ3_6_experiments.md)。
-证据：[人工审查](../results/visual_mechanisms_v1/manual_review.md)、[问题及修复](../../../docs/issues/RQ3_6_stage_B_qualification_2026-09-27.md)。
+证据：[人工审查](../../../docs/experiment_reports/pre_unified_preserved/RQs/RQ3_6/results/visual_mechanisms_v1/manual_review.md)、[问题及修复](../../../docs/issues/RQ3_6_stage_B_qualification_2026-09-27.md)。

@@ -46,7 +46,7 @@ MATRIX 平均总 token 为 23,857，BASE 为 13,628，增加约 75.1%；相对 S
 
 合并 MRR 是按实际案例数加权，macro 是三个数据集均权平均；AegisLab 是辅助解释层，不进入 AIOPS 主要统计族。所有六臂共同完成的 AIOPS 116 例中，六臂 MRR 依次为 0.3226、0.2845、0.2802、0.2974、0.3412、0.3491；排序趋势仍不能建立视觉机制。
 
-全数据集/分母/AC/AVG：[arm_metrics.csv](../../RQs/RQ3_10/results/scope_v2/analysis_reviewed_v1/arm_metrics.csv)；全六臂共同交集：[common_all_six.csv](../../RQs/RQ3_10/results/scope_v2/analysis_reviewed_v1/common_all_six.csv)；故障与根因粒度：[breakdowns.csv](../../RQs/RQ3_10/results/scope_v2/analysis_reviewed_v1/breakdowns.csv)。小粒度层只作探索，不在结果后新增显著性结论。
+全数据集/分母/AC/AVG：[arm_metrics.csv](through_RQ3_15_preserved/assets/RQs/RQ3_10/results/scope_v2/analysis_reviewed_v1/arm_metrics.csv)；全六臂共同交集：[common_all_six.csv](through_RQ3_15_preserved/assets/RQs/RQ3_10/results/scope_v2/analysis_reviewed_v1/common_all_six.csv)；故障与根因粒度：[breakdowns.csv](through_RQ3_15_preserved/assets/RQs/RQ3_10/results/scope_v2/analysis_reviewed_v1/breakdowns.csv)。小粒度层只作探索，不在结果后新增显著性结论。
 
 ## 配对统计
 
@@ -62,7 +62,7 @@ MATRIX 平均总 token 为 23,857，BASE 为 13,628，增加约 75.1%；相对 S
 |次要 SCOPE_TEXT−SUPPORT_TEXT|120|+0.0167|0.2130|0.6390|0.0866|4/3|0；[+0.0167,+0.0167]|
 |次要 SUPPORT_TEXT−CONTROL_TEXT|119|−0.0042|0.8155|0.8155|−0.0189|4/4|1；[−0.0125,+0.0042]|
 
-事件组等权敏感性：MATRIX−SCOPE_TEXT 93 组 Δ=+0.0196，Holm p=1；MATRIX−BASE 93 组 Δ=+0.0245，Holm p=0.8038；MATRIX−TILES 90 组 Δ=−0.0134，Holm p=1。组权重改变没有使主要机制成立。完整逐比较数据：[registered_contrasts.csv](../../RQs/RQ3_10/results/scope_v2/analysis_reviewed_v1/registered_contrasts.csv)。适用性层、其他模式比较：[exploratory_patterns.csv](../../RQs/RQ3_10/results/scope_v2/analysis_reviewed_v1/exploratory_patterns.csv)，只作探索。
+事件组等权敏感性：MATRIX−SCOPE_TEXT 93 组 Δ=+0.0196，Holm p=1；MATRIX−BASE 93 组 Δ=+0.0245，Holm p=0.8038；MATRIX−TILES 90 组 Δ=−0.0134，Holm p=1。组权重改变没有使主要机制成立。完整逐比较数据：[registered_contrasts.csv](through_RQ3_15_preserved/assets/RQs/RQ3_10/results/scope_v2/analysis_reviewed_v1/registered_contrasts.csv)。适用性层、其他模式比较：[exploratory_patterns.csv](through_RQ3_15_preserved/assets/RQs/RQ3_10/results/scope_v2/analysis_reviewed_v1/exploratory_patterns.csv)，只作探索。
 
 ## 范围机制为何仍未识别
 
@@ -70,7 +70,7 @@ MATRIX 平均总 token 为 23,857，BASE 为 13,628，增加约 75.1%；相对 S
 
 因此，整体的 MATRIX−TEXT 比较并不等于“负面证据有效”的因果检验。大量观测仍是 activity_unknown、zero_reference_scale 或 intermediate；这些状态明确不代表健康或故障。适用的 24 例中 MATRIX−TEXT Δ=+0.0764，SCOPE−SUPPORT Δ=+0.0903，但均 Holm p=1，小层趋势不足以改变主要结论。数据源资格原始审计见 `qualification/eligibility_audit.json` 和 `qualification/cpu.json`。
 
-CPU 原离线分析把 `confidence` 写为数字 0.0，违反冻结 schema 的字符串枚举，导致原分析中的 CPU 对照被统一判 model_failure。这是离线对照适配错误，未影响任何 VLM 响应/评分。保留原 `formal/analysis.json`；只在新的 reviewed 分析使用合法的 `confidence="low"`，原规则排名不变。修正后的 CPU AIOPS-2022 MRR=0.2322，AIOPS-2025=0.1456；适用的 23 例 AIOPS-2022 MRR=0.4036，AIOPS-2025 单例=0。AegisLab 无适用范围，hash tie 排序 MRR=0，不表示统计方法得到有效范围信息。见 [cpu_baseline.csv](../../RQs/RQ3_10/results/scope_v2/analysis_reviewed_v1/cpu_baseline.csv)。
+CPU 原离线分析把 `confidence` 写为数字 0.0，违反冻结 schema 的字符串枚举，导致原分析中的 CPU 对照被统一判 model_failure。这是离线对照适配错误，未影响任何 VLM 响应/评分。保留原 `formal/analysis.json`；只在新的 reviewed 分析使用合法的 `confidence="low"`，原规则排名不变。修正后的 CPU AIOPS-2022 MRR=0.2322，AIOPS-2025=0.1456；适用的 23 例 AIOPS-2022 MRR=0.4036，AIOPS-2025 单例=0。AegisLab 无适用范围，hash tie 排序 MRR=0，不表示统计方法得到有效范围信息。见 [cpu_baseline.csv](through_RQ3_15_preserved/assets/RQs/RQ3_10/results/scope_v2/analysis_reviewed_v1/cpu_baseline.csv)。
 
 ## 响应可信度与实际案例
 
@@ -88,13 +88,13 @@ CPU 原离线分析把 `confidence` 写为数字 0.0，违反冻结 schema 的�
 * INC-3D79B00A900E：真实 pod 99916 的巨大 memory/cache 变化在 PNG 中清晰可见。MATRIX 排 service 288 在前、pod 在后；TILES 理由提到 pod 来源，却输出服务优先。保留原粒度评分，不事后替换合法输出。
 * INC-17615889CDA7：TILES 在理由中说某 pod 缺少确认依据，却把它排第一；按项目 service/pod 容错可得正确分。说明“正确名次”与“证据充分的解释”必须分开。
 
-离线标签只用于审计分层，从未进入编译器或模型输入。完整逐位置清单：[case_inventory.csv](../../RQs/RQ3_10/results/scope_v2/analysis_reviewed_v1/case_inventory.csv)；精确根因资源覆盖：[root_coverage.csv](../../RQs/RQ3_10/results/scope_v2/analysis_reviewed_v1/root_coverage.csv)；原始筛查：[response_screens.csv](../../RQs/RQ3_10/results/scope_v2/analysis_reviewed_v1/response_screens.csv)。
+离线标签只用于审计分层，从未进入编译器或模型输入。完整逐位置清单：[case_inventory.csv](through_RQ3_15_preserved/assets/RQs/RQ3_10/results/scope_v2/analysis_reviewed_v1/case_inventory.csv)；精确根因资源覆盖：[root_coverage.csv](through_RQ3_15_preserved/assets/RQs/RQ3_10/results/scope_v2/analysis_reviewed_v1/root_coverage.csv)；原始筛查：[response_screens.csv](through_RQ3_15_preserved/assets/RQs/RQ3_10/results/scope_v2/analysis_reviewed_v1/response_screens.csv)。
 
 ## 成本与既有证据链
 
-![RQ3.10 cost and MRR](../../RQs/RQ3_10/results/scope_v2/analysis_reviewed_v1/cost_mrr.png)
+![RQ3.10 cost and MRR](through_RQ3_15_preserved/assets/RQs/RQ3_10/results/scope_v2/analysis_reviewed_v1/cost_mrr.png)
 
-图中为可用响应趋势；严谨结论使用上述配对统计和 [costs.csv](../../RQs/RQ3_10/results/scope_v2/analysis_reviewed_v1/costs.csv)。不同并发队列下请求 wall_time 不是各臂独占 GPU 计量，不把其小差异解释为吞吐收益。
+图中为可用响应趋势；严谨结论使用上述配对统计和 [costs.csv](through_RQ3_15_preserved/assets/RQs/RQ3_10/results/scope_v2/analysis_reviewed_v1/costs.csv)。不同并发队列下请求 wall_time 不是各臂独占 GPU 计量，不把其小差异解释为吞吐收益。
 
 这与既有结果一致：RQ3.6 的宿主/peer 添加没有可靠增益；RQ3.3 第二调用没有证明抵偿成本；RQ3.4 格式及核验改善不能直接转成 RCA 改善；RQ3.7C 的局部链接有部分效果，但相对最强文本以及位置机制证据有限；RQ3.8 全文本再叠全图造成性能下降与成本上升。历史结果的案例、输入和统计族不同，不能将这些数值和当前 140 例混合检验。
 

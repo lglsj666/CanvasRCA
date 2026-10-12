@@ -1,0 +1,27 @@
+{
+  "schema": "RQ41AdditionalSmokeAllowanceV1",
+  "authority": "user_2026_10_07_ten_additional_smokes",
+  "user_instruction": "\u5141\u8bb8\uff0c\u8fd9\u6b21smoke test\u518d\u7ed9\u4f6010\u6b21\u673a\u4f1a\uff0c\u6bcf\u6b2118 calls\u3002",
+  "additional_rounds": 10,
+  "calls_per_round": 18,
+  "seconds_per_round": 600,
+  "total_call_ceiling": 12000,
+  "registered_allocation_before": 8900,
+  "registered_allocation_upper_bound": 9080,
+  "original_smoke_attempts": 2,
+  "historical_probe_calls": 12,
+  "formal_enabled": false,
+  "registry": "RQs/RQ4_1/results/comparison_coding_v1/smoke_allowance_v20",
+  "round_configs": {
+    "1": "RQs/RQ4_1/configs/gpu_smoke_v20_round01.json",
+    "2": "RQs/RQ4_1/configs/gpu_smoke_v20_round02.json",
+    "3": "RQs/RQ4_1/configs/gpu_smoke_v20_round03.json",
+    "4": "RQs/RQ4_1/configs/gpu_smoke_v20_round04.json",
+    "5": "RQs/RQ4_1/configs/gpu_smoke_v20_round05.json",
+    "6": "RQs/RQ4_1/configs/gpu_smoke_v20_round06.json",
+    "7": "RQs/RQ4_1/configs/gpu_smoke_v20_round07.json",
+    "8": "RQs/RQ4_1/configs/gpu_smoke_v20_round08.json",
+    "9": "RQs/RQ4_1/configs/gpu_smoke_v20_round09.json",
+    "10": "RQs/RQ4_1/configs/gpu_smoke_v20_round10.json"
+  }
+}

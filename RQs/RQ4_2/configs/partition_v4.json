@@ -1,0 +1,76 @@
+{
+  "schema": "RQ42PartitionRegistrationV4",
+  "arms": [
+    "FULL",
+    "GEOM",
+    "SEM",
+    "SHAM",
+    "NATIVE4"
+  ],
+  "preselected": "SEM",
+  "population": {
+    "aiops2022": 60,
+    "aiops2025": 60,
+    "aegislab": 100
+  },
+  "exposure": "exposed_development",
+  "reuse_historical": [
+    "T_FULL",
+    "A_UNIFORM_E50"
+  ],
+  "ordinary_card_width": 512,
+  "grid": 32,
+  "diagnostic_font_floor": 18,
+  "stroke_floor": 1.5,
+  "maximum_image_tokens": 16384,
+  "context": 40960,
+  "maximum_output": 8192,
+  "groups": 4,
+  "partition_blocks": [
+    0,
+    22
+  ],
+  "global_blocks": [
+    23,
+    26
+  ],
+  "background_change_cap": 0.05,
+  "max_improvements": 100,
+  "membership_change_min": 0.2,
+  "cut_reduction_min": 0.15,
+  "joint_admission_fraction": 0.5,
+  "sham_replacement_min": 0.5,
+  "qa_cases_per_dataset": 20,
+  "calls": {
+    "main": 1100,
+    "qa": 240,
+    "smoke": 18,
+    "infrastructure_reserve": 142,
+    "total": 1500
+  },
+  "smoke_seconds": 600,
+  "attention_bytes_per_call": 65536,
+  "attention_total_bytes_per_10000": 1000000000,
+  "cpu_workers_max": 8,
+  "gpu_enabled": false,
+  "formal_enabled": false,
+  "authorization": "cpu_only_latest_user",
+  "readable_profile": "source_scopes_v2",
+  "stop_after": "complete_cpu_qualification",
+  "canvas_options": [
+    [
+      4096,
+      3072
+    ],
+    [
+      4096,
+      4096
+    ]
+  ],
+  "region_layout": "four_vertical_strips",
+  "region_width": 1024,
+  "grouping_algorithm": "deterministic_best_prefix_v4",
+  "max_refinement_passes": 8,
+  "objective": "original_uniform_source_unit_edges",
+  "immutable_preparation": "results/partition_v3"
+}

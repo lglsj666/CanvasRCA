@@ -1,0 +1,15 @@
+Reading the supplied mixed representation:
+
+M = metrics; R = traces; L = logs; G = directed topology. In this request, selected G evidence is supplied as a text block after the image. M, R and L evidence is displayed in the single dashboard image. Position and color do not identify the correct candidate.
+
+M cards are labelled [ECxx/Mxx]. EC numbers identify evidence cards and M numbers identify metric series; neither is an entity ID or likelihood rank. Each row explicitly prints SERVICE, NODE or POD and its numeric owner ID, followed by metric name and unit. The chart shows 64 relative-time bins. base is the comparison baseline, peak is the largest observed departure, and z is signed standardized peak deviation. MET-Z regular/current means and standard deviations compare the two public periods; deviation_sigma is their standardized mean shift and fluctuating_3sigma says whether it exceeds three standard deviations. k/M/G mean thousand/million/billion; ms/s/m mean milliseconds/seconds/minutes. Use magnitude and temporal shape together.
+
+R labels are <owner-ID> · <operation-name>. A numeric endpoint inside the operation name is not necessarily the owning entity. Each row prints count baseline -> current and exclusive p95 latency baseline -> current in milliseconds. p95 means the 95th percentile. Delta-log2 is a base-two fold change: +1 doubles and -1 halves. Exclusive latency estimates local work after child-span time is removed; inclusive latency can include downstream waiting. A high trace score is evidence to inspect, not a root-cause label.
+
+L rows give an LT template ID, owner entity, relative bin, event count, severity and normalized message. Placeholders identify variable slots. Log variable summaries give event counts and observed values or distinct counts. LOG-R compares baseline and current event/error rates. Routine request-started/completed messages are not errors by themselves. Bind every log observation to the owner printed on its own row.
+
+Each topology edge text row is `caller=<ID> -> callee=<ID>`; the arrow direction is exact. These are call edges, not deployment or hosting edges. Each onset row prints its explicit entity type and ID, estimated relative onset in minutes, source-specific z, and evidence source M or R. The onset display rank is an ordering of observed signals, not causal priority. Coincident onset does not establish causal order, and a displayed subset cannot prove an unshown edge does not exist.
+
+Service IDs have 3 digits, node IDs 4 and pod IDs 5, but use the explicit type printed on evidence rows whenever present. Public NAME GROUPS in the image link service aliases with pod-name members; they are not call edges or recommendations. Other possible candidates remain in the text candidate list.
+
+Each bordered outer card in the image is one evidence bundle. Follow the M/R/L labels rather than assuming fixed screen coordinates. Never infer the correct answer from card position, color, series number, template number, or onset rank.

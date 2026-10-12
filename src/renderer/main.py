@@ -56,6 +56,9 @@ def render(evidence_path, design_path, output):
     finally:
         browser_log.close()
     report = read(output / "manifest.json")
+    if design.get('raster_translation'):
+        from .operations.raster_translation import finish
+        report=finish(output,design,report)
     from .gates import source_fingerprint
     report["renderer_source"] = source_fingerprint()
     report["python_end_to_end_seconds"] = round(time.monotonic()-started, 3)

@@ -41,4 +41,4 @@ CPU发现projection使用了与统一bind_task_request不一致的digest序列�
 
 两个新指令条件和W_NO_K各3例×2模型实际live覆盖；其他8条件本轮只有CPU覆盖及父版路径复用，不夸称11条件全部做过新GPU调用。模型类型误述、入口/根因混淆及图像引用错误另存人工审阅，不按smoke正确率修改条件。S输入的literal audit数值/关系覆盖不足已明确记录，不能把未解析说成没有错误。
 
-完整审阅：[manual_review.md](../../RQs/RQ3_6/results/replication_v1/manual_review.md)；机器记录：[qualification.json](../../RQs/RQ3_6/results/replication_v1/qualification.json)。最终contract：`5d77be32458c919e32d61225f40fa32e4b5fddb3b5cbd2c2dfc2d1adda2b7e39`。
+完整审阅：[manual_review.md](../experiment_reports/pre_unified_preserved/RQs/RQ3_6/results/replication_v1/manual_review.md)；机器记录：[qualification.json](../../RQs/RQ3_6/results/replication_v1/qualification.json)。最终contract：`5d77be32458c919e32d61225f40fa32e4b5fddb3b5cbd2c2dfc2d1adda2b7e39`。

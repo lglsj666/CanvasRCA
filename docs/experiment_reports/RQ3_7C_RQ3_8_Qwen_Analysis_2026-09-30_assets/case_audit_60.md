@@ -18,7 +18,7 @@ Pod 57798 (hosted on node 6853) shows a definitive k8s.container.restarts anomal
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/outputs/f5cef31c7480b64611b5d2dd6bd8d0ff97f432005071854cf7db7a6938334b01.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/outputs/57efb6a52f75924dd8b704882191abdd5321b59eaeb8ab22bf86d2f1d8b455be.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/inputs/57efb6a52f75924dd8b704882191abdd5321b59eaeb8ab22bf86d2f1d8b455be.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/renders/57efb6a52f75924dd8b704882191abdd5321b59eaeb8ab22bf86d2f1d8b455be_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/renders/57efb6a52f75924dd8b704882191abdd5321b59eaeb8ab22bf86d2f1d8b455be_2.png)
 
 ## RQ3.7 · INC-3D79B00A900E · repair
 
@@ -36,7 +36,7 @@ Metrics show Pod 99916 experiencing simultaneous and massive spikes in container
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/outputs/8774b1be1c6930e50e4b2d63aa411c62b2b77fb659bed5172bda6469485159c5.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/outputs/156fd70ead9a6c548128212a961b694d1a20d0d2cbab07377cce222708299b2a.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/inputs/156fd70ead9a6c548128212a961b694d1a20d0d2cbab07377cce222708299b2a.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/renders/156fd70ead9a6c548128212a961b694d1a20d0d2cbab07377cce222708299b2a_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/renders/156fd70ead9a6c548128212a961b694d1a20d0d2cbab07377cce222708299b2a_2.png)
 
 ## RQ3.7 · INC-96E8C237EFAF · repair
 
@@ -54,7 +54,7 @@ TRC-L identifies service 240 (GetAds) as the exclusive-latency origin with a ran
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/outputs/11cfdddac01c8592e70eb42a92c7bf23ab4725992c068443c87e83060b87508a.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/outputs/92e9609b25f68a621477ddce16cb3f711ac3c539e593f579bf6c6f97dd1f25f0.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/92e9609b25f68a621477ddce16cb3f711ac3c539e593f579bf6c6f97dd1f25f0.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/renders/92e9609b25f68a621477ddce16cb3f711ac3c539e593f579bf6c6f97dd1f25f0_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/renders/92e9609b25f68a621477ddce16cb3f711ac3c539e593f579bf6c6f97dd1f25f0_2.png)
 
 ## RQ3.7 · INC-851D1AAC181D · repair
 
@@ -72,7 +72,7 @@ Service 273 is the root origin, verified by a 9.67x exclusive latency spike on i
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/outputs/50830847db3114a04e4f65f3b357ffbc4cebb558fdc9d35927a1338f3ff3f8e1.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/outputs/3bfa61c04b437ab7ef842714c05d4aca0c4a9985b6ed1a9c5368df22a3141cb1.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/inputs/3bfa61c04b437ab7ef842714c05d4aca0c4a9985b6ed1a9c5368df22a3141cb1.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/renders/3bfa61c04b437ab7ef842714c05d4aca0c4a9985b6ed1a9c5368df22a3141cb1_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/renders/3bfa61c04b437ab7ef842714c05d4aca0c4a9985b6ed1a9c5368df22a3141cb1_2.png)
 
 ## RQ3.7 · INC-0F8A700B240D · repair
 
@@ -90,7 +90,7 @@ Metrics show service 47001 has a sustained working-set jump to ~50MB (sigma 3.1)
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/outputs/d9f042b4eac328de38ff08ea4dc6eb2001f9e9ffc5fe974689b0c4fd87ede938.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/outputs/e2da0d08f8119c07c3122d82abebcf0e1e83d2eff85841d2ec4b8f7e03faa641.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/inputs/e2da0d08f8119c07c3122d82abebcf0e1e83d2eff85841d2ec4b8f7e03faa641.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/renders/e2da0d08f8119c07c3122d82abebcf0e1e83d2eff85841d2ec4b8f7e03faa641_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/renders/e2da0d08f8119c07c3122d82abebcf0e1e83d2eff85841d2ec4b8f7e03faa641_2.png)
 
 ## RQ3.7 · INC-7AB932D940B7 · repair
 
@@ -108,7 +108,7 @@ Pod 23927 shows a decisive root-cause signature with an exclusive p95 latency of
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/outputs/86244063b54593f37d5ea256bd0dd1deb5070ad858a8666ba08bb5d6523feee0.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/outputs/c826df1a1a1ebf7d304f5ad26adcc8876e8f34ffdc078ce5adefe6a591075c21.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/inputs/c826df1a1a1ebf7d304f5ad26adcc8876e8f34ffdc078ce5adefe6a591075c21.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/renders/c826df1a1a1ebf7d304f5ad26adcc8876e8f34ffdc078ce5adefe6a591075c21_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/renders/c826df1a1a1ebf7d304f5ad26adcc8876e8f34ffdc078ce5adefe6a591075c21_2.png)
 
 ## RQ3.7 · INC-37ABFB78A80E · repair
 
@@ -126,7 +126,7 @@ Service 364 is the root origin, with evidence verifying the top candidate and ru
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/outputs/6e8a63fef97a5eb9202c2ee003a19822eb7ae881ab9c717810b25b32f68c4036.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/outputs/b2a210ea5190fd735bbbb981fec4ed0e736474aecdf76fa2f6a7791f6f561c1b.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/b2a210ea5190fd735bbbb981fec4ed0e736474aecdf76fa2f6a7791f6f561c1b.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/renders/b2a210ea5190fd735bbbb981fec4ed0e736474aecdf76fa2f6a7791f6f561c1b_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/renders/b2a210ea5190fd735bbbb981fec4ed0e736474aecdf76fa2f6a7791f6f561c1b_2.png)
 
 ## RQ3.7 · INC-CCCFF766DA4B · repair
 
@@ -144,7 +144,7 @@ MET-Z shows node 7458 is the sole component with synchronized, massive infrastru
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/outputs/04b25774ddcd3dfa78e2bdd9d196cbd5c93d682679b6469b2baabd54949abc71.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/outputs/56f17340f4a5c43bade38d7d75a194f1a634875d7c6e01e2e53a7c9557947c56.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/56f17340f4a5c43bade38d7d75a194f1a634875d7c6e01e2e53a7c9557947c56.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/renders/56f17340f4a5c43bade38d7d75a194f1a634875d7c6e01e2e53a7c9557947c56_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/renders/56f17340f4a5c43bade38d7d75a194f1a634875d7c6e01e2e53a7c9557947c56_2.png)
 
 ## RQ3.7 · INC-B3349051A0EF · repair
 
@@ -162,7 +162,7 @@ Service 860 is the root cause, verified by a 5.27x exclusive latency deviation o
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/outputs/c80272b60bd2211a71c11d0640b1d121fceb76f2a3fe83a8de9b742fb4029995.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/outputs/6205dc6d657cc6f7791daf9329637973c77b57a4b3a7238d2afe8377592156a7.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/6205dc6d657cc6f7791daf9329637973c77b57a4b3a7238d2afe8377592156a7.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/renders/6205dc6d657cc6f7791daf9329637973c77b57a4b3a7238d2afe8377592156a7_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/renders/6205dc6d657cc6f7791daf9329637973c77b57a4b3a7238d2afe8377592156a7_2.png)
 
 ## RQ3.7 · INC-5CBD8BBEC6FF · repair
 
@@ -180,7 +180,7 @@ Service 648 is the root origin, verified by a continuous memory growth and laten
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/outputs/f63ae214f18dd2700be6db4e612400244ca8230e0fc962a9fd1f6d869e482696.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/outputs/98c9b5e99c796f724e15c956150b5cccaea18bf71643f18815c72e3346f85946.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/inputs/98c9b5e99c796f724e15c956150b5cccaea18bf71643f18815c72e3346f85946.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/renders/98c9b5e99c796f724e15c956150b5cccaea18bf71643f18815c72e3346f85946_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/renders/98c9b5e99c796f724e15c956150b5cccaea18bf71643f18815c72e3346f85946_2.png)
 
 ## RQ3.7 · INC-018AC5D486B5 · break
 
@@ -198,7 +198,7 @@ Service 877 is the root origin, with evidence verifying the top candidate via an
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/outputs/560c88e3c22f867faf7a17fe5a06c71b9d6151f22e9c3c36b3d1241424b27562.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/outputs/791db178c9c3b5781260814f641caf1bb648553ba9402f35695c658c88f0c0ef.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/inputs/791db178c9c3b5781260814f641caf1bb648553ba9402f35695c658c88f0c0ef.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/renders/791db178c9c3b5781260814f641caf1bb648553ba9402f35695c658c88f0c0ef_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/renders/791db178c9c3b5781260814f641caf1bb648553ba9402f35695c658c88f0c0ef_2.png)
 
 ## RQ3.7 · INC-B646C4677B96 · break
 
@@ -216,7 +216,7 @@ Trace evidence demonstrates that hipstershop.216/GetCart is the fault origin, sh
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/outputs/f6d97b8bc01f2f2c3819f10428ce364899ba508a841aec781d592b24d830e012.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/outputs/340043710fd26a158c4b04ec5eb6993c80675ddfe72647684809fc792b59eb2c.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/inputs/340043710fd26a158c4b04ec5eb6993c80675ddfe72647684809fc792b59eb2c.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/renders/340043710fd26a158c4b04ec5eb6993c80675ddfe72647684809fc792b59eb2c_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/renders/340043710fd26a158c4b04ec5eb6993c80675ddfe72647684809fc792b59eb2c_2.png)
 
 ## RQ3.7 · INC-92A00B34EECF · break
 
@@ -234,7 +234,7 @@ Service 927 is the root origin, with evidence verifying the top candidate via an
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/outputs/7fcb4cd6fa5fd72f13ec2629641e59bd0a0b542fd511d806099945740fabd69e.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/outputs/5ff3660dcfee577e081be3b42631a559e2ebc45ba750c5273e73b5512f9a9bf0.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/inputs/5ff3660dcfee577e081be3b42631a559e2ebc45ba750c5273e73b5512f9a9bf0.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/renders/5ff3660dcfee577e081be3b42631a559e2ebc45ba750c5273e73b5512f9a9bf0_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/renders/5ff3660dcfee577e081be3b42631a559e2ebc45ba750c5273e73b5512f9a9bf0_2.png)
 
 ## RQ3.7 · INC-280985561CF8 · break
 
@@ -252,7 +252,7 @@ Service 953 is the root origin, with evidence verifying the top candidate via an
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/outputs/76a11513cfd28afaedd6f93eeb11adc835c86c0fa9bec19685cf934c8442cff7.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/outputs/eb91c06ce3f94ea835cfeaf64954d4c8cb8b9bf776b7614f1f64d45b0f2d6820.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/inputs/eb91c06ce3f94ea835cfeaf64954d4c8cb8b9bf776b7614f1f64d45b0f2d6820.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/renders/eb91c06ce3f94ea835cfeaf64954d4c8cb8b9bf776b7614f1f64d45b0f2d6820_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/renders/eb91c06ce3f94ea835cfeaf64954d4c8cb8b9bf776b7614f1f64d45b0f2d6820_2.png)
 
 ## RQ3.7 · INC-079EB921B335 · break
 
@@ -270,7 +270,7 @@ Node 3348 is the origin, confirmed by the top-ranked disk free-space metric spik
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/outputs/12b84efed3dd97c93840530fc0045173748b8ef94c50c48ae865d0b6920d5d00.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/outputs/12b32d74b8922b76a03e98b0eae78d729dd80dec9de68774b0f68ded4d2bc932.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/inputs/12b32d74b8922b76a03e98b0eae78d729dd80dec9de68774b0f68ded4d2bc932.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/renders/12b32d74b8922b76a03e98b0eae78d729dd80dec9de68774b0f68ded4d2bc932_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/renders/12b32d74b8922b76a03e98b0eae78d729dd80dec9de68774b0f68ded4d2bc932_2.png)
 
 ## RQ3.7 · INC-E2F836D2BEAA · break
 
@@ -288,7 +288,7 @@ TRC-L identifies 395 (EmptyCart) as the primary origin with the highest rank_sco
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/outputs/0a3e8e8b4680cc72f53d61c63826a9c86a2bc4e09f56a98364140042f16d63cf.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/outputs/9678a2a24443061b9eb17fc458e92d7ab880c1da1890ae4220254c816cc2c410.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/inputs/9678a2a24443061b9eb17fc458e92d7ab880c1da1890ae4220254c816cc2c410.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/renders/9678a2a24443061b9eb17fc458e92d7ab880c1da1890ae4220254c816cc2c410_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/renders/9678a2a24443061b9eb17fc458e92d7ab880c1da1890ae4220254c816cc2c410_2.png)
 
 ## RQ3.7 · INC-B95CA78A9FA8 · break
 
@@ -306,7 +306,7 @@ Service 418 is the root origin, verified by a peak p50 latency of 6.875s that ma
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/outputs/58cfb79406265f119074ab4c110259cd9e901d08bfc7958f5cb04996805888bf.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/outputs/8b189d19b7d76b681a41c57fa971cab5f27fd070202e5d81644decb0caad0626.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/8b189d19b7d76b681a41c57fa971cab5f27fd070202e5d81644decb0caad0626.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/renders/8b189d19b7d76b681a41c57fa971cab5f27fd070202e5d81644decb0caad0626_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/renders/8b189d19b7d76b681a41c57fa971cab5f27fd070202e5d81644decb0caad0626_2.png)
 
 ## RQ3.7 · INC-1FDDC9D9F646 · break
 
@@ -324,7 +324,7 @@ Node 3816 exhibits correlated, sustained fluctuations across four network metric
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/outputs/6178e11d58b2d5b39c9d798d0b0bdafa69f288fd098eac66ae287fde0e6ef03e.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/outputs/7ae45ecfaf0a96483648669cd5697c6209b481dd649a64e141b829093191a1c5.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/7ae45ecfaf0a96483648669cd5697c6209b481dd649a64e141b829093191a1c5.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/renders/7ae45ecfaf0a96483648669cd5697c6209b481dd649a64e141b829093191a1c5_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/renders/7ae45ecfaf0a96483648669cd5697c6209b481dd649a64e141b829093191a1c5_2.png)
 
 ## RQ3.7 · INC-BFE7EC666320 · break
 
@@ -342,7 +342,7 @@ Service 456 is the origin, confirmed by the top-ranked write_wal_mbps deviation 
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/outputs/7be47b1cfe9468a90f332207228225212d0f6107a53a6c9450dfd725e56fcd10.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/outputs/5f1f7f2bb733b8ccc5bec3093095117c2878895c97e7a4ee7c9ba2504b002066.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/inputs/5f1f7f2bb733b8ccc5bec3093095117c2878895c97e7a4ee7c9ba2504b002066.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/renders/5f1f7f2bb733b8ccc5bec3093095117c2878895c97e7a4ee7c9ba2504b002066_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/renders/5f1f7f2bb733b8ccc5bec3093095117c2878895c97e7a4ee7c9ba2504b002066_2.png)
 
 ## RQ3.7 · INC-E18F78F10DB2 · break
 
@@ -360,7 +360,7 @@ Service 476 is the root origin, exhibiting the highest trace rank_score (11.86) 
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/outputs/fb9fbd9d8e82b14da763ab3c5a266d41e77a38eeb95f947e3943538869a59b5d.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/outputs/538177c08fec93d6bc703c3df1d8b8ce98252331bdd257673d5035b8889fc1c8.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/inputs/538177c08fec93d6bc703c3df1d8b8ce98252331bdd257673d5035b8889fc1c8.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/renders/538177c08fec93d6bc703c3df1d8b8ce98252331bdd257673d5035b8889fc1c8_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/renders/538177c08fec93d6bc703c3df1d8b8ce98252331bdd257673d5035b8889fc1c8_2.png)
 
 ## RQ3.7 · INC-A1C6591B0184 · unchanged
 
@@ -378,7 +378,7 @@ Service 337 is the root origin, verified by its earliest topological position an
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/outputs/3720a9ebdccac9fdc7ee3e8266c5f6af7217558a52711c63ec9c029564d754d2.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/outputs/847d5b2fcdce6c971cc734340aa70153fa0231012f3975e74a6af77af6349699.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/inputs/847d5b2fcdce6c971cc734340aa70153fa0231012f3975e74a6af77af6349699.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/renders/847d5b2fcdce6c971cc734340aa70153fa0231012f3975e74a6af77af6349699_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/renders/847d5b2fcdce6c971cc734340aa70153fa0231012f3975e74a6af77af6349699_2.png)
 
 ## RQ3.7 · INC-68BAACF4BB36 · unchanged
 
@@ -396,7 +396,7 @@ Top-1 service 27948 is verified by the TRC-L analyzer showing a 7.45 log2 fold-c
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/outputs/c3980f1bd38b8b0b919a381456e4afa782070f71d7fe1ef5dae7ce32e4568c2d.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/outputs/5fee3835e7840247e2e9794deade70692830fda69e4151fbe74bb7413fbe5a46.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/5fee3835e7840247e2e9794deade70692830fda69e4151fbe74bb7413fbe5a46.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/renders/5fee3835e7840247e2e9794deade70692830fda69e4151fbe74bb7413fbe5a46_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/renders/5fee3835e7840247e2e9794deade70692830fda69e4151fbe74bb7413fbe5a46_2.png)
 
 ## RQ3.7 · INC-2A292B511B14 · unchanged
 
@@ -414,7 +414,7 @@ Service 245 is the only candidate where a single root entity simultaneously exhi
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/outputs/33f3e7ec6eb3ba2ca64fef29625856cfeee87281ccc2ba1cb044cfa33ddb9765.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/outputs/b64706cee803e490d990961cad7ef0da753a07b62bb7491345f12cb0de8be755.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/b64706cee803e490d990961cad7ef0da753a07b62bb7491345f12cb0de8be755.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/renders/b64706cee803e490d990961cad7ef0da753a07b62bb7491345f12cb0de8be755_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/renders/b64706cee803e490d990961cad7ef0da753a07b62bb7491345f12cb0de8be755_2.png)
 
 ## RQ3.7 · INC-3015F112D266 · unchanged
 
@@ -432,7 +432,7 @@ Service 358 is the root origin, verified by a peak exclusive-latency LFC of 9.61
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/outputs/3dbdf3270ae86a3eabce35336ec442f39d25e7f03e02a0e3ac91246ddffbebf1.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/outputs/44c413545948ed0e57f776fdda0f86e0020a17df7d95bbc22acf93e8935cd616.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/inputs/44c413545948ed0e57f776fdda0f86e0020a17df7d95bbc22acf93e8935cd616.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/renders/44c413545948ed0e57f776fdda0f86e0020a17df7d95bbc22acf93e8935cd616_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/renders/44c413545948ed0e57f776fdda0f86e0020a17df7d95bbc22acf93e8935cd616_2.png)
 
 ## RQ3.7 · INC-D583BAA68A3F · unchanged
 
@@ -450,7 +450,7 @@ The MET-Z analyzer shows that Node 3009 is the only infrastructure node exhibiti
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/outputs/6658c73ec32fe65d240cf3f7e6d359d7a27ba2775d4be36972b4f8b80e26264d.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/outputs/dca3db8e5979665c009e23db7f497d1ebc6f0a17c875f344f533c4d5d474dd4a.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/inputs/dca3db8e5979665c009e23db7f497d1ebc6f0a17c875f344f533c4d5d474dd4a.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/renders/dca3db8e5979665c009e23db7f497d1ebc6f0a17c875f344f533c4d5d474dd4a_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/renders/dca3db8e5979665c009e23db7f497d1ebc6f0a17c875f344f533c4d5d474dd4a_2.png)
 
 ## RQ3.7 · INC-5E10026E33A4 · unchanged
 
@@ -468,7 +468,7 @@ Service 697 is the origin, confirmed by the top-ranked exclusive latency increas
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/outputs/11748cf5657e8a3db1bae2fd544db70658cb8586d1fe1d300cebc104c439645b.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/outputs/5768a719fc18bc599f69e46bc1373acc1c32fcd9d610894486d79f28ec91b992.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/inputs/5768a719fc18bc599f69e46bc1373acc1c32fcd9d610894486d79f28ec91b992.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/renders/5768a719fc18bc599f69e46bc1373acc1c32fcd9d610894486d79f28ec91b992_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/renders/5768a719fc18bc599f69e46bc1373acc1c32fcd9d610894486d79f28ec91b992_2.png)
 
 ## RQ3.7 · INC-C7962AC24637 · unchanged
 
@@ -486,7 +486,7 @@ Metrics and topology verify that service 412 exhibited the root fault, with its 
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/outputs/55421148651b692f359d5d62afa15ff03c451fcecd94f40d5404eb861a4b60f4.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/outputs/93fbd7e6c8889297babf944d090fdeaf1ca5e3cf6523bb2cbb175ceaaafe9212.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/93fbd7e6c8889297babf944d090fdeaf1ca5e3cf6523bb2cbb175ceaaafe9212.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/renders/93fbd7e6c8889297babf944d090fdeaf1ca5e3cf6523bb2cbb175ceaaafe9212_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/renders/93fbd7e6c8889297babf944d090fdeaf1ca5e3cf6523bb2cbb175ceaaafe9212_2.png)
 
 ## RQ3.7 · INC-48C127B155B6 · unchanged
 
@@ -504,7 +504,7 @@ The top candidate is verified by a decisive trace topology check where pod 39945
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/outputs/d8595cedd7440e86613624fb400d370f108f623d74785a297c16e8fd6c6f8066.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/outputs/910bd6b9633963d9643763af523b8d73bbdc0ca6d7e8a4c46aed41e885550677.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/inputs/910bd6b9633963d9643763af523b8d73bbdc0ca6d7e8a4c46aed41e885550677.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/renders/910bd6b9633963d9643763af523b8d73bbdc0ca6d7e8a4c46aed41e885550677_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_eval/qwen3.8-27b/renders/910bd6b9633963d9643763af523b8d73bbdc0ca6d7e8a4c46aed41e885550677_2.png)
 
 ## RQ3.7 · INC-9D1784608F61 · unchanged
 
@@ -522,7 +522,7 @@ Metrics show node 1847 experienced a simultaneous and massive filesystem saturat
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/outputs/f99b89dca8388d145a0a45f1f0cf689ebc9cecee19a9fb69a172c6d54d5369a5.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/outputs/d642110282f11a98fe60592c18583b788c08e4f6c8e4d71e4bc40314b8b47ac8.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/inputs/d642110282f11a98fe60592c18583b788c08e4f6c8e4d71e4bc40314b8b47ac8.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/renders/d642110282f11a98fe60592c18583b788c08e4f6c8e4d71e4bc40314b8b47ac8_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_A_development/qwen3.8-27b/renders/d642110282f11a98fe60592c18583b788c08e4f6c8e4d71e4bc40314b8b47ac8_2.png)
 
 ## RQ3.7 · INC-3E916629F15A · unchanged
 
@@ -540,7 +540,7 @@ Service 959 is the root origin, with confirmed filesystem usage and queueSize gr
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/outputs/93a9da88a238435f5adc72456dc20a14c8d2970011983616cacac92e2568e9d1.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/outputs/755c73f04021f58c60cdee56631955f824aa83064414efb725de4e208aea554d.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/inputs/755c73f04021f58c60cdee56631955f824aa83064414efb725de4e208aea554d.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/renders/755c73f04021f58c60cdee56631955f824aa83064414efb725de4e208aea554d_2.png)
+[模型所见图](../pre_unified_preserved/assets/RQs/RQ3_7/results/fusion_v2_pruned/stages/formal_C_test/qwen3.8-27b/renders/755c73f04021f58c60cdee56631955f824aa83064414efb725de4e208aea554d_2.png)
 
 ## RQ3.8 · INC-B84269FDA98E · repair
 
@@ -558,7 +558,7 @@ Verification confirms that 428's p95 latency remains low (0.05s) while its downs
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/184b09050d06a3c1b07dbc34d7700105d361e1ff174e235acd51fec63b8ec510.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/d3856d74a32c6460303b79e3c4da969fdf053ba572140186c4831e0043f79297.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/inputs/d3856d74a32c6460303b79e3c4da969fdf053ba572140186c4831e0043f79297.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/d3856d74a32c6460303b79e3c4da969fdf053ba572140186c4831e0043f79297_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/d3856d74a32c6460303b79e3c4da969fdf053ba572140186c4831e0043f79297_0.png)
 
 - M01 / 628 / container.memory.available / source_unit: {"details": [{"name": "Reference mean", "value": "3.2G"}, {"name": "Current mean", "value": "3.2G"}, {"name": "Reference SD", "value": "7.5k"}, {"name": "Current SD", "value": "59.6k"}, {"name": "Deviation (sigma)", "value": "10"}]}
 - M02 / 628 / container.memory.working_set / source_unit: {"details": [{"name": "Reference mean", "value": "9.1M"}, {"name": "Current mean", "value": "9.0M"}, {"name": "Reference SD", "value": "7.5k"}, {"name": "Current SD", "value": "59.6k"}, {"name": "Deviation (sigma)", "value": "10"}]}
@@ -595,7 +595,7 @@ The metrics show a sudden disk usage spike (bin 32) and working-set jump on pod 
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/outputs/947ec64d841aeeebad88d982b1f301f262cee530ce9719a92e5d3715f34148da.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/outputs/de8be0c12c1f22714bd39668fdb0e3a516f25cecf4debd2dd8291509983733f4.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/inputs/de8be0c12c1f22714bd39668fdb0e3a516f25cecf4debd2dd8291509983733f4.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/renders/de8be0c12c1f22714bd39668fdb0e3a516f25cecf4debd2dd8291509983733f4_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/renders/de8be0c12c1f22714bd39668fdb0e3a516f25cecf4debd2dd8291509983733f4_0.png)
 
 - M01 / 919 / jvm_memory_pool_allocated_MB_total.Tenured_Gen / source_unit: {"details": [{"name": "Reference mean", "value": "134"}, {"name": "Current mean", "value": "134"}, {"name": "Reference SD", "value": "1.0e-04"}, {"name": "Current SD", "value": "0.09"}, {"name": "Deviation (sigma)", "value": "540"}]}
 - M02 / 77551 / container_network_receive_MB.eth0 / source_unit: {"details": [{"name": "Reference mean", "value": "0.02"}, {"name": "Current mean", "value": "0.05"}, {"name": "Reference SD", "value": "2.9e-03"}, {"name": "Current SD", "value": "0.12"}, {"name": "Deviation (sigma)", "value": "9.03"}]}
@@ -632,7 +632,7 @@ Top-1 791 survives two checks: (1) the top callers' PlaceOrder span to 980 holds
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/7af2f270643ee61ec171c2345399270644e09d2ccfa85843c2af8c0b80114646.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/527a9cb8f9e59bf882de443528f1891cb4701ba55b9a7650cf6a3304aa6f73f2.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/inputs/527a9cb8f9e59bf882de443528f1891cb4701ba55b9a7650cf6a3304aa6f73f2.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/527a9cb8f9e59bf882de443528f1891cb4701ba55b9a7650cf6a3304aa6f73f2_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/527a9cb8f9e59bf882de443528f1891cb4701ba55b9a7650cf6a3304aa6f73f2_0.png)
 
 - M01 / 19602 / error_ratio / ratio_or_percent: {"details": [{"name": "Reference mean", "value": "0.12"}, {"name": "Current mean", "value": "12"}, {"name": "Reference SD", "value": "0.49"}, {"name": "Current SD", "value": "6.93"}, {"name": "Deviation (sigma)", "value": "24"}]}
 - M02 / 791 / client_error_ratio / ratio_or_percent: {"details": [{"name": "Reference mean", "value": "0.04"}, {"name": "Current mean", "value": "0.12"}, {"name": "Reference SD", "value": "0.07"}, {"name": "Current SD", "value": "0.29"}, {"name": "Deviation (sigma)", "value": "1.12"}]}
@@ -669,7 +669,7 @@ Top-1 722 survives two checks: (1) the top-ranked exclusive-latency jump is loca
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/outputs/b15a690740e76711d6799b24fba36380549d8188496d7b2a94f4cec2278bc404.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/outputs/32d0db64668fb035eeda50b1d591a10870741b9dab1953a4a6279ad9fbeb681a.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/inputs/32d0db64668fb035eeda50b1d591a10870741b9dab1953a4a6279ad9fbeb681a.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/renders/32d0db64668fb035eeda50b1d591a10870741b9dab1953a4a6279ad9fbeb681a_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/renders/32d0db64668fb035eeda50b1d591a10870741b9dab1953a4a6279ad9fbeb681a_0.png)
 
 - M01 / 330 / k8s.pod.cpu.node.utilization / ratio_or_percent: {"details": [{"name": "Reference mean", "value": "4.0e-05"}, {"name": "Current mean", "value": "2.6e-04"}, {"name": "Reference SD", "value": "4.8e-06"}, {"name": "Current SD", "value": "6.5e-04"}, {"name": "Deviation (sigma)", "value": "46"}]}
 - M02 / 330 / container.cpu.usage / source_unit: {"details": [{"name": "Reference mean", "value": "5.2e-03"}, {"name": "Current mean", "value": "0.03"}, {"name": "Reference SD", "value": "5.9e-04"}, {"name": "Current SD", "value": "0.06"}, {"name": "Deviation (sigma)", "value": "39"}]}
@@ -706,7 +706,7 @@ Verified (1) the top candidate 4043 shows a decisive node-level memory divergenc
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/outputs/974b0a9676f27e1992b361aa07e9145dbd19523c42658d8ca3f1d587908e8845.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/outputs/bdebe4f8383bad7921363f5d683615006322d99b341e972dc02cf6ffac6d0cf4.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/inputs/bdebe4f8383bad7921363f5d683615006322d99b341e972dc02cf6ffac6d0cf4.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/renders/bdebe4f8383bad7921363f5d683615006322d99b341e972dc02cf6ffac6d0cf4_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/renders/bdebe4f8383bad7921363f5d683615006322d99b341e972dc02cf6ffac6d0cf4_0.png)
 
 - M01 / 42903 / container_network_receive_MB.eth0 / source_unit: {"details": [{"name": "Reference mean", "value": "0.02"}, {"name": "Current mean", "value": "0.05"}, {"name": "Reference SD", "value": "1.6e-03"}, {"name": "Current SD", "value": "0.13"}, {"name": "Deviation (sigma)", "value": "17"}]}
 - M02 / 584 / jvm_memory_pool_allocated_MB_total.Tenured_Gen / source_unit: {"details": [{"name": "Reference mean", "value": "28"}, {"name": "Current mean", "value": "28"}, {"name": "Reference SD", "value": "2.8e-04"}, {"name": "Current SD", "value": "0.04"}, {"name": "Deviation (sigma)", "value": "646"}]}
@@ -743,7 +743,7 @@ Top-1 service 111 is confirmed by TRC-L: its GetQuote operation shows an exclusi
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/02423d66886031207d545cf62d13b8eb0b8743cc1f83699badcd8c6276ac5d73.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/d0dfc7f01430befde7e76c6f57643edad49ff3697979bfee1ffe1100b36acd73.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/inputs/d0dfc7f01430befde7e76c6f57643edad49ff3697979bfee1ffe1100b36acd73.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/d0dfc7f01430befde7e76c6f57643edad49ff3697979bfee1ffe1100b36acd73_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/d0dfc7f01430befde7e76c6f57643edad49ff3697979bfee1ffe1100b36acd73_0.png)
 
 - M01 / 84834 / client_error_ratio / ratio_or_percent: {"details": [{"name": "Reference mean", "value": "0.0e+00"}, {"name": "Current mean", "value": "0.85"}, {"name": "Reference SD", "value": "0.0e+00"}, {"name": "Current SD", "value": "2.42"}]}
 - M02 / 58906 / client_error / source_unit: {"details": [{"name": "Reference mean", "value": "0.0e+00"}, {"name": "Current mean", "value": "0.44"}, {"name": "Reference SD", "value": "0.0e+00"}, {"name": "Current SD", "value": "1.26"}]}
@@ -780,7 +780,7 @@ Top-1 732 is verified: (1) its CPU mean shift is 13σ over baseline (MET-Z) whil
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/outputs/ef2fb6941d84c83bf3c459ae0402a12d5bdd20ca2e180954abba5e7546cf4cfe.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/outputs/57cac362648ac9a57c8b5fb59cf641e41f6db1d76dca8a34284c40b9858e9e91.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/inputs/57cac362648ac9a57c8b5fb59cf641e41f6db1d76dca8a34284c40b9858e9e91.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/renders/57cac362648ac9a57c8b5fb59cf641e41f6db1d76dca8a34284c40b9858e9e91_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/renders/57cac362648ac9a57c8b5fb59cf641e41f6db1d76dca8a34284c40b9858e9e91_0.png)
 
 - M01 / 836 / jvm.system.cpu.utilization / ratio_or_percent: {"details": [{"name": "Reference mean", "value": "0.02"}, {"name": "Current mean", "value": "0.15"}, {"name": "Reference SD", "value": "0.01"}, {"name": "Current SD", "value": "0.06"}, {"name": "Deviation (sigma)", "value": "12"}]}
 - M02 / 109 / hubble_http_request_duration_p90_seconds / milliseconds_or_source_unit: {"details": [{"name": "Reference mean", "value": "6.5e-03"}, {"name": "Current mean", "value": "0.28"}, {"name": "Reference SD", "value": "1.3e-03"}, {"name": "Current SD", "value": "0.32"}, {"name": "Deviation (sigma)", "value": "220"}]}
@@ -817,7 +817,7 @@ Node 4238 is verified as the origin because its system disk usage climbed from a
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/e9baab9f2247c676d30ebad55774c0af90b6e4c848b19a8194b996476012bcba.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/5e6ce7c8e93d2720ec18ef64408c9624e2c6f0e1ac8ce417a1b0bc51775ba489.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/inputs/5e6ce7c8e93d2720ec18ef64408c9624e2c6f0e1ac8ce417a1b0bc51775ba489.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/5e6ce7c8e93d2720ec18ef64408c9624e2c6f0e1ac8ce417a1b0bc51775ba489_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/5e6ce7c8e93d2720ec18ef64408c9624e2c6f0e1ac8ce417a1b0bc51775ba489_0.png)
 
 - M01 / 324 / jvm_memory_pool_allocated_MB_total.Metaspace / source_unit: {"details": [{"name": "Reference mean", "value": "30"}, {"name": "Current mean", "value": "30"}, {"name": "Reference SD", "value": "0.0e+00"}, {"name": "Current SD", "value": "9.8e-05"}]}
 - M02 / 53161 / container_network_receive_MB.eth0 / source_unit: {"details": [{"name": "Reference mean", "value": "0.02"}, {"name": "Current mean", "value": "0.05"}, {"name": "Reference SD", "value": "2.9e-03"}, {"name": "Current SD", "value": "0.09"}, {"name": "Deviation (sigma)", "value": "11"}]}
@@ -854,7 +854,7 @@ Top-1 service 772 has the earliest tied onset (+15.0m, rank 1) and a high MET-Z 
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/outputs/13fd1ca1e3c4b5650f6b7f1cf2118ec12a5cb76e16504ccf99175df13605c893.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/outputs/70e802b9a2b9abbad302a7a641829bdd24150cc67c2fb15f4fdd51fb733b8228.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/inputs/70e802b9a2b9abbad302a7a641829bdd24150cc67c2fb15f4fdd51fb733b8228.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/renders/70e802b9a2b9abbad302a7a641829bdd24150cc67c2fb15f4fdd51fb733b8228_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/renders/70e802b9a2b9abbad302a7a641829bdd24150cc67c2fb15f4fdd51fb733b8228_0.png)
 
 - M01 / 654 / memory_usage / source_unit: {"details": [{"name": "Reference mean", "value": "864.7M"}, {"name": "Current mean", "value": "872.4M"}, {"name": "Reference SD", "value": "526.7k"}, {"name": "Current SD", "value": "5.8M"}, {"name": "Deviation (sigma)", "value": "15"}]}
 - M02 / 66229 / rrt_max / source_unit: {"details": [{"name": "Reference mean", "value": "7.5k"}, {"name": "Current mean", "value": "4.7k"}, {"name": "Reference SD", "value": "13.3k"}, {"name": "Current SD", "value": "2.5k"}, {"name": "Deviation (sigma)", "value": "0.21"}]}
@@ -891,7 +891,7 @@ Verification Check 1 (M): Service 752 exhibits a runaway memory leak with an ext
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/outputs/d31fdafd4ab5932205a33f7ca67aa27ec13be1f4f7e62647ccce7b076fbe2e59.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/outputs/8a867981453a1265e5b0852deea1cea7ead9057c824e73b46ff8659ec1292806.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/inputs/8a867981453a1265e5b0852deea1cea7ead9057c824e73b46ff8659ec1292806.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/renders/8a867981453a1265e5b0852deea1cea7ead9057c824e73b46ff8659ec1292806_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/renders/8a867981453a1265e5b0852deea1cea7ead9057c824e73b46ff8659ec1292806_0.png)
 
 - M01 / 752 / container.memory.page_faults / source_unit: {"details": [{"name": "Reference mean", "value": "158.8k"}, {"name": "Current mean", "value": "162.4k"}, {"name": "Reference SD", "value": "110"}, {"name": "Current SD", "value": "812"}, {"name": "Deviation (sigma)", "value": "33"}]}
 - M02 / 752 / k8s.pod.memory.node.utilization / ratio_or_percent: {"details": [{"name": "Reference mean", "value": "5.5e-03"}, {"name": "Current mean", "value": "5.6e-03"}, {"name": "Reference SD", "value": "2.6e-06"}, {"name": "Current SD", "value": "3.8e-05"}, {"name": "Deviation (sigma)", "value": "33"}]}
@@ -928,7 +928,7 @@ MET-Z records service 364's latency degradation at bin 40 (~5.0m), the earliest 
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/outputs/fb0add616be7f249c557c81326e8f38c6324dda14e7b84c5dda2762324d4bbd9.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/outputs/8dfb07e256f22f756a3b63a02d31cc26f9d92e8524fae9c430408475e8a4e2a5.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/inputs/8dfb07e256f22f756a3b63a02d31cc26f9d92e8524fae9c430408475e8a4e2a5.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/renders/8dfb07e256f22f756a3b63a02d31cc26f9d92e8524fae9c430408475e8a4e2a5_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/renders/8dfb07e256f22f756a3b63a02d31cc26f9d92e8524fae9c430408475e8a4e2a5_0.png)
 
 - M01 / 564 / hubble_http_request_duration_p95_seconds / milliseconds_or_source_unit: {"details": [{"name": "Reference mean", "value": "0.13"}, {"name": "Current mean", "value": "5.05"}, {"name": "Reference SD", "value": "0.01"}, {"name": "Current SD", "value": "2.50"}, {"name": "Deviation (sigma)", "value": "342"}]}
 - M02 / 394 / hubble_http_request_duration_p95_seconds / milliseconds_or_source_unit: {"details": [{"name": "Reference mean", "value": "0.61"}, {"name": "Current mean", "value": "5.73"}, {"name": "Reference SD", "value": "0.02"}, {"name": "Current SD", "value": "3.17"}, {"name": "Deviation (sigma)", "value": "236"}]}
@@ -965,7 +965,7 @@ Top-1 pod 49410 is rejected by a direct topological contradiction: its network s
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/outputs/efcb2bead7c2076748a40f1b496fd874224178dfb6387ac1943c89f634185c49.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/outputs/3d9f61bb80803d8b2f1cb11f2d6c6003b9367ad08cdc6cabdf1631196a4587a3.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/inputs/3d9f61bb80803d8b2f1cb11f2d6c6003b9367ad08cdc6cabdf1631196a4587a3.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/renders/3d9f61bb80803d8b2f1cb11f2d6c6003b9367ad08cdc6cabdf1631196a4587a3_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/renders/3d9f61bb80803d8b2f1cb11f2d6c6003b9367ad08cdc6cabdf1631196a4587a3_0.png)
 
 - M01 / 97820 / container_memory_max_usage_MB / source_unit: {"details": [{"name": "Reference mean", "value": "138"}, {"name": "Current mean", "value": "138"}, {"name": "Reference SD", "value": "5.5e-03"}, {"name": "Current SD", "value": "0.11"}, {"name": "Deviation (sigma)", "value": "40"}]}
 - M02 / 73227 / container_network_receive_MB.eth0 / source_unit: {"details": [{"name": "Reference mean", "value": "0.08"}, {"name": "Current mean", "value": "0.12"}, {"name": "Reference SD", "value": "7.1e-03"}, {"name": "Current SD", "value": "0.13"}, {"name": "Deviation (sigma)", "value": "4.98"}]}
@@ -1002,7 +1002,7 @@ MET-Z shows service 471 is the earliest onset (relative ~15.0 m, before the +16.
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/7829678e9bdfceb9944297f00f9534a5153500e2b012de952550a1b6f2450f0b.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/367ced8defeff7293cd5967f03033071646145c7c790e6e1fd4ce729f67399ff.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/inputs/367ced8defeff7293cd5967f03033071646145c7c790e6e1fd4ce729f67399ff.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/367ced8defeff7293cd5967f03033071646145c7c790e6e1fd4ce729f67399ff_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/367ced8defeff7293cd5967f03033071646145c7c790e6e1fd4ce729f67399ff_0.png)
 
 - M01 / 55661 / server_error / source_unit: {"details": [{"name": "Reference mean", "value": "0.25"}, {"name": "Current mean", "value": "4.14"}, {"name": "Reference SD", "value": "0.97"}, {"name": "Current SD", "value": "3.74"}, {"name": "Deviation (sigma)", "value": "4.02"}]}
 - M02 / 84187 / rrt_max / source_unit: {"details": [{"name": "Reference mean", "value": "23.5k"}, {"name": "Current mean", "value": "19.9M"}, {"name": "Reference SD", "value": "55.2k"}, {"name": "Current SD", "value": "52.9M"}, {"name": "Deviation (sigma)", "value": "360"}]}
@@ -1033,7 +1033,7 @@ Service 493 shows the earliest measured anomaly onset (+4.0 min) and hosts no re
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/outputs/52fa6d90d5521d49b9670e47b0ae7d66df4424454c4790012f65c9998efd1db7.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/outputs/1e66e9f23bc541b2896ba1f7162c2051f38eefa4f345789eeddedcf79f3f26f2.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/inputs/1e66e9f23bc541b2896ba1f7162c2051f38eefa4f345789eeddedcf79f3f26f2.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/renders/1e66e9f23bc541b2896ba1f7162c2051f38eefa4f345789eeddedcf79f3f26f2_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/renders/1e66e9f23bc541b2896ba1f7162c2051f38eefa4f345789eeddedcf79f3f26f2_0.png)
 
 - M01 / 897 / container.memory.available / source_unit: {"details": [{"name": "Reference mean", "value": "3.3G"}, {"name": "Current mean", "value": "3.6G"}, {"name": "Reference SD", "value": "598.0M"}, {"name": "Current SD", "value": "179.0M"}, {"name": "Deviation (sigma)", "value": "0.42"}]}
 - M02 / 897 / hubble_http_request_duration_p50_seconds / milliseconds_or_source_unit: {"details": [{"name": "Reference mean", "value": "1.02"}, {"name": "Current mean", "value": "0.05"}, {"name": "Reference SD", "value": "3.00"}, {"name": "Current SD", "value": "0.05"}, {"name": "Deviation (sigma)", "value": "0.32"}]}
@@ -1070,7 +1070,7 @@ MET-Z shows Pod 91043 (Service 728) and its host Node 8138 both hitting the z=99
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/outputs/b9d7c4ac2908a882a3317d5f54499fec6cf16ebd8851bc39f5e4afdc07bf8045.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/outputs/868e6d3a9458917653af673716ef3e7947aed22f9318e586341c148ac1d0d7f5.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/inputs/868e6d3a9458917653af673716ef3e7947aed22f9318e586341c148ac1d0d7f5.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/renders/868e6d3a9458917653af673716ef3e7947aed22f9318e586341c148ac1d0d7f5_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/renders/868e6d3a9458917653af673716ef3e7947aed22f9318e586341c148ac1d0d7f5_0.png)
 
 - M01 / 51011 / container_fs_inodes./dev/vda1 / source_unit: {"details": [{"name": "Reference mean", "value": "0.0e+00"}, {"name": "Current mean", "value": "0.19"}, {"name": "Reference SD", "value": "0.0e+00"}, {"name": "Current SD", "value": "0.85"}]}
 - M02 / 91043 / container_memory_failures.container.pgmajfault / source_unit: {"details": [{"name": "Reference mean", "value": "0.0e+00"}, {"name": "Current mean", "value": "1.57"}, {"name": "Reference SD", "value": "0.0e+00"}, {"name": "Current SD", "value": "7.03"}]}
@@ -1107,7 +1107,7 @@ Service 105 is the root origin, with confirmed caller→callee edges 105→633 a
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/outputs/25cefd40196437d7251b3452dfbca819c96d0d02037e9acf44d59fd05a361ec9.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/outputs/16f3b80d536191199aac3c9c9254be3c3e478c9bbca433f5e83595f79afccb94.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/inputs/16f3b80d536191199aac3c9c9254be3c3e478c9bbca433f5e83595f79afccb94.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/renders/16f3b80d536191199aac3c9c9254be3c3e478c9bbca433f5e83595f79afccb94_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/renders/16f3b80d536191199aac3c9c9254be3c3e478c9bbca433f5e83595f79afccb94_0.png)
 
 - M01 / 50868 / rrt / source_unit: {"details": [{"name": "Reference mean", "value": "3.8k"}, {"name": "Current mean", "value": "9.6k"}, {"name": "Reference SD", "value": "105"}, {"name": "Current SD", "value": "19.9k"}, {"name": "Deviation (sigma)", "value": "56"}]}
 - M02 / 633 / rrt_max / source_unit: {"details": [{"name": "Reference mean", "value": "31.8k"}, {"name": "Current mean", "value": "2.0M"}, {"name": "Reference SD", "value": "5.3k"}, {"name": "Current SD", "value": "1.6M"}, {"name": "Deviation (sigma)", "value": "377"}]}
@@ -1144,7 +1144,7 @@ The log evidence from pod 26419 shows the root cause with the template "Attempti
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/8828ae93b59480b2317bdc223d00e38a0bcba61586e085e786a7a6a6a1d8bb34.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/54e169120ed826f34ff89e7b2613f53606fb2849ce95af0e10ac6dff826109f4.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/inputs/54e169120ed826f34ff89e7b2613f53606fb2849ce95af0e10ac6dff826109f4.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/54e169120ed826f34ff89e7b2613f53606fb2849ce95af0e10ac6dff826109f4_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/54e169120ed826f34ff89e7b2613f53606fb2849ce95af0e10ac6dff826109f4_0.png)
 
 - M01 / 461 / jvm.system.cpu.utilization / ratio_or_percent: {"details": [{"name": "Reference mean", "value": "0.05"}, {"name": "Current mean", "value": "0.50"}, {"name": "Reference SD", "value": "0.02"}, {"name": "Current SD", "value": "0.36"}, {"name": "Deviation (sigma)", "value": "22"}]}
 - M02 / 478 / jvm.system.cpu.utilization / ratio_or_percent: {"details": [{"name": "Reference mean", "value": "0.11"}, {"name": "Current mean", "value": "0.32"}, {"name": "Reference SD", "value": "0.01"}, {"name": "Current SD", "value": "0.17"}, {"name": "Deviation (sigma)", "value": "19"}]}
@@ -1181,7 +1181,7 @@ MET-Z records a system.inode anomaly on node 7361 at +38.0 min that lacks an ups
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/d8818cf3138d99dd712d4b4f90fc437b8826ad68fc46404ff740aa8d2f8c95cb.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/c0c826788a180266d8d1eea3d4c6eddb5284883f61fb3deb6752903baaeebe99.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/inputs/c0c826788a180266d8d1eea3d4c6eddb5284883f61fb3deb6752903baaeebe99.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/c0c826788a180266d8d1eea3d4c6eddb5284883f61fb3deb6752903baaeebe99_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/c0c826788a180266d8d1eea3d4c6eddb5284883f61fb3deb6752903baaeebe99_0.png)
 
 - M01 / 7361 / system.fs.inodes.used / source_unit: {"details": [{"name": "Reference mean", "value": "1.4M"}, {"name": "Current mean", "value": "1.5M"}, {"name": "Reference SD", "value": "12"}, {"name": "Current SD", "value": "86.2k"}, {"name": "Deviation (sigma)", "value": "2.5k"}]}
 - M02 / 7361 / system.fs.inodes.total / source_unit: {"details": [{"name": "Reference mean", "value": "2.9G"}, {"name": "Current mean", "value": "3.0G"}, {"name": "Reference SD", "value": "335.0k"}, {"name": "Current SD", "value": "275.5M"}, {"name": "Deviation (sigma)", "value": "279"}]}
@@ -1218,7 +1218,7 @@ The decisive MET-Z/LOG-R evidence localizes the failure to pod 78992, which logg
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/5d2897b770896e94734cff645db727c8577a639623c2f306fbe7e0a2a4c290f9.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/5127ca0e8ec431f334ed1509f2db22f85a33c3c27d9ffa77b61d883ac99dfffa.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/inputs/5127ca0e8ec431f334ed1509f2db22f85a33c3c27d9ffa77b61d883ac99dfffa.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/5127ca0e8ec431f334ed1509f2db22f85a33c3c27d9ffa77b61d883ac99dfffa_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/5127ca0e8ec431f334ed1509f2db22f85a33c3c27d9ffa77b61d883ac99dfffa_0.png)
 
 - M01 / 53329 / rrt_max / source_unit: {"details": [{"name": "Reference mean", "value": "11.7k"}, {"name": "Current mean", "value": "15.6M"}, {"name": "Reference SD", "value": "20.1k"}, {"name": "Current SD", "value": "58.8M"}, {"name": "Deviation (sigma)", "value": "780"}]}
 - M02 / 71167 / rrt / source_unit: {"details": [{"name": "Reference mean", "value": "1.4k"}, {"name": "Current mean", "value": "974.7k"}, {"name": "Reference SD", "value": "176"}, {"name": "Current SD", "value": "2.6M"}, {"name": "Deviation (sigma)", "value": "5.5k"}]}
@@ -1255,7 +1255,7 @@ Verification confirms that service 769's absolute latency degradation (TRC-L dX=
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/outputs/7977de50391b0a8e32730be306dc081f0b5a9b0b1a41caba83d34f0bca2183a2.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/outputs/c275bd69122bce722fd8b8bae13e1909e1a8156aa3acf59469b62df5a7a9f4d2.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/inputs/c275bd69122bce722fd8b8bae13e1909e1a8156aa3acf59469b62df5a7a9f4d2.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/renders/c275bd69122bce722fd8b8bae13e1909e1a8156aa3acf59469b62df5a7a9f4d2_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/renders/c275bd69122bce722fd8b8bae13e1909e1a8156aa3acf59469b62df5a7a9f4d2_0.png)
 
 - M01 / 609 / hubble_http_request_duration_p90_seconds / milliseconds_or_source_unit: {"details": [{"name": "Reference mean", "value": "0.03"}, {"name": "Current mean", "value": "0.82"}, {"name": "Reference SD", "value": "0.03"}, {"name": "Current SD", "value": "0.89"}, {"name": "Deviation (sigma)", "value": "24"}]}
 - M02 / 769 / hubble_http_request_duration_p50_seconds / milliseconds_or_source_unit: {"details": [{"name": "Reference mean", "value": "0.15"}, {"name": "Current mean", "value": "4.27"}, {"name": "Reference SD", "value": "0.04"}, {"name": "Current SD", "value": "2.98"}, {"name": "Deviation (sigma)", "value": "112"}]}
@@ -1292,7 +1292,7 @@ Verification confirms that pod 706 (the 'queue') exhibited the earliest propagat
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/8116e986c6354d4f66238a2e49608fab17ccf7169f365926bf54568d4efbda80.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/3ea616aa49f4b9d26ede19a649aecf19cc63844cd9bca47a259e10aee80a703b.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/inputs/3ea616aa49f4b9d26ede19a649aecf19cc63844cd9bca47a259e10aee80a703b.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/3ea616aa49f4b9d26ede19a649aecf19cc63844cd9bca47a259e10aee80a703b_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/3ea616aa49f4b9d26ede19a649aecf19cc63844cd9bca47a259e10aee80a703b_0.png)
 
 - M01 / 765 / jvm.system.cpu.load_1m / source_unit: {"details": [{"name": "Reference mean", "value": "39"}, {"name": "Current mean", "value": "321"}, {"name": "Reference SD", "value": "86"}, {"name": "Current SD", "value": "86"}, {"name": "Deviation (sigma)", "value": "3.26"}]}
 - M02 / 866 / container.memory.rss / source_unit: {"details": [{"name": "Reference mean", "value": "9.6M"}, {"name": "Current mean", "value": "10.3M"}, {"name": "Reference SD", "value": "32.7k"}, {"name": "Current SD", "value": "72.1k"}, {"name": "Deviation (sigma)", "value": "22"}]}
@@ -1329,7 +1329,7 @@ MET-Z shows service 729 (pod 40392) network traffic jump to 25x baseline during 
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/50a1af717c913d7a5d7fa6f918d9b5aaf9eb90bf5eb18f22bb915183cdadbffc.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/21bdf5a74dbb81a65b22412a0a7e04a0780c5a3706239fd8c02f886e327206e3.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/inputs/21bdf5a74dbb81a65b22412a0a7e04a0780c5a3706239fd8c02f886e327206e3.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/21bdf5a74dbb81a65b22412a0a7e04a0780c5a3706239fd8c02f886e327206e3_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/21bdf5a74dbb81a65b22412a0a7e04a0780c5a3706239fd8c02f886e327206e3_0.png)
 
 - M01 / 6653 / system.disk.used / source_unit: {"details": [{"name": "Reference mean", "value": "3.7G"}, {"name": "Current mean", "value": "3.8G"}, {"name": "Reference SD", "value": "310.4k"}, {"name": "Current SD", "value": "551.9M"}, {"name": "Deviation (sigma)", "value": "396"}]}
 - M02 / 6653 / system.fs.inodes.total / source_unit: {"details": [{"name": "Reference mean", "value": "3.8G"}, {"name": "Current mean", "value": "4.0G"}, {"name": "Reference SD", "value": "233.5k"}, {"name": "Current SD", "value": "578.2M"}, {"name": "Deviation (sigma)", "value": "557"}]}
@@ -1366,7 +1366,7 @@ Top-1 207 is verified: (1) its failure indicators are among the earliest in the 
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/outputs/cc2467e3980f8469da124aade02c241e074ab025c9dc1a76817d72c416eedf0f.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/outputs/f449d941072884ef1da314e0fbec0f29afcd70978caf97029de6669b92e429c7.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/inputs/f449d941072884ef1da314e0fbec0f29afcd70978caf97029de6669b92e429c7.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/renders/f449d941072884ef1da314e0fbec0f29afcd70978caf97029de6669b92e429c7_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/renders/f449d941072884ef1da314e0fbec0f29afcd70978caf97029de6669b92e429c7_0.png)
 
 - M01 / 334 / rrt / source_unit: {"details": [{"name": "Reference mean", "value": "7.3k"}, {"name": "Current mean", "value": "5.2M"}, {"name": "Reference SD", "value": "693"}, {"name": "Current SD", "value": "9.6M"}, {"name": "Deviation (sigma)", "value": "7.4k"}]}
 - M02 / 207 / duration_avg / milliseconds_or_source_unit: {"details": [{"name": "Reference mean", "value": "0.0e+00"}, {"name": "Current mean", "value": "15"}, {"name": "Reference SD", "value": "0.0e+00"}, {"name": "Current SD", "value": "8.18"}]}
@@ -1403,7 +1403,7 @@ Verification confirms that pod 58787 (the sole instance of service 117) is the o
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/7b9180918de4ade3c6c802c887ef6378f27a26ab7f60f54e73944976e23fa1a6.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/f39eb8274265ea0b63826da4acfca465a578252336c40bdded0b6cb30bda0d4e.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/inputs/f39eb8274265ea0b63826da4acfca465a578252336c40bdded0b6cb30bda0d4e.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/f39eb8274265ea0b63826da4acfca465a578252336c40bdded0b6cb30bda0d4e_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/f39eb8274265ea0b63826da4acfca465a578252336c40bdded0b6cb30bda0d4e_0.png)
 
 - M01 / 117 / container.memory.working_set / source_unit: {"details": [{"name": "Reference mean", "value": "836.2M"}, {"name": "Current mean", "value": "801.1M"}, {"name": "Reference SD", "value": "2.7M"}, {"name": "Current SD", "value": "325.9M"}, {"name": "Deviation (sigma)", "value": "13"}]}
 - M02 / 117 / k8s.pod.memory_limit_utilization / ratio_or_percent: {"details": [{"name": "Reference mean", "value": "0.19"}, {"name": "Current mean", "value": "0.21"}, {"name": "Reference SD", "value": "6.1e-04"}, {"name": "Current SD", "value": "0.12"}, {"name": "Deviation (sigma)", "value": "31"}]}
@@ -1440,7 +1440,7 @@ Top-1 candidate 743 is confirmed by (1) the earliest propagated anomaly onset at
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/1b3b18cb6c2c2c933ff5debb85a2b3050098e45129e79b1701b8ae58d9d61602.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/98dd1b130ca00ae4547afbda94f0b56c71dff4dd42697e3e6d3e3f043f59ff82.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/inputs/98dd1b130ca00ae4547afbda94f0b56c71dff4dd42697e3e6d3e3f043f59ff82.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/98dd1b130ca00ae4547afbda94f0b56c71dff4dd42697e3e6d3e3f043f59ff82_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/98dd1b130ca00ae4547afbda94f0b56c71dff4dd42697e3e6d3e3f043f59ff82_0.png)
 
 - M01 / 895 / java_lang_MemoryPool_Usage_used.Tenured_Gen / source_unit: {"details": [{"name": "Reference mean", "value": "22.9M"}, {"name": "Current mean", "value": "23.1M"}, {"name": "Reference SD", "value": "134"}, {"name": "Current SD", "value": "97.5k"}, {"name": "Deviation (sigma)", "value": "1.1k"}]}
 - M02 / 895 / java_lang_MemoryPool_PeakUsage_used.Tenured_Gen / source_unit: {"details": [{"name": "Reference mean", "value": "22.9M"}, {"name": "Current mean", "value": "23.1M"}, {"name": "Reference SD", "value": "134"}, {"name": "Current SD", "value": "97.5k"}, {"name": "Deviation (sigma)", "value": "1.1k"}]}
@@ -1477,7 +1477,7 @@ Top-1 619 is verified: (1) it is the earliest and only rank-1 TRC-L onset at +14
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/outputs/78940c7697b866909522c04d1bd920d21e13a72b144d167069f1d7fc6a5127e9.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/outputs/98dd177f7a1745e4da2a7cff8773a84b18c57e0cdc9259e59c636682195391b2.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/inputs/98dd177f7a1745e4da2a7cff8773a84b18c57e0cdc9259e59c636682195391b2.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/renders/98dd177f7a1745e4da2a7cff8773a84b18c57e0cdc9259e59c636682195391b2_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/renders/98dd177f7a1745e4da2a7cff8773a84b18c57e0cdc9259e59c636682195391b2_0.png)
 
 - M01 / 652 / duration_avg / milliseconds_or_source_unit: {"details": [{"name": "Reference mean", "value": "0.0e+00"}, {"name": "Current mean", "value": "4.4e-03"}, {"name": "Reference SD", "value": "0.0e+00"}, {"name": "Current SD", "value": "0.01"}]}
 - M02 / 6357 / node_network_transmit_packets_total / source_unit: {"details": [{"name": "Reference mean", "value": "1.20"}, {"name": "Current mean", "value": "1.22"}, {"name": "Reference SD", "value": "2.2e-16"}, {"name": "Current SD", "value": "0.03"}, {"name": "Deviation (sigma)", "value": "87570.0G"}]}
@@ -1514,7 +1514,7 @@ Top-1 847 is verified by the co-located diagnostic log LT10 ("Request method 'DE
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/outputs/17f354bdb3b3bb4567fc59f68c531909b1033848966427d2d6ca8c8048e0b5d5.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/outputs/1e945f4d2461a4b536f9328d0abdc30966b4d2d6d7bbb77638fea2eff9dc7eab.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/inputs/1e945f4d2461a4b536f9328d0abdc30966b4d2d6d7bbb77638fea2eff9dc7eab.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/renders/1e945f4d2461a4b536f9328d0abdc30966b4d2d6d7bbb77638fea2eff9dc7eab_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s2/renders/1e945f4d2461a4b536f9328d0abdc30966b4d2d6d7bbb77638fea2eff9dc7eab_0.png)
 
 - M01 / 847 / container.memory.available / source_unit: {"details": [{"name": "Reference mean", "value": "2.4G"}, {"name": "Current mean", "value": "2.4G"}, {"name": "Reference SD", "value": "461.3k"}, {"name": "Current SD", "value": "15.7M"}, {"name": "Deviation (sigma)", "value": "39"}]}
 - M02 / 847 / k8s.pod.memory.node.utilization / ratio_or_percent: {"details": [{"name": "Reference mean", "value": "5.8e-03"}, {"name": "Current mean", "value": "5.9e-03"}, {"name": "Reference SD", "value": "3.3e-06"}, {"name": "Current SD", "value": "1.2e-04"}, {"name": "Deviation (sigma)", "value": "41"}]}
@@ -1551,7 +1551,7 @@ MET-Z shows node 4390's TCP retransmissions spiking 604.5σ to a peak of 22.02 f
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/fa75341822ee7b529bce6bb1d7886d567f3d729958d2665afc02554fc12464fd.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/3858bf15281cdc2467daabe407500cf2c41606d9617f914813d79c660f9b96d0.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/inputs/3858bf15281cdc2467daabe407500cf2c41606d9617f914813d79c660f9b96d0.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/3858bf15281cdc2467daabe407500cf2c41606d9617f914813d79c660f9b96d0_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/3858bf15281cdc2467daabe407500cf2c41606d9617f914813d79c660f9b96d0_0.png)
 
 - M01 / 61093 / container_cpu_usage_seconds / source_unit: {"details": [{"name": "Reference mean", "value": "0.12"}, {"name": "Current mean", "value": "0.24"}, {"name": "Reference SD", "value": "0.13"}, {"name": "Current SD", "value": "0.54"}, {"name": "Deviation (sigma)", "value": "0.93"}]}
 - M02 / 63102 / container_network_receive_MB.eth0 / source_unit: {"details": [{"name": "Reference mean", "value": "0.07"}, {"name": "Current mean", "value": "0.04"}, {"name": "Reference SD", "value": "0.11"}, {"name": "Current SD", "value": "3.5e-03"}, {"name": "Deviation (sigma)", "value": "0.21"}]}
@@ -1588,7 +1588,7 @@ MET-Z records service 438 (raft_apply_wait) as the earliest and largest onset at
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/a702f9d53827bef223e86230f0b29a56c24efd0f5f5f9b9650dc4ac0ed19d1a6.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/outputs/9b851014048bb9bf347f3eed39958e414527ee52e2d89a5720092938ca772134.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/inputs/9b851014048bb9bf347f3eed39958e414527ee52e2d89a5720092938ca772134.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/9b851014048bb9bf347f3eed39958e414527ee52e2d89a5720092938ca772134_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s0/renders/9b851014048bb9bf347f3eed39958e414527ee52e2d89a5720092938ca772134_0.png)
 
 - M01 / 468 / rrt / source_unit: {"details": [{"name": "Reference mean", "value": "1.6k"}, {"name": "Current mean", "value": "1.8k"}, {"name": "Reference SD", "value": "95"}, {"name": "Current SD", "value": "852"}, {"name": "Deviation (sigma)", "value": "2.10"}]}
 - M02 / 68577 / rrt_max / source_unit: {"details": [{"name": "Reference mean", "value": "3.9k"}, {"name": "Current mean", "value": "9.5k"}, {"name": "Reference SD", "value": "1.3k"}, {"name": "Current SD", "value": "19.4k"}, {"name": "Deviation (sigma)", "value": "4.38"}]}
@@ -1625,7 +1625,7 @@ Top-1 440 is verified: (1) its TRC-L exclusive-latency p95 exploded to ~20s (ran
 
 [旧输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/outputs/59cc6d512742e9dc34b37769e223a2213d21ce405d4d55d0d0549571d6fcead2.json) · [新输出](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/outputs/0dc01c2dee0466434f1151934bf9b10aaa6592462e687f3bd430d835ad1dde02.json) · [新输入](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/inputs/0dc01c2dee0466434f1151934bf9b10aaa6592462e687f3bd430d835ad1dde02.json)
 
-[模型所见图](/home/lglsj/CanvasRCA_nibi/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/renders/0dc01c2dee0466434f1151934bf9b10aaa6592462e687f3bd430d835ad1dde02_0.png)
+[模型所见图](../through_RQ3_15_preserved/assets/RQs/RQ3_8/results/ops_components_v7/qwen3.8-27b_s1/renders/0dc01c2dee0466434f1151934bf9b10aaa6592462e687f3bd430d835ad1dde02_0.png)
 
 - M01 / 243 / container.filesystem.available / source_unit: {"details": [{"name": "Reference mean", "value": "35.0G"}, {"name": "Current mean", "value": "25.7G"}, {"name": "Reference SD", "value": "88.0M"}, {"name": "Current SD", "value": "6.5G"}, {"name": "Deviation (sigma)", "value": "106"}]}
 - M02 / 954 / k8s.pod.filesystem.available / source_unit: {"details": [{"name": "Reference mean", "value": "35.0G"}, {"name": "Current mean", "value": "25.7G"}, {"name": "Reference SD", "value": "88.0M"}, {"name": "Current SD", "value": "6.5G"}, {"name": "Deviation (sigma)", "value": "106"}]}

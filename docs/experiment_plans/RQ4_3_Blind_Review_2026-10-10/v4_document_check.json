@@ -1,0 +1,26 @@
+{
+  "kind": "planning_document_consistency_only",
+  "missing_local_links": [],
+  "budget": {
+    "development": 5216,
+    "conditional_confirmation": 1080,
+    "smoke": 18,
+    "infrastructure": 234,
+    "allocated": 6548,
+    "unallocated": 1452,
+    "ceiling": 8000
+  },
+  "protected_files": {
+    "Codex.md": {
+      "sha256": "64579e5182709b2c4163b6ce36b1430fea5b6c50624aa966dad6984c99f2b25c",
+      "matches_pre_review": true
+    },
+    "plans/design_decisions.md": {
+      "sha256": "ebb08d99fe87bdda9009ff87ad2fb403490c4a4bd51dfa127ad243aaf795db4f",
+      "matches_pre_review": true
+    }
+  },
+  "cpu_qualification": false,
+  "gpu_qualification": false,
+  "new_experiment_calls": 0
+}

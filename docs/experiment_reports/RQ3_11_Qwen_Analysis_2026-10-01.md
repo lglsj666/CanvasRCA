@@ -61,7 +61,7 @@ PT/PV 在编译器层面使用相同的 q、范围、缺失和精确补丁，适
 - 模型的 18 个权重分片及 config/index 共 20 文件通过历史 SHA256 清单；另 8 个 tokenizer/processor/模板文件通过下载修订与 blob 哈希，并保存当前 SHA256。
 - 注册名单、来源名单哈希、140 个 eval 身份与原资格记录一致，没有未解释缺项，也没有标签进入公开编译器。
 
-验证结果见 [verification.json](../../RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/verification.json)、[模型文件核验](../../RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/checkpoint_verification.json)与 [逐位置清单](../../RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/case_inventory.csv)。冻结归档 SHA256 为 `8cd66de375ff4f2cede5474d95bd8aedb6acf8cfac20d2fb9d27993d4f77fb7b`。运行基于 Git `4760c7f5559137bfcbb17b74ea55849785e7d568` 的脏工作树，精确归档而非提交号单独确定运行来源。
+验证结果见 [verification.json](../../RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/verification.json)、[模型文件核验](../../RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/checkpoint_verification.json)与 [逐位置清单](through_RQ3_15_preserved/assets/RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/case_inventory.csv)。冻结归档 SHA256 为 `8cd66de375ff4f2cede5474d95bd8aedb6acf8cfac20d2fb9d27993d4f77fb7b`。运行基于 Git `4760c7f5559137bfcbb17b74ea55849785e7d568` 的脏工作树，精确归档而非提交号单独确定运行来源。
 
 本次新增的是离线 report 入口与报告素材，源码差异仅在 RQ3.11 main/gates；没有改原模型输入、回答、排名或评分。原 GPU 资格对应冻结归档，不能用更新后的报告源码冒充原资格版本。
 
@@ -99,7 +99,7 @@ PVH−ET 的 120 例配对中，MRR 改善 18、恶化 21、持平 81。top-1 �
 
 所有八臂共同完成交集为 128 例，其中 AIOPS-2022 52、AIOPS-2025 57、AegisLab 19。共同 AIOPS 109 例的 MRR 依次为 ET 0.2783、ER 0.2706、CVL 0.2791、CVH 0.2817、PTL 0.2875、PTH 0.2798、PVL 0.2966、PVH 0.2622。统一分母后，PVH 并没有保留可用响应表中的轻微优势。这个更小交集本身受其他臂超时影响，只是敏感性视角；主要结论仍使用各注册比较自己的配对交集。
 
-完整指标：[arm_metrics.csv](../../RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/arm_metrics.csv)；共同交集：[common_all_eight.csv](../../RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/common_all_eight.csv)；覆盖变化：[metric_transitions.csv](../../RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/metric_transitions.csv)。
+完整指标：[arm_metrics.csv](through_RQ3_15_preserved/assets/RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/arm_metrics.csv)；共同交集：[common_all_eight.csv](through_RQ3_15_preserved/assets/RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/common_all_eight.csv)；覆盖变化：[metric_transitions.csv](through_RQ3_15_preserved/assets/RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/metric_transitions.csv)。
 
 ## 5. 注册配对统计
 
@@ -125,7 +125,7 @@ PVH−ET 的 120 例配对中，MRR 改善 18、恶化 21、持平 81。top-1 �
 | PVL−CVL |91|+0.0133|0.7283|
 | ER−ET |93|−0.0054|0.4719|
 
-原分数配对、Pratt p 值和 Holm 公式已另行复核，见 [statistics_verification.json](../../RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/statistics_verification.json)。注册比较的完整字段保存在 [registered_contrasts.csv](../../RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/registered_contrasts.csv)。
+原分数配对、Pratt p 值和 Holm 公式已另行复核，见 [statistics_verification.json](../../RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/statistics_verification.json)。注册比较的完整字段保存在 [registered_contrasts.csv](through_RQ3_15_preserved/assets/RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/registered_contrasts.csv)。
 
 ## 6. 超时如何影响结论
 
@@ -143,7 +143,7 @@ PVH−ET 的 120 例配对中，MRR 改善 18、恶化 21、持平 81。top-1 �
 | PVL−CVL |4|[+0.00556, +0.03889]|
 | ER−ET |2|[−0.01528, +0.00139]|
 
-这使 HIGH 视觉/补丁的非正向均值更稳健，也保留 LOW 的正向均值信号；两者都不能替代注册的统计结论。超时 usage 未知还意味着实验实际成本不能由已知 token 总和完全覆盖。完整超时 ID 与臂见 [timeouts.csv](../../RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/timeouts.csv)，界限见 [missing_bounds.csv](../../RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/missing_bounds.csv)。
+这使 HIGH 视觉/补丁的非正向均值更稳健，也保留 LOW 的正向均值信号；两者都不能替代注册的统计结论。超时 usage 未知还意味着实验实际成本不能由已知 token 总和完全覆盖。完整超时 ID 与臂见 [timeouts.csv](through_RQ3_15_preserved/assets/RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/timeouts.csv)，界限见 [missing_bounds.csv](through_RQ3_15_preserved/assets/RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/missing_bounds.csv)。
 
 ## 7. 实际 token 与系统成本
 
@@ -177,11 +177,11 @@ PTH 相对 ET 的额外描述性同案例成本比较为 −2.46%（119 例）�
 
 正式 supervisor 用时 **4,548.56 秒（75 分 48.56 秒）**，含启动，10 月 1 日多伦多时间 16:12:18 结束；服务自动关闭。Smoke 用时 170.24 秒。正式完成请求的 wall_time 合计 152,962.13 秒，是并发重叠时间，不能称为 42.49 小时的独占 GPU 消耗。没有完整 GPU 利用率积分或功耗记录，也没有独立按臂排队的运行，不能从平均请求时延的小差异推导 GPU 吞吐、能源或货币成本收益。
 
-逐数据集与配对成本：[costs.csv](../../RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/costs.csv)、[paired_costs.csv](../../RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/paired_costs.csv)。
+逐数据集与配对成本：[costs.csv](through_RQ3_15_preserved/assets/RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/costs.csv)、[paired_costs.csv](through_RQ3_15_preserved/assets/RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/paired_costs.csv)。
 
-![共同分母下的成本与准确率，以及注册主要比较](../../RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/cost_and_contrasts.png)
+![共同分母下的成本与准确率，以及注册主要比较](through_RQ3_15_preserved/assets/RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/cost_and_contrasts.png)
 
-左图统一使用八臂共同 AIOPS 109 例；右图使用各注册比较自己的交集。图中的点排序只是描述，不能据图挑选新方法。[SVG 导出](../../RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/cost_and_contrasts.svg)。
+左图统一使用八臂共同 AIOPS 109 例；右图使用各注册比较自己的交集。图中的点排序只是描述，不能据图挑选新方法。[SVG 导出](through_RQ3_15_preserved/assets/RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/cost_and_contrasts.svg)。
 
 ## 8. 编译器究竟保护了什么
 
@@ -198,7 +198,7 @@ LOW 有 8 例不需补丁，HIGH 有 9 例；对应 17 个精确输入相同的�
 
 三个关键限制：第一，签名在已显示 64-bin 数据上计算，不能恢复原始遥测中已被选择或分箱丢掉的信息。第二，它不保留原 MET-Z 的全部均值/标准差判定，也没有建立因果图和干预分布。第三，离线解码器应用补丁后保持签名，不意味着 VLM 能从栅格图准确读取各 bin 并正确应用文本补丁。本轮没有单独测量逐 bin 视觉译码准确率。
 
-数值明细与改变的算子字段：[numeric_codec.csv](../../RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/numeric_codec.csv)。
+数值明细与改变的算子字段：[numeric_codec.csv](through_RQ3_15_preserved/assets/RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/numeric_codec.csv)。
 
 ## 9. 根因粒度、证据覆盖与故障类型
 
@@ -215,7 +215,7 @@ PVH−ET 的主要 120 例均有结果，以下可以直接逐例配对。各层
 
 固定 12 条 M 曲线中，包含至少一个精确接受根因资源的案例为 AIOPS-2022 22/60、AIOPS-2025 19/60、AegisLab 13/20。这个计数只衡量字面精确资源覆盖，服务的 pod 代理、R/L/G 中的根因证据都没有替代计入；不能将其余案例称为没有根因证据，也不能将其当作性能上限。例如 INC-0060628741E9 没有根因指标，但两条 R 已明确显示正确服务 786 的操作，模型仍全部错过。
 
-本轮保留原选择，因此压缩器无法弥补未选入 M 的资源和机制。另一方面，当前错误也并非都来自证据缺失：不少明确单位、onset 或关系已经在输入中，模型依然错误解释。完整故障、粒度与数据集分层见 [breakdowns.csv](../../RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/breakdowns.csv)；根因资源覆盖见 [root_coverage.csv](../../RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/root_coverage.csv)。这些是标签关联的离线评价文件，不能成为模型输入。
+本轮保留原选择，因此压缩器无法弥补未选入 M 的资源和机制。另一方面，当前错误也并非都来自证据缺失：不少明确单位、onset 或关系已经在输入中，模型依然错误解释。完整故障、粒度与数据集分层见 [breakdowns.csv](through_RQ3_15_preserved/assets/RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/breakdowns.csv)；根因资源覆盖见 [root_coverage.csv](through_RQ3_15_preserved/assets/RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/root_coverage.csv)。这些是标签关联的离线评价文件，不能成为模型输入。
 
 ## 10. 独立文本重复与运行波动
 
@@ -223,13 +223,13 @@ ER/ET 的 138 个全数据集完成配对中，完整响应字符串相同 42 �
 
 因此，“同输入同配方”不保证逐字重复，解释措辞的波动明显大于最终排名。本地配方没有启用 batch-invariant；这份重复对照记录了当前系统的实际重复性，但没有分离采样、批处理或其他运行因素各自的贡献，也没有给每一个视觉臂提供多次重复。不得取 ET/ER 的最佳结果充当基线，或将不同解释自动视为不同根因能力。
 
-[repeat_consistency.csv](../../RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/repeat_consistency.csv) 保存逐例两次调用身份与一致性。
+[repeat_consistency.csv](through_RQ3_15_preserved/assets/RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/repeat_consistency.csv) 保存逐例两次调用身份与一致性。
 
 ## 11. 解释可信度与实际案例
 
 逐位置文字筛查发现 112/1,108 份解释出现 service/pod/node 的字面类型冲突，308 份使用 verified、proves、rules out 等证明性措辞。这里包含复用位置，且正则筛查不是语义裁定，不能称为全量幻觉率。
 
-ET 的 125 个 high-confidence 回答有 97 个 top-1 错误，PTH 的 130 个 high 有 101 个错误，PVH 的 36 个 high 有 24 个错误。PVH 更多使用 medium，不能因此称为已校准或更可信。confidence 是类别，不是概率；排序是否正确也不能替代对单位、关系和因果论证的核验。详见 [confidence.csv](../../RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/confidence.csv) 与 [response_screens.csv](../../RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/response_screens.csv)。
+ET 的 125 个 high-confidence 回答有 97 个 top-1 错误，PTH 的 130 个 high 有 101 个错误，PVH 的 36 个 high 有 24 个错误。PVH 更多使用 medium，不能因此称为已校准或更可信。confidence 是类别，不是概率；排序是否正确也不能替代对单位、关系和因果论证的核验。详见 [confidence.csv](through_RQ3_15_preserved/assets/RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/confidence.csv) 与 [response_screens.csv](through_RQ3_15_preserved/assets/RQs/RQ3_11/results/protected_v2/analysis_reviewed_v1/response_screens.csv)。
 
 从 91 个按原审核规则生成的配对条目中，对每个主要比较和 MRR 改善/恶化/持平层取前两条，阅读 **24 个配对条目、12 个独立案例**的完整回答与相应证据字段。直接查看四张完整实际 PNG（两 LOW、两 HIGH），绑定 ID、实体类型和曲线均可见，没有裁剪或遮挡；其余 67 个队列条目没有人工式语义裁定。该样本按结果变化分层选择，并包含 Aegis，不能推算总体错误比例。
 

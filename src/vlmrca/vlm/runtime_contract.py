@@ -39,10 +39,20 @@ def resolved_model_runtime(model_tag: str, path: str | Path = DEFAULT_CONTRACT) 
     return value
 
 
-def assert_request_sampling(*, temperature: float | None, top_p: float | None, seed: int | None) -> None:
+def assert_request_sampling(*, temperature: float | None, top_p: float | None,
+                            seed: int | None, registered_seed: int | None = None) -> None:
+    """Check defaults, or an explicitly frozen per-request seed supplied by the caller.
+
+    The caller owns registration/provenance. This changes only the expected seed,
+    never the transmitted seed, temperature, top-p, or process-wide configuration.
+    """
     common = VLLMInferenceConfig.load().data["common"]
+    if registered_seed is not None and (type(registered_seed) is not int or
+                                       not 0 <= registered_seed < 2**63):
+        raise VLLMRuntimeContractError("registered_seed must be a nonnegative int64")
     observed = (temperature, top_p, seed)
-    expected = (common["temperature"], common["top_p"], common["seed"])
+    expected = (common["temperature"], common["top_p"],
+                common["seed"] if registered_seed is None else registered_seed)
     if observed != expected:
         raise VLLMRuntimeContractError(f"request sampling drifted: observed={observed}, expected={expected}")
 

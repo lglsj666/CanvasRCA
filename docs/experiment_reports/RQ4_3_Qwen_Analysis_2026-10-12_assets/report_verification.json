@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "report_version": "complete_experiment",
+  "positions": 4832,
+  "current_main_arms": 20,
+  "cases_per_current_arm": 220,
+  "datasets_per_current_arm": {
+    "aiops2022": 60,
+    "aiops2025": 60,
+    "aegislab": 100
+  },
+  "added_positions": 289,
+  "updated_arms": [
+    "C_PACK_BG_FILL",
+    "C_PACK_OFFSET",
+    "C_READ_GUIDE",
+    "R_HORIZON",
+    "R_PACK_HORIZON",
+    "R_PATCH_PACK",
+    "X_RP",
+    "X_SR"
+  ],
+  "unchanged_current_main_arms": 12,
+  "unchanged_historical_arms": 2,
+  "old_committed_hashes_unchanged": 4543,
+  "unchanged_QA_attention_manual_artifacts": 10,
+  "broken_report_links": [],
+  "python_files_parsed": 7,
+  "frozen_queue_hash_unchanged": true,
+  "report_sha256": "a5acf70674a3d50b45c8557c2133d42909bf9663bff0c8002caaaef12ca4f438",
+  "QA_check": {
+    "status": "passed",
+    "questions": 1059,
+    "calls": 180,
+    "mismatches": [],
+    "original_scores_unchanged": true,
+    "new_model_calls": 0
+  },
+  "statistics_check": {
+    "status": "passed",
+    "pratt_checks": 150,
+    "max_error": 1.6653345369377348e-16,
+    "holm_errors": [],
+    "no_confidence_intervals": true
+  },
+  "new_model_calls": 0,
+  "run_completion_observed": true,
+  "writers_drained": true,
+  "final_storage_qualification": "not_performed_by_this_report_update"
+}

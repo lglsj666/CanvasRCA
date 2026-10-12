@@ -132,3 +132,31 @@ torch_cache/
 /packages/ReAct/data/*.jsonl
 /packages/Denum/Logs/**/*.log
 /packages/Denum/decompress_output/
+
+# Generated per-call queues are machine-local runtime state, even when an older
+# runner writes them under configs/. Keep the actual experiment configurations.
+/RQs/**/configs/remaining_logical_inputs_*.json
+
+# Raw analysis exports and intermediate audit indexes are not report deliverables.
+# Keep Markdown/PDF reports, PNG/SVG figures, aggregate tables, analysis scripts,
+# and the portable meeting report's referenced-file bundle in important_docs/.
+/docs/experiment_reports/**/calls.csv
+/docs/experiment_reports/**/qa_calls.csv
+/docs/experiment_reports/**/qa_tolerant_calls.csv
+/docs/experiment_reports/**/qa_questions.csv
+/docs/experiment_reports/**/qa_tolerant_questions.csv
+/docs/experiment_reports/**/qa_rca_linked.csv
+/docs/experiment_reports/**/attention_records.csv
+/docs/experiment_reports/**/attention_regions.csv
+/docs/experiment_reports/**/input_lineage.csv
+/docs/experiment_reports/**/case_audit_index.json
+/docs/experiment_reports/**/contrast_vectors.json
+/docs/experiment_reports/**/snapshot.json
+/docs/experiment_reports/**/snapshot_previous_cutoff.json
+/docs/experiment_reports/**/numeric_codec.csv
+/docs/experiment_reports/**/*.log
+
+# Bulky generated cleanup inventories stay local; their Markdown explanations
+# and the historical report figures preserved by the cleanup remain versioned.
+/docs/issues/*Artifact_Deletion_*.json
+/docs/issues/*Artifact_Deletion_*_manifest.json.gz

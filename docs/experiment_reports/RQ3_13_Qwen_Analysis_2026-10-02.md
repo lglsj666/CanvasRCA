@@ -80,9 +80,9 @@ AIOPS-2022 的同病例配对增量为 **+0.1032（57 对）**，AIOPS-2025 为 
 
 六臂共同完成的主要 AIOPS 交集为 110 例（A22 54、A25 56），MRR 依次为 .2759/.2733/.2842/.3453/.3438/.3453。这仍是时间图与截图几乎持平，不能靠换共同掩码建立独立的时间图收益。
 
-![同病例 MRR 与 AegisLab 逐例变化](../../RQs/RQ3_13/results/observed_excursion_v1/analysis_detailed_v1/paired_mrr_and_aegis_changes.png)
+![同病例 MRR 与 AegisLab 逐例变化](through_RQ3_15_preserved/assets/RQs/RQ3_13/results/observed_excursion_v1/analysis_detailed_v1/paired_mrr_and_aegis_changes.png)
 
-图左为每个数据集 EVENT_VISUAL−EXACT_TEXT 自身的共同病例；图右包含全部 20 个 AegisLab 病例，无超时缺失。没有误差棒或置信区间。可导出的 [SVG](../../RQs/RQ3_13/results/observed_excursion_v1/analysis_detailed_v1/paired_mrr_and_aegis_changes.svg)与全部数表已落盘。
+图左为每个数据集 EVENT_VISUAL−EXACT_TEXT 自身的共同病例；图右包含全部 20 个 AegisLab 病例，无超时缺失。没有误差棒或置信区间。可导出的 [SVG](through_RQ3_15_preserved/assets/RQs/RQ3_13/results/observed_excursion_v1/analysis_detailed_v1/paired_mrr_and_aegis_changes.svg)与全部数表已落盘。
 
 ## 5. 注册统计、重复与成本
 
@@ -171,13 +171,13 @@ EV 相对 EXACT 共 4 改善、7 恶化、9 持平；Top-1 修复/破坏 2/5；�
 
 全部七个下降病例中，除 7FCA 外，其余六例在视觉 repeat 相对原文仍下降。故损失不只是一次随机回答的偶然翻转。不过每个输入只有一次真实 repeat，不能估计稳定错误概率。
 
-按原 fault 标签：NetworkCorrupt 三例 .7778→.1667；JVMMemoryStress 三例 .7500→1；PodKill 单例 1→.5；HTTPRequestReplaceMethod 五例 .3667→.3167。不能将本轮概括为“所有 Aegis/JVM 或所有 HTTP 都下降”，也不能将这些小层用于线上 gold 路由。[42 个故障配对描述层](../../RQs/RQ3_13/results/observed_excursion_v1/analysis_detailed_v1/fault_paired_descriptive.csv)完整保留两个 AIOPS 和 Aegis，不挑最高子组。
+按原 fault 标签：NetworkCorrupt 三例 .7778→.1667；JVMMemoryStress 三例 .7500→1；PodKill 单例 1→.5；HTTPRequestReplaceMethod 五例 .3667→.3167。不能将本轮概括为“所有 Aegis/JVM 或所有 HTTP 都下降”，也不能将这些小层用于线上 gold 路由。[42 个故障配对描述层](through_RQ3_15_preserved/assets/RQs/RQ3_13/results/observed_excursion_v1/analysis_detailed_v1/fault_paired_descriptive.csv)完整保留两个 AIOPS 和 Aegis，不挑最高子组。
 
 ### 6.2 高显著度症状取代局部操作证据
 
 INC-018AC5D486B5：原文首选 702；R 的 702/GET exclusive p95 为 **130,282,538.25µs≈130.28秒**、rank_score=15.95。视觉/截图都改选 877，把 702 移出前五，公开理由强调 CPU 的 71σ、多条共现和更早 onset。实际 877 的四条超包络 CPU 行只在 bin40/42 出现，另有一条未超包络；五行属于同一服务、相近 CPU 观测，不能当作五份独立因果支持。原 G 的 877 onset 为 +5.2m，理由却写 +4.0m；截图还将 510 的 13.69 称为最高，漏过 702 的 15.95。
 
-这张[实际时间图](../../RQs/RQ3_13/preparation/observed_excursion_v1/renders/INC-018AC5D486B5/EVENT_VISUAL/dashboard.png)清楚保留实体、稀疏采样与短时脉冲；[实际截图](../../RQs/RQ3_13/preparation/observed_excursion_v1/renders/INC-018AC5D486B5/EVENT_PIXEL_TEXT/dashboard.png)也有同状态。两者均失败，支持“强调指标状态后，候选证据优先级改变”的路径；不证明视觉完全没被读，也不证明 CPU 本身是错误观测。
+这张[实际时间图](through_RQ3_15_preserved/assets/RQs/RQ3_13/preparation/observed_excursion_v1/renders/INC-018AC5D486B5/EVENT_VISUAL/dashboard.png)清楚保留实体、稀疏采样与短时脉冲；[实际截图](through_RQ3_15_preserved/assets/RQs/RQ3_13/preparation/observed_excursion_v1/renders/INC-018AC5D486B5/EVENT_PIXEL_TEXT/dashboard.png)也有同状态。两者均失败，支持“强调指标状态后，候选证据优先级改变”的路径；不证明视觉完全没被读，也不证明 CPU 本身是错误观测。
 
 INC-01BF937825D4：原文和派生文本均命中 732，两个图像臂均丢掉 732/927，改追 349/165/779 的指标时间。故至少这例的问题发生在图像承载及其伴随位置/权重变化，不能仅归因于计算了新状态。Metric 的 HTTP duration quantile 在部分解释中被叫作 exclusive latency，扩大了它本来没有的归因语义。
 
@@ -185,7 +185,7 @@ INC-37ABFB78A80E：原文命中 495，派生文本、图、截图都改选 364�
 
 ### 6.3 包络正确，瞬态仍可能被摘要压平
 
-INC-50C26A55D214 是 PodKill。公共窗口 480s、split=285s。762 的 pod memory usage 在 bin34（255–262.5s）降至约 **93.97M**，后续恢复；这次骤降已位于参考阶段。参考 min/max 将其包含，所有十二条派生状态都没有 `+/-`，参考阶段又按定义一律为 `.`。因此[实际图](../../RQs/RQ3_13/preparation/observed_excursion_v1/renders/INC-50C26A55D214/EVENT_VISUAL/dashboard.png)看起来全平，尽管原始文本仍保存骤降。
+INC-50C26A55D214 是 PodKill。公共窗口 480s、split=285s。762 的 pod memory usage 在 bin34（255–262.5s）降至约 **93.97M**，后续恢复；这次骤降已位于参考阶段。参考 min/max 将其包含，所有十二条派生状态都没有 `+/-`，参考阶段又按定义一律为 `.`。因此[实际图](through_RQ3_15_preserved/assets/RQs/RQ3_13/preparation/observed_excursion_v1/renders/INC-50C26A55D214/EVENT_VISUAL/dashboard.png)看起来全平，尽管原始文本仍保存骤降。
 
 原文首选 762；两个图像臂均提升 871、将 762 放第二。871 的已显示 MET-Z deviation_sigma 为 1074.4G，但 regular_std≈2.5e−20，打印曲线约为常量 .000694。理由将 762 的骤降与恢复解释为非故障资源回收，并拿极端 σ 与没有上游边论证 871 的来源地位；截图还说 +5.2 先于 +4.9，并将不同宿主的服务称为共址。871 的实例位于 3083，762 实例位于 4490。
 
@@ -199,7 +199,7 @@ INC-50C26A55D214 是 PodKill。公共窗口 480s、split=285s。762 的 pod memo
 
 来源编号映射的全 140 例都有至少一个这种数字后缀不对齐（只有133例实际显示非空派生表；空表病例没有新增图中编号）：A22 655/720 行、A25 678/720 行、Aegis 218/240 行，合计 **1,551/1,680（92.32%）**。计数是两个命名空间数值后缀的比较，不是 1,551 个 literal-ID 冲突，也不是模型错误数。不同后缀有时仍指同一实体的其他指标；部分旧 M1 引用是合法旧编号，不能一概裁成新 M01 绑定错误。
 
-因此此前资格报告中的部分 M 引用反例须附加这一解释边界。CPU 对事实—图元的绑定正确，与模型可见的引用命名空间清晰是两个不同问题。旧实验不回写、不追溯救分；新实验统一命名并保留独立格式对照。[逐条编号/实体/原事实 ID/包络状态清单](../../RQs/RQ3_13/results/observed_excursion_v1/analysis_detailed_v1/metric_identity_and_states.csv)支持复核。
+因此此前资格报告中的部分 M 引用反例须附加这一解释边界。CPU 对事实—图元的绑定正确，与模型可见的引用命名空间清晰是两个不同问题。旧实验不回写、不追溯救分；新实验统一命名并保留独立格式对照。[逐条编号/实体/原事实 ID/包络状态清单](through_RQ3_15_preserved/assets/RQs/RQ3_13/results/observed_excursion_v1/analysis_detailed_v1/metric_identity_and_states.csv)支持复核。
 
 ### 6.5 为什么 AIOPS 有收益，而 Aegis 有损失
 
@@ -217,7 +217,7 @@ Aegis 有派生表的 15/20，两个“有表却无任何 excursion”的病例�
 
 登记五轴为单位/数值、时序、实体绑定、excursion当根因、无依据因果断言。定向核对保存14条claim：13条明确的算术/源事实矛盾、1条没有充分来源支持的因果次序断言。其余轴/主张仍为 not_certified；不提供全量幻觉率、双评审一致率或已校准可信度。尤其将双编号歧义单列，避免把接口缺陷全部算到模型头上。[审核记录](../../RQs/RQ3_13/results/observed_excursion_v1/analysis_detailed_v1/manual_reason_review.json)、[具体claim](../../RQs/RQ3_13/results/observed_excursion_v1/analysis_detailed_v1/source_checked_claims.json)。
 
-高/medium/low仅是模型输出类别，[置信类别与错排计数](../../RQs/RQ3_13/results/observed_excursion_v1/analysis_detailed_v1/confidence_descriptive.csv)按臂/数据集完整保存。更高MRR、更低自报信心、响应符合JSON，均不自动等于解释更可信。公开reason是可核验输出，不用于推断隐藏思考。
+高/medium/low仅是模型输出类别，[置信类别与错排计数](through_RQ3_15_preserved/assets/RQs/RQ3_13/results/observed_excursion_v1/analysis_detailed_v1/confidence_descriptive.csv)按臂/数据集完整保存。更高MRR、更低自报信心、响应符合JSON，均不自动等于解释更可信。公开reason是可核验输出，不用于推断隐藏思考。
 
 ## 8. 历史报告的综合分析
 

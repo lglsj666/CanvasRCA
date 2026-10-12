@@ -1,0 +1,53 @@
+schema: SelectionOnlySuiteV4
+status: qualified_for_registered_tournament_execution
+static_review: RQs/RQ3/results/selection_only_review_20260914/successor_v4_static/review.json
+execution_authorized: true
+authorization_note: User explicitly resumed the elimination tournament on 2026-09-14; CPU qualification still precedes the first v4 model call.
+cpu_audit:
+  path: RQs/RQ3/results/selection_only_review_20260914/successor_v4_qualified/summary.json
+  sha256: d6d94a9b14c9411738a290988b1eddc581341ceecbbeaff83121a4bc6e4a595a
+  status: passed
+  cases: 117
+  model_calls: 0
+anchor_config: RQs/RQ3/configs/tournament_full_candidate_binding_v3.yaml
+anchor_round: round_0016
+anchor_config_hash: 1274c3b7d3b9b6ede22fde046134644678f3e4078aab333d2ff28d3b22aacc36
+display_prompt_runtime_tree_hash: 8fc5deeafc126a54e261127769f756f8563cb8ad09486d9ba3506f8bcb05b8a8
+changed_component: evidence_selection_only
+design: RQs/RQ3/descriptions/RQ3_experiments.md#selection-successor-v4
+pending_policies:
+  - conditional_residual_v1
+  - lowrank_sparse_v1
+  - subsequence_discord_v1
+  - kernel_distribution_v1
+  - log_balance_v1
+  - operation_mix_v1
+  - graph_diffusion_v1
+  - additive_ripple_v1
+method_configs:
+  conditional_residual_v1: RQs/RQ3/configs/tournament_selection_conditional_residual_v7.yaml
+  lowrank_sparse_v1: RQs/RQ3/configs/tournament_selection_lowrank_sparse_v7.yaml
+  subsequence_discord_v1: RQs/RQ3/configs/tournament_selection_subsequence_discord_v7.yaml
+  kernel_distribution_v1: RQs/RQ3/configs/tournament_selection_kernel_distribution_v7.yaml
+  log_balance_v1: RQs/RQ3/configs/tournament_selection_log_balance_v7.yaml
+  operation_mix_v1: RQs/RQ3/configs/tournament_selection_operation_mix_v7.yaml
+  graph_diffusion_v1: RQs/RQ3/configs/tournament_selection_graph_diffusion_v7.yaml
+  additive_ripple_v1: RQs/RQ3/configs/tournament_selection_additive_ripple_v7.yaml
+sources:
+  conditional_residual_v1: "CIRCA, KDD 2022; literature-inspired project selector, not full-system reproduction"
+  lowrank_sparse_v1: "Robust PCA, JACM 2011; literature-inspired project selector, not full-system reproduction"
+  subsequence_discord_v1: "Matrix Profile I, ICDM 2016; literature-inspired project selector, not full-system reproduction"
+  kernel_distribution_v1: "MMD, JMLR 2012; literature-inspired project selector, not full-system reproduction"
+  log_balance_v1: "Log invariants, USENIX ATC 2010; literature-inspired project selector, not full-system reproduction"
+  operation_mix_v1: "Spectroscope, NSDI 2011; literature-inspired project selector, not full-system reproduction"
+  graph_diffusion_v1: "MonitorRank, SIGMETRICS 2013; literature-inspired project selector, not full-system reproduction"
+  additive_ripple_v1: "HotSpot, IEEE Access 2018; literature-inspired project selector, not full-system reproduction"
+execution:
+  cohorts: all_unretired_v1
+  models: sequential_qwen_then_gemma
+  no_preliminary_inference_subset: true
+  no_training: true
+  no_attention: true
+  no_automatic_round_registration: true
+  registered_before_each_round: true
+  round28_spectral_preserved_pending: true

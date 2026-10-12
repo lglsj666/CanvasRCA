@@ -1,0 +1,50 @@
+{
+  "schema": "CanvasRCAScorerMigrationV1",
+  "date": "2026-10-06",
+  "new_code_import_authority": "scorer",
+  "historical_sources_preserved": true,
+  "legacy_import_aliases": false,
+  "external_RCA_repository_required": false,
+  "sources": [
+    {
+      "project_source": "src/unified_scripts/rca_scorer.py",
+      "sha256": "5b9831e26a41ca04c34f07fe6d44ed263fc24cd35cc538c48177ff7fcbeadf1c",
+      "symbols": [
+        "CaseScore",
+        "RCAScorerConfig",
+        "RCAScorer",
+        "score_bound_response",
+        "main"
+      ]
+    },
+    {
+      "project_source": "src/vlmrca/eval/scoring.py",
+      "sha256": "d8a7e9e98ca8d8920ca79db58fc1deb467d2ee4de4710a507835b25acf4183e5",
+      "symbols": [
+        "is_granularity_aware_hit"
+      ]
+    },
+    {
+      "project_source": "RQs/RQ2_1/src/renderer/onset.py",
+      "sha256": "516bbddf2e6ca9b168a94a06e2ed6ca88570e7dd201b6a2e4c04b5dad3eaa8f3",
+      "symbols": [
+        "pod_to_service"
+      ]
+    },
+    {
+      "project_source": "packages/rq21_native/sircl_original/scoring.py",
+      "sha256": "0882c9dc1ac2bdbfa434b3a51e7d73570dca3aba2dd3f98cbc0ec3915b4d5b38",
+      "symbols": [
+        "normalize_service",
+        "is_service_level_hit"
+      ]
+    }
+  ],
+  "semantic_changes": [],
+  "structural_changes": [
+    "centralize existing local functions",
+    "remove scorer dependency on historical renderer and external checkout",
+    "use local matching import in default scorer"
+  ],
+  "upstream_helper_provenance": "packages/rq21_native/PROVENANCE.json"
+}

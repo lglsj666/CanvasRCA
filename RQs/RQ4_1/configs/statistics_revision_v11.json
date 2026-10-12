@@ -1,0 +1,37 @@
+{
+  "schema": "BoundedMeanStatisticsRevisionV11",
+  "method": "fixed_bounded_group_mean_mixture_v1",
+  "execution_scope": "CPU-only new statistic; do not replay passed engineering tests",
+  "authority": "2026-10-07 user asks to revise failed QA calibration",
+  "output": "RQs/RQ4_1/results/comparison_coding_v1/statistics_revision_v11",
+  "inputs": [
+    {
+      "name": "qa",
+      "registration": "RQs/RQ4_1/results/comparison_coding_v1/cpu_remaining_v10/qa_calibration/statistics_registration.json",
+      "sha256": "7fdd97a2bc5d91af9cc5a984dd2d95769b45f2b364b63baa9db76023093d8651",
+      "family_size": 2
+    },
+    {
+      "name": "development",
+      "registration": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/statistics_registration.json",
+      "sha256": "f6c045abb8d6840f78c835cbbbe3f05a9163d0d348c0be3d9a2118973c3cb3ae",
+      "family_size": 6
+    }
+  ],
+  "replicates": 2000,
+  "validation_seeds": [
+    12473855423731744583,
+    1451846911739688413
+  ],
+  "alpha": 0.05,
+  "calibration_alarm": 0.07,
+  "gpu_enabled": false,
+  "smoke_enabled": false,
+  "formal_enabled": false,
+  "model_calls": 0,
+  "confidence_intervals": false,
+  "original_budget_clock": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/started.json",
+  "amendment": "RQs/RQ4_1/descriptions/RQ4_1_Statistics_Revision_2026-10-07.md",
+  "amendment_sha256": "fc294f64c6e832a3a4b9c30501ddfb2b8b0928d1a450d62dc03a52be0b52829c",
+  "source_freeze": "RQs/RQ4_1/results/comparison_coding_v1/statistics_revision_v11/source_snapshot/receipt.json"
+}

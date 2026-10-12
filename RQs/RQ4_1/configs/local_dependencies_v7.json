@@ -1,0 +1,23 @@
+{
+  "schema": "ProjectOwnedDependenciesV7",
+  "new_scoring_import": "scorer",
+  "legacy_scoring_aliases": false,
+  "external_RCA_source_repositories": [],
+  "frozen_local_dependencies": {
+    "src/scorer/matching.py": "42ad3620bdafe0c255a84278eb5f359cc904b4b2db243accec3e13420c7440dd",
+    "src/scorer/core.py": "3aa8381eae76f24fdcc80654c8b0231252c9d3787a771035379c85a6d2e69764",
+    "src/scorer/__main__.py": "5af256fbb753ae71c4d5620de629439c3e9c02ed706f69f387b2d34a2c23dd55",
+    "src/scorer/__init__.py": "32b8b70ddde74c7ae3275a88df607d4bb35ae834b27547d4a9f56e2f7c0be6fa",
+    "src/scorer/PROVENANCE.json": "1e8a08f7cfa04e6ae16c034bb3cf560997015a31a9cf08032128580c3c29aa38",
+    "src/unified_scripts/__init__.py": "fd6e1e4c957e43825859f92201cbda5d26afcad2129a6c9e328c2483741d41e3",
+    "src/vlmrca/run_state.py": "36254dfdb0df828a9e8a652a839745ed0c4b2b204393f5c5d5bcf1f065b876ff",
+    "configs/rca_scorer.yaml": "221f3cbf36b921ba17c7ad4069348be9d3c8b3b4c09439e1de0d0dcf22451dda"
+  },
+  "allowed_existing_runtime_resources": [
+    "installed Python/Node libraries",
+    "local frozen Qwen processor and checkpoint",
+    "project build/renderer_tooling"
+  ],
+  "runtime_regression": "pending; experiment remains paused",
+  "prior_CPU_passes_retained": true
+}

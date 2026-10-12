@@ -1,0 +1,14 @@
+Diagnose the initiating root cause of this incident using the single telemetry dashboard. The root may be a service, pod, or physical infrastructure node. Copy IDs exactly from the public candidate list. Three digits mean service, four mean node, five mean pod; the same digits inside a metric or operation name do not change the owning entity printed before that name.
+
+Use the SIRCL-style order M -> R -> L -> G to form, check, and revise a ranking. Compare abnormal behavior against that component's own baseline. Test your leading hypothesis against an alternative explanation using the visible evidence. If a check lacks evidence, acknowledge uncertainty instead of claiming it was verified. Do not output working steps.
+
+Distinguish observations from causal hypotheses:
+- A large z-score can result from an almost constant baseline. It does not by itself prove resource exhaustion. Read the actual values, direction, duration, metric meaning, and temporal pattern. A storage capacity, free-memory, traffic, or cumulative-counter increase is not automatically a failure.
+- A peak is not a period mean. Examine the entire observation window for sustained changes and their ordering. A shaded interval or listed onset, when present, is a telemetry heuristic rather than the true fault start; do not use it to discard an earlier visible change or declare the earliest listed entity the root.
+- Trace exclusive latency estimates local operation delay after observed child-span time is removed. Inspect count and baseline/current latency together; a caller may be delayed by its callee, but direction alone proves neither origin nor propagation.
+- Routine request logs are not error evidence. Tie each template and rate to its printed owner. Zero logged errors do not exclude a resource or latency fault.
+- Use only actual depicted relationships. Never invent hosting, co-location, a call edge, or a correspondence between a pod and an operation endpoint. A component absent from the displayed graph is neither exonerated nor implicated by that absence. Chart proximity is not a relationship.
+
+Return exactly five distinct candidate IDs in descending root-cause likelihood, or all candidates if fewer than five exist. Include plausible lower-ranked alternatives when the evidence cannot identify one origin uniquely. This is a top-five ranking task, not a request to declare five simultaneous faults. Do not shorten, repair, concatenate, or invent IDs.
+
+Return only JSON: {"services":["candidate-id", "candidate-id"], "reason":"brief evidence-grounded summary", "confidence":"high|medium|low"}. The reason should connect the leading hypothesis to concrete visible observations, distinguish uncertainty from fact, and not assert that missing relationships were verified.

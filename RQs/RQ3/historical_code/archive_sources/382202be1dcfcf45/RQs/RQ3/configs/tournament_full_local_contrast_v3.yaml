@@ -1,0 +1,6 @@
+extends: RQs/RQ3/configs/tournament_full_remaining_v3.yaml
+search:
+  selectors: [local_contrast_v1]
+  metric_limit: 24
+tournament:
+  method_id: LOCAL_CONTRAST_TRACE_RESOURCE_TOP24_full_remaining_v3

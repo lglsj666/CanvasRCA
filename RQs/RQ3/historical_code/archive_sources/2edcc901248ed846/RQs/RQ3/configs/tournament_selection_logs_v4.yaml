@@ -1,0 +1,5 @@
+extends: RQs/RQ3/configs/tournament_selection_only_v4.yaml
+search:
+  selectors: [log_surprise_v2]
+tournament:
+  method_id: LOG_SURPRISE_selection_only_v4

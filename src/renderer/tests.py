@@ -69,6 +69,73 @@ def test_extreme_and_constant_values(values):
     compile_design(e,preset(e))
 
 
+def contrast_fixture():
+    e={'schema':'CanvasEvidenceV1','cards':[{'id':'C1','kind':'contrast','entity':'123','title':'Observed quantile contrast','unit':'standardized',
+        'data':{'contrast':{'limit':4.,'rows':[{'signal':'latency','quantity':'duration','unit':'ms','change':[-1.,0.,2.],'peer':[0.,-2.,1.]}]}}}]}
+    d=preset(sample());d['viewport']={'width':1120,'height':800}
+    d['tree']={'id':'dashboard','type':'panel','card':'C1','component':'contrast.quantile_contrast'}
+    return e,d
+
+
+def test_quantile_contrast_explicit_scale_and_bindings():
+    e,d=contrast_fixture();compiled=compile_design(e,d)
+    assert all(f'C1.contrast.0.{channel}.{j}' in compiled['expected_bindings'] for channel in ('change','peer') for j in range(3))
+    e['cards'][0]['data']['contrast']['limit']=.1
+    with pytest.raises(ValueError,match='clips'):compile_design(e,d)
+
+
+@pytest.mark.skipif(os.environ.get('RENDER_BROWSER_TESTS')!='1',reason='Explicit browser regression only')
+def test_browser_quantile_contrast_additive_component(tmp_path):
+    from .main import render
+    e,d=contrast_fixture();ep=tmp_path/'e.json';dp=tmp_path/'d.json';write(ep,e);write(dp,d)
+    first=render(ep,dp,tmp_path/'a');second=render(ep,dp,tmp_path/'b')
+    assert first['status']=='passed' and first['png_sha256']==second['png_sha256']
+    assert set(first['expected_bindings'])==set(b['key'] for b in first['audit']['bindings'])
+
+
+@pytest.mark.skipif(os.environ.get('RENDER_BROWSER_TESTS')!='1',reason='Explicit browser regression only')
+def test_browser_qa_badges_reserve_dense_detail_space(tmp_path):
+    """Four fixed questions fit crowded rows without replacing any value node."""
+    from .main import render
+    from html.parser import HTMLParser
+    e={'schema':'CanvasEvidenceV1','cards':[{'id':'L1','kind':'log','entity':'12345',
+        'title':'Observed template','unit':'events',
+        'data':{'bins':[0,1],'counts':[1,2],'template':'operation <value>',
+            'details':[{'name':f'LOG-R · {phase} · {name} · {unit}','value':value}
+                for name,unit,values in [('error count','count',('0','1')),
+                    ('error rate','events/min',('0.0','0.1')),
+                    ('log rate','events/min',('0.8505','0.8356')),
+                    ('total count','count',('7089','7224'))]
+                for phase,value in zip(('reference','current'),values)]}}]}
+    d=preset(e);d['viewport']={'width':1052,'height':900};d['font_size']=18
+    d['tree']={'id':'dashboard','type':'panel','card':'L1','component':'log.table'}
+    d['qa_badges']=[{'slot':slot,'badge':badge,'binding':f'L1.detail.{index}','part':'value'}
+        for slot,badge,index in [(1,'A',2),(1,'B',3),(2,'A',4),(2,'B',5)]]
+    ep=tmp_path/'e.json';dp=tmp_path/'d.json';write(ep,e);write(dp,d)
+    first=render(ep,dp,tmp_path/'a');second=render(ep,dp,tmp_path/'b')
+    assert first['status']=='passed' and first['audit']['issues']==[]
+    assert first['png_sha256']==second['png_sha256']
+    assert len(first['qa_badges'])==4
+    assert {b['placement'] for b in first['qa_badges']}=={'reserved_detail_space_v2'}
+    for b,t in zip(first['qa_badges'],d['qa_badges']):
+        assert all(b[k]==v for k,v in t.items())
+        assert b['display']==e['cards'][0]['data']['details'][int(t['binding'].rsplit('.',1)[1])]['value']
+        assert b['badge_box']['width']==38 and b['badge_box']['height']==24
+        bb,tb=b['badge_box'],b['target_box']
+        assert abs(bb['x']+bb['width']+5-tb['x'])<.01
+    # The browser still exposes every original reading separately from its badge.
+    class Values(HTMLParser):
+        def __init__(self):super().__init__();self.values=[];self.collect=False
+        def handle_starttag(self,tag,attrs):
+            if tag=='span' and dict(attrs).get('class')=='value':self.collect=True
+        def handle_data(self,data):
+            if self.collect:self.values.append(data)
+        def handle_endtag(self,tag):
+            if tag=='span':self.collect=False
+    parser=Values();parser.feed((tmp_path/'a/dashboard.html').read_text())
+    assert parser.values==[v['value'] for v in e['cards'][0]['data']['details']]
+
+
 def test_no_nan_no_fake_zero():
     e=sample();e["cards"][0]["data"]["values"][0]=float('nan')
     with pytest.raises(ValueError):validate_evidence(e)
@@ -339,14 +406,15 @@ def test_operations_isolation_and_index_stability():
 
 def test_component_and_operation_catalogs_are_connected():
     from .utils import RENDERER
-    from .operations import REGISTRY
+    from .operations import REGISTRY, EXPORT_REGISTRY
     catalog=read(RENDERER/"configs/components.json")["components"]
     registry=(RENDERER/"web/components/index.ts").read_text()
     assert len({c["index"] for c in catalog})==len(catalog)
     for c in catalog:
         assert (RENDERER/"web/components"/c["file"]).exists()
         assert "'"+c["id"]+"'" in registry
-    assert {o["id"] for o in read(RENDERER/"configs/operations.json")["operations"]}==set(REGISTRY)
+    assert not set(REGISTRY)&set(EXPORT_REGISTRY)
+    assert {o["id"] for o in read(RENDERER/"configs/operations.json")["operations"]}==set(REGISTRY)|set(EXPORT_REGISTRY)
 
 
 def test_pair_component_switch_preserves_facts_and_checks_capacity():

@@ -169,6 +169,7 @@ def call_vlm(
     partial_metadata: Mapping[str, Any] | None = None,
     record_performance: bool = False,
     allow_empty_completion: bool = False,
+    registered_seed: int | None = None,
 ) -> VLMResponse:
     """
     Send one user turn made of text and image parts, return the reply.
@@ -176,6 +177,10 @@ def call_vlm(
     Retries on transient failures with exponential backoff; a persistent failure
     raises rather than returning empty text, so a broken credential cannot be
     silently scored as a wrong answer.
+
+    ``registered_seed`` is an optional caller-frozen seed contract for local
+    canonical models. It is checked against ``cfg.seed`` and is not a payload
+    override; without it, the canonical default-seed contract is unchanged.
     """
     cfg = model if isinstance(model, VLMConfig) else get_config(model)
     load_env()
@@ -204,6 +209,7 @@ def call_vlm(
                     partial_output_dir=partial_output_dir,
                     partial_metadata=partial_metadata,
                     record_performance=record_performance,
+                    registered_seed=registered_seed,
                 )
             elif cfg.backend == "gemini":
                 resp = _call_gemini(parts, cfg, system)
@@ -330,6 +336,7 @@ def _call_openai(
     partial_output_dir: Path | None = None,
     partial_metadata: Mapping[str, Any] | None = None,
     record_performance: bool = False,
+    registered_seed: int | None = None,
 ) -> VLMResponse:
     from openai import OpenAI
 
@@ -355,6 +362,7 @@ def _call_openai(
             temperature=cfg.temperature,
             top_p=cfg.top_p,
             seed=cfg.seed,
+            registered_seed=registered_seed,
         )
 
     # Sampling params must be sent explicitly. vLLM applies the model's shipped

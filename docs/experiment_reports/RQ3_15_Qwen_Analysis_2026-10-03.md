@@ -82,9 +82,9 @@ MRR与AC/AVG均为0—1。AC@K为前K位命中率；AVG@K是AC@1…AC@K的均值
 | 三数据集等权宏平均 | MARGINAL | 218/220 | 0.4427 | 0.3700 | 0.5238 | 0.5528 | 0.4501 | 0.4900 |
 | 三数据集等权宏平均 | REPEAT | 220/220 | 0.4298 | 0.3556 | 0.5078 | 0.5422 | 0.4367 | 0.4778 |
 
-![各数据集绝对MRR](../../RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/mrr_by_dataset.png)
+![各数据集绝对MRR](through_RQ3_15_preserved/assets/RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/mrr_by_dataset.png)
 
-完整机器可读表：[aggregate.csv](../../RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/aggregate.csv)；[逐病例结果](../../RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/case_metrics.csv)。
+完整机器可读表：[aggregate.csv](through_RQ3_15_preserved/assets/RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/aggregate.csv)；[逐病例结果](through_RQ3_15_preserved/assets/RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/case_metrics.csv)。
 
 **4. 预注册统计、缺失界限与采用判定**
 
@@ -168,7 +168,7 @@ AegisLab的主要问题是**将部分正确根因推到第一名，同时把更�
 
 视觉回答平均候选长度从BASE的4.05缩至3.61，输出完整5项的病例从49降至11；第4—5名命中从11例降至2例。这是与覆盖损失一致的可观察回答行为。没有固定输出长度的独立干预，不能认定“少列一个候选”就是全部损失的原因，也不能事后补齐候选再评分。
 
-![排名分布与Top-5覆盖](../../RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/rank_distribution.png)
+![排名分布与Top-5覆盖](through_RQ3_15_preserved/assets/RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/rank_distribution.png)
 
 **6. 机制诊断：可计算性不等于诊断适用性**
 
@@ -210,9 +210,9 @@ Aegis `INC-1FF1DA038ECD`的三文本MRR=1/3，三个视觉调用均0。联合理
 
 | 数据集例图 | 联合图 | 边际图 |
 |---|---|---|
-| AIOPS-2022 | [实际PNG](../../RQs/RQ3_15/preparation/request_joint_v1/renders/INC-07B8919442D8/PAIR_VISUAL/dashboard.png) | [实际PNG](../../RQs/RQ3_15/preparation/request_joint_v1/renders/INC-07B8919442D8/MARGINAL_VISUAL/dashboard.png) |
-| AIOPS-2025 | [实际PNG](../../RQs/RQ3_15/preparation/request_joint_v1/renders/INC-3D65ABCF1DD8/PAIR_VISUAL/dashboard.png) | [实际PNG](../../RQs/RQ3_15/preparation/request_joint_v1/renders/INC-3D65ABCF1DD8/MARGINAL_VISUAL/dashboard.png) |
-| AegisLab | [实际PNG](../../RQs/RQ3_15/preparation/request_joint_v1/renders/INC-37ABFB78A80E/PAIR_VISUAL/dashboard.png) | [实际PNG](../../RQs/RQ3_15/preparation/request_joint_v1/renders/INC-37ABFB78A80E/MARGINAL_VISUAL/dashboard.png) |
+| AIOPS-2022 | [实际PNG](through_RQ3_15_preserved/assets/RQs/RQ3_15/preparation/request_joint_v1/renders/INC-07B8919442D8/PAIR_VISUAL/dashboard.png) | [实际PNG](through_RQ3_15_preserved/assets/RQs/RQ3_15/preparation/request_joint_v1/renders/INC-07B8919442D8/MARGINAL_VISUAL/dashboard.png) |
+| AIOPS-2025 | [实际PNG](through_RQ3_15_preserved/assets/RQs/RQ3_15/preparation/request_joint_v1/renders/INC-3D65ABCF1DD8/PAIR_VISUAL/dashboard.png) | [实际PNG](through_RQ3_15_preserved/assets/RQs/RQ3_15/preparation/request_joint_v1/renders/INC-3D65ABCF1DD8/MARGINAL_VISUAL/dashboard.png) |
+| AegisLab | [实际PNG](through_RQ3_15_preserved/assets/RQs/RQ3_15/preparation/request_joint_v1/renders/INC-37ABFB78A80E/PAIR_VISUAL/dashboard.png) | [实际PNG](through_RQ3_15_preserved/assets/RQs/RQ3_15/preparation/request_joint_v1/renders/INC-37ABFB78A80E/MARGINAL_VISUAL/dashboard.png) |
 
 完整审核：[36例笔记](../../RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/manual_case_review.json)、[26条断言及实际完整reason、输出和来源指针](../../RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/manual_claim_audit.json)、[图像审核](../../RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/actual_visual_review.json)。
 
@@ -294,10 +294,10 @@ RQ3整体目标仍未达成：尚没有一个经过所需评价、同时具备�
 | 全量图/评分/输入/usage审计 | [artifact_audit.json](../../RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/artifact_audit.json) |
 | 全部主次比较与配对病例 | [registered_contrasts.json](../../RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/registered_contrasts.json) |
 | 215共同完整病例敏感性 | [common_complete.json](../../RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/common_complete.json) |
-| 数据集探索比较 | [dataset_contrasts_exploratory.csv](../../RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/dataset_contrasts_exploratory.csv) |
-| 逐故障完整绝对指标 | [per_fault.csv](../../RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/per_fault.csv) |
+| 数据集探索比较 | [dataset_contrasts_exploratory.csv](through_RQ3_15_preserved/assets/RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/dataset_contrasts_exploratory.csv) |
+| 逐故障完整绝对指标 | [per_fault.csv](through_RQ3_15_preserved/assets/RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/per_fault.csv) |
 | 逐故障探索比较 | [fault_contrasts_exploratory.json](../../RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/fault_contrasts_exploratory.json) |
-| 真实attempt记账 | [attempts.csv](../../RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/attempts.csv) |
+| 真实attempt记账 | [attempts.csv](through_RQ3_15_preserved/assets/RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/attempts.csv) |
 | 唯一调用响应索引 | [response_index.json](../../RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/response_index.json) |
 | 全部病例排名变化 | [all_case_changes.json](../../RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/all_case_changes.json) |
 | scorer粒度端点覆盖 | [packet_coverage_final.json](../../RQs/RQ3_15/results/request_joint_v1/analysis_detailed_v1/packet_coverage_final.json) |

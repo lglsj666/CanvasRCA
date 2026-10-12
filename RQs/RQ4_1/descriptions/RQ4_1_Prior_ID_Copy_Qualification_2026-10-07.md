@@ -1,0 +1,11 @@
+# RQ4.1 static identifier-copy clarification — 2026-10-07
+
+Prospective second window of the five newly authorized protected-prior smokes. Window 1 preserved all registered anchors, yet sampled AIOPS answers still contained nonexistent IDs; some greedy answers added entity-type prefixes. Do not equate these two errors or infer that pruning alone caused them. Its original outputs and recipe remain immutable.
+
+Keep the window-1 protected selectors, K, PNGs, model weights, single-call procedure, strict host scorer and decoding recipe. Add one incident-independent reading instruction: copy whole bare identifiers from the exhaustive candidate inventory, distinguish candidate identities from card numbers/axis values, and recognize that the historical JSON key `services` also admits node/pod candidates. No candidate enumeration, incident number, new diagnostic fact, label, answer remapping, retry-on-invalid or temperature change is introduced. This is an explicitly registered prompt revision, not the original unchanged-prompt prior.
+
+The new instruction is shared by the two revised priors and a full-image control. It is not silently applied to historical frozen requests. Default prompts stay unchanged until a prospective experiment version adopts this clarification consistently; core same-input mechanism claims cannot compare different prompt versions.
+
+Window 2 registers six calls on each of the same three fixed eval identities: original full-image sampled; clarified full-image sampled; clarified protected SCOPE greedy and sampled; clarified protected S2Prune greedy and sampled. Total 18 initiated calls, shared 600 seconds. Sampled temperature 1, top_p .95, top_k 0, seed 42; no attention observer. Prior full-retention equality remains valid because generation adapters, selectors and numerical handling do not change in this window.
+
+Evaluate raw-output identity validity and technical integrity, not root-cause rank, when deciding usability. All 12 revised-prior answers must contain five distinct actual candidates. Full-image controls localize shared input/decoding problems; they are not a weaker benchmark selected after seeing scores. Failures are preserved and require diagnosis, never repeated sampling until a favorable answer appears. Formal launch and the existing speed/resource gates remain closed.

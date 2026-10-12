@@ -1,0 +1,6 @@
+extends: RQs/RQ3/configs/tournament_full_remaining_v3.yaml
+search:
+  selectors: [balanced_additive_v1]
+  metric_limit: 8
+tournament:
+  method_id: RESOURCE_FAMILY_NODE_SERVICE_ADDITIVE_full_remaining_v3

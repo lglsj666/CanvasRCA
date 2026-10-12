@@ -1,0 +1,199 @@
+{
+  "version": "rq321_compact_entity_v1",
+  "experiment": "exp_compact_entity",
+  "model": "qwen3.8-27b",
+  "seed": 42,
+  "case_counts": {
+    "aiops2022": 60,
+    "aiops2025": 60,
+    "aegislab": 100
+  },
+  "primary_datasets": [
+    "aiops2022",
+    "aiops2025"
+  ],
+  "arms": [
+    "ANCHOR_VISUAL",
+    "RAW_TEXT",
+    "RAW_VISUAL",
+    "PACK_VISUAL",
+    "ENTITY_VISUAL",
+    "PACK_ENTITY_TEXT",
+    "PACK_ENTITY_VISUAL",
+    "PACK_ENTITY_TEXT_REPEAT",
+    "PACK_ENTITY_VISUAL_REPEAT",
+    "QA_RAW_TEXT",
+    "QA_RAW_VISUAL",
+    "QA_PACK_ENTITY_TEXT",
+    "QA_PACK_ENTITY_VISUAL",
+    "ROTATE_TEXT",
+    "ROTATE_VISUAL"
+  ],
+  "base_preparation": "RQs/RQ3_16/preparation/marginal_coverage_v1",
+  "preparation": "RQs/RQ3_21/preparation/compact_entity_v1",
+  "results": "RQs/RQ3_21/results/compact_entity_v1",
+  "roster_registration": "RQs/RQ3_16/results/marginal_coverage_v1/registration.json",
+  "roster_sha256": "f0dcb6d4e651eb0c28605c18350103f8c070bc5aee5895cdb0d3799d561ca625",
+  "inference_base": "configs/vllm_inference_local.yaml",
+  "runtime_profile": "runtime/qwen_local.yaml",
+  "port": 21961,
+  "workers": 8,
+  "concurrency": 36,
+  "request_timeout": 300,
+  "max_tokens": 8192,
+  "formal_positions": 2020,
+  "formal_attempt_limit": 1922,
+  "total_attempt_limit": 1940,
+  "smoke_attempt_limit": 18,
+  "smoke_seconds": 600,
+  "cpu_seconds": 1800,
+  "launch_policy": "explicit_command_after_qualification",
+  "full_launch_authorized": false,
+  "global_contracts": [
+    "configs/vllm_inference.yaml",
+    "configs/dataset_segmentation.yaml",
+    "configs/rca_scorer.yaml"
+  ],
+  "canvas": {
+    "width": 1120,
+    "height": 800,
+    "font_size": 18,
+    "gap": 12,
+    "padding": 20
+  },
+  "readiness": {
+    "max_mean_input_ratio": 1.05,
+    "input_reduction_target": 0.1
+  },
+  "primary_contrasts": [
+    [
+      "PACK_ENTITY_VISUAL",
+      "ANCHOR_VISUAL",
+      "all"
+    ],
+    [
+      "PACK_ENTITY_VISUAL",
+      "RAW_TEXT",
+      "all"
+    ]
+  ],
+  "secondary_contrasts": [
+    [
+      "PACK_ENTITY_VISUAL",
+      "ENTITY_VISUAL"
+    ],
+    [
+      "PACK_ENTITY_VISUAL",
+      "PACK_VISUAL"
+    ]
+  ],
+  "preselected_method": "PACK_ENTITY_VISUAL",
+  "success": {
+    "deployment_delta_min": 0.02,
+    "total_token_ratio_max": 1.05,
+    "mrr_goal": 0.6,
+    "alpha": 0.05,
+    "dataset_mrr_and_top5_nonnegative": true,
+    "repeat_direction_preserved": true
+  },
+  "reason_review": {
+    "per_dataset": 12,
+    "seed": 42,
+    "selection": "outcome_blind_hash",
+    "axes": [
+      "numeric_unit",
+      "temporal_order",
+      "entity_binding",
+      "missing_as_health",
+      "unsupported_causal_claim"
+    ],
+    "salt": "rq316_reason_review_v1"
+  },
+  "major_budget": {
+    "ceiling": 1940,
+    "scope": "RQ3.21 all versions, qualification and allowed retries; preserve inherited spent ledgers"
+  },
+  "smoke_matrix": {
+    "aiops2022": [
+      "PACK_ENTITY_TEXT",
+      "RAW_TEXT",
+      "PACK_VISUAL",
+      "ENTITY_VISUAL",
+      "PACK_ENTITY_VISUAL",
+      "QA_PACK_ENTITY_VISUAL"
+    ],
+    "aiops2025": [
+      "RAW_VISUAL",
+      "PACK_VISUAL",
+      "ENTITY_VISUAL",
+      "PACK_ENTITY_TEXT",
+      "PACK_ENTITY_TEXT_REPEAT",
+      "QA_RAW_TEXT"
+    ],
+    "aegislab": [
+      "PACK_ENTITY_VISUAL",
+      "PACK_ENTITY_VISUAL_REPEAT",
+      "ROTATE_TEXT",
+      "ROTATE_VISUAL",
+      "QA_RAW_VISUAL",
+      "QA_PACK_ENTITY_TEXT"
+    ]
+  },
+  "method": {
+    "min_requests_per_phase": 20,
+    "max_relations": 2,
+    "max_points_per_phase": 32,
+    "conditional_min": 5,
+    "min_distinct_pairs_in_binary_group": 4,
+    "minimum_dataset_applicability": 0.5
+  },
+  "output_adapter": {
+    "version": "rq321_fixed_five_v1",
+    "max_items": 5,
+    "min_items": 5,
+    "scorer": "unchanged canonical"
+  },
+  "registration_reason": "User-approved one-call complete-fact compression and entity organization; CPU-only authority.",
+  "smoke_launch_authorized": false,
+  "qa_salt": "rq321_mechanism_v1",
+  "qa_per_dataset": 20,
+  "qa_max_tokens": 1024,
+  "visual_contrasts": [
+    [
+      "RAW_VISUAL",
+      "RAW_TEXT"
+    ],
+    [
+      "PACK_ENTITY_VISUAL",
+      "PACK_ENTITY_TEXT"
+    ]
+  ],
+  "qa_contrasts": [
+    [
+      "QA_PACK_ENTITY_TEXT",
+      "QA_RAW_TEXT",
+      "qa_accuracy"
+    ],
+    [
+      "QA_PACK_ENTITY_VISUAL",
+      "QA_RAW_VISUAL",
+      "qa_accuracy"
+    ]
+  ],
+  "rotation_contrasts": [
+    [
+      "ROTATE_TEXT",
+      "PACK_ENTITY_TEXT_REPEAT",
+      "PACK_ENTITY_TEXT"
+    ],
+    [
+      "ROTATE_VISUAL",
+      "PACK_ENTITY_VISUAL_REPEAT",
+      "PACK_ENTITY_VISUAL"
+    ]
+  ],
+  "formal_new_call_positions": 1800,
+  "anchor_policy": "historical_reference_only",
+  "historical_anchor": "RQs/RQ3_16/results/marginal_coverage_v1/formal",
+  "historical_anchor_arm": "MARGINAL_FIVE"
+}

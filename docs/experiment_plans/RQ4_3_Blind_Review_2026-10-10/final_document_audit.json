@@ -1,0 +1,61 @@
+{
+  "kind": "final_planning_document_audit_not_experiment_qualification",
+  "missing_links": [],
+  "protected_files": [
+    {
+      "path": "Codex.md",
+      "unchanged": true,
+      "sha256": "64579e5182709b2c4163b6ce36b1430fea5b6c50624aa966dad6984c99f2b25c"
+    },
+    {
+      "path": "plans/design_decisions.md",
+      "unchanged": true,
+      "sha256": "ebb08d99fe87bdda9009ff87ad2fb403490c4a4bd51dfa127ad243aaf795db4f"
+    },
+    {
+      "path": "docs/experiment_reports/RQ4_1_Qwen_Analysis_2026-10-09.md",
+      "unchanged": true,
+      "sha256": "07f3738c18c386330c4c078d2f1dd6c4666c4bc975c75e30e5d13e6fe8fa4bd9"
+    },
+    {
+      "path": "docs/experiment_reports/RQ4_2_Qwen_Analysis_2026-10-10.md",
+      "unchanged": true,
+      "sha256": "c5bbd5aed71dcacb8129ab8508cad89da26d0c526f197e95fcb7df1293f69ee3"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_16_Qwen_Analysis_2026-10-03.md",
+      "unchanged": true,
+      "sha256": "21fe25a21763d3ff969e4d85225ea282c380e45eb8441555e53eadd10bfb7091"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_21_Qwen_Analysis_2026-10-06.md",
+      "unchanged": true,
+      "sha256": "55a05413904a2228eedd8511cb416921225aa63643598cfa08a751ef51114cde"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_20_Qwen_Analysis_2026-10-06.md",
+      "unchanged": true,
+      "sha256": "2a71acce54be1839c73c02385e4738c66f8cddc541853e61a32f65fdc0b39367"
+    }
+  ],
+  "rounds_used": 4,
+  "readiness_scores": [
+    6.7,
+    7.6,
+    8.1,
+    8.1
+  ],
+  "budget": {
+    "development": 5216,
+    "conditional_confirmation": 1080,
+    "smoke": 18,
+    "infrastructure": 234,
+    "allocated": 6548,
+    "unallocated": 1452,
+    "ceiling": 8000
+  },
+  "all_expected_phase_a_reviews_dispositions_present": true,
+  "cpu_qualification": false,
+  "gpu_qualification": false,
+  "new_experiment_model_calls": 0
+}

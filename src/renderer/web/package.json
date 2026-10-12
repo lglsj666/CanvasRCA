@@ -1,9 +1,22 @@
 {
-  "name": "canvasrca-renderer-lab", "version": "0.1.0", "private": true, "type": "module",
+  "name": "canvasrca-renderer-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "build": "esbuild render.tsx --bundle --platform=node --target=node24 --format=esm --packages=external --outfile=dist/render.mjs",
+    "build": "esbuild render.tsx --bundle --platform=node --target=node24 --format=esm --packages=external --outfile=dist/render.mjs && esbuild measure.tsx --bundle --platform=node --target=node24 --format=esm --packages=external --outfile=dist/measure.mjs && esbuild ink.ts --bundle --platform=node --target=node24 --format=esm --packages=external --outfile=dist/ink.mjs && esbuild packAudit.ts --bundle --platform=node --target=node24 --format=esm --packages=external --outfile=dist/packAudit.mjs",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {"react": "19.3.0", "react-dom": "19.3.0", "playwright": "1.63.0"},
-  "devDependencies": {"esbuild": "0.28.2", "typescript": "7.0.2", "@types/react": "19.3.0", "@types/react-dom": "19.3.0", "@types/node": "26.6.3"}
+  "dependencies": {
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "playwright": "1.63.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "typescript": "7.0.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@types/node": "26.6.3"
+  }
 }

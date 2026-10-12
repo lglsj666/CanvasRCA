@@ -1,0 +1,19 @@
+{
+  "schema": "CanvasRCAPlanningDocumentCheckV1",
+  "status": "passed_document_checks_only",
+  "plan_sha256": "39a29ab173fd1ea2d622125f4b7a08d9fbcc5d377eb4b766c28b481d523dee2f",
+  "budget_total": 3000,
+  "qa_attempts": 480,
+  "core_attempts_excluding_smoke": 1480,
+  "local_links_checked": 5,
+  "source_snapshots_unchanged": 35,
+  "new_model_calls": 0,
+  "experiment_static_cpu_gpu_qualification": "not_run",
+  "checks": [
+    "budget sum and products",
+    "local plan link existence",
+    "source snapshot integrity",
+    "plan index and decision references",
+    "QA/core allocation consistency"
+  ]
+}

@@ -1,0 +1,1315 @@
+{
+  "schema": "RemainingCPUQualificationV6",
+  "scope": "CPU only; stop user turn after launching background audit",
+  "gpu_enabled": false,
+  "smoke_enabled": false,
+  "formal_enabled": false,
+  "mechanism_cases": [
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "e7c0293a835795414e45c8af1ab9cdd8300c2a9450f5ddd520aa84b6f30ff432",
+      "opaque_incident_id": "INC-CCE2A7ACCA59",
+      "source": "2022-03-21-cloudbed3"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "84100d80847a3bda3a11e7bbb8fac3333135ae0c4e524b23b00cb1cdf734fd98",
+      "opaque_incident_id": "INC-AF990A16FDD6",
+      "source": "2022-03-21-cloudbed2"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "70fa09771ef96a395767ca231cef04b2c89933c69581c4800ccca8560bff52cb",
+      "opaque_incident_id": "INC-977EEEDB6E71",
+      "source": "2022-03-24-cloudbed3"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "ceddfc4d2343e38dd13ee61fdc0c3314793b188f59790061ae48620f215fb2f8",
+      "opaque_incident_id": "INC-924208910E84",
+      "source": "2022-03-24-cloudbed3"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "4e464975546ae5403f11b6c0abe85012984a0f0f7eb4391d2764e9fbfdcf30af",
+      "opaque_incident_id": "INC-2CABCD159021",
+      "source": "2022-03-21-cloudbed3"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "5c0c3d36f500cef9c4be2daeda0a7b7c8ba47f91a7af354be7f6aeeea5bd5498",
+      "opaque_incident_id": "INC-CD6BD563E846",
+      "source": "2022-03-24-cloudbed3"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "68b366669f30a86d548a9bc6a62ef3a27f7870eddecb1e879ae222e5379c060a",
+      "opaque_incident_id": "INC-07B8919442D8",
+      "source": "2022-03-20-cloudbed1"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "c291889bcf6abbf5edad3b98d7a2444f9b246d0ff9e096c1371ed101b2b21761",
+      "opaque_incident_id": "INC-9AB0165E6803",
+      "source": "2022-03-20-cloudbed1"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "937a0750452eaae922cfeb78020caf7999b741b15c9d89ef906f6917cafbd21b",
+      "opaque_incident_id": "INC-9293D99C285C",
+      "source": "2022-03-21-cloudbed3"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "c7e0f504b476a2da13878a6d8ffc6b7dc18ec42f51e0cb8828eb0824d1bf4bad",
+      "opaque_incident_id": "INC-0986D6C54EC6",
+      "source": "2022-03-20-cloudbed3"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "604f0793d90928d4e9b26062b537966d68288375ffd5521955cf8e63b03ef856",
+      "opaque_incident_id": "INC-CDC8083CEEE3",
+      "source": "2022-03-20-cloudbed2"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "e3836067c6279bcd2e5df82aa0b0033d11977e7d096c1e3c865fad3fc17689c1",
+      "opaque_incident_id": "INC-EF0D5C71C864",
+      "source": "2022-03-21-cloudbed3"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "b160cd77d4b1f8fad5a7e7201ad486d352a1cf22e31ef0cb10a1696488ce1557",
+      "opaque_incident_id": "INC-0060628741E9",
+      "source": "2022-03-24-cloudbed3"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "d02895b5a399a6fb04c56d6c2e44573f256b7149489eb755c3dd03c592dfd8d5",
+      "opaque_incident_id": "INC-540349CB2170",
+      "source": "2022-03-21-cloudbed3"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "c997b29fb043f67f4017d6e690e4ea01c6c940c405c0f9ee693015581032a9b0",
+      "opaque_incident_id": "INC-16A4DF199613",
+      "source": "2022-03-20-cloudbed2"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "9373f46e476be45c3ab6a11bb0b9ac11c5a1e93947ea99714e397154132497fd",
+      "opaque_incident_id": "INC-93C032432E23",
+      "source": "2022-03-21-cloudbed3"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "3830f42e32902974257c11107f6d3afffc7d96f77683fb78bb984f035ab54efe",
+      "opaque_incident_id": "INC-A03DA161313B",
+      "source": "2022-03-20-cloudbed1"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "cc7ccc61451c6f09a832f3e1af16a62b35827a20269d66509e3cc363d8774b43",
+      "opaque_incident_id": "INC-6E627662CA32",
+      "source": "2022-03-24-cloudbed3"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "71eecb91802c272609bb0a51adaf67425e7a14403997749ce2fb25a73c96b9ef",
+      "opaque_incident_id": "INC-FC843F9AD625",
+      "source": "2022-03-21-cloudbed1"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "b046372a5bb7538116aaa4da9ca33777b47b79d2264a075b0983ee9a4dcdad77",
+      "opaque_incident_id": "INC-90722DCD5A51",
+      "source": "2022-03-21-cloudbed2"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "e7fa923e78ce682692f6945a0e2ade90fb9a644839f0c2ed3cea71ba57d5ed74",
+      "opaque_incident_id": "INC-83BCD48B2886",
+      "source": "2022-03-21-cloudbed3"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "af2495a6c9c1784e1516587ee78e3c492ed7df5f275352a3507eac61e16e7fd9",
+      "opaque_incident_id": "INC-335A9F3A663E",
+      "source": "2022-03-21-cloudbed3"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "2a4997ca8cb426d8b76cc166bedeacc6a2ff48bc9592b66b901a3c21b60278bf",
+      "opaque_incident_id": "INC-358CBE8D4527",
+      "source": "2022-03-20-cloudbed3"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "f2a596e593f119e6bb00c31169327404d2b6387db412b1b1ff78908a91436fba",
+      "opaque_incident_id": "INC-65CE2F2F3440",
+      "source": "2022-03-21-cloudbed1"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "2e0d6bd3c49323bfb0e977a215ab1a49d996690b2d3710ef353069d23fbf94c2",
+      "opaque_incident_id": "INC-EAA097A406D6",
+      "source": "2022-03-21-cloudbed2"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "64720db017ae2acdb1e550b85948cc08afdd35933e944991726352a8fe41dd01",
+      "opaque_incident_id": "INC-8AF1B166DB48",
+      "source": "2022-03-20-cloudbed1"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "76224914618ed1634b3a58d05444eafae305242b489e274f544cd8a613b90f64",
+      "opaque_incident_id": "INC-89856C07F4EE",
+      "source": "2022-03-21-cloudbed1"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "290842fdf15dbe3153547d3f01b1ad6227e3aecd2e6945737e42f142ee028acd",
+      "opaque_incident_id": "INC-C83F01A1BA7F",
+      "source": "2022-03-20-cloudbed3"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "19fdb666629f0bf5e2af70a09f70bbd9b4f3affeef2c3d327640a963b4cff551",
+      "opaque_incident_id": "INC-F8B9BD5ADA9C",
+      "source": "2022-03-20-cloudbed3"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2022",
+      "leakage_group": "850ca67f1ef29bc1d5e8a8dc0de6339b7b0cdc04721368597c688395b27f0669",
+      "opaque_incident_id": "INC-5C2F191841A2",
+      "source": "2022-03-20-cloudbed1"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "4e20f2b5165ce716f2728f084f87f038590a04f2b97f558a39a99b45ad54dc0f",
+      "opaque_incident_id": "INC-17615889CDA7",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "8e97b740d9d1402f3c2df819d5e62195ae2dccea35bf0e581d9431684c4a2199",
+      "opaque_incident_id": "INC-1B936A4C6354",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "532a0a73b1c241d0a9c1fa807ac5b59b852e0f348e284eb91b788f73a8d8c23f",
+      "opaque_incident_id": "INC-1AC00B482121",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "c4ea405525cad087b707e88fa7f6257c4d81d0e39899b4ec93714b043f1eb152",
+      "opaque_incident_id": "INC-BD14EEDA08FA",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "dbcb894717ab635af599829443f7e009a49e072111d3dabd61fd092c30523fae",
+      "opaque_incident_id": "INC-2A292B511B14",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "7a355983fcede3092e07666579db8548fb5fe31e10411a8858ff95f104b3b9d9",
+      "opaque_incident_id": "INC-ED816B330F5D",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "9434f666bf7ef53bd3519dc2ba17d1d1959b2d4bd49e57a8e870070757d32978",
+      "opaque_incident_id": "INC-807CFFCD9D3F",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "64e7c2c33f0c3588da4959557e4fa84b9b42a2b7cd20b285caa2be6c45ac4740",
+      "opaque_incident_id": "INC-9DDF62CAF256",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "1e04e7e8da5ab99eeac124cbc785bf2223407ad103b3843a659ba84f7e312ace",
+      "opaque_incident_id": "INC-B9652C6DC060",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "99cc20d7f877b1a0c920ffbc033ff5e609e8a1a535db06b2924ef85595478a5c",
+      "opaque_incident_id": "INC-FDDF807FBAA4",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "570a07d214f29d92cb9b3367d01299c7f0311edf9b5e239b477848d74a92af5e",
+      "opaque_incident_id": "INC-AE71A9C68D35",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "f2a39b64633678ba9ed11232d32a029dac91cb1a51b956626414cc546702ad60",
+      "opaque_incident_id": "INC-98BF3F9714D0",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "8248a426debc774804d1bb29dc85d9553154cacb64ab4bbe6c599eea04d9af7f",
+      "opaque_incident_id": "INC-9C225C04C814",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "8a53f57574f3fbce32a16c9b9cd716505a2a3178515e8b625bbab7626d38bd5d",
+      "opaque_incident_id": "INC-DC8C47226C5D",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "1c863b451d8bc5e6a4a7b4997aa132bf508dafb9685d2ac9861336140aafcb03",
+      "opaque_incident_id": "INC-5D92F3402F88",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "6566a4ff6253dafb77bf320d664dcd64b474ce749b04e1ffd1dbf5a49e044044",
+      "opaque_incident_id": "INC-27CBD1F8668A",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "b04c387737e9290e104558850cc6108c124cae67dcdf30ff4831d7bdad260445",
+      "opaque_incident_id": "INC-1FDAD91BB9BE",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "442a27aa106f57a0d86236fa06de05ad102d765e621e259573b48bcf9c048353",
+      "opaque_incident_id": "INC-77C683F9B6C0",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "f43090f9c913e12c333fdb665cdb4cf8b8f37e735f34971ecff6e1d9a8d2d47f",
+      "opaque_incident_id": "INC-86158623978C",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "3628e5a6d0711aef41a539f5115f4f6b2b8765e1e04f94a7a9b4f4c2f9c0cfbe",
+      "opaque_incident_id": "INC-316B59616EA8",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "672cfdadf27fe1d9b0443196105f286611bfc6952cc5ae373d0c0b5614568f52",
+      "opaque_incident_id": "INC-92A00B34EECF",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "0cc8dbfd2fadce504575c23650429c0036decf928c005dc7f4a7460f8bcd3683",
+      "opaque_incident_id": "INC-BFE7EC666320",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "9616aad8cb361951e6e180c05664a1cab3cc1e33055f72e390261a36b1d202be",
+      "opaque_incident_id": "INC-BE6A1C89D45F",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "b393ba074d9bea0828d73074e6f1a9bd76576f4d88ee4bfeb50ded65632e1280",
+      "opaque_incident_id": "INC-C2222DBA0446",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "4dbb7da8047e2b1c26c762a245b251a0e763db3c613eb5745c65ee7eedd08450",
+      "opaque_incident_id": "INC-C10F5EA649A5",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "5e3f1d95577ec8fb98f76db395c56a07e1e0959cd0c3253515fece84efb80a74",
+      "opaque_incident_id": "INC-5A327CFD860F",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "1852523058bc82a269f0c52450e2ca8ecd8ed2bef551dfb4db37ecf52d2383cb",
+      "opaque_incident_id": "INC-96E8C237EFAF",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "49428769f23993730e2e3d76dc7c44650f1620e119cae3b4eb6914645bb8a02d",
+      "opaque_incident_id": "INC-E74124445490",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "0ceaf7fc5cf6a0e0deddf55f923fcac6ce2dc555cdf6f033caee9a8d87b86ca1",
+      "opaque_incident_id": "INC-6E6E1B20F2D5",
+      "source": "aiops2025"
+    },
+    {
+      "cohort": "eval",
+      "dataset": "aiops2025",
+      "leakage_group": "03b7c3ecfd49cd52df8035eca4c983a73cfc9098dc0b076c7856f56cd25b674b",
+      "opaque_incident_id": "INC-7CA062069501",
+      "source": "aiops2025"
+    },
+    {
+      "case_id": "aegislab_ts7-ts-price-service-pod-failure-vg4fh6",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1752996020.0,
+      "event": "532",
+      "leakage_group": "52ec9731e7a89662052922813eb90f86bffb2ed5aa734bdfec5f5b81a9b8124f",
+      "opaque_incident_id": "INC-D28AC6CAEFE4",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts7-ts-price-service-pod-failure-vg4fh6",
+        "datapack": "ts7-ts-price-service-pod-failure-vg4fh6",
+        "env_source": {
+          "ABNORMAL_END": "1752996020",
+          "ABNORMAL_START": "1752995781",
+          "NAMESPACE": "ts7",
+          "NORMAL_END": "1752995781",
+          "NORMAL_START": "1752995541"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:ebf1b1910d636286d72f77431522e0992d080643d4e5f8aa4e73098d72aee206",
+      "start": 1752995541.0
+    },
+    {
+      "case_id": "aegislab_ts3-ts-station-food-service-stress-fbxf8b",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1754828541.0,
+      "event": "4561",
+      "leakage_group": "30c6467b76c549ef3bfa1498e8da4f43bd7eebccc522a27751137d2c4089ee49",
+      "opaque_incident_id": "INC-9FE4614C417F",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts3-ts-station-food-service-stress-fbxf8b",
+        "datapack": "ts3-ts-station-food-service-stress-fbxf8b",
+        "env_source": {
+          "ABNORMAL_END": "1754828541",
+          "ABNORMAL_START": "1754828303",
+          "NAMESPACE": "ts3",
+          "NORMAL_END": "1754828303",
+          "NORMAL_START": "1754828063"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:39cd3eb53fc583d858816b5198efbb8cbfc27a679ef4d5dca48b338b824ca2ae",
+      "start": 1754828063.0
+    },
+    {
+      "case_id": "aegislab_ts2-ts-travel-service-stress-fxpb9q",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1755025841.0,
+      "event": "5364",
+      "leakage_group": "db809344683ddd621d623adb8a04ecea71f3dace250e1ea4cec39b13594cff21",
+      "opaque_incident_id": "INC-39682657768A",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts2-ts-travel-service-stress-fxpb9q",
+        "datapack": "ts2-ts-travel-service-stress-fxpb9q",
+        "env_source": {
+          "ABNORMAL_END": "1755025841",
+          "ABNORMAL_START": "1755025604",
+          "NAMESPACE": "ts2",
+          "NORMAL_END": "1755025604",
+          "NORMAL_START": "1755025364"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:094797473155d768e8905542e9b3427928565ed91011482fa3d8402879639a2c",
+      "start": 1755025364.0
+    },
+    {
+      "case_id": "aegislab_ts4-ts-route-plan-service-response-delay-c4j9pd",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1754694676.0,
+      "event": "4312",
+      "leakage_group": "cacd869bf102a4c519102f68d2b8fc14c14e6c73f56dbb7205983f5240d728ca",
+      "opaque_incident_id": "INC-34562D2C5CC4",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts4-ts-route-plan-service-response-delay-c4j9pd",
+        "datapack": "ts4-ts-route-plan-service-response-delay-c4j9pd",
+        "env_source": {
+          "ABNORMAL_END": "1754694676",
+          "ABNORMAL_START": "1754694436",
+          "NAMESPACE": "ts4",
+          "NORMAL_END": "1754694436",
+          "NORMAL_START": "1754694196"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:9d02a294d2a0fc461c5888f0506c9512a5c7c95cd5b8c4fc03f569333cd456ec",
+      "start": 1754694196.0
+    },
+    {
+      "case_id": "aegislab_ts6-ts-food-service-request-replace-method-n59f6p",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1753022353.0,
+      "event": "734",
+      "leakage_group": "a0e52a5c8354938c6fc29b066b078fff24109a8c31416a5a039b88bf70e0b1cb",
+      "opaque_incident_id": "INC-3948C7715B49",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts6-ts-food-service-request-replace-method-n59f6p",
+        "datapack": "ts6-ts-food-service-request-replace-method-n59f6p",
+        "env_source": {
+          "ABNORMAL_END": "1753022353",
+          "ABNORMAL_START": "1753022114",
+          "NAMESPACE": "ts6",
+          "NORMAL_END": "1753022114",
+          "NORMAL_START": "1753021874"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:54f062532816fc951caa4570a60ceb335ff276d9c4f2fa1bd65d4e97e47cdef7",
+      "start": 1753021874.0
+    },
+    {
+      "case_id": "aegislab_ts5-ts-auth-service-container-kill-5cr458",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1754400226.0,
+      "event": "3546",
+      "leakage_group": "a731de7212462a2c694db090bc03e492c1c47b6638afffb57afb12f9162ff5d1",
+      "opaque_incident_id": "INC-BF08743A4A7D",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts5-ts-auth-service-container-kill-5cr458",
+        "datapack": "ts5-ts-auth-service-container-kill-5cr458",
+        "env_source": {
+          "ABNORMAL_END": "1754400226",
+          "ABNORMAL_START": "1754399986",
+          "NAMESPACE": "ts5",
+          "NORMAL_END": "1754399986",
+          "NORMAL_START": "1754399746"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:ce31517bcb5d7bcab03822834a39dde40a1340799b6ce13e056668b37fee0188",
+      "start": 1754399746.0
+    },
+    {
+      "case_id": "aegislab_ts6-ts-travel2-service-request-delay-bnhhtc",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1752998611.0,
+      "event": "553",
+      "leakage_group": "a4dd131ca4032241f3daeb7a974b89e3c65c7fcab62bc94a77db0ec457feb97e",
+      "opaque_incident_id": "INC-13F29FFC8DE6",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts6-ts-travel2-service-request-delay-bnhhtc",
+        "datapack": "ts6-ts-travel2-service-request-delay-bnhhtc",
+        "env_source": {
+          "ABNORMAL_END": "1752998611",
+          "ABNORMAL_START": "1752998370",
+          "NAMESPACE": "ts6",
+          "NORMAL_END": "1752998370",
+          "NORMAL_START": "1752998130"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:9ab28ba3a62058e17dcce7401852711ef3be5624616aa5405b6d02e6280a114f",
+      "start": 1752998130.0
+    },
+    {
+      "case_id": "aegislab_ts3-ts-station-service-stress-4wtfqh",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1756346496.0,
+      "event": "6788",
+      "leakage_group": "46ee3cbd44c564e0021986036102ed2f48fe62beea15b70a72a8a0b49e556737",
+      "opaque_incident_id": "INC-DB6E9CFCBBEA",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts3-ts-station-service-stress-4wtfqh",
+        "datapack": "ts3-ts-station-service-stress-4wtfqh",
+        "env_source": {
+          "ABNORMAL_END": "1756346496",
+          "ABNORMAL_START": "1756346258",
+          "NAMESPACE": "ts3",
+          "NORMAL_END": "1756346258",
+          "NORMAL_START": "1756346018"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:f4175d623ace00b2a715c46274e6644013ab8221e1f7f99df1d419f47327e1a8",
+      "start": 1756346018.0
+    },
+    {
+      "case_id": "aegislab_ts3-ts-basic-service-response-replace-body-6lk5wq",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1753200256.0,
+      "event": "1468",
+      "leakage_group": "a8634b30dc33bf14525ad5367656b470a2977cb2430b91f0d1f81fcd2a8f2f17",
+      "opaque_incident_id": "INC-BD5F475DAC3C",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts3-ts-basic-service-response-replace-body-6lk5wq",
+        "datapack": "ts3-ts-basic-service-response-replace-body-6lk5wq",
+        "env_source": {
+          "ABNORMAL_END": "1753200256",
+          "ABNORMAL_START": "1753200016",
+          "NAMESPACE": "ts3",
+          "NORMAL_END": "1753200016",
+          "NORMAL_START": "1753199776"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:351f24065f93197f6b3d52e0abbdcc6e55573f84bec100910299919a7e40375f",
+      "start": 1753199776.0
+    },
+    {
+      "case_id": "aegislab_ts5-ts-order-other-service-loss-c7wjxn",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1754701746.0,
+      "event": "4359",
+      "leakage_group": "e767a21a7c5b41dfb0e9c9e6af1723eaf3b4e623a8e3a22c9cccc6ed86d8cbf9",
+      "opaque_incident_id": "INC-6BD7198BE675",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts5-ts-order-other-service-loss-c7wjxn",
+        "datapack": "ts5-ts-order-other-service-loss-c7wjxn",
+        "env_source": {
+          "ABNORMAL_END": "1754701746",
+          "ABNORMAL_START": "1754701506",
+          "NAMESPACE": "ts5",
+          "NORMAL_END": "1754701506",
+          "NORMAL_START": "1754701266"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:c19fee0e008c616036bcf162efdca75e69ba7ec686c30238a86849d99b5096bb",
+      "start": 1754701266.0
+    },
+    {
+      "case_id": "aegislab_ts4-ts-assurance-service-return-x28fwz",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1756736699.0,
+      "event": "7556",
+      "leakage_group": "b81c90c033328fae83bd07783ede043e496c858cb7fde4012fba85c2b8c076eb",
+      "opaque_incident_id": "INC-CB8AD006EA8A",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts4-ts-assurance-service-return-x28fwz",
+        "datapack": "ts4-ts-assurance-service-return-x28fwz",
+        "env_source": {
+          "ABNORMAL_END": "1756736699",
+          "ABNORMAL_START": "1756736463",
+          "NAMESPACE": "ts4",
+          "NORMAL_END": "1756736463",
+          "NORMAL_START": "1756736223"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:6bdacc1dea28f4de19358b53782ac62099696a05d857c4bfe7fcda822b481e10",
+      "start": 1756736223.0
+    },
+    {
+      "case_id": "aegislab_ts4-ts-security-service-partition-bswd45",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1754956154.0,
+      "event": "5082",
+      "leakage_group": "1ee1d33675580a345557a8973b050f92fceba431988d93c12ca2bfcb1ada896d",
+      "opaque_incident_id": "INC-C9BD40E14E88",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts4-ts-security-service-partition-bswd45",
+        "datapack": "ts4-ts-security-service-partition-bswd45",
+        "env_source": {
+          "ABNORMAL_END": "1754956154",
+          "ABNORMAL_START": "1754955914",
+          "NAMESPACE": "ts4",
+          "NORMAL_END": "1754955914",
+          "NORMAL_START": "1754955674"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:57d0a8eb2c172aa892e23ddd7eab7e5f1de38ea4e5d0465a60dfc9971a13ed5a",
+      "start": 1754955674.0
+    },
+    {
+      "case_id": "aegislab_ts5-ts-travel2-service-stress-v9ch2t",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1757137620.0,
+      "event": "9041",
+      "leakage_group": "9e67ba18e8b2afa29c8d99281d1ac22b0ca528feeb440dd44afd697fe5a0760f",
+      "opaque_incident_id": "INC-0E6F68EDF409",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts5-ts-travel2-service-stress-v9ch2t",
+        "datapack": "ts5-ts-travel2-service-stress-v9ch2t",
+        "env_source": {
+          "ABNORMAL_END": "1757137620",
+          "ABNORMAL_START": "1757137382",
+          "NAMESPACE": "ts5",
+          "NORMAL_END": "1757137382",
+          "NORMAL_START": "1757137142"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:72ace2e2591be59ee2be0b3220cf2a126b64773b7ef395cdf1182212a06b3738",
+      "start": 1757137142.0
+    },
+    {
+      "case_id": "aegislab_ts4-ts-basic-service-response-abort-94gfnl",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1757145359.0,
+      "event": "9088",
+      "leakage_group": "990e30b92aef9588ccd6b304be1670f0d0ae36c23c6e7988646f02231a01083a",
+      "opaque_incident_id": "INC-5C7D6186CEC1",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts4-ts-basic-service-response-abort-94gfnl",
+        "datapack": "ts4-ts-basic-service-response-abort-94gfnl",
+        "env_source": {
+          "ABNORMAL_END": "1757145359",
+          "ABNORMAL_START": "1757145119",
+          "NAMESPACE": "ts4",
+          "NORMAL_END": "1757145119",
+          "NORMAL_START": "1757144879"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:6b47c0f37fda71e217337c184fb3e69bd99155f841e9db8599c8bcefc689a818",
+      "start": 1757144879.0
+    },
+    {
+      "case_id": "aegislab_ts7-ts-assurance-service-stress-lth6xq",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1753017293.0,
+      "event": "685",
+      "leakage_group": "29d0e92a2c08f888532f5a6dbce85b6fe029390674c42759f920a078c97cfebb",
+      "opaque_incident_id": "INC-2901DC0C5EA7",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts7-ts-assurance-service-stress-lth6xq",
+        "datapack": "ts7-ts-assurance-service-stress-lth6xq",
+        "env_source": {
+          "ABNORMAL_END": "1753017293",
+          "ABNORMAL_START": "1753017055",
+          "NAMESPACE": "ts7",
+          "NORMAL_END": "1753017055",
+          "NORMAL_START": "1753016815"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:7421abbf52d58bc612e4eb8f39504727d218582917fb7e0e14eded39b0511637",
+      "start": 1753016815.0
+    },
+    {
+      "case_id": "aegislab_ts1-ts-inside-payment-service-stress-n6mttx",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1753267062.0,
+      "event": "1734",
+      "leakage_group": "7e556b87ce5c5c2ea4a04798eb7eb96d561f21b981be428c03290a6b359b5e59",
+      "opaque_incident_id": "INC-A826539241B0",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts1-ts-inside-payment-service-stress-n6mttx",
+        "datapack": "ts1-ts-inside-payment-service-stress-n6mttx",
+        "env_source": {
+          "ABNORMAL_END": "1753267062",
+          "ABNORMAL_START": "1753266823",
+          "NAMESPACE": "ts1",
+          "NORMAL_END": "1753266823",
+          "NORMAL_START": "1753266583"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:5a829df5dbe823800e51fbe61d96c2b1c8a498da8a17d91802490c32253476c5",
+      "start": 1753266583.0
+    },
+    {
+      "case_id": "aegislab_ts4-mysql-partition-bbrxlg",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1753253776.0,
+      "event": "1649",
+      "leakage_group": "d1937cec8a96faf96f2f6e7e801666bde42102d714d7854b7e1a33477f41dd86",
+      "opaque_incident_id": "INC-C58423A7459F",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts4-mysql-partition-bbrxlg",
+        "datapack": "ts4-mysql-partition-bbrxlg",
+        "env_source": {
+          "ABNORMAL_END": "1753253776",
+          "ABNORMAL_START": "1753253537",
+          "NAMESPACE": "ts4",
+          "NORMAL_END": "1753253537",
+          "NORMAL_START": "1753253297"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:8faeefa5b0638119dc83883ca494416c1b45dc692442d0be1da74fa484ecbebb",
+      "start": 1753253297.0
+    },
+    {
+      "case_id": "aegislab_ts1-ts-ui-dashboard-response-replace-code-24nh7m",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1756359285.0,
+      "event": "6869",
+      "leakage_group": "917f5a792311d2d158f733adecaf07d3ed873c1c1fbbdb04aeb773b3be1733a7",
+      "opaque_incident_id": "INC-487BD5BF5D73",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts1-ts-ui-dashboard-response-replace-code-24nh7m",
+        "datapack": "ts1-ts-ui-dashboard-response-replace-code-24nh7m",
+        "env_source": {
+          "ABNORMAL_END": "1756359285",
+          "ABNORMAL_START": "1756359045",
+          "NAMESPACE": "ts1",
+          "NORMAL_END": "1756359045",
+          "NORMAL_START": "1756358805"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:df8d77165288687a8b4e07a71aa392430fa37f28b69d86054e2c3ac25895870b",
+      "start": 1756358805.0
+    },
+    {
+      "case_id": "aegislab_ts4-ts-route-service-stress-dbqrpq",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1753275603.0,
+      "event": "1792",
+      "leakage_group": "82f661e4287d89e23bda55308d7071b69d3d4837e81e29993b1669cff8fb4e35",
+      "opaque_incident_id": "INC-A2F0E757DD2A",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts4-ts-route-service-stress-dbqrpq",
+        "datapack": "ts4-ts-route-service-stress-dbqrpq",
+        "env_source": {
+          "ABNORMAL_END": "1753275603",
+          "ABNORMAL_START": "1753275364",
+          "NAMESPACE": "ts4",
+          "NORMAL_END": "1753275364",
+          "NORMAL_START": "1753275124"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:d93fad6bf0267b04cedd982d8c2c29cb5adcd28cc89a37acf2bcd0b18f9c4e18",
+      "start": 1753275124.0
+    },
+    {
+      "case_id": "aegislab_ts5-ts-basic-service-request-replace-method-xpvjqz",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1753617935.0,
+      "event": "3316",
+      "leakage_group": "92e21f17a5e4b0eb72bbd9f7c338cda2de776413d764e5945c3974fcf4ba0381",
+      "opaque_incident_id": "INC-FBCBAA98002C",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts5-ts-basic-service-request-replace-method-xpvjqz",
+        "datapack": "ts5-ts-basic-service-request-replace-method-xpvjqz",
+        "env_source": {
+          "ABNORMAL_END": "1753617935",
+          "ABNORMAL_START": "1753617696",
+          "NAMESPACE": "ts5",
+          "NORMAL_END": "1753617696",
+          "NORMAL_START": "1753617456"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:129f7f21db93e4b52dd51bf81454ce92a9821bcfcfaca35e4a09c60aa7b3fb84",
+      "start": 1753617456.0
+    },
+    {
+      "case_id": "aegislab_ts3-ts-ui-dashboard-response-delay-zz7qpg",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1755032638.0,
+      "event": "5393",
+      "leakage_group": "2bb10459490a8b754602fb105dc9b046ef58c1d88f1095e65774632fb5d80cad",
+      "opaque_incident_id": "INC-F4FCAFBEC78A",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts3-ts-ui-dashboard-response-delay-zz7qpg",
+        "datapack": "ts3-ts-ui-dashboard-response-delay-zz7qpg",
+        "env_source": {
+          "ABNORMAL_END": "1755032638",
+          "ABNORMAL_START": "1755032398",
+          "NAMESPACE": "ts3",
+          "NORMAL_END": "1755032398",
+          "NORMAL_START": "1755032158"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:c85b8282ca991934e8b80e9ea55edc68dc5feb9665b7f13ad668d959bdc21e2e",
+      "start": 1755032158.0
+    },
+    {
+      "case_id": "aegislab_ts5-ts-basic-service-response-abort-7f8qrl",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1757175904.0,
+      "event": "9264",
+      "leakage_group": "5b0ddcf31ffb703e3b3c12375c271a186b5013346430d490ffff5b7aa48e5fb1",
+      "opaque_incident_id": "INC-5DDFFEF35CBD",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts5-ts-basic-service-response-abort-7f8qrl",
+        "datapack": "ts5-ts-basic-service-response-abort-7f8qrl",
+        "env_source": {
+          "ABNORMAL_END": "1757175904",
+          "ABNORMAL_START": "1757175664",
+          "NAMESPACE": "ts5",
+          "NORMAL_END": "1757175664",
+          "NORMAL_START": "1757175424"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:08a5bd0f3c2a42f9f59c93f52d1cd1657ef1325306e1fd090f3eecb863871723",
+      "start": 1757175424.0
+    },
+    {
+      "case_id": "aegislab_ts8-ts-station-food-service-container-kill-5nk8jz",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1753025012.0,
+      "event": "761",
+      "leakage_group": "c043391474d4f34015a1d5c80b2252a9967c3bcf63ba375baac1e7e180dcd03e",
+      "opaque_incident_id": "INC-E196793B7152",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts8-ts-station-food-service-container-kill-5nk8jz",
+        "datapack": "ts8-ts-station-food-service-container-kill-5nk8jz",
+        "env_source": {
+          "ABNORMAL_END": "1753025012",
+          "ABNORMAL_START": "1753024772",
+          "NAMESPACE": "ts8",
+          "NORMAL_END": "1753024772",
+          "NORMAL_START": "1753024532"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:b0126cbbad028d2fe2910cfa3f2866bb2c66897f546e331f5e586c2b45961353",
+      "start": 1753024532.0
+    },
+    {
+      "case_id": "aegislab_ts0-ts-preserve-service-request-replace-method-2hbvml",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1753280063.0,
+      "event": "1802",
+      "leakage_group": "9b49bdbc3f16b3e5473f1bf1a547022855cc49eaa0533226365ea6b7ab81ee51",
+      "opaque_incident_id": "INC-385F3FDBBD1F",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts0-ts-preserve-service-request-replace-method-2hbvml",
+        "datapack": "ts0-ts-preserve-service-request-replace-method-2hbvml",
+        "env_source": {
+          "ABNORMAL_END": "1753280063",
+          "ABNORMAL_START": "1753279823",
+          "NAMESPACE": "ts0",
+          "NORMAL_END": "1753279823",
+          "NORMAL_START": "1753279583"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:13585be8c8f25a761b642545e1d7add06ecb8457b87601eea235a3db93711028",
+      "start": 1753279583.0
+    },
+    {
+      "case_id": "aegislab_ts4-ts-ui-dashboard-request-replace-method-g6h9gg",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1753022769.0,
+      "event": "739",
+      "leakage_group": "c6073598aebb97c7f9300b802b042865278bc6f6ff0bd8b6ad7700bc0d7c6bef",
+      "opaque_incident_id": "INC-EB0EB86F831D",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts4-ts-ui-dashboard-request-replace-method-g6h9gg",
+        "datapack": "ts4-ts-ui-dashboard-request-replace-method-g6h9gg",
+        "env_source": {
+          "ABNORMAL_END": "1753022769",
+          "ABNORMAL_START": "1753022531",
+          "NAMESPACE": "ts4",
+          "NORMAL_END": "1753022531",
+          "NORMAL_START": "1753022291"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:11f8aec3568770b1fe148a6e7d31fda2dd21065168d2e7eb9636bf13b3c941ab",
+      "start": 1753022291.0
+    },
+    {
+      "case_id": "aegislab_ts2-ts-preserve-service-response-replace-code-bk2689",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1752983043.0,
+      "event": "448",
+      "leakage_group": "d78229673da165370d2ace21625cd6056c2fe78712df91216df278c75b9a3928",
+      "opaque_incident_id": "INC-EDA23ECB5C82",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts2-ts-preserve-service-response-replace-code-bk2689",
+        "datapack": "ts2-ts-preserve-service-response-replace-code-bk2689",
+        "env_source": {
+          "ABNORMAL_END": "1752983043",
+          "ABNORMAL_START": "1752982804",
+          "NAMESPACE": "ts2",
+          "NORMAL_END": "1752982804",
+          "NORMAL_START": "1752982564"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:24a3d1caf914d41e92300eca7fa9f856d0c8807ba885507f36d624cf8e36e7be",
+      "start": 1752982564.0
+    },
+    {
+      "case_id": "aegislab_ts4-ts-consign-service-bandwidth-shcm2h",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1753294788.0,
+      "event": "1889",
+      "leakage_group": "b21cb441867ba0a3bb0ba837cea2ae845d4fa0d13d7ee864b5c1403b28947b2a",
+      "opaque_incident_id": "INC-6A048DD0C35E",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts4-ts-consign-service-bandwidth-shcm2h",
+        "datapack": "ts4-ts-consign-service-bandwidth-shcm2h",
+        "env_source": {
+          "ABNORMAL_END": "1753294788",
+          "ABNORMAL_START": "1753294548",
+          "NAMESPACE": "ts4",
+          "NORMAL_END": "1753294548",
+          "NORMAL_START": "1753294308"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:2fdbc160bebdfad9d3ca3e664cdc5db58f8bf0f86c19d9747d432e9f409d89e2",
+      "start": 1753294308.0
+    },
+    {
+      "case_id": "aegislab_ts5-ts-order-service-corrupt-475z9v",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1753266508.0,
+      "event": "1732",
+      "leakage_group": "88c1661366a23d2beb9916cddf4480152a863ccd11d1e927764af78a8c8d92e1",
+      "opaque_incident_id": "INC-7FCA48559A2E",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts5-ts-order-service-corrupt-475z9v",
+        "datapack": "ts5-ts-order-service-corrupt-475z9v",
+        "env_source": {
+          "ABNORMAL_END": "1753266508",
+          "ABNORMAL_START": "1753266268",
+          "NAMESPACE": "ts5",
+          "NORMAL_END": "1753266268",
+          "NORMAL_START": "1753266028"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:a60378a0865b72334cf2a6e8bea8894c2177d2f62b1b38e8315bd5b08443ff8c",
+      "start": 1753266028.0
+    },
+    {
+      "case_id": "aegislab_ts0-ts-price-service-stress-n787pd",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1757134114.0,
+      "event": "9022",
+      "leakage_group": "d39bd757924786ee72c294f596e0c9ddff0f148dcd51c68bcc9218f981ae9726",
+      "opaque_incident_id": "INC-CEDB66058BB8",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts0-ts-price-service-stress-n787pd",
+        "datapack": "ts0-ts-price-service-stress-n787pd",
+        "env_source": {
+          "ABNORMAL_END": "1757134114",
+          "ABNORMAL_START": "1757133876",
+          "NAMESPACE": "ts0",
+          "NORMAL_END": "1757133876",
+          "NORMAL_START": "1757133636"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:cfdb1394b6c6ed8fc35f86d9cb0223589c2fd1d98a04dd2d954a40d1f40a416e",
+      "start": 1757133636.0
+    },
+    {
+      "case_id": "aegislab_ts3-ts-seat-service-request-delay-79xhc2",
+      "cohort": "eval",
+      "dataset": "aegislab",
+      "end": 1757005463.0,
+      "event": "8682",
+      "leakage_group": "abfe59b7eec34921125b59af3a897e96cc13b0d8d26105cd26417072ba549166",
+      "opaque_incident_id": "INC-4AD76DC956B5",
+      "original_validation": false,
+      "partition": "eval",
+      "provenance": {
+        "case_dir": "/home/lglsj/CanvasRCA/dataset/raw/aegislab/ts3-ts-seat-service-request-delay-79xhc2",
+        "datapack": "ts3-ts-seat-service-request-delay-79xhc2",
+        "env_source": {
+          "ABNORMAL_END": "1757005463",
+          "ABNORMAL_START": "1757005224",
+          "NAMESPACE": "ts3",
+          "NORMAL_END": "1757005224",
+          "NORMAL_START": "1757004984"
+        },
+        "historical_notes": [],
+        "historical_partition": "rq480_eval",
+        "source_file_identity_count": 6,
+        "source_rule": "env_capture_envelope_plus_injection_id_alias_with_unique_file_identity_audit",
+        "test_basis": null
+      },
+      "source": "aegislab_capture:0cf4566137fee13c60ce1056e6eaebfc4ed5155021bcb3b755049c4b6a15dd7d",
+      "start": 1757004984.0
+    }
+  ],
+  "roster_selection": "event-group rotation then hash; no response/label reads",
+  "maximum_workers": 4,
+  "maximum_distinct_physical_cores": 8,
+  "aggregate_rss_limit_bytes": 25769803776,
+  "original_budget_clock": "cpu_admission_v4/started.json",
+  "source_stage": "cpu_admission_v5",
+  "reuse_completed_primary_encoder_and_masks": true,
+  "qa_task": "Answer the two independent factual blocks marked 1A/1B and 2A/2B in the evidence. For each applicable block report: read={value_A:number,value_B:number}; bind={A:{entity_id,signal_or_operation_id,unit,phase},B:{entity_id,signal_or_operation_id,unit,phase}}; compare=A_greater|B_greater|equal_at_display_precision. Return JSON {\"blocks\":[block1,block2]}; use null only for an unmarked whole block. Badges carry no phase meaning. Do not diagnose a root cause.",
+  "atlas_guide": "The quantile strips show standardized reference/current changes at p10,p50,p90 and, where observed peer support permits, deviation from the peer median. Color intensity uses asinh on a shared symmetric scale; printed values are untransformed standardized quantities. Zero denotes no measured change/deviation. Color is not causal severity. Original units and observations remain in their original components.",
+  "qa_render_new_features_required": true,
+  "inference_seed_namespace": "rq41_initial_v1",
+  "repeat_seed_namespace": "rq41_independent_repeat_v1",
+  "queue_hash_namespace": "rq41_development_queue_v1",
+  "calibration_status": "uncalibrated; no independent confirmation",
+  "manual_visual_review": "pending after background output",
+  "llm_calls": 0
+}

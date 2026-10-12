@@ -1,9 +1,11 @@
+import PackedPanel from './components/PackedPanel.js';
 import React from 'react';
 import {Card,Rect,Design,Scene,Details} from './components/primitives.js';
 import {components} from './components/index.js';
+import ScopedDetails from './components/ScopedDetails.js';
 export type {Card,Rect,Design,Scene} from './components/primitives.js';
 
-function Panel({card,rect,design}:{card:Card;rect:Rect;design:Design}) {
+export function Panel({card,rect,design}:{card:Card;rect:Rect;design:Design}) {
   const Component=components[rect.component];
   if(!Component)throw new Error('Unregistered dashboard component: '+rect.component);
   const entityType=card.entity?({3:'service',4:'node',5:'pod',6:'external'}[card.entity.length]):null;
@@ -19,13 +21,19 @@ function Panel({card,rect,design}:{card:Card;rect:Rect;design:Design}) {
       {card.entity&&<span className="identity" data-binding={card.id+'.entity'}>{entityType} {card.entity}</span>}</div>
     {card.unit&&<div className="unit" data-binding={card.id+'.unit'}>{card.unit.replaceAll('_',' ')}</div>}
     <Component card={displayed} rect={rect}/>
-    {!['graph','events'].includes(card.kind)&&rect.presentation?.details!==false&&<Details card={card}/>}
+    {!rect.component.endsWith('.source_compact')&&!['graph','events'].includes(card.kind)&&rect.presentation?.details!==false&&
+      ((design.readable_cards==='source_scopes_v2'||design.readable_cards==='source_scopes_pack_v4')?<ScopedDetails card={card}/>:<Details card={card}/>)}
   </section>;
 }
 
+export function RegisteredPanel(props:{card:Card;rect:Rect;design:Design}){
+ const id=props.rect.component;
+ return id.includes('_packed.')||id==='metric_horizon.source_compact'?<PackedPanel {...props}/>:<Panel {...props}/>;
+}
+
 export function Dashboard({cards,design,scene}:{cards:Card[];design:Design;scene:Scene}) {
-  return <main style={{position:'relative',width:scene.width,height:scene.height}}>
+  return <main className={design.evidence_regions?"evidence-regions":undefined} style={{position:'relative',width:scene.width,height:scene.height}}>
     <header><strong>Telemetry / Incident overview</strong><span>METRICS · TRACES · LOGS · RELATIONSHIPS</span></header>
-    {scene.rectangles.map(rect=><Panel key={rect.card} card={cards.find(c=>c.id===rect.card)!} rect={rect} design={design}/>)}
+    {scene.rectangles.map(rect=><RegisteredPanel key={rect.card} card={cards.find(c=>c.id===rect.card)!} rect={rect} design={design}/>)}
   </main>;
 }

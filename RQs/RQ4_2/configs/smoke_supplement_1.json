@@ -1,0 +1,67 @@
+{
+  "schema": "RQ42SupplementalSmokeV1",
+  "chosen": {
+    "aiops2022": "INC-0986D6C54EC6",
+    "aiops2025": "INC-FDDF807FBAA4",
+    "aegislab": "INC-1A47F4D45593"
+  },
+  "items": [
+    {
+      "key": "INC-1A47F4D45593_SHAM",
+      "oid": "INC-1A47F4D45593",
+      "arm": "SHAM",
+      "task": "RCA",
+      "identity": "d00b4dfef90397e333a4799f4c9662ef64e4621489cf960051b4042736da95a0",
+      "reference": null,
+      "dataset": "aegislab"
+    },
+    {
+      "key": "INC-1A47F4D45593_SEM_QA",
+      "oid": "INC-1A47F4D45593",
+      "arm": "SEM",
+      "task": "QA",
+      "identity": "fbfb7b9b12eb22b0d616c89731827a5471dd5714f94a5571d7db3da100509994",
+      "reference": null,
+      "dataset": "aegislab"
+    }
+  ],
+  "calls_maximum": 18,
+  "seconds": 600,
+  "timeouts_pass": false,
+  "formal_enabled": false,
+  "rca_calls": 1,
+  "qa_calls": 1,
+  "cpu_queue_sha256": "4453b46921d01b94b339997074920bee5ada5d2fadef34494897c47a0ec9a321",
+  "model_identity_sha256": "dee2262abc309eccaea7f124605b90a8e03a15eac4057dabea5b1681bf9c65fe",
+  "selection": "first ready case per dataset in fixed mechanism hash order; identical to offline cold-path cohort",
+  "backend": "local Transformers BF16 SDPA; registered visual encoder hooks; no API/network",
+  "recipe": "frozen RQ42 generation identities; max8192,context40960,temperature1,top_p.95,seed42,gpu_fraction.75",
+  "gates": "protocol/infrastructure/operator/persistence/coverage; no MRR or QA accuracy gate",
+  "feature_check": "real checkpoint, tiny tensor: K1 identity, K4 relabel invariance, finite outputs and hook restoration",
+  "scope": "smoke_supplement_1",
+  "authority_sha256": "c0f8af06bcf3ddab6ed70f086d7d86aacefb69a920fb41555000547a2d955c8c",
+  "supplement_number": 1,
+  "inherit_completed_from": "gpu_smoke_v1",
+  "inherited_positions": 16,
+  "base_registration_sha256": "e167b6a62317d45fab6c72798a6d8564298291b3f386ed1ebeb192125caa13fd",
+  "reason": "Only missing original positions; repair paths exercised without rerunning identical successes.",
+  "inherited_review_sha256": "d520ab0d12211727659b2019261b36c95345a83245ccec0624a701519828c1b6",
+  "inherited_marker_hashes": {
+    "INC-0986D6C54EC6_FULL": "4ed83e9312a538e4d290ef9ae9952d149433df196b91d020f8da6c02419d4afa",
+    "INC-0986D6C54EC6_FULL_QA": "02e219aef7356b74abb1a3d7142c13e4cf7408fc66d46839b0c4bb14dd4b7d2e",
+    "INC-0986D6C54EC6_GEOM": "690f69554d1a7ff3a3d171c7bfd0916cb9502665bd0f4cc17b7dd9121fe9975d",
+    "INC-0986D6C54EC6_NATIVE4_QA": "e6d5d5c37abb3711e56dca5f7eaf6c20b26e41220399e94afab47b333ccd4ad1",
+    "INC-0986D6C54EC6_SEM": "9c16746042b54409575d269b9a4d1b0ed98350749aadc40ee87bff0564d5ffd1",
+    "INC-0986D6C54EC6_SHAM": "d3f2059aa901a3cc6207b97893941ff2ed58c667676ec5355459c8b3bee699b2",
+    "INC-1A47F4D45593_FULL": "e4c3e23fdee7312cf012ea79dc8e42a621dafe4fbaac4edc2c5d49790ee9cb31",
+    "INC-1A47F4D45593_GEOM_QA": "4ba3b152c559db05dd013f76d82e03c1456b15eaf39d954a7d16a97380036b54",
+    "INC-1A47F4D45593_NATIVE4": "8cec11d49042fe0700215576b4e52025034eb00bc1f96e7560b20782b0fffcd6",
+    "INC-1A47F4D45593_SEM": "06e386a643c70820d9990a22d022b7e62a18086e525e642db116248e38e8afc7",
+    "INC-FDDF807FBAA4_FULL": "de0c8259bd97ed621238bac72ccc15542fb779661b411624d813071f7582ccc5",
+    "INC-FDDF807FBAA4_GEOM": "d484f6e1ff9c5c763290b2529dd5615f045b247e02524090b624489719b0df6c",
+    "INC-FDDF807FBAA4_GEOM_QA": "5075551f3cfc8dda2c14c2b1da7aeee9f2018d312054187f11129dddac08a61d",
+    "INC-FDDF807FBAA4_NATIVE4": "4515e194cdb1c049b2460548dc3dac6ab76f6c75f609723bf12b3bf650925342",
+    "INC-FDDF807FBAA4_SEM": "32463c98a9aa9a8d2bdbf74d43bf8dcdd1507ad21588fefa0eb65e236eece6d7",
+    "INC-FDDF807FBAA4_SEM_QA": "f4adc77003c8a2c996963c757b88ae6650d5daaee767517a417743786fd0a0a6"
+  }
+}

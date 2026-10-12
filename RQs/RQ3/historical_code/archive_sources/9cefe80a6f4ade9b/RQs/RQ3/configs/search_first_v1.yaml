@@ -1,0 +1,14 @@
+extends: RQs/RQ3/configs/rq3.yaml
+execution_enabled: false
+delivery_boundary: train_subset_search_only
+solver:
+  attention: "off"
+budget:
+  hard_limit: null
+search:
+  enabled: true
+  max_batch_calls: 18
+  concurrency: 4
+  stage: qualification
+  wall_seconds: 600
+  diagnostic_transport: pure_visual_with_text_candidates

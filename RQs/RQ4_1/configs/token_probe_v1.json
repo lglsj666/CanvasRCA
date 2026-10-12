@@ -1,0 +1,20 @@
+{
+  "experiment": "token_interface_probe_v1",
+  "model_path": "/home/lglsj/CanvasRCA/models/Qwen3.8-27B",
+  "backend": "transformers_isolated_feasibility_only",
+  "dtype": "bfloat16",
+  "gpu_allocator_fraction": 0.75,
+  "max_calls": 12,
+  "wall_seconds": 600,
+  "max_new_tokens": 64,
+  "seed": 42,
+  "conditions": ["native", "identity", "uniform_half", "uniform_quarter"],
+  "formal_enabled": false,
+  "system": "You read telemetry dashboards. Answer the requested visual reading question concisely. Do not diagnose a root cause.",
+  "question": "Read the leftmost duration card in the image. Return JSON only with keys parent, child, phases. Copy the displayed parent and child entity identifiers as strings, and give the two phase names as a list. Do not add an explanation.",
+  "cases": [
+    {"dataset": "aiops2022", "id": "INC-6E627662CA32", "png": "RQs/RQ3_21/preparation/compact_entity_v1/renders/INC-6E627662CA32/MARGINAL/dashboard.png", "sha256": "9e7460a1a656a5c74d81f157857f82594a60ec7044a32d3179352ae3633e79fa"},
+    {"dataset": "aiops2025", "id": "INC-D9245047C658", "png": "RQs/RQ3_21/preparation/compact_entity_v1/renders/INC-D9245047C658/MARGINAL/dashboard.png", "sha256": "ae53ea19dbbcb1c5dc34fc90b05a197d4408a8f7a8cda546749f5add8f5052c3"},
+    {"dataset": "aegislab", "id": "INC-37ABFB78A80E", "png": "RQs/RQ3_21/preparation/compact_entity_v1/renders/INC-37ABFB78A80E/MARGINAL/dashboard.png", "sha256": "c73978a90c470472cca6b51b5f3e80211ce85d072619d95b62a7a499bfa71aff"}
+  ]
+}

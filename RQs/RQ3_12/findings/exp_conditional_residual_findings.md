@@ -21,7 +21,7 @@
 
 2026-10-01。当前版本 `rq312_conditional_residual_v2`；以下 v1 CPU 结果保留为历史失败证据。
 
-当前状态：**v2完整CPU功能回归、容量和成本通过，但方法资格失败；GPU smoke和全量未运行**。两个AIOPS有效竞争案例仍各0/60，低于登记门槛合计30/各10。没有新增模型调用、VLM输出或RCA性能结果。具体证据为 [v2 CPU记录](../results/conditional_v2/logs/2026-10-01_cpu_qualification.md)。
+当前状态：**v2完整CPU功能回归、容量和成本通过，但方法资格失败；GPU smoke和全量未运行**。两个AIOPS有效竞争案例仍各0/60，低于登记门槛合计30/各10。没有新增模型调用、VLM输出或RCA性能结果。具体证据为 [v2 CPU记录](../../../docs/experiment_reports/through_RQ3_15_preserved/RQs/RQ3_12/results/conditional_v2/logs/2026-10-01_cpu_qualification.md)。
 
 ## v2 完整 CPU 结果
 
@@ -37,7 +37,7 @@
 
 v2 从冻结 public context 所绑定的 canonical metrics 时间戳提取真实采样支持，不再把均匀图格中未安排采样的位置当作缺测；真实采样格的缺失值仍计入覆盖率分母。原始 exact12M/R/L/G 事实、候选全集和模型/评分/调用门槛保留。不可计算、锚点自身和支持域之外的派生比较不展示；OBS 只展示 A；空候选行和无观测列删除；整个表为空时不生成 PNG，使用原始 exact 文本。两种派生表示共享同一份稀疏比较数据。
 
-这修正了采样支持与展示规则，但**尚不能说明两个 AIOPS 已达到有效竞争候选或 token 成本门槛**。之后须重新构建 renderer、准备并验证全队列，不能复用 v1 的 CPU 成功或旧 PNG 作为 v2 资格。详见[修订协议](../descriptions/RQ3_12_experiments.md)及[本次静态修改记录](../results/conditional_v2/logs/2026-10-01_static_repair.md)。
+这修正了采样支持与展示规则，但**尚不能说明两个 AIOPS 已达到有效竞争候选或 token 成本门槛**。之后须重新构建 renderer、准备并验证全队列，不能复用 v1 的 CPU 成功或旧 PNG 作为 v2 资格。详见[修订协议](../descriptions/RQ3_12_experiments.md)及[本次静态修改记录](../../../docs/experiment_reports/through_RQ3_15_preserved/RQs/RQ3_12/results/conditional_v2/logs/2026-10-01_static_repair.md)。
 
 ## v1 历史 CPU 结果
 
@@ -49,4 +49,4 @@ v2 从冻结 public context 所绑定的 canonical metrics 时间戳提取真实
 
 用户指出的Aegis图每条指标参考32格只有16个有效格；60%规则导致全观测未知。均匀64格可能比真实采样更细，不能将这种图格缺失直接称遥测采集故障。问号与规则一致，但整图不具备可用比较信息。
 
-遵守[协议](../descriptions/RQ3_12_experiments.md)的GPU前失败停止规则，保留全部案例/门槛/失败证据，未启动GPU。用户随后授权版本化修改，并要求代码改完就停下；v1 源码和构建包已单独保存。详细[CPU诊断](../results/conditional_v1/logs/2026-10-01_cpu_qualification.md)及机器记录为 v1 历史状态依据。
+遵守[协议](../descriptions/RQ3_12_experiments.md)的GPU前失败停止规则，保留全部案例/门槛/失败证据，未启动GPU。用户随后授权版本化修改，并要求代码改完就停下；v1 源码和构建包已单独保存。详细[CPU诊断](../../../docs/experiment_reports/through_RQ3_15_preserved/RQs/RQ3_12/results/conditional_v1/logs/2026-10-01_cpu_qualification.md)及机器记录为 v1 历史状态依据。

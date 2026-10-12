@@ -1,0 +1,47 @@
+@page {
+  size: A4;
+  margin: 17mm 17mm 19mm 17mm;
+  @top-left { content: "CANVASRCA  /  PROJECT REVIEW"; font: 7.5pt "DejaVu Sans"; color: #577087; }
+  @top-right { content: "12 OCTOBER 2026"; font: 7.5pt "DejaVu Sans"; color: #577087; }
+  @bottom-left { content: "Evidence through RQ4.4  |  Development results"; font: 7pt "DejaVu Sans"; color: #577087; }
+  @bottom-right { content: counter(page) " / " counter(pages); font: 8pt "DejaVu Sans"; color: #203247; }
+}
+@page :first { @top-left { content: none; } @top-right { content: none; } }
+html { font-family: "DejaVu Sans", sans-serif; color: #203247; font-size: 9.5pt; line-height: 1.46; }
+body { margin: 0; }
+h1 { font-size: 25pt; line-height: 1.17; margin: 7mm 0 6mm; letter-spacing: -.4pt; color: #173a53; }
+h2 { font-size: 17pt; line-height: 1.23; margin: 5mm 0 4mm; padding-bottom: 2.5mm; border-bottom: 1.3pt solid #16877f; break-before: page; }
+h3 { font-size: 12.3pt; line-height: 1.28; margin: 5mm 0 2.5mm; color: #176761; }
+h4 { font-size: 10.8pt; margin: 4mm 0 2mm; }
+h1, h2, h3, h4 { break-after: avoid; }
+p { margin: 0 0 3mm; orphans: 3; widows: 3; }
+a { color: #226486; text-decoration: none; overflow-wrap: anywhere; }
+strong { color: #173a53; }
+em { color: #40556b; }
+ul, ol { padding-left: 6mm; margin: 2mm 0 3mm; }
+li { margin: 0 0 1.8mm; }
+table { border-collapse: collapse; width: 100%; table-layout: fixed; font-size: 8pt; line-height: 1.38; margin: 3mm 0 5mm; }
+thead { display: table-header-group; }
+th { background: #e5eff3; color: #173a53; text-align: left; font-weight: bold; }
+td, th { border: .5pt solid #cbd8de; padding: 2mm 1.7mm; vertical-align: top; overflow-wrap: anywhere; box-sizing: border-box; }
+tr { break-inside: avoid; }
+tbody tr:nth-child(even) { background: #f5f8fa; }
+.cols-2 th:first-child, .cols-2 td:first-child { width: 26%; }
+.cols-3 th:first-child, .cols-3 td:first-child { width: 21%; }
+.cols-5 th:nth-child(1) { width: 21%; }
+.cols-5 th:nth-child(2) { width: 18%; }
+.cols-5 th:nth-child(3) { width: 12%; }
+.cols-5 th:nth-child(4) { width: 16%; }
+.cols-7, .cols-8 { font-size: 7.2pt; }
+.cols-8 th:first-child, .cols-8 td:first-child { width: 21%; }
+.glossary-table td, .glossary-table th { padding-top: 1.5mm; padding-bottom: 1.5mm; }
+code { font-family: "DejaVu Sans Mono", monospace; font-size: .84em; overflow-wrap: anywhere; }
+pre { white-space: pre-wrap; overflow-wrap: anywhere; padding: 3mm; background: #f0f4f7; font-size: 8pt; }
+blockquote { border-left: 2pt solid #16877f; margin: 3mm 0; padding: 1mm 0 1mm 4mm; }
+figure { margin: 5mm 0; padding: 0; break-inside: avoid; }
+figure p { margin: 0; text-align: center; }
+figure p.example-title { text-align: left; margin-bottom: 3mm; font-size: 10pt; }
+.dashboard-example img { max-height: 207mm; }
+img { display: block; max-width: 100%; max-height: 219mm; width: auto; height: auto; margin: 0 auto; image-resolution: from-image; }
+figcaption { font-size: 8pt; line-height: 1.35; margin: 2.5mm 0 0; }
+hr { border: 0; border-top: .5pt solid #cbd8de; margin: 5mm 0; }

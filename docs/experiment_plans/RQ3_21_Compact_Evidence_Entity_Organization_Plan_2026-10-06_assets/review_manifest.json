@@ -1,0 +1,358 @@
+{
+  "date": "2026-10-06",
+  "review_scope": "Continuation of preceding report-by-report review; hashes bind implementation-time sources, not model-result re-execution. Supplemental raw trajectories are not claimed fully read.",
+  "documents": [
+    {
+      "path": "Codex.md",
+      "sha256": "3d6b4495b381a68846a16d1b8cc2d8102fdb46034aad3fcc5939e63ddcb61587",
+      "lines": 1468,
+      "title": "# CanvasRCA Project Rules",
+      "status_scope": "上下文/历史辅助文档",
+      "decision": "保留其实际执行状态；用于主线、成本、数据暴露、attention与诊断机制边界，不替代新的资格。"
+    },
+    {
+      "path": "RQs/RQ3/findings/exp_composer_learning_findings.md",
+      "sha256": "1bd304e7c9ed359f37b5ade2ce332e9ae838f697a93affd3ac9f0c8a6d4376f0",
+      "lines": 69,
+      "title": "# Composer learning — SFT complete; utility learning not yet evaluated",
+      "status_scope": "上下文/历史辅助文档",
+      "decision": "保留其实际执行状态；用于主线、成本、数据暴露、attention与诊断机制边界，不替代新的资格。"
+    },
+    {
+      "path": "RQs/RQ3/findings/exp_elimination_tournament_findings.md",
+      "sha256": "4bd85a3faf4af8f5c1d57d11b9d023c6b4c661c4a22dd91781cd6e9d7389dc5e",
+      "lines": 643,
+      "title": "# Adaptive elimination tournament — stopped after 38 committed rounds",
+      "status_scope": "上下文/历史辅助文档",
+      "decision": "保留其实际执行状态；用于主线、成本、数据暴露、attention与诊断机制边界，不替代新的资格。"
+    },
+    {
+      "path": "RQs/RQ3/findings/exp_frozen_solver_generalization_findings.md",
+      "sha256": "f7a3af8a072a3a7d28f26b8fc48103bb6c3bd69faf4da9fd4394d5d5ae1c45ab",
+      "lines": 32,
+      "title": "# Frozen Solver generalization — formal experiment not run",
+      "status_scope": "上下文/历史辅助文档",
+      "decision": "保留其实际执行状态；用于主线、成本、数据暴露、attention与诊断机制边界，不替代新的资格。"
+    },
+    {
+      "path": "RQs/RQ3/findings/exp_selection_design_attribution_findings.md",
+      "sha256": "4cf5f7ac1464f91f5ddce1a66a0cfecd504e7353f034cccce6b9e4d5c6296783",
+      "lines": 35,
+      "title": "# Selection/design attribution — not run",
+      "status_scope": "上下文/历史辅助文档",
+      "decision": "保留其实际执行状态；用于主线、成本、数据暴露、attention与诊断机制边界，不替代新的资格。"
+    },
+    {
+      "path": "RQs/RQ3/findings/search_retrospective_20260912.md",
+      "sha256": "84e0a19c3665c7eb31758b68b6002ee52c40498bc241332b4b5c1820308340d1",
+      "lines": 210,
+      "title": "# RQ3 探索：逐轮结果与跨轮趋势（截至 SEARCH39）",
+      "status_scope": "上下文/历史辅助文档",
+      "decision": "保留其实际执行状态；用于主线、成本、数据暴露、attention与诊断机制边界，不替代新的资格。"
+    },
+    {
+      "path": "RQs/RQ3_18/findings/exp_population_readout_findings.md",
+      "sha256": "978246ac639c3d32be6a417e95cafb490703a6a04f68c3fd4674f394275a8305",
+      "lines": 499,
+      "title": "# RQ3.18 完整结果与详细分析：总体耗时读数与视觉比较",
+      "status_scope": "完成；旧归因方案由用户要求删除并重写",
+      "decision": "总体读数与新的图形表达没有形成可靠部署增益；不恢复已删除旧计划。"
+    },
+    {
+      "path": "RQs/RQ3_19/findings/exp_visual_replacement_qa_findings.md",
+      "sha256": "ef2ec5d3e649e405871d425feac86d8fb7fee963e276e2d461557b832cbdd154",
+      "lines": 301,
+      "title": "# RQ3.19：视觉事实移交与 QA–RCA 干预完整分析",
+      "status_scope": "完成；资格/启动文档保留原时点",
+      "decision": "列式编码概念已有；其压缩位置和本轮canonical记录不同。QA读数卡可改善读取，不等于RCA改善。"
+    },
+    {
+      "path": "RQs/RQ3_20/findings/exp_budgeted_acquisition_findings.md",
+      "sha256": "4b23fa085eac08fbbf0e273bc595a7732184c93d1c929bfd6bf178debeaa434b",
+      "lines": 203,
+      "title": "# RQ3.20 当前状态：v3 核心完成，候选结束（2026-10-06 UTC）",
+      "status_scope": "完成；方法关闭",
+      "decision": "两阶段成本下降伴随排名损失，选择接口混淆事实ID与可取证ID；遵守新的一阶段约束，不修复/重跑。"
+    },
+    {
+      "path": "RQs/RQ3_9/descriptions/RQ3_9_experiments.md",
+      "sha256": "1b47b3c246590f59937bf1455557cdda88e07b61bba0b4afbb44e43a15eb60ff",
+      "lines": 38,
+      "title": "# RQ3.9 registered protocol — 2026-10-01",
+      "status_scope": "未完成，暂停",
+      "decision": "不恢复未完成的RQ3.9，不从部分运行下完整结论。"
+    },
+    {
+      "path": "RQs/RQ3_9/descriptions/RQ3_9_roadMap.md",
+      "sha256": "ccf42b70649539ad4e4520bb75235535552272733ddac9426f7bda72bb8507a0",
+      "lines": 66,
+      "title": "# RQ3.9 roadmap",
+      "status_scope": "未完成，暂停",
+      "decision": "不恢复未完成的RQ3.9，不从部分运行下完整结论。"
+    },
+    {
+      "path": "RQs/RQ3_9/descriptions/RQ3_9_statement.md",
+      "sha256": "454630ca6d72158c69b4ca8f34d6aaec9f2e3ac805b44cb4e1c75cfc2eb27dad",
+      "lines": 9,
+      "title": "# RQ3.9 — Local graphical joint comparison",
+      "status_scope": "未完成，暂停",
+      "decision": "不恢复未完成的RQ3.9，不从部分运行下完整结论。"
+    },
+    {
+      "path": "RQs/RQ3_9/descriptions/visual_review_2026-10-01.md",
+      "sha256": "608f6ee9ad99e9de76bf631639638af0d2228e5f59a57a821454f382bb34fdb4",
+      "lines": 28,
+      "title": "# Pre-inference visual review",
+      "status_scope": "未完成，暂停",
+      "decision": "不恢复未完成的RQ3.9，不从部分运行下完整结论。"
+    },
+    {
+      "path": "docs/experiment_reports/Cross_Experiment_Method_Profile_2026-09-26.md",
+      "sha256": "756a4f779ad09e2e398056a4314c62c37649b9297c0791d6629f32ebe1872220",
+      "lines": 854,
+      "title": "# 跨实验画像：Qwen 的层次、故障与数据复杂度",
+      "status_scope": "上下文/历史辅助文档",
+      "decision": "保留其实际执行状态；用于主线、成本、数据暴露、attention与诊断机制边界，不替代新的资格。"
+    },
+    {
+      "path": "docs/experiment_reports/README.md",
+      "sha256": "44e6b78f8daf222c1b95a5d5bd4ceba27ffd12d9c702453efce7a1f309603135",
+      "lines": 54,
+      "title": "# 实验报告：Qwen-only 版本",
+      "status_scope": "上下文/历史辅助文档",
+      "decision": "保留其实际执行状态；用于主线、成本、数据暴露、attention与诊断机制边界，不替代新的资格。"
+    },
+    {
+      "path": "docs/experiment_reports/RQ1_1_RQ2_1_findings/findings.md",
+      "sha256": "dc51636370d4b19153d22c78397cc6aed77765a296cef957e457f93d03f8ceab",
+      "lines": 275,
+      "title": "# RQ1.1 / RQ2.1：表示、证据选择与视觉设计",
+      "status_scope": "完成",
+      "decision": "关系视觉在部分条件下有效；不把全部事实搬成图片或文字截图当作普适优势。保留强文本。"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_10_Qwen_Analysis_2026-10-01.md",
+      "sha256": "a2b6dd509bcf2a5a0f46bdfdb177386d99c56a7c009d0664a867159388241dbe",
+      "lines": 107,
+      "title": "# RQ3.10 v2：范围比较、负面证据与视觉机制完整分析",
+      "status_scope": "完成",
+      "decision": "范围/竞争对照没有稳定收益且成本增加；本轮不追加这些规则。"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_11_Qwen_Analysis_2026-10-01.md",
+      "sha256": "0186c2802aae47455e98abf404bfd3102a0d136bec2061424ea32ed9f3cf87b7",
+      "lines": 279,
+      "title": "# RQ3.11 v2：诊断算子保护视觉压缩的完整结果分析",
+      "status_scope": "完成",
+      "decision": "数值压缩和补丁未建立稳定收益；保留原数值写法、精度和全部序列。"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_12_Qwen_Analysis_2026-10-02.md",
+      "sha256": "548f243d03aa422a4c50e1f9adffbdc684c39fcd9d6032a30a6973f749baff84",
+      "lines": 151,
+      "title": "# RQ3.12 v4：参考条件预测画布完整结果分析",
+      "status_scope": "完成",
+      "decision": "参考预测适用性与缺测问题限制其解释；本轮不引入预测。"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_13_Qualification_2026-10-02.md",
+      "sha256": "3910b1037c9864f17fd0272b20d4b04726c4f57dd2afce8cf0a6f77cff3ca0cd",
+      "lines": 48,
+      "title": "# RQ3.13 资格检查与停止记录",
+      "status_scope": "历史资格/启动时点文档；最新最终报告优先",
+      "decision": "改进适用性仍不能自动视为诊断收益；不复用旧资格作为当前通过。"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_13_Qwen_Analysis_2026-10-02.md",
+      "sha256": "866b53a54ff55f97dc8fd320b1ec6bdfe17169b283de66afa977c06fa6c91ce2",
+      "lines": 267,
+      "title": "# RQ3.13：观测包络时间画布的完整结果、AegisLab 退化与后续设计",
+      "status_scope": "完成；资格文档按历史时点",
+      "decision": "改进适用性仍不能自动视为诊断收益；不复用旧资格作为当前通过。"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_14_Qwen_Analysis_2026-10-02.md",
+      "sha256": "7fcc68fbc7ce31e26244623bf829f454ab3a352f5bb8d732eacc0ae22d042f64",
+      "lines": 522,
+      "title": "# RQ3.14：全窗口观测与绑定修复的完整结果分析",
+      "status_scope": "完成",
+      "decision": "全窗口摘要文本有正向证据；保留摘要，固定曲线布局之外的文本组织。"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_15_Qwen_Analysis_2026-10-03.md",
+      "sha256": "3d72c69502b696725653a21d6de69a90b0be9e1a672a7a9fb5e449d128af7be0",
+      "lines": 364,
+      "title": "# RQ3.15：同请求连续耗时关系——Qwen 完整结果与机制分析",
+      "status_scope": "完成",
+      "decision": "二维联合散点未胜出；原生边际图是后续约0.50方案的前身。"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_16_Qwen_Analysis_2026-10-03.md",
+      "sha256": "21fe25a21763d3ff969e4d85225ea282c380e45eb8441555e53eadd10bfb7091",
+      "lines": 492,
+      "title": "# RQ3.16：边际图元与候选覆盖——Qwen 全量结果及详细机制分析",
+      "status_scope": "完成，原候选未过全部采用门槛",
+      "decision": "MARGINAL_FIVE为0.5054、PAIR_FIVE为0.4436；点标记增量未建立。保留完整方案作历史锚点，不将旧采用失败改写为已确认方法。"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_17_Qwen_Analysis_2026-10-04.md",
+      "sha256": "32c61c14b554f8ec0b53d4927b5633ef38961acc0f13905c51123363be5f79fb",
+      "lines": 416,
+      "title": "# RQ3.17：完整拓扑与耗时边际图——Qwen 全量结果及详细分析",
+      "status_scope": "完成，组合路线结束；曾有用户授权资格豁免",
+      "decision": "原生边际图约0.5048；完整矩阵/节点拓扑组合未改善，不再组合拓扑。"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_19_Qualification_and_Launch_2026-10-05.md",
+      "sha256": "9711f749185543201c70dc13a750292cc5cbe554a0269271958f71110928cbb4",
+      "lines": 59,
+      "title": "# RQ3.19 代码、资格与启动记录（2026-10-05）",
+      "status_scope": "历史资格/启动时点文档；最新最终报告优先",
+      "decision": "列式编码概念已有；其压缩位置和本轮canonical记录不同。QA读数卡可改善读取，不等于RCA改善。"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_1_Results_Analysis_2026-09-19.md",
+      "sha256": "c8b9f4d23221f93f6df86efbc9960f1985a0157d7e9a8cd7f21276d297af1530",
+      "lines": 105,
+      "title": "# RQ3.1：竞争证据选择 X 的效果与机制",
+      "status_scope": "完成",
+      "decision": "输入/选择变化会丢失资源与node证据；保留本轮完整冻结事实集。"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_20_Qualification_and_Launch_2026-10-05.md",
+      "sha256": "83814c493301f2ed6b42d6e37075f72e8e88a7d9c0ea6dabd3073a5bcd20795a",
+      "lines": 74,
+      "title": "# RQ3.20 v3：50% 预算修订、资格与启动记录",
+      "status_scope": "历史资格/启动时点文档；最新最终报告优先",
+      "decision": "两阶段成本下降伴随排名损失，选择接口混淆事实ID与可取证ID；遵守新的一阶段约束，不修复/重跑。"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_20_Qwen_Analysis_2026-10-06.md",
+      "sha256": "2a71acce54be1839c73c02385e4738c66f8cddc541853e61a32f65fdc0b39367",
+      "lines": 348,
+      "title": "# RQ3.20：预算化视觉取证完整结果与机制分析",
+      "status_scope": "完成；方法关闭",
+      "decision": "两阶段成本下降伴随排名损失，选择接口混淆事实ID与可取证ID；遵守新的一阶段约束，不修复/重跑。"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_2_Results_Analysis_2026-09-22.md",
+      "sha256": "559c6be89fce9aab5c6ef950b4a64665d8d318cbe72fc88059f39404f9daade2",
+      "lines": 190,
+      "title": "# RQ3.2：SignalCover 的增益、损失与实现边界",
+      "status_scope": "完成",
+      "decision": "选择器遗漏与表现退化约束本轮不得删事实。"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_3_Results_Analysis_2026-09-24.md",
+      "sha256": "053322c3a28b17edcf3f36a9a31c714d94d6126c32c24f7171856a56a40cd77f",
+      "lines": 201,
+      "title": "# RQ3.3：见证补充、预算与诊断利用",
+      "status_scope": "完成",
+      "decision": "请求分组已有先例；本轮不宣称实体组织或联合比较首次出现。"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_4_Results_Analysis_2026-09-25.md",
+      "sha256": "c9648448465b00310d52144484008de45f1aa7537774a6e6b657b8784e35c379",
+      "lines": 151,
+      "title": "# RQ3.4：证据组合、自动核验与视觉绑定",
+      "status_scope": "完成",
+      "decision": "基础证据和接口会影响排名；覆盖/形式资格不能替代模型效果。"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_5_Screen_Analysis_2026-09-26.md",
+      "sha256": "d10cd196c58747d7faddf1bd2b77d4d9505f101d1ac561b707ef042c866399e4",
+      "lines": 118,
+      "title": "# RQ3.5 screen：证据、指令和联合信号",
+      "status_scope": "登记筛选批次完成",
+      "decision": "二值联合证据已有测试；不重复竞争根因机制。"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_6_Mechanisms_Analysis_2026-09-28.md",
+      "sha256": "901bcbcac143db3a88fb9b049b4779d6b64d6e139893a8ecba857fc0bf4ffb22",
+      "lines": 219,
+      "title": "# RQ3.6-B：G 信息、故障范围与关系绑定机制",
+      "status_scope": "对应阶段完成",
+      "decision": "保留基础输入、整理诊断接口有价值；分阶段报告按其实际完成范围解释。"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_6_Stage_A_Analysis_2026-09-26.md",
+      "sha256": "3be6c686c4495bf0f261685e92732334be14a054fc2585a50cecb6aa7fbe81b5",
+      "lines": 115,
+      "title": "# RQ3.6-A：证据和指令拆分的复核",
+      "status_scope": "对应阶段完成",
+      "decision": "保留基础输入、整理诊断接口有价值；分阶段报告按其实际完成范围解释。"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_7C_RQ3_8_Qwen_Analysis_2026-09-30.md",
+      "sha256": "cd16638b4c3dd1d20a77328909e2c3955beab37fa7361660d76d144d7d79da29",
+      "lines": 460,
+      "title": "# RQ3.7-C 与 RQ3.8：Qwen 完整统计、诊断模式与案例分析",
+      "status_scope": "完成，Qwen-only重分析",
+      "decision": "融合视觉有条件有效，但完整图追加可能退化；保留共同事实控制，不追加新图。"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_7_Results_Analysis_2026-09-28.md",
+      "sha256": "8041a630bfbb8f344fb35d6ab7791404ffd89b1524119cf755c6dca7494dfb72",
+      "lines": 182,
+      "title": "# RQ3.7 A/B：数值和关系的受控视觉融合",
+      "status_scope": "报告对应阶段完成",
+      "decision": "实体邻近、关系融合及等价数值写法已研究；本轮固定原数字写法和PNG。"
+    },
+    {
+      "path": "docs/experiment_reports/Tournament_Analysis_2026-09-15.md",
+      "sha256": "d8ce68b7f69ca7194116d47f92533dff2f30b4c6f92e1496e3aaefb11f06e4cf",
+      "lines": 144,
+      "title": "# Tournament：Qwen 的覆盖、失败机制与方法互补",
+      "status_scope": "用户停止，历史分析完成",
+      "decision": "成功方法并集不是单一可部署方法；不恢复历史队列或训练。"
+    },
+    {
+      "path": "important_docs/CanvasRCA_Attention_Storage_and_Sink_2026-10-05.md",
+      "sha256": "ce49e3203cc9e2c088488e157c41e9eea75c05a1f6c8cc5a5f3b07c93f7169a6",
+      "lines": 205,
+      "title": "# CanvasRCA attention：低存储记录、视觉 sink 与后续验证",
+      "status_scope": "上下文/历史辅助文档",
+      "decision": "保留其实际执行状态；用于主线、成本、数据暴露、attention与诊断机制边界，不替代新的资格。"
+    },
+    {
+      "path": "important_docs/CanvasRCA_Counterintuitive_Findings_2026-10-05.md",
+      "sha256": "8ae7a85c0bc193d27e02a0d145eceb18a2e6fc5bd18dc4274f8d77734f02c137",
+      "lines": 190,
+      "title": "# CanvasRCA：值得优先研究的五个反直觉现象",
+      "status_scope": "上下文/历史辅助文档",
+      "decision": "保留其实际执行状态；用于主线、成本、数据暴露、attention与诊断机制边界，不替代新的资格。"
+    },
+    {
+      "path": "important_docs/CanvasRCA_Empirical_Literature_Review_2026-10-05.md",
+      "sha256": "764ea0396b1f2e62fa94a28819665a8ea08949254dc02e0dfa26c6902807ad41",
+      "lines": 91,
+      "title": "# 实证研究范式、历史去重与下一阶段新意审查",
+      "status_scope": "上下文/历史辅助文档",
+      "decision": "保留其实际执行状态；用于主线、成本、数据暴露、attention与诊断机制边界，不替代新的资格。"
+    },
+    {
+      "path": "important_docs/CanvasRCA_Empirical_to_Method_2026-10-05.md",
+      "sha256": "bd25d8996626258bde8eb4cac670e806b173e5f114a14eb0ce82237400694507",
+      "lines": 170,
+      "title": "# CanvasRCA：从可复核实证规律到预算受控的方法",
+      "status_scope": "上下文/历史辅助文档",
+      "decision": "保留其实际执行状态；用于主线、成本、数据暴露、attention与诊断机制边界，不替代新的资格。"
+    },
+    {
+      "path": "important_docs/README.md",
+      "sha256": "606a0a2a5153b29a39d11ce946329844d3c6972472d066f9889e4ca755b468cb",
+      "lines": 14,
+      "title": "# Important documents",
+      "status_scope": "上下文/历史辅助文档",
+      "decision": "保留其实际执行状态；用于主线、成本、数据暴露、attention与诊断机制边界，不替代新的资格。"
+    },
+    {
+      "path": "plans/design_decisions.md",
+      "sha256": "ffda491dcab8cbee198339313a4044941319f1b7fe47eaa70c336144268b9b3c",
+      "lines": 579,
+      "title": "# CanvasRCA project-wide design decisions",
+      "status_scope": "上下文/历史辅助文档",
+      "decision": "保留其实际执行状态；用于主线、成本、数据暴露、attention与诊断机制边界，不替代新的资格。"
+    }
+  ]
+}

@@ -12,12 +12,12 @@
 共102行配对比较。每行包括：改变什么、基线/新方法、cases数、MRR、修复/
 破坏/不变数、input与output tokens。不是把所有轮次按最高MRR排一遍。
 
-- [全部63个条件的性能和成本](../results/search_first_v1/retrospective_through39_20260912/all_methods.md)
-- [全部51项基线→新方法比较](../results/search_first_v1/retrospective_through39_20260912/matched_contrasts.md)
+- [全部63个条件的性能和成本](../../../docs/experiment_reports/pre_unified_preserved/RQs/RQ3/results/search_first_v1/retrospective_through39_20260912/all_methods.md)
+- [全部51项基线→新方法比较](../../../docs/experiment_reports/pre_unified_preserved/RQs/RQ3/results/search_first_v1/retrospective_through39_20260912/matched_contrasts.md)
 - [每个发生排名变化的case及两份原始record](../results/search_first_v1/retrospective_through39_20260912/changed_cases.json)
 - [所有逐case记录和复用来源](../results/search_first_v1/retrospective_through39_20260912/per_case.json)
-- [逐方法、数据集、fault type的细分](../results/search_first_v1/retrospective_through39_20260912/fault_breakdown.csv)
-- [SEARCH1–37的逐轮设计说明、CPU拒绝方案与失败修复](../results/search_first_v1/recap_20260912/README.md)
+- [逐方法、数据集、fault type的细分](../../../docs/experiment_reports/pre_unified_preserved/assets/RQs/RQ3/results/search_first_v1/retrospective_through39_20260912/fault_breakdown.csv)
+- [SEARCH1–37的逐轮设计说明、CPU拒绝方案与失败修复](../../../docs/experiment_reports/pre_unified_preserved/RQs/RQ3/results/search_first_v1/recap_20260912/README.md)
 
 旧回顾中的“暂停”“SEARCH38尚未调用”仅描述它保存时的状态；当前SEARCH38、
 39均完成。初始连续布局、四种card家族和容量修复包含CPU-only/接口检查，
@@ -48,7 +48,7 @@ MRR却从 .4236/.2986降到 .2778/.2250。说明“根因实体的任意数据�
 不等于“出现了能区分原因的诊断信号”。而原生top24虽然该覆盖从19降到18，
 仍比概览更好。后续应同时检查证据**相关性、区分力和组合**，不能只优化覆盖率。
 
-![部分逐轮配对变化](../results/search_first_v1/retrospective_through39_20260912/paired_effects_3.png)
+![部分逐轮配对变化](../../../docs/experiment_reports/pre_unified_preserved/assets/RQs/RQ3/results/search_first_v1/retrospective_through39_20260912/paired_effects_3.png)
 
 蓝色为AIOPS2022，橙色为AIOPS2025。横轴是各自基线下的MRR变化；图中不是
 同一个统一基线，也不能把不同点的差直接当作两个方法的纯设计差异。
@@ -115,7 +115,7 @@ SEARCH39同类实体变化对比，在C组得到.3611/.3333，较原生top24一�
 不是共同赢家，但修复了另一批case。下面展示C组2025全部7种方法，列是同一个
 case，格子是它的RR。深色表示正确根因靠前，浅色表示不在top5或靠后。
 
-![C组逐case矩阵](../results/search_first_v1/retrospective_through39_20260912/case_matrix_C_aiops2025_1.png)
+![C组逐case矩阵](../../../docs/experiment_reports/pre_unified_preserved/assets/RQs/RQ3/results/search_first_v1/retrospective_through39_20260912/case_matrix_C_aiops2025_1.png)
 
 各方法明显不是在同一批case上成功。A22的C0F62DB233F2在概览/覆盖下成功，
 原生24等其他条件失败；BAC5EBEE7F18仅覆盖策略得到top1；C86F6E03B824在软
@@ -206,5 +206,5 @@ Pratt检验的Holm p分别.75、.50，没有共同诊断提升。AC@1均未改�
 
 [配对结果和逐case指标](../results/search_first_v1/citations_development_v1/paired_review.json)、
 [引用地址核查（private）](../results/search_first_v1/citations_development_v1/private/citation_addresses.json)、
-[全部24条回答（private）](../results/search_first_v1/citations_development_v1/private/answers_review.md)。
+[全部24条回答（private）](../../../docs/experiment_reports/pre_unified_preserved/RQs/RQ3/results/search_first_v1/citations_development_v1/private/answers_review.md)。
 这一节追加在截至SEARCH39的回顾之后，不将旧图表冒充已含SEARCH40。

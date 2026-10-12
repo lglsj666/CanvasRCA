@@ -1,0 +1,34 @@
+{
+  "schema": "RQ43RenderAdmissionV6",
+  "protocol": "docs/experiment_plans/RQ4_3_Selection_Rendering_Processing_Plan_v6_2026-10-11.md",
+  "gpu_smoke_enabled": false,
+  "formal_enabled": false,
+  "model_calls_enabled": false,
+  "max_workers": 8,
+  "selected_arms": [
+    "S_JOINT",
+    "C_SOURCE_HASH"
+  ],
+  "cancelled_redundant_arms": [
+    "S_DISTINGUISH",
+    "S_REPRESENT"
+  ],
+  "probe_seed": "rq43-R-probe-v6",
+  "card_widths": [
+    512,
+    768,
+    1024
+  ],
+  "r_profile": "source_reflow_v3",
+  "minimum_processed_font": 18,
+  "minimum_processed_stroke": 1.5,
+  "retained_limit": "historical_U_per_case_K",
+  "image_limit": "historical_U_per_case_N",
+  "anchor_offsets": {
+    "min": -16,
+    "max": 16,
+    "sweeps": 2
+  },
+  "new_call_ceiling": 8000,
+  "current_allocation": 5988
+}

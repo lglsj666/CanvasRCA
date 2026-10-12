@@ -70,4 +70,4 @@
 
 实际prompt、PNG、raw、conversation、有效配置和成本核查通过；时钟安全投影与CPU一致，36对跨模型公开输入相同。16份新回答全部正常`stop`、无截断；1份原生SIRCL含`node-4176`非法候选，6份回答有12处字面实体类型错误，保留为模型结果。审阅还发现错误3-sigma判断、`+23m`早于`+22m`及无证据调用边等reason问题：当前核验器不能覆盖全部自然语言推理，不能写成“补验通过=诊断正确”。没有据此改排名或重采样。
 
-完整审阅：[定向补验记录](../../RQs/RQ3_4/results/integrated_v1/repairs/relative_clock_gpu_v1/review.md)。当前四项资格为passed，但仅限注册smoke路径，正式执行仍禁用；历史failed报告及输入/输出/flags不改写。最新contract为`b6b8da780cf8141b844db782873647b84e9a729b149092697d9234eef77a132b`。
+完整审阅：[定向补验记录](../experiment_reports/pre_unified_preserved/RQs/RQ3_4/results/integrated_v1/repairs/relative_clock_gpu_v1/review.md)。当前四项资格为passed，但仅限注册smoke路径，正式执行仍禁用；历史failed报告及输入/输出/flags不改写。最新contract为`b6b8da780cf8141b844db782873647b84e9a729b149092697d9234eef77a132b`。

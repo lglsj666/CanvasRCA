@@ -1,0 +1,6 @@
+extends: RQs/RQ3/configs/tournament_v1.yaml
+search:
+  selectors: [baro_native24_v1]
+  metric_limit: 24
+tournament:
+  method_id: BARO019_FINITE_TOP24_tournament_v1

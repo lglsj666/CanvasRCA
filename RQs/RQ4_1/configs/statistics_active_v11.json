@@ -1,0 +1,97 @@
+{
+  "schema": "RQ41ActiveStatisticsPolicyV1",
+  "status": "adopted_by_user",
+  "adopted_at": "2026-10-07T00:48:14.719009-04:00",
+  "authority": "2026-10-07 explicit user instruction: use conservative v11",
+  "scope": "prospective development and QA inference; additive analysis-policy overlay",
+  "base_configuration": "RQs/RQ4_1/configs/comparison_coding_plan_v1.json",
+  "base_configuration_sha256": "567eb3c7051517949f14c7f1fa3381480eaf9aeb561391b22cf8cb7fdefda944",
+  "amendment": "RQs/RQ4_1/descriptions/RQ4_1_Statistics_V11_Adoption_2026-10-07.md",
+  "amendment_sha256": "4422e2b46551b3e3ea2d5fb23e44d49aeacedfd2e71d09c7cac423779677ac91",
+  "method": "fixed_bounded_group_mean_mixture_v1",
+  "implementation": "scorer.bounded_mean.group_mean_test",
+  "implementation_path": "src/scorer/bounded_mean.py",
+  "implementation_sha256": "26911d4ad237ed333f671e5c281dd5ee730c05b35aa86c154f96c744ae6ce311",
+  "adjustment": "scorer.bounded_mean.holm_adjust",
+  "alpha": 0.05,
+  "sidedness": "two-sided",
+  "paired_difference_decimals": 12,
+  "estimand": "case-weighted mean paired difference; event-group sums with registered counts",
+  "primary_family": [
+    [
+      "CVC_E50",
+      "T_FULL"
+    ],
+    [
+      "CVC_E50",
+      "T_NATIVE"
+    ],
+    [
+      "CVC_E50",
+      "T_DEP"
+    ],
+    [
+      "CVC_E50",
+      "UNARY_E50"
+    ],
+    [
+      "CVC_E50",
+      "REWIRED_E50"
+    ],
+    [
+      "CVC_E50",
+      "QUOTA_E50"
+    ]
+  ],
+  "qa_family": [
+    [
+      "CVC_E50",
+      "UNARY_E50"
+    ],
+    [
+      "CVC_E50",
+      "V_FULL"
+    ]
+  ],
+  "secondary_and_sensitivity_protocol": "unchanged; cannot rescue failed primary comparisons",
+  "group_registrations": [
+    {
+      "name": "qa",
+      "registration": "RQs/RQ4_1/results/comparison_coding_v1/cpu_remaining_v10/qa_calibration/statistics_registration.json",
+      "sha256": "7fdd97a2bc5d91af9cc5a984dd2d95769b45f2b364b63baa9db76023093d8651",
+      "family_size": 2
+    },
+    {
+      "name": "development",
+      "registration": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/statistics_registration.json",
+      "sha256": "f6c045abb8d6840f78c835cbbbe3f05a9163d0d348c0be3d9a2118973c3cb3ae",
+      "family_size": 6
+    }
+  ],
+  "calibration_qualified": true,
+  "power_qualified": false,
+  "low_power_tradeoff_accepted": true,
+  "minimum_power_launch_gate": null,
+  "confidence_intervals": false,
+  "requires_independent_event_groups": true,
+  "group_independence_established": false,
+  "effect_cost_repeat_and_applicability_requirements": "unchanged",
+  "invalid_model_answers": "zero",
+  "infrastructure_unknowns": "unknown; original-denominator bounds and paired-known disclosure retained",
+  "prior_primary_sign_flip": "superseded; failed calibration records preserved",
+  "v12_status": "not_adopted",
+  "qualification_evidence": {
+    "RQs/RQ4_1/results/comparison_coding_v1/statistics_revision_v11/source_snapshot/receipt.json": "d5a532da49421d7224905fbb78e3af00c2161c0904232e1be3801760316d8913",
+    "RQs/RQ4_1/results/comparison_coding_v1/statistics_revision_v11/report.json": "b7661406c0c372cb5ccbc615135afdba34b35e89a5ac8dbafc7a531e1ab0cd1f",
+    "RQs/RQ4_1/results/comparison_coding_v1/statistics_revision_v11/unit_tests.json": "5133836739c27d8fb31ae97e91c85981c1cef9a1a5f278369264cb323c3d10f4",
+    "RQs/RQ4_1/results/comparison_coding_v1/statistics_revision_v11/unit_tests.log": "ba56007400fa5292f01fa84ee89753d8713c5eaf824f5bc044e66f837f4f6d17"
+  },
+  "bind_into_next_analysis_and_execution_freeze": true,
+  "running_v10_source_and_config_changed": false,
+  "gpu_enabled": false,
+  "smoke_enabled": false,
+  "formal_enabled": false,
+  "confirmation_enabled": false,
+  "new_model_calls": 0,
+  "confirmation_declaration": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/no_confirmation_declaration.json"
+}

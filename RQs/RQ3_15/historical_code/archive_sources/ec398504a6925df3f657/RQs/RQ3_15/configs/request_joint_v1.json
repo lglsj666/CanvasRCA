@@ -1,0 +1,167 @@
+{
+  "version": "rq315_request_joint_v1",
+  "experiment": "exp_request_joint",
+  "model": "qwen3.8-27b",
+  "seed": 42,
+  "case_counts": {
+    "aiops2022": 60,
+    "aiops2025": 60,
+    "aegislab": 100
+  },
+  "primary_datasets": [
+    "aiops2022",
+    "aiops2025"
+  ],
+  "arms": [
+    "BASE_TEXT",
+    "BINARY_TEXT",
+    "PAIR_TEXT",
+    "PAIR_VISUAL",
+    "MARGINAL_VISUAL",
+    "PAIR_REPEAT"
+  ],
+  "smoke_arms": [
+    "BASE_TEXT",
+    "BINARY_TEXT",
+    "PAIR_TEXT",
+    "PAIR_VISUAL",
+    "MARGINAL_VISUAL",
+    "PAIR_REPEAT"
+  ],
+  "parent": "RQs/RQ3_8/preparation/ops_components_v6",
+  "parent_export": "RQs/RQ3_8/preparation/export_v1",
+  "base_preparation": "RQs/RQ3_14/preparation/unified_observed_v1",
+  "preparation": "RQs/RQ3_15/preparation/request_joint_v1",
+  "results": "RQs/RQ3_15/results/request_joint_v1",
+  "roster_registration": "RQs/RQ3_14/results/unified_observed_v1/registration.json",
+  "roster_sha256": "6434c2e23859029deb35bd2aa561221e4116d24d079010a9cf83e62a360ccbeb",
+  "inference_base": "configs/vllm_inference_local.yaml",
+  "runtime_profile": "runtime/qwen_local.yaml",
+  "port": 21955,
+  "workers": 8,
+  "concurrency": 36,
+  "request_timeout": 300,
+  "max_tokens": 8192,
+  "formal_positions": 1320,
+  "formal_attempt_limit": 1362,
+  "total_attempt_limit": 1380,
+  "smoke_attempt_limit": 18,
+  "smoke_seconds": 600,
+  "cpu_seconds": 1800,
+  "launch_policy": "explicit_command_after_qualification",
+  "full_launch_authorized": false,
+  "global_contracts": [
+    "configs/vllm_inference.yaml",
+    "configs/dataset_segmentation.yaml",
+    "configs/rca_scorer.yaml"
+  ],
+  "canvas": {
+    "width": 1120,
+    "height": 800,
+    "font_size": 18,
+    "gap": 12,
+    "padding": 20
+  },
+  "readiness": {
+    "max_mean_base_input_ratio": 1.2,
+    "max_mean_pair_input_ratio": 1.1
+  },
+  "primary_contrasts": [
+    [
+      "PAIR_VISUAL",
+      "PAIR_TEXT",
+      "all"
+    ],
+    [
+      "PAIR_VISUAL",
+      "MARGINAL_VISUAL",
+      "all"
+    ],
+    [
+      "PAIR_VISUAL",
+      "BASE_TEXT",
+      "aiops"
+    ],
+    [
+      "PAIR_VISUAL",
+      "BASE_TEXT",
+      "aegislab"
+    ]
+  ],
+  "secondary_contrasts": [
+    [
+      "PAIR_TEXT",
+      "BINARY_TEXT"
+    ],
+    [
+      "BINARY_TEXT",
+      "BASE_TEXT"
+    ],
+    [
+      "PAIR_REPEAT",
+      "PAIR_VISUAL"
+    ]
+  ],
+  "preselected_method": "PAIR_VISUAL",
+  "success": {
+    "deployment_delta_min": 0.03,
+    "visual_delta_min": 0.02,
+    "max_paired_total_token_ratio": 1.2,
+    "holm_alpha": 0.05,
+    "event_group_significance_required": true,
+    "positive_each_primary_dataset_required": true,
+    "aegislab_delta_min": 0.02
+  },
+  "reason_review": {
+    "per_dataset": 12,
+    "seed": 42,
+    "selection": "outcome_blind_hash",
+    "axes": [
+      "numeric_unit",
+      "temporal_order",
+      "entity_binding",
+      "missing_as_health",
+      "unsupported_causal_claim"
+    ],
+    "salt": "rq315_reason_review_v1"
+  },
+  "major_budget": {
+    "ceiling": 40000,
+    "require_current_ledger_review": true,
+    "scope": "RQ3.15 all versions share1380; prior experiment ledgers retained and disclosed separately."
+  },
+  "smoke_matrix": {
+    "aiops2022": [
+      "BASE_TEXT",
+      "BINARY_TEXT",
+      "PAIR_TEXT",
+      "PAIR_VISUAL",
+      "MARGINAL_VISUAL",
+      "PAIR_REPEAT"
+    ],
+    "aiops2025": [
+      "BASE_TEXT",
+      "BINARY_TEXT",
+      "PAIR_TEXT",
+      "PAIR_VISUAL",
+      "MARGINAL_VISUAL",
+      "PAIR_REPEAT"
+    ],
+    "aegislab": [
+      "BASE_TEXT",
+      "BINARY_TEXT",
+      "PAIR_TEXT",
+      "PAIR_VISUAL",
+      "MARGINAL_VISUAL",
+      "PAIR_REPEAT"
+    ]
+  },
+  "method": {
+    "min_requests_per_phase": 20,
+    "max_relations": 2,
+    "max_points_per_phase": 32,
+    "conditional_min": 5,
+    "min_distinct_pairs_in_binary_group": 4,
+    "minimum_dataset_applicability": 0.5
+  }
+}

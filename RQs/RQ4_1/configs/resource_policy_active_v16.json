@@ -1,0 +1,26 @@
+{
+  "schema": "HostRAMPolicyV16",
+  "authority": "User explicitly removes host-RAM limits and prioritizes speed, including full experiments. User retains Codex.md unchanged.",
+  "host_ram_admission_enabled": false,
+  "selector_max_rss_bytes": null,
+  "aggregate_rss_limit_bytes": null,
+  "memory_estimate_rejection_enabled": false,
+  "memory_termination_enabled": false,
+  "memory_measurement_enabled": true,
+  "optimize_for": "measured_execution_speed",
+  "max_cpu_workers": 8,
+  "gpu_memory_utilization": 0.75,
+  "gpu_enabled": false,
+  "smoke_enabled": false,
+  "formal_enabled": false,
+  "amendment": "RQs/RQ4_1/descriptions/RQ4_1_Host_RAM_Speed_Amendment_2026-10-07.md",
+  "amendment_sha256": "98346ae0c71d5fc2aaf24673f03ac9b975b51380025fd5d8adbd494033cd2526",
+  "supersedes_host_ram_fields_in": [
+    "encoder_admission_v5.json",
+    "remaining_cpu_v6.json",
+    "remaining_cpu_v7.json",
+    "remaining_cpu_v10.json",
+    "prior_completion_v13.json",
+    "prior_completion_v14.json"
+  ]
+}

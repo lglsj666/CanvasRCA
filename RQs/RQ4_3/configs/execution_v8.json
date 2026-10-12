@@ -1,0 +1,63 @@
+{
+  "schema": "RQ43RestoredXSRPV8",
+  "plan": "docs/experiment_plans/RQ4_3_X_SRP_Repair_v8_2026-10-11.md",
+  "gpu_smoke_enabled": false,
+  "formal_enabled": false,
+  "model_calls_enabled": false,
+  "arms": [
+    "S_JOINT",
+    "C_SOURCE_HASH",
+    "P_LOCAL_BI",
+    "P_SOFT_IMAGE",
+    "P_DUAL",
+    "C_LOCAL_FORWARD",
+    "C_SHAM_BI",
+    "C_GLOBAL_BI",
+    "X_SP",
+    "X_SRP"
+  ],
+  "cancelled": {
+    "S_DISTINGUISH": "registered_redundancy_cancelled",
+    "S_REPRESENT": "registered_redundancy_cancelled",
+    "R_PATCH_PACK": "R_common_compiler_prototype_infeasible",
+    "R_HORIZON": "R_common_compiler_prototype_infeasible",
+    "R_PACK_HORIZON": "R_common_compiler_prototype_infeasible",
+    "C_PACK_OFFSET": "R_common_compiler_prototype_infeasible",
+    "C_READ_GUIDE": "R_common_compiler_prototype_infeasible",
+    "C_PACK_BG_FILL": "R_common_compiler_prototype_infeasible",
+    "X_SR": "R_common_compiler_prototype_infeasible",
+    "X_RP": "R_common_compiler_prototype_infeasible"
+  },
+  "qa_arms": [
+    "U",
+    "P_LOCAL_BI",
+    "C_GLOBAL_BI"
+  ],
+  "qa_cases_per_dataset": 20,
+  "qa_hash": "rq43-mechanism-v1",
+  "order_arms": [
+    "U",
+    "P_LOCAL_BI"
+  ],
+  "repeat_arms": [
+    "U",
+    "P_LOCAL_BI"
+  ],
+  "text_timing_cases": 12,
+  "new_development_positions": 2632,
+  "conditional_confirmation_positions": 0,
+  "logical_smoke_call_cap": 18,
+  "logical_smoke_seconds": 600,
+  "infrastructure_reserve": 14,
+  "allocated_call_ceiling": 2664,
+  "user_ceiling": 8000,
+  "max_workers": 8,
+  "context": 40960,
+  "max_output": 8192,
+  "memory_utilization": 0.75,
+  "concurrency": 1,
+  "preselected_arm": "X_SRP",
+  "preselected_status": "X_SRP_v8_preselected",
+  "gpu_requirement": "explicit_user_waiver_after_complete_CPU",
+  "append_order": "original_2412_then_fixed_hash_X_SRP_220"
+}

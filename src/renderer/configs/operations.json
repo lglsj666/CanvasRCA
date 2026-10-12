@@ -101,6 +101,113 @@
       "optional_args": [
         "style=numbered|color (default connectors unchanged)"
       ]
+    },
+    {
+      "index": 12,
+      "id": "canvas_extent",
+      "file": "canvas_extent.py",
+      "args": [
+        "width",
+        "height"
+      ],
+      "contract": "Explicit wide_8192_v1 capability; maximum physical PNG 8192x8192; original viewport limits unchanged"
+    },
+    {
+      "index": 13,
+      "id": "foreground_audit",
+      "file": "foreground_audit.py",
+      "args": [
+        "roles"
+      ],
+      "contract": "Post-screenshot audit only; raster foreground geometry, never a model-visible control"
+    },
+    {
+      "index": 14,
+      "id": "qa_badges",
+      "file": "qa_badges.py",
+      "args": [
+        "targets"
+      ],
+      "contract": "Anonymous A/B badges on existing scalar glyphs; no answer-bearing metadata"
+    },
+    {
+      "index": 15,
+      "id": "control_glyph",
+      "file": "__init__.py",
+      "args": [
+        "binding",
+        "part"
+      ],
+      "contract": "Explicit non-diagnostic header perturbation matched to a scalar glyph bounding area; default absent"
+    },
+    {
+      "index": 16,
+      "id": "readable_cards",
+      "file": "readable_cards.py",
+      "args": [
+        "profile"
+      ],
+      "contract": "Explicit source_cards_v1 or source_scopes_v2 captions: preserve original values, spelling, order and occurrence bindings; v2 factors contiguous name prefixes into visible scopes; no default change. Explicit source_reflow_v3 uses unchanged full names/values, compact whitespace and reflow; no prefix factoring. source_scopes_pack_v4 reuses visible prefix factoring with fixed graph padding; independently decode every field; old profiles unchanged."
+    },
+    {
+      "index": 17,
+      "id": "evidence_regions",
+      "file": "evidence_regions.py",
+      "args": [
+        "panels",
+        "boxes"
+      ],
+      "contract": "Explicit disjoint 32px-grid placements within four equal vertical regions; native image exports are exact pixel crops through this renderer; 32px generic header."
+    },
+    {
+      "index": 18,
+      "id": "question_colors",
+      "file": "question_colors.py",
+      "args": [
+        "targets"
+      ],
+      "contract": "Four anonymous fixed QA colors on existing detail-value glyphs; no facts, answers, geometry changes or diagnostic recommendations; defaults absent."
+    },
+    {
+      "index": 19,
+      "id": "anchor_pack",
+      "file": "anchor_pack.py",
+      "args": [
+        "offsets"
+      ],
+      "contract": "Explicit source_reflow_v3 caption translations, source pixels equal processor pixels, integer dx/dy bounded by16. Complete field blocks, no evidence edits, no default effect; actual DOM/foreground and geometry audit required. Also supports explicit source_scopes_pack_v4 whole local scope blocks."
+    },
+    {
+      "index": 20,
+      "id": "factual_qa",
+      "file": "factual_qa.py",
+      "args": [
+        "targets"
+      ],
+      "contract": "Explicit independent scalar, metric-point and directed-edge QA; anonymous Q tags only; source geometry, numbers and relation types unchanged. Existing paired qa_badges cannot express five targets and a directed edge. Actual collision/binding audit; no RCA default effect."
+    },
+    {
+      "index": 21,
+      "id": "readability_audit",
+      "file": "readability_audit.py",
+      "args": [],
+      "contract": "Explicit read-only audit of visible captions and processed glyph floor for any existing layout; no image or historical default change."
+    },
+    {
+      "index": 22,
+      "id": "raster_translation",
+      "file": "raster_translation.py",
+      "args": [
+        "dx"
+      ],
+      "contract": "Explicit exact +16px evidence-raster/support/box translation within existing real margin; header unchanged; no interpolation, crop or default change."
+    },
+    {
+      "index": 23,
+      "id": "source_views",
+      "file": "source_views.py",
+      "args": ["frozen_html", "source_pixels", "placements", "width", "height"],
+      "contract": "Explicit export registry: uniformly enlarged complete original source cards and a matched processor-resized pixel control. Preserves DOM, bindings, original styles and source evidence. Actual font/line/bounds audit required; no normal dashboard default changes."
     }
   ]
 }

@@ -1,0 +1,19 @@
+{
+  "version": "rq38_ops_components_v2",
+  "experiment": "exp_operational_component_utility",
+  "models": ["qwen3.8-27b", "gemma-4-31b"],
+  "arms": ["TEXT", "TEXT_DUP", "MR00", "MR10", "MR01", "FULL", "NO_LOG", "NO_ONSET"],
+  "parent_export": "RQs/RQ3_8/preparation/export_v1",
+  "preparation": "RQs/RQ3_8/preparation/ops_components_v2",
+  "results": "RQs/RQ3_8/results/ops_components_v2",
+  "inference_base": "configs/vllm_inference.yaml",
+  "runtime_profile": "runtime/inference.triton_v2.yaml",
+  "old_ledger": "RQs/RQ3_7/results/fusion_v2_pruned/calls.sqlite",
+  "budget": {"cumulative_limit": 40000, "prior_observed": 28216, "formal_upper": 7680, "smoke_upper": 18},
+  "execution": {"workers": 8, "concurrency": 36, "shards_per_model": 3, "max_formal_jobs": 6, "max_job_seconds": 28800, "request_timeout": 300, "min_free_disk_gib": 10, "attention": false},
+  "smoke": {"max_calls": 18, "max_seconds": null, "max_jobs": 6, "job_seconds": 1800, "arms": ["TEXT", "FULL", "MR00"]},
+  "cpu_qualification": {"max_jobs": 8, "job_seconds": 3600},
+  "request": {"max_tokens": 8192},
+  "primary": [["FULL", "TEXT"], ["FULL", "TEXT_DUP"], ["FULL", "MR00"]],
+  "secondary": [["FULL", "NO_LOG"], ["FULL", "NO_ONSET"]]
+}

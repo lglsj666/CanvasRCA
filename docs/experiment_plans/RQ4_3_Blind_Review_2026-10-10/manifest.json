@@ -1,0 +1,128 @@
+{
+  "date": "2026-10-10",
+  "timezone": "America/Toronto",
+  "round_limit": 5,
+  "reviewer_model": "gpt-6-astra",
+  "reasoning_effort": "xhigh",
+  "scope": "planning_review_only",
+  "plan_original_path": "/home/lglsj/CanvasRCA_nibi/docs/experiment_plans/RQ4_3_Selection_Rendering_Processing_Plan_v2_2026-10-10.md",
+  "round_01_input_sha256": "7129941cf34e2cb31f0dbf8627584716383f840e44415f68317e8c7741c2b1fe",
+  "reports": [
+    {
+      "path": "docs/experiment_reports/RQ4_1_Qwen_Analysis_2026-10-09.md",
+      "sha256": "07f3738c18c386330c4c078d2f1dd6c4666c4bc975c75e30e5d13e6fe8fa4bd9"
+    },
+    {
+      "path": "docs/experiment_reports/RQ4_2_Qwen_Analysis_2026-10-10.md",
+      "sha256": "c5bbd5aed71dcacb8129ab8508cad89da26d0c526f197e95fcb7df1293f69ee3"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_16_Qwen_Analysis_2026-10-03.md",
+      "sha256": "21fe25a21763d3ff969e4d85225ea282c380e45eb8441555e53eadd10bfb7091"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_21_Qwen_Analysis_2026-10-06.md",
+      "sha256": "55a05413904a2228eedd8511cb416921225aa63643598cfa08a751ef51114cde"
+    },
+    {
+      "path": "docs/experiment_reports/RQ3_20_Qwen_Analysis_2026-10-06.md",
+      "sha256": "2a71acce54be1839c73c02385e4738c66f8cddc541853e61a32f65fdc0b39367"
+    }
+  ],
+  "new_experiment_model_calls": 0,
+  "cpu_qualification_run": false,
+  "gpu_run": false,
+  "rounds": [
+    {
+      "round": 1,
+      "agent": "/root/rq43_blind_01",
+      "phase_a": "complete",
+      "phase_b": "complete",
+      "score": 6.7,
+      "input": "round_01_input_plan.md",
+      "review": "round_01_review.md",
+      "disposition": "round_01_disposition.md",
+      "input_sha256": "7129941cf34e2cb31f0dbf8627584716383f840e44415f68317e8c7741c2b1fe",
+      "review_sha256": "430207364c0164410f125b1c80a4d659d74ca6b34b8f447b775b07624168816a",
+      "disposition_sha256": "d698fc6e60a9c6d25ef0b93acbda915f99f9b76865071c5f4561265a95d834e7",
+      "phase_a_record": "round_01_phase_a.md",
+      "retired_no_followup_review": true,
+      "phase_a_record_sha256": "6022cb49aa3700f662e4c910ff75ae2d51a13ea0a76ae8bdecb9985ad157df89"
+    },
+    {
+      "round": 2,
+      "agent": "/root/rq43_blind_02",
+      "phase_a": "complete",
+      "phase_b": "complete",
+      "input": "round_02_input_plan.md",
+      "contract": "round_02_input_contract.md",
+      "score": 7.6,
+      "review": "round_02_review.md",
+      "disposition": "round_02_disposition.md",
+      "input_sha256": "c6857aca5f6bf8ace4c4c1f13c6c424a6cc27f152b750661b1a459aae3472ebc",
+      "contract_sha256": "1289abb7c6eaa2f535738af93ea5b3fe18f4e37b711e954358f8425a62c08f0c",
+      "review_sha256": "dfb0042267fd576702595bfcb02a24bb045164f2c3d27afabee40dd2daa17384",
+      "disposition_sha256": "67c1c8f024966ec244206fc102d6a0b78e3d6a1274e7fc9e3ecf6ff5ae58480f",
+      "phase_a_record": "round_02_phase_a.md",
+      "retired_no_followup_review": true,
+      "phase_a_record_sha256": "ed53c471255090012bf2ef7c3d5f6daa0404545eba768723ce54e3679d288f54"
+    },
+    {
+      "round": 3,
+      "agent": "/root/rq43_blind_03",
+      "phase_a": "complete",
+      "phase_b": "complete",
+      "input": "round_03_input_plan.md",
+      "contract": "round_03_input_contract.md",
+      "score": 8.1,
+      "review": "round_03_review.md",
+      "disposition": "round_03_disposition.md",
+      "input_sha256": "de4706cfb700e9e8f3cfb268b092370f1f3b9aebb175652732edc2defd589a62",
+      "contract_sha256": "d14fdf4cb6828a992c9bced537de923b68022f7b904c3913647c6735eab7bec2",
+      "review_sha256": "408cc0ff976bac532b380ec8f16216d819f002be04caa89af6697bb4a9d12a6c",
+      "disposition_sha256": "20683dc0a254bf083a911dc6081e4d04382bf21214b29a553c35138ebc54efd4",
+      "phase_a_record": "round_03_phase_a.md",
+      "retired_no_followup_review": true,
+      "phase_a_record_sha256": "c57553edb464d4d62c88492a0af521f1eb91bf9302ef474b99228594756a196a"
+    },
+    {
+      "round": 4,
+      "agent": "/root/rq43_blind_04",
+      "phase_a": "complete",
+      "phase_b": "complete",
+      "input": "round_04_input_plan.md",
+      "contract": "round_04_input_contract.md",
+      "input_sha256": "2c40c3cada97ae6d115d8f05439092fac9531959b3c56d7b69f32b275812edd9",
+      "contract_sha256": "bed1ab7b63381fe576a20ebb59e5037c9844f28727deb7d9cd188096580ddc58",
+      "score": 8.1,
+      "review": "round_04_review.md",
+      "disposition": "round_04_disposition.md",
+      "phase_a_record": "round_04_phase_a.md",
+      "retired_no_followup_review": true,
+      "review_sha256": "75b76ba40daddf6c27cd9126af9f73c58c8dca6175418e3dd20b9c6ea8bf9ffc",
+      "disposition_sha256": "df2b80670ee886fd8dc3435e0c1ad3a307d30cd9ae5d9daa02ab01ce4a614bff",
+      "phase_a_record_sha256": "1f9bcf113d36105773750729a26375c58cf7a920c7f1d103215bc37988577e06"
+    }
+  ],
+  "openreview_access": "Review excerpts from search-indexed OpenReview discussion pages; live forum/API access limited. Full discussion histories not claimed.",
+  "current_plan": "docs/experiment_plans/RQ4_3_Selection_Rendering_Processing_Plan_v5_2026-10-10.md",
+  "current_budget": {
+    "development": 5216,
+    "conditional_confirmation": 1080,
+    "smoke": 18,
+    "infrastructure": 234,
+    "allocated": 6548,
+    "unallocated": 1452,
+    "ceiling": 8000
+  },
+  "planning_computation": "Historical event-difference power sensitivity only; not CPU qualification.",
+  "status": "planning_review_complete_no_execution",
+  "rounds_used": 4,
+  "rounds_unused": 1,
+  "stop_reason": "Two consecutive independently scored readiness assessments >=8 with no new design blockers; all runtime gates remain outstanding.",
+  "final_plan": "docs/experiment_plans/RQ4_3_Selection_Rendering_Processing_Plan_v5_2026-10-10.md",
+  "final_contract": "docs/experiment_plans/RQ4_3_Blind_Review_2026-10-10/technical_contract_v5.md",
+  "final_scientific_configuration_unchanged_from_round_04": true,
+  "final_plan_sha256": "e5e25c6ab118daf089117aad71b4037c97fef670b4b32c093d5cdde2dd6a738b",
+  "final_contract_sha256": "1196bb33736445ab16bcc61db21cdd7a6dfd3e15cc124e807d3eea1e585976a2"
+}

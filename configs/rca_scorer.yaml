@@ -10,7 +10,7 @@ prediction_limit: 5
 cutoffs: [1, 3, 5]
 
 matching:
-  function: vlmrca.eval.scoring.is_granularity_aware_hit
+  function: scorer.matching.is_granularity_aware_hit
   service_level_accepts_hashed_pod_projection: true
   pod_level_exact: true
   node_level_exact: true

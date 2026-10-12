@@ -1,0 +1,9 @@
+# Hourly inspection: INC-78E577CFBC67 / Qwen3.8
+
+Read all 16 complete responses and all model-visible prompt/evidence lines with their ordered fragment mapping; repeated series were checked once, retaining every value. Inspected all eight actual submitted dashboard PNGs. Request/conversation/artifact checks, current-versus-submitted PNG identity, fixed candidates and both attention phases pass. No root labels or accuracy results were opened.
+
+All conditions completed with a normal stop, 137–202 output tokens, no parse error and no truncation. The source supports a 377→567 call edge and the large 567 local-latency increase; these are rendered with the correct identities. Several visual responses reverse the origin/caller interpretation, associate another panel's statistic with 377, or invent an onset precedence when both displayed onsets are 12.2m. Some text responses also overstate causal localization. These are unsupported model explanations, not changed input identities or an instruction to reverse the documented edge direction. Keep the responses unchanged.
+
+Real input changes are present in all intended policy families. Coverage and diversity expose distinct endpoint sets, BARO/SIGMA alter metric selection, LOG_FREQ selects a different readable template, RANDOM differs in all displayed regions, and TRACE_SC emphasizes different operations. The latter still displays 567's selected operations; it does not display the invented rank_score 24.61 attributed to 377 in TRACE_SC_T's reason. Corrected log projection carries no calendar-date values; source-index identifiers and diagnostic preview values remain available.
+
+No new implementation or severe prompt blocker found. Continue formal inference unchanged. This audit checks one complete case, not an absence-of-bugs proof for the full run.

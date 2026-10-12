@@ -1,0 +1,25 @@
+<!-- Verbatim final message retrieved from /root/rq42_blind_4. Earlier messages are not included. -->
+
+**The revised proposal is ready to freeze as a bounded next study.** I find no remaining design issue that requires another arm, baseline rerun, or review round. Implementation and runtime qualification remain unproven; this assessment authorizes neither.
+
+I read all four supplied reports, including their tables and appendices, without consulting predecessor reviews. They support the proposed question:
+
+- [RQ4.1]( /home/lglsj/CanvasRCA_nibi/docs/experiment_reports/RQ4_1_Qwen_Analysis_2026-10-09.md) establishes substantial binding/identity failures, weak CVC–REWIRED separation, and a large token–latency discrepancy. It does **not** establish global encoder attention as their cause.
+- [RQ3.21](/home/lglsj/CanvasRCA_nibi/docs/experiment_reports/RQ3_21_Qwen_Analysis_2026-10-06.md) shows that lossless compilation certificates do not establish model readability.
+- [RQ3.7](/home/lglsj/CanvasRCA_nibi/docs/experiment_reports/RQ3_7_Results_Analysis_2026-09-28.md) and [RQ1.1/RQ2.1](/home/lglsj/CanvasRCA_nibi/docs/experiment_reports/RQ1_1_RQ2_1_findings/findings.md) already investigate proximity, links, entity organization and resolution. The new contribution must remain the change to encoder connectivity under identical rendered inputs.
+
+**The five arms are justified rather than redundant.** FULL is the necessary counterfactual for the new compiler and processed glyph geometry. GEOM tests ordinary spatial partitioning. SEM tests source-defined routing beyond that partitioning. Qualified SHAM tests whether the true joins matter. NATIVE4 tests the practical alternative of native multiple-image input; its position and fusion differences correctly prevent a pure-attention interpretation. Historical T_FULL and A_UNIFORM should remain reused references.
+
+The final manipulation gates address RQ4.1’s near-identical-control problem much better: both distance measures and cut reduction must pass jointly on the same substantial fraction of every dataset. Exact no-action aliases remain in the denominator and reuse answers. SHAM cancellation removes its associated claim rather than prompting seed searches. Maintain common per-case seeds and canonical group-map identities so bookkeeping cannot turn equivalent computations into nominally distinct calls.
+
+**The latest background correction is sufficient for this study.** Minimal reassignment, a cumulative 5% cap against original GEOM, and reporting the actual background maps constrain an otherwise important nuisance: blank patches still carry positional embeddings and participate in attention. SEM–SHAM remains a comparison between complete routing procedures, including their bounded background consequences. It should not be described as a foreground-only causal intervention.
+
+**The cost claims are now appropriately narrow.** The 0.3611 ratio describes the quadratic attention component; QKV projections, MLPs, merger and decoder computation remain. At RQ4.1’s recorded encoder-stage scale, even assigning the entire 2.379 seconds the theoretical 63.89% reduction yields only approximately 1.52 seconds of optimistic savings. That illustrates the limited room for improvement; the new measurements must determine the result.
+
+The conservative gate against archived T_FULL online time is usable as an engineering reference, with the stated cross-time limitation. Before freezing, make the preferred timing definition definitive: primary cold latency is the uninterrupted public-packet-to-validated-answer path, with incident caches disabled for actual formal calls. Separately summed measurements may remain supplementary and explicitly labelled. Passing this gate supports the registered engineering comparison, not a contemporaneous cold-text speedup claim.
+
+**Novelty potential is credible but narrow.** Window attention, tiling and frozen-CLIP attention modification are established by [Qwen2.5-VL](https://arxiv.org/html/2502.13923v1), [InternVL](https://arxiv.org/html/2404.16821v1), and [SCLIP](https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/03178.pdf). The defensible contribution is applying auditable source closure and cross-evidence routing to frozen visual diagnosis while preserving pixels, tokens, positions and one-call deployment. Strong SEM–GEOM and SEM–SHAM results would make that contribution materially more convincing. A gain only over FULL would primarily support partitioning.
+
+The remaining risks are empirical: all facts may not fit at the required readability, the graph may fail the manipulation gate, frozen features may degrade after 23 partitioned blocks, or encoder savings may not offset preprocessing. The prescribed stop rules handle these risks without expanding the experiment.
+
+The corrected single smoke, independent QA task, event-aware analysis, fixed execution order, separate scoring identity, and 1,500-call ceiling provide a defensible plan. Achieving roughly 0.505 MRR remains an ambitious objective unsupported by existing visual results; a well-controlled negative result would still answer a genuinely new question.

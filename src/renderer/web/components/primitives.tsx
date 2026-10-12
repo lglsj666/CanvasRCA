@@ -10,15 +10,15 @@ export type ScopeLayout = {services:string[];hosts:string[];cell_width:number;ce
   cells:{service:string;node:string;records:number[];row:number;column:number;height:number;matrix_y:number;tiles_y:number;tiles_column:number}[];min_height:number};
 export type DiagnosticCell = {status:string;observed:string|null;expected:string|null;residual:string|null;error_scale:string|null};
 export type DiagnosticRow = {entity:string|null;anchors:string[];cells:(DiagnosticCell|null)[]};
-export type Card = {id:string; kind:'metric'|'trace'|'log'|'graph'|'events'|'scope'|'diagnostic'|'literal'|'trace_joint'|'trace_profile'; title:string; entity:string|null; unit:string;
-  data: {bins?:number[]; values?:(number|null)[]; counts?:number[]; details?:Detail[];
+export type Card = {id:string; kind:'contrast'|'comparison'|'inventory'|'metric'|'trace'|'log'|'graph'|'events'|'scope'|'diagnostic'|'literal'|'trace_joint'|'trace_profile'; title:string; entity:string|null; unit:string;
+  data: {contrast?:{limit:number;rows:{signal:string;quantity:string;unit:string;change:number[];peer:number[]|null}[]};comparisons?:{name:string;unit:string;reference:number;current:number}[];identities?:string[];bins?:number[]; values?:(number|null)[]; counts?:number[]; details?:Detail[];
          before?:number; after?:number; template?:string; nodes?:Node[]; edges?:Edge[];
          events?:{entity:string;minute:number;severity:string;source:string}[];records?:ScopeRecord[];delta_limit?:number;
          targets?:string[];rows?:DiagnosticRow[];sparse?:boolean;lines?:string[];
          parent?:string;child?:string;parent_operation?:string;child_operation?:string;support?:number[];
          duration_type?:string;quantiles?:number[][];sampled?:number[];
          samples?:{phase:'reference'|'current';parent_ms:number;child_ms:number}[]}};
-export type Rect = {card:string; node:string; component:string; index:number; x:number; y:number; width:number; height:number;
+export type Rect = {readable_cards?:'source_scopes_v2'|'source_reflow_v3'|'source_scopes_pack_v4';card:string; node:string; component:string; index:number; x:number; y:number; width:number; height:number;
   dashed_width_scale?:number;
   node_link_layout?:{positions:Record<string,{x:number;y:number}>;rows:number;columns:number;min_height:number;layout:string};
   presentation?:{marks:boolean;details:boolean;neutral_trace?:boolean};
@@ -28,7 +28,8 @@ export type Rect = {card:string; node:string; component:string; index:number; x:
   pair_layout?:{columns:number;cell_width:number;cell_height:number;gap:number;rows:number;min_height:number};
   deployment_layout?:{cell_width:number;member_columns:number;scale:number;min_height:number;
     groups:{source:string;kind:string;edges:string[];height:number;x:number;y:number}[]}};
-export type Design = {theme:string; font_size:number; scale:number; viewport:{width:number;height:number};
+export type Design = {raster_translation?:{schema:'EvidenceRasterTranslationV1';dx:16;top:86};readability_audit?:'VisibleSourceV1';factual_qa?:import("../factualQA.js").FactualTarget[];anchor_pack?:{schema:'AnchorPackV1';offsets:import('../anchorPacking.js').AnchorOffset[]};question_colors?:{slot:'1A'|'1B'|'2A'|'2B';binding:string}[];readable_cards?:'source_cards_v1'|'source_scopes_v2'|'source_reflow_v3'|'source_scopes_pack_v4';
+  evidence_regions?:{schema:'EqualVerticalRegionsV1';header:32;count:4};qa_badges?:import('../qaBadges.js').QABadge[];control_glyph?:{binding:string;part:string};provenance?:import('../foregroundAudit.js').ForegroundAudit;theme:string; font_size:number; scale:number; viewport:{width:number;height:number};
   graph?:{show_isolates:boolean};
   relation_bindings?:{card:string;graph:string;edge:string}[];
   relation_binding_style?:'connectors'|'numbered'|'color';
@@ -42,7 +43,7 @@ export function Details({card}:{card:Card}) {
   return <div className={`details details-${card.kind}`}>{(card.data.details??[]).map((d,i)=><div className="detail" key={i} {...field(`${card.id}.detail.${i}`)}>
     <span className="label">{d.name}</span><span className="value">{d.value}</span></div>)}</div>;
 }
-export function seriesGeometry(card:Card,domain:'extent'|'zero'){
+export function seriesGeometry(card:Card,domain:'extent'|'zero',leftPadding=70,bottomPosition=116){
   const bins=card.data.bins!, values=card.kind==='log'?card.data.counts!:card.data.values!;
   const valid=values.map((v,i)=>({v,i})).filter((p):p is {v:number;i:number}=>p.v!==null);
   let lo=Math.min(...valid.map(p=>p.v),0),hi=Math.max(...valid.map(p=>p.v),0);
@@ -50,23 +51,23 @@ export function seriesGeometry(card:Card,domain:'extent'|'zero'){
   const delta=(hi-lo)||Math.max(Math.abs(hi)*.05,1);
   if(domain==='extent'){lo=lo>=0?Math.max(0,lo-delta*.08):lo-delta*.08;hi+=delta*.08;}
   else if(hi===lo){hi=lo+delta;}
-  const left=70,right=446,top=14,bottom=116,minBin=Math.min(...bins),maxBin=Math.max(...bins);
+  const left=leftPadding,right=446,top=14,bottom=bottomPosition,minBin=Math.min(...bins),maxBin=Math.max(...bins);
   const x=(i:number)=>minBin===maxBin?(left+right)/2:left+(bins[i]-minBin)/(maxBin-minBin)*(right-left);
   const y=(v:number)=>bottom-(v-lo)/(hi-lo)*(bottom-top);
   return {valid,lo,hi,left,right,top,bottom,minBin,maxBin,x,y,zero:y(Math.max(lo,Math.min(hi,0))),
     bar:Math.min(28,(right-left)/Math.max(bins.length,2)*.75)};
 }
 export type SeriesGeometry=ReturnType<typeof seriesGeometry>;
-export function Axes({card,p,quantitative=true}:{card:Card;p:SeriesGeometry;quantitative?:boolean}){
+export function Axes({card,p,quantitative=true,compact=false}:{card:Card;p:SeriesGeometry;quantitative?:boolean;compact?:boolean}){
   const {left,right,top,bottom,minBin,maxBin,lo,hi}=p;
   return <>
     <line x1={left} y1={bottom} x2={right} y2={bottom} stroke="var(--axis)"/>
     {quantitative&&<><text x={left-8} y={top+5} textAnchor="end">{n(hi)}</text><text x={left-8} y={bottom} textAnchor="end">{n(lo)}</text>
       <line x1={left} y1={top} x2={left} y2={bottom} stroke="var(--axis)"/>
       <line x1={left} y1={(top+bottom)/2} x2={right} y2={(top+bottom)/2} stroke="var(--border)" strokeDasharray="3 5"/></>}
-    <g {...field(card.id+'.time')}>{minBin===maxBin?<text x={(left+right)/2} y="137" textAnchor="middle">{minBin}</text>:<>
-      <text x={left} y="137">{minBin}</text><text x={right} y="137" textAnchor="end">{maxBin}</text></>}
-      <text x={(left+right)/2} y="152" textAnchor="middle">Relative time bin</text></g>
+    <g {...field(card.id+'.time')}>{minBin===maxBin?<text x={(left+right)/2} y={compact?bottom+24:137} textAnchor="middle">{minBin}</text>:<>
+      <text x={left} y={compact?bottom+24:137}>{minBin}</text><text x={right} y={compact?bottom+24:137} textAnchor="end">{maxBin}</text></>}
+      <text x={(left+right)/2} y={compact?bottom+24:152} textAnchor="middle">Relative time bin</text></g>
   </>;
 }
 export function graphPositions(nodes:Node[],width:number,height:number,edges:Edge[]=[]) {

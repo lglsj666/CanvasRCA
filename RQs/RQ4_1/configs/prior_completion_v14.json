@@ -1,0 +1,66 @@
+{
+  "schema": "PriorCompletionCPUv14",
+  "execution_enabled": true,
+  "gpu_enabled": false,
+  "smoke_enabled": false,
+  "formal_enabled": false,
+  "resource_cases": [
+    "INC-0ABCFE10D32D",
+    "INC-A7CCB675D07B",
+    "INC-C58423A7459F"
+  ],
+  "passed_unit_log": "RQs/RQ4_1/results/comparison_coding_v1/prior_completion_v13/unit_attempt_01.log",
+  "passed_unit_log_sha256": "aa2e30e7b5ae606b6b3f21cfeadff90115a5e5e70abba3e63eb172e1ce334253",
+  "methods": [
+    "SCOPE",
+    "DART",
+    "S2PRUNE"
+  ],
+  "cpu_workers": 3,
+  "max_selector_seconds": 30,
+  "max_worker_rss_bytes": 2147483648,
+  "original_cpu_clock": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/started.json",
+  "signal_scope": "synthetic resource fixtures plus actual installed Qwen classes with tiny random weights; no checkpoint selection",
+  "amendment": "../descriptions/RQ4_1_Prior_Completion_2026-10-07.md",
+  "amendment_sha256": "67afe9928794195562f17e0eb8cbf190cec4237080d22c8ccf868395d8184609",
+  "result_root": "RQs/RQ4_1/results/comparison_coding_v1/prior_completion_v14",
+  "reference_manifest": "RQs/RQ4_1/results/comparison_coding_v1/prior_completion_v13/references/manifest.json",
+  "repair_unit_logs": [
+    {
+      "log": "RQs/RQ4_1/results/comparison_coding_v1/prior_completion_v13/unit_dart_repair_01.log",
+      "sha256": "c952f7f0692c6ac49fa15a2100d065a73ed9cf8ca521376aff03c5dfb11a2fdc",
+      "tests": 4
+    }
+  ],
+  "retained_geometry": {
+    "path": "RQs/RQ4_1/results/comparison_coding_v1/prior_completion_v13/roster_geometry.json",
+    "sha256": "a6b3cc1b76b5a585fade605645cd9939efbc880f6ec616d7eacce5dd96dd7080"
+  },
+  "retained_resource": {
+    "S2PRUNE/INC-0ABCFE10D32D": {
+      "path": "RQs/RQ4_1/results/comparison_coding_v1/prior_completion_v13/resource/S2PRUNE/INC-0ABCFE10D32D.json",
+      "sha256": "b001fb48d520a0cf410d3bc709167659af7e2e3879e8393725f1135763d7d531"
+    },
+    "S2PRUNE/INC-C58423A7459F": {
+      "path": "RQs/RQ4_1/results/comparison_coding_v1/prior_completion_v13/resource/S2PRUNE/INC-C58423A7459F.json",
+      "sha256": "849c1610dcbf52ddbe6e69e107c47079f7cd1b27898b6a91536898a4a9d39d39"
+    },
+    "S2PRUNE/INC-A7CCB675D07B": {
+      "path": "RQs/RQ4_1/results/comparison_coding_v1/prior_completion_v13/resource/S2PRUNE/INC-A7CCB675D07B.json",
+      "sha256": "d6ce832207e8bd812b2da60446dd034365e4a7f40817d11becef6c3f8fd3f500"
+    },
+    "SCOPE/INC-0ABCFE10D32D": {
+      "path": "RQs/RQ4_1/results/comparison_coding_v1/prior_completion_v13/resource/SCOPE/INC-0ABCFE10D32D.json",
+      "sha256": "56e7132a285c274a0250b956741e5ee76890173e3586f01119cf20876f8503c7"
+    },
+    "SCOPE/INC-C58423A7459F": {
+      "path": "RQs/RQ4_1/results/comparison_coding_v1/prior_completion_v13/resource/SCOPE/INC-C58423A7459F.json",
+      "sha256": "f754b3bad06edf3ac25665675d566ad60815947667a46d86a7d755562f428c1f"
+    },
+    "SCOPE/INC-A7CCB675D07B": {
+      "path": "RQs/RQ4_1/results/comparison_coding_v1/prior_completion_v13/resource/SCOPE/INC-A7CCB675D07B.json",
+      "sha256": "2d60fd06003320abe718c7c1d70e0567e82e057e6cf93e05397a08d921c98b5f"
+    }
+  },
+  "repair": "Bound DART rowwise key norm and cosine temporaries to512 rows; no rule/count/dtype change. V13 failures preserved."
+}

@@ -1,0 +1,77 @@
+{
+  "schema": "CPUCompletionV17",
+  "scope": "aggregate existing CPU passes and one-example-per-arm/dataset visual review; no model qualification",
+  "source_reports": {
+    "source": {
+      "path": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/final_source_recheck.json",
+      "sha256": "732518415c0f1b1f44df5250bf023cb8384d94d3f392daa2607ff1f9d39abd24"
+    },
+    "processor": {
+      "path": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/processor_report.json",
+      "sha256": "c60c15f4464ca07fbc3f0b304c15a03619808b09dbd6c9eafc7cc4ab74e4f57f"
+    },
+    "support": {
+      "path": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/support_report.json",
+      "sha256": "6825635808fc70032c32d283db5d30dc4723452640e42a348cba71af0685d6b5"
+    },
+    "encoder": {
+      "path": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v5/encoder/report.json",
+      "sha256": "bee2ef4d23ebfceb9b56ecd82d3d7d8113bb652cc8a2293237c3ed50cf8a39ca"
+    },
+    "input_geometry": {
+      "path": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v5/input_geometry/report.json",
+      "sha256": "ad273944001544e9fd7c34b2333aef5f3956bbeb803403b86b8a55b8cbe06a8c"
+    },
+    "covariates": {
+      "path": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v5/covariates/report.json",
+      "sha256": "462063e94e07a73e0e627ced992c7122e5ddfef938507e5599d7c0fb650da9e1"
+    },
+    "selection": {
+      "path": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v5/selection/report.json",
+      "sha256": "4aaf9c8972485a6cdc7328178d4556d22aa3b6e994bd86cf8c835d05bae69a43"
+    },
+    "v10": {
+      "path": "RQs/RQ4_1/results/comparison_coding_v1/cpu_remaining_v10/qualification.json",
+      "sha256": "e91a5dd9fb442f369879185e2318b7931b06e15bd442eafab9aaaa1eaec02488"
+    },
+    "variants": {
+      "path": "RQs/RQ4_1/results/comparison_coding_v1/cpu_remaining_v10/source_templates_images_processor.json",
+      "sha256": "fbe55bf6da07f0fdfe5a6d6b2a4f06bd832033416fb88dc583af6779bfa623db"
+    },
+    "gprune": {
+      "path": "RQs/RQ4_1/results/comparison_coding_v1/cpu_remaining_v10/prior_compatibility.json",
+      "sha256": "e82734eccf2e2dc7bd4aeeda52b9cd630dd4dada461e3546093a48314bd83065"
+    },
+    "redraw": {
+      "path": "RQs/RQ4_1/results/comparison_coding_v1/cpu_remaining_v10/compatibility_redraw.json",
+      "sha256": "483cce345b937f3873a964c7b31331949cbfb9dde875702d67935ac86c96346b"
+    },
+    "priors": {
+      "path": "RQs/RQ4_1/results/comparison_coding_v1/prior_completion_v14/qualification.json",
+      "sha256": "5f49b697aa0650dd1b8646e87fcd54211e11f7c7ba2a7a6b3c54a6f9d3cd595d"
+    },
+    "host_policy": {
+      "path": "RQs/RQ4_1/results/comparison_coding_v1/host_memory_v16/receipt.json",
+      "sha256": "d4b251384db566a0901db3cd32912018b45cbc1743bb0523e72d367a48038f5a"
+    },
+    "statistics": {
+      "path": "RQs/RQ4_1/results/comparison_coding_v1/statistics_v11_adoption/receipt.json",
+      "sha256": "67e0822704c8ac32c3880bcc171635424aff1382434fce290db2e8a3f8de69f1"
+    },
+    "calibration": {
+      "path": "RQs/RQ4_1/results/comparison_coding_v1/statistics_revision_v11/report.json",
+      "sha256": "b7661406c0c372cb5ccbc615135afdba34b35e89a5ac8dbafc7a531e1ab0cd1f"
+    },
+    "visual": {
+      "path": "RQs/RQ4_1/results/comparison_coding_v1/cpu_completion_v17/visual_review/review.json",
+      "sha256": "3d8d70a2b4d8593ecc31f51cdfbd8b9aa1f40b2b747af4ada02906c91710c350"
+    }
+  },
+  "active_statistics": "RQs/RQ4_1/configs/statistics_active_v11.json",
+  "active_host_memory": "RQs/RQ4_1/configs/resource_policy_active_v16.json",
+  "gpu_enabled": false,
+  "smoke_enabled": false,
+  "formal_enabled": false,
+  "previous_passed_checks_reexecuted": false,
+  "codex_sha256": "632ba016f8614ad1ec9b0d34cb48e03a275f342bce8514828b3d7304c4781330"
+}

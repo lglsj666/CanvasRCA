@@ -2,7 +2,7 @@
 
 Completed: 48 calls, 402.127 seconds, no infrastructure failures or truncations;
 two unknown-ID model answers remain failures. No stable improvement; no
-promotion. [Full review](../results/search_first_v1/coverage24_development_v1/logs/20260912_review.md).
+promotion. [Full review](../../../docs/experiment_reports/pre_unified_preserved/RQs/RQ3/results/search_first_v1/coverage24_development_v1/logs/20260912_review.md).
 
 DD-RQ3-SEARCH-8: adopt a train-only coverage/density test, not model training.
 The same twelve publicly selected training cases have 55–63 metric entities

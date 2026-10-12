@@ -1,0 +1,24 @@
+{
+  "schema_version": "RQ3BuildLocalTrainingDependenciesV1",
+  "target": "build/rq3_training_deps",
+  "installation": "pip --no-deps --target; do not modify the inherited train/infer environments",
+  "packages": {
+    "matplotlib": "3.10.8",
+    "contourpy": "1.3.3",
+    "cycler": "0.12.1",
+    "fonttools": "4.63.0",
+    "kiwisolver": "1.5.0",
+    "pyparsing": "3.3.2",
+    "pytest": "9.1.1",
+    "iniconfig": "2.3.0",
+    "pluggy": "1.6.0",
+    "pygments": "2.20.0"
+  },
+  "unchanged_training_libraries": {
+    "torch": "2.9.1+cu128",
+    "transformers": "5.8.1",
+    "peft": "0.18.0",
+    "trl": "0.29.1",
+    "flash-attn": "2.8.3"
+  }
+}

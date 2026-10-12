@@ -1,0 +1,16 @@
+extends: RQs/RQ3/configs/tournament_full_metric_text_rlg_v3.yaml
+search:
+  diagnostic_transport: topology_text_with_mrl_visual_v1
+  conditions:
+    - {prompt: tournament_hybrid_topology_v1, request_profile: card_nonthinking_v1}
+tournament:
+  method_id: TOPOLOGY_TEXT_MRL_VISUAL_RESOURCE24_full_remaining_v3
+  prompt:
+    schema: RQ3FrozenHybridTopologyTemplateV1
+    structure_parent: RQ3FrozenVisualTemplateV1
+    frozen_between_rounds: true
+    text_slots: [task, visual_guide, topology_evidence, candidates, closing]
+    image_slots: 1
+    task_file: RQs/RQ3/configs/prompts/tournament_task_v1.txt
+    guide_file: RQs/RQ3/configs/prompts/tournament_hybrid_topology_guide_v1.txt
+    system_file: RQs/RQ3/configs/prompts/tournament_system_v1.txt

@@ -1,4 +1,68 @@
+2026-10-12 **RQ4.4 840/840正式位置完成，858次实际调用含smoke；完整详细分析已交付。** SOURCE标准/宽容MRR为0.3286/0.3431，未超过历史U，成本为其2.409倍；两项主要比较均未建立收益，局部高清候选按登记结束。QA定位、理由一致性及270份正式attention完成离线审核。[最终报告](../experiment_reports/RQ4_4_Qwen_Analysis_2026-10-12.md) · [计划](RQ4_4_Source_Bound_Multiscale_Plan_2026-10-12.md) · [历史复核](RQ4_4_History_and_Implementation_Review_2026-10-12.md) · [部署报告](../experiment_reports/RQ4_4_GPU_Qualification_2026-10-12.md) · [唯一状态](../../RQs/RQ4_4/findings/exp_source_views_findings.md)。
+
+- [RQ4.3 直接可读保留、HTML 对照与八臂恢复](RQ4_3_Direct_Retention_and_Arm_Restoration_2026-10-11.md)：HTML CPU/GPU 与八臂完整 CPU 已通过；v17 共 4,832 位置已恢复并监控通过。
+
 # 实验计划
+
+2026-10-11 **RQ4.3 v8 X_SRP已恢复并进入正式队列**：28项CPU回归及220例审核通过、0实现错误；R/P适用42/60、57/60、84/100。只新增unified组件，旧组件及Codex未改；用户豁免新增GPU smoke。总2632位置，新增183请求＋37精确引用，原133个完成记录保留后恢复。[修复计划](RQ4_3_X_SRP_Repair_v8_2026-10-11.md) · [CPU资格报告](../experiment_reports/RQ4_3_X_SRP_CPU_Qualification_v8_2026-10-11.md)。以下保留历史检查点。
+
+
+2026-10-11 **RQ4.3 v7存活队列已启动**：22项CPU回归与18/18 GPU smoke通过；GPU用时481.95秒，2条无效回答按原协议计零，无基础设施错误。2412正式新位置，启动监控进行中。R及预选X_SRP仍取消，历史依赖推断受限。[实时状态](../../RQs/RQ4_3/findings/exp_selection_rendering_processing_findings.md)。
+
+2026-10-11 **RQ4.3 v7：九个存活条件及测量CPU资格通过，原R/X预选候选按登记取消；尚无新模型结果。** 2412开发位置＋18smoke＋234恢复＝2664。历史基线不重跑，历史依赖推断受限。[v7方案](RQ4_3_Selection_Rendering_Processing_Plan_v7_2026-10-11.md) · [CPU报告](../experiment_reports/RQ4_3_CPU_Qualification_v7_2026-10-11.md)。下方是历史检查点。
+
+2026-10-11 **RQ4.3 v6 布局修订及 S/P CPU 阶段已完成；完整 CPU 仍未通过。** 用户允许改变换行/卡片尺寸；220例S/P来源与440张S图审核0错误，18项当前单测及220例提示/X_SP几何复核通过。R三例重排装入原画布预算，但锚点7306/5895/7206仍超过K5332/4784/5444。按登记取消两项重复S条件，当前分配5988/8000；GPU和新增模型调用0，Codex未改。[新版计划](RQ4_3_Selection_Rendering_Processing_Plan_v6_2026-10-11.md) · [详细CPU进展](../experiment_reports/RQ4_3_CPU_Progress_2026-10-11.md) · [唯一状态](../../RQs/RQ4_3/findings/exp_selection_rendering_processing_findings.md)。以下保留历史检查点。
+
+2026-10-10 **最新：RQ4.3 第一阶段 CPU 审核完成，220/220 无运行错误；R 固定卡片可读性门槛失败，完整 CPU 未通过。** 静态及六项前置回归通过。18px 与固定卡片/原换行不兼容：AIOPS-2022 60/60、AIOPS-2025 17/60、AegisLab 69/100。S/P完整资格仍待完成；GPU和正式调用为0，Codex未改。[CPU报告](../../RQs/RQ4_3/results/cpu_feasibility_v1/CPU_Prerequisite_Report.md)。下述“尚未实施”是此前规划检查点的状态。
+
+2026-10-10 **RQ4.3四轮独立评审完成，v5定稿；尚未实施或做CPU/GPU资格。** gpt-6-astra／xhigh准备度依次6.7、7.6、8.1、8.1；后两轮无新增设计阻塞，第五轮未使用。九优化／七控制／四组合，预选X_SRP不变；开发及测量5216、条件验证1080、smoke18、恢复234，合计6548／8000，1452未分配。历史基线复用，新增实验调用0，Codex未改。[最终方案](RQ4_3_Selection_Rendering_Processing_Plan_v5_2026-10-10.md) · [技术合同](RQ4_3_Blind_Review_2026-10-10/technical_contract_v5.md) · [四轮原始评审与处置](RQ4_3_Blind_Review_2026-10-10/README.md)。
+
+2026-10-10 历史规划检查点（已被v4替代）：**RQ4.3 v2 扩展为选择／画法／内部处理各3个优化臂，旧弱效方案不作小改重跑。** 自查后补入背景名额分配与全局双向两个控制，现为7控制＋4个固定组合；正式新位置5,108，含smoke和恢复明确分配5,360。总上限8,000，2,640未分配；九个优化条件和预选组合不变。历史U／T_FULL／MARGINAL_FIVE复用；独立方案评审进行中，代码、CPU、GPU尚未开始。[历史v2](RQ4_3_Selection_Rendering_Processing_Plan_v2_2026-10-10.md) · [实质改动与去重](RQ4_3_Selection_Rendering_Processing_v2_assets/revision_and_novelty.md)。
+
+2026-10-10 历史初稿：**RQ4.3 来源内双向视觉预填充初稿已落盘，当时尚未实施或资格测试。** 从历史最强纯视觉 A_UNIFORM_E50 出发，三个优化条件＋三个必要控制；当时拟议新调用上限 1,700，后由上方v2替代。已复核 important_docs、历史报告、Codex 及跨领域论文；没有新盲审或新增模型调用。[旧初稿](RQ4_3_Source_Local_Visual_Prefill_Draft_2026-10-10.md) · [阅读与去重附件](RQ4_3_Source_Local_Visual_Prefill_Draft_2026-10-10_assets/review.md)。
+
+2026-10-09历史检查点：**RQ4.2 当时已完成正式运行器及关机恢复部署，资格 READY，正式尚未启动。** 新增18项受影响CPU测试通过，原CPU/GPU通过项继续有效；该次0模型调用。[报告](../experiment_reports/RQ4_2_Formal_Readiness_2026-10-09.md) · [恢复协议](../../RQs/RQ4_2/descriptions/RQ4_2_Formal_Recovery_2026-10-09.md)。最终完成状态见下条。
+
+2026-10-10 最新：**RQ4.2 正式实验及最终分析完成，SEM 未达到采用目标，按登记结束候选。** 1,336 位置完整、无基础设施未知；五臂 MRR 为 FULL .2841、GEOM .3088、SEM .3084、SHAM .3011、NATIVE4 .3235。来源分组未超过空间分组或历史纯视觉强基线，成本/QA/attention 及解释边界详见 [最终报告](../experiment_reports/RQ4_2_Qwen_Analysis_2026-10-10.md) 和 [唯一状态](../../RQs/RQ4_2/findings/exp_partition_findings.md)。历史 T_FULL、MARGINAL_FIVE 复用比较，没有重跑；没有自动启动下一轮。以下为历史检查点。
+
+2026-10-09 历史检查点：**RQ4.2 CPU及GPU受影响路径资格通过，正式未启动。** 新增5轮×18机会中仅使用第1轮2调用，继承16条记录，原18位置覆盖完整。首次超时仍保留失败；后续formal入口部署需另行授权。[补测报告](../experiment_reports/RQ4_2_GPU_Smoke_Supplement_2026-10-09.md) · [当前状态](../../RQs/RQ4_2/findings/exp_partition_findings.md)。
+
+2026-10-09方向建议：**RQ4.2拟检验编码前的完整视觉比较编译，尚未完整预注册或实施。** 正常紧凑图为主对照，BOUND为拟议候选；三新条件与小规模机制/桥接建议≤900调用。先CPU可行性再登记，当前0新增调用；独立论文先行评审的OpenReview评论访问受限已披露。[方向建议](RQ4_2_Pure_Visual_Compilation_Recommendation_2026-10-09.md)。
+
+2026-10-09最新：**RQ4.1正式实验和详细分析完成，当前CVC候选按登记收官。** 6,100位置全部终态（6,082回答＋18不适用）；纯视觉预选MRR0.3332低于强文本0.4846/0.4861，尽管总token下降73.69%。正确依赖机制未建立，位置敏感性显著；QA有效性问题与attention测量边界分别报告。条件独立确认仍未运行，没有追加实验或自动采用事后最高臂。[完整分析](../experiment_reports/RQ4_1_Qwen_Analysis_2026-10-09.md) · [唯一findings](../../RQs/RQ4_1/findings/exp_comparison_coding_findings.md)。
+
+2026-10-07历史检查点：**RQ4.1正式实验已按用户授权启动，超过三分钟启动监控正常。** 6100个登记位置，预计6082次实际调用，后台继续运行；不重跑资格、不改队列、不按临时MRR调参。[当前状态](../../RQs/RQ4_1/findings/exp_comparison_coding_findings.md) · [实时进度](../../RQs/RQ4_1/results/comparison_coding_v1/formal_v28/summary.json)。
+
+2026-10-07此前：**RQ4.1正式运行器及新配方部署资格通过，正式未启动。** 用户接受attention与全量时间开销；保留旧CPU资格，新增两轮共24次调用完成。配置启动错误已在原第二窗内修复；GPRUNE一次非法候选、QA及解释错误如实保留。启动凭据仍关闭，等待后续指令。[唯一当前状态](../../RQs/RQ4_1/findings/exp_comparison_coding_findings.md) · [部署报告](../../RQs/RQ4_1/results/comparison_coding_v1/deployment_v28/report.md)。
+
+2026-10-06历史检查点：**RQ4.1本轮220例来源、实际processor和共享支持审核通过；完整CPU准入仍未完成。** 修复时间箱阶段、耗时统计标签及LOG-R单位/分数角色；31项RQ和35项renderer回归通过。新版全量真实特征/mask及部分运行路径待资格，纯CPU编码单例600秒未完成。统计压力校准触发警报，条件独立确认不运行。本次GPU工作和LLM调用均为0，smoke/formal关闭。[唯一当前状态与全部证据](../../RQs/RQ4_1/findings/exp_comparison_coding_findings.md)。
+
+2026-10-06此前：**RQ4.1旧grid50饱和已在三个真实特征病例确认，证据预算CVC_E50修复已落盘。** 三例依赖mask由相同变为不同，静态与25项CPU回归通过；仅3次视觉编码前向，新增LLM调用0。全220资格及GPU smoke未完成；新版代理仍接近1，不能声称MRR收益。 [唯一结论与证据](../../RQs/RQ4_1/findings/exp_comparison_coding_findings.md)。
+
+2026-10-06此前执行更新：**RQ4.1共享支持修订完成，静态、22项单测及220例非空支持审核通过；完整CPU资格仍待完成，GPU smoke未运行。** 一个token可支持多个字段，预算只计一次。全部220例的登记支持能放入50%预算，需核验实际依赖对照是否仍有区别，不能以修复通过替代完整资格。宽/高各8192，图像不变；新增模型调用0，旧12次探针与独占归属失败均保留。[唯一状态与详细证据](../../RQs/RQ4_1/findings/exp_comparison_coding_findings.md)。
+
+
+2026-10-06规划时状态（执行更新见上）：**RQ4.1核心计划完成六轮独立盲审并定稿，当时未实施。** 主线为renderer公共比较依赖引导的纯视觉token分配，另留一个CONTRAST_ATLAS探索臂。22条件，登记总上限8,900（含已用12），用户总上限12,000，3,100未分配。第六轮84/100、整体7.6/10；评分不是效果或执行资格。[正式计划](../../RQs/RQ4_1/descriptions/RQ4_1_experiments.md)；[唯一状态](../../RQs/RQ4_1/findings/exp_comparison_coding_findings.md)；[全部评审记录](../../RQs/RQ4_1/results/planning_review_v1/review_process.md)。
+
+2026-10-06：**RQ4.1 真实 Qwen 视觉 token 接口小测试完成，12/12。** 原生与全部 embedding 手动注入逐 token 等价，约 1/2、1/4 裁剪均能生成；强裁剪已有实体读错。只确认模型级可行性，vLLM 尚未接入，MRR 未测。10,000 次总上限已用 12，此条记录为探针完成时状态，后续计划见顶部，GPU 进程当时已退出。[原始登记协议](../../RQs/RQ4_1/results/token_interface_probe_v1/source_snapshot/RQ4_1_experiments.md)；[实测报告](../../RQs/RQ4_1/findings/exp_token_interface_probe_findings.md)。
+
+2026-10-06：RQ3.22 已按用户要求整体删除（方案、代码、CPU/smoke 和例图），未启动正式实验。当前没有可恢复的 RQ3.22 资格或运行；后续从 **RQ4** 开始，方法改为纯视觉诊断证据，任务/读图/格式说明仍用文本。[RQ4 当前路线](../../RQs/RQ4/descriptions/RQ4_roadMap.md)。
+
+2026-10-06 **RQ3.21全量已结束并完成最终分析，预选紧凑实体视觉方法不采用。** 2020位置终态，1767新返回、241引用、12超时；含35关机中断及18smoke共1832次尝试。CV MRR0.4180，较历史锚点−0.08742；token下降16.3%–17.7%但未保持排名。位置扰动显著超过独立重复噪声，阶段比较受损；完整绝对指标、成本、失败分母和解释核验已落盘。没有新实验或attention启动，自有GPU关闭。[最终报告](../experiment_reports/RQ3_21_Qwen_Analysis_2026-10-06.md)；[唯一状态](../../RQs/RQ3_21/findings/exp_compact_entity_findings.md)。以下CPU、启动与恢复信息均为历史记录。
+
+2026-10-06 **RQ3.21 GPU smoke 18/18通过，已按用户新授权启动正式后台任务。** 实际输入/PNG、输出、评分、token与原子提交完整审核通过，累计smoke含启动环境修复及审核407.99秒；显存0.75、并发36、attention关闭。六个新主臂加机制/重复共1800新位置，另220历史锚点引用；预计1779次正式新生成。首批新提交核验通过，13:58:47 UTC快照13新完成、36在途；本次完成启动后停止操作，不提前评价MRR。[资格与启动记录](../experiment_reports/RQ3_21_Qualification_and_Launch_2026-10-06.md)；[唯一状态](../../RQs/RQ3_21/findings/exp_compact_entity_findings.md)。以下CPU后停止条目保留其历史时点含义。
+
+2026-10-06 **RQ3.21代码、静态、完整220例CPU与实际例图审核已完成，按用户要求停止。** 六个新主臂＋60例机制/重复；历史ANCHOR复用220结果，取消PACK_TEXT/ENTITY_TEXT，新正式位置1800，总尝试上限1940。预选方法完整输入对历史锚点减少16.35%–17.82%、对RAW_TEXT减少13.32%–14.32%；没有新MRR或总生成成本结论。GPU smoke和正式均未启动，执行凭据未生成。[当前计划](RQ3_21_Compact_Evidence_Entity_Organization_Plan_2026-10-06.md)；[CPU资格报告](../experiment_reports/RQ3_21_CPU_Qualification_2026-10-06.md)；[唯一状态](../../RQs/RQ3_21/findings/exp_compact_entity_findings.md)。
+
+2026-10-06 UTC **RQ3.20 v3 核心已完成，当前候选按登记结束。** 1520流程全部终态，1476次累计实际尝试含smoke；完整结果审核通过。V相对F配对MRR−0.0696且显著下降，已知配对总token节省16.86%；大规模选择ID接口失败及有限明细空间已定位。QA辅助改善没有可靠转化为排名收益。未启动SIRCL、独立90例或attention，不自动追加新臂。[完整报告](../experiment_reports/RQ3_20_Qwen_Analysis_2026-10-06.md)；[唯一findings](../../RQs/RQ3_20/findings/exp_budgeted_acquisition_findings.md)。以下启动/CPU失败条目是历史时点记录。
+
+2026-10-05 **RQ3.20 v3 已通过资格并启动全量核心。** 用户只把首轮完整输入门槛调至50%，两轮85%预算保持。实际合格58/60、52/60、84/100；静态、完整CPU及GPU smoke通过（16次真实调用，1项QA不适用、1次同请求引用，0基础设施错误）。全量1,520流程位置、最多2,200调用，GPU0.75/并发36；attention关闭，条件模块未启动。[资格与启动报告](../experiment_reports/RQ3_20_Qualification_and_Launch_2026-10-05.md)；[当前唯一状态](../../RQs/RQ3_20/findings/exp_budgeted_acquisition_findings.md)。下方40%失败为历史状态。
+
+2026-10-05 **RQ3.20 v2 压缩修订已完成CPU审核，完整视觉预算仍未通过。** 按用户新指示直接修改RQ3.20，原40%/85%/各集50%门槛不变。命名列、共享字段、窗口引用和有向关系分组使文本首轮减少20.45%–29.48%，文本可行60/60、56/60、100/100；计入216张实际统一renderer图片后共同可行0/60、1/60、0/100。220例事实反解与实际整包回归通过，历史v1材料完整保留。新增调用0、GPU未启动。[改动登记](../../RQs/RQ3_20/descriptions/compression_revision_v2.md)；[唯一当前报告](../../RQs/RQ3_20/findings/exp_budgeted_acquisition_findings.md)。下方v1停止说明保留历史时点含义。
+
+2026-10-05 **RQ3.20 已在第一阶段 CPU 预算门槛停止，新增模型调用0。** [视觉引导的预算化取证计划](RQ3_20_Budgeted_Visual_Evidence_Acquisition_Plan_2026-10-05.md)及CPU实施已保存；静态和已实现接口回归通过，220例来源及真实processor审核完成。文本必要条件给出的最终合格上界仅A22 0/60、A25 0/60、Aegis 16/100，均不足50%；0.40/0.85预算保持原样。GPU smoke、正式实验、QA和attention均未进入。下游运行器未作为已完成实现交付。[唯一报告与状态](../../RQs/RQ3_20/findings/exp_budgeted_acquisition_findings.md)。这是当前设计的预算失败，不是新的MRR负结果。
+
+2026-10-05 **当前最终状态：RQ3.19核心1480位置终态，详细分析完成；预选视觉替换V不采用，按登记结束候选。** 1449真实返回＋18引用＋13超时，5模型无效保留零分；含smoke实际1480次调用。F/C/A/V MRR .4562/.4308/.4569/.4139，V−F配对−.0450、完整分母差值界限仍为负，成本没有下降。机制线得到视觉QA受辅助后显著提升（+5.46个百分点，pH .000381），但未建立可靠RCA组织收益，天花板/题目相关性/解释错误边界均已报告。[完整报告](../../RQs/RQ3_19/findings/exp_visual_replacement_qa_findings.md)；[完成日志](../../RQs/RQ3_19/results/visual_replacement_qa_v2/logs/2026-10-05_final_analysis.md)。自有GPU服务关闭，attention、SIRCL与扩展验证未启动；没有自动追跑最高分臂。3,000是上限，不是需要消耗完的队列。冻结[双线计划](CanvasRCA_Dual_Track_Next_Stage_2026-10-05.md)保留登记时内容；[资格与启动报告](../experiment_reports/RQ3_19_Qualification_and_Launch_2026-10-05.md)是历史快照，不能继续读作当前正在运行。
 
 2026-10-05 研究收敛补充：[五个重要反直觉现象](../../important_docs/CanvasRCA_Counterintuitive_Findings_2026-10-05.md)。QA 到 RCA 的任务相关性是下面表示分配候选的前置缺口；该候选尚未确定为下一算法。已有数值写法翻转值得优先复核，标题 attention 保留为机制线索；按用户要求补入完整文本加图退化及文本接口敏感性，分别用于研究证据干扰与控制接口差异。不新增布局消融或 attention 采集，不改变 RQ3.18。
 
@@ -6,9 +70,9 @@
 
 2026-10-05 项目安排：[WWW 2027 投稿冲刺与研究收敛](CanvasRCA_WWW2027_Submission_Sprint_2026-10-05.md)。10月7日方法/主张决策截止，10月16日摘要、23日全文内部交付；先补强文本对照、技术新意、数据曝光与冻结验证证据。RQ3.18按原协议继续，本安排不修改其阈值、矩阵、源或预算，不自动启动后继实验。
 
-2026-10-04 最新：**RQ3.18 GPU smoke 18/18通过，已按用户授权启动11臂2420位置全量。** 已确认实际推理与首批原子结果提交；[执行记录](../../RQs/RQ3_18/results/population_readout_v1/logs/2026-10-04_gpu_and_formal_execution.md)。下方CPU后停止是此次授权前的历史状态。
+2026-10-05 最新执行状态：**RQ3.18 全2420位置终态，详细分析已完成；预选总体读数候选未通过采用，按登记结束。** 2328真实返回、63引用、29超时；FP MRR .4877，FP−F +.0220但校正未通过、Aegis退化及重复方向失败。自有GPU服务关闭，无后继实验自动启动。[完整报告](../../RQs/RQ3_18/findings/exp_population_readout_findings.md)；[执行历史](../../RQs/RQ3_18/results/population_readout_v1/logs/2026-10-04_gpu_and_formal_execution.md)。
 
-- [RQ3.18：总体耗时读数与视觉比较](RQ3_18_Population_Readout_Plan_2026-10-04.md)：旧六臂计划、代码和测试产物已按用户要求删除；新11臂/2420位置、2500调用预算。**静态、完整220例CPU及实际例图审查通过，已停止；GPU smoke未运行，正式未启动，模型调用0。** [资格报告](../../RQs/RQ3_18/results/population_readout_v1/qualification/report.md)；[例图](../../RQs/RQ3_18/preparation/population_readout_v1/examples/index.html)。
+- [RQ3.18：总体耗时读数与视觉比较](RQ3_18_Population_Readout_Plan_2026-10-04.md)：旧六臂方案按用户要求删除；新11臂/2420位置已完成，共2375次尝试含18smoke，保留29超时及10模型无效零分。静态、完整CPU、实际例图及GPU资格通过；**预选方法不采用，等待新指示**。[完整报告](../../RQs/RQ3_18/findings/exp_population_readout_findings.md)；[历史CPU资格](../../RQs/RQ3_18/results/population_readout_v1/qualification/report.md)；[例图](../../RQs/RQ3_18/preparation/population_readout_v1/examples/index.html)。冻结计划内的“CPU后停止”保留为其登记时状态，不改写历史授权。
 
 2026-10-04 最新完成状态：**RQ3.17 v4正式3080位置全部终态，详细分析已完成，预选组合不采用。** 2983真实响应＋76引用＋21超时，5份重复ID输出保留零分；自有GPU服务关闭。C MRR .4957，对T配对+.0265，但低于D/N，六主要比较均未通过病例/事件组校正；Aegis C−T−.0340及Top5−4pp，节点组合未修复。CPU资格保持用户豁免，不追记为通过。解释审查为503份规则筛查、119份人工阅读及12条源核验，未声称全量人工解释审计。[详细报告](../experiment_reports/RQ3_17_Qwen_Analysis_2026-10-04.md)；[完成日志](../../RQs/RQ3_17/results/topology_marginal_v4/logs/2026-10-04_final_analysis.md)。停止当前候选，不自动更换布局或追跑事后赢家；以下恢复/暂停/执行状态均为历史记录。
 
@@ -72,3 +136,7 @@
 840终态，811formal调用/801响应/10超时，18smoke。801完整graph和评分、140公开compiler parity、94冻结源/3附加runtime、实际transport及token守恒审核通过；离线operand接口修复限定report，不改变原输入/答案/分数。主要CV−ET+.0384/CV−CT+.0365/CV−OV−.0275，pH均.5671，成本+9.06%，不采用CV。参考竞争104/120但目标真实变化23/120、精确root目标0/预测行2。36case/216位置214解释阅读，未知轴保留，不宣称信任增益。报告docs/experiment_reports/RQ3_12_Qwen_Analysis_2026-10-02.md。用户授权继续结果驱动新plan/实施/全部资格及启动完整队列，single primary。
 
 - [2026-10-02 RQ3.13 observed excursion plan](RQ3_13_Observed_Excursion_Plan_2026-10-02.md)：该计划写作时停在smoke；后来用户授权的完整队列及详细分析已结束。当时的下一步是设计RQ3.14；当前状态以本页顶部的最新条目为准。
+
+- [RQ4.3 v9八路并发与加速](RQ4_3_Concurrency_v9_2026-10-11.md)：功能smoke通过，CPU重跑豁免；利用率目标未达到，正式暂停。
+
+- [RQ4.3 v11宿主核隔离修复](RQ4_3_Scheduling_Repair_v11_2026-10-11.md)：保持8 CPU/8 GPU和RAM预取；队列及模型计算不变。

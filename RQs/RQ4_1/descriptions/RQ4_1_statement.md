@@ -1,0 +1,11 @@
+# RQ4.1 — Pure-visual comparison-preserving coding
+
+**Question.** Can a unified renderer's public measurement provenance guide visual-token allocation so that the operands of legitimate comparisons remain jointly useful, improving single-call diagnosis over strong complete text at comparable measured cost?
+
+**Interpretation.** The proposed contribution is an auditable comparison-dependency compiler and its controlled assessment on frozen Qwen, not a new general pruning theorem. Same-image, same-budget, same-metadata unary and degree-preserving rewired controls test the registered allocation implementation. Pixel source completeness does not imply exact numeric reversibility or that a retained embedding contains only its local fact.
+
+The independent CONTRAST_ATLAS arm is a bounded speculative pure-visual method, not a CVC mechanism control. All incident evidence and candidate IDs are image-only through the unified renderer; static task/read/schema text is allowed. Every RCA method is one model call, without training or a model-driven evidence-selection stage.
+
+The plan and full call ledger are in [experiments](RQ4_1_experiments.md). Six independent literature-first reviews are archived under [review process](../results/planning_review_v1/review_process.md). The latest user ends iteration after reviewer06; no further reviewer is created. Reviewer scores assess a design, not actual effects or conference acceptance.
+
+**Current status.** The fixed three-case real-encoder probe confirmed identical CVC/REWIRED/UNARY masks under the old grid50 budget. The user-authorized repair is CVC_E50: all anchors plus half the unique optional support, with identical domains/counts for matched controls. Three-case masks now differ;25 CPU tests and static checks pass. All220 cached support unions are no longer exactly saturated under E50, but full-roster bins/masks and source/runtime qualification remain pending. Proxy values still approach1 and UNARY slightly outperforms CVC on that proxy in all three; no ranking benefit is claimed. Three vision-encoder forwards,0 new LLM calls, no registered GPU smoke or formal run. See [current findings](../findings/exp_comparison_coding_findings.md).

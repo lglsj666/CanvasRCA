@@ -1,5 +1,94 @@
 # CanvasRCA project-wide design decisions
 
+## DD-20261006-STAGE-PRIORITIES: Prioritize MRR and cost; retain a smaller mechanism track
+
+**Date:** 2026-10-06
+**Status:** adopted for the current stage; revisable, not a permanent project constraint
+
+**Context.** The user prioritizes obtaining a strong single-stage "golden
+pipeline" that raises MRR while avoiding cost increases and preferably reducing
+cost. Research into counterintuitive observations remains important, but should
+not dominate development before that pipeline exists. The user explicitly
+requires this allocation to stay outside Codex.md because later stages may need
+a different balance.
+
+**Decision.** Allocate approximately 80% of the current stage's experimental
+effort to improving MRR and cost, and 20% to investigating counterintuitive
+phenomena and their mechanisms. For budgeting, translate this approximate
+allocation into planned new model calls, while also reporting actual token and
+compute costs; arm counts alone do not measure resource allocation. Register
+shared controls once and reuse compatible observations across both tracks.
+Do not create unnecessary calls merely to attain an exact percentage.
+
+Retain the approximately 0.50-MRR single-stage method as a performance reference
+alongside strong text controls. Evaluate complete-pipeline performance and cost
+directly; a full explanation of every component's contribution is not a
+prerequisite for method progress. Continue bounded mechanism work in parallel,
+preferably with interventions that can inform the main method. Deeper causal
+explanation can receive greater emphasis once the pipeline is established.
+Input integrity, fair comparisons, qualification and honest reporting remain
+necessary in both tracks.
+
+**Evidence.** This is a user-directed resource and priority decision, not a
+statistical finding that 80/20 is optimal. The completed exposed-eval RQ3.16
+report records MARGINAL_FIVE MRR 0.5054 and its independent repeat 0.5039;
+RQ3.17's native marginal control records 0.5048 on 219 known results. Their
+original adoption and mechanism limitations remain unchanged. See
+[RQ3.16](../docs/experiment_reports/RQ3_16_Qwen_Analysis_2026-10-03.md) and
+[RQ3.17](../docs/experiment_reports/RQ3_17_Qwen_Analysis_2026-10-04.md).
+
+**Alternatives rejected for this stage.** Making comprehensive mechanism
+explanation the first priority would delay the user's performance/cost goal.
+Abandoning counterintuitive findings entirely would lose potentially useful
+method guidance. Encoding 80/20 in Codex.md would turn a temporary allocation
+into an unnecessarily durable rule, contrary to the user's explicit instruction.
+
+**Consequences.** Future stage plans should state their method/mechanism budget
+and prioritize a stronger, cost-conscious single-call pipeline. Reassess this
+allocation at the next stage transition or on user direction, especially after
+a golden pipeline is established. This entry supersedes earlier recommendations
+that would prioritize a comprehensive explanation before method improvement;
+it does not rewrite historical protocols or results, change the single-stage
+RCA requirement, allocate an additional call budget, or launch an experiment.
+Codex.md is not modified by this decision.
+
+## DD-20261006-SINGLE-STAGE-RCA: Close model-driven multi-stage diagnosis
+
+**Date:** 2026-10-06
+**Status:** adopted by explicit user instruction
+
+**Context.** The user recalls that two-stage RCA had already been explored and
+abandoned for weak gains, and now explicitly requires single-stage RCA for all
+future work. RQ3.20 included three single-call controls (F/ST/SV), but its
+preselected V and text-fetch T used a selector call followed by a diagnostic
+call. Their repeat and acquisition-intervention arms inherited that structure.
+
+**Decision.** One model call performs each future RCA diagnosis. Do not pursue
+another model-driven selection/fetch/composition stage followed by a ranking
+call, including a repaired or renamed RQ3.20 successor. CPU evidence preparation
+and the unified renderer remain available. Separate QA/attention measurements
+do not become stages in an RCA inference chain.
+
+**Evidence.** The completed, exposed-eval RQ3.20 v3 report records V−F paired
+MRR −0.069617 on209 cases, case/event-group Holm p .003751/.001732 and paired
+dz −0.20147; known paired total-token use declined16.86%. Current contract:
+`8650bf95d932d26b352ed6cd390764a9e07309ab4f0405be495398f4e5cc82ce`.
+The large selector validity problem limits general mechanism conclusions, but
+does not override the user's research-scope decision. This is not a proof that
+every conceivable multi-stage RCA method fails.
+See [full report](../docs/experiment_reports/RQ3_20_Qwen_Analysis_2026-10-06.md).
+
+**Alternatives rejected.** Repairing selector IDs and automatically rerunning
+the two-stage method would continue the direction the user has closed.
+Renaming acquisition or hiding its first call in preprocessing would violate
+the same single-call requirement.
+
+**Consequences.** Codex.md records the latest authority. Future plans preserve
+the joint MRR/cost and mechanism objectives within single-call RCA. Earlier
+report suggestions to repair the acquisition workflow are historical and no
+longer an execution roadmap. Preserve all completed data and code; no new
+experiment, repair qualification, or deletion is authorized by this decision.
+
 ## DD-20260930-QWEN-ONLY: Defer multi-model validation until the pipeline matures
 
 **Date:** 2026-09-30  
@@ -450,3 +539,192 @@ from inference interventions. No current code, recipe, run or attention switch
 is changed. Details and source hashes are under
 important_docs/CanvasRCA_Attention_Storage_and_Sink_2026-10-05.md and its artifact
 directory. Existing frozen experiments and historical measurements are preserved.
+
+## DD-20261005-DUAL-TRACK: Visual replacement and new diagnostic QA interventions
+**Date:** 2026-10-05
+**Status:** provisional method/protocol; user-confirmed parallel research direction
+
+**Context.** The user requests a next-stage plan informed by all historical
+reports and explicitly requires accuracy/cost work alongside investigation of
+counterintuitive phenomena. The latest correction requires new lightweight
+QA experiments, rather than archival analysis alone.
+
+**Decision.** Propose one four-arm method candidate: contemporary full strong
+text, lossless compact text, compact text plus a fixed image, and explicit
+fact transfer from compact text into that same image. Add 60 paired cases of
+reading/binding/comparison QA and correct-readout interventions, sharing the
+main RCA controls. Attention qualification is conditional and cannot block
+the method and QA work. No QA-based routing is selected before transfer to
+diagnostic outcomes is tested.
+
+**Evidence.** Completed RQ3.18 reports paired FP-F +.021991 (216 pairs;
+case/group primary Holm not significant), positive AIOPS directions and
+Aegis harm, with additive input overhead rather than compression. Historical
+QA/RCA correlations near zero do not establish independence. RQ3.6 shows
+text-interface sensitivity, RQ3.8 additive-image harm, and RQ3.11 the limits of
+operator-preserving quantization. Exact values in DOM metadata are not visible
+image evidence. Source hashes and review scope accompany the plan.
+
+**Alternatives rejected.** Another layout/markless/topology grid; calling
+generic compact text or source deduplication novel; weakening the text
+baseline; equating QA with RCA utility; interpreting high attention as a
+causal sink; treating exposed test360 as untouched confirmation.
+
+**Consequences.** The proposed 3,000-attempt ceiling includes a 1,480-call
+core, qualification, conditional baselines/validation, and bounded retries.
+It is a resource plan, not execution authorization. Whole-method evidence and
+mechanism-specific claims have separate decision rules. All existing runs,
+code, inputs, answers and findings remain unchanged. New code, CPU/GPU tests,
+attention collection and formal calls have not started. Full plan:
+[dual-track next stage](../docs/experiment_plans/CanvasRCA_Dual_Track_Next_Stage_2026-10-05.md).
+
+
+## DD-20261006-METHOD-PRIORITY: Prioritize single-call accuracy and cost, with scoped mechanism work
+**Date:** 2026-10-06
+**Status:** adopted for the current development phase; revisit with user direction
+
+**Context.** The user prioritizes increasing MRR while keeping actual deployment cost within5% or reducing it. Historical rounds contain useful improvements, but changed inputs and exposed cases prevent treating all cross-round increments as one controlled cumulative result. Two-stage RCA is separately prohibited by the latest Codex authority.
+
+**Decision.** Keep the current approximate80/20 method/mechanism priority in planning records, not Codex.md. Require each new condition to support a deployment decision or a specific mechanism question. Reuse traceable historical anchors when the user chooses cross-round comparison over a contemporary repeat; retain explicit scope and matched new controls. Do not consume an available call budget merely to fill it.
+
+**Evidence.** RQ3.21 static, complete220-case CPU, actual image review and version freeze passed with0 new model calls. Historical anchor220 input/recipe/scorer/commit identities and input-token usage were verified. Compact entity visual input is16.35–17.82% below the historical anchor and13.32–14.32% below RAW_TEXT; this is CPU input evidence, not measured accuracy or total generated-token savings. The detailed qualification report records failures and forward repairs.
+
+**Alternatives rejected.** Recalling an unchanged historical anchor after the user selected reuse; keeping every cell of a factorial design without sufficient decision value; presenting source-text QA as isolated image-reading ability; adding another two-stage selector, topology, layout or attention experiment.
+
+**Consequences.** The approved RQ3.21 pruning keeps six new main arms and the existing480 mechanism positions:1800 new positions,1940 total attempt ceiling, with a73.3% main-matrix share explicitly disclosed. Conditional ablations replace full-factorial mean-effect claims. This round is frozen at CPU qualification; GPU and formal execution require later user instruction. The permanent constraints file was not changed. RQ-specific definitions remain in RQs/RQ3_21/descriptions/ and the [approved plan](../docs/experiment_plans/RQ3_21_Compact_Evidence_Entity_Organization_Plan_2026-10-06.md); results/limits are in the [CPU qualification report](../docs/experiment_reports/RQ3_21_CPU_Qualification_2026-10-06.md).
+## DD-20261006-PURE-VISUAL: Pure-visual method development; cancel RQ3.22
+**Date:** 2026-10-06
+**Status:** adopted input constraint; provisional method direction
+
+**Context.** The user explicitly rejects further hybrid method development,
+asks to beat strong text using purely visual diagnostic evidence, and orders
+the complete deletion of RQ3.22, including CPU/smoke artifacts. The supplied
+`important_docs/conversation_oct_06` proposes provenance-aware visual operators
+but still includes an exact-text side channel in its final sketch.
+
+**Decision.** All subsequent research starts under RQ4; the original RQ3 route
+is discontinued. Pure visual limits diagnostic evidence, not necessary textual
+RCA task, dashboard-reading and output-format instructions. Codex.md now requires
+all incident evidence to enter future method
+candidates through unified-renderer images. Static task/schema instructions
+remain allowed; text systems are evaluation baselines, not method components.
+Remove the proposed side channel and full-text fallback. RQ3.22, its plans,
+reports, code, tests, preparations, freezes, smoke records and Windows galleries
+were deleted under explicit authority; retain only minimal deletion accounting
+and the 54 already spent-call count. Preserve RQ3.21 and earlier work.
+
+**Evidence.** RQ1.1 pure vision reduced input tokens but underperformed text;
+RQ2.1 resolution gains incurred more input tokens. RQ3.21 compact entity visual
+MRR was 0.41795 versus 0.44356 text and 0.50538 historical hybrid anchor, despite
+lower token cost. These are historical development results, not confirmation of
+the new pure-visual hypothesis. TokenPacker and LLaVA-Mini require learned
+modules; SaMer is a close object-aware compression precedent in retrieval.
+
+**Alternatives rejected.** More marginal-card/layout variants as the primary
+contribution; simply deleting text from an unchanged two-card dashboard;
+calling a prompt screenshot a new visual algorithm; weakening text baselines;
+assuming pooled region features can be injected into frozen Qwen unchanged.
+
+**Consequences.** First evaluate the feasibility of preserving entity/signal/
+phase structure through visual token compression. RQ4 has a documentation-only namespace; no replacement implementation, training,
+GPU qualification or model run is launched. The scoped direction and primary
+sources are recorded in [pure-visual direction](../important_docs/CanvasRCA_Pure_Visual_Direction_2026-10-06.md).
+Earlier hybrid allowances are superseded prospectively; historical conclusions
+keep their original scopes. The current approximate80/20 resource preference
+remains a planning choice outside Codex.md.
+
+
+## DD-20261006-BLIND-PLAN-REVIEW: Fresh independent literature-first plan review
+**Date:** 2026-10-06
+**Status:** adopted research-planning workflow at the user's explicit request
+
+**Context.** The user asks that future plans center on a defensible core innovation and receive independent criticism informed by real OpenReview reviews and neighboring original papers, before an expensive experiment is launched.
+
+**Decision.** For each substantive plan/revision, initialize a fresh `gpt-6-astra` reviewer with `xhigh` reasoning and no conversation fork. First provide only broad related research areas and ask it to learn from actual public reviews and primary literature; withhold the project, proposal, history, scores and previous critiques. Only after that stage finishes disclose the standalone proposal. Preserve its independent review, answer substantive criticism and revise. Retire the reviewer and use a fresh instance for the next revision. This user authorization is scoped to independent plan review; it does not revive the old multi-agent implementation/experiment team.
+
+**Evidence.** The first application and all favorable/unfavorable reviews are retained under the target RQ's own planning-review artifacts. Agent review scores describe design appraisal, not measured effectiveness, publication acceptance probabilities or runtime qualification. Reviewers report which actual review threads or author-hosted exports they could access and the coverage limitations; author responses are not reviewer opinions.
+
+**Alternatives rejected.** Letting an implementation agent evaluate its own revisions; teaching a reviewer previous favorable scores; changing scientific claims to obtain an endorsement; deleting unfavorable review evidence; treating a high score as permission to run models.
+
+**Consequences.** Keep reviewer identities isolated, record the revision/criticism trail and preserve the actual stopping rationale. The tool API can stop an agent but cannot delete its stored session; do not claim deletion. New instances use no conversation fork and receive no earlier review material. This workflow has planning-agent token cost, separate from the local scientific LLM-call ledger. GPU/formal activation still follows the current user instruction and the qualified experiment protocol.
+
+The same-day user amendment caps the current plan-review iteration at reviewer06; finalize after that review and disclose unresolved findings. This is a stopping instruction for this planning session, not a request for favorable ratings or an automatic limit on every future review.
+
+## DD-RQ41-CENTRAL-SCORER — 2026-10-06
+
+**Authority.** The user requires all new scoring imports to come from
+`src/scorer/`, without backward-compatible aliases at old paths. Existing RQ2.1
+and historical scoring source stay in place unchanged. External RCA checkouts
+are not dependencies for the new execution path. Previously passed CPU checks
+remain valid and must not be rerun.
+
+**Decision.** Copy the existing local scorer and matching helpers into the new
+package with provenance; change RQ4.1 imports and the configured canonical
+matching function to `scorer`. Preserve exact candidate/rank/metric semantics.
+The failed transaction check and new import-isolation check form the future
+repair queue; retain 41 prior unit passes, 37 renderer passes and completed
+source/encoder/selector qualification. No compatibility shims, external-root
+fallback, retrospective rescoring or automatic experiment resumption.
+
+**Status.** Implementation and static checks only; runtime checks remain paused.
+See `src/scorer/PROVENANCE.json` and RQ4.1 v7 repair records.
+
+## DD-RQ41-ATLAS-COLUMNS — 2026-10-06
+
+**Authority.** The user explicitly requests refactoring CONTRAST_ATLAS to fit
+the existing canvas. CPU qualification remains paused for visual inspection.
+
+**Decision.** Replace padded per-entity eight-cell rows with an ordered
+eight-column partition. Retain candidate order, original facts, derived values,
+font and minimum component dimensions; keep same-entity source/contrast bundles
+together. Reuse the unified renderer's existing layout and component library.
+
+**Evidence and limits.** All 220 layouts fit at heights no greater than 5,971 px;
+three dataset examples and the largest layout render successfully. The 155 old
+atlas evidence packets match exactly. Layout sizing and previews do not certify
+full CPU/GPU qualification or performance. No experiments are resumed.
+
+**Record.** See the RQ4.1 atlas layout amendment and
+`atlas_layout_repair_v9/layout_capacity.json`; old failures remain preserved.
+
+## DD-20261010-HISTORICAL-CONTROLS: Retain strong text and the high-performing hybrid reference
+**Date:** 2026-10-10
+**Status:** adopted by explicit user instruction for RQ4.2 and subsequent experiments
+
+**Context.** The user requests that future experiments include both the historical
+approximately 0.51 MRR method and strong full text, and that RQ4.2 include both
+now by reusing completed answers instead of rerunning them.
+
+**Decision.** Include `RQ3.16/MARGINAL_FIVE` and `RQ4.1/T_FULL` as named historical
+reference arms in comparison tables. MARGINAL_FIVE is full diagnostic text plus
+native marginal graphics, not a pure-visual method. T_FULL is the full-text
+system baseline. Retain the strongest compatible completed pure-visual reference
+as well; these references do not consume new optimization-arm calls. Reuse
+original answers, scores and measured usage, preserving generation identities.
+
+**Evidence.** The completed source tables yield MRR 0.5053787879 for
+MARGINAL_FIVE and 0.4846212121 for T_FULL, each over the same 220 exposed
+development identities (60 AIOPS-2022, 60 AIOPS-2025, 100 AegisLab). On
+2026-10-10 both full rosters were matched against RQ4.2's frozen RCA queue, with
+no missing or duplicate identities. See the [RQ3.16 report](../docs/experiment_reports/RQ3_16_Qwen_Analysis_2026-10-03.md),
+[RQ4.1 report](../docs/experiment_reports/RQ4_1_Qwen_Analysis_2026-10-09.md), and
+[RQ4.2 historical-reference supplement](../RQs/RQ4_2/descriptions/RQ4_2_Historical_Controls_2026-10-10.md).
+These are historical system results, not new contemporaneous calls or evidence
+that pure visual has reached 0.51. No new significance tests were run here.
+
+**Alternatives rejected.** Omitting the strong text reference; rerunning unchanged
+historical requests; treating the hybrid anchor as a pure-visual method; comparing
+an incomplete current subset against a different historical denominator.
+
+**Consequences.** Report absolute and paired performance and actual deployment
+token cost for compatible shared cases, retaining failures and original full
+denominators. Historical reuse has zero new inference expenditure but does not
+make the baseline's deployment cost zero. Preserve and disclose model, prompt,
+evidence, decoding, scorer and backend differences. If a later cohort changes,
+report the compatible overlap and coverage; do not assume a historical answer
+exists for an unseen case. Any necessary rescoring is offline through `scorer`,
+with old scores retained. RQ4.2's added hybrid comparison is an explicitly dated
+reporting supplement made during execution, not a retroactive preregistered
+primary comparison. Frozen methods, statistical families, gates and execution
+queue remain unchanged. This decision adds no model calls and does not change
+Codex.md.

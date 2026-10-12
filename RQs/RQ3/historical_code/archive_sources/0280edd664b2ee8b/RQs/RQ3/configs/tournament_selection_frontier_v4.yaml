@@ -1,0 +1,5 @@
+extends: RQs/RQ3/configs/tournament_selection_only_v4.yaml
+search:
+  selectors: [propagation_frontier_v2]
+tournament:
+  method_id: PROPAGATION_FRONTIER_selection_only_v4

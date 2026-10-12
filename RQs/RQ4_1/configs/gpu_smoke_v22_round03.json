@@ -1,0 +1,315 @@
+{
+  "schema": "RQ41GPUSmokeV20",
+  "authority": "user_2026_10_07_five_prior_repair_smokes",
+  "output": "RQs/RQ4_1/results/comparison_coding_v1/gpu_smoke_v22_round03",
+  "model_path": "/home/lglsj/CanvasRCA/models/Qwen3.8-27B",
+  "gpu_allocator_fraction": 0.75,
+  "max_calls": 18,
+  "wall_seconds": 600,
+  "formal_enabled": false,
+  "generation": {
+    "max_new_tokens": 8192,
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 0
+  },
+  "cases": [
+    {
+      "id": "INC-6E627662CA32",
+      "dataset": "aiops2022"
+    },
+    {
+      "id": "INC-D9245047C658",
+      "dataset": "aiops2025"
+    },
+    {
+      "id": "INC-37ABFB78A80E",
+      "dataset": "aegislab"
+    }
+  ],
+  "hf_groups": [
+    {
+      "name": "aiops2022_full_sampled",
+      "slots": [
+        1
+      ],
+      "requests": [
+        "INC-6E627662CA32__NUMERIC"
+      ],
+      "mode": "native",
+      "arm": "V_FULL_ID_SYNTAX",
+      "attention": false,
+      "greedy": false
+    },
+    {
+      "name": "aiops2022_SCOPE_greedy",
+      "slots": [
+        2
+      ],
+      "requests": [
+        "INC-6E627662CA32__NUMERIC"
+      ],
+      "mode": "select",
+      "arm": "SCOPE_ANCHOR_ID_SYNTAX_E50",
+      "attention": false,
+      "greedy": true,
+      "method": "SCOPE",
+      "anchor_policy": "shared_anchors_v22"
+    },
+    {
+      "name": "aiops2022_S2PRUNE_greedy",
+      "slots": [
+        3
+      ],
+      "requests": [
+        "INC-6E627662CA32__NUMERIC"
+      ],
+      "mode": "prior",
+      "arm": "S2PRUNE_ANCHOR_ID_SYNTAX_E50",
+      "attention": false,
+      "greedy": true,
+      "method": "S2PRUNE",
+      "anchor_policy": "shared_anchors_v22"
+    },
+    {
+      "name": "aiops2022_SCOPE_sampled",
+      "slots": [
+        4
+      ],
+      "requests": [
+        "INC-6E627662CA32__NUMERIC"
+      ],
+      "mode": "select",
+      "arm": "SCOPE_ANCHOR_ID_SYNTAX_E50",
+      "attention": false,
+      "greedy": false,
+      "method": "SCOPE",
+      "anchor_policy": "shared_anchors_v22"
+    },
+    {
+      "name": "aiops2022_S2PRUNE_sampled",
+      "slots": [
+        5
+      ],
+      "requests": [
+        "INC-6E627662CA32__NUMERIC"
+      ],
+      "mode": "prior",
+      "arm": "S2PRUNE_ANCHOR_ID_SYNTAX_E50",
+      "attention": false,
+      "greedy": false,
+      "method": "S2PRUNE",
+      "anchor_policy": "shared_anchors_v22"
+    },
+    {
+      "name": "aiops2025_full_sampled",
+      "slots": [
+        6
+      ],
+      "requests": [
+        "INC-D9245047C658__NUMERIC"
+      ],
+      "mode": "native",
+      "arm": "V_FULL_ID_SYNTAX",
+      "attention": false,
+      "greedy": false
+    },
+    {
+      "name": "aiops2025_SCOPE_greedy",
+      "slots": [
+        7
+      ],
+      "requests": [
+        "INC-D9245047C658__NUMERIC"
+      ],
+      "mode": "select",
+      "arm": "SCOPE_ANCHOR_ID_SYNTAX_E50",
+      "attention": false,
+      "greedy": true,
+      "method": "SCOPE",
+      "anchor_policy": "shared_anchors_v22"
+    },
+    {
+      "name": "aiops2025_S2PRUNE_greedy",
+      "slots": [
+        8
+      ],
+      "requests": [
+        "INC-D9245047C658__NUMERIC"
+      ],
+      "mode": "prior",
+      "arm": "S2PRUNE_ANCHOR_ID_SYNTAX_E50",
+      "attention": false,
+      "greedy": true,
+      "method": "S2PRUNE",
+      "anchor_policy": "shared_anchors_v22"
+    },
+    {
+      "name": "aiops2025_SCOPE_sampled",
+      "slots": [
+        9
+      ],
+      "requests": [
+        "INC-D9245047C658__NUMERIC"
+      ],
+      "mode": "select",
+      "arm": "SCOPE_ANCHOR_ID_SYNTAX_E50",
+      "attention": false,
+      "greedy": false,
+      "method": "SCOPE",
+      "anchor_policy": "shared_anchors_v22"
+    },
+    {
+      "name": "aiops2025_S2PRUNE_sampled",
+      "slots": [
+        10
+      ],
+      "requests": [
+        "INC-D9245047C658__NUMERIC"
+      ],
+      "mode": "prior",
+      "arm": "S2PRUNE_ANCHOR_ID_SYNTAX_E50",
+      "attention": false,
+      "greedy": false,
+      "method": "S2PRUNE",
+      "anchor_policy": "shared_anchors_v22"
+    },
+    {
+      "name": "aegislab_full_sampled",
+      "slots": [
+        11
+      ],
+      "requests": [
+        "INC-37ABFB78A80E__NUMERIC"
+      ],
+      "mode": "native",
+      "arm": "V_FULL_ID_SYNTAX",
+      "attention": false,
+      "greedy": false
+    },
+    {
+      "name": "aegislab_SCOPE_greedy",
+      "slots": [
+        12
+      ],
+      "requests": [
+        "INC-37ABFB78A80E__NUMERIC"
+      ],
+      "mode": "select",
+      "arm": "SCOPE_ANCHOR_ID_SYNTAX_E50",
+      "attention": false,
+      "greedy": true,
+      "method": "SCOPE",
+      "anchor_policy": "shared_anchors_v22"
+    },
+    {
+      "name": "aegislab_S2PRUNE_greedy",
+      "slots": [
+        13
+      ],
+      "requests": [
+        "INC-37ABFB78A80E__NUMERIC"
+      ],
+      "mode": "prior",
+      "arm": "S2PRUNE_ANCHOR_ID_SYNTAX_E50",
+      "attention": false,
+      "greedy": true,
+      "method": "S2PRUNE",
+      "anchor_policy": "shared_anchors_v22"
+    },
+    {
+      "name": "aegislab_SCOPE_sampled",
+      "slots": [
+        14
+      ],
+      "requests": [
+        "INC-37ABFB78A80E__NUMERIC"
+      ],
+      "mode": "select",
+      "arm": "SCOPE_ANCHOR_ID_SYNTAX_E50",
+      "attention": false,
+      "greedy": false,
+      "method": "SCOPE",
+      "anchor_policy": "shared_anchors_v22"
+    },
+    {
+      "name": "aegislab_S2PRUNE_sampled",
+      "slots": [
+        15
+      ],
+      "requests": [
+        "INC-37ABFB78A80E__NUMERIC"
+      ],
+      "mode": "prior",
+      "arm": "S2PRUNE_ANCHOR_ID_SYNTAX_E50",
+      "attention": false,
+      "greedy": false,
+      "method": "S2PRUNE",
+      "anchor_policy": "shared_anchors_v22"
+    },
+    {
+      "name": "fresh_native_greedy",
+      "slots": [
+        16
+      ],
+      "requests": [
+        "INC-6E627662CA32__NUMERIC"
+      ],
+      "mode": "native",
+      "arm": "V_FULL_ID_SYNTAX",
+      "attention": false,
+      "greedy": true,
+      "pair_role": "native",
+      "pair_key": "INC-6E627662CA32"
+    },
+    {
+      "name": "SCOPE_syntax_identity",
+      "slots": [
+        17
+      ],
+      "requests": [
+        "INC-6E627662CA32__NUMERIC"
+      ],
+      "mode": "identity",
+      "arm": "SCOPE_ANCHOR_ID_SYNTAX_IDENTITY",
+      "method": "SCOPE",
+      "identity": true,
+      "anchor_policy": "shared_anchors_v22",
+      "attention": false,
+      "greedy": true,
+      "pair_role": "identity",
+      "pair_key": "INC-6E627662CA32"
+    },
+    {
+      "name": "S2PRUNE_syntax_identity",
+      "slots": [
+        18
+      ],
+      "requests": [
+        "INC-6E627662CA32__NUMERIC"
+      ],
+      "mode": "prior",
+      "arm": "S2PRUNE_ANCHOR_ID_SYNTAX_IDENTITY",
+      "method": "S2PRUNE",
+      "identity": true,
+      "anchor_policy": "shared_anchors_v22",
+      "attention": false,
+      "greedy": true,
+      "pair_role": "identity",
+      "pair_key": "INC-6E627662CA32"
+    }
+  ],
+  "native_slot": null,
+  "execution_order": "Static syntax full-image sampled and protected priors; fresh full-retention identities last",
+  "untested_prior_paths": [],
+  "input_root": "RQs/RQ4_1/results/comparison_coding_v1/gpu_smoke_v22_round03/inputs",
+  "allowance": "RQs/RQ4_1/configs/gpu_smoke_allowance_v22.json",
+  "round": 3,
+  "ledger_scope": "rq41_smoke_v22_round03",
+  "previous_smoke_attempts": 78,
+  "monitor_before_handoff_seconds": 180,
+  "supplement": "RQ4_1_Static_ID_Grammar_2026-10-07",
+  "expected_parity_pairs": 2,
+  "generation_schema_profile": "public_numeric_id_v23",
+  "capture_generation_progress": true
+}

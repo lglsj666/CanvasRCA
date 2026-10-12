@@ -24,7 +24,7 @@
 
 已人工查看三个病例的scope图及截图样例、逐例补充观测全文、公共system/task/candidates及输入类型。G字段真实显示，语义标签在实体框中，数值仍在共同追加文本。AegisLab此例只有service，node/pod列为空不构造部署边；AIOPS2022有同一宿主跨多个包复用，属于注册排序可能造成的集中性风险，不能把它提前说成方法收益。去peer在部分病例自然无变化，按完整请求复用，不制造新干预。CPU只覆盖三例，不能证明180例全部容量可行。
 
-GPU smoke完整通过：一个窗口18/18调用全部完成，276.903秒，两模型各9个；无超时、基础设施失败或输出格式失败，原始finish_reason全部stop。18份conversation包含全部输入文本和回答，12张实际发送PNG与CPU资格字节一致。人工逐项看过回答，存在臆造调用边、实体类型混淆及正确排名伴随错误解释等模型行为；不据此改prompt/评分或重采样。详见[人工审查](../../RQs/RQ3_6/results/visual_mechanisms_v1/manual_review.md)。
+GPU smoke完整通过：一个窗口18/18调用全部完成，276.903秒，两模型各9个；无超时、基础设施失败或输出格式失败，原始finish_reason全部stop。18份conversation包含全部输入文本和回答，12张实际发送PNG与CPU资格字节一致。人工逐项看过回答，存在臆造调用边、实体类型混淆及正确排名伴随错误解释等模型行为；不据此改prompt/评分或重采样。详见[人工审查](../experiment_reports/pre_unified_preserved/RQs/RQ3_6/results/visual_mechanisms_v1/manual_review.md)。
 
 保留非致命warning：可选deep_gemm探测因CUDA_HOME缺失抛出导入WARNING，以及Triton首次JIT延迟警告；既定非量化/Triton推理路径正常完成，不改共享环境或模型配方。源码/配置快速检查0.0182秒，不重建旧请求。
 

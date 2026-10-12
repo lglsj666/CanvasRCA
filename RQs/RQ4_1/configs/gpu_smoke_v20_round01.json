@@ -1,0 +1,249 @@
+{
+  "schema": "RQ41GPUSmokeV20",
+  "authority": "user_2026_10_07_ten_additional_smokes",
+  "output": "RQs/RQ4_1/results/comparison_coding_v1/gpu_smoke_v20_round01",
+  "model_path": "/home/lglsj/CanvasRCA/models/Qwen3.8-27B",
+  "gpu_allocator_fraction": 0.75,
+  "max_calls": 18,
+  "wall_seconds": 600,
+  "formal_enabled": false,
+  "generation": {
+    "max_new_tokens": 8192,
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 0
+  },
+  "cases": [
+    {
+      "id": "INC-6E627662CA32",
+      "dataset": "aiops2022"
+    },
+    {
+      "id": "INC-D9245047C658",
+      "dataset": "aiops2025"
+    },
+    {
+      "id": "INC-37ABFB78A80E",
+      "dataset": "aegislab"
+    }
+  ],
+  "hf_groups": [
+    {
+      "name": "aiops_native",
+      "slots": [
+        1
+      ],
+      "requests": [
+        "INC-6E627662CA32__BASE"
+      ],
+      "mode": "native",
+      "arm": "V_FULL",
+      "greedy": true,
+      "pair_role": "native"
+    },
+    {
+      "name": "aiops_identity_attention",
+      "slots": [
+        2
+      ],
+      "requests": [
+        "INC-6E627662CA32__BASE"
+      ],
+      "mode": "identity",
+      "arm": "V_FULL",
+      "greedy": true,
+      "pair_role": "identity",
+      "attention": true
+    },
+    {
+      "name": "atlas_native",
+      "slots": [
+        3
+      ],
+      "requests": [
+        "INC-37ABFB78A80E__ATLAS"
+      ],
+      "mode": "native",
+      "arm": "CONTRAST_ATLAS",
+      "greedy": true,
+      "pair_role": "native"
+    },
+    {
+      "name": "atlas_identity_attention",
+      "slots": [
+        4
+      ],
+      "requests": [
+        "INC-37ABFB78A80E__ATLAS"
+      ],
+      "mode": "identity",
+      "arm": "CONTRAST_ATLAS",
+      "greedy": true,
+      "pair_role": "identity",
+      "attention": true
+    },
+    {
+      "name": "padded_native",
+      "slots": [
+        5,
+        6
+      ],
+      "requests": [
+        "INC-6E627662CA32__BASE",
+        "INC-D9245047C658__BASE"
+      ],
+      "mode": "native",
+      "arm": "V_FULL",
+      "greedy": true,
+      "pair_role": "native",
+      "batch_file": "batch"
+    },
+    {
+      "name": "padded_identity_reversed",
+      "slots": [
+        7,
+        8
+      ],
+      "requests": [
+        "INC-D9245047C658__BASE",
+        "INC-6E627662CA32__BASE"
+      ],
+      "mode": "identity",
+      "arm": "V_FULL",
+      "greedy": true,
+      "pair_role": "identity",
+      "batch_file": "batch_reverse"
+    },
+    {
+      "name": "full_text",
+      "slots": [
+        9
+      ],
+      "requests": [
+        "INC-6E627662CA32__TEXT"
+      ],
+      "mode": "text",
+      "arm": "T_FULL",
+      "greedy": false
+    },
+    {
+      "name": "CVC_E50",
+      "slots": [
+        11
+      ],
+      "requests": [
+        "INC-6E627662CA32__BASE"
+      ],
+      "mode": "select",
+      "arm": "CVC_E50",
+      "greedy": false,
+      "attention": true
+    },
+    {
+      "name": "UNARY_E50",
+      "slots": [
+        12
+      ],
+      "requests": [
+        "INC-D9245047C658__BASE"
+      ],
+      "mode": "select",
+      "arm": "UNARY_E50",
+      "greedy": false,
+      "attention": false
+    },
+    {
+      "name": "REWIRED_E50",
+      "slots": [
+        13
+      ],
+      "requests": [
+        "INC-37ABFB78A80E__BASE"
+      ],
+      "mode": "select",
+      "arm": "REWIRED_E50",
+      "greedy": false,
+      "attention": false
+    },
+    {
+      "name": "CVC_E25",
+      "slots": [
+        14
+      ],
+      "requests": [
+        "INC-D9245047C658__BASE"
+      ],
+      "mode": "select",
+      "arm": "CVC_E25",
+      "greedy": false,
+      "attention": false
+    },
+    {
+      "name": "CVC_E75",
+      "slots": [
+        15
+      ],
+      "requests": [
+        "INC-37ABFB78A80E__BASE"
+      ],
+      "mode": "select",
+      "arm": "CVC_E75",
+      "greedy": false,
+      "attention": false
+    },
+    {
+      "name": "qa_CVC_E50",
+      "slots": [
+        16
+      ],
+      "requests": [
+        "INC-6E627662CA32__QA"
+      ],
+      "mode": "select",
+      "arm": "CVC_E50",
+      "greedy": false,
+      "attention": false
+    },
+    {
+      "name": "GPRUNE_E50",
+      "slots": [
+        17
+      ],
+      "requests": [
+        "INC-D9245047C658__BASE"
+      ],
+      "mode": "select",
+      "arm": "GPRUNE_E50",
+      "greedy": false,
+      "attention": false
+    },
+    {
+      "name": "DART_E50",
+      "slots": [
+        18
+      ],
+      "requests": [
+        "INC-37ABFB78A80E__BASE"
+      ],
+      "mode": "prior",
+      "arm": "DART_E50",
+      "greedy": false,
+      "attention": false
+    }
+  ],
+  "native_slot": {
+    "slot": 10,
+    "request": "INC-6E627662CA32__TEXT"
+  },
+  "execution_order": "HF slots1-9,11-18; unload HF; production native slot10",
+  "untested_prior_paths": [
+    "SCOPE_E50",
+    "S2PRUNE_E50"
+  ],
+  "input_root": "RQs/RQ4_1/results/comparison_coding_v1/gpu_smoke_v18/inputs",
+  "allowance": "RQs/RQ4_1/configs/gpu_smoke_allowance_v20.json",
+  "round": 1,
+  "ledger_scope": "rq41_smoke_v20_round01",
+  "previous_smoke_attempts": 2,
+  "monitor_before_handoff_seconds": 180
+}

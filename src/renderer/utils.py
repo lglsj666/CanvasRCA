@@ -8,6 +8,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 RENDERER = ROOT / "src/renderer"
 ENCODINGS = {
+    "inventory": {"identities"},
+    "comparison": {"paired"},
+    "contrast": {"quantile_contrast"},
     "metric": {"line", "time_bars", "heatmap"},
     "trace": {"paired_bars", "dumbbell", "table"},
     "log": {"timeline", "table"},
@@ -90,11 +93,41 @@ def validate_evidence(evidence):
             raise ValueError("Unsupported card kind")
         text(card["title"])
         text(card["unit"])
-        if kind not in {"graph", "events", "scope", "diagnostic", "literal", "trace_joint", "trace_profile"}:
+        if kind not in {"graph", "events", "scope", "diagnostic", "literal", "trace_joint", "trace_profile", "inventory"}:
             entity(card["entity"])
         elif card["entity"] is not None:
             raise ValueError("Graph has no single owner")
-        if kind in {"metric", "log"}:
+        if kind == "contrast":
+            keys(data, {"contrast"})
+            spec=data["contrast"]; keys(spec, {"rows", "limit"})
+            number(spec["limit"])
+            if spec["limit"] <= 0 or not 1 <= len(spec["rows"]) <= 128: raise ValueError("Contrast capacity/scale")
+            for row in spec["rows"]:
+                keys(row, {"signal", "quantity", "unit", "change", "peer"})
+                for key in ("signal", "quantity", "unit"): text(row[key])
+                for key in ("change", "peer"):
+                    if key=="peer" and row[key] is None: continue
+                    if not isinstance(row[key],list) or len(row[key])!=3: raise ValueError("Three empirical quantiles required")
+                    for value in row[key]:
+                        number(value)
+                        if abs(math.asinh(value)) > spec["limit"]+1e-12: raise ValueError("Contrast scale clips data")
+        elif kind == "comparison":
+            keys(data, {"comparisons", "details"})
+            if not isinstance(data["comparisons"], list) or not 1 <= len(data["comparisons"]) <= 32:
+                raise ValueError("Comparison capacity")
+            for row in data["comparisons"]:
+                keys(row, {"name", "unit", "reference", "current"})
+                text(row["name"]); text(row["unit"])
+                number(row["reference"]); number(row["current"])
+            details(data["details"])
+        elif kind == "inventory":
+            keys(data, {"identities", "details"})
+            if not isinstance(data["identities"], list) or len(data["identities"]) > 1024:
+                raise ValueError("Inventory capacity")
+            for identity in data["identities"]:
+                entity(identity)
+            details(data["details"])
+        elif kind in {"metric", "log"}:
             fields = {"bins", "values", "details"} if kind == "metric" else {"bins", "counts", "template", "details"}
             keys(data, fields)
             values = data["values"] if kind == "metric" else data["counts"]
@@ -233,6 +266,15 @@ def expected_bindings(evidence, show_isolates=False):
             result.extend(cid + "." + key for key in ("parent", "child", "parent_operation", "child_operation", "support", "axes", "duration_type"))
             result.extend(f"{cid}.quantile.{i}.{phase}" for i in range(4) for phase in ("reference","current"))
             result.extend(f"{cid}.glyph.{i}" for i in range(4))
+        if kind == "contrast":
+            for i,row in enumerate(d["contrast"]["rows"]):
+                result.append(f"{cid}.contrast.{i}.label")
+                for channel in ("change", "peer"):
+                    if row[channel] is not None: result.extend(f"{cid}.contrast.{i}.{channel}.{j}" for j in range(3))
+        if kind == "comparison":
+            result.extend(f"{cid}.comparison.{i}.{k}" for i in range(len(d["comparisons"])) for k in ("label", "reference", "current"))
+        if kind == "inventory":
+            result.extend(f"{cid}.identity.{i}" for i in range(len(d["identities"])))
         if kind == "literal":
             result.extend(f"{cid}.line.{i}" for i in range(len(d["lines"])))
         if kind == "log":
@@ -453,7 +495,7 @@ def deployment_layout(card, panel_width, font_size=16, show_isolates=False):
             "scale": scale, "min_height": max(180, math.ceil(y-gap+110))}
 
 
-def node_link_layout(card, panel_width, font_size=18):
+def node_link_layout(card, panel_width, font_size=18, tight=False):
     """Explicit opt-in SCC layers; all original directed edges remain intact."""
     import networkx as nx
     graph = nx.DiGraph()
@@ -475,7 +517,7 @@ def node_link_layout(card, panel_width, font_size=18):
                                  'y':70 + (row + i//columns)*100}
         row += (len(members)+columns-1)//columns
     return {'positions':positions, 'rows':row, 'columns':columns,
-            'min_height':max(360, 250 + row*100), 'layout':'layered_grid'}
+            'min_height':max(240, 120 + row*100) if tight else max(360, 250 + row*100), 'layout':'layered_grid'}
 
 
 def membership_layout(card, panel_width, font_size=18):
@@ -497,7 +539,29 @@ def compile_design(evidence, design):
     validate_evidence(evidence)
     required = {"schema", "viewport", "theme", "font_size", "gap", "padding",
                 "scale", "tree", "bindings", "indexing"}
-    keys(design, required | {"graph", "presentation", "relation_bindings", "relation_binding_style"}, required)
+    keys(design, required | {"raster_translation", "readability_audit", "factual_qa", "anchor_pack", "graph", "presentation", "relation_bindings", "relation_binding_style", "canvas_extent", "provenance", "qa_badges", "control_glyph", "readable_cards", "evidence_regions", "question_colors"}, required)
+    if 'raster_translation' in design and design['raster_translation']!={'schema':'EvidenceRasterTranslationV1','dx':16,'top':86}:
+        raise ValueError('Unregistered evidence raster translation')
+    if design.get('readability_audit') not in {None, 'VisibleSourceV1'}:
+        raise ValueError('Unknown readability audit')
+    if 'anchor_pack' in design:
+        spec=design['anchor_pack'];keys(spec,{'schema','offsets'})
+        if spec['schema']!='AnchorPackV1' or design.get('readable_cards') not in {'source_reflow_v3','source_scopes_pack_v4'} or design['scale']!=1:
+            raise ValueError('Anchor packing requires explicitly qualified reflow geometry')
+        seen=set()
+        for offset in spec['offsets']:
+            keys(offset,{'id','dx','dy'})
+            if not re.fullmatch(r'A[0-9]+',offset['id']) or offset['id'] in seen:raise ValueError('Invalid packing block ID')
+            seen.add(offset['id'])
+            if any(type(offset[k]) is not int or abs(offset[k])>16 for k in ('dx','dy')):raise ValueError('Packing offset exceeds registered bounds')
+    if 'evidence_regions' in design:
+        spec = design['evidence_regions']; keys(spec, {'schema','header','count'})
+        if spec != {'schema':'EqualVerticalRegionsV1','header':32,'count':4} or design.get('readable_cards') not in {'source_scopes_v2','source_reflow_v3','source_scopes_pack_v4'}:
+            raise ValueError('Unregistered source region layout')
+        if design['viewport']['width'] % 128 or design['viewport']['height'] % 32 or design['scale'] != 1:
+            raise ValueError('Region grid must preserve unscaled merger neighborhoods')
+    if design.get('readable_cards') not in {None, 'source_cards_v1', 'source_scopes_v2', 'source_reflow_v3', 'source_scopes_pack_v4'}:
+        raise ValueError('Unknown readable-card profile')
     if design.get('relation_binding_style', 'connectors') not in {'connectors', 'numbered', 'color'}:
         raise ValueError('Unknown relation binding style')
     graph_settings = design.get("graph", {"show_isolates": False})
@@ -508,16 +572,22 @@ def compile_design(evidence, design):
         raise ValueError("Unknown design version")
     keys(design["viewport"], {"width", "height"})
     width, height = design["viewport"]["width"], design["viewport"]["height"]
+    extent = design.get("canvas_extent")
+    if extent not in {None, "wide_8192_v1"}:
+        raise ValueError("Unregistered canvas extent")
+    maximum_width, maximum_height = (8192, 8192) if extent else (4096, 8192)
     compact_only = (len(evidence["cards"]) == 1 and evidence["cards"][0]["kind"] == "diagnostic"
                     and design["tree"].get("type") == "panel"
                     and design["tree"].get("component") == "diagnostic.compact")
-    for name, value, low, high in [("width", width, 800, 4096), ("height", height, 360 if compact_only else 600, 8192),
+    for name, value, low, high in [("width", width, 800, maximum_width), ("height", height, 360 if compact_only else 600, maximum_height),
                                   ("font", design["font_size"], 12, 28), ("gap", design["gap"], 0, 64),
                                   ("padding", design["padding"], 0, 96)]:
         if type(value) is not int or not low <= value <= high:
             raise ValueError(f"Invalid {name}")
     if design["theme"] not in {"light", "dark"} or type(design["scale"]) not in {float, int} or design["scale"] not in {0.75, 1, 1.25, 1.5, 2}:
         raise ValueError("Unregistered theme/scale")
+    if extent and max(width, height)*design["scale"] > 8192:
+        raise ValueError("Physical PNG exceeds 8192px side limit")
     keys(design["indexing"], {"visible", "start", "indices"}, {"visible", "start"})
     if type(design["indexing"]["visible"]) is not bool or type(design["indexing"]["start"]) is not int or not 0 <= design["indexing"]["start"] <= 999:
         raise ValueError("Invalid indexing policy")
@@ -538,6 +608,52 @@ def compile_design(evidence, design):
                 or any(type(v) is not int or not 0 <= v <= 999 for v in indices.values())
                 or len(set(indices.values())) != len(indices)):
             raise ValueError("Explicit component indices must be unique and cover selected cards")
+    if 'provenance' in design:
+        spec=design['provenance']; keys(spec, {'schema','roles'})
+        if spec['schema'] not in {'CanonicalForegroundV1','CanonicalForegroundV2','CanonicalForegroundV3'} or not isinstance(spec['roles'],list) or len(spec['roles'])>4094:
+            raise ValueError('Foreground audit contract/capacity')
+        role_ids=set(); expected=set(expected_bindings(evidence, graph_settings['show_isolates']))
+        for role in spec['roles']:
+            keys(role, {'id','targets'})
+            if not re.fullmatch(r'r[a-f0-9]{16}',role['id']) or role['id'] in role_ids or not role['targets']:
+                raise ValueError('Invalid/empty/duplicate foreground role')
+            role_ids.add(role['id'])
+            for target in role['targets']:
+                keys(target, {'binding','part'})
+                if target['binding'] not in expected or target['part'] not in {'all','value','marks_and_value','parent_point','child_point'}:
+                    raise ValueError('Unknown foreground target')
+    if 'factual_qa' in design:
+        seen=set();bound=set(expected_bindings(evidence,graph_settings['show_isolates']))
+        if not isinstance(design['factual_qa'],list) or len(design['factual_qa'])>5:raise ValueError('Factual QA capacity')
+        for target in design['factual_qa']:
+            keys(target,{'tag','binding','part'})
+            if target['tag'] not in {'Q1','Q3a','Q3b','Q4','Q6'} or target['tag'] in seen:raise ValueError('Factual QA tag')
+            if target['binding'] not in bound or target['part'] not in {'all','value','marks_and_value'}:raise ValueError('Factual QA source binding')
+            if target['tag']=='Q6' and '.edge.' not in target['binding']:raise ValueError('Q6 must name an existing directed edge')
+            seen.add(target['tag'])
+        if ('Q3a' in seen)!=('Q3b' in seen):raise ValueError('Incomplete factual QA comparison')
+    if 'question_colors' in design:
+        targets=design['question_colors']; seen=set();bound=set(expected_bindings(evidence,graph_settings['show_isolates']))
+        if not isinstance(targets,list) or len(targets)!=4:raise ValueError('Four fixed QA targets required')
+        for item in targets:
+            keys(item,{'slot','binding'})
+            if item['slot'] not in {'1A','1B','2A','2B'} or item['slot'] in seen or item['binding'] not in bound:
+                raise ValueError('Invalid QA color binding')
+            seen.add(item['slot'])
+    if 'qa_badges' in design:
+        targets=design['qa_badges']; seen=set(); bound=set(expected_bindings(evidence,graph_settings['show_isolates']))
+        if not isinstance(targets,list) or len(targets)>4: raise ValueError('QA badge capacity')
+        for t in targets:
+            keys(t, {'slot','badge','binding','part'})
+            pair=(t['slot'],t['badge'])
+            if t['slot'] not in {1,2} or t['badge'] not in {'A','B'} or pair in seen: raise ValueError('Anonymous QA badge identity')
+            if t['binding'] not in bound or t['part'] not in {'all','value','marks_and_value'}: raise ValueError('QA scalar target binding')
+            seen.add(pair)
+        if any((slot,'A') not in seen or (slot,'B') not in seen for slot,_ in seen): raise ValueError('Incomplete QA pair')
+    if 'control_glyph' in design:
+        spec=design['control_glyph']; keys(spec, {'binding','part'})
+        if spec['binding'] not in expected_bindings(evidence,graph_settings['show_isolates']) or spec['part'] not in {'all','value','marks_and_value'}:
+            raise ValueError('Control glyph geometry target')
     catalog = {c["id"]: c for c in read(RENDERER/"configs/components.json")["components"]}
     rects, used, tree_ids = [], set(), set()
 
@@ -549,7 +665,7 @@ def compile_design(evidence, design):
             raise ValueError("Layout nesting too deep")
         common = {"id", "type"}
         typ = node.get("type")
-        fields = common | (set() if typ == "spacer" else {"card", "component"} if typ == "panel" else {"children", "columns"} if typ == "grid" else {"children", "weights"})
+        fields = common | ({"children", "boxes"} if typ == "placed" else set() if typ == "spacer" else {"card", "component"} if typ == "panel" else {"children", "columns"} if typ == "grid" else {"children", "weights"})
         keys(node, fields | ({'node_layout','dashed_width_scale'} if typ == 'panel' else set()), fields)
         if not re.fullmatch(r"[A-Za-z][A-Za-z0-9_-]{0,40}", node["id"]) or node["id"] in tree_ids:
             raise ValueError("Invalid/nonunique layout ID")
@@ -562,15 +678,21 @@ def compile_design(evidence, design):
             cid = node["card"]
             if cid not in cards or cid in used or node["component"] not in catalog or catalog[node["component"]]["kind"] != cards[cid]["kind"]:
                 raise ValueError("Missing/duplicate card or incompatible encoding")
-            if w < 240 or h < 180:
+            if w < 240 or h < (96 if design.get('readable_cards') in {'source_scopes_v2','source_reflow_v3','source_scopes_pack_v4'} else 180):
                 raise ValueError("Panel below minimum footprint; revise design, never drop facts")
             used.add(cid)
             rects.append({"card": cid, "node": node["id"], "component": node["component"], "index": indices[cid],
                           "x": x, "y": y, "width": w, "height": h})
+            if design.get('readable_cards') in {'source_scopes_v2','source_reflow_v3','source_scopes_pack_v4'}:
+                rects[-1]['readable_cards'] = design['readable_cards']
+            if node['component'] in {'graph.source_compact','graph.numeric_source'}:
+                geometry=source_graph_layout(cards[cid],w,design['font_size'])
+                if h<geometry['min_height']:raise ValueError('Compact graph below complete capacity')
+                rects[-1]['node_link_layout']=geometry
             if 'node_layout' in node:
                 if node['component'] != 'graph.node_link' or node['node_layout'] != 'layered_grid':
                     raise ValueError('Invalid explicit node layout')
-                geometry = node_link_layout(cards[cid], w, design['font_size'])
+                geometry = node_link_layout(cards[cid], w, design['font_size'], design.get('readable_cards') in {'source_scopes_v2','source_reflow_v3','source_scopes_pack_v4'})
                 if h < geometry['min_height']:
                     raise ValueError('Node-link panel below nonoverlapping capacity')
                 rects[-1]['node_link_layout'] = geometry
@@ -620,6 +742,23 @@ def compile_design(evidence, design):
                 if h < geometry["min_height"]:
                     raise ValueError("Scope board exceeds declared capacity; never hide cells")
                 rects[-1]["scope_layout"] = geometry
+            return
+        if typ == 'placed':
+            if not design.get('evidence_regions') or depth != 0:
+                raise ValueError('Placed layout requires the registered region operation at root')
+            kids, boxes = node['children'], node['boxes']
+            if not kids or len(kids) != len(boxes): raise ValueError('Missing placed panels')
+            occupied = []
+            for child, box in zip(kids, boxes):
+                keys(box, {'x','y','width','height'})
+                bx,by,bw,bh = (box[k] for k in ('x','y','width','height'))
+                if any(type(v) is not int or v%32 for v in (bx,by,bw,bh)) or bw<=0 or bh<=0:
+                    raise ValueError('Off-grid placed panel')
+                if bx<0 or by<32 or bx+bw>width or by+bh>height or bx//(width//4)!=(bx+bw-1)//(width//4):
+                    raise ValueError('Panel crosses a region boundary')
+                if child['type']!='panel' or any(bx<xx+ww and xx<bx+bw and by<yy+hh and yy<by+bh for xx,yy,ww,hh in occupied):
+                    raise ValueError('Overlapping or nested placed panel')
+                occupied.append((bx,by,bw,bh)); walk(child,bx,by,bw,bh,depth+1)
             return
         kids, gap = node["children"], design["gap"]
         if not kids or typ not in {"row", "column", "grid"}:
@@ -691,3 +830,10 @@ def compile_design(evidence, design):
                 {n["id"] for n in visible_nodes(c, graph_settings["show_isolates"])})
                 for c in evidence["cards"] if c["kind"] == "graph"},
             "evidence_hash": digest(evidence), "design_hash": digest(design)}
+
+
+def source_graph_layout(card,width,font_size):
+    geometry=node_link_layout(card,width,font_size,tight=True)
+    positions={key:{'x':round(p['x']),'y':round(32+(p['y']-32)*.6)} for key,p in geometry['positions'].items()}
+    height=math.ceil((max((p['y'] for p in positions.values()),default=32)+160)/32)*32
+    return {**geometry,'positions':positions,'min_height':height,'layout':'source_compact_v1'}

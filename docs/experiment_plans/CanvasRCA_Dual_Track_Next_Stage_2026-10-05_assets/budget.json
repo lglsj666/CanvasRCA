@@ -1,0 +1,26 @@
+{
+  "schema": "CanvasRCAPlanningBudgetV1",
+  "status": "planning_only_not_execution_authorization",
+  "date": "2026-10-05",
+  "unit": "initiated_model_request",
+  "attempt_ceiling": 3000,
+  "allocations": [
+    {"module": "main_four_arms", "cases": 220, "calls_per_case": 4, "attempts": 880},
+    {"module": "true_repeats_compact_and_replace", "cases": 60, "calls_per_case": 2, "attempts": 120},
+    {"module": "qa_and_readout_interventions", "cases": 60, "calls_per_case": 8, "attempts": 480},
+    {"module": "attention_qualification_conditional", "attempts": 36, "time_limit_seconds": 1200},
+    {"module": "attention_header_interventions_conditional", "cases": 20, "calls_per_case": 4, "attempts": 80},
+    {"module": "sircl_single_request_baseline_conditional", "cases": 220, "calls_per_case": 1, "attempts": 220},
+    {"module": "frozen_extension_conditional_exposure_audit_required", "cases": 360, "calls_per_case": 3, "attempts": 1080},
+    {"module": "shared_smoke", "attempts": 18, "time_limit_seconds": 600},
+    {"module": "recoverable_infrastructure_reserve", "attempts": 86}
+  ],
+  "notes": [
+    "Counts are upper bounds; identical-request references do not consume model requests.",
+    "Repeats always require new calls. All initiated failures count.",
+    "No automatic transfer of unused conditional allocations or historical remaining budget.",
+    "QA shares contemporary C/V RCA controls from the main matrix.",
+    "The historical test360 is exposed; this allocation does not assert independence.",
+    "Current-turn initiated model requests: 0."
+  ]
+}

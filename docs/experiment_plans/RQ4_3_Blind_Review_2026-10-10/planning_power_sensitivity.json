@@ -1,0 +1,214 @@
+{
+  "schema": "RQ43PlanningPowerSensitivityV1",
+  "source": "RQs/RQ4_1/results/comparison_coding_v1/final_analysis_v1/calls.csv",
+  "source_sha256": "c479cb28abbebf3b3a33bc56e48722c3ba5c421064a1d89cc01bdbee02b1e7ec",
+  "seed": 20261010,
+  "status": "planning_sensitivity_not_experiment_qualification",
+  "model_calls": 0,
+  "assumptions": [
+    "Resampled historical event-group absolute differences and tie mass; random signs under null, fixed sign bias under alternatives.",
+    "Alternative target is equal-event-group mean, not pooled case delta.",
+    "Alpha .025 is a conservative per-comparison threshold for a two-comparison Holm family, not the family joint power.",
+    "Results do not predict X_SRP performance or demonstrate power against arbitrary asymmetric/heterogeneous alternatives.",
+    "This simulation is not a validation of evidence selectors or a reason to select a more favorable test."
+  ],
+  "records": [
+    {
+      "scale_pair": [
+        "A_UNIFORM_E50",
+        "CVC_E50"
+      ],
+      "groups": 193,
+      "groups_by_dataset": {
+        "aegislab": 100,
+        "aiops2022": 33,
+        "aiops2025": 60
+      },
+      "historical_difference_sd": 0.21865113508527373,
+      "historical_zero_fraction": 0.7875647668393783,
+      "mean_absolute_difference": 0.08158318940703109,
+      "target_group_mean": 0.0,
+      "simulated_mean": -0.00010681059297646122,
+      "positive_probability": 0.5,
+      "reject_at_0_025": 0.02325,
+      "reject_at_0_05": 0.0485,
+      "repetitions": 4000
+    },
+    {
+      "scale_pair": [
+        "A_UNIFORM_E50",
+        "CVC_E50"
+      ],
+      "groups": 193,
+      "groups_by_dataset": {
+        "aegislab": 100,
+        "aiops2022": 33,
+        "aiops2025": 60
+      },
+      "historical_difference_sd": 0.21865113508527373,
+      "historical_zero_fraction": 0.7875647668393783,
+      "mean_absolute_difference": 0.08158318940703109,
+      "target_group_mean": 0.02,
+      "simulated_mean": 0.019884648819806023,
+      "positive_probability": 0.6225742713993254,
+      "reject_at_0_025": 0.2405,
+      "reject_at_0_05": 0.33375,
+      "repetitions": 4000
+    },
+    {
+      "scale_pair": [
+        "A_UNIFORM_E50",
+        "CVC_E50"
+      ],
+      "groups": 193,
+      "groups_by_dataset": {
+        "aegislab": 100,
+        "aiops2022": 33,
+        "aiops2025": 60
+      },
+      "historical_difference_sd": 0.21865113508527373,
+      "historical_zero_fraction": 0.7875647668393783,
+      "mean_absolute_difference": 0.08158318940703109,
+      "target_group_mean": 0.03,
+      "simulated_mean": 0.0298911600460591,
+      "positive_probability": 0.6838614070989881,
+      "reject_at_0_025": 0.5365,
+      "reject_at_0_05": 0.64975,
+      "repetitions": 4000
+    },
+    {
+      "scale_pair": [
+        "A_UNIFORM_E50",
+        "CVC_E50"
+      ],
+      "groups": 193,
+      "groups_by_dataset": {
+        "aegislab": 100,
+        "aiops2022": 33,
+        "aiops2025": 60
+      },
+      "historical_difference_sd": 0.21865113508527373,
+      "historical_zero_fraction": 0.7875647668393783,
+      "mean_absolute_difference": 0.08158318940703109,
+      "target_group_mean": 0.06,
+      "simulated_mean": 0.05970249856074227,
+      "positive_probability": 0.8677228141979763,
+      "reject_at_0_025": 0.9995,
+      "reject_at_0_05": 0.99975,
+      "repetitions": 4000
+    },
+    {
+      "scale_pair": [
+        "A_UNIFORM_E50",
+        "CVC_E50"
+      ],
+      "target_group_mean": 0.1,
+      "status": "outside_sign_bias_support"
+    },
+    {
+      "scale_pair": [
+        "A_UNIFORM_E50",
+        "V_FULL"
+      ],
+      "groups": 193,
+      "groups_by_dataset": {
+        "aegislab": 100,
+        "aiops2022": 33,
+        "aiops2025": 60
+      },
+      "historical_difference_sd": 0.3383696520981389,
+      "historical_zero_fraction": 0.47150259067357514,
+      "mean_absolute_difference": 0.2178526194588342,
+      "target_group_mean": 0.0,
+      "simulated_mean": 0.00027446603339114376,
+      "positive_probability": 0.5,
+      "reject_at_0_025": 0.02875,
+      "reject_at_0_05": 0.0565,
+      "repetitions": 4000
+    },
+    {
+      "scale_pair": [
+        "A_UNIFORM_E50",
+        "V_FULL"
+      ],
+      "groups": 193,
+      "groups_by_dataset": {
+        "aegislab": 100,
+        "aiops2022": 33,
+        "aiops2025": 60
+      },
+      "historical_difference_sd": 0.3383696520981389,
+      "historical_zero_fraction": 0.47150259067357514,
+      "mean_absolute_difference": 0.2178526194588342,
+      "target_group_mean": 0.02,
+      "simulated_mean": 0.02030738198042601,
+      "positive_probability": 0.545902592426205,
+      "reject_at_0_025": 0.09625,
+      "reject_at_0_05": 0.15325,
+      "repetitions": 4000
+    },
+    {
+      "scale_pair": [
+        "A_UNIFORM_E50",
+        "V_FULL"
+      ],
+      "groups": 193,
+      "groups_by_dataset": {
+        "aegislab": 100,
+        "aiops2022": 33,
+        "aiops2025": 60
+      },
+      "historical_difference_sd": 0.3383696520981389,
+      "historical_zero_fraction": 0.47150259067357514,
+      "mean_absolute_difference": 0.2178526194588342,
+      "target_group_mean": 0.03,
+      "simulated_mean": 0.030249405584340614,
+      "positive_probability": 0.5688538886393075,
+      "reject_at_0_025": 0.197,
+      "reject_at_0_05": 0.28025,
+      "repetitions": 4000
+    },
+    {
+      "scale_pair": [
+        "A_UNIFORM_E50",
+        "V_FULL"
+      ],
+      "groups": 193,
+      "groups_by_dataset": {
+        "aegislab": 100,
+        "aiops2022": 33,
+        "aiops2025": 60
+      },
+      "historical_difference_sd": 0.3383696520981389,
+      "historical_zero_fraction": 0.47150259067357514,
+      "mean_absolute_difference": 0.2178526194588342,
+      "target_group_mean": 0.06,
+      "simulated_mean": 0.06051427317213509,
+      "positive_probability": 0.6377077772786149,
+      "reject_at_0_025": 0.69725,
+      "reject_at_0_05": 0.78675,
+      "repetitions": 4000
+    },
+    {
+      "scale_pair": [
+        "A_UNIFORM_E50",
+        "V_FULL"
+      ],
+      "groups": 193,
+      "groups_by_dataset": {
+        "aegislab": 100,
+        "aiops2022": 33,
+        "aiops2025": 60
+      },
+      "historical_difference_sd": 0.3383696520981389,
+      "historical_zero_fraction": 0.47150259067357514,
+      "mean_absolute_difference": 0.2178526194588342,
+      "target_group_mean": 0.1,
+      "simulated_mean": 0.10052397668393655,
+      "positive_probability": 0.729512962131025,
+      "reject_at_0_025": 0.9935,
+      "reject_at_0_05": 0.998,
+      "repetitions": 4000
+    }
+  ]
+}

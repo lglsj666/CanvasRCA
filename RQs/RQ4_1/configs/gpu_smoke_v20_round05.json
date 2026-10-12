@@ -1,0 +1,334 @@
+{
+  "schema": "RQ41GPUSmokeV20",
+  "authority": "user_2026_10_07_ten_additional_smokes",
+  "output": "RQs/RQ4_1/results/comparison_coding_v1/gpu_smoke_v20_round05",
+  "model_path": "/home/lglsj/CanvasRCA/models/Qwen3.8-27B",
+  "gpu_allocator_fraction": 0.75,
+  "max_calls": 18,
+  "wall_seconds": 600,
+  "formal_enabled": false,
+  "generation": {
+    "max_new_tokens": 8192,
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 0
+  },
+  "cases": [
+    {
+      "id": "INC-6E627662CA32",
+      "dataset": "aiops2022"
+    },
+    {
+      "id": "INC-D9245047C658",
+      "dataset": "aiops2025"
+    },
+    {
+      "id": "INC-37ABFB78A80E",
+      "dataset": "aegislab"
+    }
+  ],
+  "hf_groups": [
+    {
+      "name": "aiops2022_A",
+      "slots": [
+        1
+      ],
+      "requests": [
+        "INC-6E627662CA32__BASE"
+      ],
+      "mode": "native",
+      "arm": "V_FULL",
+      "attention": false,
+      "greedy": true,
+      "pair_role": "native",
+      "pair_key": "INC-6E627662CA32",
+      "speed_condition": "A"
+    },
+    {
+      "name": "aiops2022_B",
+      "slots": [
+        2
+      ],
+      "requests": [
+        "INC-6E627662CA32__BASE"
+      ],
+      "mode": "identity",
+      "arm": "V_FULL",
+      "attention": false,
+      "greedy": true,
+      "pair_role": "identity",
+      "pair_key": "INC-6E627662CA32",
+      "speed_condition": "B"
+    },
+    {
+      "name": "aiops2022_C",
+      "slots": [
+        3
+      ],
+      "requests": [
+        "INC-6E627662CA32__BASE"
+      ],
+      "mode": "identity",
+      "arm": "V_FULL",
+      "attention": true,
+      "greedy": true,
+      "pair_role": "identity",
+      "pair_key": "INC-6E627662CA32",
+      "speed_condition": "C"
+    },
+    {
+      "name": "aiops2022_D",
+      "slots": [
+        4
+      ],
+      "requests": [
+        "INC-6E627662CA32__BASE"
+      ],
+      "mode": "select",
+      "arm": "CVC_E50",
+      "attention": false,
+      "greedy": true,
+      "pair_role": "native",
+      "pair_key": "INC-6E627662CA32_CVC",
+      "speed_condition": "D"
+    },
+    {
+      "name": "aiops2022_E",
+      "slots": [
+        5
+      ],
+      "requests": [
+        "INC-6E627662CA32__BASE"
+      ],
+      "mode": "select",
+      "arm": "CVC_E50",
+      "attention": true,
+      "greedy": true,
+      "pair_role": "identity",
+      "pair_key": "INC-6E627662CA32_CVC",
+      "speed_condition": "E"
+    },
+    {
+      "name": "aiops2022_A2",
+      "slots": [
+        6
+      ],
+      "requests": [
+        "INC-6E627662CA32__BASE"
+      ],
+      "mode": "native",
+      "arm": "V_FULL",
+      "attention": false,
+      "greedy": true,
+      "pair_role": "identity",
+      "pair_key": "INC-6E627662CA32",
+      "speed_condition": "A2"
+    },
+    {
+      "name": "aiops2025_A",
+      "slots": [
+        7
+      ],
+      "requests": [
+        "INC-D9245047C658__BASE"
+      ],
+      "mode": "native",
+      "arm": "V_FULL",
+      "attention": false,
+      "greedy": true,
+      "pair_role": "native",
+      "pair_key": "INC-D9245047C658",
+      "speed_condition": "A"
+    },
+    {
+      "name": "aiops2025_B",
+      "slots": [
+        8
+      ],
+      "requests": [
+        "INC-D9245047C658__BASE"
+      ],
+      "mode": "identity",
+      "arm": "V_FULL",
+      "attention": false,
+      "greedy": true,
+      "pair_role": "identity",
+      "pair_key": "INC-D9245047C658",
+      "speed_condition": "B"
+    },
+    {
+      "name": "aiops2025_C",
+      "slots": [
+        9
+      ],
+      "requests": [
+        "INC-D9245047C658__BASE"
+      ],
+      "mode": "identity",
+      "arm": "V_FULL",
+      "attention": true,
+      "greedy": true,
+      "pair_role": "identity",
+      "pair_key": "INC-D9245047C658",
+      "speed_condition": "C"
+    },
+    {
+      "name": "aiops2025_D",
+      "slots": [
+        10
+      ],
+      "requests": [
+        "INC-D9245047C658__BASE"
+      ],
+      "mode": "select",
+      "arm": "CVC_E50",
+      "attention": false,
+      "greedy": true,
+      "pair_role": "native",
+      "pair_key": "INC-D9245047C658_CVC",
+      "speed_condition": "D"
+    },
+    {
+      "name": "aiops2025_E",
+      "slots": [
+        11
+      ],
+      "requests": [
+        "INC-D9245047C658__BASE"
+      ],
+      "mode": "select",
+      "arm": "CVC_E50",
+      "attention": true,
+      "greedy": true,
+      "pair_role": "identity",
+      "pair_key": "INC-D9245047C658_CVC",
+      "speed_condition": "E"
+    },
+    {
+      "name": "aiops2025_A2",
+      "slots": [
+        12
+      ],
+      "requests": [
+        "INC-D9245047C658__BASE"
+      ],
+      "mode": "native",
+      "arm": "V_FULL",
+      "attention": false,
+      "greedy": true,
+      "pair_role": "identity",
+      "pair_key": "INC-D9245047C658",
+      "speed_condition": "A2"
+    },
+    {
+      "name": "aegislab_A",
+      "slots": [
+        13
+      ],
+      "requests": [
+        "INC-37ABFB78A80E__BASE"
+      ],
+      "mode": "native",
+      "arm": "V_FULL",
+      "attention": false,
+      "greedy": true,
+      "pair_role": "native",
+      "pair_key": "INC-37ABFB78A80E",
+      "speed_condition": "A"
+    },
+    {
+      "name": "aegislab_B",
+      "slots": [
+        14
+      ],
+      "requests": [
+        "INC-37ABFB78A80E__BASE"
+      ],
+      "mode": "identity",
+      "arm": "V_FULL",
+      "attention": false,
+      "greedy": true,
+      "pair_role": "identity",
+      "pair_key": "INC-37ABFB78A80E",
+      "speed_condition": "B"
+    },
+    {
+      "name": "aegislab_C",
+      "slots": [
+        15
+      ],
+      "requests": [
+        "INC-37ABFB78A80E__BASE"
+      ],
+      "mode": "identity",
+      "arm": "V_FULL",
+      "attention": true,
+      "greedy": true,
+      "pair_role": "identity",
+      "pair_key": "INC-37ABFB78A80E",
+      "speed_condition": "C"
+    },
+    {
+      "name": "aegislab_D",
+      "slots": [
+        16
+      ],
+      "requests": [
+        "INC-37ABFB78A80E__BASE"
+      ],
+      "mode": "select",
+      "arm": "CVC_E50",
+      "attention": false,
+      "greedy": true,
+      "pair_role": "native",
+      "pair_key": "INC-37ABFB78A80E_CVC",
+      "speed_condition": "D"
+    },
+    {
+      "name": "aegislab_E",
+      "slots": [
+        17
+      ],
+      "requests": [
+        "INC-37ABFB78A80E__BASE"
+      ],
+      "mode": "select",
+      "arm": "CVC_E50",
+      "attention": true,
+      "greedy": true,
+      "pair_role": "identity",
+      "pair_key": "INC-37ABFB78A80E_CVC",
+      "speed_condition": "E"
+    },
+    {
+      "name": "aegislab_A2",
+      "slots": [
+        18
+      ],
+      "requests": [
+        "INC-37ABFB78A80E__BASE"
+      ],
+      "mode": "native",
+      "arm": "V_FULL",
+      "attention": false,
+      "greedy": true,
+      "pair_role": "identity",
+      "pair_key": "INC-37ABFB78A80E",
+      "speed_condition": "A2"
+    }
+  ],
+  "native_slot": null,
+  "execution_order": "HF slots1-9,11-18; unload HF; production native slot10",
+  "untested_prior_paths": [
+    "SCOPE_E50",
+    "S2PRUNE_E50"
+  ],
+  "input_root": "RQs/RQ4_1/results/comparison_coding_v1/gpu_smoke_v18/inputs",
+  "allowance": "RQs/RQ4_1/configs/gpu_smoke_allowance_v20.json",
+  "round": 5,
+  "ledger_scope": "rq41_smoke_v20_round05",
+  "previous_smoke_attempts": 28,
+  "monitor_before_handoff_seconds": 180,
+  "supplement": "RQ4_1_GPU_Supplement_2026-10-07",
+  "expected_parity_pairs": 12
+}

@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Source from repository root after the site's ordinary module environment.
+module load arrow/18.1.0
+export CANVASRCA_ROOT="$(pwd)"
+export CANVASRCA_ENV="$CANVASRCA_ROOT/.venv-inference"
+source scripts/env.sh
+export CANVASRCA_PYTHON="$CANVASRCA_ENV/bin/python"
+export CANVASRCA_VLLM_BIN="$CANVASRCA_ENV/bin/vllm"
+export CANVASRCA_VLLM_CONFIG="$CANVASRCA_ROOT/RQs/RQ3_8/results/ops_components_v2/runtime/inference.yaml"
+export CANVASRCA_RECORD_ATTENTION=0
+export CANVASRCA_ATTENTION_PROBE=0
+export CANVASRCA_ATTENTION_PROBE_REQUIRED=0
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+export TOKENIZERS_PARALLELISM=false
+export PYTHONUNBUFFERED=1
+# Node-local ports and compilation caches must not collide across GPU jobs.
+if [[ -n "${SLURM_JOB_ID:-}" ]]; then
+  export CANVASRCA_VLLM_PORT="$((20000 + SLURM_JOB_ID % 30000))"
+  export TRITON_CACHE_DIR="$CANVASRCA_CACHE_ROOT/triton/rq38-$SLURM_JOB_ID"
+  export VLLM_CACHE_ROOT="$CANVASRCA_CACHE_ROOT/vllm/rq38-$SLURM_JOB_ID"
+fi

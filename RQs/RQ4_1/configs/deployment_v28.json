@@ -1,0 +1,36 @@
+{
+  "schema": "RQ41DeploymentV26",
+  "purpose": "formal",
+  "authority": "pending_user_launch",
+  "output": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28",
+  "index": "RQs/RQ4_1/results/comparison_coding_v1/deployment_v26/request_index.json",
+  "freeze": "RQs/RQ4_1/results/comparison_coding_v1/deployment_v28/freeze.json",
+  "authorization_file": "RQs/RQ4_1/configs/formal_authorization_v28.json",
+  "model_path": "/home/lglsj/CanvasRCA/models/Qwen3.8-27B",
+  "native_profile": "RQs/RQ4_1/configs/vllm_deployment_v28.yaml",
+  "ranking_decoder_profile": "ranking_prefix_greedy_v25",
+  "generation_schema_profile": "public_numeric_id_v23",
+  "generation": {
+    "max_new_tokens": 8192,
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 0
+  },
+  "gpu_allocator_fraction": 0.75,
+  "backends": [
+    "hf",
+    "native"
+  ],
+  "native_concurrency": 36,
+  "common_batch_size": 1,
+  "max_calls": 6470,
+  "previous_model_attempts_before_this_task": 139,
+  "global_call_ceiling": 12000,
+  "ledger_scope": "rq41_formal_v28",
+  "formal_enabled": false,
+  "audit_logits": false,
+  "score_in_backend": false,
+  "max_device_hours": null,
+  "acceptance": "RQs/RQ4_1/configs/runtime_acceptance_v26.json",
+  "formal_phase_order_disclosed": true
+}

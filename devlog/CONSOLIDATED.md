@@ -1,5 +1,88 @@
 # CanvasRCA consolidated devlog
 
+## 2026-10-12 — RQ4.4 complete analysis delivered
+
+Formal840/840 plus smoke18 complete; no new analysis calls. SOURCE MRR .3286 (tolerant .3431), below historical U .3517 with2.409x tokens. Both primary Holm comparisons fail to establish benefit; candidate closed under registration. All30 mechanism cases read,270 formal attention mappings verified, Precision corrected offline without changing raw scores. [Detailed report](../docs/experiment_reports/RQ4_4_Qwen_Analysis_2026-10-12.md) · [RQ-local log](../RQs/RQ4_4/results/source_views_v1/logs/2026-10-12_final_analysis.md).
+
+## 2026-10-12 — RQ4.4 source-complete local views qualified and launched
+
+Implemented SOURCE_ZOOM / REPEAT_VIEW / HASH_ZOOM from the unchanged historical U overview. All220 cases and660main inputs pass actual-processor CPU qualification; fixed mechanism30,18runtime probes,16offline regressions and2shared renderer checks pass. One GPU smoke18/18 completes and verifies in199.93s,zero infrastructure errors;9passive attention records3,525–3,966bytes,only layer3 last-prompt/first-decode queries. Added a registered unified renderer export operation without changing old component defaults or Codex. Storage-only post-smoke fixes cover concurrent atomic writes, reference metadata, finalization resume and retention verification; frozen requests/model/renderer/inference are unchanged and original smoke provenance remains. Formal840 positions launched withCPU8/GPU8,vLLM BF16 memory0.8; 180.30s observation after first commit passed; 37/840 committed at handoff, no infrastructure error. Optional DeepGEMM import warning is handled and not a request failure. HistoricalU/T_FULL/MARGINAL_FIVE reused,900actual-call ceiling including smoke18 and recovery42. Runtime HTML remains until drain; exactPNG/conversations/labels/attention/source maps retained with plain-file deduplication and final density audit. [Deployment report](../docs/experiment_reports/RQ4_4_GPU_Qualification_2026-10-12.md) · [Current state](../RQs/RQ4_4/findings/exp_source_views_findings.md).
+
+## 2026-10-11 — Artifact retirement extended through RQ3.15; RQ3.16 unchanged
+
+User explicitly requested removing all raw results, preparation, inputs, conversations, outputs and generated intermediates through RQ3.15, while preserving source/configuration, design documents, analysis reports and their figures/tables. Removed 43 further project artifact roots, retaining 32 human documents and 115 referenced report/gallery assets; HTML dependencies verified. Removed 386 clearly attributable Windows example exports for RQ3.8 and RQ3.10–12, preserving later example directories. Approximately 26.51 GB freed on the project filesystem. Every one of RQ3.16's 23,722 files and its main report remains byte-identical; 690 source/configuration files, Codex and 587 report/gallery assets verified. Old upstream preparation dependencies are intentionally unavailable; no raw-output backup was kept. No model calls or run resume; RQ4.3 remains manually paused. [Cleanup record](../docs/issues/Through_RQ3_15_Artifact_Deletion_2026-10-11.md).
+
+## 2026-10-11 — User-authorized removal of pre-unified experiment artifacts
+
+RQ3.8 is the first experiment using `src/renderer/`. Removed raw results, preparation, intermediate artifacts and old run caches/logs for RQ1/RQ1.1/RQ2/RQ2.1/RQ3/RQ3.1–3.7, retaining source/configuration, reports and report-linked images/tables. Relocated 190 reports and 40 attachments; verified all 538 existing local report assets, 451 old source/configuration files and 239 later source/configuration files. No new broken report-asset links; four preexisting missing links are documented. Approximately 297.12 GB (276.72 GiB) freed. Raw-result replay/rescoring is no longer available for these retired runs. RQ3.8+ artifacts and Codex unchanged; no model calls or experiment restart. RQ4.3 remains manually paused by the user. [Cleanup report](../docs/issues/Pre_Unified_Artifact_Deletion_2026-10-11.md).
+
+## 2026-10-11 — RQ4.3 vLLM v13 resumed; startup observation completed
+
+User waived GPU smoke and authorized direct formal resume. Static plus 14 affected offline regressions and 43 actual processor packets passed; renderer/Codex/historical commits preserved. Unified vLLM retains registered token operations, MRoPE and passive text/image attention, with eight physical-core CPU workers and actual decode batch eight. After the first new commit, 180.10 seconds of observation ended at 405/2632 with no new infrastructure failures; subsequent handoff snapshot 418/2632, running. Prior 14 infrastructure failures and nine interruptions remain charged. Startup GPU mean 82.43% is below the earlier 85.58% reference and is not a sustained speed claim. Twelve audited attention records were 793–801 bytes each; conservative 10,000-record ceiling 730,464,256 bytes. Full real-model backend numerical equivalence was not separately tested. [Deployment report](../docs/experiment_reports/RQ4_3_VLLM_Deployment_v13_2026-10-11.md); [RQ log](../RQs/RQ4_3/results/deployment_v13/logs/2026-10-11_vllm_deployment.md).
+
+
+## 2026-10-11 — RQ4.3 eight-way GPU function passes; utilization target remains unmet
+
+Later user amendment:85.58% explicitly accepted;stop further optimization.Performance is no longer blocking.Formal remains paused;this status question does not launch it.
+
+User waived CPU rerun. Final fused BF16 smoke18/18 in284.21s,8physical CPU workers and8decode overlap;0infrastructure errors,2invalid replies retained. Eight opportunities consumed81calls. Mean active GPU85.58%,eight-inflight87.67%,below88% target. Weights/input PNGs unchanged; fused rounding alters7/15 rankings, accepted by the user's operational precision criterion. Attention803bytes; on/off reply equal. Formal281/2632 remains paused, activation disabled, no owned GPU process. [Report](../docs/experiment_reports/RQ4_3_Concurrency_GPU_Qualification_v9_2026-10-11.md) · [RQ log](../RQs/RQ4_3/results/concurrency_v9/logs/2026-10-11_concurrency_and_acceleration.md).
+
+
+## 2026-10-11 — RQ4.3 v6 scoped CPU progress, full qualification pending
+
+User-authorized layout repair is recorded in v6. S/P CPU source checks220/220,
+S images440/440,18current tests and220prompt/X_SP followups pass. R fixed
+prototypes fit full-image capacity but exceed retained K even before allocating
+observation tokens. Two redundant S conditions cancelled;5988 allocated/8000
+ceiling, zero new model calls. No Codex edit or GPU launch. [RQ-local log](../RQs/RQ4_3/results/cpu_render_v6/logs/2026-10-11_layout_repair_and_cpu.md)
+· [detailed CPU report](../docs/experiment_reports/RQ4_3_CPU_Progress_2026-10-11.md).
+
+## 2026-10-10 — RQ4.2 complete: source partitioning does not improve the strongest visual method
+
+All 1,336 positions committed: 1,100 RCA and 236 QA, 1,328 actual calls plus 8 exact references, no infrastructure unknowns. Including prior qualification, 1,347 attempts. FULL/GEOM/SEM/SHAM/NATIVE4 MRR .2841/.3088/.3084/.3011/.3235; reused A_UNIFORM_E50 .3517, T_FULL .4846 and hybrid MARGINAL_FIVE .5054 without new calls. SEM total tokens save 24.02% versus text but cost 2.89 times uniform pruning; ranking/latency gates fail and the candidate closes. Registered primary/mechanism families do not pass Holm. Audited 109 dependencies, all submissions, 2,173 PNG checks, current and historical scores and 28 independently recomputed tests. Read 60 reasons in 12 fixed cases with 7 directed source checks; 534 attention summaries use 403,919 bytes and observe only one text layer/two query positions. Complete data, failure denominators, QA, attention, timing limits and historical comparability are documented. No new model calls, runtime edits, Codex changes or next experiment. [Detailed report](../docs/experiment_reports/RQ4_2_Qwen_Analysis_2026-10-10.md); [RQ log](../RQs/RQ4_2/results/partition_v4/logs/final_analysis_2026-10-10.md).
+
+## 2026-10-09 — RQ4.2 best-prefix partition revision passes CPU admission
+
+User explicitly reopened algorithm repair without GPU authorization. Deterministic capacity-feasible best-prefix moves/swaps replace strict one-step descent; gate metrics never enter objective. Unchanged thresholds, uniform edge weights, source closure, background cap, pixels and fixed SHAM seed. SEM57/60,56/60,71/100; SHAM56/60,56/60,90/100; independent recomputation and30probe/full identities pass. Reuse unchanged v3 renderer/source geometry. QA59ready/1N/A/350questions, actual CPU processor220cases/558forms, no resize, max16846 input/16384image tokens. All five offline cold paths and recovery pass; 27 RQ tests plus2new final checks pass, one historical browser check reused.111protected files/Codex unchanged.100dependencies frozen; no activation permission, GPU calls or new scientific outcomes. GPU supervisor integration and real model qualification remain later work. Stop at CPU. [Report](../docs/experiment_reports/RQ4_2_SEM_Refinement_CPU_Qualification_2026-10-09.md); [protocol](../RQs/RQ4_2/descriptions/RQ4_2_partition_refinement_v4.md).
+
+## 2026-10-09 — RQ4.2 representation repaired; SEM intervention admission fails
+
+User-authorized CPU revision repaired scoped-caption overflow, variable event-plot height, exhaustive-candidate directory identity and diagnostic foreground masks. Unified renderer v3 packs/renders all 220 cases; 404,452 bindings checked. Correct SEM joint admission: A22 50/60, A25 55/60, Aegis 38/100; Aegis fails the unchanged 50% gate. Ink-weighted relation allocation reaches 44/100 and is not adopted; limited three-group-cycle probe also fails to resolve it. Preserve invalidated v2 and all attempts. 50 distinct technical tests pass; 10 unrelated optional browser tests not run. Default fixture PNG byte-identical; 111 protected files unchanged. Current QA/actual-processor/full runtime admission remains unqualified; no CPU activation receipt. The candidate stops, not an RCA performance result. No GPU, model calls or attention collection. [Detailed report](../docs/experiment_reports/RQ4_2_CPU_Revision_2026-10-09.md); [revision](../docs/experiment_plans/RQ4_2_CPU_Revision_2026-10-09.md); [findings](../RQs/RQ4_2/findings/exp_partition_findings.md).
+
+## 2026-10-09 — RQ4.2 stops at common-image CPU capacity admission
+
+Saved the approved five-arm provenance-defined encoder partition plan and review dispositions. Implemented the CPU source/DOM admission path and numerical grouping primitives; added an explicit shared-renderer narrow-caption readability operation without changing defaults. Fixed inventory-width classification, scalar digit wrapping and graph-height measurement before rerunning affected admission. Final220-case necessary capacity passes: A22 0/60, A25 5/60, Aegis1/100;214 exceed the maximum canvas even before header, spacing and source-bundle packing. Static/type checks and37 local regressions pass;12 optional historical browser tests skipped. Three fixed cases reproduce DOM measurements; default regression PNG byte-identical.111 protected source/report/scorer/Codex hashes unchanged. Per registered stop rule, complete CPU qualification fails and downstream encoder/QA/attention/formal execution remains unimplemented/unqualified.0 new calls or GPU work; do not claim this tests the encoder hypothesis. [Report](../docs/experiment_reports/RQ4_2_CPU_Admission_2026-10-09.md); [findings](../RQs/RQ4_2/findings/exp_partition_findings.md).
+
+## 2026-10-09 — RQ4.1 complete: compressed visual ranking loss, position sensitivity and bounded attention findings
+
+All6100 positions terminal:6082 committed replies and18 preregistered N/A; 4840 main calls complete. Preserved36 pre-HTTP seed-validation failures and1 power-loss interruption;6119 formal attempts plus163 earlier qualification/probes. Central scoring,12164 request/trajectory hashes,881 PNGs,137 frozen dependencies and801 attention maps verified;32 independent Decimal/Holm comparisons agree. T_FULL/T_NATIVE/CVC_E50/A_UNIFORM_E50/V_FULL MRR .4846/.4861/.3332/.3517/.2209. CVC tokens save73.69%, comparable HF online wall only3.63%; cold/native workload efficiency unestablished. Six primary v11 comparisons fail; candidate closes, no posthoc winner/confirmation. Position causes47/90 top1 flips in each CVC/UNARY vs0repeat, adjusted p7.47e−13. All360 repeat rankings match but reasons differ. QA joint floor plus inherited RCA instructions in text QA prevent the intended QA–RCA inference. Attention is801 summaries of one layer/two initial queries,4.12MB allocated including maps/directories,10000-call bound730.46MB; title density is descriptive, not sink causality. Read48 reasons in12 fixed posthoc cases, checked10 directed entries in6 cases. No new inference or runtime/Codex edits; owned services stopped. [Full report](../docs/experiment_reports/RQ4_1_Qwen_Analysis_2026-10-09.md); [RQ log](../RQs/RQ4_1/results/comparison_coding_v1/logs/final_analysis_2026-10-09.md).
+
+## 2026-10-06 — RQ3.22 cancelled and completely removed; pure-visual direction adopted
+
+The user cancelled the unlaunched RQ3.22 and explicitly requested deletion of its entire experiment, including plans, code, test scripts, CPU/GPU smoke artifacts and examples. Removed the RQ directory, its plan/report files and assets, and the two RQ3.22 Windows galleries; no backup retained. There were no formal calls. The 54 already spent smoke attempts remain a count only in [deletion accounting](../docs/issues/RQ3_22_Deletion_Record_2026-10-06.json); their inputs/outputs and qualification receipts were deleted. RQ3.21 and earlier experiments remain intact. No model service is running. Earlier RQ3.22 qualification entries and live index links were removed to avoid suggesting resumable qualification.
+
+All future research is now under RQ4, with a documentation-only statement/roadmap/registration-status scaffold. Necessary task, dashboard-reading and output-format text remains allowed; only incident diagnostic evidence is visual-only. Read the user-provided important_docs/conversation_oct_06. Codex.md now requires future method candidates to carry all incident-specific evidence through unified-renderer visual input, with no hybrid fallback. Static task/output instructions are allowed; strong text remains an evaluation baseline. This direction change authorizes neither a replacement experiment nor training/model calls. Next: a scoped feasibility and method decision around provenance-preserving visual representation, followed by explicit registration rather than another automatic full matrix.
+
+## 2026-10-06 — RQ3.21 completed: cheaper encoding loses ranking; position sensitivity established
+
+All2020 positions terminal:1767 fresh returns,21 exact-request references,220 historical anchors,12 infrastructure timeouts. Preserved35 power-loss interruptions;1814 formal attempts+18smoke=1832/1940. Owned GPU service inactive/success. Offline audit checked211 frozen dependencies,220 public/private identities,211 PNGs,1987 unique commit graphs,2008 logical inputs/token totals and20 independent case/group statistical tests. A/RT/RV/PV/EV/CT/CV MRR .5054/.4436/.4934/.4307/.4866/.4029/.4180; CV−A−.08742 (Holm case/group .02908/.06099), CV−RT−.02561. CV total tokens save16.3%–17.7% against A but ranking gates fail; no candidate adoption. Registered QA declines and excess position-induced top1 flips survive correction; strict-unit scoring ambiguity and exploratory phase-only audit disclosed. Read108 reasons in36 fixed cases; source-checked9 facts in6 cases, no population explanation-error-rate estimate. Formal known new tokens36,260,494 plus358,024smoke, unknown usage for47 interrupted/timeout attempts. No new inference/source/renderer change or automatic follow-on. [Detailed report](../docs/experiment_reports/RQ3_21_Qwen_Analysis_2026-10-06.md); [RQ log](../RQs/RQ3_21/results/compact_entity_v1/logs/2026-10-06_final_analysis.md).
+
+## 2026-10-06 UTC — RQ3.20 complete; token savings with ranking loss and action-interface failure
+
+Core1520 workflows terminal:1285done,205mechanism-inapplicable,30timeouts. Formal1460 actual attempts/1430 returns,16smoke,1476total; no retries or new analysis calls. Owned service inactive. Audited189 frozen sources,220 public recompilations,216 exact PNGs,1430 actual requests/scores/atomic commits and ledger;26 case/group statistics agree independently. F/ST/SV/T/V MRR .4693/.3649/.3139/.3782/.3866. Paired V−F−.0696, case/group Holm .00375/.00173; full-denominator bounds remain negative. Known paired V/F total tokens−16.86%, V/T+12.10%, output3.48x; no latency/GPU-saving claim, timeout usage unknown. All287/526 invalid selectors requested known but non-retrievable TRC/LOG IDs, causing registered whole-list rejection. QA cards improve only directly covered questions;19/60 applicable mechanisms, no reliable RR gain. Screened177 available positions in36x5 fixed-sample review, extracted6 targeted cases and checked10 source claims in5; no complete manual116-output grounding or explanation error-rate claim. Current candidate closed; conditional90/SIRCL/attention not run. [Detailed report](../docs/experiment_reports/RQ3_20_Qwen_Analysis_2026-10-06.md); [RQ log](../RQs/RQ3_20/results/budgeted_acquisition_v3/logs/2026-10-06_final_analysis.md).
+
+## 2026-10-05 — RQ3.19 complete; visual replacement candidate closed
+
+All1480 positions terminal:1449 unique returns,18 exact-request references,13 request timeouts;5 invalid model answers retain zero. Formal1462 attempts plus18smoke=1480 actual calls. Owned services stopped. Offline audit verified205 frozen sources,28 model files,220 public recompilations,8862 DOM bindings,1467 known inputs/scores and1449 artifact commits;18 independent Pratt tests/6 Holm families agree. F/C/A/V MRR .4562/.4308/.4569/.4139; paired V−F−.0450 (case/group pH .04340/.05099), missing-score bounds remain negative. Known paired V/F total-token cost about+2.8%, V/C+3.6%–4.3%; no saving, timeout usage unknown. QA V_Q1−V_Q0 +5.46pp, pH .000381; RCA ordering effects unestablished. Preserved QA ceiling, nominal weak positive correlation, posthoc naming sensitivity and entity-overlap limits. Screened120 C/V outputs, reviewed36 cases/71 valid reasons plus1 malformed loop structurally, checked13 directed RCA claims and3 actual PNGs. No population explanation-error-rate claim. Current V candidate ends; no posthoc winner, conditional module or new inference launched. [Canonical findings](../RQs/RQ3_19/findings/exp_visual_replacement_qa_findings.md); [RQ log](../RQs/RQ3_19/results/visual_replacement_qa_v2/logs/2026-10-05_final_analysis.md).
+
+## 2026-10-05 — RQ3.19 core implemented, qualified and launched
+
+Implemented frozen dual-track core1480 positions with current unified renderer; static, full220 CPU and actual visual review passed, GPU smoke18/18 complete. First launch verification: 9 committed results and36 in flight, local Qwen/.75 VRAM. Preserved failed v1 budget evidence, prospectively fixed QA unit spelling, repaired null-rank audit with explicit source compatibility/no new model calls, and relaunched the supervisor in its own OS session after an initial pre-call wrapper failure. No formal efficacy claim; conditional attention/SIRCL/extension inactive. Assistant stops after confirmed launch as requested. [RQ execution log](../RQs/RQ3_19/results/visual_replacement_qa_v2/logs/2026-10-05_qualification_launch.md); [qualification report](../docs/experiment_reports/RQ3_19_Qualification_and_Launch_2026-10-05.md).
+
+## 2026-10-05 — RQ3.18 complete; population readout candidate closed
+
+All2420 positions terminal:2328 unique returns,63 exact-request references,29 timeouts;10 duplicate-ID model failures retain zero. OwnedGPU service stopped. Audited197 frozen sources,220 public compilers,2328 complete artifact graphs and2391 inputs/scores;42 independent Pratt checks plus4 Holm families agree. FP MRR .4877 vsT .4243/F .4648; paired FP−F +.0220, A22/A25 +.0571/+.0483, Aegis −.0150. All registered corrected comparisons fail; R−FR −.0056 and Top5 protections fail. Known paired cost FP/F +4.15%–4.91%, FP/T +6.27%–7.18%; timeout usage unknown, no compression claim. Read393 available reasons across36 registered cases, verified22 directed claims/34 arm-claims; unsupported axes remain unknown, no population explanation-error-rate claim. Stop the preregistered candidate; no post-hoc winner, additional calls, attention or successor launch. [Full findings](../RQs/RQ3_18/findings/exp_population_readout_findings.md); [RQ analysis log](../RQs/RQ3_18/results/population_readout_v1/logs/2026-10-05_final_analysis.md).
+
 ## 2026-10-05 — Empirical evidence and a joint accuracy/cost method objective
 
 Reviewed22 historical reports/retrospectives plus current constraints/protocol/status, and primary empirical/perception/compression literature. Saved [research objectives and provisional method](../important_docs/CanvasRCA_Empirical_to_Method_2026-10-05.md), [reading/novelty review](../important_docs/CanvasRCA_Empirical_Literature_Review_2026-10-05.md), source manifest and reproducible RQ3.16 cost audit. Paired220 MARGINAL_FIVE versus PAIR_FIVE MRR .50538/.44364 at total-token ratio1.03887; against BASE_FLEX ratio1.18396 with content/output differences. Original significance/adoption status unchanged. Latest user objective jointly targets MRR≈.60 and ≤5% added actual cost. Proposed offline joint-reading calibration and one-call representation allocation is not implemented or validated;2,880 calls are a non-authorizing envelope. Existing RQ3.18 remains frozen and running;0 additional model calls. [Project log](2026-10-05_empirical_method_review.md).
@@ -2316,3 +2399,131 @@ RQ3.18启动核验补充：2026-10-04T23:58:42.057848-04:00确认2357真实请�
 ## 2026-10-05 — RQ3.18 安全暂停后恢复
 
 睡前暂停已完成排空，自有服务退出；断点1193/2420终态（1179 done含42引用、14原超时），1227 pending，无遗留started。用户上午授权继续，原资格/输入/预算不变，监督PID2517恢复1206新请求＋21引用；新服务与首批新增原子结果核验通过，显存0.75、并发36。无新增smoke或历史批量复验。当前后台运行，详情见RQ3.18唯一findings及formal/resume_verification_20261005.json。
+
+## 2026-10-05 — 双线下一阶段计划，补入新的 QA 干预
+
+- 范围/状态：用户要求review important_docs及RQ1.1/RQ2.1到RQ3.18历史报告后制定下一计划，并明确QA脱节须新做轻量实验。本回合单主agent、仅文档；RQ3.18当前已完成2420终态且自有服务关闭，上方恢复条目保留当时历史。
+- 计划：docs/experiment_plans/CanvasRCA_Dual_Track_Next_Stage_2026-10-05.md。主线统一为“遥测表示如何影响诊断决策，并据此提高MRR、降低成本”。四臂强文本/紧凑文本/附加图像/真实视觉替换；新增60例×8调用的QA与正确读数干预，复用同期RCA对照。轻量attention先有界资格，未通过不阻塞主方法与QA。
+- 证据与边界：承认RQ3.18 AIOPS正向信号及Aegis损失，保留无降本和原不采用结论。35个本地来源哈希与阅读范围落盘；长表及全部原始回答未重做完整审计。实际图上格式化数值与DOM完整值区分，移交失败不能宣称事实等价。历史压缩、分组、核验及去点实验避免重复；QA弱相关不当独立性证据。
+- 预算与停止：3,000次仅资源草案，核心方法/重复/QA共1,480次，smoke另18；条件attention、baseline和扩展验证不得自动启动。已暴露test360不称独立确认。计划索引和DD-20261005-DUAL-TRACK同步；旧计划、报告及源码保持原样。
+- 本次结果：新增模型调用0，未写后继实验代码，未运行CPU/GPU/渲染，attention未开启。下一步等待用户对实施的指示；文档链接、预算算式和来源快照做离线核对，不能记为实验资格通过。
+
+## 2026-10-05 — RQ3.20 在 CPU 预算门槛停止
+
+用户授权按预算化视觉取证计划实施；先完成计划落盘、五模块CPU编译/取回接口、静态和接口回归。220例公共来源与实际processor审核完成，文本必要条件给出的最终合格上界A22 0/60、A25 0/60、Aegis 16/100，均不足登记的50%。全部F输入计数与RQ3.19一致，独立12项processor复核一致；573个保护文件未变。修复完整G关系并集、配对points字段及嵌套codec保留，失败日志保留。按用户计划停止候选，不改0.40/0.85预算，不进入图像/GPU/正式/QA/attention，新增模型调用0；下游运行器未作为完成实现交付。这是当前编译与预算的可行性失败，不是新的MRR结果。详细状态：`RQs/RQ3_20/findings/exp_budgeted_acquisition_findings.md`；阶段日志：`RQs/RQ3_20/results/budgeted_acquisition_v1/logs/2026-10-05_cpu_feasibility.md`。
+
+## 2026-10-05 — RQ3.20 v2 压缩修订
+
+用户要求直接修改代码尝试满足原预算。v2命名列、常量共享、字段/窗口引用及有向关系分组保持完整公共事实，文本首轮输入减少29.48%/23.24%/20.45%；220例反解和真实processor整包取回回归通过。文本侧60/60、56/60、100/100可行，计入216张真实统一renderer PNG后共同可行0/60、1/60、0/100；视觉首轮平均43.09%/44.06%/45.67%（仅有图病例），仍超40%。静态5模块791行、三个实际例图/确定性重绘、1028项历史保护通过；全局表头与TSV探查更长未采用。原门槛、字体、图元、像素限额不变，v1结果保留；当前停止在CPU结论，新增LLM调用0，无GPU/QA/attention。报告见RQ3.20唯一findings；日志：`RQs/RQ3_20/results/budgeted_acquisition_v2/logs/2026-10-05_compression_revision.md`。
+
+
+## 2026-10-05 — RQ3.20 v3 全量启动
+
+用户将首轮门槛从40%调至50%，保留85%总预算。全220例实测资格58/60、52/60、84/100；代码、静态、CPU与16次真实GPU smoke通过。QA别名评分错误在GPU前修复；正式后台PATH错误已修复且未产生正式请求。现由 `canvasrca-rq320-v3.service` 运行1,520流程核心队列，最多2,200调用，GPU0.75/并发36。Attention不满足64KiB约束，保持关闭；SIRCL/独立确认未激活。以 [启动记录](../docs/experiment_reports/RQ3_20_Qualification_and_Launch_2026-10-05.md) 和 [启动凭据](../RQs/RQ3_20/results/budgeted_acquisition_v3/formal/launch_receipt.json) 为准；本次在正式启动核验后停止。
+
+
+## 2026-10-06 — RQ3.21实现与CPU资格完成，停止
+
+用户确认复用RQ3.16历史锚点，并同意精简为六个新主臂；单阶段完整事实压缩与实体组织已实现，保留60例QA/位置扰动/真实重复。1800新正式位置＋220历史引用，smoke18、恢复预留122，总上限1940；21个普通位置可精确引用，无重试预计1779次新正式生成。当前方法份额73.3%单独记入计划，未写Codex.md。
+
+静态1597功能行通过；220例完整CPU163.21秒通过，最大输入26498，全部容量及逐数据集1.05预算通过。预选方法输入对历史锚点减少16.85%/17.82%/16.35%，对RAW_TEXT减少13.57%/14.32%/13.32%；不是新MRR或input＋output结果。211旧PNG复用、9回退、29248绑定、3个字节一致重绘、7张实际PNG查看、2265原始配对复算通过。220历史输入/提交/评分/原usage核验，28模型/processor文件身份复核；23离线provider测试实际事务和快速恢复，无网络/模型请求。
+
+准备来源manifest、候选引用、AUX/events解析和历史配置哈希比较问题已修复，失败日志保留，最终版本重新完整检查。211依赖冻结归档完成。GPU smoke未运行、正式未启动、attention关闭；未生成执行授权，已按用户要求停止。计划/完整资格报告/唯一findings：docs/experiment_plans/RQ3_21_Compact_Evidence_Entity_Organization_Plan_2026-10-06.md；docs/experiment_reports/RQ3_21_CPU_Qualification_2026-10-06.md；RQs/RQ3_21/findings/exp_compact_entity_findings.md。
+
+
+## 2026-10-06 — RQ3.21 GPU资格通过，正式启动完成
+
+用户新授权GPU smoke通过后直接启动全量。冻结211依赖契约635f9be2…8754、配置、公共事实、PNG、提示及模型配方均未改变；独立执行凭据绑定本次授权和既有静态/完整CPU/视觉资格。18次真实smoke全部完整提交，无超时、格式无效或未解决基础设施错误；逐请求输入/PNG、输出、独立评分、实际usage和原子提交图核验通过，18份CPU token均与provider相同。含启动修复与人工审核407.99秒，没有重置600秒窗口。
+
+修复两个零调用启动环境问题：共享启动器默认attention开启，显式关闭后重启；systemd缺少nvidia-smi路径，补齐infer/bin及/usr/lib/wsl/lib。失败日志与监督记录保留。两组真实独立重复输入相同且provider request ID不同，即使答案相同也没有复用输出。部分理由误读保留为模型结果，不按smoke排名调参。
+
+正式由canvasrca-rq321-formal.service运行，Qwen本地BF16/context40960、显存0.75、并发36、RCA8192/QA1024、attention关闭。2020逻辑位置包含220历史锚点引用；1800新位置经21个精确引用预计1779新生成，正式上限1922＋smoke18＝1940。13:58:47 UTC核验13次新完成、36在途、0失败；首批6份新提交产物图和usage均通过，队列持续补入。没有重跑历史锚点或启动其他实验。
+
+本次交付终点已满足：启动并核验正式运行，助手停止操作，后台继续冻结队列。完整记录docs/experiment_reports/RQ3_21_Qualification_and_Launch_2026-10-06.md；运行凭据RQs/RQ3_21/results/compact_entity_v1/formal/launch_receipt.json；唯一当前状态RQs/RQ3_21/findings/exp_compact_entity_findings.md。尚无正式MRR或总成本结论。
+
+
+## 2026-10-06 — RQ3.21误关机后恢复
+
+用户误关机后要求重启。原1295次完整提交、8次终态超时、220历史引用保留；35个在途中断请求仅核对自身持久化记录，标记interrupted并保留调用支出。原冻结源与资格一致，不重跑smoke、不批量重开历史输入/PNG，继续476调用＋21引用队列。
+
+16:40:49 UTC已新增16次提交，总1311 complete、8原超时、35 interrupted旧尝试、35在途；首批5份新提交产物图和实际token核验通过，既有完整结果及终态超时均未重跑。后台canvasrca-rq321-formal.service，显存0.75、并发36、attention关闭。预计含smoke累计1832尝试，低于1940上限。详细恢复日志RQs/RQ3_21/results/compact_entity_v1/logs/2026-10-06_power_loss_resume.md；凭据formal/resume_20261006_power_loss/verified.json。恢复验证完成后助手停止操作，后台继续。
+
+
+
+
+## 2026-10-06 — RQ4.1 真实权重视觉 token 接口验证
+
+用户授权的小例子已完成：三数据集各一张既有 unified-renderer PNG，原生/identity/半量/四分之一量，共12次调用，全部提交，累计111.58秒。identity三例logits与输出均等价；半量875→438个视觉token，本次短输出不变；四分之一219个时一例实体读错。HF隔离路径通过，vLLM正式适配待做，不是MRR或正式smoke。启动缺accelerate在0调用时修复，保留失败材料，预算未重置，共享环境未修改。自有GPU进程已退出，正式实验未启动。详见[RQ内唯一报告](../RQs/RQ4_1/findings/exp_token_interface_probe_findings.md)。
+
+
+## 2026-10-06 — RQ4.1在CPU角色支持门槛停止
+
+用户最终限制画布宽/高各8192。五模块局部实现、unified renderer新增注册能力与attention有界采集基础已落盘；220张PNG及实际processor上下文通过，静态/RQ单测/renderer浏览器回归通过。但三个数据集60/60、60/60、100/100均有独立回查原始数值的空角色支持：一个token覆盖多个字段，独占最大面积归属使较小字段没有可分配支持。一次一字段的栅格复核确认具体反例；不是MRR/读取性能结果。按登记CPU门槛停止，无新增模型调用，GPU smoke未运行，正式未启动。完整比较器/运行路径仍未交付，旧12次接口探针保留。
+
+[详细RQ日志](../RQs/RQ4_1/results/comparison_coding_v1/logs/implementation_cpu_stop_2026-10-06.md)；[唯一findings](../RQs/RQ4_1/findings/exp_comparison_coding_findings.md)。
+
+
+## 2026-10-06 — RQ4.1共享token支持修订完成
+
+用户授权取消独占归属。已归档旧失败版本，前瞻登记共享支持、唯一token计费及联合动作并集收益。静态、22项CPU单测、220例非空支持审核通过，另142个边界字段由统一renderer单独栅格确认，诊断PNG不变。所有病例的登记支持均能放入50%预算，可能使依赖对照饱和；真实encoder掩码仍未测。完整CPU/运行实现待完成，GPU smoke及正式未启动，新增模型调用0。不能以局部修复通过替代整体资格。
+
+[本次RQ日志](../RQs/RQ4_1/results/comparison_coding_v1/logs/shared_support_revision_2026-10-06.md)；[唯一findings](../RQs/RQ4_1/findings/exp_comparison_coding_findings.md)。
+
+
+## 2026-10-06 — RQ4.1饱和实测与证据预算修复
+
+三个固定eval病例真实Qwen视觉特征确认：旧grid50下CVC、REWIRED、UNARY最终mask完全相同。前瞻登记的CVC_E50保留全部锚点并分配一半唯一可选支持，三例恢复136/106/122个差异位置；实际总图保留27.29%–31.06%。静态与25项CPU回归通过，全枚举/增量选择在真实样例一致。仅3次视觉编码前向，新增LLM调用0，自有编码进程已退出；完整CPU及注册smoke/formal仍未通过/未运行。代理仍近于饱和且UNARY略高于CVC，不能据此宣称MRR或总成本收益。
+
+[详细RQ日志](../RQs/RQ4_1/results/comparison_coding_v1/logs/saturation_repair_2026-10-06.md)；[唯一findings](../RQs/RQ4_1/findings/exp_comparison_coding_findings.md)。
+
+## 2026-10-06 — RQ4.1 remaining CPU regression prepared (v6)
+
+User requests launch of the remaining CPU checks, then immediate handoff for
+user monitoring. Reuse v5's completed 220-case encoder/covariate and 2,640-mask
+qualification. Added source-bound anonymous QA/intervention compilers,
+registered quantile-atlas renderer component, bounded passive region maps,
+offline native-generation tensor/state and durable single-call lifecycle tests.
+Frozen 90-case mechanism roster and 6,100 logical development positions are
+CPU manifests only. No model/GPU/smoke/formal activation. Full CPU status remains
+pending; actual visual review will follow generated examples. Missing published
+saliency/mid-decoder paths are explicitly unqualified, not renamed surrogates.
+Existing statistical calibration failure and no-confirmation state are retained.
+See `RQs/RQ4_1/descriptions/RQ4_1_Remaining_CPU_2026-10-06.md` and v6 results.
+
+RQ4.1 v6 launch receipt: background PID 374258; `cpu_remaining_v6/runner.log`, `status.json` and `pipeline.status` are authoritative. Launched after source freeze (93 files); user monitoring handoff. No inference activation.
+
+## 2026-10-06 — User stops RQ4.1 v6 CPU work
+
+Confirmed pipeline failed_exit_1 and no surviving owned audit/launcher processes. Preserved failed tests; 220-case dependent audit did not start. Wrote PAUSED_BY_USER.json. No fixes, restart, GPU smoke or formal calls authorized by this stop.
+
+
+## 2026-10-09 — RQ4.2 GPU smoke stopped at registered deadline
+
+CPU qualified; bounded supervisor integrated and six affected CPU checks pass. Fixed loader optional-dependency and NumPy attention hash failures within the same original smoke clock. 16 committed answers (11 RCA,5QA),17 charged attempts; AegisLab SHAM not run before600s. GPU qualification remains failed/incomplete; no formal launch. Attention16 records/12122bytes, QA3/30. OwnedGPU stopped; no persistent activation. [Detailed report](../docs/experiment_reports/RQ4_2_GPU_Smoke_2026-10-09.md).
+
+
+## 2026-10-09 — RQ4.2 affected-path GPU qualification passed
+
+User added5×18smoke opportunities; only1round/2calls used(89.03s). Reused16 compatible completions to cover original18identities; original timeout status retained.8affectedCPUchecks pass,55generation definitions unchanged. Cumulative19smokeattempts,18answers;QA6/36 remainsrisk. GPUstopped,formalnotstarted;formalCLIstillclosed. [Report](../docs/experiment_reports/RQ4_2_GPU_Smoke_Supplement_2026-10-09.md).
+
+## 2026-10-09 — RQ4.2 formal runner and power-loss recovery qualified
+
+User requested deployment and qualification, then stop. Formal entry point ready; 18 affected CPU checks passed, including actual SIGKILL/SIGTERM, durable reply recovery, duplicate ownership, cumulative budget and central scorer. 60 previous generation definitions and dependencies unchanged: retain CPU/GPU qualification without new model calls. 1336 positions /1328 unique calls, 142 retry reserve; no activation, no formal run, no owned GPU process. [Report](../docs/experiment_reports/RQ4_2_Formal_Readiness_2026-10-09.md).
+
+## 2026-10-10 — RQ4.2 full experiment launched
+
+Explicit user authorization; frozen readiness valid. Background PID 1982, monitored 193.7s without infrastructure/attention/commit errors. At handoff 5/1336 committed, one in flight; five first-case arms have valid durable results. No code or recipe change, no extra smoke. Stop monitoring and leave worker running as requested. Live status: `bash RQs/RQ4_2/scripts/status.sh`.
+
+## 2026-10-11 — RQ4.3 v7 surviving CPU/GPU qualification
+
+User-authorized layout repair investigated with actual scoped-label and grid-aligned renders. Corrected missed scoped foreground anchors with opt-in V3; finite R prototypes still fail N/K, so registered R dependencies including X_SRP cancelled, not replaced by a new winner. Preserved failures. S_DISTINGUISH/S_REPRESENT removed under predeclared near-duplicate rule. Nine surviving RCA conditions plus QA/order/repeat/timing total 2412 positions, smoke18+infra234 allocation2664 of permitted8000.
+
+Inherited scoped CPU passes preserved. QA label collisions and node-occluded edge locations repaired in unified renderer; 60/60 QA and 15 cold identity checks passed. Static, TypeScript and 22 CPU regressions pass, including crash/recovery and scorer-case handling. Historical compatibility remains not_demonstrated, relevant inferential slots ineligible. Codex hash unchanged.
+
+Bounded GPU smoke: 18/18,481.95seconds,0 infrastructure failures,2 invalid model outputs retained zero. BF16 independent kernel and lambda-zero checks passed; registered 3/1/4 branch paths and real cache lengths verified. Attention one same-seed pair output identical,ratio.9606,797bytes; conservative10k cap730464256bytes. Small timing sample not zero-overhead proof. Offline QA phase-case correction preserves generation code and original results; no new calls. Formal launch authorized by active user goal; monitor180seconds then stop.
+
+RQ4.3 formal queue launched PID 29940; startup monitored 224.0s, 8/2412 commits, no infrastructure failure. Agent launch objective complete; experiment continues in background.
+
+## 2026-10-11 — RQ4.3 v17 扩展与直接可读保留
+
+八个恢复臂 CPU 全部通过、HTML smoke 8/8；4,832 位置队列恢复并完成启动监控。本次部署目标完成，正式实验继续运行。详细资格、豁免、缓存计时与最终密度待核验状态见 `docs/experiment_reports/RQ4_3_Direct_Retention_and_Extension_2026-10-11.md`。

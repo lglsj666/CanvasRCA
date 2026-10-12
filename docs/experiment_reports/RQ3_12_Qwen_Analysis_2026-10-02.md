@@ -26,7 +26,7 @@ ET保留原12条64-bin指标、完整R/L/G、候选顺序、原system与无损�
 
 基础设施处理采用每个比较自己的完整病例配对交集，一侧超时则该病例的两臂均退出该配对；另报六臂共同交集110个AIOPS案例和全注册120的缺失边界。模型输出失败不排除。缺失成本不填0；引用只在逻辑部署成本中呈现，实际消耗按请求去重。
 
-[完整验证](../../RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/verification.json)；[逐位置清单](../../RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/case_inventory.csv)。
+[完整验证](../../RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/verification.json)；[逐位置清单](through_RQ3_15_preserved/assets/RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/case_inventory.csv)。
 
 ## 4. 准确率与数据集差异
 
@@ -50,7 +50,7 @@ ET保留原12条64-bin指标、完整R/L/G、候选顺序、原system与无损�
 | CT | 56/0.3021 | 60/0.2667 | 20/0.4250 | 0.3045 | 0.3312 |
 | CV | 60/0.3083 | 59/0.3212 | 20/0.2583 | 0.3066 | 0.2960 |
 
-六臂共同AIOPS110例MRR依次为ET .2780、ER .2947、OT .2924、OV .3348、CT .2750、CV .3056；减少分母差异后也没有建立条件计算收益。Aegis仅20例、辅助探索；CV−ET点差−.1667，不能与AIOPS合并成新主要端点。[全量表](../../RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/arm_metrics.csv)、[共同交集](../../RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/common_all_six.csv)。
+六臂共同AIOPS110例MRR依次为ET .2780、ER .2947、OT .2924、OV .3348、CT .2750、CV .3056；减少分母差异后也没有建立条件计算收益。Aegis仅20例、辅助探索；CV−ET点差−.1667，不能与AIOPS合并成新主要端点。[全量表](through_RQ3_15_preserved/assets/RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/arm_metrics.csv)、[共同交集](through_RQ3_15_preserved/assets/RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/common_all_six.csv)。
 
 ## 5. 注册配对统计与缺失敏感性
 
@@ -78,7 +78,7 @@ CV−ET分数据集配对：A22 n59 Δ+.0155，A25 n59 Δ+.0613；两个方向�
 | OV−OT | +0.0458 | +0.0625 |
 | ER−ET | +0.0083 | +0.0333 |
 
-[注册比较](../../RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/registered_contrasts.csv)、[缺失界限](../../RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/missing_bounds.csv)、[故障/粒度](../../RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/breakdowns.csv)、[探索性层](../../RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/exploratory_patterns.csv)。子组统一探索性校正，不按小层选winner。
+[注册比较](through_RQ3_15_preserved/assets/RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/registered_contrasts.csv)、[缺失界限](through_RQ3_15_preserved/assets/RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/missing_bounds.csv)、[故障/粒度](through_RQ3_15_preserved/assets/RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/breakdowns.csv)、[探索性层](through_RQ3_15_preserved/assets/RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/exploratory_patterns.csv)。子组统一探索性校正，不按小层选winner。
 
 ## 6. 数值可用为何没有等价于诊断可用
 
@@ -111,9 +111,9 @@ CV−ET分数据集配对：A22 n59 Δ+.0155，A25 n59 Δ+.0613；两个方向�
 
 正式已知input14,346,901（text14,250,861+image96,040），output123,445；10次超时usage未知，这些合计为下界。completed request wall151,310.22秒是36并发请求的重叠时间，不是独占GPU秒。服务总墙钟4488.65秒；没有可靠全程功率/利用率积分，不能伪造GPU-active或energy。CPU资格389.49秒，额外三例47.83秒；编译与渲染worker秒在原analysis单列，不与墙钟直接相加。
 
-![cost and contrasts](../../RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/cost_and_contrasts.png)
+![cost and contrasts](through_RQ3_15_preserved/assets/RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/cost_and_contrasts.png)
 
-图左统一使用110共同AIOPS案例。图右是各注册比较自己的配对范围。[SVG](../../RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/cost_and_contrasts.svg)。
+图左统一使用110共同AIOPS案例。图右是各注册比较自己的配对范围。[SVG](through_RQ3_15_preserved/assets/RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/cost_and_contrasts.svg)。
 
 ET/ER全数据集137完整配对中，完整响应38/137相同（27.74%），排序123/137（89.78%），top1为134/137（97.81%），MRR129/137（94.16%）。同seed的动态批处理/采样不保证逐字重复，当前机制未分离各运行因素。ER−ET的主要Δ+.0157也不显著，不取最好基线。后续视觉方案应加入自己的真实重复，避免只用文本重复推论所有视觉波动。
 
@@ -136,7 +136,7 @@ ET/ER全数据集137完整配对中，完整响应38/137相同（27.74%），排
 - INC-A1C6591B0184：CT把3位service450叫pod；CV把公开6.5m split称5m。
 - INC-CB8AD006EA8A：OT将1.6Mµs写成1.6Mms。
 
-高置信错排：ET102/127 high错误top1，OV84/117，CV84/114。confidence只是high/medium/low类别，不能称校准或把medium增多当可信度提升。全响应literal type/proof筛查单列，只是候选筛查。[完整36例审核](../../RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/manual_reason_review.json)、[置信类别](../../RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/confidence.csv)、[literal screen](../../RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/response_screens.csv)。公开reason不是隐藏思维链。
+高置信错排：ET102/127 high错误top1，OV84/117，CV84/114。confidence只是high/medium/low类别，不能称校准或把medium增多当可信度提升。全响应literal type/proof筛查单列，只是候选筛查。[完整36例审核](../../RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/manual_reason_review.json)、[置信类别](through_RQ3_15_preserved/assets/RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/confidence.csv)、[literal screen](through_RQ3_15_preserved/assets/RQs/RQ3_12/results/conditional_v4/analysis_reviewed_v1/response_screens.csv)。公开reason不是隐藏思维链。
 
 ## 9. 与历史的连接和下一步依据
 

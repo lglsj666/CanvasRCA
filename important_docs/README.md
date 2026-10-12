@@ -4,6 +4,8 @@
 
 | 文档 | 配套材料 |
 |---|---|
+| [项目会议综述与研究路线（英文，2026-10-12）](CanvasRCA_Project_Review_and_Research_Roadmap_2026-10-12.md) | [PDF（43 页）](CanvasRCA_Project_Review_and_Research_Roadmap_2026-10-12.pdf)；[图表、原始 dashboard 例图与引用文件快照](CanvasRCA_Project_Review_2026-10-12_assets/) |
+| [RQ4：纯视觉方向复核](CanvasRCA_Pure_Visual_Direction_2026-10-06.md) | [用户提供的讨论](conversation_oct_06)；[RQ4 路线](../RQs/RQ4/descriptions/RQ4_roadMap.md) |
 | [研究计划](CanvasRCA_Empirical_to_Method_2026-10-05.md) | [成本审计脚本及结果](artifacts/CanvasRCA_Empirical_to_Method_2026-10-05/) |
 | [文献复核](CanvasRCA_Empirical_Literature_Review_2026-10-05.md) | [历史报告与来源清单](artifacts/CanvasRCA_Empirical_Literature_Review_2026-10-05/) |
 | [反直觉发现](CanvasRCA_Counterintuitive_Findings_2026-10-05.md) | [证据快照](artifacts/CanvasRCA_Counterintuitive_Findings_2026-10-05/) |

@@ -1,0 +1,30 @@
+schema: SelectionOnlySuiteV2
+status: cpu_audited_for_execution
+anchor_config: RQs/RQ3/configs/tournament_full_candidate_binding_v3.yaml
+anchor_round: round_0016
+anchor_config_hash: 1274c3b7d3b9b6ede22fde046134644678f3e4078aab333d2ff28d3b22aacc36
+display_prompt_runtime_tree_hash: 8fc5deeafc126a54e261127769f756f8563cb8ad09486d9ba3506f8bcb05b8a8
+changed_component: evidence_selection_only
+pending_policies:
+  - heterogeneous_consensus_v1
+  - temporal_episode_cover_v1
+  - counter_rate_change_v1
+method_configs:
+  heterogeneous_consensus_v1: RQs/RQ3/configs/tournament_selection_consensus_v5.yaml
+  temporal_episode_cover_v1: RQs/RQ3/configs/tournament_selection_episodes_v5.yaml
+  counter_rate_change_v1: RQs/RQ3/configs/tournament_selection_counters_v5.yaml
+completed_predecessor_suite: RQs/RQ3/configs/selection_only_suite_v1.yaml
+cpu_audit:
+  artifact: RQs/RQ3/results/selection_only_review_20260914/successor_v2/summary.json
+  status: passed
+  cases: 125
+  model_calls: 0
+  audit_identity: 17ce8040ff6dc1ab760490e9cfe9e452f1e5e8656b41fe29995421af3a6dfc0e
+execution:
+  cohorts: all_unretired_v1
+  models: sequential_qwen_then_gemma
+  no_preliminary_inference_subset: true
+  no_training: true
+  no_attention: true
+  no_automatic_round_registration: true
+  registered_before_each_round: true

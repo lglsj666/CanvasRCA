@@ -1,0 +1,176 @@
+{
+  "model": "qwen3.8-27b",
+  "seed": 42,
+  "case_counts": {
+    "aiops2022": 60,
+    "aiops2025": 60,
+    "aegislab": 100
+  },
+  "parent": "RQs/RQ3_8/preparation/ops_components_v6",
+  "parent_export": "RQs/RQ3_8/preparation/export_v1",
+  "roster_registration": "RQs/RQ3_15/results/request_joint_v1/registration.json",
+  "roster_sha256": "847aa31ba6ae787e92d35c401a32121d8b704e1e9bee5ea9f2c219c43a0ea768",
+  "inference_base": "configs/vllm_inference_local.yaml",
+  "runtime_profile": "runtime/qwen_local.yaml",
+  "workers": 8,
+  "concurrency": 36,
+  "request_timeout": 300,
+  "max_tokens": 8192,
+  "smoke_attempt_limit": 18,
+  "smoke_seconds": 600,
+  "global_contracts": [
+    "configs/vllm_inference.yaml",
+    "configs/dataset_segmentation.yaml",
+    "configs/rca_scorer.yaml"
+  ],
+  "canvas": {
+    "width": 1120,
+    "height": 800,
+    "font_size": 18,
+    "gap": 12,
+    "padding": 20
+  },
+  "method": {
+    "min_requests_per_phase": 20,
+    "max_relations": 2,
+    "max_points_per_phase": 32,
+    "conditional_min": 5,
+    "min_distinct_pairs_in_binary_group": 4,
+    "minimum_dataset_applicability": 0.5
+  },
+  "version": "rq319_visual_replacement_qa_v2",
+  "experiment": "exp_visual_replacement_qa",
+  "base_preparation": "RQs/RQ3_18/preparation/population_readout_v1",
+  "preparation": "RQs/RQ3_19/preparation/visual_replacement_qa_v2",
+  "results": "RQs/RQ3_19/results/visual_replacement_qa_v2",
+  "port": 21959,
+  "formal_positions": 1480,
+  "formal_attempt_limit": 1566,
+  "total_attempt_limit": 3000,
+  "cpu_seconds": 3600,
+  "full_launch_authorized": false,
+  "smoke_launch_authorized": false,
+  "launch_policy": "explicit_version_bound_user_credential_after_qualification",
+  "qa_per_dataset": 20,
+  "qa_salt": "rq319_qa_and_repeat_v1",
+  "preselected_method": "REPLACE_VISUAL",
+  "readiness": {
+    "max_mean_input_ratio": 1.05,
+    "minimum_body_transfer_fraction": 0.5
+  },
+  "output_adapter": {
+    "version": "rq319_fixed_five_and_typed_qa_v2"
+  },
+  "primary_contrasts": [
+    [
+      "REPLACE_VISUAL",
+      "FULL_TEXT",
+      "all"
+    ],
+    [
+      "REPLACE_VISUAL",
+      "COMPACT_TEXT",
+      "all"
+    ]
+  ],
+  "secondary_contrasts": [
+    [
+      "REPLACE_VISUAL",
+      "ADD_VISUAL"
+    ],
+    [
+      "COMPACT_TEXT",
+      "FULL_TEXT"
+    ],
+    [
+      "ADD_VISUAL",
+      "COMPACT_TEXT"
+    ]
+  ],
+  "qa_contrasts": [
+    [
+      "C_Q1",
+      "C_Q0",
+      "qa_accuracy"
+    ],
+    [
+      "V_Q1",
+      "V_Q0",
+      "qa_accuracy"
+    ],
+    [
+      "C_RB",
+      "C_RP",
+      "mrr"
+    ],
+    [
+      "V_RB",
+      "V_RP",
+      "mrr"
+    ]
+  ],
+  "conditional_modules": {
+    "attention": {
+      "status": "not_qualified_not_in_core_queue",
+      "limit": 116
+    },
+    "sircl": {
+      "status": "comparability_pending_not_in_core_queue",
+      "limit": 220
+    },
+    "frozen_validation": {
+      "status": "method_and_exposure_gate_pending",
+      "limit": 1080
+    }
+  },
+  "major_budget": {
+    "ceiling": 3000,
+    "core_formal": 1480,
+    "core_smoke": 18,
+    "recovery_reserve": 86,
+    "allocation_not_transferable": true
+  },
+  "arms": [
+    "FULL_TEXT",
+    "COMPACT_TEXT",
+    "ADD_VISUAL",
+    "REPLACE_VISUAL",
+    "COMPACT_REPEAT",
+    "REPLACE_REPEAT",
+    "C_Q0",
+    "C_Q1",
+    "V_Q0",
+    "V_Q1",
+    "C_RB",
+    "C_RP",
+    "V_RB",
+    "V_RP"
+  ],
+  "smoke_matrix": {
+    "aiops2022": [
+      "FULL_TEXT",
+      "COMPACT_TEXT",
+      "ADD_VISUAL",
+      "REPLACE_VISUAL",
+      "C_Q0",
+      "V_Q1"
+    ],
+    "aiops2025": [
+      "COMPACT_REPEAT",
+      "REPLACE_REPEAT",
+      "C_Q1",
+      "V_Q0",
+      "C_RB",
+      "V_RP"
+    ],
+    "aegislab": [
+      "COMPACT_TEXT",
+      "REPLACE_VISUAL",
+      "C_RP",
+      "V_RB",
+      "C_Q0",
+      "V_Q1"
+    ]
+  },
+  "implementation_revision": "Remove verbose per-field image pointers for categorical metadata; facts, arms, image, cohorts, thresholds unchanged; CPU v1 failure preserved."
+}
