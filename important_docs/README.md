@@ -4,6 +4,7 @@
 
 | 文档 | 配套材料 |
 |---|---|
+| [全部视觉 token 剪枝方法横向比较（2026-10-18）](CanvasRCA_Visual_Token_Pruning_Review_2026-10-18.md) | [37条件完整表、3,740份机制审核、案例、统计、六张图及复算脚本](CanvasRCA_Visual_Token_Pruning_Review_2026-10-18_assets/) |
 | [项目会议综述与研究路线（英文，2026-10-12）](CanvasRCA_Project_Review_and_Research_Roadmap_2026-10-12.md) | [PDF（43 页）](CanvasRCA_Project_Review_and_Research_Roadmap_2026-10-12.pdf)；[图表、原始 dashboard 例图与引用文件快照](CanvasRCA_Project_Review_2026-10-12_assets/) |
 | [RQ4：纯视觉方向复核](CanvasRCA_Pure_Visual_Direction_2026-10-06.md) | [用户提供的讨论](conversation_oct_06)；[RQ4 路线](../RQs/RQ4/descriptions/RQ4_roadMap.md) |
 | [研究计划](CanvasRCA_Empirical_to_Method_2026-10-05.md) | [成本审计脚本及结果](artifacts/CanvasRCA_Empirical_to_Method_2026-10-05/) |

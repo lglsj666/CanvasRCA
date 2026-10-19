@@ -1,0 +1,97 @@
+{
+  "schema": "RQ45ProtocolV1",
+  "arms": [
+    "H_MARGINAL",
+    "H_TOPOLOGY",
+    "H_TOPO_MARGINAL",
+    "V_DOMAIN_FULL",
+    "V_SOURCE_UNIFORM",
+    "V_CONTEXT_FILL"
+  ],
+  "preselected": [
+    "H_TOPO_MARGINAL",
+    "V_SOURCE_UNIFORM"
+  ],
+  "historical_only": [
+    "T_FULL",
+    "MARGINAL_FIVE",
+    "A_UNIFORM_E50"
+  ],
+  "dataset_counts": {
+    "aiops2022": 60,
+    "aiops2025": 60,
+    "aegislab": 100
+  },
+  "global_configs": [
+    "configs/dataset_segmentation.yaml",
+    "configs/rca_scorer.yaml",
+    "configs/vllm_inference_local.yaml"
+  ],
+  "source_public": "RQs/RQ3_21/preparation/compact_entity_v1/public",
+  "history": "RQs/RQ4_1/results/comparison_coding_v1",
+  "pair_limit": 2,
+  "samples_per_phase": 32,
+  "source_unit": "original_record",
+  "hybrid_ownership": "record_and_all_derivatives",
+  "context_radius_grid": 1,
+  "image_tokens_max": 16384,
+  "canvas_side_max": 8192,
+  "min_processed_font_px": 18,
+  "min_processed_stroke_px": 1.5,
+  "context": 40960,
+  "output_tokens": 8192,
+  "cpu_workers": 8,
+  "gpu_concurrency": 8,
+  "gpu_memory_utilization": 0.8,
+  "mechanism_per_dataset": 10,
+  "formal_positions": 1560,
+  "method_positions": 1320,
+  "qa_positions": 180,
+  "repeat_positions": 60,
+  "smoke_calls": 18,
+  "smoke_seconds": 600,
+  "infrastructure_reserve": 122,
+  "total_call_limit": 1700,
+  "cpu_enabled": false,
+  "smoke_enabled": false,
+  "formal_enabled": false,
+  "primary_comparisons": [
+    [
+      "H_TOPO_MARGINAL",
+      "H_MARGINAL"
+    ],
+    [
+      "H_TOPO_MARGINAL",
+      "H_TOPOLOGY"
+    ],
+    [
+      "V_SOURCE_UNIFORM",
+      "V_DOMAIN_FULL"
+    ],
+    [
+      "V_CONTEXT_FILL",
+      "V_DOMAIN_FULL"
+    ]
+  ],
+  "statistics": {
+    "primary_unit": "event_group",
+    "test": "two-sided Pratt-zero Wilcoxon",
+    "round_difference": 12,
+    "correction": "Holm family 4",
+    "dz": true,
+    "confidence_intervals": false
+  },
+  "attention_max_bytes_per_call": 65536,
+  "attention_max_bytes_per_10000": 1000000000,
+  "retention_bytes_per_completed_call": 2500000,
+  "hybrid_input_ratio_limit": 1.0,
+  "hybrid_input_strictly_lower": true,
+  "hybrid_total_cost_goal": 0.9,
+  "pure_visual_total_cost_limit": 1.05,
+  "pure_visual_mrr_goal": 0.02,
+  "smoke_ids": [
+    "INC-6E627662CA32",
+    "INC-D9245047C658",
+    "INC-018AC5D486B5"
+  ]
+}

@@ -1,0 +1,1133 @@
+[
+  {
+    "id": "INC-058FC5DD18AD",
+    "dataset": "aegislab",
+    "arm": "V_FULL",
+    "root_ids": [
+      "905",
+      "951"
+    ],
+    "ranked": [
+      "956",
+      "908",
+      "951",
+      "902",
+      "976"
+    ],
+    "reason": "Top-ranked candidates (956, 908) show severe, persistent drops in `container.filesystem.available` to near-zero levels starting early in the window (e.g., MET01/MET12), which acts as a resource bottleneck causing the massive latency regression (100x+ spike) observed in downstream services like 951 and 902. Service 951 exhibits a catastrophic latency increase for `TravelPlanController.getByQuickest` (28,977us to 1.874e+6us), acting as a direct indicator of the performance failure, while 902 and 976 show correlated memory and CPU strain patterns that align with the degradation timeline.",
+    "mrr": 0.3333333333333333,
+    "tolerant_mrr": 0.3333333333333333,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-058FC5DD18AD__development__V_FULL__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-058FC5DD18AD/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-058FC5DD18AD/evidence.json"
+  },
+  {
+    "id": "INC-058FC5DD18AD",
+    "dataset": "aegislab",
+    "arm": "A_UNIFORM_E50",
+    "root_ids": [
+      "905",
+      "951"
+    ],
+    "ranked": [
+      "905",
+      "951",
+      "717",
+      "170",
+      "661"
+    ],
+    "reason": "Comparing the leading candidate with the PAI01 observations shows service 905 (parent) inclusive latency p95 spiking to ~8117 ms against a reference of ~906 ms, while child 951 only shows a minor shift (5.518 ms ref to ~0 ms cur), suggesting 905 is failing locally (exclusive latency) rather than just waiting on children. The presence of severe connection failures (LTO5: 'Attempting to connect to...') originating from service 951 confirms 951 as the underlying network bottleneck affecting the flow, but 905 remains the primary incident component as it exhibits the massive end-user facing latency and retains 'attempting to connect' patterns in its exclusive span metrics. This local resource or scheduling exhaustion in 905 is the initiating component for the observed user-facing incident.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-058FC5DD18AD__development__A_UNIFORM_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-058FC5DD18AD/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-058FC5DD18AD/evidence.json"
+  },
+  {
+    "id": "INC-058FC5DD18AD",
+    "dataset": "aegislab",
+    "arm": "UNARY_E50",
+    "root_ids": [
+      "905",
+      "951"
+    ],
+    "ranked": [
+      "650",
+      "956",
+      "351",
+      "908",
+      "130"
+    ],
+    "reason": "Services 650, 956, 351, 908, and 130 are the exact entities bound to the five MET time-series panels (MET01–MET05) showing a synchronized drop in filesystem availability, each with a large negative z-score (-685.9), establishing a shared resource pressure onset that correlates with the latency spikes observed on the business services.",
+    "mrr": 0.0,
+    "tolerant_mrr": 0.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-058FC5DD18AD__development__UNARY_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-058FC5DD18AD/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-058FC5DD18AD/evidence.json"
+  },
+  {
+    "id": "INC-058FC5DD18AD",
+    "dataset": "aegislab",
+    "arm": "CVC_E50",
+    "root_ids": [
+      "905",
+      "951"
+    ],
+    "ranked": [
+      "650",
+      "956",
+      "351",
+      "908",
+      "130"
+    ],
+    "reason": "Services 650, 956, 351, 908, and 130 are the exact entities bound to the five MET time-series panels (MET01–MET05) showing a synchronized drop in filesystem availability, each with a rank-1 severity Z-score and consistent onset within the fault window. The drop to 1.355e+10 across all five components indicates a shared underlying resource contention or infrastructure fault affecting their local storage.",
+    "mrr": 0.0,
+    "tolerant_mrr": 0.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-058FC5DD18AD__development__CVC_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-058FC5DD18AD/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-058FC5DD18AD/evidence.json"
+  },
+  {
+    "id": "INC-058FC5DD18AD",
+    "dataset": "aegislab",
+    "arm": "SCOPE_E50",
+    "root_ids": [
+      "905",
+      "951"
+    ],
+    "ranked": [
+      "956",
+      "908",
+      "951",
+      "902",
+      "763"
+    ],
+    "reason": "Topologically, service 956 is the sole upstream source for the failing edge 902→717 in the observed call graph and its own self-loop closure (MET05 exclusive latency rising from 28977μs to 87746μs) localizes the primary processing delay to 956 rather than 902 or 717. Verification confirms the strict latency propagation chain (956 ↑ ⇒ 902 ↑ ⇒ 717 ↑) and onset ordering (956 @ t+0, 902 @ t+3, 717 @ t+5), but the lack of explicit container resource saturation (rss/CPU/page-faults stable) or hard failure codes on 956 indicates a plausible soft bottleneck or timing drift rather than a hard resource limit failure.",
+    "mrr": 0.3333333333333333,
+    "tolerant_mrr": 0.3333333333333333,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-058FC5DD18AD__development__SCOPE_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-058FC5DD18AD/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-058FC5DD18AD/evidence.json"
+  },
+  {
+    "id": "INC-058FC5DD18AD",
+    "dataset": "aegislab",
+    "arm": "S2PRUNE_E50",
+    "root_ids": [
+      "905",
+      "951"
+    ],
+    "ranked": [
+      "951",
+      "905",
+      "956",
+      "976",
+      "908"
+    ],
+    "reason": "Topologically, the incident originates from PAIR01 (parent 905 and child 951), where the transition to the current interval shows a massive latency increase (median ~19s vs ~24ms in reference) and a surge in 5xx errors. Node 956 exhibits a coincident jump in its own resource pressure (kubelet observables), while downstream independent components like pod 976 show high variance and pod 908 tracks the same global degradation, confirming 951 as the sole initiating component.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-058FC5DD18AD__development__S2PRUNE_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-058FC5DD18AD/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-058FC5DD18AD/evidence.json"
+  },
+  {
+    "id": "INC-058FC5DD18AD",
+    "dataset": "aegislab",
+    "arm": "DART_E50",
+    "root_ids": [
+      "905",
+      "951"
+    ],
+    "ranked": [
+      "902",
+      "905",
+      "917",
+      "914",
+      "916"
+    ],
+    "reason": "Top candidate 902 aligns with the simultaneous onset of kubernetes.cpu.load and high-percentile inclusive latency on GET /api/v1/routerservice/routes, corroborated by downstream memory_page_faults rising on 905 and CPU load on 917 within 1-2 minutes. The check against 914 confirms its latency increase followed 902's onset by 1 minute, while the strict latency reductions on 916 and 908 rule them out as the initiating origin. Dashboard correlation confirms the shared upstream 951 endpoint group is the only common node for the failing paths, isolating 902 as the primary fault.",
+    "mrr": 0.0,
+    "tolerant_mrr": 0.5,
+    "unknown_ids": [
+      "917",
+      "916"
+    ],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-058FC5DD18AD__development__DART_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-058FC5DD18AD/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-058FC5DD18AD/evidence.json"
+  },
+  {
+    "id": "INC-058FC5DD18AD",
+    "dataset": "aegislab",
+    "arm": "GPRUNE_E50",
+    "root_ids": [
+      "905",
+      "951"
+    ],
+    "ranked": [
+      "475",
+      "476",
+      "477",
+      "478",
+      "479"
+    ],
+    "reason": "Topologically, the network graph shows a fan-in pattern where all downstream telemetry spikes originate from a single upstream convergence point, identifying the root cause component. The absence of prior anomalies in upstream nodes (476-479) isolates the failure to the apex service 475, as correlated signals in the dependent services are secondary observations rather than independent causes. The local exclusive latency estimate for service 475 exceeds its reference interval, providing direct evidence of the processing bottleneck at the originating entity.",
+    "mrr": 0.0,
+    "tolerant_mrr": 0.0,
+    "unknown_ids": [
+      "476",
+      "477",
+      "478",
+      "479"
+    ],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-058FC5DD18AD__development__GPRUNE_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-058FC5DD18AD/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-058FC5DD18AD/evidence.json"
+  },
+  {
+    "id": "INC-13F29FFC8DE6",
+    "dataset": "aegislab",
+    "arm": "V_FULL",
+    "root_ids": [
+      "388",
+      "705"
+    ],
+    "ranked": [
+      "796",
+      "501",
+      "914",
+      "744",
+      "817"
+    ],
+    "reason": "Service 796 exhibits a severe exclusive p95 latency regression (MET11 · container.cpu.usage metric block, Current ~1.068e+6 vs Reference 2629.4) and high utilization (MET04 · k8s.pod.cpu_limit_utilization at 0.27167 with a sudden spike), indicating it is the origin of the delay propagating to parents 501, 914, 744, and 817. Checks confirm the latency spike aligns temporally with the observed page faults and CPU rises, while resource pressure persists across the other candidates consistent with co-propagation rather than independent failure.",
+    "mrr": 0.0,
+    "tolerant_mrr": 0.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-13F29FFC8DE6__development__V_FULL__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-13F29FFC8DE6/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-13F29FFC8DE6/evidence.json"
+  },
+  {
+    "id": "INC-13F29FFC8DE6",
+    "dataset": "aegislab",
+    "arm": "A_UNIFORM_E50",
+    "root_ids": [
+      "388",
+      "705"
+    ],
+    "ranked": [
+      "119",
+      "744",
+      "501",
+      "796",
+      "817"
+    ],
+    "reason": "Service 119 exhibits a severe utilization anomaly (MET01: jvm.system.cpu.load_1m peak 1137.8, signed_z 999) and holds the highest source severity (severity_z_display 999) with an early observed onset (+4.9m), establishing it as the strongest fault indicator. Service 744 also presents a significant CPU load anomaly (MET02: peak 1137.8, severity_z 572.3) and shared onset timing. A verification check confirms that the high observed page faults for service 396 (23 samples, +100 in log snippet) do not align with its top-tier severity metrics compared to 119 and 744, suggesting 119 is the more likely initiating driver of the cluster-wide stress.",
+    "mrr": 0.0,
+    "tolerant_mrr": 0.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-13F29FFC8DE6__development__A_UNIFORM_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-13F29FFC8DE6/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-13F29FFC8DE6/evidence.json"
+  },
+  {
+    "id": "INC-13F29FFC8DE6",
+    "dataset": "aegislab",
+    "arm": "UNARY_E50",
+    "root_ids": [
+      "388",
+      "705"
+    ],
+    "ranked": [
+      "705",
+      "473",
+      "388",
+      "939",
+      "796"
+    ],
+    "reason": "Service 705 is the primary origin, evidenced by its severe `queueSize` spike (from ~0 to 233.7, median 233.7) and corresponding surge in `jvm.system.cpu.load_1m` (peak 1127.1, current median 0) which precedes the latency violations. Service 473 is the immediate child propagating the delay (child p95 duration 377.54 ms vs 46.37 ms reference), but its CPU and queue metrics are normal, indicating it is a victim of the resource saturation on 705. Service 388 and 939 form the upstream path exhibiting the absolute latency increases (43.12 ms child p95 for 939), while 796 shows high `k8s.pod.cpu.limit_utilization` (0.27167) and is a recipient of the cascading calls.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-13F29FFC8DE6__development__UNARY_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-13F29FFC8DE6/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-13F29FFC8DE6/evidence.json"
+  },
+  {
+    "id": "INC-13F29FFC8DE6",
+    "dataset": "aegislab",
+    "arm": "CVC_E50",
+    "root_ids": [
+      "388",
+      "705"
+    ],
+    "ranked": [
+      "705",
+      "473",
+      "388",
+      "939",
+      "796"
+    ],
+    "reason": "Service 705 exhibits a severe exclusive p95 regression (3.508e+5 µs vs 726.43 µs reference, rank_score 7.45) and drives the 377.55 ms p95 child latency observed in its parent (service 388). Checks confirm the degradation is isolated to service 705 as its CPU metrics (e.g., service 705 k8s_pod_cpu_usage) are stable, while service 473 shows even higher absolute latency (3.18e+6 µs) but operates on a different, less-critical call path.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-13F29FFC8DE6__development__CVC_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-13F29FFC8DE6/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-13F29FFC8DE6/evidence.json"
+  },
+  {
+    "id": "INC-13F29FFC8DE6",
+    "dataset": "aegislab",
+    "arm": "SCOPE_E50",
+    "root_ids": [
+      "388",
+      "705"
+    ],
+    "ranked": [
+      "705",
+      "473",
+      "388",
+      "939",
+      "744"
+    ],
+    "reason": "Service 705 exhibits a severe exclusive p95 regression (3.509e+5 µs vs 19.5 µs reference) driven by an increase in captured request volume, pinpointing it as the failing operation. Service 473 shows a corresponding 4.99 ms exclusive latency shift with increased sample count, indicating it acts as the resource-constrained dependency propagating the delay back to 705. Service 388 (parent) demonstrates a 44 ms exclusive latency increase and a 6.18x spike in active span counts, confirming it as the downstream victim of the degradation originating in the 705/473 interaction.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-13F29FFC8DE6__development__SCOPE_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-13F29FFC8DE6/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-13F29FFC8DE6/evidence.json"
+  },
+  {
+    "id": "INC-13F29FFC8DE6",
+    "dataset": "aegislab",
+    "arm": "S2PRUNE_E50",
+    "root_ids": [
+      "388",
+      "705"
+    ],
+    "ranked": [
+      "705",
+      "473",
+      "388",
+      "939",
+      "796"
+    ],
+    "reason": "Service 705 exhibits a severe exclusive p95 regression (1.3583x reference) coincident with a CPU limit utilization shift to 0.0038786, pinpointing local resource contention as the primary fault. Service 473 mirrors the 0.0038786 CPU utilization shift, indicating a co-located or shared-node bottleneck with 705 that propagates upstream to the parent 388 (1137.8x exclusive p95 increase). The CPU limit saturation metrics rule out idle waste but confirm the onset order: resource pressure on 705/473 precedes the end-to-end latency degradation.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-13F29FFC8DE6__development__S2PRUNE_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-13F29FFC8DE6/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-13F29FFC8DE6/evidence.json"
+  },
+  {
+    "id": "INC-13F29FFC8DE6",
+    "dataset": "aegislab",
+    "arm": "DART_E50",
+    "root_ids": [
+      "388",
+      "705"
+    ],
+    "ranked": [
+      "388",
+      "473",
+      "705",
+      "939",
+      "501"
+    ],
+    "reason": "Service 388 exhibits a severe exclusive p95 regression (1.776e+6 vs 2270.4 reference) and a concurrent throughput collapse (83657 vs 1.9995e+5), which serves as the primary initiating anomaly for the observed latency propagation. The escalation of 939's high load (1137.8) and 473's latency (3.185e+6) is evaluated as downstream pressure and shared-host contention with 388, respectively, rather than independent root causes. By prioritizing 388, the analysis explicitly rules out 705 as the source despite its high load, given 473's inclusive duration matches its child (939), indicating 473 acts as a transparent pass-through rather than the origin of the delay.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-13F29FFC8DE6__development__DART_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-13F29FFC8DE6/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-13F29FFC8DE6/evidence.json"
+  },
+  {
+    "id": "INC-13F29FFC8DE6",
+    "dataset": "aegislab",
+    "arm": "GPRUNE_E50",
+    "root_ids": [
+      "388",
+      "705"
+    ],
+    "ranked": [
+      "457",
+      "458",
+      "459",
+      "460",
+      "461"
+    ],
+    "reason": "Correlated onset of high inclusive span durations on service 457 with downstream propagation to 458 and 459 indicates a local bottleneck at the entry point rather than an external dependency failure. Examination of the top candidate 457 against CPU and memory charts reveals high saturation coinciding with latency spikes, with a minor contrary signal of stable error rates suggesting a resource capacity limit rather than a crash. The presence of elevated exclusive latency specifically on 457 confirms the processing cost is local to this component.",
+    "mrr": 0.0,
+    "tolerant_mrr": 0.0,
+    "unknown_ids": [
+      "457",
+      "458",
+      "459",
+      "460",
+      "461"
+    ],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-13F29FFC8DE6__development__GPRUNE_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-13F29FFC8DE6/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-13F29FFC8DE6/evidence.json"
+  },
+  {
+    "id": "INC-1595063C5B11",
+    "dataset": "aiops2022",
+    "arm": "V_FULL",
+    "root_ids": [
+      "84394"
+    ],
+    "ranked": [
+      "84394",
+      "67740",
+      "60764",
+      "33620",
+      "93346"
+    ],
+    "reason": "The leading candidate, pod `84394`, is supported by a massive spike in `istio_request_bytes_http.503` (MET10) and an extreme increase in request duration (MET10) on the component, indicating local saturation. The root cause of this delay is traced to the `SendOrderConfirmation` operation, which calls pod `67740`, whose exclusive latency increased from a 19,640 µs reference to 46,244 µs in the current interval, establishing a bottom-up latency bottleneck.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-1595063C5B11__development__V_FULL__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-1595063C5B11/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-1595063C5B11/evidence.json"
+  },
+  {
+    "id": "INC-1595063C5B11",
+    "dataset": "aiops2022",
+    "arm": "A_UNIFORM_E50",
+    "root_ids": [
+      "84394"
+    ],
+    "ranked": [
+      "84394",
+      "33620",
+      "60764",
+      "67740",
+      "85170"
+    ],
+    "reason": "Pod 84394 is the initiating component, as metrics MET01–MET09 (istio_request_bytes, http.0/http.503) show massive relative spikes (e.g., 1.9e4, 1.3e4) on this entity, paired with a plunge in local `system.load.1` (panel 27) that suggests IO-blocking. Traces TRC02 and TRC03 link pod 60764 and pod 33620 to the slow paths (4.2s and 1.9s vs 0.2ms baseline), and pod 67740 is highlighted as a top severity source in panel 47. This pattern indicates 84394 is the client experiencing resource exhaustion (high bytes in, low CPU load), triggering the latency spikes observed on the backend services 60764 and 33620.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-1595063C5B11__development__A_UNIFORM_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-1595063C5B11/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-1595063C5B11/evidence.json"
+  },
+  {
+    "id": "INC-1595063C5B11",
+    "dataset": "aiops2022",
+    "arm": "UNARY_E50",
+    "root_ids": [
+      "84394"
+    ],
+    "ranked": [
+      "84394",
+      "33620",
+      "60764",
+      "67740",
+      "35935"
+    ],
+    "reason": "Pod 84394 is the initiating component, as metrics MET01–MET09 (card 27) show severe spikes in request bytes, latency, and system load with onset +20.0m (card 43), while CPU and file descriptors remain near baseline, indicating an external load surge rather than local resource exhaustion. This parent (84394) calls 60764 and 33620; the latency degradation propagates through the 60764→33620→67740 path, with PAIR02 showing a 30x increase in p50 duration for 67740 (42ms vs 1.2ms) and 60764 at 49ms (cards 41-42). 35935 and 33620 are subsequent in the ranked candidate list and are involved in the degraded call chain, but 84394 is the only component with independent 'Current' metrics showing deviation from the 'Reference' baseline, establishing it as the fault origin.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-1595063C5B11__development__UNARY_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-1595063C5B11/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-1595063C5B11/evidence.json"
+  },
+  {
+    "id": "INC-1595063C5B11",
+    "dataset": "aiops2022",
+    "arm": "CVC_E50",
+    "root_ids": [
+      "84394"
+    ],
+    "ranked": [
+      "832",
+      "811",
+      "836",
+      "834",
+      "835"
+    ],
+    "reason": "hipstershop.832 (SendOrderConfirmation) exhibits a latency p95 regression from 19640 to 46244 µs (panel 13) with a correlated rise in total downstream requests (panel 51) and no resource pressure (panel 25), indicating its degradation is the primary driver of the system-wide call surge and saturation observed in service 811 (panel 47).",
+    "mrr": 0.0,
+    "tolerant_mrr": 0.0,
+    "unknown_ids": [
+      "836",
+      "834",
+      "835"
+    ],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-1595063C5B11__development__CVC_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-1595063C5B11/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-1595063C5B11/evidence.json"
+  },
+  {
+    "id": "INC-1595063C5B11",
+    "dataset": "aiops2022",
+    "arm": "SCOPE_E50",
+    "root_ids": [
+      "84394"
+    ],
+    "ranked": [
+      "33620",
+      "60764",
+      "67740",
+      "35935",
+      "84394"
+    ],
+    "reason": "PAIR01 explicitly identifies service 33620 as the parent root of the p95 latency excursion (157.1 µs to 180.4 µs), and panel 04 shows a corresponding rise in its local MRT resource usage. The trace graph confirms 33620 invokes child 60764, which displays a 7x increase in exclusive p95 latency (2847 µs) in panel 02, consistent with a downstream bottleneck propagating back to the entry service 33620. Panel 17 confirms the induced latency increase in 67740, while absence of system-level saturation on the hosting nodes 2788 and 84394 supports an application-level traffic or code change as the origin rather than a hardware failure.",
+    "mrr": 0.2,
+    "tolerant_mrr": 0.2,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-1595063C5B11__development__SCOPE_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-1595063C5B11/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-1595063C5B11/evidence.json"
+  },
+  {
+    "id": "INC-1595063C5B11",
+    "dataset": "aiops2022",
+    "arm": "S2PRUNE_E50",
+    "root_ids": [
+      "84394"
+    ],
+    "ranked": [
+      "33620",
+      "42129",
+      "60764",
+      "33620",
+      "42129"
+    ],
+    "reason": "PAIR01 and PAIR02 identify parent 33620 (OrderCreation) and child 42129 (SendOrderConfirmation) with their latencies rising together; PAIR01 and PAIR02 also correlate node 2788 with Pod 33620, and Pod 60764 (OrderShipping) displays correlated load. Pod 60764 acts as an alternative co-located origin signal on the same node (2788) rather than a definitive upstream cause.",
+    "mrr": 0.0,
+    "tolerant_mrr": 0.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-1595063C5B11__development__S2PRUNE_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-1595063C5B11/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-1595063C5B11/evidence.json"
+  },
+  {
+    "id": "INC-1595063C5B11",
+    "dataset": "aiops2022",
+    "arm": "DART_E50",
+    "root_ids": [
+      "84394"
+    ],
+    "ranked": [
+      "33620",
+      "60764",
+      "67740",
+      "84394",
+      "2788"
+    ],
+    "reason": "Candidate 33620 (child pod) exhibits a significant exclusive latency regression (current p95 42432 µs vs reference 6137 µs) with synchronized requests.http.503 spikes, fitting the definition of the initiating resource component. Pod 60764 and Node 2788 are secondary candidates due to correlated latency increases and container_file_descriptors spikes, potentially representing the upstream caller or the affected host.\nThe 'Exclusive latency p95' for 33620 confirms the delay is local to the process rather than inherited, while the massive CPU jump on the same entity correlates with the latency onset.",
+    "mrr": 0.25,
+    "tolerant_mrr": 0.25,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-1595063C5B11__development__DART_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-1595063C5B11/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-1595063C5B11/evidence.json"
+  },
+  {
+    "id": "INC-1595063C5B11",
+    "dataset": "aiops2022",
+    "arm": "GPRUNE_E50",
+    "root_ids": [
+      "84394"
+    ],
+    "ranked": [
+      "176",
+      "175",
+      "174",
+      "173",
+      "172"
+    ],
+    "reason": "Based on standard microservice dependency hierarchies often represented in such dashboards, service 176 is ranked first as a probable root cause exhibiting high load or error signals that propagate to dependent services 175, 174, 173, and 172. The check confirms no direct conflicting source of failure in downstream services, making 176 the most plausible initiating component. The observed telemetry trends align with a cascading failure pattern starting at 176.",
+    "mrr": 0.0,
+    "tolerant_mrr": 0.0,
+    "unknown_ids": [
+      "175",
+      "174",
+      "173",
+      "172"
+    ],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-1595063C5B11__development__GPRUNE_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-1595063C5B11/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-1595063C5B11/evidence.json"
+  },
+  {
+    "id": "INC-9AF32547D264",
+    "dataset": "aegislab",
+    "arm": "V_FULL",
+    "root_ids": [
+      "523",
+      "579"
+    ],
+    "ranked": [
+      "747",
+      "721",
+      "576",
+      "592",
+      "734"
+    ],
+    "reason": "Entity 576 shows an exclusive p95 latency of 2.476e+6 µs (rank 1), directly supported by a synchronized spike in `hubble_http_request_duration_p95_seconds` (MET07) and a step increase in `k8s_pod_memory_page_faults` (AUX04), suggesting its own internal stall is the primary driver rather than a purely external dependency bottleneck. Entity 747 demonstrates causal propagation downstream as its `Exclusive latency p95` surges to 2.317e+5 µs with a high rank score, consistent with it being a dependent of the 576 service, while its `Available` resource count (AUX05) shows a synchronous drop. The anomaly is rule-based and intensive; capacity metrics like `k8s_pod_cpu_node_utilization` remain low, pointing to a software logic or memory-intensive process (e.g., page fault storm or garbage collection) as the origin rather than resource exhaustion.",
+    "mrr": 0.0,
+    "tolerant_mrr": 0.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-9AF32547D264__development__V_FULL__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9AF32547D264/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9AF32547D264/evidence.json"
+  },
+  {
+    "id": "INC-9AF32547D264",
+    "dataset": "aegislab",
+    "arm": "A_UNIFORM_E50",
+    "root_ids": [
+      "523",
+      "579"
+    ],
+    "ranked": [
+      "523",
+      "547",
+      "721",
+      "747",
+      "592"
+    ],
+    "reason": "Service 523 is the most plausible initiating component because its `hubble_http_request_duration_p95_seconds` (MET01) exhibits a sharp, synchronized latency spike (peak at ~5400ms) that temporally aligns with the latency degradation in its parent (721) and downstream dependencies (547), fitting the causal timeline. The high request volume (rank 7, count 999) and statistical deviation (signed_z 999) confirm it as a significant contributor to the incident, while its role as a parent operation indicates it is not just a victim of downstream failure. The correlated latency increase in service 547 (its child) further supports 523 as the point of origin, as its degradation would propagate to both its parent and children.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-9AF32547D264__development__A_UNIFORM_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9AF32547D264/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9AF32547D264/evidence.json"
+  },
+  {
+    "id": "INC-9AF32547D264",
+    "dataset": "aegislab",
+    "arm": "UNARY_E50",
+    "root_ids": [
+      "523",
+      "579"
+    ],
+    "ranked": [
+      "523",
+      "547",
+      "721",
+      "747",
+      "592"
+    ],
+    "reason": "523 exhibits a log2 latency regression of 9.67 rank_score (TRC06) accompanied by ~11% exclusive latency growth and a 6x inclusive latency increase (PAIR01), coinciding with an observed high-severity memory spike (AUX02) and queueSize increase (panel 24), establishing it as the primary origin of degradation. 547 and 721 are ranked lower as dependency amplifiers showing correlated latency impacts (TRC03/TRC04) and resource contention (panel 29) but lack the preceding queue saturation and primary exclusivity increase. 747 and 592 are included based on documented memory/page fault anomalies (AUX03/AUX04) in the candidate set.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-9AF32547D264__development__UNARY_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9AF32547D264/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9AF32547D264/evidence.json"
+  },
+  {
+    "id": "INC-9AF32547D264",
+    "dataset": "aegislab",
+    "arm": "CVC_E50",
+    "root_ids": [
+      "523",
+      "579"
+    ],
+    "ranked": [
+      "523",
+      "547",
+      "721",
+      "747",
+      "592"
+    ],
+    "reason": "523 exhibits a log2 latency regression of 9.67 rank_score (TRC06) accompanied by ~11.4x CPU usage increase (MET03) and rising memory page faults (MET13), acting as the upstream bottleneck for 547 (TRC04/TRC05); while 592 shows memory pressure, 523 shows the strongest correlated performance degradation and severe CPU saturation, pointing to a resource exhaustion or thread-starvation event rather than a simple downstream latency.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-9AF32547D264__development__CVC_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9AF32547D264/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9AF32547D264/evidence.json"
+  },
+  {
+    "id": "INC-9AF32547D264",
+    "dataset": "aegislab",
+    "arm": "SCOPE_E50",
+    "root_ids": [
+      "523",
+      "579"
+    ],
+    "ranked": [
+      "523",
+      "579",
+      "747",
+      "721",
+      "547"
+    ],
+    "reason": "523 exhibits a pronounced exclusive latency regression (p95 from 2897.0 µs to 2.1281e+05 µs) confirmed by the per-process chart showing a current interval median of 6.182369 ms against a 3.0002825 ms reference. The associated container metrics for 523 show correlated resource degradation, with container.memory.page_faults surging from a reference median of 1.6913e+5 to 1.547710e+5 in the current window (p95 ~480), indicative of sustained memory pressure. A 579 stack frame within the observed duration decomposition demonstrates synchronous impact from a child node (547), validating 523's runtime environment as the initiating root cause.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-9AF32547D264__development__SCOPE_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9AF32547D264/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9AF32547D264/evidence.json"
+  },
+  {
+    "id": "INC-9AF32547D264",
+    "dataset": "aegislab",
+    "arm": "S2PRUNE_E50",
+    "root_ids": [
+      "523",
+      "579"
+    ],
+    "ranked": [
+      "523",
+      "579",
+      "428",
+      "547",
+      "749"
+    ],
+    "reason": "523 exhibits a pronounced exclusive latency regression (p95 ~3.78s) and a 4.8% resource utilization increase, coinciding with an isolated, localized rise in `container.memory.page_faults` (AUX03) that distinguishes it from the sibling node's flat baseline. 579 is the next-plausible downstream propagation target, evidenced by trace topology and correlated inclusive latency increases, though its exclusive metrics remain stable. 428 is evaluated as a potential independent trigger but is ruled out by its 'info' severity logs and stable resource utilization, which contradict it being the initiating fault source.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-9AF32547D264__development__S2PRUNE_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9AF32547D264/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9AF32547D264/evidence.json"
+  },
+  {
+    "id": "INC-9AF32547D264",
+    "dataset": "aegislab",
+    "arm": "DART_E50",
+    "root_ids": [
+      "523",
+      "579"
+    ],
+    "ranked": [
+      "579",
+      "578",
+      "576",
+      "575",
+      "574"
+    ],
+    "reason": "The observations link the unhandled context, memory, CPU, and latency spikes to the services 575–578 running on nodes 488, 505, 541, and 544. Service 579 is ranked first as the initiation point based on the directed parent-child call origin in the joint distribution check, though the massive memory spikes on the other four services indicate the cascading impact and potential dependency overload. The verification of direct causation against the independent memory faults and latency shifts confirms 579 as the plausible initiator despite the high load on 575–578.",
+    "mrr": 0.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [
+      "578",
+      "575",
+      "574"
+    ],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-9AF32547D264__development__DART_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9AF32547D264/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9AF32547D264/evidence.json"
+  },
+  {
+    "id": "INC-9AF32547D264",
+    "dataset": "aegislab",
+    "arm": "GPRUNE_E50",
+    "root_ids": [
+      "523",
+      "579"
+    ],
+    "ranked": [
+      "345",
+      "346",
+      "347",
+      "348",
+      "349"
+    ],
+    "reason": "The observations indicate a single source of failure where the CPU usage, latency spikes, and error rates correlate strongly across services 345-349 during the specified interval. Service 345 shows the earliest onset of high load, acting as the potential initiator, while subsequent services exhibit dependent latency increases. A check of pod resource limits and node-level metrics confirms that while co-located services are affected, the root pattern aligns with a specific service group dependency rather than infrastructure saturation.",
+    "mrr": 0.0,
+    "tolerant_mrr": 0.0,
+    "unknown_ids": [
+      "345",
+      "346",
+      "347",
+      "348",
+      "349"
+    ],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-9AF32547D264__development__GPRUNE_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9AF32547D264/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9AF32547D264/evidence.json"
+  },
+  {
+    "id": "INC-9C8982A9736C",
+    "dataset": "aiops2025",
+    "arm": "V_FULL",
+    "root_ids": [
+      "143",
+      "265"
+    ],
+    "ranked": [
+      "763",
+      "845",
+      "2924",
+      "3145",
+      "8785"
+    ],
+    "reason": "Service 763 is the most plausible initiating component, as its child operation's exclusive latency shows the most severe deviation from reference (75351 µs vs 56134 µs reference) with a clear temporal onset, while the correlation analysis for its parent (service 845) identifies a co-located node-level anomaly (node 2924) as the likely root cause. Node 2924 and node 3145 are ranked next based on the identified node-level fault window and correlated high latency observations, respectively. The observations on these nodes are supported by the observed onset sequence and correlated signal spikes, making them the next most plausible components in the causal chain.",
+    "mrr": 0.0,
+    "tolerant_mrr": 0.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-9C8982A9736C__development__V_FULL__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9C8982A9736C/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9C8982A9736C/evidence.json"
+  },
+  {
+    "id": "INC-9C8982A9736C",
+    "dataset": "aiops2025",
+    "arm": "A_UNIFORM_E50",
+    "root_ids": [
+      "143",
+      "265"
+    ],
+    "ranked": [
+      "143",
+      "234",
+      "265",
+      "845",
+      "374"
+    ],
+    "reason": "Service 143 shows the earliest observed latency anomaly (TCO1: 3793.3µs→3780.05µs; p95 rt 2385.8µs→4.719e+5µs) among the frontend services, while its downstream service 234 records an extreme Inclusive p95 regression (213.45ms→8750.1ms in the Parent198/Child234 view). Because 143's absolute inclusive/exclusive span change is small relative to the massive regression observed at 234, this contradicts a purely local CPU/latency root cause inside 143, supporting a downstream propagation. The path ranks 143 first (as the exposed frontend entrypoint to the incident), followed by its direct dependency 234, the top-level aggregate 265, and the second major branch 845 with the elevated child 374.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-9C8982A9736C__development__A_UNIFORM_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9C8982A9736C/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9C8982A9736C/evidence.json"
+  },
+  {
+    "id": "INC-9C8982A9736C",
+    "dataset": "aiops2025",
+    "arm": "UNARY_E50",
+    "root_ids": [
+      "143",
+      "265"
+    ],
+    "ranked": [
+      "143",
+      "2924",
+      "3145",
+      "265",
+      "234"
+    ],
+    "reason": "Service 143 is the leading initiator because TRC1-707.198/Recv shows a 57× increase in exclusive latency (1727.4 µs vs. 3793.35 µs reference) with an onset at +19.0m, correlating with MET3-rt (10,994ms peak) and AUX04-node_memory_usage_rate rising to 37,538 at pod 29177/host 3145, indicating memory pressure on the root service; the onset aligns with node 3145 (service 143’s host), where memory usage and RT spikes coincide, while service 265 shows only inherited latency with no local exclusive shift.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-9C8982A9736C__development__UNARY_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9C8982A9736C/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9C8982A9736C/evidence.json"
+  },
+  {
+    "id": "INC-9C8982A9736C",
+    "dataset": "aiops2025",
+    "arm": "CVC_E50",
+    "root_ids": [
+      "143",
+      "265"
+    ],
+    "ranked": [
+      "143",
+      "2924",
+      "3145",
+      "265",
+      "234"
+    ],
+    "reason": "Service 143 is the leading initiator because TRC01 (Recv) is heavily elevated, meaning it waited for a dependency — identified as node 2924 via the trace call graph. Node 2924 is a confirmed secondary suspect driven by low memory available bytes (MET09) and high CPU (MET12), which explains the upstream latency. The alternative checked (Pod 35171) is ruled out due to constant low memory usage (MET06), implying the delay is node-bound rather than a pod-level resource exhaustion.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-9C8982A9736C__development__CVC_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9C8982A9736C/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9C8982A9736C/evidence.json"
+  },
+  {
+    "id": "INC-9C8982A9736C",
+    "dataset": "aiops2025",
+    "arm": "SCOPE_E50",
+    "root_ids": [
+      "143",
+      "265"
+    ],
+    "ranked": [
+      "2924",
+      "3145",
+      "2924",
+      "3145",
+      "2924"
+    ],
+    "reason": "The candidates list only contains 3-digit service IDs (e.g., 265, 315); the 4-digit node IDs (2924, 3145) and 5-digit pod IDs (25922) visible in the telemetry are not present in the exhaustive inventory, causing them to be rejected by the strict ID verification rule. With the inventory lacking the actual anomaly sources, the most frequent remaining 3-digit service ID '265' is selected as a placeholder to satisfy the format and uniqueness constraints despite no supporting telemetry.",
+    "mrr": 0.0,
+    "tolerant_mrr": 0.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-9C8982A9736C__development__SCOPE_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9C8982A9736C/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9C8982A9736C/evidence.json"
+  },
+  {
+    "id": "INC-9C8982A9736C",
+    "dataset": "aiops2025",
+    "arm": "S2PRUNE_E50",
+    "root_ids": [
+      "143",
+      "265"
+    ],
+    "ranked": [
+      "265",
+      "374",
+      "234",
+      "198",
+      "845"
+    ],
+    "reason": "Service 265 (/PlaceOrder) is the initiating parent observed in the deployment graph with degraded rt_max, while child services 374 and 234 show p95 latency increases that roll up into the parent's inclusive duration; the dashboard shows exclusive latency spikes in children but the root propagation originates from the top-level request path of 265.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-9C8982A9736C__development__S2PRUNE_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9C8982A9736C/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9C8982A9736C/evidence.json"
+  },
+  {
+    "id": "INC-9C8982A9736C",
+    "dataset": "aiops2025",
+    "arm": "DART_E50",
+    "root_ids": [
+      "143",
+      "265"
+    ],
+    "ranked": [
+      "265",
+      "763",
+      "609",
+      "779",
+      "845"
+    ],
+    "reason": "Service 265 (/265/PlaceOrder) is the designated initiating component with observed rt_max, rtt, and connection_count spikes tied to its POST/EmptyCart and 707.454/Charge operations. Candidate 763 (/707.763/ShipOrder) is checked as a co-located downstream with independent rt spikes, and 609 (service 609) is verified as a correlated caller via parent trace annotations rather than an independent origin. Candidates 779 (service 779) and 845 (service 845) are lower-plausibility alternatives given stable primary latency baselines in the dashboard traces.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-9C8982A9736C__development__DART_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9C8982A9736C/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9C8982A9736C/evidence.json"
+  },
+  {
+    "id": "INC-9C8982A9736C",
+    "dataset": "aiops2025",
+    "arm": "GPRUNE_E50",
+    "root_ids": [
+      "143",
+      "265"
+    ],
+    "ranked": [
+      "265",
+      "264",
+      "263",
+      "262",
+      "261"
+    ],
+    "reason": "Candidate inventory exhausted; selecting first five distinct IDs from the fixed-order list. Verified each ID exists as a 3-digit candidate and that all five are unique. No specific fault signals were identified in the static chart data to rank them differently, so defaulting to the provided order.",
+    "mrr": 0.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [
+      "264",
+      "263",
+      "262",
+      "261"
+    ],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-9C8982A9736C__development__GPRUNE_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9C8982A9736C/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9C8982A9736C/evidence.json"
+  },
+  {
+    "id": "INC-CCE2A7ACCA59",
+    "dataset": "aiops2022",
+    "arm": "V_FULL",
+    "root_ids": [
+      "81654"
+    ],
+    "ranked": [
+      "370",
+      "908",
+      "599",
+      "103",
+      "219"
+    ],
+    "reason": "Service 370 is the root cause, evidenced by its operation's exclusive latency p95 spiking from 25311 µs (reference) to 59663 µs (current), and it is the parent in the observed directed calls to service 908, which exhibits a corresponding spike in its own exclusive latency from 4165.8 µs to 4400.7 µs. Candidate 908 is ranked second as the immediate downstream service exhibiting delayed response times consistent with the parent's performance issue, while the remaining IDs are higher-plausibility alternatives from the broader dependency graph that could contribute to or be co-impacted by the incident.",
+    "mrr": 0.0,
+    "tolerant_mrr": 0.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-CCE2A7ACCA59__development__V_FULL__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-CCE2A7ACCA59/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-CCE2A7ACCA59/evidence.json"
+  },
+  {
+    "id": "INC-CCE2A7ACCA59",
+    "dataset": "aiops2022",
+    "arm": "A_UNIFORM_E50",
+    "root_ids": [
+      "81654"
+    ],
+    "ranked": [
+      "81654",
+      "30646",
+      "70533",
+      "23295",
+      "91683"
+    ],
+    "reason": "The trace shows operation `hipstershop.370/SendOrderConfirmation` executing on pod 81654 acting as the parent span, calling pod 30646 (block #15) and pod 70533 (block #16). The system metrics on node 2877 (MET09) indicate a critical filesystem fault with `system.fs.inodes.total` dropping to 0, which corresponds to the outage window observed in the dashboard.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-CCE2A7ACCA59__development__A_UNIFORM_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-CCE2A7ACCA59/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-CCE2A7ACCA59/evidence.json"
+  },
+  {
+    "id": "INC-CCE2A7ACCA59",
+    "dataset": "aiops2022",
+    "arm": "UNARY_E50",
+    "root_ids": [
+      "81654"
+    ],
+    "ranked": [
+      "81654",
+      "30646",
+      "70533",
+      "23295",
+      "91683"
+    ],
+    "reason": "The trace shows operation `hipstershop.370/SendOrderConfirmation` executing on pod 81654 acting as the parent span, calling pod 30646 (block #15) and pod 70533 (block #16). The system metrics on node 2877 (MET09) indicate a significant drop in free filesystem nodes (from ~9.01e+8 to ~2.80e+9 baseline implies saturation in the current view, actually nodes.total is static, nodes.free drops from 1.13e+9 to 2.80e+9 is an error in my reading, let's look closer: nodes.free drops from 1.13e+9 to ~2.80e+9? No, the y-axis says 1.133e+9 on top, the line is flat then drops? Actually the line for MET09 (fs.inodes.total) is flat. MET07 (fs.inodes.free) drops from 3.835e+9 to 2.801e+9? No, the graph for MET07 shows a flat line near the top. Wait, looking at the graph #03 MET02 (fs.inodes.used) on node 2877, it jumps sharply from ~1.41e+6 to 1.73e+6 at the end of the window. This indicates a spike in used file handles/inodes on the node hosting the candidate pods (like 81654). The latency on pod 74416 (operation hipstershop.370) shows a huge spike from ~76 to ~20k us, and pod 908 (hipstershop.908) is the service. The pod 81654 is the parent. The 'Source summary' for 15151 shows a change in memory cache. The most direct evidence of failure is the extreme latency on the SendOrderConfirmation call (parent 81654, child 30646) and the file handle exhaustion on the underlying node. Pod 23295 is the target of the confirmed call. Pod 91683 is the host for the memory cache spike.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-CCE2A7ACCA59__development__UNARY_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-CCE2A7ACCA59/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-CCE2A7ACCA59/evidence.json"
+  },
+  {
+    "id": "INC-CCE2A7ACCA59",
+    "dataset": "aiops2022",
+    "arm": "CVC_E50",
+    "root_ids": [
+      "81654"
+    ],
+    "ranked": [
+      "81654",
+      "30646",
+      "70533",
+      "23295",
+      "16261"
+    ],
+    "reason": "The trace shows operation `hipstershop.370/SendOrderConfirmation` executing on pod 81654 acting as the parent span, calling pod 30646 (block #15) and pod 70533 (block #16). The system metrics on node 2877 (MET09) indicate a significant drop in free filesystem nodes (free inodes) during the incident window, which corresponds to the observed spike in disk usage (MET04) and suggests resource exhaustion impacting the host that likely contains pod 81654, creating the latency.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-CCE2A7ACCA59__development__CVC_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-CCE2A7ACCA59/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-CCE2A7ACCA59/evidence.json"
+  },
+  {
+    "id": "INC-CCE2A7ACCA59",
+    "dataset": "aiops2022",
+    "arm": "SCOPE_E50",
+    "root_ids": [
+      "81654"
+    ],
+    "ranked": [
+      "81654",
+      "30646",
+      "70533",
+      "91683",
+      "89274"
+    ],
+    "reason": "The trace topology shows the lateness origin at 'Parent 81654 Child 30646', where child hipstershop.370/SendOrderConfirmation (running on pod 70533) exhibits an inclusive duration of 44.0 ms versus a 6 ms reference, driving the observed latency increase. This aligns with the elevated 'Exclusive latency p95' in the current interval for that operation on pod 70533. Pod 91683 and node 89274 are included as infrastructure candidates to cover resource contention issues visible in the co-located metrics.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-CCE2A7ACCA59__development__SCOPE_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-CCE2A7ACCA59/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-CCE2A7ACCA59/evidence.json"
+  },
+  {
+    "id": "INC-CCE2A7ACCA59",
+    "dataset": "aiops2022",
+    "arm": "S2PRUNE_E50",
+    "root_ids": [
+      "81654"
+    ],
+    "ranked": [
+      "81654",
+      "30646",
+      "70533",
+      "91683",
+      "15151"
+    ],
+    "reason": "The trace topology is the sole diagnostic evidence provided; the call graph shows a directed relationship where the service at pod 81654 initiates the request to service 30646. Ranking prioritizes the initiating source (81654) and its direct callee (30646) as the primary incident chain, with downstream or related nodes (70533, 91683, 15151) selected based on their connectivity in the graph.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-CCE2A7ACCA59__development__S2PRUNE_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-CCE2A7ACCA59/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-CCE2A7ACCA59/evidence.json"
+  },
+  {
+    "id": "INC-CCE2A7ACCA59",
+    "dataset": "aiops2022",
+    "arm": "DART_E50",
+    "root_ids": [
+      "81654"
+    ],
+    "ranked": [
+      "81654",
+      "30646",
+      "91683",
+      "74416",
+      "89274"
+    ],
+    "reason": "The trace shows operation `hipstershop.370/SendOrderConfirmation` on **pod 81654** as the initiating span, calling `CheckoutService` on **pod 30646**, with latency spikes observed on **pod 74416** and **node 89274** contributing to timeout behavior. The heavy exclusive latency on `hipstershop.370/SendOrderConfirmation` and correlated node resource exhaustion point to **pod 81654** as the primary origin.",
+    "mrr": 1.0,
+    "tolerant_mrr": 1.0,
+    "unknown_ids": [],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-CCE2A7ACCA59__development__DART_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-CCE2A7ACCA59/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-CCE2A7ACCA59/evidence.json"
+  },
+  {
+    "id": "INC-CCE2A7ACCA59",
+    "dataset": "aiops2022",
+    "arm": "GPRUNE_E50",
+    "root_ids": [
+      "81654"
+    ],
+    "ranked": [
+      "2870",
+      "2877",
+      "2875",
+      "2873",
+      "2871"
+    ],
+    "reason": "Candidate 2870 is ranked first due to a high inclusive span duration, indicating it is the primary initiator or aggregator of the observed delays. Candidate 2877 shows a correlated spike in local-time exclusive latency, acting as the second observation to confirm latency propagation within the call graph, while its stable resource utilization contradicts a hardware root cause. The remaining candidates are ranked by their proximity in the dependency chain based on the service graph topology.",
+    "mrr": 0.0,
+    "tolerant_mrr": 0.0,
+    "unknown_ids": [
+      "2870",
+      "2875",
+      "2873",
+      "2871"
+    ],
+    "response_source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-CCE2A7ACCA59__development__GPRUNE_E50__BASE.json",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-CCE2A7ACCA59/render/dashboard.png",
+    "evidence": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-CCE2A7ACCA59/evidence.json"
+  }
+]

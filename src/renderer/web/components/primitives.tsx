@@ -17,6 +17,8 @@ export type Card = {id:string; kind:'contrast'|'comparison'|'inventory'|'metric'
          targets?:string[];rows?:DiagnosticRow[];sparse?:boolean;lines?:string[];
          parent?:string;child?:string;parent_operation?:string;child_operation?:string;support?:number[];
          duration_type?:string;quantiles?:number[][];sampled?:number[];
+         complete?:{schema:'CompleteMarginalsV1';thresholds:string[];values:string[][];sample_ids:string[];
+           phases:{phase:'reference'|'current';n:string;sampled:string;binary:string[];quantiles:string[][];conditional_child:(string|null)[][]}[]};
          samples?:{phase:'reference'|'current';parent_ms:number;child_ms:number}[]}};
 export type Rect = {readable_cards?:'source_scopes_v2'|'source_reflow_v3'|'source_scopes_pack_v4';card:string; node:string; component:string; index:number; x:number; y:number; width:number; height:number;
   dashed_width_scale?:number;

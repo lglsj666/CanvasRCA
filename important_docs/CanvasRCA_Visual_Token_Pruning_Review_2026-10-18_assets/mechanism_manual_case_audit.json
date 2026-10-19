@@ -1,0 +1,352 @@
+{
+  "status": "checked",
+  "selected_strata": [
+    {
+      "dataset": "aiops2022",
+      "stratum": "U_top1_V_miss",
+      "eligible": 2,
+      "id": "INC-CCE2A7ACCA59"
+    },
+    {
+      "dataset": "aiops2022",
+      "stratum": "V_top1_U_miss",
+      "eligible": 0,
+      "id": null
+    },
+    {
+      "dataset": "aiops2022",
+      "stratum": "U_top1_CVC_miss",
+      "eligible": 1,
+      "id": "INC-1595063C5B11"
+    },
+    {
+      "dataset": "aiops2022",
+      "stratum": "CVC_top1_U_miss",
+      "eligible": 0,
+      "id": null
+    },
+    {
+      "dataset": "aiops2025",
+      "stratum": "U_top1_V_miss",
+      "eligible": 2,
+      "id": "INC-9C8982A9736C"
+    },
+    {
+      "dataset": "aiops2025",
+      "stratum": "V_top1_U_miss",
+      "eligible": 0,
+      "id": null
+    },
+    {
+      "dataset": "aiops2025",
+      "stratum": "U_top1_CVC_miss",
+      "eligible": 0,
+      "id": null
+    },
+    {
+      "dataset": "aiops2025",
+      "stratum": "CVC_top1_U_miss",
+      "eligible": 0,
+      "id": null
+    },
+    {
+      "dataset": "aegislab",
+      "stratum": "U_top1_V_miss",
+      "eligible": 6,
+      "id": "INC-9AF32547D264"
+    },
+    {
+      "dataset": "aegislab",
+      "stratum": "V_top1_U_miss",
+      "eligible": 0,
+      "id": null
+    },
+    {
+      "dataset": "aegislab",
+      "stratum": "U_top1_CVC_miss",
+      "eligible": 1,
+      "id": "INC-058FC5DD18AD"
+    },
+    {
+      "dataset": "aegislab",
+      "stratum": "CVC_top1_U_miss",
+      "eligible": 1,
+      "id": "INC-13F29FFC8DE6"
+    }
+  ],
+  "selected_cases": 6,
+  "saved_answers": 48,
+  "answers_read_for_new_qualitative_audit": 42,
+  "arms_read_per_case": [
+    "V_FULL",
+    "A_UNIFORM_E50",
+    "CVC_E50",
+    "SCOPE_E50",
+    "S2PRUNE_E50",
+    "DART_E50",
+    "GPRUNE_E50"
+  ],
+  "original_pngs_opened": [
+    "INC-CCE2A7ACCA59",
+    "INC-9C8982A9736C",
+    "INC-13F29FFC8DE6"
+  ],
+  "no_population_error_rate_inferred": true,
+  "checks": [
+    {
+      "id": "INC-CCE2A7ACCA59",
+      "arms": [
+        "V_FULL",
+        "A_UNIFORM_E50",
+        "CVC_E50"
+      ],
+      "observation": "V_FULL ranks service 370 from the operation string; the 25310.7→59663.1 us trace is bound to pod23295. Uniform/CVC instead rank accepted pod81654 and cite the parent-pod pair. Uniform nevertheless says MET09 drops to zero, while the full observed series is 2.874e9–3.765e9.",
+      "classification": "entity/granularity focus changes; correct rank with false numerical explanation",
+      "limitation": "This does not prove that a particular deleted token caused the focus change, or that all Uniform claims are correct.",
+      "source_cards": [
+        "TRA002",
+        "JNT001",
+        "MET009"
+      ],
+      "evidence_path": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-CCE2A7ACCA59/evidence.json",
+      "responses": [
+        {
+          "arm": "V_FULL",
+          "path": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-CCE2A7ACCA59__development__V_FULL__BASE.json",
+          "mrr": 0.0,
+          "tolerant_mrr": 0.0
+        },
+        {
+          "arm": "A_UNIFORM_E50",
+          "path": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-CCE2A7ACCA59__development__A_UNIFORM_E50__BASE.json",
+          "mrr": 1.0,
+          "tolerant_mrr": 1.0
+        },
+        {
+          "arm": "CVC_E50",
+          "path": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-CCE2A7ACCA59__development__CVC_E50__BASE.json",
+          "mrr": 1.0,
+          "tolerant_mrr": 1.0
+        }
+      ]
+    },
+    {
+      "id": "INC-1595063C5B11",
+      "arms": [
+        "A_UNIFORM_E50",
+        "CVC_E50",
+        "S2PRUNE_E50"
+      ],
+      "observation": "Uniform ranks accepted pod84394, which owns the request/error/duration metrics. CVC shifts to operation service832, quotes the real 19639.8→46244.2 trace owned by pod67740, and generates three noncandidate IDs. S2Prune repeats only 33620/42129/60764 and misses 84394.",
+      "classification": "evidence focus and entity granularity shift; invalid alternatives",
+      "limitation": "Operation service identity and span-owner pod are related but not interchangeable under the registered target.",
+      "source_cards": [
+        "MET001",
+        "MET002",
+        "MET010",
+        "TRA003"
+      ],
+      "evidence_path": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-1595063C5B11/evidence.json",
+      "responses": [
+        {
+          "arm": "A_UNIFORM_E50",
+          "path": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-1595063C5B11__development__A_UNIFORM_E50__BASE.json",
+          "mrr": 1.0,
+          "tolerant_mrr": 1.0
+        },
+        {
+          "arm": "CVC_E50",
+          "path": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-1595063C5B11__development__CVC_E50__BASE.json",
+          "mrr": 0.0,
+          "tolerant_mrr": 0.0
+        },
+        {
+          "arm": "S2PRUNE_E50",
+          "path": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-1595063C5B11__development__S2PRUNE_E50__BASE.json",
+          "mrr": 0.0,
+          "tolerant_mrr": 0.0
+        }
+      ]
+    },
+    {
+      "id": "INC-9C8982A9736C",
+      "arms": [
+        "A_UNIFORM_E50",
+        "SCOPE_E50"
+      ],
+      "observation": "SCOPE outputs [2924,3145,2924,3145,2924] while its reason says these node/pod IDs are absent from the inventory and claims to select service265 instead. All three cited IDs 2924/3145/25922 are candidates. Uniform has an accepted first rank but also narrates downstream-origin versus frontend-first tension.",
+      "classification": "candidate-inventory claim false; reason contradicts emitted ranking",
+      "limitation": "SCOPE retains all registered anchors. This is not proof that the renderer omitted node/pod candidates.",
+      "source_cards": [
+        "candidate inventory"
+      ],
+      "evidence_path": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9C8982A9736C/evidence.json",
+      "responses": [
+        {
+          "arm": "A_UNIFORM_E50",
+          "path": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-9C8982A9736C__development__A_UNIFORM_E50__BASE.json",
+          "mrr": 1.0,
+          "tolerant_mrr": 1.0
+        },
+        {
+          "arm": "SCOPE_E50",
+          "path": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-9C8982A9736C__development__SCOPE_E50__BASE.json",
+          "mrr": 0.0,
+          "tolerant_mrr": 0.0
+        }
+      ]
+    },
+    {
+      "id": "INC-13F29FFC8DE6",
+      "arms": [
+        "A_UNIFORM_E50",
+        "CVC_E50",
+        "SCOPE_E50",
+        "S2PRUNE_E50"
+      ],
+      "observation": "Uniform ranks119 and binds MET01 to119, but MET01 belongs744; its claimed peak1137.8 exceeds the observed maximum1054 and is visible as an axis tick. CVC ranks accepted705 but forms 726.43→~350800 us from two different trace cards: 726.43 belongs548 reference; 350879.71 belongs538 current.",
+      "classification": "Uniform failure; CVC correct rank still has cross-card and phase misbinding",
+      "limitation": "A winning rank cannot validate its accompanying explanation. No causal claim from this outcome-selected example.",
+      "source_cards": [
+        "MET001",
+        "TRA001",
+        "TRA003"
+      ],
+      "evidence_path": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-13F29FFC8DE6/evidence.json",
+      "responses": [
+        {
+          "arm": "A_UNIFORM_E50",
+          "path": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-13F29FFC8DE6__development__A_UNIFORM_E50__BASE.json",
+          "mrr": 0.0,
+          "tolerant_mrr": 0.0
+        },
+        {
+          "arm": "CVC_E50",
+          "path": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-13F29FFC8DE6__development__CVC_E50__BASE.json",
+          "mrr": 1.0,
+          "tolerant_mrr": 1.0
+        },
+        {
+          "arm": "SCOPE_E50",
+          "path": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-13F29FFC8DE6__development__SCOPE_E50__BASE.json",
+          "mrr": 1.0,
+          "tolerant_mrr": 1.0
+        },
+        {
+          "arm": "S2PRUNE_E50",
+          "path": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-13F29FFC8DE6__development__S2PRUNE_E50__BASE.json",
+          "mrr": 1.0,
+          "tolerant_mrr": 1.0
+        }
+      ]
+    },
+    {
+      "id": "INC-058FC5DD18AD",
+      "arms": [
+        "V_FULL",
+        "A_UNIFORM_E50",
+        "CVC_E50"
+      ],
+      "observation": "CVC ranks the filesystem-associated entities650/956/351/908/130 and says they are exactly MET01–05, but the actual owners are650/956/351/956/908. Uniform shifts to the true observed905→951 pair and has accepted top1. Uniform still confuses inclusive/exclusive interpretation in its reason; V_FULL calls filesystem values near zero although minima are1.455e10.",
+      "classification": "common-resource narrative versus request-pair narrative; cross-card ownership errors",
+      "limitation": "Neither shared filesystem variation nor parent-child identity alone proves the initiating cause.",
+      "source_cards": [
+        "MET001",
+        "MET002",
+        "MET003",
+        "MET004",
+        "MET005",
+        "TRA002",
+        "JNT001"
+      ],
+      "evidence_path": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-058FC5DD18AD/evidence.json",
+      "responses": [
+        {
+          "arm": "V_FULL",
+          "path": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-058FC5DD18AD__development__V_FULL__BASE.json",
+          "mrr": 0.3333333333333333,
+          "tolerant_mrr": 0.3333333333333333
+        },
+        {
+          "arm": "A_UNIFORM_E50",
+          "path": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-058FC5DD18AD__development__A_UNIFORM_E50__BASE.json",
+          "mrr": 1.0,
+          "tolerant_mrr": 1.0
+        },
+        {
+          "arm": "CVC_E50",
+          "path": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-058FC5DD18AD__development__CVC_E50__BASE.json",
+          "mrr": 0.0,
+          "tolerant_mrr": 0.0
+        }
+      ]
+    },
+    {
+      "id": "INC-9AF32547D264",
+      "arms": [
+        "V_FULL",
+        "A_UNIFORM_E50",
+        "DART_E50",
+        "GPRUNE_E50"
+      ],
+      "observation": "V_FULL lists747 first while its reason chiefly argues for576. Uniform has accepted523 first. DART has accepted579 first but three fabricated/noncandidate alternatives make the standard result zero (tolerant RR=1). G-Prune emits345/346/347/348/349, all outside the candidate inventory, with a detailed propagation story.",
+      "classification": "rank-reason mismatch; suffix invalidation; sequential ID completion",
+      "limitation": "Calling these IDs noncandidate is verified; numerical editing or label-based repairs are not performed.",
+      "source_cards": [
+        "candidate inventory"
+      ],
+      "evidence_path": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9AF32547D264/evidence.json",
+      "responses": [
+        {
+          "arm": "V_FULL",
+          "path": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-9AF32547D264__development__V_FULL__BASE.json",
+          "mrr": 0.0,
+          "tolerant_mrr": 0.0
+        },
+        {
+          "arm": "A_UNIFORM_E50",
+          "path": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-9AF32547D264__development__A_UNIFORM_E50__BASE.json",
+          "mrr": 1.0,
+          "tolerant_mrr": 1.0
+        },
+        {
+          "arm": "DART_E50",
+          "path": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-9AF32547D264__development__DART_E50__BASE.json",
+          "mrr": 0.0,
+          "tolerant_mrr": 1.0
+        },
+        {
+          "arm": "GPRUNE_E50",
+          "path": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-9AF32547D264__development__GPRUNE_E50__BASE.json",
+          "mrr": 0.0,
+          "tolerant_mrr": 0.0
+        }
+      ]
+    }
+  ],
+  "source_hashes": {
+    "RQs/RQ4_1/results/comparison_coding_v1/final_analysis_v1/calls.csv": "c479cb28abbebf3b3a33bc56e48722c3ba5c421064a1d89cc01bdbee02b1e7ec",
+    "important_docs/CanvasRCA_Visual_Token_Pruning_Review_2026-10-18_assets/mechanism_summary.csv": "39da9a02dec420ef1371c5d66a6e4794abd473d292feda7835f1eab245b4365a",
+    "RQs/RQ4_1/results/comparison_coding_v1/deployment_v26/request_index.json": "f53ff4f659f1be824011018199460177ee174f126160b04455be95d002df2bed",
+    "important_docs/CanvasRCA_Visual_Token_Pruning_Review_2026-10-18_assets/mechanism_example_answers.json": "c7a5a6f027c567fe987c921725b5e7de0748247c0ae3214c02a5f92ffc310f81",
+    "important_docs/CanvasRCA_Visual_Token_Pruning_Review_2026-10-18_assets/mechanism_example_selection.json": "bf481e68773f2fb0b6f86fc6ae098527ba29c60f2b05f98b0c0dd8b5ba45ff82",
+    "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-058FC5DD18AD/evidence.json": "86e09d3ae18acdf2017403b3323ff2300a3f57499b3bbe9176f57ec0194ac135",
+    "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-13F29FFC8DE6/evidence.json": "f4f305059dec2d5bf6a6c94995fb6aa560a4e2f165c53b1b7226a37ed5adc004",
+    "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-1595063C5B11/evidence.json": "813def6ae5477d8534595dae4a728fc1c54f4b3b5e3d6b3fe71281168bc25d07",
+    "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9AF32547D264/evidence.json": "364931a9e6402f20a5ff9954ab6f27b41644c7aa00a29a1b097c69cb74cd0d94",
+    "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9C8982A9736C/evidence.json": "23ff01340ddb8c40f913624016e2a6ca88b56b09c1c69860fc997c23e96ad0c3",
+    "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-CCE2A7ACCA59/evidence.json": "33e476f9f7c6061e4d50924df2b7d321875354b78797b0f6a75bec12906326fb",
+    "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-CCE2A7ACCA59/token_support.json": "1a22cbc08e98df09c4d137f0395ffe583c7e9161b54a311a3a79fa986f40f07f",
+    "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-CCE2A7ACCA59/render/dashboard.png": "9a0ddcf3bb15b83bfaf31d7c60c6a4164f714ed948025a16ad4428c58deb2769",
+    "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-CCE2A7ACCA59__development__A_UNIFORM_E50__BASE.json": "0843cc82dcd3ecee006c21465b1dc8d2fdfc4c15b17d653b935153d66f7b19ff",
+    "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-CCE2A7ACCA59__development__CVC_E50__BASE.json": "296c80474c9788b86f7af1c2116dfa687d6a1e509d0a126dc9978da3dfc345d6",
+    "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9C8982A9736C/token_support.json": "74f42adc20d76806dc120125517303c46f1eec45e128a64186635549ff30f0cb",
+    "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-9C8982A9736C/render/dashboard.png": "794992667c5c2a735a3189bc5091cd4c79d04d863eef890714cdd8c3fc1a85ec",
+    "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-9C8982A9736C__development__A_UNIFORM_E50__BASE.json": "b0ddd75a47459b8195e3f358491f1f7406892583c3151c9077a5422aa7bdfd1c",
+    "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-9C8982A9736C__development__CVC_E50__BASE.json": "ce80d3784836b502912d167e152aa8738f114fae7b385dc9b731c382737bda97",
+    "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-13F29FFC8DE6/token_support.json": "ebcd1cb7ff2d9a79f3235651a75ae4978afe38d5c352fb182440d5ad3da4bbde",
+    "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-13F29FFC8DE6/render/dashboard.png": "11d6d18707eb5d27f19de2efa2ea0481ab1ea4df800969d4e5e5b94c48f36f59",
+    "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-13F29FFC8DE6__development__A_UNIFORM_E50__BASE.json": "46348823851857fe14fd89c2f4788c9fbf693ec834a7f8a172981bb009dd8acb",
+    "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-13F29FFC8DE6__development__CVC_E50__BASE.json": "252e9b6f283c8b94590cf9a39f2f65ae95dc3fb3a0f8df325d58ede6b39693ab"
+  }
+}

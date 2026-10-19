@@ -1,5 +1,21 @@
 # CanvasRCA project-wide design decisions
 
+## DD-20261018-RQ45-SCOPE: Reopen exclusive hybrid research alongside pure visual optimization
+
+**Date:** 2026-10-18
+**Status:** adopted for RQ4.5 only
+
+**Context.** The user requests half hybrid and half pure-visual arms after reviewing historical marginal/topology performance and pruning failures.
+
+**Decision.** Implement the approved six-arm RQ4.5 plan. Hybrid moves complete source records and their derived statistics into exactly one modality; necessary identity/unit/phase joins may repeat. Single-call diagnosis and the unified renderer remain mandatory. This is an explicit scoped exception to the older prospective pure-visual-only direction, not a rewrite of Codex.md or historical experiments.
+
+**Evidence.** Historical MARGINAL_FIVE 0.5054 is a hybrid duplicate-evidence result, U 0.3517 is pure visual; these are development references, not current-run efficacy. New inputs, costs and rendering remain empirically unqualified at static delivery. [Plan](../docs/experiment_plans/RQ4_5_Exclusive_Modality_Spatial_Pruning_Plan_2026-10-18.md).
+
+**Alternatives rejected.** Repeating the same full text in images would violate the requested ownership/cost design. New two-stage acquisition remains closed. Bulk historical baseline reruns are unnecessary.
+
+**Consequences.** Stop after static checks. CPU/GPU activation requires a later instruction and source-bound qualification. Keep hybrid and pure-visual claims separate; no performance or cost improvement is inferred from code completion.
+
+
 ## DD-20261006-STAGE-PRIORITIES: Prioritize MRR and cost; retain a smaller mechanism track
 
 **Date:** 2026-10-06

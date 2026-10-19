@@ -1,5 +1,10 @@
 # CanvasRCA consolidated devlog
 
+## 2026-10-18 — RQ4.5 static-only implementation
+
+Implemented the approved six-arm exclusive-hybrid/spatial-pruning plan, source ownership and selection packets, complete marginal component C39, closed execution gates, central scoring, queue/resume/storage and future offline regressions. Python/config/TypeScript/source-protection static checks are the only verification executed. No preparation, renderer/browser, actual processor count, feature extraction, CPU regression, GPU smoke or model call. Historical baseline answers are references; Codex.md and historical experiment code/config remain unchanged. Runtime dependencies are lazy so static checks do not require numba/Torch/vLLM. [Plan](../docs/experiment_plans/RQ4_5_Exclusive_Modality_Spatial_Pruning_Plan_2026-10-18.md) · [Status and static receipt](../RQs/RQ4_5/findings/exp_exclusive_spatial_findings.md).
+
+
 ## 2026-10-12 — RQ4.4 complete analysis delivered
 
 Formal840/840 plus smoke18 complete; no new analysis calls. SOURCE MRR .3286 (tolerant .3431), below historical U .3517 with2.409x tokens. Both primary Holm comparisons fail to establish benefit; candidate closed under registration. All30 mechanism cases read,270 formal attention mappings verified, Precision corrected offline without changing raw scores. [Detailed report](../docs/experiment_reports/RQ4_4_Qwen_Analysis_2026-10-12.md) · [RQ-local log](../RQs/RQ4_4/results/source_views_v1/logs/2026-10-12_final_analysis.md).

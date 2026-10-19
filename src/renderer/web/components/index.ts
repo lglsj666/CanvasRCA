@@ -1,3 +1,4 @@
+import CompleteMarginals from './CompleteMarginals.js';
 import NumericSourceGraph from './NumericSourceGraph.js';
 import MetricHorizon from './MetricHorizon.js';
 import PackedSource from './PackedSource.js';
@@ -31,6 +32,7 @@ import RequestJointScatter from './RequestJointScatter.js';
 import RequestPairMarginals from './RequestPairMarginals.js';
 import PopulationProfile from './PopulationProfile.js';
 export const components:Record<string,ComponentType<{card:Card;rect:Rect}>>={
+  'trace_joint.complete_marginals':CompleteMarginals,
   'metric_horizon.source_compact':MetricHorizon,
   'metric_packed.source_compact':PackedSource,
   'trace_packed.source_compact':PackedSource,

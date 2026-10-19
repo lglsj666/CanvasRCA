@@ -19,7 +19,7 @@ ENCODINGS = {
     "scope": {"matrix", "tiles"},
     "diagnostic": {"matrix", "compact"},
     "literal": {"text"},
-    "trace_joint": {"scatter", "marginals"},
+    "trace_joint": {"scatter", "marginals", "complete_marginals"},
     "trace_profile": {"quantiles"},
 }
 
@@ -152,7 +152,8 @@ def validate_evidence(evidence):
                 raise ValueError("Negative latency")
             details(data["details"])
         elif kind == "trace_joint":
-            keys(data, {"parent", "child", "parent_operation", "child_operation", "samples", "support"})
+            keys(data, {"parent", "child", "parent_operation", "child_operation", "samples", "support", "complete"},
+                 {"parent", "child", "parent_operation", "child_operation", "samples", "support"})
             for key in ("parent", "child"): entity(data[key])
             if data["parent"] == data["child"]: raise ValueError("Joint relation must cross entities")
             for key in ("parent_operation", "child_operation"): text(data[key])
@@ -170,6 +171,9 @@ def validate_evidence(evidence):
                     if sample[key] < 0: raise ValueError("Negative joint duration")
             if any(phases[p] != min(32, n) for p,n in zip(phases,data["support"])):
                 raise ValueError("Joint sample counts differ from registered rank sampling")
+            if "complete" in data:
+                from .complete_marginals import validate
+                validate(data)
         elif kind == "trace_profile":
             keys(data, {"parent", "child", "parent_operation", "child_operation", "support", "sampled", "quantiles", "duration_type"})
             for key in ("parent", "child"): entity(data[key])
@@ -262,6 +266,9 @@ def expected_bindings(evidence, show_isolates=False):
         if kind == "trace_joint":
             result.extend(cid + "." + key for key in ("parent", "child", "parent_operation", "child_operation", "support", "axes"))
             result.extend(f"{cid}.sample.{i}" for i in range(len(d["samples"])))
+        if kind == "trace_joint" and "complete" in d:
+            from .complete_marginals import bindings
+            result.extend(bindings(c))
         if kind == "trace_profile":
             result.extend(cid + "." + key for key in ("parent", "child", "parent_operation", "child_operation", "support", "axes", "duration_type"))
             result.extend(f"{cid}.quantile.{i}.{phase}" for i in range(4) for phase in ("reference","current"))
@@ -680,6 +687,10 @@ def compile_design(evidence, design):
                 raise ValueError("Missing/duplicate card or incompatible encoding")
             if w < 240 or h < (96 if design.get('readable_cards') in {'source_scopes_v2','source_reflow_v3','source_scopes_pack_v4'} else 180):
                 raise ValueError("Panel below minimum footprint; revise design, never drop facts")
+            if cards[cid]['kind']=='trace_joint':
+                complete = 'complete' in cards[cid]['data']
+                if complete != (node['component']=='trace_joint.complete_marginals'):
+                    raise ValueError('Complete marginal payload requires its explicit component')
             used.add(cid)
             rects.append({"card": cid, "node": node["id"], "component": node["component"], "index": indices[cid],
                           "x": x, "y": y, "width": w, "height": h})
