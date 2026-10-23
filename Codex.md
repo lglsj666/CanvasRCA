@@ -1,5 +1,18 @@
 # CanvasRCA Project Rules
 
+## Dashboard card count and fixed canvas size — 2026-10-21 latest authority
+
+Each dashboard contains at most **28 evidence cards in total**, summed across
+the four telemetry evidence categories: **M (metrics), R (traces), L (logs),
+and G (topology/relationships)**. This is one combined limit, not 28 cards per
+category. These categories do not refer to text versus image modalities.
+The rendered dashboard image has a fixed size of **4096 × 4096 pixels**
+(width × height).
+
+These requirements apply to newly designed or revised dashboards and supersede
+earlier conflicting card-count and canvas-size rules for subsequent work.
+Preserve frozen historical experiment inputs and results.
+
 ## Lossless experiment retention budget — 2026-10-11
 
 After an experiment finishes and all writers drain, its retained experiment

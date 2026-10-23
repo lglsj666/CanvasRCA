@@ -1,3 +1,21 @@
+- [RQ4.9: organization, compression and attention](RQ4_9_Dashboard_Organization_Compression_and_Attention_Plan_2026-10-21.md): 23 conditions / 6,000-call ceiling; full 220-case CPU and three GPU smokes passed; formal 5,850-position queue launched. [Current findings](../../RQs/RQ4_9/findings/exp_organization_findings.md).
+
+- [2026-10-22 RQ4.10: evidence domain, outside context and glyphs](RQ4_10_Evidence_Domain_Context_and_Glyph_Plan_2026-10-22.md) — 20新臂，5700调用上限；本次仅实施与静态。纯视觉完整标注基准v2已获用户批准；CPU/GPU未运行。
+
+2026-10-20 **RQ4.7按用户要求删除三个M臂的全部实验数据与结果，仅保留S条件。** 设计文件和代码保留原协议；输入输出、对话、attention、统计与图表均按实际保留范围更新。原完整运行入口退役，不自动重建已删除条件。[设计](RQ4_7_Source_Bound_Visual_Workspace_Plan_2026-10-20.md) · [保留S报告](../experiment_reports/RQ4_7_Qwen_Analysis_2026-10-20.md) · [状态](../../RQs/RQ4_7/findings/exp_source_workspace_findings.md)。以下保留历史记录。
+
+- [RQ4.8: card selection, hybrid recovery and valid QA](RQ4_8_Card_Selection_Hybrid_Recovery_and_Valid_QA_Plan_2026-10-20.md): implementation and CPU qualification in progress; tolerant QA/card receivers and multi-value half credit registered; no GPU/formal calls yet.
+
+2026-10-20：原 `docs/issues/` 已归并至 [综合问题与历史解决方案](../../important_docs/general_issues.md)，原目录已删除；下方历史路径和状态按当时记录理解。
+
+2026-10-19 **RQ4.6 全2,620位置与详细分析完成。** 2,601真实正式调用＋19引用，另18smoke；H_MARGINAL_PHASE标准MRR0.4590，总token较旧H_MARGINAL下降39.20%，MRR下降0.0322，主要损失在AegisLab。纯视觉最高新臂NEIGHBOR0.3436未超过历史U0.3517；三个预选方法未达排名目标。含完整配对统计、QA原回答审查、重复和716份attention分析。自动存储精简失败，正式结果完整，归档尚未合规；无新模型调用或后继启动。[完整报告](../experiment_reports/RQ4_6_Qwen_Analysis_2026-10-19.md) · [计划](RQ4_6_Pod_Bound_Relation_Join_Plan_2026-10-19.md) · [唯一状态](../../RQs/RQ4_6/findings/exp_pod_join_findings.md)。
+
+2026-10-19 **RQ4.5 本地完整实验与详细分析已完成。** 1560/1560位置、1538正式实际调用+22引用，另18次本地smoke；H_MARGINAL标准MRR 0.4912、对历史强文本总token下降5.97%，两个AIOPS仍退化。预选组合0.4736、来源内均匀纯视觉0.3105，均未达推进目标；含完整统计、QA回答与412份正式attention分析。[最终报告](../experiment_reports/RQ4_5_Qwen_Analysis_2026-10-19.md) · [唯一状态](../../RQs/RQ4_5/findings/exp_exclusive_spatial_findings.md)。以下保留历史检查点。
+
+2026-10-19 **RQ4.5 本地正式队列已启动并确认实际提交结果。** 本地完整 CPU 回归通过（32 单测、220例/1320 RCA输入、33例 QA输入、30运行探针）；18/18 GPU smoke 完成并审查通过。沿用 RQ4.4 Blackwell 原生配置，在线 smoke 速度9.94 calls/min（含启动5.15）；正式队列1560个位置，支持原子提交恢复。Nibi资格任务继续排队，未启动Nibi正式实验。[计划](RQ4_5_Exclusive_Modality_Spatial_Pruning_Plan_2026-10-18.md) · [本地启动核验](../../RQs/RQ4_5/findings/local_formal_launch_20261019.json) · [唯一状态](../../RQs/RQ4_5/findings/exp_exclusive_spatial_findings.md)。
+
+Historical Nibi CPU checkpoint (not current execution status):
+
 2026-10-19 **RQ4.5 全部 CPU 资格通过并冻结；GPU 未运行。** 27 单测、220例/1320 RCA请求、33例/198 QA输入、30运行探针、传输不变性与重绘均通过；新模型调用0。历史基线复用，Codex 未改。[计划](RQ4_5_Exclusive_Modality_Spatial_Pruning_Plan_2026-10-18.md) · [CPU报告](../experiment_reports/RQ4_5_CPU_Qualification_2026-10-19.md) · [唯一状态](../../RQs/RQ4_5/findings/exp_exclusive_spatial_findings.md)。
 
 2026-10-12 **RQ4.4 840/840正式位置完成，858次实际调用含smoke；完整详细分析已交付。** SOURCE标准/宽容MRR为0.3286/0.3431，未超过历史U，成本为其2.409倍；两项主要比较均未建立收益，局部高清候选按登记结束。QA定位、理由一致性及270份正式attention完成离线审核。[最终报告](../experiment_reports/RQ4_4_Qwen_Analysis_2026-10-12.md) · [计划](RQ4_4_Source_Bound_Multiscale_Plan_2026-10-12.md) · [历史复核](RQ4_4_History_and_Implementation_Review_2026-10-12.md) · [部署报告](../experiment_reports/RQ4_4_GPU_Qualification_2026-10-12.md) · [唯一状态](../../RQs/RQ4_4/findings/exp_source_views_findings.md)。
@@ -102,7 +120,7 @@
 
 2026-10-03后续明确授权：**RQ3.16全量实验已于13:22:16 America/Toronto后台启动**，原八臂×220例=1,760位置；13:25:17核验7份响应已提交、36在途、无失败，显存利用率参数0.75。[启动核验](../../RQs/RQ3_16/results/marginal_coverage_v1/formal/launch_verification.json)与[授权兼容审查](../../RQs/RQ3_16/results/marginal_coverage_v1/qualification/activation_v1/activation_review.json)已落盘。保持原方法/门槛，不根据部分结果调参；结束后自动关闭自有服务。下方“资格后停止”记录为此次新授权前的历史状态。
 
-2026-10-03最新状态：**[RQ3.16：边际图元与候选覆盖](RQ3_16_Marginal_Coverage_Plan_2026-10-03.md)计划、代码和资格已完成，并按用户要求停止。** 八臂同证据/输出容量受控比较；静态、完整220例CPU、实际图像及18/18 GPU smoke通过，自有服务关闭。[详细资格报告](../issues/RQ3_16_qualification_2026-10-03.md)和[实际例图库](../../RQs/RQ3_16/results/marginal_coverage_v1/qualification/gallery/index.html)已落盘。正式1,760位置仅登记，正式调用0、启动权限关闭。它是新开发假设，不能将RQ3.15最高均值或smoke通过追认为已证实视觉收益；下列RQ3.15结论保持不变。
+2026-10-03最新状态：**[RQ3.16：边际图元与候选覆盖](RQ3_16_Marginal_Coverage_Plan_2026-10-03.md)计划、代码和资格已完成，并按用户要求停止。** 八臂同证据/输出容量受控比较；静态、完整220例CPU、实际图像及18/18 GPU smoke通过，自有服务关闭。[资格问题汇总](../../important_docs/general_issues.md#r39)和[实际例图库](../../RQs/RQ3_16/results/marginal_coverage_v1/qualification/gallery/index.html)已落盘。正式1,760位置仅登记，正式调用0、启动权限关闭。它是新开发假设，不能将RQ3.15最高均值或smoke通过追认为已证实视觉收益；下列RQ3.15结论保持不变。
 
 2026-10-03最终状态：**RQ3.15正式矩阵及详细分析已完成，预选方法不采用，按原计划停止此机制路线。** 11:42:16 America/Toronto完成1320终态；1279真实响应、36引用、5超时，自有服务关闭。[详细报告](../experiment_reports/RQ3_15_Qwen_Analysis_2026-10-03.md)给出全部指标、成本、统计和机制分析。V−PAIR_TEXT+.0281，但V−MARGINAL−.0134；Aegis对BASE+.0007，主要病例/事件组Holm均不显著。不得据此自动改布局、改用最高均值臂、消耗剩余调用或启动后继实验。RQ3整体研究目标仍未达成。
 
@@ -112,7 +130,7 @@
 
 2026-10-03 01:10:34 America/Toronto：**RQ3.15已按用户要求安全暂停**。没有新增提交；36个在途请求全部正常收尾，794份真实响应已提交，模型服务及进程全部退出、端口关闭。不自动恢复，须等待用户明确授权。当前状态见[暂停记录](../../RQs/RQ3_15/results/request_joint_v1/formal/pause_request.json)，下列启动信息为历史。
 
-- [RQ3.15：同请求连续耗时关系](RQ3_15_Request_Joint_Plan_2026-10-02.md)：代码、220例CPU资格及18次GPU smoke均通过；[详细资格报告](../issues/RQ3_15_qualification_2026-10-02.md)。用户随后明确授权全量实验，已于2026-10-02 23:49:54 America/Toronto启动1320位置后台队列，23:53:42确认正式推理及17份结果落盘、无失败；[启动记录](../../RQs/RQ3_15/results/request_joint_v1/formal/launch_receipt.json)保存此时快照。保持原六臂、输入、方法与采用阈值，资格通过不代表视觉收益或解释可信度成立。
+- [RQ3.15：同请求连续耗时关系](RQ3_15_Request_Joint_Plan_2026-10-02.md)：代码、220例CPU资格及18次GPU smoke均通过；[资格问题汇总](../../important_docs/general_issues.md#r38)。用户随后明确授权全量实验，已于2026-10-02 23:49:54 America/Toronto启动1320位置后台队列，23:53:42确认正式推理及17份结果落盘、无失败；[启动记录](../../RQs/RQ3_15/results/request_joint_v1/formal/launch_receipt.json)保存此时快照。保持原六臂、输入、方法与采用阈值，资格通过不代表视觉收益或解释可信度成立。
 
 - [RQ3.14：统一事实引用与全窗口类型化比较](RQ3_14_Observed_Binding_Plan_2026-10-02.md)：九臂220 exposed eval的1980位置及详细报告已完成；预选WINDOW_VISUAL未通过采用门槛，原结果保留；[RQ目录协议](../../RQs/RQ3_14/descriptions/RQ3_14_experiments.md)。
 - [RQ3.13：观测包络时间画布](RQ3_13_Observed_Excursion_Plan_2026-10-02.md)：完整840位置及详细分析已结束；[结果与失败路径](../experiment_reports/RQ3_13_Qwen_Analysis_2026-10-02.md)。A22正向开发信号、Aegis损失、图形对截图未建立增益且成本增加，不采用。

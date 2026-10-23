@@ -1,0 +1,175 @@
+{
+  "scope": "Retained formal QA answer tables RQ4.1–RQ4.7; original scores unchanged",
+  "new_model_calls": 0,
+  "new_images_viewed": 0,
+  "rounds": {
+    "RQ4.1": {
+      "answer_positions": 348,
+      "unique_cases": 87,
+      "unique_scalar_targets": 348,
+      "empty_binding_fields": [],
+      "text_prompts_containing_RCA": 87,
+      "text_answers_containing_services": 73
+    },
+    "RQ4.2": {
+      "answer_positions": 236,
+      "unique_cases": 59,
+      "distinct_case_oracle_packets": 59,
+      "response_shape": {
+        "json_parseable": 236,
+        "exact_top_keys": 236
+      },
+      "blank_answer_fields": [],
+      "explicit_null_fields_by_path": {
+        "/q4": 4
+      }
+    },
+    "RQ4.4": {
+      "answer_positions": 120,
+      "unique_cases": 30,
+      "distinct_case_oracle_packets": 30,
+      "response_shape": {
+        "json_parseable": 120,
+        "exact_top_keys": 120
+      },
+      "blank_answer_fields": [],
+      "explicit_null_fields_by_path": {},
+      "oracle_units": {
+        "source_unit": 26,
+        "ms": 4
+      },
+      "k_M_G_suffix_oracles": 0,
+      "local_target_counts": {
+        "ISOLATED_QA": 30,
+        "HASH_ZOOM": 1,
+        "SOURCE_ZOOM": 2,
+        "REPEAT_VIEW": 2
+      }
+    },
+    "RQ4.5": {
+      "answer_positions": 180,
+      "unique_cases": 30,
+      "distinct_case_oracle_packets": 30,
+      "response_shape": {
+        "json_parseable": 180,
+        "exact_top_keys": 180
+      },
+      "blank_answer_fields": [],
+      "explicit_null_fields_by_path": {
+        "/q3": 1,
+        "/q4": 1
+      },
+      "comparison_phase_distribution_one_copy_per_case": {
+        "current": 53,
+        "equal": 2,
+        "reference": 5
+      }
+    },
+    "RQ4.6": {
+      "answer_positions": 330,
+      "unique_cases": 30,
+      "distinct_case_oracle_packets": 90,
+      "response_shape": {
+        "json_parseable": 330,
+        "exact_top_keys": 330
+      },
+      "blank_answer_fields": [],
+      "explicit_null_fields_by_path": {
+        "/q3": 4,
+        "/q4": 4,
+        "/q5": 4,
+        "/q6": 4
+      }
+    },
+    "RQ4.3": {
+      "answer_positions": 180,
+      "unique_cases": 60,
+      "applicable_question_positions": 1059,
+      "blank_answer_fields": [],
+      "support_flags": {
+        "True": 789,
+        "False": 270
+      }
+    },
+    "RQ4.7": {
+      "answer_positions": 60,
+      "applicable_question_positions": 360,
+      "empty_entity_questions": 19,
+      "empty_entity_cases": 17,
+      "phase_distribution": {
+        "reference": 128,
+        "current": 142,
+        "whole_window": 83,
+        "observed_window": 7
+      },
+      "whole_comparison_row_targets": 61,
+      "outside_canvas": 0,
+      "source_scalar_absent_from_recorded_visible_text": 0,
+      "zero_intersecting_retained_tokens": 0,
+      "actual_prompt_contract": {
+        "requests_read": 60,
+        "has_0_to_1000_definition": 0,
+        "has_left_top_right_bottom_definition": 0,
+        "has_canonical_window_vocabulary": 0
+      }
+    }
+  },
+  "isolated_scorer_counterexamples": [
+    {
+      "name": "copy_displayed_unit_with_spaces",
+      "synthetic": true,
+      "id": "INC-B646C4677B96",
+      "expected": {
+        "entity": "22243",
+        "phase": "whole_window",
+        "statistic": "peak",
+        "unit": "milliseconds_or_source_unit",
+        "value": "2.669e+04"
+      },
+      "submitted": {
+        "entity": "22243",
+        "phase": "whole_window",
+        "statistic": "peak",
+        "unit": "milliseconds or source unit",
+        "value": "2.669e+04"
+      },
+      "tolerant_joint": 0.0,
+      "numeric_and_entity_unchanged": true
+    },
+    {
+      "name": "actual_operation_name_answer",
+      "synthetic": false,
+      "id": "INC-C10F5EA649A5",
+      "score": {
+        "question_index": 0,
+        "standard": {
+          "components": {
+            "entity": false,
+            "phase": true,
+            "statistic": true,
+            "unit": true,
+            "value": false
+          },
+          "joint": false
+        },
+        "tolerant": {
+          "components": {
+            "entity": false,
+            "phase": true,
+            "statistic": true,
+            "unit": true,
+            "value": true
+          },
+          "joint": false
+        }
+      }
+    },
+    {
+      "name": "all_correct_RQ45_answers_plus_unasked_extra_key",
+      "synthetic": true,
+      "standard": 0.0,
+      "tolerant": 0.0,
+      "schema_valid": false
+    }
+  ]
+}

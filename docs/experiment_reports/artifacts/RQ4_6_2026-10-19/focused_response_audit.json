@@ -1,0 +1,794 @@
+[
+  {
+    "id": "INC-8991CE65FDA1",
+    "selection": "fixed QA: visible p50/p95 substitution and cross-entity attribution",
+    "accepted_numeric": [
+      [
+        "231",
+        "adservice"
+      ]
+    ],
+    "arms": [
+      {
+        "arm": "H_DEPLOY_ONLY",
+        "rr": 1.0,
+        "tolerant_rr": 1.0,
+        "response": "{\"services\": [\"231\", \"764\", \"870\", \"637\", \"309\"], \"reason\": \"The confirmed caller→callee relationship 764→231 and the consistency of the log 'Creating thread --stress' on entity 19089 (pod of 231) point to a CPU/Resource stress in 231 as the origin; Pair evidence for PAIR02 shows child 231 latency jumping from ~7.4ms (ref) to ~47-107ms (current) when parent is slow, independent of the child's low baseline in PAIR01, while node 6128 co-hosting pod 55702 (hosting 231) shows no matching CPU spike.\", \"confidence\": \"medium\"}",
+        "qa_response": "{\"q1\": null, \"q2\": {\"entity\": \"309\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": [\"17244\", \"89071\"]}, \"q3\": {\"entity\": \"764\", \"unit\": \"ms\", \"values\": [\"60.698099999999975\", \"190.94179999999997\"]}, \"q4\": {\"entity\": \"870\", \"unit\": \"ms\", \"values\": [\"3.0959999999999983\", \"3.2106\"]}, \"q5\": {\"entity\": \"764\", \"unit\": \"ms\", \"values\": [\"89.861\", \"101.411\"]}, \"q6\": {\"entity\": \"231\", \"unit\": \"ms\", \"values\": [\"5.17\", \"47.51\"]}}",
+        "request_path": "requests/INC-8991CE65FDA1__H_DEPLOY_ONLY__BASE__call33.json",
+        "scoring_context_path": "scoring/RCA__7cfe8629855b2e12fe05e539eb28a96096c8c91ad5d28e00bceb7a14faad489f.json"
+      },
+      {
+        "arm": "H_MARGINAL_PHASE",
+        "rr": 1.0,
+        "tolerant_rr": 1.0,
+        "response": "{\"services\": [\"231\", \"637\", \"764\", \"309\", \"87040\"], \"reason\": \"TRC01 shows 231's GetAds exclusive p95 latency jumped from 7.5ms to 107.6ms (log2 fold change 3.85, rank_score 3.85), which dwarfs all other trace operations; verifying origin, directed edges confirm 764 calls 231 and node 3927 hosts pod 19089 (231's instance) with no opposing 231->764 edge, supporting 231 as the upstream faulty component. As an alternative, 637 (rank_score 0.28) shares a 764 caller but its latency change is negligible, and no caller of 231 shows a corresponding anomaly that would indicate the fault originated elsewhere.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"84528\", \"relation\": \"incoming_hosts\", \"targets\": [\"3927\", \"237\"]}, \"q2\": {\"entity\": \"309\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": [\"17244\", \"32357\", \"89071\"]}, \"q3\": {\"entity\": \"764\", \"unit\": \"ms\", \"values\": [\"48.282\", \"95.86\"]}, \"q4\": {\"entity\": \"870\", \"unit\": \"ms\", \"values\": [\"1.853\", \"1.868\"]}, \"q5\": {\"entity\": \"764\", \"unit\": \"ms\", \"values\": [\"3844.185\", \"738.1684\"]}, \"q6\": {\"entity\": \"231\", \"unit\": \"ms\", \"values\": [\"42.185\", \"18.1699\"]}}",
+        "request_path": "requests/INC-8991CE65FDA1__H_MARGINAL_PHASE__BASE__call24.json",
+        "scoring_context_path": "scoring/RCA__7cfe8629855b2e12fe05e539eb28a96096c8c91ad5d28e00bceb7a14faad489f.json"
+      },
+      {
+        "arm": "H_POD_PHASE",
+        "rr": 1.0,
+        "tolerant_rr": 1.0,
+        "response": "{\"services\": [\"231\", \"710\", \"764\", \"637\", \"309\"], \"reason\": \"TRC01 shows service 231's GetAds exclusive p95 jumped from 7485µs to 107622µs (log2 3.85, rank_score 3.85), which dwarfs every other trace entry; PAIR02 binds the same 231/GetAds operation to its slow child endpoint 710.231, and 231 initiates at +16.6m (rank 6) upstream of 710 (+15.0m rank 2 is a caller-parent gauge, not a local slowdown). Call edge 764->231 and shared node 2829 CPU (MET07 pod 68436) place 231's own execution as the origin; the 710/764/637/309 signals are caller/colocation symptoms, so the decisive relationship is 764 invoking 231's self-inclusive GetAds stall, not a downstream dependency.\", \"confidence\": \"medium\"}",
+        "qa_response": "{\"q1\": null, \"q2\": {\"entity\": \"309\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": [\"17244\", \"89071\"]}, \"q3\": {\"entity\": \"764\", \"unit\": \"ms\", \"values\": [\"111.52894999999998\", \"200.5794\"]}, \"q4\": {\"entity\": \"870\", \"unit\": \"ms\", \"values\": [\"60.698099999999975\", \"3.095999999999983\"]}, \"q5\": {\"entity\": \"764\", \"unit\": \"ms\", \"values\": [\"11.8505\", \"12.716999999999998\"]}, \"q6\": {\"entity\": \"231\", \"unit\": \"ms\", \"values\": [\"4.4719500000000005\", \"173.33099999999982\"]}}",
+        "request_path": "requests/INC-8991CE65FDA1__H_POD_PHASE__BASE__call30.json",
+        "scoring_context_path": "scoring/RCA__7cfe8629855b2e12fe05e539eb28a96096c8c91ad5d28e00bceb7a14faad489f.json"
+      },
+      {
+        "arm": "V_POD_BRIDGE",
+        "rr": 0.5,
+        "tolerant_rr": 0.5,
+        "response": "{\"services\": [\"764\", \"231\", \"870\", \"331\", \"853\"], \"reason\": \"The confirmed caller chain is 710.870 (svc 870) → 710.764/Recv (svc 764) → 710.231/GetAds (svc 231). The exclusive latency for svc 764 surged to ~107,620 µs (reference ~2,199 µs), which is >40× higher and causally dominant over the child svc 231's 10,753 µs, indicating a local transport or queuing delay (e.g., hairpin NAT/sidecar overhead) on svc 764. Service 870 is upstream and consistent but not the origin, while 331 and 853 are downstream propagation nodes in the hierarchy.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"764\", \"relation\": \"has_instance\", \"targets\": [\"11051\", \"38105\", \"56768\"]}, \"q2\": {\"entity\": \"637\", \"relation\": \"has_instance\", \"targets\": [\"51839\", \"66059\", \"87040\"]}, \"q3\": {\"entity\": \"84528\", \"relation\": \"incoming_hosts\", \"targets\": [\"237\", \"24441\"]}, \"q4\": {\"entity\": \"66059\", \"relation\": \"incoming_has_instance\", \"targets\": [\"637\"]}, \"q5\": {\"entity\": \"309\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": [\"2829\", \"4624\", \"8767\", \"8795\"]}, \"q6\": {\"entity\": \"195\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": [\"2829\", \"3927\", \"4624\", \"8767\", \"8795\"]}}",
+        "request_path": "requests/INC-8991CE65FDA1__V_POD_BRIDGE__BASE__call37.json",
+        "scoring_context_path": "scoring/RCA__7cfe8629855b2e12fe05e539eb28a96096c8c91ad5d28e00bceb7a14faad489f.json"
+      },
+      {
+        "arm": "V_POD_SEPARATE",
+        "rr": 0.5,
+        "tolerant_rr": 0.5,
+        "response": "{\"services\": [\"764\", \"231\", \"870\", \"331\", \"853\"], \"reason\": \"The confirmed caller chain 764→231→870 shows 870's latency elevated 1.8× (4148.6 vs 2553.8 µs) while its root parent 764's local service-time p95 was elevated 4.8× (190.9 vs 39.9 ms); tests bound the dominant path to 764's own ListProducts servicing, with 870's elevated child as a plausible downstream alternative contributor. Metrics 22 (node_cpu_usage_rate: 21.28 vs 14.16, z=5.576) and 23 (pod_network_receive_bytes: 3153.5 vs 3957.5) both localize to pods hosted on node 8767, which services 764, supporting a 764-local resource origin while 23's inverse trend and 1999 request count cap the magnitude of any downstream network explanation.\", \"confidence\": \"medium\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"764\", \"relation\": \"has_instance\", \"targets\": [\"11051\", \"38105\", \"43777\"]}, \"q2\": {\"entity\": \"637\", \"relation\": \"has_instance\", \"targets\": [\"51839\", \"67797\", \"90235\"]}, \"q3\": {\"entity\": \"84528\", \"relation\": \"incoming_hosts\", \"targets\": [\"2829\", \"3927\"]}, \"q4\": {\"entity\": \"66059\", \"relation\": \"incoming_has_instance\", \"targets\": [\"853\"]}, \"q5\": {\"entity\": \"309\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": [\"2829\", \"3927\", \"4624\", \"6128\"]}, \"q6\": {\"entity\": \"195\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": [\"2829\"]}}",
+        "request_path": "requests/INC-8991CE65FDA1__V_POD_SEPARATE__BASE__call38.json",
+        "scoring_context_path": "scoring/RCA__7cfe8629855b2e12fe05e539eb28a96096c8c91ad5d28e00bceb7a14faad489f.json"
+      },
+      {
+        "arm": "P_U_NEIGHBOR_PAIR",
+        "rr": 0.5,
+        "tolerant_rr": 0.5,
+        "response": "{\"services\": [\"764\", \"231\", \"331\", \"853\", \"986\"], \"reason\": \"The confirmed caller chain (764→331→231) shows latency inflations that are orders of magnitude larger (e.g., ~80x for service 764) than other component deviations (e.g., 11x for service 309), confirming them as the primary contributors. Service 764 is placed at the head of the root-cause hierarchy because it is the ingress to the latency bottleneck and its 190ms exclusive span p95 far exceeds any downstream processing time, while Service 231 (GetAds) is the terminal source of the high-load signal.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"710.231/GetAds\", \"unit\": \"µs\", \"values\": [\"0\"]}, \"q2\": {\"entity\": \"pod 84528\", \"unit\": \"source unit\", \"values\": [\"2.08\"]}, \"q3\": {\"entity\": \"365\", \"unit\": \"µs\", \"values\": [\"2198.4\"]}, \"q4\": {\"entity\": \"365\", \"unit\": \"µs\", \"values\": [\"2627.1\"]}, \"q5\": {\"entity\": \"710.853/ListRecommendations\", \"unit\": \"µs\", \"values\": [\"4378.4\", \"4868.3\"]}, \"q6\": {\"entity\": \"710.231/GetAds\", \"unit\": \"µs\", \"values\": [\"7485.4\", \"10762e+05\"]}}",
+        "request_path": "requests/INC-8991CE65FDA1__P_U_NEIGHBOR_PAIR__BASE__call41.json",
+        "scoring_context_path": "scoring/RCA__7cfe8629855b2e12fe05e539eb28a96096c8c91ad5d28e00bceb7a14faad489f.json"
+      },
+      {
+        "arm": "P_U_COMBINED",
+        "rr": 0.5,
+        "tolerant_rr": 0.5,
+        "response": "{\"services\": [\"764\", \"231\", \"331\", \"853\", \"986\"], \"reason\": \"The confirmed caller is service 764 (Ref 74.0 / Cur 188.0 ms exclusive), while child 870 remained normal (18.70 / 18.71 ms), localizing the delay to the parent service. Observed calls from 764 to services 231, 331, 853, and 986 align with the exclusive latency accumulation, and signals like MET06 (memory flat) and MET10 (raft_wait constant) rule out resource contention or storage latency as the origin.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"710.870/GetProduct\", \"unit\": \"µs\", \"values\": [\"12859\"]}, \"q2\": {\"entity\": \"710.8528/ListProducts\", \"unit\": \"µs\", \"values\": [\"4148.6\"]}, \"q3\": {\"entity\": \"710.231/GetAds\", \"unit\": \"µs\", \"values\": [\"2198.4\"]}, \"q4\": {\"entity\": \"710.231/GetAds\", \"unit\": \"µs\", \"values\": [\"2627.1\"]}, \"q5\": {\"entity\": \"710.8528/ListRecommendations\", \"unit\": \"µs\", \"values\": [\"3106.9\", \"4232.8\"]}, \"q6\": {\"entity\": \"710.231/GetAds\", \"unit\": \"µs\", \"values\": [\"7485.4\", \"107622.1\"]}}",
+        "request_path": "requests/INC-8991CE65FDA1__P_U_COMBINED__BASE__call42.json",
+        "scoring_context_path": "scoring/RCA__7cfe8629855b2e12fe05e539eb28a96096c8c91ad5d28e00bceb7a14faad489f.json"
+      }
+    ],
+    "old_h_marginal": {
+      "id": "INC-8991CE65FDA1",
+      "dataset": "aiops2025",
+      "base": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-8991CE65FDA1",
+      "source": "aiops2025",
+      "event_group": "ec55e8b9d61591b0796239edcf0361df6ac47840692c2c2b0dfae9ab79588d23",
+      "arm": "H_MARGINAL",
+      "metrics": {
+        "rank": 1,
+        "mrr": 1.0,
+        "ac@1": 1.0,
+        "ac@3": 1.0,
+        "ac@5": 1.0,
+        "avg@3": 1.0,
+        "avg@5": 1.0
+      },
+      "input_tokens": 18065,
+      "output_tokens": 219,
+      "response": "{\"services\": [\"231\", \"637\", \"764\", \"309\", \"87040\"], \"reason\": \"TRC01 shows 231's GetAds exclusive p95 latency jumped from 7.5ms to 107.6ms (log2 fold change 3.85, rank_score 3.85), which dwarfs all other trace operations; LT15 confirms a new error burst ('Creating thread...stress') specifically on entity 231 with an error rate rising from 0% to 41.4%, ruling out environmental factors like the flat disk usage (MET11) as the primary driver. Service 637 is the direct caller of 231 and is the sole service to exhibit synchronous pod CPU saturation (MET07, z=236.3) and memory usage drops (MET06), confirming it as the co-located root of the CPU stress propagation chain.\", \"confidence\": \"high\"}",
+      "record": "RQs/RQ4_6/results/pod_join_v1/objects/4dd5b93574aec0dab8e0dd86a6f3cbfefc213c15a294ee7095ff4a264761dd10.json",
+      "sha256": "4dd5b93574aec0dab8e0dd86a6f3cbfefc213c15a294ee7095ff4a264761dd10",
+      "historical": true
+    }
+  },
+  {
+    "id": "INC-1595063C5B11",
+    "selection": "fixed QA: duplicate lower-ranked ID invalidates a correct first prediction",
+    "accepted_numeric": [
+      [
+        "84394",
+        "frontend-0"
+      ]
+    ],
+    "arms": [
+      {
+        "arm": "H_DEPLOY_ONLY",
+        "rr": 0.0,
+        "tolerant_rr": 0.0,
+        "response": "{\"services\": [\"176\", \"509\", \"769\", \"875\", \"487\"], \"reason\": \"176 is top-ranked with the earliest onset (+20.0m) and a high MET-Z severity of 61.4. Verification of the alternative origin checks showed that while 318 calls 176 and has an extreme severity (999) at +27.0m, its later onset and its role as a caller to other high-severity services (309, 487) indicate it is a downstream symptom or co-located part of a broader failure rather than the independent root. 176's co-location with other +20.0m anomalies (509) and the stability of its metric baseline confirms its status as the primary anomalous entity.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"34486\", \"relation\": \"incoming_has_instance\", \"targets\": [\"67919\", \"84394\"]}, \"q2\": null, \"q3\": {\"entity\": \"60764\", \"unit\": \"ms\", \"values\": [\"90.00259999999994\", \"74.87639999999998\"]}, \"q4\": {\"entity\": \"33620\", \"unit\": \"ms\", \"values\": [\"87.92109999999995\", \"72.79739999999998\"]}, \"q5\": {\"entity\": \"33620\", \"unit\": \"ms\", \"values\": [\"4.074\", \"4.0335\"]}, \"q6\": {\"entity\": \"42129\", \"unit\": \"ms\", \"values\": [\"0.257\", \"0.255\"]}}",
+        "request_path": "requests/INC-1595063C5B11__H_DEPLOY_ONLY__BASE__call2066.json",
+        "scoring_context_path": "scoring/RCA__cc6f9c7b7a890eb20de02eecdaa68c9384eda99e687504f36186594bd99d3818.json"
+      },
+      {
+        "arm": "H_MARGINAL_PHASE",
+        "rr": 0.0,
+        "tolerant_rr": 0.0,
+        "response": "{\"services\": [\"832\", \"487\", \"187\", \"309\", \"811\"], \"reason\": \"The confirmed caller is pod 67740 (service 187/PlaceOrder). The fault window (+27m) is the exact point where service 832's SendOrderConfirmation p95 latency exploded by a 2.79-fold factor (TRC06), while service 187's local latency remained flat (0.14-fold in TRC02), confirming 832 as the downstream origin. An alternative origin of 660's flat Metaspace (MET08) and 176's early onset were rejected.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"34486\", \"relation\": \"incoming_has_instance\", \"targets\": [\"318\"]}, \"q2\": {\"entity\": \"875\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": [\"13960\", \"10545\", \"10769\", \"12581\", \"13547\", \"19187\", \"21381\", \"25409\", \"30923\", \"33620\", \"35935\", \"51603\", \"53043\", \"61113\", \"65669\", \"66224\", \"67740\", \"67919\", \"73751\", \"81450\", \"84394\", \"84435\", \"85170\", \"85471\", \"87347\", \"93020\", \"94652\", \"94655\", \"99268\"]}, \"q3\": {\"entity\": \"60764\", \"unit\": \"ms\", \"values\": [\"42.362\", \"42.673\"]}, \"q4\": {\"entity\": \"33620\", \"unit\": \"ms\", \"values\": [\"90.002599999999994\", \"87.92109999999995\"]}, \"q5\": {\"entity\": \"33620\", \"unit\": \"ms\", \"values\": [\"4.074\", \"4.0335\"]}, \"q6\": {\"entity\": \"42129\", \"unit\": \"ms\", \"values\": [\"47.842299999999997\", \"22.008999999999954\"]}}",
+        "request_path": "requests/INC-1595063C5B11__H_MARGINAL_PHASE__BASE__call2067.json",
+        "scoring_context_path": "scoring/RCA__cc6f9c7b7a890eb20de02eecdaa68c9384eda99e687504f36186594bd99d3818.json"
+      },
+      {
+        "arm": "H_POD_PHASE",
+        "rr": 0.3333333333333333,
+        "tolerant_rr": 0.3333333333333333,
+        "response": "{\"services\": [\"176\", \"657\", \"84394\", \"318\", \"487\"], \"reason\": \"Tests on top candidate 176 show it has the earliest propagation onset (+20.0m) with severity_z=61.4, positioning it as the earliest anomaly in the fault window. The directed call edges show 318→176 and 318→309, meaning 318 is a caller of 176, so 176's failure propagates upstream to 318 and further; the PAIR01 panel shows child 42129 latency within parent 33620 is only ~0.25ms (trivial) while inclusive p95 on pod 67740 for hipstershop.487/EmptyCart rises from 6137µs to 42432µs (rank_score 2.79, TRC06) and pod 84394 shows 503 responses and 482ms p95, confirming the delay originates in the callee chain rooted at 176, not in 84394 or 318 themselves as independent causes.\", \"confidence\": \"medium\"}",
+        "qa_response": "{\"q1\": null, \"q2\": {\"entity\": \"875\", \"relation\": \"hosts\", \"targets\": [\"2788\"]}, \"q3\": {\"entity\": \"60764\", \"unit\": \"ms\", \"values\": [\"95.6405\", \"103.4448\"]}, \"q4\": {\"entity\": \"33620\", \"unit\": \"ms\", \"values\": [\"2.736\", \"27.185\"]}, \"q5\": {\"entity\": \"33620\", \"unit\": \"ms\", \"values\": [\"0.257\", \"0.255\"]}, \"q6\": {\"entity\": \"42129\", \"unit\": \"ms\", \"values\": [\"0.2727\", \"22.009\"]}}",
+        "request_path": "requests/INC-1595063C5B11__H_POD_PHASE__BASE__call2060.json",
+        "scoring_context_path": "scoring/RCA__cc6f9c7b7a890eb20de02eecdaa68c9384eda99e687504f36186594bd99d3818.json"
+      },
+      {
+        "arm": "V_POD_BRIDGE",
+        "rr": 1.0,
+        "tolerant_rr": 1.0,
+        "response": "{\"services\": [\"84394\", \"2788\", \"33620\", \"42129\", \"60764\"], \"reason\": \"Pod 84394 shows a ~68x increase in exclusive p95 duration for the gRPC.487/EmptyCart operation (5.20e+5 µs vs 4.82e+03 µs) alongside a sharp spike in mrt, suggesting a primary resource contention. The co-located node 2788 exhibits a correlated >20x spike in system load (1.3 vs 0.084), supporting a node-level resource pressure hypothesis, while services 33620 and 42129 demonstrate significant downstream latency degradation on the PlaceOrder path.\", \"confidence\": \"medium\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"176\", \"relation\": \"has_instance\", \"targets\": [\"25409\"]}, \"q2\": {\"entity\": \"811\", \"relation\": \"has_instance\", \"targets\": [\"81450\"]}, \"q3\": {\"entity\": \"34486\", \"relation\": \"incoming_has_instance\", \"targets\": [\"318\"]}, \"q4\": {\"entity\": \"73138\", \"relation\": \"incoming_hosts\", \"targets\": [\"2788\"]}, \"q5\": {\"entity\": \"875\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": [\"2788\"]}, \"q6\": {\"entity\": \"155\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": [\"2788\"]}}",
+        "request_path": "requests/INC-1595063C5B11__V_POD_BRIDGE__BASE__call2061.json",
+        "scoring_context_path": "scoring/RCA__cc6f9c7b7a890eb20de02eecdaa68c9384eda99e687504f36186594bd99d3818.json"
+      },
+      {
+        "arm": "V_POD_SEPARATE",
+        "rr": 1.0,
+        "tolerant_rr": 1.0,
+        "response": "{\"services\": [\"84394\", \"33620\", \"67740\", \"60764\", \"25409\"], \"reason\": \"Pod 84394 (hipstershop.187) exhibits direct local resource and latency signatures with `container_cpu_usage_seconds` current at 0.17622 (vs 0.0021895) and `istio_request_duration` current p95 at 4.212e+05 ms (panel 26/27), which is causally independent of the high node load (1.3) that other pods do not reflect. This upstream slowness is corroborated by the paired-call analysis (panel 73), which shows child 33620 (placing order on 84394) experiencing an observed duration p95 of 49.801ms versus a reference of 0.0165ms, localizing the initiating latency to the PlaceOrder operation within the 84394 deployment instance.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"176\", \"relation\": \"has_instance\", \"targets\": [\"64025\", \"12581\", \"85170\"]}, \"q2\": {\"entity\": \"811\", \"relation\": \"has_instance\", \"targets\": [\"10769\", \"38759\", \"81450\"]}, \"q3\": {\"entity\": \"34486\", \"relation\": \"incoming_has_instance\", \"targets\": [\"318\", \"487\"]}, \"q4\": {\"entity\": \"73138\", \"relation\": \"incoming_hosts\", \"targets\": [\"2788\"]}, \"q5\": {\"entity\": \"875\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": [\"2788\", \"4981\"]}, \"q6\": {\"entity\": \"155\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": [\"2788\"]}}",
+        "request_path": "requests/INC-1595063C5B11__V_POD_SEPARATE__BASE__call2062.json",
+        "scoring_context_path": "scoring/RCA__cc6f9c7b7a890eb20de02eecdaa68c9384eda99e687504f36186594bd99d3818.json"
+      },
+      {
+        "arm": "P_U_NEIGHBOR_PAIR",
+        "rr": 1.0,
+        "tolerant_rr": 1.0,
+        "response": "{\"services\": [\"84394\", \"33620\", \"60764\", \"67740\", \"2788\"], \"reason\": \"Pod 84394 is the primary culprit, exhibiting extreme spikes in exclusive latency (MET05 ~1.13e+05 ms) and p50 duration (MET11 ~353 ms) that account for the sustained degradation in service 832 (TRC03) and overall node load (system.load.1 current 1.3 vs ref 0.84). The anomaly is exacerbated by severe HTTP 202/SentOrderConfirmation failures (ISTIO_requests.http.202 error_ratio x50: 0.22) and resource exhaustion, evidenced by a 14x drop in container_file_descriptors to 14 (median 13) and a 6x reduction in CPU usage, suggesting the pod is thrashing under high queue pressure (queue 112.69 ms) rather than being CPU-bound.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"84394\", \"unit\": \"source unit\", \"values\": [\"4\"]}, \"q2\": {\"entity\": \"84394\", \"unit\": \"milliseconds or source unit\", \"values\": [\"0\"]}, \"q3\": {\"entity\": \"67740\", \"unit\": \"µs\", \"values\": [\"46244\"]}, \"q4\": {\"entity\": \"60764\", \"unit\": \"µs\", \"values\": [\"2589.95\"]}, \"q5\": {\"entity\": \"95087\", \"unit\": \"µs\", \"values\": [\"157.1\", \"180.4\"]}, \"q6\": {\"entity\": \"67740\", \"unit\": \"µs\", \"values\": [\"6137.1\", \"42432\"]}}",
+        "request_path": "requests/INC-1595063C5B11__P_U_NEIGHBOR_PAIR__BASE__call2064.json",
+        "scoring_context_path": "scoring/RCA__cc6f9c7b7a890eb20de02eecdaa68c9384eda99e687504f36186594bd99d3818.json"
+      },
+      {
+        "arm": "P_U_COMBINED",
+        "rr": 0.0,
+        "tolerant_rr": 1.0,
+        "response": "{\"services\": [\"84394\", \"33620\", \"60764\", \"67740\", \"84394\"], \"reason\": \"Pod 84394 (hipstershop.187) shows direct local resource and latency signatures: `container_cpu_usage_seconds` current value is 0.0021895 versus a reference of 0.0, and `TRC02` (PlaceOrder) shows a massive increase in exclusive latency from 157.9 μs to 2847.7 μs, indicating the code running on this instance is causing the delay. This latency propagates to its upstream caller, pod 33620 (hipstershop.832), where `TRC01` (EmptyCart) sees its exclusive latency jump from 3811.6 μs to 4208.9 μs, but the child `TRC02` (PlaceOrder) is the dominant source of that inclusive span's growth, confirming 84394 is the root source rather than 33620.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"84394\", \"unit\": \"source unit\", \"values\": [\"4\"]}, \"q2\": {\"entity\": \"84394\", \"unit\": \"milliseconds or source unit\", \"values\": [\"0\"]}, \"q3\": {\"entity\": \"67740\", \"unit\": \"µs\", \"values\": [\"46244\"]}, \"q4\": {\"entity\": \"60764\", \"unit\": \"µs\", \"values\": [\"2589.95\"]}, \"q5\": {\"entity\": \"95087\", \"unit\": \"µs\", \"values\": [\"157.1\", \"180.4\"]}, \"q6\": {\"entity\": \"67740\", \"unit\": \"µs\", \"values\": [\"6137.1\", \"42432\"]}}",
+        "request_path": "requests/INC-1595063C5B11__P_U_COMBINED__BASE__call2065.json",
+        "scoring_context_path": "scoring/RCA__cc6f9c7b7a890eb20de02eecdaa68c9384eda99e687504f36186594bd99d3818.json"
+      }
+    ],
+    "old_h_marginal": {
+      "id": "INC-1595063C5B11",
+      "dataset": "aiops2022",
+      "base": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-1595063C5B11",
+      "source": "2022-03-20-cloudbed3",
+      "event_group": "2a4997ca8cb426d8b76cc166bedeacc6a2ff48bc9592b66b901a3c21b60278bf",
+      "arm": "H_MARGINAL",
+      "metrics": {
+        "rank": 1,
+        "mrr": 1.0,
+        "ac@1": 1.0,
+        "ac@3": 1.0,
+        "ac@5": 1.0,
+        "avg@3": 1.0,
+        "avg@5": 1.0
+      },
+      "input_tokens": 20861,
+      "output_tokens": 177,
+      "response": "{\"services\": [\"84394\", \"67740\", \"657\", \"660\", \"318\"], \"reason\": \"Check 1 confirmed that pod 84394's MET05 (istio_request_duration_milliseconds.http.202.) exhibits a >3-sigma MET-Z shift alongside null samples across the fault window, supporting local degradation. Check 2 verified that service 832's TRC03 (SendOrderConfirmation) and pod 67740's TRC06 (EmptyCart) exclusive p95 latencies double, independent of the 84394 outage, resolving the upstream latency spike to service 832 (and pod 67740) as a distinct secondary fault.\", \"confidence\": \"high\"}",
+      "record": "RQs/RQ4_6/results/pod_join_v1/objects/a77f17e40d20a1c074bcd38a34637a86a12734b98ce5d26bdfe70ae095bc840c.json",
+      "sha256": "a77f17e40d20a1c074bcd38a34637a86a12734b98ce5d26bdfe70ae095bc840c",
+      "historical": true
+    }
+  },
+  {
+    "id": "INC-32757906019C",
+    "selection": "fixed QA: exact relation QA but incorrect RCA",
+    "accepted_numeric": [
+      [
+        "59583",
+        "shippingservice-0"
+      ]
+    ],
+    "arms": [
+      {
+        "arm": "H_DEPLOY_ONLY",
+        "rr": 0.2,
+        "tolerant_rr": 0.2,
+        "response": "{\"services\": [\"524\", \"525\", \"56767\", \"52792\", \"59583\"], \"reason\": \"Two checks were run on the top candidate: (1) verifying that the dominant latency outlier is exclusive local work (TRC02: exclusive p95 for 56767 on hipstershop.524/GetQuote jumps from 2,657µs to 3.099×10⁷µs, a 13.5-log₂-fold increase with no corresponding child-span contribution, ruling out downstream-call origin), and (2) confirming that the propagation onset places the 524 service at +22min, strictly earlier than every downstream consumer (525 at +20min as caller, 52792/59583 as children observed at the pair level), which contradicts any co-located node (4265/9777) or upstream caller being the initiating fault. Service 524's GetQuote operation is the decisive local execution anomaly that, once exceeded, surfaced as amplified inclusive durations in its callers and paired children.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": null, \"q2\": null, \"q3\": {\"entity\": \"52792\", \"unit\": \"ms\", \"values\": [\"1.8897\", \"59955.2888\"]}, \"q4\": {\"entity\": \"59583\", \"unit\": \"ms\", \"values\": [\"0.0698\", \"0.0852\"]}, \"q5\": {\"entity\": \"27278\", \"unit\": \"ms\", \"values\": [\"1.452\", \"1.501\"]}, \"q6\": {\"entity\": \"59583\", \"unit\": \"ms\", \"values\": [\"0.059\", \"0.06\"]}}",
+        "request_path": "requests/INC-32757906019C__H_DEPLOY_ONLY__BASE__call884.json",
+        "scoring_context_path": "scoring/RCA__2164fc6bc8042ea107828889cb2d1e50f39e1860f2ccc6266ba6b34465506236.json"
+      },
+      {
+        "arm": "H_MARGINAL_PHASE",
+        "rr": 0.0,
+        "tolerant_rr": 0.0,
+        "response": "{\"services\": [\"524\", \"525\", \"454\", \"569\", \"689\"], \"reason\": \"The confirmed caller→callee relationship 525→524 and the identical 524/GetQuote exclusive-p95 explosions in the 524 instance pods 56767 (30.99 s) and 52792 (1.21 s) place the latency origin in 524, not in its callers or its caller 525 (524 onset +22.0 m lags the +20.0 m onset of 525/454). Co-location and duration checks were negative: 525's pods 56767/33343/97819 share node 9777, and 9777's system.net.packets_in dropped from 34.53 to 26.3 (smaller than its reference MAD of 1.03), 56767's memory is within ~0.1 MAD, and 4265's memory delta is ~6 MAD, so node-level packet or memory pressure does not reproduce the pod-level latency spike.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": null, \"q2\": null, \"q3\": {\"entity\": \"52792\", \"unit\": \"ms\", \"values\": [\"0.058\", \"0.059\"]}, \"q4\": {\"entity\": \"59583\", \"unit\": \"ms\", \"values\": [\"0.06799999999999999\", \"0.08519999999999993\"]}, \"q5\": {\"entity\": \"27278\", \"unit\": \"ms\", \"values\": [\"0.059\", \"0.06\"]}, \"q6\": {\"entity\": \"59583\", \"unit\": \"ms\", \"values\": [\"0.07239999999999998\", \"0.24559999999999968\"]}}",
+        "request_path": "requests/INC-32757906019C__H_MARGINAL_PHASE__BASE__call873.json",
+        "scoring_context_path": "scoring/RCA__2164fc6bc8042ea107828889cb2d1e50f39e1860f2ccc6266ba6b34465506236.json"
+      },
+      {
+        "arm": "H_POD_PHASE",
+        "rr": 0.0,
+        "tolerant_rr": 0.0,
+        "response": "{\"services\": [\"524\", \"56767\", \"52792\", \"525\", \"454\"], \"reason\": \"Verification check 1 (causal origin via exclusive latency): TRC02 (pod 56767) and TRC05 (pod 52792) exhibit massive exclusive p95 latency spikes (30.9s and 1.2s) for the 'hipstershop.524/GetQuote' operation, confirming the fault originates in the 524 service's local execution rather than being inherited from callers. Check 2 (alternative origin contradiction): Checking upstream caller 525 (propagation_service rank 1) and co-located pods, their exclusive latencies for downstream operations remain normal (e.g., TRC01 exl_p95 4743µs), ruling out a 525-driven latency injection and solidifying 524 as the primary root cause.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": null, \"q2\": null, \"q3\": {\"entity\": \"52792\", \"unit\": \"ms\", \"values\": [\"0.058\", \"0.059\"]}, \"q4\": {\"entity\": \"59583\", \"unit\": \"ms\", \"values\": [\"0.06799999999999999\", \"0.08519999999999993\"]}, \"q5\": {\"entity\": \"27278\", \"unit\": \"ms\", \"values\": [\"0.059\", \"0.059\"]}, \"q6\": {\"entity\": \"59583\", \"unit\": \"ms\", \"values\": [\"0.073\", \"0.07294999999999999\"]}}",
+        "request_path": "requests/INC-32757906019C__H_POD_PHASE__BASE__call878.json",
+        "scoring_context_path": "scoring/RCA__2164fc6bc8042ea107828889cb2d1e50f39e1860f2ccc6266ba6b34465506236.json"
+      },
+      {
+        "arm": "V_POD_BRIDGE",
+        "rr": 0.0,
+        "tolerant_rr": 0.0,
+        "response": "{\"services\": [\"524\", \"56767\", \"40630\", \"9777\", \"52792\"], \"reason\": \"Service 524's exclusive latency p95 exploded to 3.099e+7 µs from a reference of 1826.8 µs, simultaneously with pod 40630 (hosting service 569) exhibiting memory pressure signals including r_jvm_classes_loaded peaking at 18714 and container_memory_failures hierarchy activity. The parent operation hiptershop.524/GetQuote shows inclusive spans of 4743.5 µs while child pod 56767's exclusive latency remained stable at 2700.8 µs, localizing the fault within service 524's own execution rather than its downstream dependencies.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"627\", \"relation\": \"has_instance\", \"targets\": [\"77387\"]}, \"q2\": {\"entity\": \"599\", \"relation\": \"has_instance\", \"targets\": [\"30201\"]}, \"q3\": {\"entity\": \"25916\", \"relation\": \"incoming_hosts\", \"targets\": [\"9777\"]}, \"q4\": {\"entity\": \"23615\", \"relation\": \"incoming_hosts\", \"targets\": [\"9777\"]}, \"q5\": {\"entity\": \"947\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": [\"9777\"]}, \"q6\": {\"entity\": \"681\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": [\"9777\"]}}",
+        "request_path": "requests/INC-32757906019C__V_POD_BRIDGE__BASE__call879.json",
+        "scoring_context_path": "scoring/RCA__2164fc6bc8042ea107828889cb2d1e50f39e1860f2ccc6266ba6b34465506236.json"
+      },
+      {
+        "arm": "V_POD_SEPARATE",
+        "rr": 0.0,
+        "tolerant_rr": 0.0,
+        "response": "{\"services\": [\"524\", \"525\", \"567\", \"569\", \"933\"], \"reason\": \"The confirmed caller services 525, 567, and 569 exhibit 'pgmajfault' spikes that directly correlate with the ~10x increase in exclusive p95 latency for their child dependency service 524's GetQuote operation (2657µs vs 27.0µs). This resource contention on the callers causes slow I/O queuing that propagates as latency to 524. Service 933 is included as a secondary candidate due to correlated latency increases in its GetSupportedCurrencies operation within the same incident window.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"627\", \"relation\": \"has_instance\", \"targets\": [\"77387\"]}, \"q2\": {\"entity\": \"599\", \"relation\": \"has_instance\", \"targets\": [\"30201\"]}, \"q3\": {\"entity\": \"25916\", \"relation\": \"incoming_hosts\", \"targets\": [\"9777\"]}, \"q4\": {\"entity\": \"23615\", \"relation\": \"incoming_hosts\", \"targets\": [\"9777\"]}, \"q5\": {\"entity\": \"947\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": [\"9777\"]}, \"q6\": {\"entity\": \"681\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": [\"4265\", \"9777\"]}}",
+        "request_path": "requests/INC-32757906019C__V_POD_SEPARATE__BASE__call880.json",
+        "scoring_context_path": "scoring/RCA__2164fc6bc8042ea107828889cb2d1e50f39e1860f2ccc6266ba6b34465506236.json"
+      },
+      {
+        "arm": "P_U_NEIGHBOR_PAIR",
+        "rr": 0.3333333333333333,
+        "tolerant_rr": 0.3333333333333333,
+        "response": "{\"services\": [\"524\", \"52792\", \"59583\", \"320\", \"4265\"], \"reason\": \"Service 524 is the initiating component as its operation (hipstershop.524/GetQuote) shows the dominant exclusive latency increase (p95 265.75µs to 3.0992e+07µs, MET12), which drives the elevated latency in its parents (52792 and 59583) through the call graph. Service 320 is included as a secondary contributing factor in the same application tier, while node 4265 is selected due to observed co-located anomalies in system-level free memory (system.mem.free, metric 25) correlating with the timeline onset.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"pod 40630\", \"unit\": \"source unit\", \"values\": [\"0\", \"1733e+04\", \"999\", \"4.95\", \"0.0\", \"23.19\"]}, \"q2\": {\"entity\": \"pod 33343\", \"unit\": \"source unit\", \"values\": [\"0\", \"1\", \"999\", \"0.59\", \"0.0\", \"0.0\"]}, \"q3\": {\"entity\": \"pod 30201\", \"unit\": \"µs\", \"values\": [\"2657.5\"]}, \"q4\": {\"entity\": \"pod 30201\", \"unit\": \"µs\", \"values\": [\"27.0\"]}, \"q5\": {\"entity\": \"pod 30201\", \"unit\": \"µs\", \"values\": [\"2634.2\", \"2700.8\"]}, \"q6\": {\"entity\": \"pod 40630\", \"unit\": \"µs\", \"values\": [\"1826.85\", \"1.2076e+06\"]}}",
+        "request_path": "requests/INC-32757906019C__P_U_NEIGHBOR_PAIR__BASE__call882.json",
+        "scoring_context_path": "scoring/RCA__2164fc6bc8042ea107828889cb2d1e50f39e1860f2ccc6266ba6b34465506236.json"
+      },
+      {
+        "arm": "P_U_COMBINED",
+        "rr": 0.3333333333333333,
+        "tolerant_rr": 0.3333333333333333,
+        "response": "{\"services\": [\"524\", \"52792\", \"59583\", \"320\", \"4265\"], \"reason\": \"Service 524 is the initiating component as its operation (hipstershop.524/GetQuote) shows the dominant exclusive latency increase (p95 1826.8µs to 1.208e+6µs) locally, while child operation 52792 is the primary slow dependency (p95 37.5µs to 3.009e+7µs) within that span. The elevated CPU/network correlation on node 4265 provides a plausible resource contention origin for the 524/52792 latency regression, despite 52792's fast baseline reference, indicating it crossed a performance threshold under load.\", \"confidence\": \"medium\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"pod 40630\", \"unit\": \"source unit\", \"values\": [\"0\", \"0\", \"999\", \"0.99\"]}, \"q2\": {\"entity\": \"pod 33343\", \"unit\": \"source unit\", \"values\": [\"0\", \"0\", \"999\", \"0.09\"]}, \"q3\": {\"entity\": \"pod 30201\", \"unit\": \"µs\", \"values\": [\"4768.1\"]}, \"q4\": {\"entity\": \"pod 30201\", \"unit\": \"µs\", \"values\": [\"27.0\"]}, \"q5\": {\"entity\": \"pod 30201\", \"unit\": \"µs\", \"values\": [\"2634.2\", \"2700.8\"]}, \"q6\": {\"entity\": \"pod 40630\", \"unit\": \"µs\", \"values\": [\"27.0\", \"27.0\"]}}",
+        "request_path": "requests/INC-32757906019C__P_U_COMBINED__BASE__call883.json",
+        "scoring_context_path": "scoring/RCA__2164fc6bc8042ea107828889cb2d1e50f39e1860f2ccc6266ba6b34465506236.json"
+      }
+    ],
+    "old_h_marginal": {
+      "id": "INC-32757906019C",
+      "dataset": "aiops2022",
+      "base": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_retry/INC-32757906019C",
+      "source": "2022-03-21-cloudbed2",
+      "event_group": "2e0d6bd3c49323bfb0e977a215ab1a49d996690b2d3710ef353069d23fbf94c2",
+      "arm": "H_MARGINAL",
+      "metrics": {
+        "rank": null,
+        "mrr": 0.0,
+        "ac@1": 0.0,
+        "ac@3": 0.0,
+        "ac@5": 0.0,
+        "avg@3": 0.0,
+        "avg@5": 0.0
+      },
+      "input_tokens": 21304,
+      "output_tokens": 286,
+      "response": "{\"services\": [\"524\", \"525\", \"56767\", \"52792\", \"33343\"], \"reason\": \"Two checks were run to verify top-1=524: (1) **Paired-duration check**: Panel PAIR01/02 shows the 'current' GetQuote samples splitting into two populations (n=102 at ~0.06-0.07ms vs n=17 at 0.541ms) and the tail samples (C30-C32) hitting tens of seconds, proving the exclusive span time is retained in the parent. (2) **Symptom-vs-Cause check**: While 525 exhibits the heaviest load (MET05/08, TRC05) and 524 exhibits the failure (TRC02), an origin at the network level (node 9777, MET06) or propagation chain (525) is contradicted by the absence of packet loss or network saturation evidence in the telemetry and the fact that both instance pods (56767, 52792) suffer identical massive localized latency spikes, pointing to a service-level degradation (524) rather than an infra-level network drop.\", \"confidence\": \"medium\"}",
+      "record": "RQs/RQ4_6/results/pod_join_v1/objects/3bc722856b5014b66d073f8bc83c1141bd57c0ff3cf381a0ce080b6b25b20fa8.json",
+      "sha256": "3bc722856b5014b66d073f8bc83c1141bd57c0ff3cf381a0ce080b6b25b20fa8",
+      "historical": true
+    }
+  },
+  {
+    "id": "INC-92A00B34EECF",
+    "selection": "fixed QA: correct first rank and contradictory explanation",
+    "accepted_numeric": [
+      [
+        "772",
+        "tidb-tikv"
+      ]
+    ],
+    "arms": [
+      {
+        "arm": "H_DEPLOY_ONLY",
+        "rr": 0.25,
+        "tolerant_rr": 0.25,
+        "response": "{\"services\": [\"927\", \"966\", \"728\", \"772\", \"852\"], \"reason\": \"927 is top-ranked with the earliest R-sourced onset (+14.2m, sev 280.3), and G shows 927 is the earliest anomaly caller of the subsequent 966 (+14.2m) and 172 (+19.0m) symptoms. Checking the alternative storage origin 772 (+15.0m) does not refute 927, because 772 itself has no R/L onset and shows only a CPU/I-O lag, while 927/966 latency rises (TRC entries) coincide with their call propagation, indicating the fault initiated upstream in 927.\", \"confidence\": \"medium\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"61332\", \"relation\": \"owns\", \"targets\": [\"333\"]}, \"q2\": {\"entity\": \"881\", \"relation\": \"hosts\", \"targets\": [\"6939\"]}, \"q3\": {\"entity\": \"403\", \"unit\": \"ms\", \"values\": [\"3.1567999999999996\", \"4.241999999999994\"]}, \"q4\": {\"entity\": \"852\", \"unit\": \"ms\", \"values\": [\"2.003599999999999\", \"3.5296499999999917\"]}, \"q5\": {\"entity\": \"403\", \"unit\": \"ms\", \"values\": [\"3.0869999999999997\", \"3.1135\"]}, \"q6\": {\"entity\": \"153\", \"unit\": \"ms\", \"values\": [\"1.2355\", \"1.237\"]}}",
+        "request_path": "requests/INC-92A00B34EECF__H_DEPLOY_ONLY__BASE__call1237.json",
+        "scoring_context_path": "scoring/RCA__9d434bf5e04e60d0574864e4580b9d623e695aa55549377f7ce81781ff03deb5.json"
+      },
+      {
+        "arm": "H_MARGINAL_PHASE",
+        "rr": 1.0,
+        "tolerant_rr": 1.0,
+        "response": "{\"services\": [\"772\", \"728\", \"927\", \"966\", \"852\"], \"reason\": \"The confirmed caller→callee relationship 927→966 and 966→403 identifies 927 as the uppermost caller with the earliest onset (+14.2m) and highest R-severity (280.3). Verification check 1 confirms that 728 and 772, while showing extreme M-severity (999), do not appear as callees to the 927/966 chain, suggesting their impact is either parallel or downstream of a shared resource. Check 2 confirms that the duration increase in 852 (TRC02) and the inclusive latency in 403 (TRC05) are consistent with propagation from the upstream 966/927 sources rather than independent faults.\", \"confidence\": \"medium\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"61332\", \"relation\": \"incoming_has_instance\", \"targets\": [\"333\"]}, \"q2\": {\"entity\": \"881\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": [\"44589\"]}, \"q3\": {\"entity\": \"403\", \"unit\": \"ms\", \"values\": [\"3.1567999999999996\", \"4.2419999999999994\"]}, \"q4\": {\"entity\": \"852\", \"unit\": \"ms\", \"values\": [\"1.97\", \"2.194\"]}, \"q5\": {\"entity\": \"403\", \"unit\": \"ms\", \"values\": [\"1.235\", \"1.237\"]}, \"q6\": {\"entity\": \"153\", \"unit\": \"ms\", \"values\": [\"1.2099999999999998\", \"1.2165\"]}}",
+        "request_path": "requests/INC-92A00B34EECF__H_MARGINAL_PHASE__BASE__call1238.json",
+        "scoring_context_path": "scoring/RCA__9d434bf5e04e60d0574864e4580b9d623e695aa55549377f7ce81781ff03deb5.json"
+      },
+      {
+        "arm": "H_POD_PHASE",
+        "rr": 0.5,
+        "tolerant_rr": 0.5,
+        "response": "{\"services\": [\"728\", \"772\", \"927\", \"966\", \"852\"], \"reason\": \"The confirmed caller→callee relationship 927→966 and 966→403 places 927 as the uppermost caller with the earliest onset (+14.2m), but its R-evidence signature (z=280.3) is a downstream symptom of 403/852 latency; testing the alternative origin, the root causality shifts to 728 (MET03/04 z=999/977 duration) and 772 (MET02/12 z=43.7/999 WAL/raft), both of which show z=999 at +15.0m, indicating an immediate database-level stall as the primary root.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"2092\", \"relation\": \"hosts\", \"targets\": [\"61332\"]}, \"q2\": {\"entity\": \"6939\", \"relation\": \"hosts\", \"targets\": [\"881\"]}, \"q3\": {\"entity\": \"403\", \"unit\": \"ms\", \"values\": [\"31.811500000000002\", \"71.534\"]}, \"q4\": {\"entity\": \"852\", \"unit\": \"ms\", \"values\": [\"1.9130500000000001\", \"2.6252999999999997\"]}, \"q5\": {\"entity\": \"403\", \"unit\": \"ms\", \"values\": [\"1.2029999999999998\", \"1.2165\"]}, \"q6\": {\"entity\": \"153\", \"unit\": \"ms\", \"values\": [\"1.9130500000000001\", \"2.6252999999999997\"]}}",
+        "request_path": "requests/INC-92A00B34EECF__H_POD_PHASE__BASE__call1241.json",
+        "scoring_context_path": "scoring/RCA__9d434bf5e04e60d0574864e4580b9d623e695aa55549377f7ce81781ff03deb5.json"
+      },
+      {
+        "arm": "V_POD_BRIDGE",
+        "rr": 0.0,
+        "tolerant_rr": 0.0,
+        "response": "{\"services\": [\"172\", \"728\", \"599\", \"9161\", \"2092\"], \"reason\": \"Service 172 is the initiating component, evidenced by it having the earliest observed anomaly onset (+19.0m, panel 38) with the highest severity rank (1) and operating on node 2092. The causal mechanism correlates with a jump in node_cpu_usage_rate (28.124, panel 40) and node_memory_usage_rate (33.6, panel 23/24) on node 2092 occurring near the onset. Leading candidate 172 is checked against service 728 (higher latency/severity but later onset, +15.0m) and node 599 (memory spike but later onset, +29.0m), confirming 172 as the true origin.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"966\", \"relation\": \"has_instance\", \"targets\": [\"14560\"]}, \"q2\": {\"entity\": \"403\", \"relation\": \"has_instance\", \"targets\": [\"67654\"]}, \"q3\": {\"entity\": \"61332\", \"relation\": \"incoming_has_instance\", \"targets\": [\"333\"]}, \"q4\": {\"entity\": \"61668\", \"relation\": \"incoming_hosts\", \"targets\": [\"491\"]}, \"q5\": {\"entity\": \"881\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": []}, \"q6\": {\"entity\": \"896\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": []}}",
+        "request_path": "requests/INC-92A00B34EECF__V_POD_BRIDGE__BASE__call1242.json",
+        "scoring_context_path": "scoring/RCA__9d434bf5e04e60d0574864e4580b9d623e695aa55549377f7ce81781ff03deb5.json"
+      },
+      {
+        "arm": "V_POD_SEPARATE",
+        "rr": 0.0,
+        "tolerant_rr": 0.0,
+        "response": "{\"services\": [\"172\", \"599\", \"2092\", \"728\", \"9161\"], \"reason\": \"Service 172 is the initiating source per its onset summary (rank 6, +19.0m), and node 599 exhibits the correlated systemic pressure with elevated node_memory_usage_rate and io_util peaks at offset +29.0m. The change in exclusive latency for service 491 (2826.65 vs reference 2294.4) confirms the operational impact of the upstream slowness.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"966\", \"relation\": \"has_instance\", \"targets\": [\"14560\"]}, \"q2\": {\"entity\": \"403\", \"relation\": \"has_instance\", \"targets\": [\"67654\", \"77291\", \"80109\", \"96523\"]}, \"q3\": {\"entity\": \"61332\", \"relation\": \"incoming_has_instance\", \"targets\": [\"333\"]}, \"q4\": {\"entity\": \"61668\", \"relation\": \"incoming_hosts\", \"targets\": [\"4853\"]}, \"q5\": {\"entity\": \"881\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": []}, \"q6\": {\"entity\": \"896\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": [\"19161\"]}}",
+        "request_path": "requests/INC-92A00B34EECF__V_POD_SEPARATE__BASE__call1243.json",
+        "scoring_context_path": "scoring/RCA__9d434bf5e04e60d0574864e4580b9d623e695aa55549377f7ce81781ff03deb5.json"
+      },
+      {
+        "arm": "P_U_NEIGHBOR_PAIR",
+        "rr": 0.25,
+        "tolerant_rr": 0.25,
+        "response": "{\"services\": [\"172\", \"599\", \"728\", \"772\", \"852\"], \"reason\": \"Service 172 is the central upstream dependency in the call graph for the slow operations (TRC01, TRC05), and the 'Observed source summary' card for 172 shows the earliest anomaly onset at +19.0m with a severity of +11.46. The latency regression in operations like /AddItem (5681.9 µs vs 558.1 µs) is consistent with delay propagated from this foundational service.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"728\", \"unit\": \"rank or percent\", \"values\": [\"5\"]}, \"q2\": {\"entity\": \"728\", \"unit\": \"source unit\", \"values\": [\"1.045e+09\"]}, \"q3\": {\"entity\": \"852\", \"unit\": \"microseconds or source unit\", \"values\": [\"2826.65\"]}, \"q4\": {\"entity\": \"338\", \"unit\": \"µs\", \"values\": [\"932.1\"]}, \"q5\": {\"entity\": \"403\", \"unit\": \"µs\", \"values\": [\"1511\", \"1827.7\"]}, \"q6\": {\"entity\": \"491\", \"unit\": \"microseconds or source unit\", \"values\": [\"5396.4\", \"5681.95\"]}}",
+        "request_path": "requests/INC-92A00B34EECF__P_U_NEIGHBOR_PAIR__BASE__call1245.json",
+        "scoring_context_path": "scoring/RCA__9d434bf5e04e60d0574864e4580b9d623e695aa55549377f7ce81781ff03deb5.json"
+      },
+      {
+        "arm": "P_U_COMBINED",
+        "rr": 0.25,
+        "tolerant_rr": 0.25,
+        "response": "{\"services\": [\"172\", \"599\", \"728\", \"772\", \"852\"], \"reason\": \"Service 172 is the central upstream dependency in the call graph for the slow operations (TRC01, TRC02), and the Observed source summary for ID 172 shows the earliest onset (+19.0m) with the highest severity Z (11.46) among the candidates. Service 599 is placed second as its co-located node 2092 exhibits a massive current `node_memory_usage_rate` (1.053e+9) versus a low reference (1.044e+9) (panel 24), and panel 52 indicates `region_pending` originating on 599. Services 728, 772, and 852 follow as significant sources or heavily impacted children with measured exclusions (e.g., TRC02 on 852 in panel 15, TRC03 on 772).\", \"confidence\": \"medium\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"728\", \"unit\": \"rank or percent\", \"values\": [\"16.55\"]}, \"q2\": {\"entity\": \"728\", \"unit\": \"source unit\", \"values\": [\"1.045e+09\"]}, \"q3\": {\"entity\": \"852\", \"unit\": \"Exclusive latency p95 · µs\", \"values\": [\"2826.65\"]}, \"q4\": {\"entity\": \"338\", \"unit\": \"Exclusive latency p95 · µs\", \"values\": [\"932.1\"]}, \"q5\": {\"entity\": \"403\", \"unit\": \"Exclusive latency p95 · µs\", \"values\": [\"1575.3\", \"4361.5\"]}, \"q6\": {\"entity\": \"491\", \"unit\": \"Exclusive latency p95 · µs\", \"values\": [\"5396.4\", \"5681.95\"]}}",
+        "request_path": "requests/INC-92A00B34EECF__P_U_COMBINED__BASE__call1236.json",
+        "scoring_context_path": "scoring/RCA__9d434bf5e04e60d0574864e4580b9d623e695aa55549377f7ce81781ff03deb5.json"
+      }
+    ],
+    "old_h_marginal": {
+      "id": "INC-92A00B34EECF",
+      "dataset": "aiops2025",
+      "base": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_retry/INC-92A00B34EECF",
+      "source": "aiops2025",
+      "event_group": "672cfdadf27fe1d9b0443196105f286611bfc6952cc5ae373d0c0b5614568f52",
+      "arm": "H_MARGINAL",
+      "metrics": {
+        "rank": 2,
+        "mrr": 0.5,
+        "ac@1": 0.0,
+        "ac@3": 1.0,
+        "ac@5": 1.0,
+        "avg@3": 0.6666666666666666,
+        "avg@5": 0.8
+      },
+      "input_tokens": 17532,
+      "output_tokens": 245,
+      "response": "{\"services\": [\"728\", \"772\", \"927\", \"966\", \"852\"], \"reason\": \"The confirmed caller chain 927→966→403→852 places the fault inside 403's backend at the +14.2m anomaly onset, eliminating upstream originators as independent causes. Crucially, the 403 service span localizes the degradation to child operation 852, which is the only operation in its call tree with a meaningful exclusive-latency deviation (TRC02 exclusive p95 rises from 2294.6µs to 2826.65µs, reflecting a +0.3 log2 shift), whereas sibling operations like 153 and downstream 966/338 show near-zero local impact. Subsequent deterioration in 728 and 772 (traffic spikes, zeroed block_cache, concurrent raft_apply_wait) at +15.0m is a temporally identical adjacent failure mirroring the 852-induced latency pattern.\", \"confidence\": \"high\"}",
+      "record": "RQs/RQ4_6/results/pod_join_v1/objects/296abc759d7ba6d2ff866b8707b5935553a415f5cd6e8d38d907c952704097da.json",
+      "sha256": "296abc759d7ba6d2ff866b8707b5935553a415f5cd6e8d38d907c952704097da",
+      "historical": true
+    }
+  },
+  {
+    "id": "INC-6CB07956172F",
+    "selection": "post-hoc full-cohort AegisLab H_MARGINAL_PHASE maximum harm",
+    "accepted_numeric": [
+      [
+        "211",
+        "ts-seat-service"
+      ],
+      [
+        "563",
+        "ts-travel2-service"
+      ]
+    ],
+    "arms": [
+      {
+        "arm": "H_DEPLOY_ONLY",
+        "rr": 0.0,
+        "tolerant_rr": 0.0,
+        "response": "{\"services\": [\"673\", \"799\", \"870\", \"373\", \"413\"], \"reason\": \"Service 673 is the earliest onset at +5.8m (rank 1), preceding other faulted services, making it a likely origin. Call edges show 841 calls 673 and 413 calls 673, indicating 673 is a callee, supporting it as an origin rather than a downstream symptom. Metrics show significant deviations for 673 (MET01-03 with z-scores 707-999), confirming severe faults at the earliest time point.\", \"confidence\": \"medium\"}",
+        "qa_response": null,
+        "request_path": "requests/INC-6CB07956172F__H_DEPLOY_ONLY__BASE__call2267.json",
+        "scoring_context_path": "scoring/RCA__ce4bdfbbc326055f69457aaf8bfa5196fbf2ad95bd521437835f92f20a42e4fb.json"
+      },
+      {
+        "arm": "H_MARGINAL_PHASE",
+        "rr": 0.0,
+        "tolerant_rr": 0.0,
+        "response": "{\"services\": [\"673\", \"373\", \"802\", \"413\", \"689\"], \"reason\": \"Service 673 is the earliest onset (+5.8m) and highest severity (z=999, rank 1), but the verification checks reveal it is a leaf callee with severe CPU/resource saturation (MET01 peak 17.5ms p90, z=707) whose symptoms propagate upstream to its callers 413 and 841; the alternative origin 373 (z=772, +6.4m) is a higher-level caller whose latency (MET07, peak 1.744s) is explained by its own resource constraints and downstream dependencies, not by initiating the fault independently—673's exclusive latency of 707σ and consistent deterioration across p90/p95/p99 percentiles with no counter-evidence from its callees confirms it as the original fault source, while 373's identical onset timing and shared infrastructure patterns indicate correlated but secondary impact rather than independent causation.\", \"confidence\": \"medium\"}",
+        "qa_response": null,
+        "request_path": "requests/INC-6CB07956172F__H_MARGINAL_PHASE__BASE__call2268.json",
+        "scoring_context_path": "scoring/RCA__ce4bdfbbc326055f69457aaf8bfa5196fbf2ad95bd521437835f92f20a42e4fb.json"
+      },
+      {
+        "arm": "H_POD_PHASE",
+        "rr": 0.0,
+        "tolerant_rr": 0.0,
+        "response": "{\"services\": [\"673\", \"373\", \"413\", \"799\", \"870\"], \"reason\": \"Service 673 is the earliest onset (+5.8m) and highest severity (z=999, rank 1), but the verification checks reveal it is called by 413 and 841, and its latency degradation (MET01/08/11: p90 0.0045s→0.0175s, p99 0.0051s→0.45s) is severe but shows fluctuating_3sigma behavior with a current std_dev of 0.16s (MET08) versus regular 3.4e-04s, suggesting 673 is the primary faulty component causing downstream latency. Service 373 (z=999, rank 3, onset +6.4m) is a downstream caller of 485, 623, 802, 965, and is called by 799 and 870, showing the highest severity z-score (772.2 in propagation) with peak latency 1.744s (MET07). The decisive relationship is that 673's onset precedes 373 by 0.6m and 673 is not a caller of 373, while 373's degradation (p90 0.016s→1.744s) is consistent with the fault window starting at +5.5m. Service 413 (z=999, rank 14, onset +7.9m) is a downstream victim showing p50 degradation from 0.008s to 7.5s (MET03, peak at bin 50), with trace TRC01 showing exclusive p95 from 17.8ms to 4135ms (lfc=7.86), confirming it is a consumer affected by upstream faults in 673 and 689.\", \"confidence\": \"medium\"}",
+        "qa_response": null,
+        "request_path": "requests/INC-6CB07956172F__H_POD_PHASE__BASE__call2271.json",
+        "scoring_context_path": "scoring/RCA__ce4bdfbbc326055f69457aaf8bfa5196fbf2ad95bd521437835f92f20a42e4fb.json"
+      },
+      {
+        "arm": "V_POD_BRIDGE",
+        "rr": 0.0,
+        "tolerant_rr": 0.0,
+        "response": "{\"services\": [\"413\", \"689\", \"540\", \"317\", \"799\"], \"reason\": \"Service 413 is the central downstream dependency in the call graph, showing a 2.8x latency increase (10ms to 28ms) in its observed spans with elevated p95s and CPU usage; service 689 exhibits severe resource saturation with memory RSS rising from 7.76e8 to 7.89e8 and significant page faults; service 540 is a direct consumer of 413 and 689, showing a 10ms latency spike that aligns with the downstream degradation pattern, while services 317 and 799 are alternative high-latency services in the same dependency chain.\", \"confidence\": \"medium\"}",
+        "qa_response": null,
+        "request_path": "requests/INC-6CB07956172F__V_POD_BRIDGE__BASE__call2273.json",
+        "scoring_context_path": "scoring/RCA__ce4bdfbbc326055f69457aaf8bfa5196fbf2ad95bd521437835f92f20a42e4fb.json"
+      },
+      {
+        "arm": "V_POD_SEPARATE",
+        "rr": 0.0,
+        "tolerant_rr": 0.0,
+        "response": "{\"services\": [\"413\", \"689\", \"168\", \"540\", \"317\"], \"reason\": \"Service 413 is the central downstream dependency in the call graph and its p95 latency (MET05, exclusive p95 ~4.1e6 µs) matches its slow child operation p95 (PAIR01, ~38.8 ms) via structural decomposition, isolating the fault to its dependency service 689 (MET12, exclusive p95 ~2.55 ms, current > reference) rather than network or parent overhead. Candidate 168 is ranked third as a secondary upstream node showing elevated p99 duration (MET03) and increased p50 absolute values (MET04) that correlate with the 413/689 degradation window.\", \"confidence\": \"high\"}",
+        "qa_response": null,
+        "request_path": "requests/INC-6CB07956172F__V_POD_SEPARATE__BASE__call2272.json",
+        "scoring_context_path": "scoring/RCA__ce4bdfbbc326055f69457aaf8bfa5196fbf2ad95bd521437835f92f20a42e4fb.json"
+      },
+      {
+        "arm": "P_U_NEIGHBOR_PAIR",
+        "rr": 0.0,
+        "tolerant_rr": 0.0,
+        "response": "{\"services\": [\"413\", \"540\", \"317\", \"689\", \"799\"], \"reason\": \"Service 413 is the central downstream span target for the problematic POST /order/refresh operation, exhibiting extreme inclusive latency spikes that dominate the aggregated logs and leading to the TRC01 'Exclusive latency p95' breach; service 540 shows correlated duration increases and log evidence for the same flow; services 317, 689, and 799 are secondary observations in the global path showing minor correlated latency and memory pressure but lacking the exclusive violation scale of 413.\", \"confidence\": \"high\"}",
+        "qa_response": null,
+        "request_path": "requests/INC-6CB07956172F__P_U_NEIGHBOR_PAIR__BASE__call2265.json",
+        "scoring_context_path": "scoring/RCA__ce4bdfbbc326055f69457aaf8bfa5196fbf2ad95bd521437835f92f20a42e4fb.json"
+      },
+      {
+        "arm": "P_U_COMBINED",
+        "rr": 0.0,
+        "tolerant_rr": 0.0,
+        "response": "{\"services\": [\"413\", \"540\", \"317\", \"689\", \"799\"], \"reason\": \"Service 413 is the central downstream span in the PAIR01/PAIR02 observations, showing elevated exclusive p95 (4.1e+6 µs) with elevated upstream child spans (540, 317, 689) that propagate latency into it, supported by correlated high p90 latency spikes (MET05/07) and memory pressure signals (AUX02/03) on 413. The strong child-to-parent duration correlation (reference p95 child ~4.4ms, current child p95 ~268ms; parent slow count 0→11) ties the slowdown to its inbound callers rather than an independent failure inside 413.\", \"confidence\": \"medium\"}",
+        "qa_response": null,
+        "request_path": "requests/INC-6CB07956172F__P_U_COMBINED__BASE__call2266.json",
+        "scoring_context_path": "scoring/RCA__ce4bdfbbc326055f69457aaf8bfa5196fbf2ad95bd521437835f92f20a42e4fb.json"
+      }
+    ],
+    "old_h_marginal": {
+      "id": "INC-6CB07956172F",
+      "dataset": "aegislab",
+      "base": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_retry/INC-6CB07956172F",
+      "source": "aegislab_capture:23a4fd682b5694f068aeadad8332de821e4cb93aadff15e0c806a5812cc74fad",
+      "event_group": "8391aa18f9e79af1772942b7df9b9a5b86122bc6f2b3c949af5c470df11b277d",
+      "arm": "H_MARGINAL",
+      "metrics": {
+        "rank": 1,
+        "mrr": 1.0,
+        "ac@1": 1.0,
+        "ac@3": 1.0,
+        "ac@5": 1.0,
+        "avg@3": 1.0,
+        "avg@5": 1.0
+      },
+      "input_tokens": 22311,
+      "output_tokens": 390,
+      "response": "{\"services\": [\"563\", \"413\", \"689\", \"373\", \"802\"], \"reason\": \"Service 563 is the central downstream dependency of the top-latency caller 413 (edge 413 -> 563) and exhibits the strongest, earliest anomaly: MET05 p90 breach at bin32 (0.08s -> 4.75s) well before the bin58 latency sweep, and its pod memory (AUX02 rss, MET/pod working set current_median 1.97GB vs ref 0.815GB) tripled, supporting a memory-pressure/exhaustion origin. Check 1 (is 413's slowness self-caused?): TRC01 413 exclusive-p95 is 4.14ms->4135ms (≈7.9 log2) but its own CPU barely moved (0.0379->0.0044) and its longest-inclusive span 9.66ms is consistent with a slow callee rather than local processing, so 413 is a victim not the source. Check 2 (alternative origin, is it DB 689?): TRC04 689 SELECT shows a real 7.27 log2 exclusive regression, but 689 is only a co-suspect callee and its page-faults (AUX01) are flat, and 689 sits downstream of the same 413/563 cluster, so its latency is a co-located symptom rather than an independent initiator; no edge places 689 upstream of 563, so 563 remains the initiating node.\", \"confidence\": \"medium\"}",
+      "record": "RQs/RQ4_6/results/pod_join_v1/objects/3fa3214d9de155493b0910cb6cbaf1decab7102d2cf9795c88cb682e17cbe175.json",
+      "sha256": "3fa3214d9de155493b0910cb6cbaf1decab7102d2cf9795c88cb682e17cbe175",
+      "historical": true
+    }
+  },
+  {
+    "id": "INC-4C4024E9EF1F",
+    "selection": "post-hoc AegisLab lost filesystem-origin emphasis",
+    "accepted_numeric": [
+      [
+        "736",
+        "ts-food-service"
+      ],
+      [
+        "997",
+        "ts-station-food-service"
+      ]
+    ],
+    "arms": [
+      {
+        "arm": "H_DEPLOY_ONLY",
+        "rr": 0.25,
+        "tolerant_rr": 0.25,
+        "response": "{\"services\": [\"642\", \"976\", \"203\", \"736\", \"514\"], \"reason\": \"The confirmed caller→callee relationship 203→642 and 203→976 identifies 642 and 976 as the initiating callers, with 642 (onset +4.2m) and 976 (onset +4.2m) both preceding the peak latency surge in 203 (+4.5m); tests reveal 203's CPU (AUX03) peaked at bin 28 then dropped to near-zero by bin 42, and 203's duration (MET08) spiked to 10s at bin 36, confirming 203 as a downstream victim of 642/976 rather than the root origin.\", \"confidence\": \"medium\"}",
+        "qa_response": null,
+        "request_path": "requests/INC-4C4024E9EF1F__H_DEPLOY_ONLY__BASE__call787.json",
+        "scoring_context_path": "scoring/RCA__56fe27c51e68c59967954bc88b39c67346010986f83346f82410980b3a94e343.json"
+      },
+      {
+        "arm": "H_MARGINAL_PHASE",
+        "rr": 0.3333333333333333,
+        "tolerant_rr": 0.3333333333333333,
+        "response": "{\"services\": [\"203\", \"514\", \"736\", \"294\", \"642\"], \"reason\": \"Five confirmed caller services (546, 325, 736, 490, 593) point at 203, which exhibits max MET08 latency p50 (10.0s @ bin36) and TRC02/TRC03 rank score ≥ 5.98, so 203 is the fault epicenter while its aux CPU (bin28) says 203 itself is not CPU-starved. Two checks: (1) upstream pa546/325 latency is inclusive-wait on 203, not independent origin; (2) 514 CPU spike (bin60, z=543.5) and 736 filesystem growth (bins 0-63, z=265.5) start later and 736's POST TRC-L not elevated, so 514/736 are downstream symptoms, not alternative origins. 294's small CPU/latency rise (rank 3, onset +4.5m) via 736→294 edge makes it a propagation victim, and 642 is the earliest-of-the-late followers.\", \"confidence\": \"high\"}",
+        "qa_response": null,
+        "request_path": "requests/INC-4C4024E9EF1F__H_MARGINAL_PHASE__BASE__call778.json",
+        "scoring_context_path": "scoring/RCA__56fe27c51e68c59967954bc88b39c67346010986f83346f82410980b3a94e343.json"
+      },
+      {
+        "arm": "H_POD_PHASE",
+        "rr": 0.0,
+        "tolerant_rr": 0.0,
+        "response": "{\"services\": [\"203\", \"294\", \"514\", \"642\", \"976\"], \"reason\": \"Service 203 is the central caller propagating latency to multiple callees (546, 642, 976, etc.) with the highest severity z-score (287.5) and p50 latency of 10ms. Testing 203 reveals that service 514 has an earlier fault onset (+7.2m vs +7.5m for 514's peak) with a higher z-score (543.5), confirming 203's latency as a primary symptom rather than a co-located edge. The decisive relationship is 203 acting as the central caller, not 514 which appears later in the cascade.\", \"confidence\": \"high\"}",
+        "qa_response": null,
+        "request_path": "requests/INC-4C4024E9EF1F__H_POD_PHASE__BASE__call781.json",
+        "scoring_context_path": "scoring/RCA__56fe27c51e68c59967954bc88b39c67346010986f83346f82410980b3a94e343.json"
+      },
+      {
+        "arm": "V_POD_BRIDGE",
+        "rr": 0.3333333333333333,
+        "tolerant_rr": 0.3333333333333333,
+        "response": "{\"services\": [\"203\", \"546\", \"736\", \"997\", \"294\"], \"reason\": \"Service 203 is the central downstream dependency in the call graph, showing a 4x inclusive duration increase from 15.663 ms to 15.8 ms alongside a child span p50 increase to 1.33 s in the PAIR02 quantiles. This delay propagates to the initiating parent, service 546, which exhibits a 3x latency spike (Reference 2518.7 µs vs. Current 3.51e+6 µs) and a severe `Servlet.service` log error from pod 79005. Service 736 is included as the direct caller of 546 in the primary POST trace, exhibiting its own latency degradation from 52.093 ms to 12.859 ms, while services 997 and 294 are included as additional downstream dependency candidates in the shared workload graph.\", \"confidence\": \"high\"}",
+        "qa_response": null,
+        "request_path": "requests/INC-4C4024E9EF1F__V_POD_BRIDGE__BASE__call782.json",
+        "scoring_context_path": "scoring/RCA__56fe27c51e68c59967954bc88b39c67346010986f83346f82410980b3a94e343.json"
+      },
+      {
+        "arm": "V_POD_SEPARATE",
+        "rr": 0.3333333333333333,
+        "tolerant_rr": 0.3333333333333333,
+        "response": "{\"services\": [\"203\", \"546\", \"736\", \"294\", \"514\"], \"reason\": \"Service 203 is the primary instigator, confirmed by exclusive latency p95 exploding to 3.51e+6 µs (3510 ms, card 15) alongside p50 latency spiking to 10.7 ms (card 09) and elevated memory page faults (card 07), while its parent service 546 exhibits a minor secondary latency increase (8.19 ms vs 15.66 ms reference in card 28); service 736 is the downstream victim demonstrating unchanged duration despite the edge latency regression, and services 294 and 514 are lower-rank concurrent infrastructure signals.\", \"confidence\": \"high\"}",
+        "qa_response": null,
+        "request_path": "requests/INC-4C4024E9EF1F__V_POD_SEPARATE__BASE__call783.json",
+        "scoring_context_path": "scoring/RCA__56fe27c51e68c59967954bc88b39c67346010986f83346f82410980b3a94e343.json"
+      },
+      {
+        "arm": "P_U_NEIGHBOR_PAIR",
+        "rr": 1.0,
+        "tolerant_rr": 1.0,
+        "response": "{\"services\": [\"736\", \"546\", \"203\", \"725\", \"294\"], \"reason\": \"Service 736 is the initiating component, identified by the TLS handshake exception log (L2111) and a coincident CPU spike (MET05, rank M6) indicating a hard resource failure or restart. The trace root (panel 28/29) shows a sustained timeout in service 736 (current p95 ~12.9s vs 15.6k ms ref), and its exclusive latency (TRC01, panel 14) increased by 5.94 log2-ratio, confirming local slowness rather than child propagation. The high CPU usage on service 546 (MET05, M1) and elevated request durations (hubble_http_request_duration_p50, panel 29) are consistent with downstream recovery lag or cascade effects from the initial failure in 736.\", \"confidence\": \"high\"}",
+        "qa_response": null,
+        "request_path": "requests/INC-4C4024E9EF1F__P_U_NEIGHBOR_PAIR__BASE__call785.json",
+        "scoring_context_path": "scoring/RCA__56fe27c51e68c59967954bc88b39c67346010986f83346f82410980b3a94e343.json"
+      },
+      {
+        "arm": "P_U_COMBINED",
+        "rr": 1.0,
+        "tolerant_rr": 1.0,
+        "response": "{\"services\": [\"79005\", \"736\", \"203\", \"546\", \"997\"], \"reason\": \"The severe log entries and request-processing exceptions are recorded on pod 79005 (observation L21), while its backend service 736 exhibits significant inclusive-latency inflation (8.36s vs 1.83s in PAIR01), suggesting local degradation. This pressure propagates upstream to parent service 203 and its callers, evidenced by the high error ratio (5.3e5) and sustained latency spikes at the gateway level. The exclusion of unrelated high CPU services (e.g., 514) confirms the fault is specific to the 736/79005 path.\", \"confidence\": \"high\"}",
+        "qa_response": null,
+        "request_path": "requests/INC-4C4024E9EF1F__P_U_COMBINED__BASE__call786.json",
+        "scoring_context_path": "scoring/RCA__56fe27c51e68c59967954bc88b39c67346010986f83346f82410980b3a94e343.json"
+      }
+    ],
+    "old_h_marginal": {
+      "id": "INC-4C4024E9EF1F",
+      "dataset": "aegislab",
+      "base": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-4C4024E9EF1F",
+      "source": "aegislab_capture:fca453af6545ad30868047d8547ee61e3f2e809cf28f5aed0bf5c7d58cf15b74",
+      "event_group": "0082a720fc9911a9b342c1de5edf556a4c8fd32b61dd94952ea34bab977edd13",
+      "arm": "H_MARGINAL",
+      "metrics": {
+        "rank": 1,
+        "mrr": 1.0,
+        "ac@1": 1.0,
+        "ac@3": 1.0,
+        "ac@5": 1.0,
+        "avg@3": 1.0,
+        "avg@5": 1.0
+      },
+      "input_tokens": 23285,
+      "output_tokens": 104,
+      "response": "{\"services\": [\"736\", \"294\", \"514\", \"203\", \"883\"], \"reason\": \"The confirmed caller chain 736→294 ties MET05's monotone filesystem growth to 294's sustained CPU and latency degradation; a trajectory check over the +7.2m fault window confirms 736's earlier onset versus its downstream failures, ruling out a concurrent edge.\", \"confidence\": \"medium\"}",
+      "record": "RQs/RQ4_6/results/pod_join_v1/objects/fa22a422c589a51bf7510b8166999362bf831b229ae51736a8de6e5013fb86e0.json",
+      "sha256": "fa22a422c589a51bf7510b8166999362bf831b229ae51736a8de6e5013fb86e0",
+      "historical": true
+    }
+  },
+  {
+    "id": "INC-6E627662CA32",
+    "selection": "post-hoc maximum hybrid improvement; pod versus service ranking",
+    "accepted_numeric": [
+      [
+        "63581",
+        "currencyservice-2"
+      ]
+    ],
+    "arms": [
+      {
+        "arm": "H_DEPLOY_ONLY",
+        "rr": 0.0,
+        "tolerant_rr": 0.0,
+        "response": "{\"services\": [\"643\", \"493\", \"612\", \"790\", \"810\"], \"reason\": \"Service 643 is the earliest onset (rank 1) and calls 493, 539, 612, and 689, which matches 643 as the origin of the trace latency spread. The 493 service shows consistent latency degradation in traces from multiple calling pods (85949, 45365, 72685, 79064), supporting it as the downstream symptom rather than the original fault.\", \"confidence\": \"high\"}",
+        "qa_response": null,
+        "request_path": "requests/INC-6E627662CA32__H_DEPLOY_ONLY__BASE__call2436.json",
+        "scoring_context_path": "scoring/RCA__53deaf1666897ecfb4509fe53e7b21ef56240399b7902ad7b5747aa4ca393de4.json"
+      },
+      {
+        "arm": "H_MARGINAL_PHASE",
+        "rr": 1.0,
+        "tolerant_rr": 1.0,
+        "response": "{\"services\": [\"63581\", \"493\", \"643\", \"790\", \"612\"], \"reason\": \"The top candidate is 63581, which exhibits extreme CPU CFS throttling (MET02/MET08 signed_z ~414, max 1022s) and CPU usage peaks (MET05/MET10 signed_z ~190), while co-located pods on the same host 5937 (which shows a drop in load) are normal, confirming 63581 as the isolated bottleneck. Verification checks confirm that 63581 hosts the 493 service (the trace operation latency source via `has_instance`) and that the exclusive duration of the 493 operations matches the throttled window, ruling out an upstream origin.\", \"confidence\": \"high\"}",
+        "qa_response": null,
+        "request_path": "requests/INC-6E627662CA32__H_MARGINAL_PHASE__BASE__call2437.json",
+        "scoring_context_path": "scoring/RCA__53deaf1666897ecfb4509fe53e7b21ef56240399b7902ad7b5747aa4ca393de4.json"
+      },
+      {
+        "arm": "H_POD_PHASE",
+        "rr": 0.0,
+        "tolerant_rr": 0.0,
+        "response": "{\"services\": [\"643\", \"493\", \"612\", \"790\", \"689\"], \"reason\": \"Service 643 is the earliest onset (rank 1) and calls 493, 612, and 689, which align with the observed call graph. I verified this origin by checking that the trace evidence points to delays in its specific callees (493's operations) and confirmed that the high-z latency spikes are confined to its call tree, ruling out the other high-severity anomalies as independent root causes.\", \"confidence\": \"high\"}",
+        "qa_response": null,
+        "request_path": "requests/INC-6E627662CA32__H_POD_PHASE__BASE__call2430.json",
+        "scoring_context_path": "scoring/RCA__53deaf1666897ecfb4509fe53e7b21ef56240399b7902ad7b5747aa4ca393de4.json"
+      },
+      {
+        "arm": "V_POD_BRIDGE",
+        "rr": 1.0,
+        "tolerant_rr": 1.0,
+        "response": "{\"services\": [\"63581\", \"5937\", \"81704\", \"72176\", \"85240\"], \"reason\": \"Pod 63581's container_memory_working_set_MB escalated from 61,807 to 75,914 MB while its parent p50 latency degraded from 97.35 ms to 139.87 ms, satisfying the check for local latency/memory correlation and excluding system-wide issues since its paired pod 72176 shows identical memory but normal latency. The host node 5937 shows correlated but lower-magnitude signal increases in system.load.15 (1.65 to 1.105) and system.net.packets_out.count (78,488 to 20,981), consistent with memory pressure origin rather than network ingress or unrelated service failures.\", \"confidence\": \"high\"}",
+        "qa_response": null,
+        "request_path": "requests/INC-6E627662CA32__V_POD_BRIDGE__BASE__call2431.json",
+        "scoring_context_path": "scoring/RCA__53deaf1666897ecfb4509fe53e7b21ef56240399b7902ad7b5747aa4ca393de4.json"
+      },
+      {
+        "arm": "V_POD_SEPARATE",
+        "rr": 0.0,
+        "tolerant_rr": 0.0,
+        "response": "{\"services\": [\"493\", \"539\", \"612\", \"689\", \"643\"], \"reason\": \"Service 493 is the central upstream dependency for the incident pods, showing a 5x latency regression in `hipstershop.493/Convert` (TRC01, ref 2259.8μs vs current 86245.8μs) that directly matches the child operation delay. This is corroborated by high node-level I/O contention on node 5937 (MET02 `container_cpu_cfs_throttled_periods` at 721.12) where many affected pods are co-located, suggesting resource exhaustion on the underlying host. The downstream services (539, 612, 689, 643) show corresponding latency spikes as consumers of the degraded 493 service.\", \"confidence\": \"high\"}",
+        "qa_response": null,
+        "request_path": "requests/INC-6E627662CA32__V_POD_SEPARATE__BASE__call2432.json",
+        "scoring_context_path": "scoring/RCA__53deaf1666897ecfb4509fe53e7b21ef56240399b7902ad7b5747aa4ca393de4.json"
+      },
+      {
+        "arm": "P_U_NEIGHBOR_PAIR",
+        "rr": 1.0,
+        "tolerant_rr": 1.0,
+        "response": "{\"services\": [\"63581\", \"87955\", \"45365\", \"539\", \"612\"], \"reason\": \"Pod 63581 (service 539) is the initiating component, driven by sustained CPU throttling (MET04: current 0.076615s vs baseline 0.0) and Java finalization spikes (MET03) that cause an 82.59 MB increase in working set memory (75.91 MB vs 13.7 MB) and 4.96x exclusive latency amplification (81.89 ms vs 13.70 ms) for 'hipstershop.493/Convert' as the leaf callee, despite healthy host/node infrastructure signals.\", \"confidence\": \"medium\"}",
+        "qa_response": null,
+        "request_path": "requests/INC-6E627662CA32__P_U_NEIGHBOR_PAIR__BASE__call2434.json",
+        "scoring_context_path": "scoring/RCA__53deaf1666897ecfb4509fe53e7b21ef56240399b7902ad7b5747aa4ca393de4.json"
+      },
+      {
+        "arm": "P_U_COMBINED",
+        "rr": 1.0,
+        "tolerant_rr": 1.0,
+        "response": "{\"services\": [\"63581\", \"5937\", \"81704\", \"72176\", \"6601\"], \"reason\": \"Pod 63581 is the initiating component due to a 72 ms latency regression (2.78x) on grpc.hipstershop.493/Convert, accompanied by extreme CPU throttling (MET3 peak 721.12) and high CPU utilization (MET10 peak 1103.8). The associated node 5937 exhibits a critical sustained 15-second load spike (1.105 vs. 1.65), indicating resource exhaustion, while co-located pod 81704 shows a correlated container cache anomaly (2.71e+6) and pod 72176 shows elevated network I/O, collectively pointing to a node-level performance bottleneck.\", \"confidence\": \"high\"}",
+        "qa_response": null,
+        "request_path": "requests/INC-6E627662CA32__P_U_COMBINED__BASE__call2435.json",
+        "scoring_context_path": "scoring/RCA__53deaf1666897ecfb4509fe53e7b21ef56240399b7902ad7b5747aa4ca393de4.json"
+      }
+    ],
+    "old_h_marginal": {
+      "id": "INC-6E627662CA32",
+      "dataset": "aiops2022",
+      "base": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-6E627662CA32",
+      "source": "2022-03-24-cloudbed3",
+      "event_group": "cc7ccc61451c6f09a832f3e1af16a62b35827a20269d66509e3cc363d8774b43",
+      "arm": "H_MARGINAL",
+      "metrics": {
+        "rank": null,
+        "mrr": 0.0,
+        "ac@1": 0.0,
+        "ac@3": 0.0,
+        "ac@5": 0.0,
+        "avg@3": 0.0,
+        "avg@5": 0.0
+      },
+      "input_tokens": 21636,
+      "output_tokens": 232,
+      "response": "{\"services\": [\"493\", \"612\", \"790\", \"643\", \"5937\"], \"reason\": \"Service 493 is the original faulty component: its exclusive p95 latency exploded to ~85-91ms (a ~35x increase) across all pods (TRC01-06) while its caller 643 showed only a minor change (12.8ms), isolating the delay to the callee. Check 1: The onset timestamp for 493's metric severity (bin 20, +20.0m) aligns with the fault window start (+19.0m) and precedes the downstream latency explosion. Check 2: The CPU throttling observed on pod 63581 (hosted by 493, MET02/08) appears later (bin 32-41) and is zero for the pre-fault period, confirming it is a symptomatic resource reaction rather than the root cause.\", \"confidence\": \"high\"}",
+      "record": "RQs/RQ4_6/results/pod_join_v1/objects/8b0f05716c28d2ae32ae090c856b1229b64ffded16f28cedfe8a68fa006537b3.json",
+      "sha256": "8b0f05716c28d2ae32ae090c856b1229b64ffded16f28cedfe8a68fa006537b3",
+      "historical": true
+    }
+  },
+  {
+    "id": "INC-EF0D5C71C864",
+    "selection": "fixed QA: correct first rank with duplicate candidate",
+    "accepted_numeric": [
+      [
+        "598",
+        "adservice"
+      ]
+    ],
+    "arms": [
+      {
+        "arm": "H_DEPLOY_ONLY",
+        "rr": 1.0,
+        "tolerant_rr": 1.0,
+        "response": "{\"services\": [\"598\", \"558\", \"693\", \"528\", \"379\"], \"reason\": \"Five independent caller services (76324, 92151, 45561, 10083) hit a saturating ~500ms child span on hipstershop.598/GetAds (TRC03-06), while every sampled child getads call stayed ~0.015ms (PAIR01-02), confirming the delay was local to 598 rather than propagated from downstream. Check 1 (propagation) points to 598 as the internal bottleneck behind the latency spike; check 2 (origin/alternative origin) shows the earliest anomalous metric onsets cluster at +20.0–20.7m on 191/528/594/598/379 with propagation_service evidence linking 558 and 693 to 598 as the callee, consistent with 598 as the initiating fault and 191/528/379 as alternative co-located symptoms.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"83643\", \"relation\": \"incoming_has_instance\", \"targets\": [\"5603\"]}, \"q2\": {\"entity\": \"840\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": [\"5603\"]}, \"q3\": {\"entity\": \"92151\", \"unit\": \"ms\", \"values\": [\"4.1136\", \"500.1476\"]}, \"q4\": {\"entity\": \"79197\", \"unit\": \"ms\", \"values\": [\"0.020399999999999998\", \"0.018\"]}, \"q5\": {\"entity\": \"76324\", \"unit\": \"ms\", \"values\": [\"3.398\", \"3.4335\"]}, \"q6\": {\"entity\": \"79197\", \"unit\": \"ms\", \"values\": [\"0.016\", \"0.016\"]}}",
+        "request_path": "requests/INC-EF0D5C71C864__H_DEPLOY_ONLY__BASE__call608.json",
+        "scoring_context_path": "scoring/RCA__44d2bd8fdf4299d8dccc9511dbda9ffea80ba30630c29d5456dd065ee5f4905e.json"
+      },
+      {
+        "arm": "H_MARGINAL_PHASE",
+        "rr": 1.0,
+        "tolerant_rr": 1.0,
+        "response": "{\"services\": [\"598\", \"528\", \"191\", \"693\", \"558\"], \"reason\": \"Five pods (10083, 45561, 76324, 92151, and the untraced instance under 598) operating on `hipstershop.598/GetAds` exhibit identical exclusive p95 latency spikes of ~500,000 µs (500 ms) paired with ~20-24% request count drops. Call graph edges link the caller service 693 to the affected service 598, and the accompanying PAIR trace visuals (identifying child op `hipstershop.598/getads`) indicate this 500ms delay is propagated from service 598 to upstream caller pods (such as 79197); service 528 is the second-highest anomaly (542σ mrt spike) and its pod 54209 shows 20,000ms latency but is a downstream/unrelated symptom given the paired observation focus on the 598/598 dependency.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"709\", \"relation\": \"has_instance\", \"targets\": [\"34318\", \"57584\", \"62407\"]}, \"q2\": {\"entity\": \"840\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": [\"85278\", \"51196\", \"23621\", \"77905\"]}, \"q3\": {\"entity\": \"92151\", \"unit\": \"ms\", \"values\": [\"3.739\", \"4.1136\"]}, \"q4\": {\"entity\": \"79197\", \"unit\": \"ms\", \"values\": [\"3.7880000000000003\", \"500.1476\"]}, \"q5\": {\"entity\": \"76324\", \"unit\": \"ms\", \"values\": [\"3.398\", \"3.4335\"]}, \"q6\": {\"entity\": \"79197\", \"unit\": \"ms\", \"values\": [\"3.4335\", \"499.91725\"]}}",
+        "request_path": "requests/INC-EF0D5C71C864__H_MARGINAL_PHASE__BASE__call610.json",
+        "scoring_context_path": "scoring/RCA__44d2bd8fdf4299d8dccc9511dbda9ffea80ba30630c29d5456dd065ee5f4905e.json"
+      },
+      {
+        "arm": "H_POD_PHASE",
+        "rr": 1.0,
+        "tolerant_rr": 1.0,
+        "response": "{\"services\": [\"598\", \"528\", \"54209\", \"17498\", \"79197\"], \"reason\": \"Two checks were run on the top candidate: (1) verifying that the dominant latency outlier is exclusive local work rather than inherited from a single callee, and (2) checking whether any other component has a non-overlapping earlier onset that could be the true origin. Both checks confirm 598 as the source: TRC03-05/07-10 show its hipstershop.598/GetAds exclusive p95 jumping ~6.7-6.9 log2 (≈5.0e5 µs) across four independent pod instances, and paired panels show the child Getads endpoint holding near-baseline 0.015 ms, meaning the inclusive inflation is 598's own execution, not propagated from 79197; no other service has an earlier or independent onset signal, so the 598 fault precedes and drives the co-inflated 54209/17498/79197 symptoms.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": null, \"q2\": {\"entity\": \"840\", \"relation\": \"hosts\", \"targets\": [\"5603\"]}, \"q3\": {\"entity\": \"92151\", \"unit\": \"ms\", \"values\": [\"4.3656\", \"500.1298\"]}, \"q4\": {\"entity\": \"79197\", \"unit\": \"ms\", \"values\": [\"0.020399999999999998\", \"0.018\"]}, \"q5\": {\"entity\": \"76324\", \"unit\": \"ms\", \"values\": [\"3.7125999999999992\", \"3.4335\"]}, \"q6\": {\"entity\": \"79197\", \"unit\": \"ms\", \"values\": [\"0.0211999999999999\", \"0.016\"]}}",
+        "request_path": "requests/INC-EF0D5C71C864__H_POD_PHASE__BASE__call613.json",
+        "scoring_context_path": "scoring/RCA__44d2bd8fdf4299d8dccc9511dbda9ffea80ba30630c29d5456dd065ee5f4905e.json"
+      },
+      {
+        "arm": "V_POD_BRIDGE",
+        "rr": 0.0,
+        "tolerant_rr": 1.0,
+        "response": "{\"services\": [\"598\", \"726\", \"547\", \"594\", \"726\"], \"reason\": \"The evidence summary (card 558) identifies service 598 as the primary culprit with a severity z-score of 999. Observed traces show its 'GetAds' operation (cards 16/17) exhibiting extreme latency degradation (5.001e+5 μs) compared to the reference (~5 μs). Metrics cards (cards 02-12) show correlated request duration spikes on the downstream services 726 and 547, confirming the impact propagates through the membership chain.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"6199\", \"relation\": \"hosts\", \"targets\": [\"22017\", \"15339\", \"20666\", \"23621\", \"62407\", \"68762\", \"70912\", \"77905\", \"79197\", \"80399\", \"84496\", \"84964\", \"85278\", \"92152\", \"95547\", \"96735\", \"99492\", \"99670\"]}, \"q2\": {\"entity\": \"547\", \"relation\": \"has_instance\", \"targets\": [\"15865\", \"35866\", \"49859\", \"83643\"]}, \"q3\": {\"entity\": \"83643\", \"relation\": \"incoming_has_instance\", \"targets\": [\"547\"]}, \"q4\": {\"entity\": \"20666\", \"relation\": \"incoming_hosts\", \"targets\": [\"7144\"]}, \"q5\": {\"entity\": \"840\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": [\"5603\", \"6199\", \"7144\"]}, \"q6\": {\"entity\": \"669\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": [\"5603\", \"7144\"]}}",
+        "request_path": "requests/INC-EF0D5C71C864__V_POD_BRIDGE__BASE__call604.json",
+        "scoring_context_path": "scoring/RCA__44d2bd8fdf4299d8dccc9511dbda9ffea80ba30630c29d5456dd065ee5f4905e.json"
+      },
+      {
+        "arm": "V_POD_SEPARATE",
+        "rr": 1.0,
+        "tolerant_rr": 1.0,
+        "response": "{\"services\": [\"598\", \"76324\", \"79197\", \"528\", \"5603\"], \"reason\": \"The exclusive latency of hipstershop.598/GetAds on pods 76324 and 79197 exploded from ~4000 µs (reference) to ~50,000 µs (current), localizing the fault to service 598 (panels TRC03, TRC04, 37, 38). This is corroborated by severe memory pressure on the co-hosted pods (mapped_file in panels 23, 24) and overall node saturation (system.cpu in panel 24), making the local infrastructure the secondary suspect.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"6199\", \"relation\": \"hosts\", \"targets\": [\"48717\"]}, \"q2\": {\"entity\": \"547\", \"relation\": \"has_instance\", \"targets\": [\"15865\", \"49859\", \"83643\"]}, \"q3\": {\"entity\": \"83643\", \"relation\": \"incoming_has_instance\", \"targets\": [\"547\"]}, \"q4\": {\"entity\": \"20666\", \"relation\": \"incoming_hosts\", \"targets\": [\"7144\"]}, \"q5\": {\"entity\": \"840\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": [\"5603\"]}, \"q6\": {\"entity\": \"669\", \"relation\": \"cohosted_on_via_observed_pod\", \"targets\": [\"5603\", \"7144\"]}}",
+        "request_path": "requests/INC-EF0D5C71C864__V_POD_SEPARATE__BASE__call605.json",
+        "scoring_context_path": "scoring/RCA__44d2bd8fdf4299d8dccc9511dbda9ffea80ba30630c29d5456dd065ee5f4905e.json"
+      },
+      {
+        "arm": "P_U_NEIGHBOR_PAIR",
+        "rr": 1.0,
+        "tolerant_rr": 1.0,
+        "response": "{\"services\": [\"598\", \"79197\", \"76324\", \"92151\", \"528\"], \"reason\": \"Services 598 and 79197 are ranked highest because their request durations exploded to ~500 ms (MET10, card 10) while their parent operators (76324, 92151) maintained normal low-latency behavior (<20 ms, card 68). This duration regression isolates the fault within the 598/GetAds child span rather than the calling upstreams. Candidate 528 is ranked fifth as a secondary upstream impact point, but co-location and duration increase alone do not supersede the explicit child-span exclusive latency evidence for 598.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"pod 54209\", \"unit\": \"milliseconds or source unit\", \"values\": [\"133.1\"]}, \"q2\": {\"entity\": \"pod 54209\", \"unit\": \"source unit\", \"values\": [\"1.5\"]}, \"q3\": {\"entity\": \"pod 15865\", \"unit\": \"µs\", \"values\": [\"26437\"]}, \"q4\": {\"entity\": \"pod 76324\", \"unit\": \"µs\", \"values\": [\"5.001e+5\"]}, \"q5\": {\"entity\": \"pod 15865\", \"unit\": \"µs\", \"values\": [\"3458.4\", \"26437\"]}, \"q6\": {\"entity\": \"pod 10083\", \"unit\": \"µs\", \"values\": [\"4365.6\", \"5.001e+5\"]}}",
+        "request_path": "requests/INC-EF0D5C71C864__P_U_NEIGHBOR_PAIR__BASE__call607.json",
+        "scoring_context_path": "scoring/RCA__44d2bd8fdf4299d8dccc9511dbda9ffea80ba30630c29d5456dd065ee5f4905e.json"
+      },
+      {
+        "arm": "P_U_COMBINED",
+        "rr": 1.0,
+        "tolerant_rr": 1.0,
+        "response": "{\"services\": [\"598\", \"79197\", \"76324\", \"92151\", \"528\"], \"reason\": \"Figure 16 shows TRC03 on service 598 has an exclusive p95 of 5.001e+5 µs versus a reference of 4365.6 µs, while its inclusive parent service 528's local delay is near normal (2643.8 µs), isolating the latency to service 598. This is corroborated by Figures 37-38, where child 79197 serving hipstershop.598/GetAds shows inclusive latency spikes to 500+ms across both parent pairs (76324, 92151), indicating service 598 as the origin rather than the upstream callers or service 528.\", \"confidence\": \"high\"}",
+        "qa_response": "{\"q1\": {\"entity\": \"pod 54209\", \"unit\": \"milliseconds or source unit\", \"values\": [\"133.1\"]}, \"q2\": {\"entity\": \"pod 54209\", \"unit\": \"source unit\", \"values\": [\"0\"]}, \"q3\": {\"entity\": \"pod 15865\", \"unit\": \"µs\", \"values\": [\"26437\"]}, \"q4\": {\"entity\": \"pod 76324\", \"unit\": \"µs\", \"values\": [\"5.001e+5\"]}, \"q5\": {\"entity\": \"pod 15865\", \"unit\": \"µs\", \"values\": [\"3458.4\", \"26437\"]}, \"q6\": {\"entity\": \"pod 10083\", \"unit\": \"µs\", \"values\": [\"436.6\", \"5.001e+5\"]}}",
+        "request_path": "requests/INC-EF0D5C71C864__P_U_COMBINED__BASE__call609.json",
+        "scoring_context_path": "scoring/RCA__44d2bd8fdf4299d8dccc9511dbda9ffea80ba30630c29d5456dd065ee5f4905e.json"
+      }
+    ],
+    "old_h_marginal": {
+      "id": "INC-EF0D5C71C864",
+      "dataset": "aiops2022",
+      "base": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-EF0D5C71C864",
+      "source": "2022-03-21-cloudbed3",
+      "event_group": "e3836067c6279bcd2e5df82aa0b0033d11977e7d096c1e3c865fad3fc17689c1",
+      "arm": "H_MARGINAL",
+      "metrics": {
+        "rank": 1,
+        "mrr": 1.0,
+        "ac@1": 1.0,
+        "ac@3": 1.0,
+        "ac@5": 1.0,
+        "avg@3": 1.0,
+        "avg@5": 1.0
+      },
+      "input_tokens": 21124,
+      "output_tokens": 242,
+      "response": "{\"services\": [\"598\", \"528\", \"594\", \"379\", \"485\"], \"reason\": \"Five-minute caller services 76324, 45561, 92151, and 10083 all show exclusive p95 for 598/GetAds at ~500 ms (TRC03-06) while edge 598->191 shows no 191 span slow, placing the fault within 598 itself. Propagation onset places 528 at rank 5/+21.0 m (earliest) while 598 is rank 4/+21.0 m, and 528's mrt MET06 spikes 2.4->432 at bin34 in the fault window, an origin consistent with 598's 500 ms timeout (calls edge 693->598 and 191's 999z are downstream echoes, not origins).\", \"confidence\": \"medium\"}",
+      "record": "RQs/RQ4_6/results/pod_join_v1/objects/97d5fde8d50796c75e2e751495d1e8ba1b46b4f656017d7bcd4002435f421107.json",
+      "sha256": "97d5fde8d50796c75e2e751495d1e8ba1b46b4f656017d7bcd4002435f421107",
+      "historical": true
+    }
+  }
+]

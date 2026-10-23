@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "historical_source_table_hashes": 4,
+  "exact_source_objects": 16,
+  "actual_dashboard_images": 6,
+  "original_text_parts_reassembled": 35,
+  "html_local_links_checked": 52,
+  "markdown_links_checked": 72,
+  "unique_html_anchors": 5,
+  "arm_design_walkthroughs": 5,
+  "image_visual_review": "No new manual image inspection; previous audits cited.",
+  "new_model_calls": 0,
+  "documentation_supplement": {
+    "date": "2026-10-21",
+    "report_sha256": "11f8cd90193ceeb8d19b65cfa31673b3bab5409f9891f3108d61e2c28e988e45",
+    "local_link_occurrences": 72,
+    "code_link_occurrences": 18,
+    "missing_targets": 0,
+    "counterintuitive_findings": 8,
+    "external_primary_paper_links": 6,
+    "markdown_parse": "passed",
+    "scope": "Documentation additions only; original experiment inputs, scores and exported images unchanged. No new image review or model calls."
+  },
+  "uniform_annotation": {
+    "status": "passed",
+    "classes_checked_against_actual_retention": true,
+    "svg_embedded_png_matches_original": true,
+    "merged_rectangles_cover_exact_class_tokens": true,
+    "counts": {
+      "original": 16192,
+      "anchors": 4851,
+      "optional_e": 1215,
+      "kept_e": 608,
+      "removed_e": 607,
+      "retained": 5459,
+      "outside_a_e": 10126
+    },
+    "html_local_links_checked": 52,
+    "overlay_sha256": "6489b7d23faef789044404ea7b10554de3b352813283c1299d5ec041b93bffcb",
+    "manual_image_review": "No additional image views; geometry, mappings and source hashes checked.",
+    "model_calls": 0
+  }
+}

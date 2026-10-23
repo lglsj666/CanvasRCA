@@ -1,0 +1,107 @@
+{
+  "schema": "RQ48ProtocolV1",
+  "dataset_counts": {
+    "aiops2022": 60,
+    "aiops2025": 60,
+    "aegislab": 100
+  },
+  "arms": [
+    "S_HASH_PACK",
+    "S_BALANCED_FIXED",
+    "S_BALANCED_PACK",
+    "M_ID_FIXED",
+    "M_ID_PACK",
+    "M_MATCHED_HASH_PACK",
+    "M_ID_PACK_FULL",
+    "H_NATIVE8",
+    "H_TIME_RESTORE",
+    "H_PAIR_RESTORE",
+    "H_BOTH_RESTORE"
+  ],
+  "preselected": [
+    "S_BALANCED_PACK",
+    "M_ID_PACK",
+    "H_TIME_RESTORE"
+  ],
+  "cpu_enabled": false,
+  "smoke_enabled": false,
+  "formal_enabled": false,
+  "total_call_limit": 4000,
+  "formal_calls": 3840,
+  "infrastructure_recovery_calls": 88,
+  "smoke_scopes": {
+    "smoke_single": 18,
+    "smoke_multi": 18,
+    "smoke_qa": 18,
+    "smoke_repair_v2": 18
+  },
+  "smoke_seconds": 900,
+  "context": 40960,
+  "output_tokens": 8192,
+  "selection_output_tokens": 2048,
+  "qa_output_tokens": 2048,
+  "image_tokens": 16384,
+  "canvas_side": 8192,
+  "cpu_workers": 8,
+  "gpu_concurrency": 8,
+  "gpu_memory_utilization": 0.8,
+  "mechanism_per_dataset": 20,
+  "repeat_per_dataset": 10,
+  "new_manual_views_max": 7,
+  "prior_manual_views": 13,
+  "smoke_ids": [
+    "INC-6E627662CA32",
+    "INC-D9245047C658",
+    "INC-018AC5D486B5"
+  ],
+  "qa_receiver": "tolerant_v2",
+  "qa_partial_required_values": 0.5,
+  "attention_queries": [
+    "last_prompt",
+    "first_decode"
+  ],
+  "attention_layer": 3,
+  "attention_bytes_per_call": 65536,
+  "retention_bytes_per_call": 2500000,
+  "global_configs": [
+    "configs/dataset_segmentation.yaml",
+    "configs/rca_scorer.yaml",
+    "configs/vllm_inference_local.yaml"
+  ],
+  "pure_comparisons": [
+    [
+      "S_BALANCED_PACK",
+      "S_HASH_PACK"
+    ],
+    [
+      "S_BALANCED_PACK",
+      "S_BALANCED_FIXED"
+    ],
+    [
+      "M_ID_PACK",
+      "M_ID_FIXED"
+    ],
+    [
+      "M_ID_PACK",
+      "M_MATCHED_HASH_PACK"
+    ],
+    [
+      "M_ID_PACK",
+      "S_BALANCED_PACK"
+    ],
+    [
+      "M_ID_PACK_FULL",
+      "M_ID_PACK"
+    ]
+  ],
+  "hybrid_comparisons": [
+    [
+      "H_BOTH_RESTORE",
+      "H_TIME_RESTORE"
+    ],
+    [
+      "H_BOTH_RESTORE",
+      "H_PAIR_RESTORE"
+    ]
+  ]
+}

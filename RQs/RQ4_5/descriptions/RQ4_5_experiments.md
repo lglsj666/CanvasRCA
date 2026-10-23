@@ -161,3 +161,32 @@ loader. The smoke clock includes activation and model startup and retains
 the full 900-second limit. Record startup separately for formal amortization;
 do not count old answers or references as fresh throughput. Formal remains
 closed under the current stop-after-throughput user authority.
+
+## DD-RQ45-15: Local Blackwell qualification and formal fallback
+
+2026-10-19. The active user goal authorizes full local CPU regression, bounded
+GPU smoke and, after actual passage and artifact review, starting the local
+formal queue. Nibi's three pending qualification jobs remain unchanged and do
+not receive formal permission. The subsequent user instruction explicitly
+retains the successful RQ4.4 local Blackwell configuration: BF16, native vLLM
+backend selection, 40960 context, 8192 output, VRAM fraction 0.8, eight pinned
+CPU workers and request concurrency eight. Do not apply the provisional H100
+Torch-SDPA successor locally. Only the RQ4.5 worker/ranking interfaces and the
+registered multi-image capacity differ from RQ4.4's engine configuration.
+
+Local inputs, qualification, call ledger and formal outputs are isolated under
+`RQs/RQ4_5/results/exclusive_spatial_v1`. The full 220-case preparation precedes
+GPU qualification. Passed Nibi evidence is context, not a claim that local
+regression ran. Existing Nibi attempts and answers remain preserved; their
+counts are reported separately and never treated as local completions. The
+six-arm method, 1560 formal positions, diagnostic inputs, scientific gates and
+historical references are unchanged. The final stopping boundary is a verified
+live local formal queue, not merely a launcher PID or an activation receipt.
+
+Initial local static qualification detected a stale protected-file hash for
+Codex.md. Its exact difference against the registered Git bytes consists only
+of the earlier explicitly authorized removal of shorter smoke time limits.
+Preserve the old protection map and diff, then refresh that one metadata hash.
+Codex.md itself is unchanged. Local and Nibi deployment fingerprints are
+separate; no local source/configuration edits are pushed into the queued Nibi
+chain during this qualification.

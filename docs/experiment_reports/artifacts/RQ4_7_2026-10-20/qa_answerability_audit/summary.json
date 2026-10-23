@@ -1,0 +1,58 @@
+{
+  "scope": "360 retained S_COMPARE questions,60 fixed cases; original model inputs unchanged",
+  "new_model_calls": 0,
+  "cases": 60,
+  "questions": 360,
+  "targets_inside_actual_canvas": 360,
+  "targets_inside_registered_panel": 360,
+  "exact_DOM_coordinate_matches": 360,
+  "exact_numeric_text_in_registered_source_card": 360,
+  "exact_numeric_text_in_source_card_or_added_row": 360,
+  "target_kinds": {
+    "comparison_row": 61,
+    "local_source_field": 119,
+    "overview_source_field": 180
+  },
+  "empty_expected_entity": 19,
+  "expected_entity_not_literal_on_source_card": 0,
+  "phase_counts": {
+    "reference": 128,
+    "current": 142,
+    "whole_window": 83,
+    "observed_window": 7
+  },
+  "unit_counts": {
+    "count": 97,
+    "log2_fold_change": 26,
+    "events/min": 12,
+    "ratio_or_percent": 19,
+    "milliseconds_or_source_unit": 22,
+    "µs": 58,
+    "source_unit": 110,
+    "ms": 15,
+    "events": 1
+  },
+  "phase_not_literal_in_source_card": {
+    "whole_window": 83,
+    "reference": 37,
+    "observed_window": 7
+  },
+  "no_retained_token_intersecting_target": 0,
+  "zero_support_details": [],
+  "coverage_below_half_area": 51,
+  "multiple_registered_rows_with_exact_same_box": 0,
+  "font_note": "Conservative per-card minimum from recorded DOM and real processor grid; not a fresh OCR/per-field font measurement.",
+  "invalid_empty_entity_by_dataset": {
+    "aiops2022": 5,
+    "aegislab": 7,
+    "aiops2025": 7
+  },
+  "invalid_empty_entity_cases": 17,
+  "undefined_canonical_phase_vocabulary": 90,
+  "unregistered_unit_spelling_equivalence": 41,
+  "flagged_question_union_not_invalid_count": 195,
+  "visual_review_limit": 20,
+  "visual_images_reviewed_so_far": 13,
+  "visual_count_definition": "One full original workspace plus ten card crops and two target-row crops; crops count separately.",
+  "limits": "DOM text presence is not proof of legible raster,OCR success or semantic uniqueness; numeric matches can coincide. No regrading."
+}

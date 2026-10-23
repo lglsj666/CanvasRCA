@@ -22,6 +22,12 @@ ENCODINGS = {
     "trace_joint": {"scatter", "marginals", "complete_marginals"},
     "trace_profile": {"quantiles"},
 }
+# BEGIN RQ46 POD_JOIN
+ENCODINGS["graph"].update({"pod_bridge", "pod_separate"})
+ENCODINGS["trace_joint"].add("phase_marginals")
+ENCODINGS["trace_joint"].update({"budget_complete", "budget_phase"})
+# END RQ46 POD_JOIN
+
 
 
 def canonical(value):
@@ -151,6 +157,11 @@ def validate_evidence(evidence):
             if min(data["before"], data["after"]) < 0:
                 raise ValueError("Negative latency")
             details(data["details"])
+        # BEGIN RQ46 POD_JOIN
+        elif kind == "trace_joint" and "sampling_budget" in data:
+            from .budget_marginals import validate
+            validate(card)
+        # END RQ46 POD_JOIN
         elif kind == "trace_joint":
             keys(data, {"parent", "child", "parent_operation", "child_operation", "samples", "support", "complete"},
                  {"parent", "child", "parent_operation", "child_operation", "samples", "support"})
@@ -546,7 +557,9 @@ def compile_design(evidence, design):
     validate_evidence(evidence)
     required = {"schema", "viewport", "theme", "font_size", "gap", "padding",
                 "scale", "tree", "bindings", "indexing"}
-    keys(design, required | {"raster_translation", "readability_audit", "factual_qa", "anchor_pack", "graph", "presentation", "relation_bindings", "relation_binding_style", "canvas_extent", "provenance", "qa_badges", "control_glyph", "readable_cards", "evidence_regions", "question_colors"}, required)
+    keys(design, required | {"dashboard_policy", "raster_translation", "readability_audit", "factual_qa", "anchor_pack", "graph", "presentation", "relation_bindings", "relation_binding_style", "canvas_extent", "provenance", "qa_badges", "control_glyph", "readable_cards", "evidence_regions", "question_colors"}, required)
+    from .operations.dashboard_policy import validate as validate_dashboard_policy
+    validate_dashboard_policy(evidence, design)
     if 'raster_translation' in design and design['raster_translation']!={'schema':'EvidenceRasterTranslationV1','dx':16,'top':86}:
         raise ValueError('Unregistered evidence raster translation')
     if design.get('readability_audit') not in {None, 'VisibleSourceV1'}:
@@ -687,9 +700,14 @@ def compile_design(evidence, design):
                 raise ValueError("Missing/duplicate card or incompatible encoding")
             if w < 240 or h < (96 if design.get('readable_cards') in {'source_scopes_v2','source_reflow_v3','source_scopes_pack_v4'} else 180):
                 raise ValueError("Panel below minimum footprint; revise design, never drop facts")
-            if cards[cid]['kind']=='trace_joint':
+            # BEGIN RQ46 POD_JOIN
+            if cards[cid]['kind']=='trace_joint' and 'sampling_budget' in cards[cid]['data']:
+                if node['component'] not in {'trace_joint.budget_complete','trace_joint.budget_phase'}:
+                    raise ValueError('Budgeted samples require an explicit budget component')
+            # END RQ46 POD_JOIN
+            elif cards[cid]['kind']=='trace_joint':
                 complete = 'complete' in cards[cid]['data']
-                if complete != (node['component']=='trace_joint.complete_marginals'):
+                if complete != (node['component']=='trace_joint.complete_marginals' or node['component']=='trace_joint.phase_marginals'):
                     raise ValueError('Complete marginal payload requires its explicit component')
             used.add(cid)
             rects.append({"card": cid, "node": node["id"], "component": node["component"], "index": indices[cid],
@@ -743,6 +761,15 @@ def compile_design(evidence, design):
                 geometry = membership_layout(cards[cid], w, design["font_size"])
                 if h < geometry["min_height"]: raise ValueError("Membership rows exceed readable capacity")
                 rects[-1]["membership_layout"] = geometry
+            # BEGIN RQ46 POD_JOIN
+            if node["component"] in {"graph.pod_bridge", "graph.pod_separate"}:
+                from .pod_relations import pod_relation_layout
+                variant = node["component"].split("pod_")[1]
+                geometry = pod_relation_layout(cards[cid], w, variant)
+                if h < geometry["min_height"]:
+                    raise ValueError("Pod deployment view exceeds fixed panel capacity")
+                rects[-1]["pod_relation_layout"] = geometry
+            # END RQ46 POD_JOIN
             if node["component"] == "graph.deployment_groups":
                 geometry = deployment_layout(cards[cid], w, design["font_size"], graph_settings["show_isolates"])
                 if h < geometry["min_height"]:

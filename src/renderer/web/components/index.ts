@@ -1,3 +1,7 @@
+// BEGIN RQ46 POD_JOIN
+import PhaseMarginals from './PhaseMarginals.js';
+import PodRelations from './PodRelations.js';
+// END RQ46 POD_JOIN
 import CompleteMarginals from './CompleteMarginals.js';
 import NumericSourceGraph from './NumericSourceGraph.js';
 import MetricHorizon from './MetricHorizon.js';
@@ -32,6 +36,13 @@ import RequestJointScatter from './RequestJointScatter.js';
 import RequestPairMarginals from './RequestPairMarginals.js';
 import PopulationProfile from './PopulationProfile.js';
 export const components:Record<string,ComponentType<{card:Card;rect:Rect}>>={
+// BEGIN RQ46 POD_JOIN
+  'trace_joint.phase_marginals':PhaseMarginals,
+  'trace_joint.budget_complete':CompleteMarginals,
+  'trace_joint.budget_phase':PhaseMarginals,
+  'graph.pod_bridge':PodRelations,
+  'graph.pod_separate':PodRelations,
+// END RQ46 POD_JOIN
   'trace_joint.complete_marginals':CompleteMarginals,
   'metric_horizon.source_compact':MetricHorizon,
   'metric_packed.source_compact':PackedSource,

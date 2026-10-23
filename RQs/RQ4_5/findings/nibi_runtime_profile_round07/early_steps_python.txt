@@ -1,0 +1,88 @@
+         730116 function calls (687436 primitive calls) in 21.639 seconds
+
+   Ordered by: cumulative time
+   List reduced from 770 to 80 due to restriction <80>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+       20    0.000    0.000   21.802    1.090 /home/lglsj/CanvasRCA_20261018/RQs/RQ4_5/src/exps.py:35(execute_wrapper)
+       20    0.001    0.000   21.802    1.090 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/torch/utils/_contextlib.py:120(decorate_context)
+       20    0.003    0.000   21.801    1.090 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/worker/gpu_model_runner.py:4055(execute_model)
+ 16176/60    0.020    0.000   21.190    0.353 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/torch/nn/modules/module.py:1775(_wrapped_call_impl)
+ 16176/60    0.036    0.000   21.190    0.353 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/torch/nn/modules/module.py:1783(_call_impl)
+       20    0.000    0.000   21.181    1.059 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/worker/gpu_model_runner.py:3769(_model_forward)
+       20    0.000    0.000   21.181    1.059 /home/lglsj/CanvasRCA_20261018/RQs/RQ4_5/src/exps.py:45(model_forward)
+       20    0.000    0.000   21.181    1.059 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/models/qwen3_5.py:636(forward)
+       20    0.000    0.000   21.180    1.059 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/compilation/decorators.py:502(__call__)
+       20    0.007    0.000   21.180    1.059 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/models/qwen3_next.py:562(forward)
+     1280    0.013    0.000   21.067    0.016 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/models/qwen3_next.py:460(forward)
+     5876    0.005    0.000   18.568    0.003 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/custom_op.py:135(forward)
+      960    0.004    0.000   16.979    0.018 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py:844(forward)
+      960    0.015    0.000   16.975    0.018 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py:908(forward_cuda)
+3540/2900    0.003    0.000   16.705    0.006 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/torch/_ops.py:1257(__call__)
+      960    0.010    0.000   16.183    0.017 {built-in method torch._ops.vllm.qwen_gdn_attention_core}
+      960    0.003    0.000   16.174    0.017 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py:1699(qwen_gdn_attention_core)
+      960    0.176    0.000   16.169    0.017 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py:1260(_forward_core)
+       96    0.000    0.000   15.224    0.159 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py:313(forward_cuda)
+       96    0.001    0.000   15.224    0.159 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py:241(fi_chunk_gated_delta_rule)
+       96    0.000    0.000   15.117    0.157 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/flashinfer/api_logging.py:2307(_auto_dump_wrapper)
+       96    0.002    0.000   15.115    0.157 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/flashinfer/gdn_prefill.py:99(chunk_gated_delta_rule)
+       96   15.100    0.157   15.100    0.157 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/flashinfer/gdn_prefill.py:40(gdn_prefill)
+     3220    0.003    0.000    2.823    0.001 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/layernorm.py:159(forward_cuda)
+     3220    0.087    0.000    2.819    0.001 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/layernorm.py:148(forward_native)
+     3220    0.002    0.000    2.633    0.001 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/ir/op.py:368(__call__)
+     3220    0.004    0.000    2.631    0.001 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/ir/op.py:304(_inner_call)
+     3220    0.007    0.000    2.602    0.001 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/ir/op.py:650(func_impl_fn)
+     2560    0.210    0.000    2.428    0.001 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/ir/ops/layernorm.py:39(fused_add_rms_norm)
+     3330    0.012    0.000    1.241    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/triton/runtime/jit.py:370(<lambda>)
+     3330    0.046    0.000    1.219    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/triton/runtime/jit.py:695(run)
+     3220    1.205    0.000    1.205    0.000 {built-in method torch.rsqrt}
+    17216    0.951    0.000    0.951    0.000 {method 'to' of 'torch._C.TensorBase' objects}
+        9    0.000    0.000    0.737    0.082 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/triton/runtime/jit.py:826(_do_compile)
+        9    0.000    0.000    0.734    0.082 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/triton/compiler/compiler.py:226(compile)
+     6080    0.012    0.000    0.638    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/linear.py:217(apply)
+      300    0.222    0.001    0.631    0.002 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/models/qwen3_next.py:367(forward)
+     1280    0.006    0.000    0.617    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/models/qwen2_moe.py:114(forward)
+     6100    0.003    0.000    0.616    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/utils.py:92(default_unquantized_gemm)
+     6100    0.016    0.000    0.612    0.000 {built-in method torch._C._nn.linear}
+     8960    0.006    0.000    0.602    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/parameter.py:122(__torch_function__)
+     8960    0.595    0.000    0.595    0.000 {built-in method torch._C._disabled_torch_function_impl}
+      960    0.193    0.000    0.541    0.001 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py:851(_output_projection)
+        9    0.000    0.000    0.469    0.052 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/triton/compiler/compiler.py:406(__init__)
+       54    0.000    0.000    0.419    0.008 /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/Compiler/gcccore/python/3.11.5/lib/python3.11/pathlib.py:1053(read_text)
+       20    0.018    0.001    0.411    0.021 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/worker/gpu_model_runner.py:1889(_prepare_inputs)
+        9    0.000    0.000    0.409    0.045 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/triton/compiler/compiler.py:423(<dictcomp>)
+      864    0.024    0.000    0.386    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py:1644(_forward_core_decode_non_spec)
+     2560    0.007    0.000    0.344    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/linear.py:1628(forward)
+      320    0.004    0.000    0.322    0.001 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/attention/attention.py:452(forward)
+     3520    0.007    0.000    0.311    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/linear.py:548(forward)
+       63    0.306    0.005    0.307    0.005 {method 'read' of '_io.TextIOWrapper' objects}
+       20    0.000    0.000    0.306    0.015 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/worker/block_table.py:303(compute_slot_mapping)
+       80    0.000    0.000    0.306    0.004 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/worker/block_table.py:141(compute_slot_mapping)
+      320    0.005    0.000    0.297    0.001 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/models/qwen3_next.py:311(_project_qkv_gate)
+      320    0.002    0.000    0.296    0.001 {built-in method torch._ops.vllm.unified_attention_with_output}
+      320    0.001    0.000    0.294    0.001 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/attention/kv_transfer_utils.py:37(wrapper)
+      320    0.001    0.000    0.293    0.001 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/attention/attention.py:755(unified_attention_with_output)
+      320    0.007    0.000    0.291    0.001 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/attention/backends/flash_attn.py:701(forward)
+      320    0.002    0.000    0.279    0.001 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/vllm_flash_attn/flash_attn_interface.py:176(flash_attn_varlen_func)
+       20    0.001    0.000    0.278    0.014 /home/lglsj/CanvasRCA_20261018/RQs/RQ4_5/src/exps.py:71(full_attention)
+      320    0.275    0.001    0.275    0.001 {built-in method torch._ops._vllm_fa3_C.fwd}
+     1008    0.010    0.000    0.258    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/triton/runtime/autotuner.py:456(run)
+      960    0.005    0.000    0.230    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/layernorm.py:283(forward_cuda)
+      960    0.008    0.000    0.224    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/fla/ops/utils.py:88(wrapper)
+     1280    0.005    0.000    0.219    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/activation.py:143(forward_cuda)
+     3330    0.007    0.000    0.216    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/triton/compiler/compiler.py:479(launch_metadata)
+     3330    0.001    0.000    0.208    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/triton/compiler/compiler.py:436(_init_handles)
+      960    0.002    0.000    0.205    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/fla/ops/layernorm_guard.py:318(rmsnorm_fn)
+        9    0.000    0.000    0.204    0.023 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/triton/backends/nvidia/driver.py:676(__init__)
+     1280    0.204    0.000    0.204    0.000 {built-in method torch._ops._C.silu_and_mul}
+      960    0.004    0.000    0.203    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/fla/ops/layernorm_guard.py:253(_layer_norm_fn_impl)
+        9    0.000    0.000    0.203    0.023 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/triton/runtime/build.py:74(compile_module_from_src)
+      960    0.010    0.000    0.194    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/fla/ops/layernorm_guard.py:178(layer_norm_fwd)
+        9    0.000    0.000    0.183    0.020 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/triton/runtime/cache.py:73(get_group)
+      864    0.015    0.000    0.179    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/fla/ops/fused_recurrent.py:339(fused_recurrent_gated_delta_rule_packed_decode)
+      117    0.178    0.002    0.178    0.002 {built-in method posix.stat}
+       72    0.177    0.002    0.177    0.002 {built-in method io.open}
+      660    0.065    0.000    0.166    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/ir/ops/layernorm.py:9(rms_norm)
+      864    0.010    0.000    0.164    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/model_executor/layers/mamba/ops/causal_conv1d.py:1069(causal_conv1d_update)
+
+

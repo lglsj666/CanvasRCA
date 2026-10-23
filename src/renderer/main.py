@@ -61,6 +61,18 @@ def render(evidence_path, design_path, output):
         report=finish(output,design,report)
     from .gates import source_fingerprint
     report["renderer_source"] = source_fingerprint()
+    if "dashboard_policy" in design:
+        import struct
+        with (output / "dashboard.png").open("rb") as png:
+            header = png.read(24)
+        dimensions = (struct.unpack(">II", header[16:24])
+                      if len(header) == 24 and header[:8] == b"\x89PNG\r\n\x1a\n" and header[12:16] == b"IHDR" else None)
+        if (dimensions != (4096, 4096) or report["source_png"] != {"width": 4096, "height": 4096}
+                or report["card_count"] > 28):
+            report.update(status="failed", error="Rendered artifact violates fixed dashboard policy")
+            write(output / "manifest.json", report)
+            raise ValueError("Rendered artifact violates fixed dashboard policy")
+        report["dashboard_policy"] = design["dashboard_policy"]
     report["python_end_to_end_seconds"] = round(time.monotonic()-started, 3)
     write(output / "manifest.json", report)
     return report
@@ -78,7 +90,7 @@ def main():
     e.add_argument("--out", required=True)
     d = sub.add_parser("preset")
     d.add_argument("--evidence", required=True)
-    d.add_argument("--name", choices=["operations", "relations_first", "matrix", "pairs"], default="operations")
+    d.add_argument("--name", choices=["fixed_4096", "operations", "relations_first", "matrix", "pairs"], default="fixed_4096")
     d.add_argument("--out", required=True)
     o = sub.add_parser("operate")
     o.add_argument("--evidence", required=True)

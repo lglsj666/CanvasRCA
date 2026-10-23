@@ -1,3 +1,13 @@
+> Nibi integration checkpoint — 2026-10-22: this worktree combines upstream
+> `67396dff` with Nibi deployment snapshot `21a385a2`. Local completed results
+> and Nibi deployment checkpoints below refer to different environments.
+> The running job 24832363 continues in `/home/lglsj/CanvasRCA_20261018`.
+> This merged worktree has not been activated or qualified for new inference;
+> old fingerprints and passed receipts remain historical evidence only.
+
+
+## Nibi deployment record (preserved history)
+
 ## Current Nibi state — 2026-10-22, replacement job 24832363
 
 The user explicitly waived new smoke and requested direct formal recovery.
@@ -154,6 +164,58 @@ Original five-round GPU authorization (superseded by the active goal above): the
 
 This file records implementation/qualification, not RCA performance. The user authorizes continued CPU repair until all checks pass. The original static-only delivery boundary is historical. Codex.md and historical experiment sources remain unchanged.
 
+
+## Local experiment record (preserved history)
+
+# RQ4.5 — unique findings and qualification state
+
+## Current status — full local results and analysis complete, 2026-10-19
+
+**1560/1560 logical positions complete; 1538 actual formal calls plus 22 references.**
+Local smoke adds 18 calls. No infrastructure-unknown results or output-limit
+truncations; GPU service has exited. Formal throughput is 10.3316 actual calls
+per minute over 8931.832 seconds. Runtime final retention passed at 3.18839 GB,
+with 9.2784 MB attention accounting including mapping dependencies.
+
+Standard / tolerant MRR: H_MARGINAL 0.4912 / 0.4912; H_TOPOLOGY
+0.4592 / 0.4592; H_TOPO_MARGINAL 0.4736 / 0.4736; V_DOMAIN_FULL
+0.3302 / 0.3499; V_SOURCE_UNIFORM 0.3105 / 0.3348; V_CONTEXT_FILL
+0.3208 / 0.3325. H_MARGINAL costs 5.97% fewer total tokens than historical
+T_FULL, with AegisLab gains but AIOPS regressions. All four registered primary contrasts have Holm-adjusted p-values above .05
+in both event-group and case analyses.
+Neither nominee meets the advancement goals; no post-hoc winner adoption.
+
+All 180 QA outputs received structured field analysis; 54 complete QA/RCA
+pairs from nine disclosed cases were individually read. Unit-alias sensitivity
+is explicitly post-hoc and does not replace registered scores. Relationship
+QA is much weaker with the current image-carried topology. A stale generic
+reading sentence remains in the hybrid prompt; this is a minor unmeasured
+instruction limitation, not a change in actual modality ownership. Topology
+is carried by images in H_TOPOLOGY/H_TOPO_MARGINAL; no textual topology copy
+is inferred from that stale sentence. This follows the user's clarification.
+
+412 actual formal attention records cover only layer 3's last prompt and
+first decode queries. No final-decision attention claim. Report and
+reproducible, read-only analysis:
+[final detailed report](../../../docs/experiment_reports/RQ4_5_Qwen_Analysis_2026-10-19.md).
+Historical checkpoints below remain intact; no new model call or runtime-code
+change was made for this report.
+
+
+## Historical qualification and execution checkpoints (superseded by the complete-results status above)
+
+**Historical status: CPU qualification remains passed/frozen. GPU round 1 failed in Slurm step setup; round 2 timed out in first-time dependency initialization with zero initiated model calls. CPU-only FlashInfer compilation passed. Round 3 was cancelled before allocation to publish its hash-identical binary through the native precompiled-cache interface; round 4 reached the registered engine and real requests but was stopped for a network-filesystem accounting lock stall. Targeted CPU ledger qualification passed; round 5 was stopped by the old timeout with 5/18 committed; the user now authorizes the full 15-minute window for subsequent rounds. Formal submission remains conditional on a clean pass.**
+
+The active user goal supersedes the five-round allowance: serial smoke rounds are now unlimited, each bounded by 18 initiated calls and 15 minutes (900 seconds); exactly one round may be live. After a clean, fully reviewed pass, submit the 1560-position formal experiment as at most six serial two-hour blocks (12 reserved GPU hours total), then stop. This is explicit formal authorization, conditional on clean smoke. No model recipe, arms, inputs or scientific gates change. See `smoke_goal_authority_20261019.json`.
+
+Round 1, job 24548141: FAILED/1:0 after five seconds, incompatible `srun` binary/auth plugin versions (25.11.8/25.11.9); Python/model never started. Remove the nested job-step invocation and execute within the allocated batch cgroup. Round 2, job 24549086 on g4: original 600-second clock expired during software/kernel startup, completed 0/18, ledger empty. Preserve its clock/summary/logs; do not qualify a run without real requests. Actual backend logs identify BF16 vLLM 0.24.0, FlashAttention 3 and unchanged 40960 context/VRAM 0.8. Native weights load in about 37 seconds; slow shared-file imports and first FlashInfer GDN compilation dominated startup. Process traces show unbounded Ninja compilation and home-directory cache output. CPU-only dependency build job 24549904 follows the stopped GPU allocation, compiles its exact existing build graph with eight jobs and moves only this FlashInfer version cache to project cache with a path-preserving symlink. It requests no GPU, reads no case/model weights and reruns no passed CPU regression. Future launchers bound compiler jobs to eight. Build 24549904 failed before compilation because the guard compared `/project/6006115` with its `/project/def-jacobsen` alias; canonicalize both operands. Replacement CPU-only build **24550313** runs the same generated Ninja graph. The existing pending smoke round 3, job **24549987**, now depends on `afterok:24550313`; no second GPU smoke is queued. This does not reset or spend model calls.
+
+Read-only historical comparison found that the RQ3.8 `inference.triton_v2.yaml` explicitly selected the Triton GDN prefill backend, whereas the current frozen runtime automatically selects FlashInfer. This establishes a configuration difference, not by itself a successful historical execution. A preserved log was then read from the small archived logs bundle: job **21217562**, COMPLETED after **14,273 seconds**, used vLLM 0.24.0, BF16 Qwen3.5-9B, FlashAttention 3 and automatic FlashInfer GDN, with project runtime caches. Engine initialization at 04:56:08 and HTTP startup completion by 04:58:48 confirm a successful long GPU run. Its smaller model, MIG allocation, graph/chunked-prefill settings and absent RQ4.5 adapter make it an initialization/cache reference only, not a drop-in scientific/runtime recipe. Keep the current RQ4.5 custom worker, per-image post-merger gather, original MRoPE, KV admission, structured ranking and passive attention; do not substitute a historical plain HTTP launcher.
+
+Original five-round GPU authorization (superseded by the active goal above): the user permitted at most five rounds, 18 calls each; its obsolete time clause is removed. The unchanged frozen queue and original bounded runtime/global ledger remain protected. The Nibi launcher requests one full H100, eight physical CPU cores and 96 GiB RAM. Smoke accuracy is not a qualification criterion. The historical authority remains in `smoke_authority_20261019.json`; the current scope is in `smoke_goal_authority_20261019.json`.
+
+This file records implementation/qualification, not RCA performance. The user authorizes continued CPU repair until all checks pass. The original static-only delivery boundary is historical. Codex.md and historical experiment sources remain unchanged.
+
 ## Implemented scope
 
 Six registered arms: H_MARGINAL, H_TOPOLOGY, H_TOPO_MARGINAL, V_DOMAIN_FULL, V_SOURCE_UNIFORM and V_CONTEXT_FILL. Historical T_FULL, MARGINAL_FIVE and U answers/costs are reused; no baseline reruns. The formal matrix remains 1560 logical positions with a 1700-attempt ceiling including the future 18-call smoke and recovery reserve.
@@ -258,6 +320,9 @@ language-generation calls. See `nibi_native_runtime_chain_20261019.json` and the
 detailed investigation in `docs/issues/RQ4_5_Nibi_Runtime_Investigation_2026-10-19.md`.
 
 
+## Nibi deployment record (preserved history)
+
+
 ### 2026-10-20 — FA3 padding probe disposition
 
 Job24686266 completed with zero new language-generation calls. pad96 is feature-bit-identical on all three fixed actual packets, but the largest image still takes115.77s (original117.44s); the approximately1.44% aggregate single-probe timing difference is not a demonstrated throughput fix. pad128 is slower and fails the unchanged full-feature gate. Production adoption and a fresh 18-call smoke were therefore not initiated. Existing complete CPU qualifications and all42 spent attempts remain. GPU/throughput still unqualified; formal not started. Full evidence, historical issues and disposition are in `important_docs/CanvasRCA_Nibi_Pitfalls.md` and `qualification/visual_fastpath_disposition_24686266.json`. Nibi-only work; local RQ4.7 untouched.
@@ -282,3 +347,48 @@ population work. Candidate numeric and >=7/min qualification are still pending.
 
 
 2026-10-22: round12 staged, not yet submitted. Native layer3 capture split and allocated-GPU NVML telemetry require affected CPU checks then one actual 18-call/900-second GPU smoke. All round11 outcomes and spent calls remain preserved. Local repository and running experiments untouched.
+
+## Local experiment record (preserved history)
+
+## Local fallback qualification in progress — 2026-10-19
+
+The latest user goal supersedes the local stopping boundary: qualify locally,
+then launch the local formal queue. Nibi jobs 24589226/24589420/24589619 remain
+pending and unchanged. The local Blackwell runtime preserves RQ4.4's native
+backend selection; the H100-specific provisional SDPA change is not applied.
+Local actual static and 32-unit checks pass, as does six-case boundary preflight.
+The 220-case CPU population audit is now running with eight distinct physical
+cores. GPU smoke and formal are not yet activated. No new model call has run.
+DD-RQ45-15 records the authority and isolated results root.
+
+## Local qualification passed; formal queue running — 2026-10-19
+
+The current local fallback goal is achieved. Actual local CPU checks pass:
+32 units, 220 population cases / 1320 RCA inputs, 33 mechanism cases / 198
+QA inputs, 30 runtime probes, input budget, transport invariance, deterministic
+repaint and twelve-image manual review. Frozen fingerprint:
+`d2299620a4c36294113dcced4e222b76e50e85b378ae55c41678c2cab0e55dac`.
+
+The real local smoke completes 18/18 in 209.5913 seconds, including 100.8999
+seconds to the first durable call reservation. Online completion rate is 9.9364
+calls/minute; including startup it is 5.1529. Mean vision/transport is 1.4414
+seconds. Every answer and all six actual attention summaries were inspected;
+input/PNG/trajectory identities, scorer reproduction, ledger, token counts and
+BF16/no-preemption checks pass. Model errors remain scored outcomes, not
+qualification retries. Attention records are 690–3657 bytes and cover only the
+registered two early queries at layer 3, not final-decision attention.
+
+Local formal owner PID 114471 is live, with eight active requests, bounded RAM
+lookahead and real committed results. Three initial commits were independently
+verified against their saved request/trajectory hashes and durable ledger. The
+registered queue retains all 1560 logical positions and supports resume from
+atomic completion markers. Native FlashAttention 2 is confirmed in the actual
+Blackwell engine log; no provisional H100 SDPA change is applied locally.
+Nibi jobs 24589226/24589420/24589619 remain queued unchanged; no Nibi formal
+job was submitted. Previous Nibi attempts remain in their separate ledger.
+
+[Local CPU receipt](local_cpu_qualification_20261019.json) ·
+[Verified formal launch](local_formal_launch_20261019.json).
+Runtime logs, exact inputs/outputs/conversations, scores and measured attention
+are under `results/exclusive_spatial_v1/`. Final lossless retention and complete
+analysis run after formal calls and writers drain; no final MRR is claimed now.

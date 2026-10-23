@@ -1,0 +1,962 @@
+{
+  "slot": 275,
+  "status": "completed",
+  "request_hash": "b10575bdc3e06d18bc0d4af717dca6a4246d61a0197964d7ccb9443939ff930d",
+  "response": "{\"services\": [\"905\", \"661\", \"419\", \"557\", \"717\"], \"reason\": \"TRC02 identifies service 905 with the highest latency deviation (exclusive p95 ~2ms to ~2s, lfc 10.26) and PAIR01 confirms that its inclusive duration increase is not attributable to its child 951 (which remained fast), localizing the fault to 905. Topology analysis (REL01) shows 905 is a shared downstream dependency called by 661, 419, 557, and 908, explaining the concurrent latency spikes observed in these upstream callers (TRC01, TRC04, TRC06) and their propagation via the call graph.\", \"confidence\": \"high\"}",
+  "output_token_ids": [
+    4754,
+    12413,
+    763,
+    4241,
+    24,
+    15,
+    20,
+    487,
+    328,
+    21,
+    21,
+    16,
+    487,
+    328,
+    19,
+    16,
+    24,
+    487,
+    328,
+    20,
+    20,
+    22,
+    487,
+    328,
+    22,
+    16,
+    22,
+    7664,
+    328,
+    19290,
+    763,
+    328,
+    2301,
+    34,
+    15,
+    17,
+    34337,
+    2393,
+    220,
+    24,
+    15,
+    20,
+    440,
+    279,
+    8166,
+    37972,
+    36320,
+    318,
+    86055,
+    280,
+    24,
+    20,
+    3835,
+    17,
+    977,
+    310,
+    3835,
+    17,
+    82,
+    11,
+    324,
+    8058,
+    220,
+    16,
+    15,
+    13,
+    17,
+    21,
+    8,
+    321,
+    12509,
+    2712,
+    15,
+    16,
+    40988,
+    421,
+    1141,
+    27389,
+    7836,
+    5096,
+    369,
+    524,
+    68045,
+    310,
+    1141,
+    1623,
+    220,
+    24,
+    20,
+    16,
+    318,
+    7949,
+    14195,
+    4778,
+    681,
+    2136,
+    4694,
+    279,
+    14109,
+    310,
+    220,
+    24,
+    15,
+    20,
+    13,
+    6694,
+    2369,
+    6157,
+    318,
+    47407,
+    15,
+    16,
+    8,
+    4774,
+    220,
+    24,
+    15,
+    20,
+    369,
+    264,
+    5904,
+    49625,
+    23285,
+    2512,
+    539,
+    220,
+    21,
+    21,
+    16,
+    11,
+    220,
+    19,
+    16,
+    24,
+    11,
+    220,
+    20,
+    20,
+    22,
+    11,
+    321,
+    220,
+    24,
+    15,
+    23,
+    11,
+    24228,
+    279,
+    32907,
+    37972,
+    48955,
+    12784,
+    303,
+    1439,
+    40352,
+    79077,
+    318,
+    2301,
+    34,
+    15,
+    16,
+    11,
+    4823,
+    34,
+    15,
+    19,
+    11,
+    4823,
+    34,
+    15,
+    21,
+    8,
+    321,
+    836,
+    51842,
+    4417,
+    279,
+    1562,
+    4618,
+    10152,
+    328,
+    79103,
+    763,
+    328,
+    11553,
+    8934,
+    248046
+  ],
+  "output_tokens": 187,
+  "input_tokens": 24607,
+  "image_tokens_original": 0,
+  "seconds_group": 22.90895157399791,
+  "batch_size": 1,
+  "backend": "transformers_native_generate_sdpa",
+  "mode": "text",
+  "arm": "T_FULL",
+  "cache_audit": [
+    {
+      "seq_len": 24607,
+      "layers": [
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24607,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24607,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24607,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24607,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24607,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24607,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24607,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24607,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24607,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24607,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24607,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24607,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24607,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24607,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24607,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24607,
+            256
+          ]
+        }
+      ]
+    },
+    {
+      "seq_len": 24608,
+      "layers": [
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24608,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24608,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24608,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24608,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24608,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24608,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24608,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24608,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24608,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24608,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24608,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24608,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24608,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24608,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24608,
+            256
+          ]
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "LinearAttentionLayer",
+          "keys": null
+        },
+        {
+          "class": "DynamicLayer",
+          "keys": [
+            1,
+            4,
+            24608,
+            256
+          ]
+        }
+      ]
+    }
+  ],
+  "peak_allocated_bytes": 64368627200,
+  "peak_reserved_bytes": 68383932416,
+  "outcome": {
+    "status": "complete",
+    "error": null,
+    "metrics": {
+      "rank": 1,
+      "mrr": 1.0,
+      "ac@1": 1.0,
+      "ac@3": 1.0,
+      "ac@5": 1.0,
+      "avg@3": 1.0,
+      "avg@5": 1.0
+    }
+  },
+  "greedy": false,
+  "attention_requested": false,
+  "actual_retention": null,
+  "gather_plan": null,
+  "original_mrope": null,
+  "prior_state": null,
+  "generation_schema_profile": "public_numeric_id_v23",
+  "generation_schema_sha256": "05b52e3a0400d6cf00b4e1af3e05f83e2327d22772ffb735e662b5bcbfd9fc5b",
+  "ranking_decoder": {
+    "profile": "ranking_prefix_greedy_v25",
+    "ranking_complete": true,
+    "forced_steps": 28,
+    "release_generated_tokens": 28,
+    "processor_wall_seconds": 0.0069994000004953705,
+    "candidate_values_accessed": false,
+    "qualified_batch_size": 1
+  },
+  "runtime_timing": {
+    "wall_seconds": 22.90895157399791,
+    "cuda_elapsed_span_ms": 22908.7578125,
+    "first_output_wall_seconds": 9.758187704999727,
+    "first_output_cuda_span_ms": 9900.15625,
+    "phases_wall_seconds": {},
+    "observer_cuda_span_ms": 0.0,
+    "timing_scope": "encoder+selector+gather+generation, same-call audit overhead; processor/render and startup separate"
+  },
+  "signal_audit": null,
+  "processor_wall_seconds": 0.09304729400173528,
+  "preprocessing_cost": null,
+  "decoder_seed": 953070777,
+  "attention_key": null,
+  "call_key": "INC-058FC5DD18AD__development__T_FULL__BASE",
+  "attempt_id": 258,
+  "role": "solver",
+  "unit": {
+    "key": "INC-058FC5DD18AD__development__T_FULL__BASE",
+    "id": "INC-058FC5DD18AD",
+    "dataset": "aegislab",
+    "kind": "development",
+    "arm": "T_FULL",
+    "variant": "BASE",
+    "seed": 953070777,
+    "calls_per_diagnosis": 1,
+    "label_scoring_allowed": true,
+    "execution_state": "not_authorized",
+    "availability": "pending_CPU_and_GPU",
+    "new_features": false,
+    "prior_results_used": false,
+    "reference_allowed": true,
+    "independent_call": false,
+    "queue_index": 274,
+    "backend": "hf",
+    "request_key": "INC-058FC5DD18AD__T_FULL__BASE",
+    "attention": false
+  },
+  "artifact_hashes": {
+    "trajectories/INC-058FC5DD18AD__development__T_FULL__BASE__call258.json": "b0dd889e8248fe45aed9c61db2a6d48bbcb3a228da66f2422ad0a192b35ee277",
+    "requests/INC-058FC5DD18AD__development__T_FULL__BASE.json": "914548eb60919e76e363922e54edaf6e662bb295a118dafc80f53eae2d231ddc"
+  },
+  "actual_calls": 1
+}

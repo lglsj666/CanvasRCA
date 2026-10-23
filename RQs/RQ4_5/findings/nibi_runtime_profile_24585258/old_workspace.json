@@ -1,0 +1,131 @@
+{
+  "variant": "old_workspace",
+  "new_model_calls": 0,
+  "imports": {
+    "torch": {
+      "seconds": 23.065239681018284,
+      "file": "/scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/torch/__init__.py",
+      "version": "2.11.0"
+    },
+    "transformers": {
+      "seconds": 27.66060795300291,
+      "file": "/scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/transformers/__init__.py",
+      "version": "5.14.1"
+    },
+    "vllm": {
+      "seconds": 23.267073085997254,
+      "file": "/scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/__init__.py",
+      "version": "0.24.0"
+    },
+    "xgrammar": {
+      "seconds": 3.1526353119988926,
+      "file": "/scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/xgrammar/__init__.py",
+      "version": "None"
+    },
+    "flashinfer": {
+      "seconds": 10.88555681699654,
+      "file": "/scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/flashinfer/__init__.py",
+      "version": "0.6.12"
+    }
+  },
+  "python": {
+    "executable": "/scratch/lglsj/CanvasRCA/.venv-inference/bin/python",
+    "version": "3.11.5 (main, Sep 19 2023, 16:07:22) [GCC 12.3.1 20230526]",
+    "path": [
+      "",
+      "/project/def-jacobsen/canvasrca_cache/shared/flashinfer/cache_provider_0.6.12",
+      "/home/lglsj/CanvasRCA_20261018/src",
+      "/home/lglsj/CanvasRCA_20261018",
+      "/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/Compiler/gcccore/python/3.11.5/lib/python311.zip",
+      "/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/Compiler/gcccore/python/3.11.5/lib/python3.11",
+      "/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/Compiler/gcccore/python/3.11.5/lib/python3.11/lib-dynload",
+      "/scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages",
+      "/scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/nvidia_cutlass_dsl/python_packages",
+      "/scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/nvidia_cutlass_dsl/python_packages/cutlass/base_dsl"
+    ]
+  },
+  "packages": {
+    "torch": "2.11.0+computecanada",
+    "transformers": "5.14.1+computecanada",
+    "triton": "3.6.0+computecanada",
+    "vllm": "0.24.0+computecanada",
+    "xgrammar": "0.2.3"
+  },
+  "cuda": {
+    "torch_cuda": "12.9",
+    "device": "NVIDIA H100 80GB HBM3",
+    "capability": [
+      9,
+      0
+    ],
+    "flash_attention_available": true,
+    "blas_backend": "_BlasBackend.Cublas"
+  },
+  "torch_build": "PyTorch built with:\n  - GCC 12.3\n  - C++ Version: 201703\n  - Intel(R) MKL-DNN v3.10.2 (Git Hash f1d471933dc852f956fd05389f9313c7148783d5)\n  - OpenMP 201511 (a.k.a. OpenMP 4.5)\n  - LAPACK is enabled (usually provided by MKL)\n  - NNPACK is enabled\n  - CPU capability usage: AVX512\n  - CUDA Runtime 12.9\n  - NVCC architecture flags: -gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_90,code=sm_90;-gencode;arch=compute_100,code=sm_100;-gencode;arch=compute_100,code=compute_100\n  - CuDNN 91.3.1\n  - Magma 2.9.0\n  - Build settings: BLAS_INFO=flexi, BUILD_TYPE=Release, COMMIT_SHA=70d99e998b4955e0049d13a98d77ae1b14db1f45, CUDA_VERSION=12.9, CUDNN_VERSION=9.13.1, CXX_COMPILER=/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/x86_64-pc-linux-gnu/gcc-bin/12/c++, CXX_FLAGS= -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOROCTRACER -DLIBKINETO_NOXPUPTI=ON -DUSE_FBGEMM -DUSE_MSLK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -DC10_NODEPRECATED -Wall -Wextra -Werror=return-type -Werror=non-virtual-dtor -Werror=range-loop-construct -Werror=bool-operation -Wnarrowing -Wno-missing-field-initializers -Wno-unknown-pragmas -Wno-unused-parameter -Wno-strict-overflow -Wno-strict-aliasing -Wno-stringop-overflow -Wsuggest-override -Wno-psabi -Wno-error=old-style-cast -faligned-new -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=flexi, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, TORCH_VERSION=2.11.0, USE_CUDA=ON, USE_CUDNN=ON, USE_CUSPARSELT=ON, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_GLOO=ON, USE_MKLDNN=ON, USE_MPI=ON, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, USE_ROCM_KERNEL_ASSERT=OFF, USE_XCCL=OFF, USE_XPU=OFF, \n",
+  "flags": {
+    "LOADEDMODULES": "CCconfig:gentoo/2023:gcccore/.12.3:gcc/12.3:hwloc/2.9.1:ucx/1.14.1:libfabric/1.18.0:pmix/4.2.4:ucc/1.2.0:openmpi/4.1.5:flexiblas/3.3.1:imkl/2023.2.0:StdEnv/2023:mii/1.1.2:python/3.11.5:cudacore/.12.9.1:gdrcopy/2.3.1:ucx-cuda/1.14.1:nccl/2.27.7:ucc-cuda/1.2.0:cuda/12.9:ipykernel/2026a:scipy-stack/2026a:arrow/18.1.0",
+    "VLLM_TRITON_FORCE_FIRST_CONFIG": "1",
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "CUBLASLT_WORKSPACE_SIZE": "1",
+    "EBPYTHONPREFIXES": "/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/Compiler/gcccore/scipy-stack/2026a:/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/Compiler/gcccore/ipykernel/2026a:/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/Compiler/gcccore/arrow/18.1.0",
+    "PYTHONPATH": "/project/def-jacobsen/canvasrca_cache/shared/flashinfer/cache_provider_0.6.12:/home/lglsj/CanvasRCA_20261018/src:/home/lglsj/CanvasRCA_20261018"
+  },
+  "kernels": {
+    "linear_1_5120_15360": {
+      "seconds_per_iteration": 6.59801997244358e-05,
+      "finite": true,
+      "sum_float64": 6398.470703125,
+      "shape": [
+        1,
+        15360
+      ]
+    },
+    "linear_8_5120_15360": {
+      "seconds_per_iteration": 6.482420139946044e-05,
+      "finite": true,
+      "sum_float64": -29678.94515657425,
+      "shape": [
+        8,
+        15360
+      ]
+    },
+    "linear_4096_5120_15360": {
+      "seconds_per_iteration": 0.0008174221962690354,
+      "finite": true,
+      "sum_float64": -189660.0608546734,
+      "shape": [
+        4096,
+        15360
+      ]
+    },
+    "linear_16384_1280_5120": {
+      "seconds_per_iteration": 0.0002968388027511537,
+      "finite": true,
+      "sum_float64": -903272.7658278346,
+      "shape": [
+        16384,
+        5120
+      ]
+    },
+    "flash_sdpa_8192": {
+      "seconds_per_iteration": 0.0012874735984951258,
+      "finite": true,
+      "sum_float64": 1683.7394298450672,
+      "shape": [
+        1,
+        16,
+        8192,
+        80
+      ]
+    }
+  },
+  "loaded_cuda_libraries": [
+    "/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/CUDA/cuda12.9/cudnn/9.13.1.26/lib/libcudnn.so.9.13.1",
+    "/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/CUDA/cuda12.9/cudnn/9.13.1.26/lib/libcudnn_graph.so.9.13.1",
+    "/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Core/cudacore/12.9.1/targets/x86_64-linux/lib/libcublas.so.12.9.1.4",
+    "/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Core/cudacore/12.9.1/targets/x86_64-linux/lib/libcublasLt.so.12.9.1.4",
+    "/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Core/cudacore/12.9.1/targets/x86_64-linux/lib/libcudart.so.12.9.79",
+    "/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Core/cudacore/13.2.0/targets/x86_64-linux/lib/libcudart.so.13.2.51",
+    "/usr/lib64/libcuda.so.580.178.04"
+  ]
+}

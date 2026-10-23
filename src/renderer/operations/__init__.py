@@ -2,13 +2,25 @@
 from copy import deepcopy
 from . import raster_translation, readability_audit, factual_qa, anchor_pack, question_colors, evidence_regions, readable_cards, qa_badges, foreground_audit, canvas_extent, appearance, bindings, component, indexing, layout, reorder, resolution, spacing, viewport, graph_visibility, relation_bindings
 from ..utils import compile_design, digest
+from . import dashboard_policy
 
 # Export operations consume frozen source DOM, rather than rewriting its design.
 # Ordinary design operations and existing renderer paths are unchanged.
 from .source_views import SourceViewRenderer
 EXPORT_REGISTRY = {"source_views": SourceViewRenderer}
+# BEGIN RQ47 SOURCE WORKSPACE EXPORTS
+from .source_workspace import SourceWorkspaceRenderer, qa_intervention
+EXPORT_REGISTRY.update(source_workspace=SourceWorkspaceRenderer,
+                       workspace_qa_intervention=qa_intervention)
+# END RQ47 SOURCE WORKSPACE EXPORTS
+
+# Explicit whole-card pixel/mask exports; ordinary render behavior is unchanged.
+from .card_subset import compose as compose_card_subset
+from .card_subset import swap_statistic_labels
+EXPORT_REGISTRY.update(card_subset=compose_card_subset, card_statistic_label_swap=swap_statistic_labels)
 
 REGISTRY = {
+    "dashboard_policy": dashboard_policy.apply,
     "raster_translation": raster_translation.apply,
     "readability_audit": readability_audit.apply,
     "factual_qa": factual_qa.apply,
@@ -48,3 +60,11 @@ def apply_operations(evidence, design, operations):
     if digest(evidence) != initial_evidence:
         raise ValueError("Operator changed evidence")
     return result, audit
+
+# RQ4.9 explicit source-bound study exports.
+from .study_view import export as export_study_view
+EXPORT_REGISTRY.update(study_view=export_study_view)
+
+# Opt-in evidence-domain exports; ordinary component paths are unchanged.
+from .domain_views import export as export_domain_view
+EXPORT_REGISTRY['domain_view'] = export_domain_view

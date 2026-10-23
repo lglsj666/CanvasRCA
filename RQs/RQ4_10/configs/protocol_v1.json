@@ -1,0 +1,342 @@
+{
+  "schema": "RQ410ProtocolV1",
+  "arms": [
+    "V_EXACT_DOMAIN",
+    "V_SAMPLE_GLYPH",
+    "V_SAMPLE_PACK",
+    "V_SAMPLE_MARKLESS",
+    "H_SAMPLE_GLYPH",
+    "H_SAMPLE_PACK",
+    "H_SAMPLE_MARKLESS",
+    "F_O_SPATIAL",
+    "F_O_FEATURE",
+    "F_O_REP",
+    "F_O_SHAM",
+    "P_INK",
+    "P_CARD",
+    "P_LENGTH_CONTROL",
+    "S_O_REDIST",
+    "S_SINK_REDIST",
+    "S_BG_REDIST",
+    "S_O_MASK",
+    "D14_DOMAIN_FIXED",
+    "D14_DOMAIN_PACK"
+  ],
+  "organization": [
+    "V_EXACT_DOMAIN",
+    "V_SAMPLE_GLYPH",
+    "V_SAMPLE_PACK",
+    "V_SAMPLE_MARKLESS",
+    "H_SAMPLE_GLYPH",
+    "H_SAMPLE_PACK",
+    "H_SAMPLE_MARKLESS"
+  ],
+  "fusion": [
+    "F_O_SPATIAL",
+    "F_O_FEATURE",
+    "F_O_REP",
+    "F_O_SHAM"
+  ],
+  "pruning": [
+    "P_INK",
+    "P_CARD",
+    "P_LENGTH_CONTROL"
+  ],
+  "sink": [
+    "S_O_REDIST",
+    "S_SINK_REDIST",
+    "S_BG_REDIST",
+    "S_O_MASK"
+  ],
+  "density": [
+    "D14_DOMAIN_FIXED",
+    "D14_DOMAIN_PACK"
+  ],
+  "nominees": [
+    "V_SAMPLE_PACK",
+    "F_O_FEATURE",
+    "H_SAMPLE_PACK"
+  ],
+  "dataset_counts": {
+    "aiops2022": 60,
+    "aiops2025": 60,
+    "aegislab": 100
+  },
+  "canvas": [
+    4096,
+    4096
+  ],
+  "card_limit": 28,
+  "context": 40960,
+  "image_tokens": 16384,
+  "output_tokens": 8192,
+  "qa_output_tokens": 2048,
+  "formal_calls": 5480,
+  "total_call_limit": 5700,
+  "infrastructure_recovery_calls": 166,
+  "smoke_scopes": {
+    "smoke_organization": 18,
+    "smoke_operators": 18,
+    "smoke_qa": 18
+  },
+  "smoke_seconds": 900,
+  "smoke_ids": [
+    "INC-6E627662CA32",
+    "INC-D9245047C658",
+    "INC-018AC5D486B5"
+  ],
+  "qa_per_dataset": 10,
+  "qa_salt": "rq410-single-question-v1",
+  "repeat_salt": "rq410-independent-repeat-v1",
+  "qa_arms": [
+    "P_FULL",
+    "P_DOMAIN",
+    "U28",
+    "V_SAMPLE_GLYPH",
+    "V_SAMPLE_PACK",
+    "H_SAMPLE_GLYPH",
+    "H_SAMPLE_PACK",
+    "F_O_FEATURE",
+    "P_INK",
+    "S_O_REDIST"
+  ],
+  "qa_controls": [
+    "Q_NO_EVIDENCE",
+    "Q_TARGET_ISOLATE",
+    "Q_ENTITY_RENAME"
+  ],
+  "qa_questions": [
+    "numeric",
+    "binding",
+    "comparison"
+  ],
+  "historical": {
+    "P_FULL": "P_FULL",
+    "P_DOMAIN": "P_DOMAIN",
+    "U28": "U28",
+    "D14_FIXED": "D14_FIXED",
+    "D14_PACK": "D14_PACK",
+    "H_EXACT": "H_MARGINAL_DIRECT"
+  },
+  "comparisons": {
+    "organization": [
+      [
+        "V_SAMPLE_GLYPH",
+        "V_EXACT_DOMAIN"
+      ],
+      [
+        "V_SAMPLE_PACK",
+        "V_SAMPLE_GLYPH"
+      ],
+      [
+        "V_SAMPLE_GLYPH",
+        "V_SAMPLE_MARKLESS"
+      ],
+      [
+        "H_SAMPLE_GLYPH",
+        "H_EXACT"
+      ],
+      [
+        "H_SAMPLE_PACK",
+        "H_SAMPLE_GLYPH"
+      ],
+      [
+        "H_SAMPLE_GLYPH",
+        "H_SAMPLE_MARKLESS"
+      ]
+    ],
+    "fusion": [
+      [
+        "F_O_SPATIAL",
+        "P_DOMAIN"
+      ],
+      [
+        "F_O_FEATURE",
+        "P_DOMAIN"
+      ],
+      [
+        "F_O_FEATURE",
+        "F_O_SPATIAL"
+      ],
+      [
+        "F_O_FEATURE",
+        "F_O_REP"
+      ],
+      [
+        "F_O_FEATURE",
+        "F_O_SHAM"
+      ]
+    ],
+    "pruning": [
+      [
+        "P_INK",
+        "P_DOMAIN"
+      ],
+      [
+        "P_CARD",
+        "P_DOMAIN"
+      ],
+      [
+        "P_INK",
+        "P_CARD"
+      ],
+      [
+        "P_DOMAIN",
+        "P_LENGTH_CONTROL"
+      ]
+    ],
+    "attention": [
+      [
+        "S_O_REDIST",
+        "P_FULL"
+      ],
+      [
+        "S_SINK_REDIST",
+        "P_FULL"
+      ],
+      [
+        "S_SINK_REDIST",
+        "S_BG_REDIST"
+      ],
+      [
+        "S_O_REDIST",
+        "S_O_MASK"
+      ],
+      [
+        "S_O_REDIST",
+        "S_SINK_REDIST"
+      ]
+    ],
+    "density": [
+      [
+        "D14_DOMAIN_FIXED",
+        "P_DOMAIN"
+      ],
+      [
+        "D14_DOMAIN_PACK",
+        "D14_DOMAIN_FIXED"
+      ],
+      [
+        "D14_DOMAIN_PACK",
+        "D14_DOMAIN_FIXED",
+        "D14_PACK",
+        "D14_FIXED"
+      ]
+    ],
+    "qa": [
+      [
+        "V_SAMPLE_PACK",
+        "V_SAMPLE_GLYPH"
+      ],
+      [
+        "H_SAMPLE_PACK",
+        "H_SAMPLE_GLYPH"
+      ],
+      [
+        "F_O_FEATURE",
+        "P_DOMAIN"
+      ],
+      [
+        "P_INK",
+        "P_DOMAIN"
+      ],
+      [
+        "S_O_REDIST",
+        "P_FULL"
+      ],
+      [
+        "Q_NO_EVIDENCE",
+        "P_DOMAIN"
+      ],
+      [
+        "Q_TARGET_ISOLATE",
+        "P_DOMAIN"
+      ],
+      [
+        "Q_ENTITY_RENAME",
+        "P_DOMAIN"
+      ]
+    ]
+  },
+  "attention_layers": [
+    3,
+    23,
+    43,
+    63
+  ],
+  "sink_policy": {
+    "detect_layer": 3,
+    "queries": 8,
+    "min_queries": 6,
+    "density": 5.0,
+    "layers": [
+      3,
+      7,
+      11,
+      15,
+      19,
+      23,
+      27,
+      31,
+      35,
+      39,
+      43,
+      47,
+      51,
+      55,
+      59,
+      63
+    ],
+    "common_mass": "min(sink_mass,ordinary_outside_mass)",
+    "release": 1.0,
+    "head_filter": false
+  },
+  "outside_budget": {
+    "fraction": 0.05,
+    "cap": 256,
+    "minimum_nonempty": 1
+  },
+  "global_configs": [
+    "configs/dataset_segmentation.yaml",
+    "configs/rca_scorer.yaml",
+    "configs/vllm_inference_local.yaml"
+  ],
+  "storage_bytes_per_call": 2500000,
+  "attention_bytes_per_call": 100000,
+  "attention_summary_bytes": 65536,
+  "manual_images_limit": 6,
+  "hybrid_authority": "Explicit RQ4.10 user approval; no Codex.md change",
+  "inference_speed_gate": {
+    "seconds_per_call_max": 20,
+    "or_mean_gpu_percent_min": 82
+  },
+  "statistics": {
+    "primary": "event_group",
+    "test": "two_sided_pratt_zero_wilcoxon",
+    "round_decimals": 12,
+    "correction": "holm_per_family",
+    "effect": "paired_dz",
+    "confidence_intervals": false
+  },
+  "formal_call_components": {
+    "rca": 4400,
+    "qa": 900,
+    "qa_controls": 90,
+    "repeat": 90
+  },
+  "visual_annotation_revision": {
+    "version": "complete_pair_v2",
+    "authorized_by": "user explicit reply 2026-10-22",
+    "reason": "Historical native pure-visual marginals contain no per-sample numeric columns",
+    "source": "Matching RQ4.9 retained hybrid complete-pair records",
+    "scope": [
+      "V_EXACT_DOMAIN",
+      "V_SAMPLE_GLYPH",
+      "V_SAMPLE_PACK",
+      "V_SAMPLE_MARKLESS"
+    ],
+    "preserve_other_source_records": true,
+    "capacity_failure": "block without dropping cards or shrinking labels",
+    "historical_comparison": "new facts and baseline layout, not same-input representation-only effect"
+  }
+}

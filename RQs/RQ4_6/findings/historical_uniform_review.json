@@ -1,0 +1,191 @@
+{
+  "scope": "offline reanalysis of committed historical scores and support audits; not CPU regression or input preparation",
+  "label_bearing_audit_only": true,
+  "model_calls": 0,
+  "groups": {
+    "improved": {
+      "n": 76,
+      "means": {
+        "K": 5231.539473684211,
+        "zero_optional_role_fraction": 0.32880533332960044,
+        "evidence_nearest_mean_grid_units": 0.4997702827804773
+      },
+      "interface": {
+        "u_valid_other_invalid": 16,
+        "u_invalid_other_valid": 0,
+        "both_valid": 60
+      }
+    },
+    "worse": {
+      "n": 33,
+      "means": {
+        "K": 5266.30303030303,
+        "zero_optional_role_fraction": 0.32952301054273436,
+        "evidence_nearest_mean_grid_units": 0.49978321883987975
+      },
+      "interface": {
+        "u_valid_other_invalid": 0,
+        "u_invalid_other_valid": 4,
+        "both_valid": 29
+      }
+    },
+    "tied": {
+      "n": 111,
+      "means": {
+        "K": 5204.225225225226,
+        "zero_optional_role_fraction": 0.3266994392239648,
+        "evidence_nearest_mean_grid_units": 0.49977728658137577
+      },
+      "interface": {
+        "u_valid_other_invalid": 12,
+        "u_invalid_other_valid": 5,
+        "both_valid": 89
+      }
+    }
+  },
+  "dataset_counts": {
+    "all": {
+      "n": 220,
+      "improved": 76,
+      "worse": 33,
+      "tied": 111,
+      "top1_repairs": 35,
+      "top1_breaks": 5
+    },
+    "aiops2022": {
+      "n": 60,
+      "improved": 19,
+      "worse": 7,
+      "tied": 34,
+      "top1_repairs": 7,
+      "top1_breaks": 2
+    },
+    "aiops2025": {
+      "n": 60,
+      "improved": 20,
+      "worse": 7,
+      "tied": 33,
+      "top1_repairs": 7,
+      "top1_breaks": 0
+    },
+    "aegislab": {
+      "n": 100,
+      "improved": 37,
+      "worse": 19,
+      "tied": 44,
+      "top1_repairs": 21,
+      "top1_breaks": 3
+    }
+  },
+  "five_top1_losses": [
+    {
+      "id": "INC-1D3579F09C93",
+      "dataset": "aegislab",
+      "u_mrr": 0.5,
+      "full_mrr": 1.0,
+      "answers": {
+        "V_FULL": {
+          "response": "{\"services\": [\"790\", \"813\", \"814\", \"847\", \"852\"], \"reason\": \"Service 790 (TripRepository.findArr) shows the largest local latency spike (reference 274µs to current 88229µs) with concurrent container memory page faults, indicating a direct data access bottleneck; Service 813 and 814 show secondary hubble latency spikes (63 bins) consistent with upstream propagation of the repository slowness; Services 847 and 852 represent alternative infrastructure origins (nodes 6671/6610) for resource contention. The check confirms the repository spike precedes the web-tier spikes, isolating the data layer as the initiating component rather than a network issue.\", \"confidence\": \"medium\"}",
+          "record": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-1D3579F09C93__development__V_FULL__BASE.json",
+          "sha256": "3aa44e002788ef657b7174e21f375492984797b5ad2ae10001f645342f122b57"
+        },
+        "A_UNIFORM_E50": {
+          "response": "{\"services\": [\"897\", \"636\", \"216\", \"790\", \"328\"], \"reason\": \"Service 897 is the most plausible initiating component as the `hubble_http_request_duration_p95_seconds` metric (METO2) for service 897 shows a sharp spike to 0.73899s, far exceeding the baseline and other services, indicating a performance degradation at the entry level. This is supported by the observed increase in `exclusive latency p95` for TRC04 (`GET /api/v1/consignservice/consigns/account/{id}`) to 7.79e5 µs, and a corresponding jump in `jvm.system.cpu.utilization` (METO9) on service 642, suggesting a resource bottleneck on the application handling these requests that impacts downstream services like 636 and 216.\", \"confidence\": \"medium\"}",
+          "record": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-1D3579F09C93__development__A_UNIFORM_E50__BASE.json",
+          "sha256": "64423e38078250f6114391b56fdaa5a3bb50667291a2ca50341cfeb43934dd50"
+        }
+      },
+      "source": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-1D3579F09C93/evidence.json",
+      "source_sha256": "75645851b5f9f67b49ed826ac75f87d6390c8979e103fa5c67b24f992306358c",
+      "manual_source_review": "U attaches TRC04 to its first-choice narrative for 897; actual owner is 328. MET02 belongs to 897 but peaks at 1.742, not the 0.73899 asserted. Correct source ownership and numeric reading must be measured separately."
+    },
+    {
+      "id": "INC-34562D2C5CC4",
+      "dataset": "aegislab",
+      "u_mrr": 0.25,
+      "full_mrr": 1.0,
+      "answers": {
+        "V_FULL": {
+          "response": "{\"services\": [\"437\", \"505\", \"402\", \"521\", \"436\"], \"reason\": \"Service 437 (RoutePlanController.getCheapestRoutes) exhibits a 3.6× increase in exclusive p95 latency (1.637e+5 µs vs 4.6e+4 µs baseline), consistent with a localized internal fault. While the observed high CPU utilization on service 505 and elevated RSS on service 402 are plausible root causes for the latency spike, the onset summary for 437 confirms it as the initiating component of the observable incident.\", \"confidence\": \"medium\"}",
+          "record": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-34562D2C5CC4__development__V_FULL__BASE.json",
+          "sha256": "63a95e486b7d3c02eb292a880de48153015e12e0c17b13e50ae3038289724530"
+        },
+        "A_UNIFORM_E50": {
+          "response": "{\"services\": [\"521\", \"586\", \"660\", \"437\", \"934\"], \"reason\": \"Service 521 (TCR01) shows a 144x latency increase (4.05e+5 µs vs 2990.7 µs), with a direct causal link to pod 50097 where `jvm.cpu.recent_utilization` (MET05) spiked to 0.183 (vs ~0.0005 reference), indicating severe CPU contention likely from GC thrashing. Service 586 (ALX01) exhibits a sharp increase in `container.memory.page_faults` (1.84e+5 vs 1.61e+4) and shows highly correlated 'R' (relational) source timing, pointing to memory pressure. These core resource constraints (CPU/Mem) upstream in the `RoutePlanController.getCheapestRoutes` (Service 437) dependency graph caused the observed inclusive latency degradation.\", \"confidence\": \"high\"}",
+          "record": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-34562D2C5CC4__development__A_UNIFORM_E50__BASE.json",
+          "sha256": "c7c5f030c94425f729dd8b5286f1e91d430007360131ca37d3e0ffbf455da9f9"
+        }
+      },
+      "source": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-34562D2C5CC4/evidence.json",
+      "source_sha256": "3c7fa0a2015497d60f7b7bf4b478af7bbdaf4fc58b87e195031519df5ba5216f",
+      "manual_source_review": "U calls TRC01 service 521 and MET05 a pod CPU signal; actual TRC01 owner 685, 2990.73→163684.48 µs; MET05 owner 505. Full-vision winning rank does not guarantee its explanation is grounded either."
+    },
+    {
+      "id": "INC-4D6E62700175",
+      "dataset": "aiops2022",
+      "u_mrr": 0.3333333333333333,
+      "full_mrr": 1.0,
+      "answers": {
+        "V_FULL": {
+          "response": "{\"services\": [\"13702\", \"15831\", \"59042\", \"137\", \"131\"], \"reason\": \"Candidate 13702 is the most plausible initiating component as it is the direct child of parent 59042 in trace PAIR01, where the child operation (grpc-go/13702) latency increased to 23466.8 µs in the current interval, while the parent's inclusive latency increased, indicating a downstream slow call. Candidate 15831 is the second most plausible as the alternative parent of 13702 in trace PAIR02, showing a similar increase in child operation latency to 25607.19 µs. The high-level trace for hipster-shop.449/GetProduct (operation 13702) shows an exclusive latency of 1.055e+7 µs, confirming that the root cause is tied to the interaction with service 13702.\", \"confidence\": \"high\"}",
+          "record": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-4D6E62700175__development__V_FULL__BASE.json",
+          "sha256": "2b2439fa2bdf0f1c826321437bcd440915e07ce074c5e5dbcd8e7a4a53934aa0"
+        },
+        "A_UNIFORM_E50": {
+          "response": "{\"services\": [\"672\", \"59042\", \"13702\", \"137\", \"131\"], \"reason\": \"Root cause is service 672, where Java GC metrics (MET05, MET07) and container memory usage (AUX02) show extreme spikes in the current interval, causing a memory leak or GC storm. This degrades the gRPC calls handled by pods 59042 and 13702 (part of service 59042), which manifests as increased exclusive latency in operations like TRC06 (HIPSTERSHOP.449/GetProduct), confirmed by PAIR01/PAIR02. Pods 137 and 131 are included as potential upstream/downstream amplifiers of this latency, while other candidates lack direct anomalous signals.\", \"confidence\": \"high\"}",
+          "record": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-4D6E62700175__development__A_UNIFORM_E50__BASE.json",
+          "sha256": "778caa26dc6b67d03955db675ccffcfb883d5f1f78d288fbfab67f6fe812824e"
+        }
+      },
+      "source": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-4D6E62700175/evidence.json",
+      "source_sha256": "d6cebc70a1f51719c1894462dbb6c2e85f21c5bf0eec9733b1f33cf0823fcd60",
+      "manual_source_review": "U describes severe GC/memory spikes on 672; MET05/07 range 57.47–57.71 million, approximately 0.42%, with signed_z 999. The trace on 13702 is genuinely large. This is a relative magnitude/attribution problem, not evidence that the plotted number is missing."
+    },
+    {
+      "id": "INC-A630AAF01518",
+      "dataset": "aiops2022",
+      "u_mrr": 0.3333333333333333,
+      "full_mrr": 1.0,
+      "answers": {
+        "V_FULL": {
+          "response": "{\"services\": [\"64716\", \"83464\", \"88157\", \"6653\", \"92378\"], \"reason\": \"Observations TRC01/TRC02 directly attribute the ~32× exclusive latency regression (2,468 μs → 83,516 μs for GetProduct; 2,590 μs → 82,289 μs for ListProducts) to pod 64716 (service 692) and parent pod 83464 (service 692). System metrics (MET02/MET04/MET10) show transient spikes on node 6653 correlating with the fault window. The co-location of 88157 and 92378 in the call graph and logs without independent regression signals provides a reasonable alternative origin or downstream impact.\", \"confidence\": \"high\"}",
+          "record": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-A630AAF01518__development__V_FULL__BASE.json",
+          "sha256": "ca66d18e030576aa7672def78c9ed8d9e0ee7377b9cbdff4d57a19ed15d5107f"
+        },
+        "A_UNIFORM_E50": {
+          "response": "{\"services\": [\"6653\", \"83464\", \"64716\", \"88157\", \"33698\"], \"reason\": \"Node 6653 exhibits simultaneous high-significance node-level alerts (MET01 disk_used z=999, MET04 inodes_in_use M9, MET08 disk_total M8) indicating a severe resource exhaustion event. This correlates temporally with extreme latency degradation on Pods (83464, 64716) running on that node, where operations show exclusive latency jumps of orders of magnitude (TRC01: ~8k µs vs ~10 µs). The causal direction is confirmed by the co-located system resource failures providing a higher-plausibility upstream origin for the service-level slowdowns.\", \"confidence\": \"high\"}",
+          "record": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-A630AAF01518__development__A_UNIFORM_E50__BASE.json",
+          "sha256": "e7ecab2adf1734d7bd25af7bdb414135a31aa60469e75fbb701d2744b374f76a"
+        }
+      },
+      "source": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-A630AAF01518/evidence.json",
+      "source_sha256": "7356e3d703a21c21a72ceb2b5e71030abdcfc9bde0c121231631c12cdf7df419",
+      "manual_source_review": "U prioritizes node 6653 resource summaries, misnames MET08 (actually inodes.used), and cites TRC01 roughly 8k versus 10 microseconds; actual TRC01 owner 83464 has 2468.85→83515.9. Full vision ranks acceptable pod 64716 first but its reason also conflates ownership."
+    },
+    {
+      "id": "INC-CEDB66058BB8",
+      "dataset": "aegislab",
+      "u_mrr": 0.3333333333333333,
+      "full_mrr": 1.0,
+      "answers": {
+        "V_FULL": {
+          "response": "{\"services\": [\"371\", \"347\", \"265\", \"346\", \"366\"], \"reason\": \"Service 371 is identified as the initiation component with the most severe metric divergence; MET10, MET12, and MET14 show extreme increases in memory usage and p95/p99 latencies, while TRC02 traces reveal a 100x latency escalation in its internal operations. The span duration distributions for PAIR02 on service 371 confirm that the latency issues are not attributable to parent service 265, suggesting a local resource exhaustion or code inefficiency as the primary origin. Service 347 shows corresponding throughput and latency impacts as a downstream or related component, whereas 265 remains stable and high-performing.\", \"confidence\": \"high\"}",
+          "record": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-CEDB66058BB8__development__V_FULL__BASE.json",
+          "sha256": "8cf2d4a574b680033381c680c98e14422f9f35c45a8ebf127fb263ebfe231fe9"
+        },
+        "A_UNIFORM_E50": {
+          "response": "{\"services\": [\"347\", \"705\", \"371\", \"265\", \"686\"], \"reason\": \"Service 347 (PriceConfigRepository) is the initiating component: TRC01 shows its DB call p95 exclusive latency rose 800x to 1.786e9 µs, while TRC02 (same method) on service 371 shows normal 1.055e6 µs, identifying 347's local path as the bottleneck. Check: hubble p95/p99 on service 705 (PAI01 parent) and 265 (PAI02 parent) both show delayed/slow responses consistent with 347 being a downstream dependency; MET11 on 371 shows container memory working-set pressure (1.786e9 bytes) suggesting GC pressure at the in-memory lookup level, and k8s.container.restarts (pod 64301) on 371 shows 13 restarts vs 20 reference, providing a co-located but alternative resource-exhaustion origin that is less direct than 347's DB-duration jump. Thus 347 leads, followed by the direct callers 705 and 371, then the intermediate service 265 and downstream 686 which fan out into the observed latency.\", \"confidence\": \"medium\"}",
+          "record": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-CEDB66058BB8__development__A_UNIFORM_E50__BASE.json",
+          "sha256": "309a89a1fba261a9b15c0968452c50bd9a814afb81638afc1a745b61474883e8"
+        }
+      },
+      "source": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_retry/INC-CEDB66058BB8/evidence.json",
+      "source_sha256": "0361e2911aa7faf57a33ae9cace1b678cad6fadd69ddfb06a2236f3264b1488c",
+      "manual_source_review": "U swaps TRC01/TRC02 owners and asserts 1.786e9 µs: actual TRC01 owner 371,1345.7→178189.8; TRC02 owner347,19104.82→3707092.58. Both ownership and numeric scale are wrong. Internal causal effect of a removed token is unobserved."
+    }
+  ],
+  "inputs": {
+    "important_docs/CanvasRCA_Visual_Token_Pruning_Review_2026-10-18_assets/diagnostic_transitions.csv": "7416117b4b67aed6639128c9f7647959f23e594386dc5381a7a907e8f8b6eaf9",
+    "important_docs/CanvasRCA_Visual_Token_Pruning_Review_2026-10-18_assets/mechanism_case_metrics.csv": "a1aa85f7885c2a679e072e4bb858518857d5a2ee281a717b9ec380ba3c1a11bd"
+  }
+}

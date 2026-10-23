@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "fingerprint": "8bca5ee08aea68122411b76fb2be23e38ff60109168d90d77526ffb5575884e6",
+  "functional_lines": 2966,
+  "new_arms": 20,
+  "formal_positions_max": 5480,
+  "total_calls_max": 5700,
+  "new_calls": 0,
+  "static_only": true,
+  "runtime_qualified": false,
+  "checks": [
+    "Python AST/compile/name resolution",
+    "TypeScript noEmit",
+    "registration/budget/default-off gates",
+    "central scorer imports",
+    "protected historical source hashes",
+    "five modules/line budget"
+  ],
+  "not_run": [
+    "unit tests",
+    "CPU regression",
+    "render/browser",
+    "processor token counts",
+    "GPU features",
+    "GPU smoke",
+    "formal inference"
+  ]
+}

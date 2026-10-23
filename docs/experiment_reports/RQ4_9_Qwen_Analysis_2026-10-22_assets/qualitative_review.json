@@ -1,0 +1,267 @@
+{
+  "schema": "RQ49QualitativeReviewV1",
+  "status": "completed_for_listed_sample_only",
+  "cases": 9,
+  "RCA_responses": 18,
+  "QA_responses": 7,
+  "additional_dashboard_images_opened": 0,
+  "sampling": "three fixed-hash cases(one per dataset),five post-hoc contrast cases,one synthetic QA case; not a prevalence study",
+  "new_model_calls": 0,
+  "reviews": [
+    {
+      "id": "INC-56A429CF3650",
+      "selection": "fixed-hash one per dataset",
+      "observation": "U28 current parent p95 is read incorrectly (actual62.26789999999997 vs claimed91.9997); q4 provides q1 answer, and answer explicitly changes in response; hybrid QA6/6 but both RCA RR0; target is not ground-truth root evidence.",
+      "evidence_level": "raw model response and saved model-visible renderer text/geometry; no new PNG opened",
+      "references": [
+        {
+          "arm": "U28",
+          "task": "RCA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-56A429CF3650__U28__RCA.json",
+          "record_sha256": "bc4d105806d2568f3b8340ccd6fafe86ad8802583bbb53c73024821b4af150f4",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/b90994b2b26a79eae4aa162cad21a690bf460b99498fc5aff28e7378a520390b.json"
+        },
+        {
+          "arm": "U28",
+          "task": "QA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-56A429CF3650__U28__QA.json",
+          "record_sha256": "fcd74a53d8f3249ea6661cfc68cec5a21beb6c02297a437091a542a4a5552cec",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/77117ca322ffc00897b973893edd07e3bd9123b4a537e1c9c2a80499d1cd8788.json"
+        },
+        {
+          "arm": "H_MARGINAL_DIRECT",
+          "task": "RCA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-56A429CF3650__H_MARGINAL_DIRECT__RCA.json",
+          "record_sha256": "e0350e1a87497d14e8ac25cb66154b6fc928a97b08f9c1e1e7644f73acdff66d",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/512ee60cc4ca5c0aad97d5e4b52bda450553bd4737ba9e9f2e97967e7c4a1694.json"
+        },
+        {
+          "arm": "H_MARGINAL_DIRECT",
+          "task": "QA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-56A429CF3650__H_MARGINAL_DIRECT__QA.json",
+          "record_sha256": "27de75c6e99d4de1342005a7ca93c1c5ed60837f16b50c340bef20fcc52fd7fa",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/a5291bf661e53ef8c011e819bbeaa0f0145ecae9c23da9dde51fd7c1fb5e9abc.json"
+        }
+      ]
+    },
+    {
+      "id": "INC-92A00B34EECF",
+      "selection": "fixed-hash one per dataset",
+      "observation": "Actual parent p50 current1.9485000000000001 vs reference1.97. U28 claims1.985 and selects current; hybrid also selects current. RCA RR.5 vs.25, reasons also use unrelated evidence; no isolated mediation claim.",
+      "evidence_level": "raw model response and saved model-visible renderer text/geometry; no new PNG opened",
+      "references": [
+        {
+          "arm": "U28",
+          "task": "RCA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-92A00B34EECF__U28__RCA.json",
+          "record_sha256": "b05c7577cb9248ac4b86998658b39739eba33adffd39ad6b232944c085a421fc",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/0957a2a6504cb003edcf1c26c272480fcf4d27f376b2a2b76026a7ee2f8f6498.json"
+        },
+        {
+          "arm": "U28",
+          "task": "QA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-92A00B34EECF__U28__QA.json",
+          "record_sha256": "852f858f71e8bc3af4a6d8cc51794fc402a07ab4cca6dc565dc69ec2b079aaee",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/19a8ed9163b027358bd5168183b1d28ea7564bdd1c7fc7f7e0a3c6bae28a108a.json"
+        },
+        {
+          "arm": "H_MARGINAL_DIRECT",
+          "task": "RCA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-92A00B34EECF__H_MARGINAL_DIRECT__RCA.json",
+          "record_sha256": "f8b5c51ab86823cf08f13484fe65a7f5a205096246b70794493a1b0d1ad06da8",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/ab4e8163707a860578ef10707c1809cdca2b4579e60adde40179d58e997cde14.json"
+        },
+        {
+          "arm": "H_MARGINAL_DIRECT",
+          "task": "QA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-92A00B34EECF__H_MARGINAL_DIRECT__QA.json",
+          "record_sha256": "a3fdc236b479184faf7f7b9131d76f5d34385119496e5ce6a8814e8cb4de38ad",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/3ed840f3c473126b48fe6137bc6ae77af906cec956ee56efbde894717a1eac33.json"
+        }
+      ]
+    },
+    {
+      "id": "INC-F14E2228C557",
+      "selection": "fixed-hash one per dataset",
+      "observation": "Both RCA top1 correct. U28 QA repeatedly claims conflicting population p95 values then hits output cap with no accepted answers; actual reference parent p95 is118.59589835000011 in input. Hybrid phase comparison incorrect. Correct RCA and QA completion separate.",
+      "evidence_level": "raw model response and saved model-visible renderer text/geometry; no new PNG opened",
+      "references": [
+        {
+          "arm": "U28",
+          "task": "RCA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-F14E2228C557__U28__RCA.json",
+          "record_sha256": "483b78d86b25f653baf4465adb4d8fc683e03ee5dd230c27def3fd97a92f79b0",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/524574b82d92956d78667d30b192fbe00153c6ddd46dbdad8bd5b92e0ac6b631.json"
+        },
+        {
+          "arm": "U28",
+          "task": "QA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-F14E2228C557__U28__QA.json",
+          "record_sha256": "c62151f8286d83ee1dfae75b293f3c3fff6175f0853e251db6cfe4ce3ea28cce",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/b87f919bc4487759fe80095ff706c0538527bcc2cc763456f5682d6d546b096c.json"
+        },
+        {
+          "arm": "H_MARGINAL_DIRECT",
+          "task": "RCA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-F14E2228C557__H_MARGINAL_DIRECT__RCA.json",
+          "record_sha256": "682a0780d32db4a12faf4ce377f07aec35ef60b0857caee723c1bf9628980823",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/0c90105f73bf995b272825d6f1bcf24c934eb1963e110cf3df75a688a1a8c03b.json"
+        },
+        {
+          "arm": "H_MARGINAL_DIRECT",
+          "task": "QA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-F14E2228C557__H_MARGINAL_DIRECT__QA.json",
+          "record_sha256": "c8757eb98ca5474deb6c9fe7e6e8e7e50d8a23d670f2c11207ff7954df4e67bb",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/057a966752b6d3cde7efef9d4d1f8da772e2f13d26dad5d30737a9235c1a477b.json"
+        }
+      ]
+    },
+    {
+      "id": "INC-D8E048E38FF6",
+      "selection": "post-hoc extreme repair",
+      "observation": "DOMAIN repairs RR0 to1 but describes94ms vs1735ms as increased, a logical numerical contradiction in the response itself.",
+      "evidence_level": "raw model response and saved model-visible renderer text/geometry; no new PNG opened",
+      "references": [
+        {
+          "arm": "P_FULL",
+          "task": "RCA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-D8E048E38FF6__P_FULL__RCA.json",
+          "record_sha256": "973084c6445cbc899e4bfe2bdd6cdea441480ee796c19e82c9ede8f22eb50dfb",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/0259e284ad22cac8a880142bd3dd6194223c12926c33113f58b55da03654af5c.json"
+        },
+        {
+          "arm": "P_DOMAIN",
+          "task": "RCA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-D8E048E38FF6__P_DOMAIN__RCA.json",
+          "record_sha256": "bfb55ce7a763272fa0a19bc50ec371b0ce65c4a99909886b5a1dbea67d03c69d",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/2499aff98e79d993c1ef948ce7253a4061c0025fb9e8af4c9c8d3782e2c0aebd.json"
+        }
+      ]
+    },
+    {
+      "id": "INC-493A8D7F2EC5",
+      "selection": "post-hoc repair and breakage",
+      "observation": "DOMAIN breaks RR1 to0 while D14_PACK repairs0 to1. Responses shift between throughput/WAL resource evidence and latency evidence. Does not establish causal explanation for vector effects.",
+      "evidence_level": "raw model response and saved model-visible renderer text/geometry; no new PNG opened",
+      "references": [
+        {
+          "arm": "P_FULL",
+          "task": "RCA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-493A8D7F2EC5__P_FULL__RCA.json",
+          "record_sha256": "64b55cae5736e78a26f426c401dc1539eacd8e040dcc0088bac0f2b7a61fb2c9",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/ddf5d9612a087350bde444a5db34311fe7f72609d03375595ffad0d40e13fcb8.json"
+        },
+        {
+          "arm": "P_DOMAIN",
+          "task": "RCA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-493A8D7F2EC5__P_DOMAIN__RCA.json",
+          "record_sha256": "9e6518587063cad70e98b850fc5afccaec848129003154a8f9e06a85d97590ae",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/a122bde57925e9b9024d65276ce0bc082ec5300a9389b40d9e077f2a7f597184.json"
+        },
+        {
+          "arm": "D14_FIXED",
+          "task": "RCA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-493A8D7F2EC5__D14_FIXED__RCA.json",
+          "record_sha256": "dc84bb45fc72fcca2f55f605a00c6d57d0750286830334f6c970adc5cc91ad7b",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/bc505146613b5ea80420c8578d579fab4f4f8978cb7735fda65a6c45bf92b78d.json"
+        },
+        {
+          "arm": "D14_PACK",
+          "task": "RCA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-493A8D7F2EC5__D14_PACK__RCA.json",
+          "record_sha256": "ccbd9947fcccf70cbb47ac313b8638e5e584e88852085512a8bc2d3542e97120",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/70a6d653cb6ac82d535af5e4ade4b6374c3dc8a3e78f02a29e0902ce31055785.json"
+        }
+      ]
+    },
+    {
+      "id": "INC-A195F9A69AFC",
+      "selection": "post-hoc extreme breakage",
+      "observation": "MEAN response attributes jvm.system.cpu.load_1m and container.cpu.usage to533; actual MET001 entity333 and MET002 entity368. REP RR1,MEAN RR0. Binding error confirmed, internal cause not established.",
+      "evidence_level": "raw model response and saved model-visible renderer text/geometry; no new PNG opened",
+      "references": [
+        {
+          "arm": "F_SOURCE_REP",
+          "task": "RCA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-A195F9A69AFC__F_SOURCE_REP__RCA.json",
+          "record_sha256": "d132f6d60d0a1d1ee00e266f58e2f016d9803c568559fc014d8f6af6336fb796",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/c1b07ee779f07440fb4a55e882f6b5e6f9ef93b4e7a87f9ad4b13f2806a6e455.json"
+        },
+        {
+          "arm": "F_SOURCE_MEAN",
+          "task": "RCA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-A195F9A69AFC__F_SOURCE_MEAN__RCA.json",
+          "record_sha256": "88dae19d8bc28e7f591d51a332b11c1f2df62e424dc359b23eb66ea920b91b87",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/e84d372f1691c133fb5647e56daf3ce5b874744d19405754b8c469e2d7575077.json"
+        }
+      ]
+    },
+    {
+      "id": "INC-3316B6DBC59B",
+      "selection": "post-hoc extreme repair",
+      "observation": "MEAN prioritizes787 client_error evidence instead of879 rt_max; rank improves4 to1. Counterexample to uniform harmfulness of averaging.",
+      "evidence_level": "raw model response and saved model-visible renderer text/geometry; no new PNG opened",
+      "references": [
+        {
+          "arm": "F_SOURCE_REP",
+          "task": "RCA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-3316B6DBC59B__F_SOURCE_REP__RCA.json",
+          "record_sha256": "eb7e5206683a108198ef999417b21dcd4b611d189ba2d59b52950cbea9961957",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/e2247a69e86d3417cca728821bdf77dc2ae0a0b4321d55818346e3f7cbae2e6f.json"
+        },
+        {
+          "arm": "F_SOURCE_MEAN",
+          "task": "RCA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-3316B6DBC59B__F_SOURCE_MEAN__RCA.json",
+          "record_sha256": "a31b169e4307f800af1cf0001206269228536117fc47226e7c53ec3e06c1c798",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/dcc674d5156e437a4297a02e79714cff5d278ae7026884c58d01fbfe41c39cec.json"
+        }
+      ]
+    },
+    {
+      "id": "INC-1899A22CF097",
+      "selection": "post-hoc extreme breakage",
+      "observation": "FIXED rank correct but assigns microseconds to container.memory.usage, claims spike despite input decrease from~7.47e8 to~6.2e5. PACK loses root. Ranking correctness not explanation correctness.",
+      "evidence_level": "raw model response and saved model-visible renderer text/geometry; no new PNG opened",
+      "references": [
+        {
+          "arm": "D14_FIXED",
+          "task": "RCA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-1899A22CF097__D14_FIXED__RCA.json",
+          "record_sha256": "c3411a0c02c7a38407635d40cce6540f949851045063f1f3008596bf4ea1a9be",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/49ad29764435906583cadec67f3cf23f6dfdcd7339910febbdcec676e32468c2.json"
+        },
+        {
+          "arm": "D14_PACK",
+          "task": "RCA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-1899A22CF097__D14_PACK__RCA.json",
+          "record_sha256": "294a2218009aee3b4e4d1d601e31da7624e21eb9dadd58b83c7fb2d012c21eb6",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/1416e79794f145ad931938475b49ffff877ed5965b9e727a3ad00a3d3e81c2f1.json"
+        }
+      ]
+    },
+    {
+      "id": "INC-1B936A4C6354",
+      "selection": "direct synthetic-control audit",
+      "observation": "Synthetic actual current parent p50=6.4879999999999995,reference p50=6.0200999999999985; model q1=3.461 is wrong. q6current correct but cited operand readings are wrong. QA5/6. Not an RCA intervention.",
+      "evidence_level": "raw model response and saved model-visible renderer text/geometry; no new PNG opened",
+      "references": [
+        {
+          "arm": "QA_STAT_LABEL",
+          "task": "QA",
+          "record": "RQs/RQ4_9/results/organization_v1/formal/completed/INC-1B936A4C6354__QA_STAT_LABEL__QA.json",
+          "record_sha256": "42d2e0ff86f6dcf5d52310ee9fb2b401cd85c40452e31cd71a76ec1e909bb092",
+          "request": "RQs/RQ4_9/results/organization_v1/objects/671f5386d335359ddd40af8407c0c20c931329fd4c70708b56d81a3be217a256.json"
+        }
+      ]
+    }
+  ],
+  "confirmed_QA_instrument_issues": {
+    "q1_answer_in_q4": 25,
+    "QA_contract_cases": 27,
+    "synthetic_parent_current_p50_gt_p95": 25,
+    "synthetic_applicable_cases": 25,
+    "unit_majority_ms": 25,
+    "original_oracles_modified": false
+  }
+}

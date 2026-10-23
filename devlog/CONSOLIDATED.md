@@ -1,5 +1,69 @@
 # CanvasRCA consolidated devlog
 
+
+## 2026-10-21 — RQ4.9 qualified and formal queue launched
+
+Implemented the approved 23-condition organization/fusion/pruning/attention/card-count
+study using the unified renderer, 4096-square/28-card inputs, source-exclusive
+hybrid, central scoring and single-call RCA. All 220 cases passed actual-processor
+CPU qualification; 27 fixed QA cases are answerable; 25/27 statistic-label controls
+are applicable. Six manual image inspections were used, not expanded. Static,
+16 independent unit regressions and 85 real processor/MRoPE probes passed.
+
+Three independent GPU smokes passed: organization 12/12 in 169.09 s, operators
+12/12 using 14 attempts in 852.15 s, QA 11/11 in 339.01 s. Operator failures exposed
+RPC tensor decoding and repeated Python set construction; affected checks were
+repaired and repeated without resetting the window or budget. Reviewed attention
+includes all four layers/two queries and stays below 64 KiB/call. QA review exposed
+question headings misread as answers in truncated prose. The v2 receiver recovers
+explicit completed answers and rejects conflicts; saved answers were rescored,
+old scores retained, and no model call regenerated. 939 historical QA responses
+also have separate offline scores; 141 no-generation positions remain distinct.
+
+Formal 5,850 positions are frozen and launched in `canvasrca-rq49`, CPU8/GPU8,
+BF16 Qwen/vLLM, memory utilization 0.8 and bounded RAM prefetch. Twenty-five exact
+qualification requests are references; at most 5,783 further generations remain
+before infrastructure recovery. True repeats are never references. The total
+ceiling is 6,000, including all 37 spent qualification attempts. No smoke MRR
+selected methods or parameters. Atomic completion markers support restart;
+exact inputs/conversations/operators/scores/attention are retained in readable,
+deduplicated files. Final statistics and storage validation run after drain.
+Codex.md, old experiment source and previous answers remain unchanged by this work.
+
+Startup observation passed at 191.2 seconds: 35 committed positions, 10 new formal replies, eight active GPU requests and no infrastructure error.
+
+[Plan](../docs/experiment_plans/RQ4_9_Dashboard_Organization_Compression_and_Attention_Plan_2026-10-21.md) ·
+[Findings/status](../RQs/RQ4_9/findings/exp_organization_findings.md) ·
+[Qualification and repairs](../RQs/RQ4_9/descriptions/RQ4_9_qualification.md)
+
+## 2026-10-21 — Fixed 4096-square dashboard policy and sampled rendering
+
+Added the registered `dashboard_policy` operation (`fixed_4096_28_v1`) and a
+measured `fixed_4096` preset, now the CLI preset default. New designs enforce a
+4096×4096 PNG at scale 1 and at most 28 rendered cards across all evidence kinds;
+inventory panels also count. Existing components and historical design paths
+retain their behavior. Source selection remains upstream: no automatic card
+deletion, fact truncation or font reduction. Actual DOM measurements select
+one to four columns by fitting capacity and content area. The first eight-card
+previews had excessive empty panel area; selecting columns by measured content
+area fixed that layout issue without changing evidence or components.
+
+Python AST, operation registration, TypeScript type checking and six focused
+regressions passed. Three distinct rendering fixtures were checked: synthetic
+28-card boundary and eight-card public samples from AIOPS-2022 and AegisLab,
+including metrics, traces, logs, topology, paired durations and long titles.
+All final PNGs are 4096×4096, preserve every supplied binding, show no audited
+overflow, and meet the rendered 18px font floor (within browser numerical
+tolerance). The 28-card rerender is byte-identical. There were six render
+exports including the two layout repairs and the deterministic repeat; this
+was a sampled renderer check, not a full corpus or model-processor qualification.
+Oversized count, viewport/scale changes and non-fitting content are rejected.
+No model calls, GPU service, historical experiment rewrite or full regression.
+Codex retains the user-authorized 28-card/4096-square rule; no further rule edit.
+
+[Implementation and use](../src/renderer/README.md) ·
+[Sample audit](../build/renderer_previews/fixed_4096_28_20261021/summary.json)
+
 ## 2026-10-18 — RQ4.5 static-only implementation
 
 Implemented the approved six-arm exclusive-hybrid/spatial-pruning plan, source ownership and selection packets, complete marginal component C39, closed execution gates, central scoring, queue/resume/storage and future offline regressions. Python/config/TypeScript/source-protection static checks are the only verification executed. No preparation, renderer/browser, actual processor count, feature extraction, CPU regression, GPU smoke or model call. Historical baseline answers are references; Codex.md and historical experiment code/config remain unchanged. Runtime dependencies are lazy so static checks do not require numba/Torch/vLLM. [Plan](../docs/experiment_plans/RQ4_5_Exclusive_Modality_Spatial_Pruning_Plan_2026-10-18.md) · [Status and static receipt](../RQs/RQ4_5/findings/exp_exclusive_spatial_findings.md).
@@ -15,11 +79,11 @@ Implemented SOURCE_ZOOM / REPEAT_VIEW / HASH_ZOOM from the unchanged historical 
 
 ## 2026-10-11 — Artifact retirement extended through RQ3.15; RQ3.16 unchanged
 
-User explicitly requested removing all raw results, preparation, inputs, conversations, outputs and generated intermediates through RQ3.15, while preserving source/configuration, design documents, analysis reports and their figures/tables. Removed 43 further project artifact roots, retaining 32 human documents and 115 referenced report/gallery assets; HTML dependencies verified. Removed 386 clearly attributable Windows example exports for RQ3.8 and RQ3.10–12, preserving later example directories. Approximately 26.51 GB freed on the project filesystem. Every one of RQ3.16's 23,722 files and its main report remains byte-identical; 690 source/configuration files, Codex and 587 report/gallery assets verified. Old upstream preparation dependencies are intentionally unavailable; no raw-output backup was kept. No model calls or run resume; RQ4.3 remains manually paused. [Cleanup record](../docs/issues/Through_RQ3_15_Artifact_Deletion_2026-10-11.md).
+User explicitly requested removing all raw results, preparation, inputs, conversations, outputs and generated intermediates through RQ3.15, while preserving source/configuration, design documents, analysis reports and their figures/tables. Removed 43 further project artifact roots, retaining 32 human documents and 115 referenced report/gallery assets; HTML dependencies verified. Removed 386 clearly attributable Windows example exports for RQ3.8 and RQ3.10–12, preserving later example directories. Approximately 26.51 GB freed on the project filesystem. Every one of RQ3.16's 23,722 files and its main report remains byte-identical; 690 source/configuration files, Codex and 587 report/gallery assets verified. Old upstream preparation dependencies are intentionally unavailable; no raw-output backup was kept. No model calls or run resume; RQ4.3 remains manually paused. [Consolidated cleanup summary](../important_docs/general_issues.md#r46).
 
 ## 2026-10-11 — User-authorized removal of pre-unified experiment artifacts
 
-RQ3.8 is the first experiment using `src/renderer/`. Removed raw results, preparation, intermediate artifacts and old run caches/logs for RQ1/RQ1.1/RQ2/RQ2.1/RQ3/RQ3.1–3.7, retaining source/configuration, reports and report-linked images/tables. Relocated 190 reports and 40 attachments; verified all 538 existing local report assets, 451 old source/configuration files and 239 later source/configuration files. No new broken report-asset links; four preexisting missing links are documented. Approximately 297.12 GB (276.72 GiB) freed. Raw-result replay/rescoring is no longer available for these retired runs. RQ3.8+ artifacts and Codex unchanged; no model calls or experiment restart. RQ4.3 remains manually paused by the user. [Cleanup report](../docs/issues/Pre_Unified_Artifact_Deletion_2026-10-11.md).
+RQ3.8 is the first experiment using `src/renderer/`. Removed raw results, preparation, intermediate artifacts and old run caches/logs for RQ1/RQ1.1/RQ2/RQ2.1/RQ3/RQ3.1–3.7, retaining source/configuration, reports and report-linked images/tables. Relocated 190 reports and 40 attachments; verified all 538 existing local report assets, 451 old source/configuration files and 239 later source/configuration files. No new broken report-asset links; four preexisting missing links are documented. Approximately 297.12 GB (276.72 GiB) freed. Raw-result replay/rescoring is no longer available for these retired runs. RQ3.8+ artifacts and Codex unchanged; no model calls or experiment restart. RQ4.3 remains manually paused by the user. [Consolidated cleanup summary](../important_docs/general_issues.md#r46).
 
 ## 2026-10-11 — RQ4.3 vLLM v13 resumed; startup observation completed
 
@@ -2547,3 +2611,99 @@ Job24686266 completed with zero new language-generation calls. pad96 is feature-
 ## 2026-10-21 — Nibi operational throughput target and persistent qualification
 
 Remote repository only. User lowers the goal to >=6 actual calls/minute. Round8:24760027 completed18/18, artifacts/answers reviewed, online3.9581/min; KV capacity79,725tokens limited actual batching to2-5. Registered operational0.90 GPU allocation profile, preserved all60 prior attempts and original failed numerical-equivalence records. Static passed; CPU facts/geometry qualifications reused with exact request-preservation proof. Round9 GPU24763295 and CPU review24763332 pending resources. Persistent180-second controller PID261939 verifies all outputs/attention plus measured throughput before submitting CPU input deployment and at most one2-hour GPU job. No full job submitted at this checkpoint. Local repository/running experiment not read or modified.
+
+# 2026-10-19 — RQ4.6 implementation; static-only stop
+
+## Scope and status
+Reviewed RQ4.5, historical reports, important documents, Codex and the supplied SeeRepo PDF. Implemented RQ4.6 with two hybrid and five pure-visual RCA arms; no agents delegated, no Codex change, no model calls.
+
+## Outcomes
+Prospective plan saved in docs/experiment_plans/RQ4_6_Pod_Bound_Relation_Join_Plan_2026-10-19.md. New opt-in shared renderer pod-join/separate components preserve old defaults. Three user-requested U refinements retain original image/prompt/A/E/K, with value-support/local-neighbor objectives and a spatial-cover constraint. The obsolete topology instruction is corrected at its identified static source in new RCA/QA inputs. Historical inputs/results remain immutable.
+
+Offline reanalysis of existing U results found76 improvements/33 regressions/111 ties versus full vision; all five top-1 regressions were read against public cards. Missing-role-rate means0.3288/0.3295 provide no useful simple success routing rule. This analysis is evaluator-only.
+
+## Validity and next steps
+Static AST/config/import/TypeScript and historical-source protection checks only; receipt in RQs/RQ4_6/findings/static_check.json. Authored tests have not run. No browser, processor, renderer execution, feature extraction, CPU regression or GPU smoke. Actual geometries, masks, budgets and performance remain pending. Registration:1870 formal positions +18 smoke +112 recovery =2000 maximum; all execution switches closed. Stop for user instruction.
+
+
+### 2026-10-19 — RQ4.6 hybrid differential extension, static only
+
+User requested historical marginal/TPV/combination gains and harms before additional hybrid design. Read preserved TPV/RQ3.7 reports, recomputed RQ3.16/17 and RQ4.5 paired tables, and read eight contrasted three-arm response sets with source spot checks. Saved evaluator-only review and provenance. Expanded from 2 to 5 hybrid conditions (5 pure retained); added source-complete endpoint/phase population comparison through unified renderer only. Formal registration 2,620 positions, total ceiling 2,750. H_POD_PHASE nominated before execution. RCA remains single-call, exclusive source ownership, no label-based routing. New model calls 0; no rendering, CPU regression, processor count or GPU test. Static/source/config/TypeScript review only; actual capacity/performance gates remain pending. Codex and historical files untouched by this revision.
+
+### 2026-10-19 — RQ4.6 second logic review, static-only stop
+
+Reviewed all five functional modules and the three new shared-renderer components. Fixed same-case QA context collisions, reference rescoring, incomplete pair metadata/phase validation, loss of role-bearing isolates, qualification coverage/source-version checks, duplicate-launch pause handling, interrupted cache cleanup and unsafe live-source/frozen-snapshot deduplication. Added original-denominator contrast bounds and explicit complete-event inference for partial results. The new phase component now connects point centers and wraps long sample labels; historical defaults remain protected.
+
+Authored affected regression cases without running them. Refreshed static AST/config/import/TypeScript and 105-file protection checks pass; `git diff --check` passes. Ten arms and 2,750-call ceiling unchanged. Detailed review is in RQs/RQ4_6/findings/exp_pod_join_findings.md. No CPU regression/preparation, rendering, processor count, GPU smoke or model call; no execution credentials issued, no Codex edits. Stop pending user instruction.
+
+
+### 2026-10-19 — RQ4.6 qualification and authorized hybrid cost projection
+
+User authorizes CPU regression, reviewed GPU smoke, repairs and conditional formal launch. They additionally authorize aggressive hybrid evidence deletion for lower deployment cost while keeping performance, with no comparable deletion pressure on complete pure-visual inputs. Registered HybridSummaryBudgetV1,8 observed pairs/phase, metric/AUX summary projection, explicit omission audit, input gates≤0.90×T_FULL/H_MARGINAL and total-token target≤0.80×H_MARGINAL. All true relationships, population/trace/log statistics and entity coverage remain; pure evidence/old U bytes stay unchanged.
+
+CPU qualification found and repaired new-component capacity, identifier wrapping and stale-cache risks. Added explicit8-sample budget marginal components without modifying historical defaults. A deterministic coupled-support proposal search improves CPU intervention strength without changing U's budget/objectives or using model outcomes. Static105-file protection and35 offline regressions pass; full220-case CPU audit running. GPU smoke/formal remain not started; no Codex edit or new model call. Full stage results will replace this in-progress status after actual inspection.
+
+
+### 2026-10-19 — RQ4.6 CPU/GPU qualification passed; formal launched
+
+Completed full220-case preparation and eligibility;39 unit tests,32 mechanism cases,43 runtime checks, evaluator identity, visual review, passive transport invariance and deterministic redraws pass. User-authorized lossy hybrid summary/sample projection reduces input33–42% against historical H_MARGINAL. Pure cost limit becomes1.10×U under explicit flexibility; no pure diagnostic evidence deletion. Combined128-step refinement passes unchanged anti-redundancy gates. Small retained scorer contexts preserve all220 original mappings/labels. Post-drain storage retirement preserves exact actual inputs/outputs and removes only verified duplicate or unreachable preparation content. Source/AST proofs carry unaffected checks after lifecycle-only repairs.
+
+GPU smoke18/18 committed in168.91s including startup;17 unique model images, inputs, sidecars, scoring, ledger and five attention mappings were inspected. QA reading errors remain outcomes; no accuracy tuning or new baseline calls. Frozen local formal queue launched as PID398295,2620 positions,2750 total call ceiling. No Codex or protected historical/default-renderer changes. Full status and qualification caveats: RQs/RQ4_6/findings/exp_pod_join_findings.md; execution log: RQs/RQ4_6/results/pod_join_v1/logs/qualification_launch_2026-10-19.md.
+
+### 2026-10-19 — RQ4.6 complete result analysis
+
+All2,620 positions committed(2,601 actual formal calls,19 references;18 smoke separately). Report and directly readable derivations saved to docs/experiment_reports/RQ4_6_Qwen_Analysis_2026-10-19.md. Recomputed all scores and verified actual images/sidecars/frozen provenance. H_MARGINAL_PHASE0.4590 saves39.20% total tokens versus historical H_MARGINAL but loses0.0322 MRR, concentrated in AegisLab. Best new pure NEIGHBOR0.3436 remains below U0.3517. Includes event/case Holm, tolerant sensitivity, repairs/breaks, QA response/source inspection, repeats and716 limited-query attention measurements. Three nominees fail ranking engineering targets; no successor calls, source/recipe/Codex changes or cleanup. Separate storage finalization failure leaves results intact and final size qualification pending. Detailed execution log: RQs/RQ4_6/results/pod_join_v1/logs/analysis_2026-10-19.md.
+
+
+
+
+### 2026-10-20 — RQ4.7 user-authorized deletion; S data retained
+
+The user orders deletion of every three-M-condition experimental record,result,input,output,conversation,attention measurement and intermediate/derived artifact,including shared action plans. Removed those data without backups,filtered mixed CSV/JSON,retired full-run receipts/activation and rebuilt the report as S-only. SQLite rows were securely deleted and vacuumed; unreferenced objects/mappings were removed. Shared source data remain only for S input dependencies. No code/model/Codex/Nibi modification or new inference.
+
+The retained S formal subset has870 terminal positions/750 actual calls,plus6 smoke positions/5 actual calls. Verified S input identities and exact actual request/output/scoring/image/attention dependencies. S_GROUND standard/tolerant MRR0.3005/0.3320 does not advance. Original whole-run aggregates and deleted-condition conversation excerpts are no longer retained. Code and design remain,with no valid full-run resume authority. Updated report:docs/experiment_reports/RQ4_7_Qwen_Analysis_2026-10-20.md.
+
+### 2026-10-20 — RQ4.7 QA answerability correction
+
+Audited all 360 retained S_COMPARE questions from 60 cases, using original public sources, DOM bindings, image geometry and token support. Found 19 invalid empty-single-entity oracles for relation-level quantities (17 cases), plus undefined phase vocabulary and equivalent-spelling risks; the remaining questions are not automatically certified valid. Reviewed 13 images including exact pixel crops, below the user's total limit of 20. Every scalar has recorded visible source text and every target matches registered geometry, which does not prove raster legibility or semantic uniqueness. Preserved original questions, answers and scores; verified runtime/scorer and original-score hashes unchanged. Updated the main report, findings and report index, and saved docs/experiment_reports/RQ4_7_QA_Answerability_Audit_2026-10-20.md with per-question validity annotations. Original joint QA zero is retained only as protocol history, not qualified evidence of visual inability or QA–RCA independence. No new model calls, rendering, processor execution or runtime changes; independent RCA scores are unaffected.
+
+
+### 2026-10-21 — RQ4.9 six-arm runtime revision, formal remains paused
+
+User requests acceleration of four sink arms, P_FULL and F_LOCAL_MEAN, later changing acceptance to all calls <=20s OR GPU mean >=82%. Preserved scientific inputs, all23 conditions, native BF16 weights/gates/positions and attention coverage. Added paged-KV fused corrections, batched exact BF16 fusion, cached policy/indices and deferred passive-summary transfers. Static/17 targeted regressions and independent GPU arithmetic pass; full220-case CPU preparation was not repeated.
+
+Five bounded scopes used90 calls from recovery reserve, leaving4 under the6,000 ceiling. Latest18/18 outputs/central scores/attention records pass review. Full173.444s inference window averaged87.6709% GPU at1Hz, passing the utilization alternative; latency alternative remains unmet (means48.68–81.07s online). Throughput6.2268calls/min excludes loading; total scope254.696s. Do not infer speedup from utilization alone. Formal stays paused at178/5,850 positions; no formal resume or Codex/historical/renderer edits. Detailed record:RQs/RQ4_9/results/organization_v1/logs/performance_revision_2026-10-21.md.
+
+
+### 2026-10-21 — RQ4.9 resumed with qualified performance runtime
+
+User explicitly authorized resuming the full queue. Bound the unchanged5,850 positions to the qualified runtime, preserving178 old commits and all original smoke reviews. Added version-safe exact-reference eligibility and a separate hash-bound operational qualification receipt; no model/compiler change after smoke v5. Static/19 targeted tests pass. One incomplete unit-test fixture was corrected before activation; no new GPU qualification call or full CPU rerun.
+
+Detached local PID1044431 launched; monitored211seconds. Progress193/5,850,8 active GPU requests,16 ready inputs,0 runtime errors/preemptions. Checked15 new committed records, centralized scores and requested attention. Last GPU utilization sample100%; not a full-run average. Original outputs are untouched, and future analysis must disclose runtime segments. Detailed review:RQs/RQ4_9/results/organization_v1/logs/formal_resume_review_2026-10-21.json.
+
+
+### 2026-10-22 — RQ4.10 implementation; static-only handoff
+
+Saved approved plan and its user-approved complete-annotation V baseline correction, protocol/difference/literature/call registration, and five-module implementation. Added only the explicit unified-renderer `domain_view` export (sample numeral omission, within-card space recovery, sample-only markless, background audit plate and QA controls); historical component defaults and RQ4.9 source hashes remain unchanged. Codex.md was not edited.
+
+Implemented D/O interfaces, outside-only spatial/feature fusion with representative/sham controls, pixel/card/length pruning, full-sequence attention transfer/masking with matched sink/background mass, independent single-question QA and tolerant scoring, central RCA scorer, atomic resume, bounded CPU/RAM scheduling, passive attention/utilization, frozen statistical families and readable retention/viewing tools. Future regression code is present and was not executed.
+
+Static checks passed at fingerprint 3c2c3f6a24dcd11aaa66511174cbb70f698c2575376eb1e63063e905e62d95c7: AST/compile/name resolution, TypeScript noEmit, 20-arm/5,700-call configuration, default-off execution, historical protection and 2865/7,500 functional lines. CPU/GPU/browser/processor/inference are NOT RUN; new calls 0. The actual capacity of the new full-annotation V baseline and all runtime gates remain pending. Stopped as instructed.
+
+
+## 2026-10-22 — Nibi-only upstream integration in isolated worktree
+
+Merged upstream67396dff with deployment snapshot21a385a2 on the Nibi-only
+`nibi-update-20261022_223228` branch. Resolved17 conflicts by retaining
+H100/Slurm/environment/attention/graph/recovery adaptations and combining
+local versus Nibi historical records. New RQ4.6–RQ4.10, unified renderer and
+scorer files are byte-identical to upstream;74 deployed runtime/config/history
+files retain the Nibi snapshot bytes. Static checks:76 Python AST/syntax,
+112 JSON parses,71 Bash syntax,zero unresolved conflict markers. Existing
+whitespace in imported report/profile artifacts remains unchanged. No
+TypeScript/runtime/CPU experiment/GPU test or new model call was performed.
+Original running job24832363 continues in its existing source directory;
+no active inputs, frozen receipts, caches or result writers were migrated.
+No push to GitHub and no local workstation edits. Detailed integration record:
+`docs/Nibi_Upstream_Integration_2026-10-22.md`. Merged source is not a new runtime
+qualification; future activation requires the corresponding deployment binding.

@@ -1,5 +1,42 @@
 # Unified dashboard renderer (prototype)
 
+## New dashboards: 4096 × 4096, at most 28 cards
+
+Use the `fixed_4096` preset for new dashboards (the CLI `preset` default).
+It measures the existing registered components with Chromium, then evaluates
+one to four columns, preserving the input card order. Among layouts that fit,
+it chooses the greatest measured content area to reduce wasted space; ties
+prefer more columns. Stretched empty panel backgrounds do not count as content.
+Every selected card must fit, with its full labels and values, at the existing
+18px readability floor. Final PNG dimensions are exactly 4096 × 4096 at scale 1.
+
+```bash
+bash src/renderer/scripts/render.sh preset --evidence selected_evidence.json --out design.json
+bash src/renderer/scripts/render.sh render --evidence selected_evidence.json --design design.json --out build/renderer_previews/new_dashboard
+```
+
+Python callers use `renderer.fixed_canvas.preset(evidence)` or
+`renderer.exps.preset(evidence, "fixed_4096")`. The original Python preset's
+default and historical named presets remain unchanged for reproducibility.
+All rendered cards count towards 28, including inventory cards; dashboard
+headers are not cards. This conservative count cannot exempt diagnostic
+summaries by calling them inventory. Upstream experiment code selects evidence
+explicitly; the renderer never silently picks the first 28 cards.
+
+The registered `dashboard_policy` operation adds the persistent
+`fixed_4096_28_v1` contract to an explicit design. It changes the canvas and
+scale, not its composition: use the measured preset to generate a fitting
+layout, or supply a qualified explicit tree. Once attached, subsequent viewport
+or resolution operations cannot bypass the size/card checks. Oversized content
+fails rather than being truncated or rendered at a smaller font. 28 is a ceiling,
+not a guarantee that every possible set of 28 complex cards fits.
+
+Historical designs without this policy preserve their old geometry and
+components. Do not use that compatibility path for new experiments. Existing
+components, missing-sample connections, frozen inputs and results are unchanged.
+The preset's temporary DOM measurements are automatically removed. Actual
+render outputs include the policy, dimensions, field bindings and geometry audit.
+
 Python validates a selected public evidence DTO and compiles an explicit layout
 tree. React + SVG + CSS render cards; pinned headless Chromium exports an offline
 HTML and a PNG. No LLM, GPU, raw-table scan, inference server or development server.

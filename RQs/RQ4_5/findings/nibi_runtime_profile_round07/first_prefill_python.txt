@@ -1,0 +1,77 @@
+         96 function calls in 0.001 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.001    0.001 /localscratch/lglsj.24585685.0/rq45_runtime_probe.py:34(<lambda>)
+        1    0.000    0.000    0.001    0.001 /home/lglsj/CanvasRCA_20261018/RQs/RQ4_5/src/exps.py:35(execute_wrapper)
+        1    0.000    0.000    0.001    0.001 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/torch/utils/_contextlib.py:120(decorate_context)
+        1    0.000    0.000    0.001    0.001 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/worker/gpu_model_runner.py:4055(execute_model)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/worker/gpu_model_runner.py:1127(_update_states)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/worker/gpu_model_runner.py:1065(_may_reorder_batch)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/attention/backends/utils.py:637(reorder_batch_to_split_decodes_and_prefills)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/worker/gpu_input_batch.py:812(refresh_metadata)
+        4    0.000    0.000    0.000    0.000 {method 'sum' of 'numpy.ndarray' objects}
+        5    0.000    0.000    0.000    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+        4    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/numpy/_core/_methods.py:49(_sum)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/worker/gpu_input_batch.py:684(condense)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/numpy/_core/fromnumeric.py:462(repeat)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/numpy/_core/fromnumeric.py:51(_wrapfunc)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/numpy/_core/fromnumeric.py:41(_wrapit)
+        1    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+        1    0.000    0.000    0.000    0.000 {method 'any' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/Compiler/gcccore/python/3.11.5/lib/python3.11/contextlib.py:287(helper)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/torch/autograd/grad_mode.py:296(clone)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/sample/logits_processor/state.py:69(removed)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/sample/logits_processor/state.py:119(get_and_reset)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/numpy/_core/_methods.py:57(_any)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/sample/logits_processor/builtin.py:197(update_state)
+        1    0.000    0.000    0.000    0.000 /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/Compiler/gcccore/python/3.11.5/lib/python3.11/contextlib.py:132(__enter__)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/sample/logits_processor/state.py:59(_ensure_removed_sorted)
+        1    0.000    0.000    0.000    0.000 /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/Compiler/gcccore/python/3.11.5/lib/python3.11/contextlib.py:104(__init__)
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.next}
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/torch/autograd/grad_mode.py:289(__enter__)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/torch/autograd/grad_mode.py:284(__new__)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/distributed/parallel_state.py:559(is_last_rank)
+        1    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
+        1    0.000    0.000    0.000    0.000 /home/lglsj/CanvasRCA_20261018/RQs/RQ4_3/src/utils.py:548(update_state)
+        1    0.000    0.000    0.000    0.000 /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/Compiler/gcccore/python/3.11.5/lib/python3.11/contextlib.py:141(__exit__)
+        2    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/worker/gpu_model_runner.py:3754(synchronize_input_prep)
+        2    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/worker/gpu_input_batch.py:304(req_ids)
+        1    0.000    0.000    0.000    0.000 {method 'repeat' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/sample/logits_processor/builtin.py:135(update_state)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/distributed/parallel_state.py:1365(get_pp_group)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/distributed/parallel_state.py:549(last_rank)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/torch/autograd/grad_mode.py:293(__exit__)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/torch/autograd/grad_mode.py:279(__init__)
+        4    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/sample/logits_processor/state.py:162(all)
+        1    0.000    0.000    0.000    0.000 {method 'astype' of 'numpy.ndarray' objects}
+        2    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/worker/gpu_input_batch.py:1086(num_reqs)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/utils.py:734(record_function_or_nullcontext)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/distributed/ec_transfer/ec_transfer_state.py:22(has_ec_transfer)
+        1    0.000    0.000    0.000    0.000 {built-in method torch._C.__exit__}
+        2    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/distributed/kv_transfer/kv_transfer_state.py:26(has_kv_transfer_group)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/worker/gpu/pool/late_interaction_runner.py:41(on_requests_finished)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        1    0.000    0.000    0.000    0.000 {method 'as_arrays' of 'numpy._core._multiarray_umath._array_converter' objects}
+        1    0.000    0.000    0.000    0.000 {method 'sort' of 'list' objects}
+        5    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+        1    0.000    0.000    0.000    0.000 {built-in method torch._C.__enter__}
+        1    0.000    0.000    0.000    0.000 {method 'wrap' of 'numpy._core._multiarray_umath._array_converter' objects}
+        1    0.000    0.000    0.000    0.000 {built-in method __new__ of type object at 0x14729eae20a0}
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/sample/logits_processor/builtin.py:54(update_state)
+        3    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/sample/logits_processor/builtin.py:289(process_dict_updates)
+        1    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.any}
+        1    0.000    0.000    0.000    0.000 /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/Compiler/gcccore/python/3.11.5/lib/python3.11/contextlib.py:751(__init__)
+        2    0.000    0.000    0.000    0.000 {method 'keys' of 'dict' objects}
+        2    0.000    0.000    0.000    0.000 /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/Compiler/gcccore/python/3.11.5/lib/python3.11/typing.py:2256(cast)
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.isinstance}
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/vllm/v1/attention/backends/utils.py:656(<listcomp>)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/torch/_jit_internal.py:103(is_scripting)
+        1    0.000    0.000    0.000    0.000 /scratch/lglsj/CanvasRCA/.venv-inference/lib/python3.11/site-packages/numpy/_core/fromnumeric.py:458(_repeat_dispatcher)
+        1    0.000    0.000    0.000    0.000 /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/Compiler/gcccore/python/3.11.5/lib/python3.11/contextlib.py:754(__enter__)
+        1    0.000    0.000    0.000    0.000 /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/Compiler/gcccore/python/3.11.5/lib/python3.11/contextlib.py:757(__exit__)
+
+

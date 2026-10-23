@@ -1,6 +1,22 @@
+> Nibi integration checkpoint — 2026-10-22: this worktree combines upstream
+> `67396dff` with Nibi deployment snapshot `21a385a2`. Local completed results
+> and Nibi deployment checkpoints below refer to different environments.
+> The running job 24832363 continues in `/home/lglsj/CanvasRCA_20261018`.
+> This merged worktree has not been activated or qualified for new inference;
+> old fingerprints and passed receipts remain historical evidence only.
+
 # RQ4.5 implementation
 
 Six main arms: H_MARGINAL, H_TOPOLOGY, H_TOPO_MARGINAL, V_DOMAIN_FULL, V_SOURCE_UNIFORM, V_CONTEXT_FILL. Historical baselines are references only.
+
+**Current local status, 2026-10-19: complete.** All 1560 formal positions committed: 1538 actual calls and 22 exact references. The 18 local smoke calls are separate. No infrastructure-unknown results; owned GPU service stopped. Final six-arm standard MRR: H_MARGINAL 0.4912, H_TOPOLOGY 0.4592, H_TOPO_MARGINAL 0.4736, V_DOMAIN_FULL 0.3302, V_SOURCE_UNIFORM 0.3105, V_CONTEXT_FILL 0.3208. The two nominees do not meet advancement goals. [Complete analysis](../../../docs/experiment_reports/RQ4_5_Qwen_Analysis_2026-10-19.md) includes cost, paired statistics, QA/RCA and passive attention. This update makes no new statement about the remote Nibi queue.
+
+Local monitoring: `bash RQs/RQ4_5/scripts/launch_local.sh status`.
+After a shutdown or explicit pause, continue with `bash RQs/RQ4_5/scripts/launch_local.sh resume`.
+The local results root is `RQs/RQ4_5/results/exclusive_spatial_v1/`; completed calls are skipped on resume.
+
+
+### Historical Nibi CPU checkpoint (superseded)
 
 **Current authorization: All CPU qualification passed and frozen on Nibi (job 24546402, exit 0). GPU smoke and formal inference remain disabled.**
 

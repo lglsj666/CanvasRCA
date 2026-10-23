@@ -1,0 +1,435 @@
+[
+  {
+    "view": 1,
+    "reason": "initial_full_workspace_inspection",
+    "id": "INC-1E7AE92CAA11",
+    "original": "RQs/RQ4_7/results/source_workspace_v1/objects/d498b6448b991937ed4d1979cb6162ba113f5cb4a4949d68abecffa531007f46.png",
+    "source_sha256": "d498b6448b991937ed4d1979cb6162ba113f5cb4a4949d68abecffa531007f46",
+    "kind": "full original model-visible workspace, no crop",
+    "actual_visual_inspection_completed": true
+  },
+  {
+    "view": 2,
+    "reason": "empty_entity_A22",
+    "id": "INC-B646C4677B96",
+    "dataset": "aiops2022",
+    "question": 4,
+    "image": 0,
+    "card": "INV031",
+    "expected": {
+      "entity": "",
+      "phase": "reference",
+      "statistic": "PAIR02 · reference · parent>p95 child>p95",
+      "unit": "count",
+      "value": "0"
+    },
+    "actual_answer": {
+      "value": "3301.7",
+      "entity": "java_lang_Compilation_TotalCompilationTime",
+      "unit": null,
+      "statistic": "peak",
+      "phase": "current"
+    },
+    "original": "RQs/RQ4_7/results/source_workspace_v1/objects/f0fdae58bc96a5196b798e292e8c998c0770b024c3a6161c4c5979ccfede8eb0.png",
+    "source_sha256": "f0fdae58bc96a5196b798e292e8c998c0770b024c3a6161c4c5979ccfede8eb0",
+    "crop_xyxy": [
+      6141,
+      2733,
+      7151,
+      3189
+    ],
+    "audit_crop_path": "docs/experiment_reports/artifacts/RQ4_7_2026-10-20/qa_answerability_audit/01_empty_entity_A22.png",
+    "kind": "unmodified pixel crop for audit, never a model input",
+    "audit_crop_sha256": "cf91d491ad0848571686d268dab58658f379019429b7b2659cae844fac687620",
+    "actual_visual_inspection_completed": true,
+    "question_index_base": 0
+  },
+  {
+    "view": 3,
+    "reason": "empty_entity_A25",
+    "id": "INC-96E8C237EFAF",
+    "dataset": "aiops2025",
+    "question": 5,
+    "image": 0,
+    "card": "INV031",
+    "expected": {
+      "entity": "",
+      "phase": "reference",
+      "statistic": "PAIR01 · reference · parent>p95 child≤p95",
+      "unit": "count",
+      "value": "40"
+    },
+    "actual_answer": {
+      "value": "156835710.0",
+      "entity": "node_memory_MemAvailable_bytes",
+      "unit": "bytes",
+      "statistic": "reference_median",
+      "phase": "reference"
+    },
+    "original": "RQs/RQ4_7/results/source_workspace_v1/objects/7339476b85da41ebbf4f3f7c8584ba127ec23f4019fea2af37a54752f5b1c9fd.png",
+    "source_sha256": "7339476b85da41ebbf4f3f7c8584ba127ec23f4019fea2af37a54752f5b1c9fd",
+    "crop_xyxy": [
+      4101,
+      2492,
+      5111,
+      2948
+    ],
+    "audit_crop_path": "docs/experiment_reports/artifacts/RQ4_7_2026-10-20/qa_answerability_audit/02_empty_entity_A25.png",
+    "kind": "unmodified pixel crop for audit, never a model input",
+    "audit_crop_sha256": "21a97042cf817deefab063bb49243decd31f6d8568a49328cc954cf89fde8903",
+    "actual_visual_inspection_completed": true,
+    "question_index_base": 0
+  },
+  {
+    "view": 4,
+    "reason": "empty_entity_Aegis",
+    "id": "INC-776EE000D01C",
+    "dataset": "aegislab",
+    "question": 5,
+    "image": 0,
+    "card": "INV026",
+    "expected": {
+      "entity": "",
+      "phase": "reference",
+      "statistic": "PAIR01 · reference · captured requests",
+      "unit": "count",
+      "value": "506"
+    },
+    "actual_answer": {
+      "value": null,
+      "entity": null,
+      "unit": null,
+      "statistic": null,
+      "phase": null
+    },
+    "original": "RQs/RQ4_7/results/source_workspace_v1/objects/8471d26b1da6fc3b30aebf275f69deb34b4711684cc99b46289fb3360dd1384f.png",
+    "source_sha256": "8471d26b1da6fc3b30aebf275f69deb34b4711684cc99b46289fb3360dd1384f",
+    "crop_xyxy": [
+      4101,
+      2525,
+      5111,
+      3013
+    ],
+    "audit_crop_path": "docs/experiment_reports/artifacts/RQ4_7_2026-10-20/qa_answerability_audit/03_empty_entity_Aegis.png",
+    "kind": "unmodified pixel crop for audit, never a model input",
+    "audit_crop_sha256": "8b33d7d0886d19c648b01727dca81ac670e762d0ec8db2198621aca33e4314cf",
+    "actual_visual_inspection_completed": true,
+    "question_index_base": 0
+  },
+  {
+    "view": 5,
+    "reason": "entity_operation_alias",
+    "id": "INC-C10F5EA649A5",
+    "dataset": "aiops2025",
+    "question": 2,
+    "image": 1,
+    "card": "TRA001",
+    "expected": {
+      "entity": "619",
+      "phase": "current",
+      "statistic": "exclusive p95",
+      "unit": "µs",
+      "value": "77933.15"
+    },
+    "actual_answer": {
+      "value": "77933",
+      "entity": "745.619/PlaceOrder",
+      "unit": "µs",
+      "statistic": "exclusive p95",
+      "phase": "current"
+    },
+    "original": "RQs/RQ4_7/results/source_workspace_v1/objects/a2e10bdf6da23ddf78f264b2a060edaae3e24f9e3ff086922564042c8210f1ca.png",
+    "source_sha256": "a2e10bdf6da23ddf78f264b2a060edaae3e24f9e3ff086922564042c8210f1ca",
+    "crop_xyxy": [
+      13,
+      715,
+      1359,
+      1895
+    ],
+    "audit_crop_path": "docs/experiment_reports/artifacts/RQ4_7_2026-10-20/qa_answerability_audit/04_entity_operation_alias.png",
+    "kind": "unmodified pixel crop for audit, never a model input",
+    "audit_crop_sha256": "0bffd948a41a47275666fa4d547d6064927fb5ba4d2e0ea5b4b7ec8d2de1cffa",
+    "actual_visual_inspection_completed": true,
+    "question_index_base": 0
+  },
+  {
+    "view": 6,
+    "reason": "stat_phase_alias",
+    "id": "INC-98BF3F9714D0",
+    "dataset": "aiops2025",
+    "question": 1,
+    "image": 1,
+    "card": "TRA001",
+    "expected": {
+      "entity": "699",
+      "phase": "reference",
+      "statistic": "exclusive p95",
+      "unit": "µs",
+      "value": "77162.0"
+    },
+    "actual_answer": {
+      "value": "77162",
+      "entity": "14 TRC01 · 151.699/SendOrderConfirmation",
+      "unit": "µs",
+      "statistic": "reference exclusive p95",
+      "phase": "reference"
+    },
+    "original": "RQs/RQ4_7/results/source_workspace_v1/objects/ee5eb89f27578a67d1c329fdd35aeff3ef36f88931685291abb72f3cd9aa829e.png",
+    "source_sha256": "ee5eb89f27578a67d1c329fdd35aeff3ef36f88931685291abb72f3cd9aa829e",
+    "crop_xyxy": [
+      13,
+      715,
+      1359,
+      1895
+    ],
+    "audit_crop_path": "docs/experiment_reports/artifacts/RQ4_7_2026-10-20/qa_answerability_audit/05_stat_phase_alias.png",
+    "kind": "unmodified pixel crop for audit, never a model input",
+    "audit_crop_sha256": "c3c6e30a851d7c4e338667ec6adf5df70d7f4948d61b161806fe7322233b71e3",
+    "actual_visual_inspection_completed": true,
+    "question_index_base": 0
+  },
+  {
+    "view": 7,
+    "reason": "whole_window",
+    "id": "INC-85C93CE3CB89",
+    "dataset": "aegislab",
+    "question": 0,
+    "image": 1,
+    "card": "MET011",
+    "expected": {
+      "entity": "877",
+      "phase": "whole_window",
+      "statistic": "baseline",
+      "unit": "source_unit",
+      "value": "14.22"
+    },
+    "actual_answer": {
+      "value": "0.019871",
+      "entity": "jvm.system.cpu.utilization",
+      "unit": null,
+      "statistic": "reference",
+      "phase": null
+    },
+    "original": "RQs/RQ4_7/results/source_workspace_v1/objects/b51bc6daa1108e083d99c2e520b3158d080d2ac3055fb0a4e84625ad9f3731e3.png",
+    "source_sha256": "b51bc6daa1108e083d99c2e520b3158d080d2ac3055fb0a4e84625ad9f3731e3",
+    "crop_xyxy": [
+      13,
+      13,
+      1359,
+      705
+    ],
+    "audit_crop_path": "docs/experiment_reports/artifacts/RQ4_7_2026-10-20/qa_answerability_audit/06_whole_window.png",
+    "kind": "unmodified pixel crop for audit, never a model input",
+    "audit_crop_sha256": "91d6fd0b3f447d4633ed632acde1e5c5f3f65b3a71c3b729fb21d11d33114414",
+    "actual_visual_inspection_completed": true,
+    "question_index_base": 0
+  },
+  {
+    "view": 8,
+    "reason": "observed_window",
+    "id": "INC-39682657768A",
+    "dataset": "aegislab",
+    "question": 5,
+    "image": 0,
+    "card": "LOG001",
+    "expected": {
+      "entity": "36285",
+      "phase": "observed_window",
+      "statistic": "template {num2} · occurrences",
+      "unit": "count",
+      "value": "14"
+    },
+    "actual_answer": {
+      "value": "14310",
+      "entity": "PAIR02 · Parent 615",
+      "unit": "ms",
+      "statistic": "parent_p95",
+      "phase": "current"
+    },
+    "original": "RQs/RQ4_7/results/source_workspace_v1/objects/c11bea3acb972d83629375c87985da191678a3e0631ca12d90e48c5323a91b53.png",
+    "source_sha256": "c11bea3acb972d83629375c87985da191678a3e0631ca12d90e48c5323a91b53",
+    "crop_xyxy": [
+      5121,
+      83,
+      6131,
+      860
+    ],
+    "audit_crop_path": "docs/experiment_reports/artifacts/RQ4_7_2026-10-20/qa_answerability_audit/07_observed_window.png",
+    "kind": "unmodified pixel crop for audit, never a model input",
+    "audit_crop_sha256": "226bbc5b5365676c74a08f401ad175d72bb562b63a15114864f346ab77adef30",
+    "actual_visual_inspection_completed": true,
+    "question_index_base": 0
+  },
+  {
+    "view": 9,
+    "reason": "placeholder_unit",
+    "id": "INC-B646C4677B96",
+    "dataset": "aiops2022",
+    "question": 0,
+    "image": 1,
+    "card": "MET005",
+    "expected": {
+      "entity": "22243",
+      "phase": "whole_window",
+      "statistic": "peak",
+      "unit": "milliseconds_or_source_unit",
+      "value": "2.669e+04"
+    },
+    "actual_answer": {
+      "value": "2340.0",
+      "entity": "container_file_descriptors",
+      "unit": null,
+      "statistic": "values · current_interval_s · 1",
+      "phase": "current"
+    },
+    "original": "RQs/RQ4_7/results/source_workspace_v1/objects/8ae7d80ab6ece5c8c6250c1cbe671f31b979ea9136e02cb03dd7faf0a9563749.png",
+    "source_sha256": "8ae7d80ab6ece5c8c6250c1cbe671f31b979ea9136e02cb03dd7faf0a9563749",
+    "crop_xyxy": [
+      13,
+      13,
+      1359,
+      705
+    ],
+    "audit_crop_path": "docs/experiment_reports/artifacts/RQ4_7_2026-10-20/qa_answerability_audit/08_placeholder_unit.png",
+    "kind": "unmodified pixel crop for audit, never a model input",
+    "audit_crop_sha256": "8b8398d3eedea45867b063b1c3ae651b7944242745324a257c8223793d36fd26",
+    "actual_visual_inspection_completed": true,
+    "question_index_base": 0
+  },
+  {
+    "view": 10,
+    "reason": "low_target_token_coverage",
+    "id": "INC-C4D4F337120D",
+    "dataset": "aiops2022",
+    "question": 3,
+    "image": 0,
+    "card": "CMP005",
+    "expected": {
+      "entity": "66607",
+      "phase": "current",
+      "statistic": "samples",
+      "unit": "count",
+      "value": "6.0"
+    },
+    "actual_answer": {
+      "value": "2340.0",
+      "entity": "AUX01",
+      "unit": null,
+      "statistic": "reference_interval_s",
+      "phase": null
+    },
+    "original": "RQs/RQ4_7/results/source_workspace_v1/objects/1253134b15c70cdee2a14500f90b36a0da079acf5c02dc42b4df905d40dddb97.png",
+    "source_sha256": "1253134b15c70cdee2a14500f90b36a0da079acf5c02dc42b4df905d40dddb97",
+    "crop_xyxy": [
+      21,
+      1207,
+      1031,
+      1727
+    ],
+    "audit_crop_path": "docs/experiment_reports/artifacts/RQ4_7_2026-10-20/qa_answerability_audit/09_low_target_token_coverage.png",
+    "kind": "unmodified pixel crop for audit, never a model input",
+    "audit_crop_sha256": "1f1b649d3f5fa30205508cda4800c08cd66dc543d71a14876f996a78af828dc9",
+    "actual_visual_inspection_completed": true,
+    "question_index_base": 0
+  },
+  {
+    "view": 11,
+    "reason": "long_title",
+    "id": "INC-B84269FDA98E",
+    "dataset": "aegislab",
+    "question": 0,
+    "image": 1,
+    "card": "TRA005",
+    "expected": {
+      "entity": "654",
+      "phase": "reference",
+      "statistic": "exclusive p95",
+      "unit": "µs",
+      "value": "5021.73"
+    },
+    "actual_answer": {
+      "value": "58.6",
+      "entity": "MET05",
+      "unit": null,
+      "statistic": "signed_z",
+      "phase": null
+    },
+    "original": "RQs/RQ4_7/results/source_workspace_v1/objects/ef8dd3b52bc33198e0004b7ccebc32b5042854f88575d91a94197180668215a2.png",
+    "source_sha256": "ef8dd3b52bc33198e0004b7ccebc32b5042854f88575d91a94197180668215a2",
+    "crop_xyxy": [
+      13,
+      715,
+      1359,
+      1895
+    ],
+    "audit_crop_path": "docs/experiment_reports/artifacts/RQ4_7_2026-10-20/qa_answerability_audit/10_long_title.png",
+    "kind": "unmodified pixel crop for audit, never a model input",
+    "audit_crop_sha256": "0e81dc89ee7f3bb8cc39eec721e9cc87d3ea6441da2c51655dc1903232f2c7fe",
+    "actual_visual_inspection_completed": true,
+    "question_index_base": 0
+  },
+  {
+    "view": 12,
+    "reason": "target_rectangle_contains_measurement_and_axis_numbers",
+    "id": "INC-1E7AE92CAA11",
+    "question": 0,
+    "expected": {
+      "entity": "279",
+      "phase": "reference",
+      "statistic": "span count",
+      "unit": "count",
+      "value": "9422"
+    },
+    "original": "RQs/RQ4_7/results/source_workspace_v1/objects/d498b6448b991937ed4d1979cb6162ba113f5cb4a4949d68abecffa531007f46.png",
+    "audit_crop_path": "docs/experiment_reports/artifacts/RQ4_7_2026-10-20/qa_answerability_audit/11_whole_target_row.png",
+    "kind": "exact target rectangle crop, not a new dashboard",
+    "source_sha256": "d498b6448b991937ed4d1979cb6162ba113f5cb4a4949d68abecffa531007f46",
+    "audit_crop_sha256": "76eee13ff7257a9605df6b9cfaacdf20b9b92d67435ebea4d2620f116f51c58c",
+    "actual_visual_inspection_completed": true,
+    "question_index_base": 0,
+    "target_box_xywh": [
+      16.0,
+      1648.0,
+      1340.0,
+      122.0
+    ],
+    "crop_xyxy": [
+      16,
+      1648,
+      1356,
+      1770
+    ]
+  },
+  {
+    "view": 13,
+    "reason": "target_rectangle_contains_measurement_and_axis_numbers",
+    "id": "INC-1E7AE92CAA11",
+    "question": 1,
+    "expected": {
+      "entity": "279",
+      "phase": "current",
+      "statistic": "span count",
+      "unit": "count",
+      "value": "2807"
+    },
+    "original": "RQs/RQ4_7/results/source_workspace_v1/objects/d498b6448b991937ed4d1979cb6162ba113f5cb4a4949d68abecffa531007f46.png",
+    "audit_crop_path": "docs/experiment_reports/artifacts/RQ4_7_2026-10-20/qa_answerability_audit/12_whole_target_row.png",
+    "kind": "exact target rectangle crop, not a new dashboard",
+    "source_sha256": "d498b6448b991937ed4d1979cb6162ba113f5cb4a4949d68abecffa531007f46",
+    "audit_crop_sha256": "382f62b960d5f0beef989b174a55983068294918249035951c543b04f0677698",
+    "actual_visual_inspection_completed": true,
+    "question_index_base": 0,
+    "target_box_xywh": [
+      16.0,
+      1770.0,
+      1340.0,
+      122.0
+    ],
+    "crop_xyxy": [
+      16,
+      1770,
+      1356,
+      1892
+    ]
+  }
+]

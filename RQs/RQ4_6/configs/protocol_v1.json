@@ -1,0 +1,151 @@
+{
+  "schema": "RQ46ProtocolV1",
+  "arms": [
+    "H_DEPLOY_ONLY",
+    "H_MARGINAL_PHASE",
+    "H_POD_BRIDGE",
+    "H_POD_SEPARATE",
+    "H_POD_PHASE",
+    "V_POD_BRIDGE",
+    "V_POD_SEPARATE",
+    "P_U_VALUE_BLOCK",
+    "P_U_NEIGHBOR_PAIR",
+    "P_U_COMBINED"
+  ],
+  "preselected": [
+    "H_POD_PHASE",
+    "V_POD_BRIDGE",
+    "P_U_COMBINED"
+  ],
+  "historical_only": [
+    "T_FULL",
+    "MARGINAL_FIVE",
+    "A_UNIFORM_E50",
+    "H_MARGINAL"
+  ],
+  "dataset_counts": {
+    "aiops2022": 60,
+    "aiops2025": 60,
+    "aegislab": 100
+  },
+  "global_configs": [
+    "configs/dataset_segmentation.yaml",
+    "configs/rca_scorer.yaml",
+    "configs/vllm_inference_local.yaml"
+  ],
+  "source_public": "RQs/RQ3_21/preparation/compact_entity_v1/public",
+  "history": "RQs/RQ4_1/results/comparison_coding_v1",
+  "pair_limit": 2,
+  "samples_per_phase": 32,
+  "source_unit": "original_record",
+  "hybrid_ownership": "by registered arm: complete pair records and/or deployment records; calls remain text",
+  "image_tokens_max": 16384,
+  "canvas_side_max": 8192,
+  "min_processed_font_px": 18,
+  "min_processed_stroke_px": 1.5,
+  "context": 40960,
+  "output_tokens": 8192,
+  "cpu_workers": 8,
+  "gpu_concurrency": 8,
+  "gpu_memory_utilization": 0.8,
+  "mechanism_per_dataset": 10,
+  "formal_positions": 2620,
+  "method_positions": 2200,
+  "qa_positions": 330,
+  "repeat_positions": 90,
+  "smoke_calls": 18,
+  "smoke_seconds": 900,
+  "infrastructure_reserve": 112,
+  "total_call_limit": 2750,
+  "cpu_enabled": false,
+  "smoke_enabled": false,
+  "formal_enabled": false,
+  "primary_comparisons": [
+    [
+      "H_POD_BRIDGE",
+      "H_POD_SEPARATE"
+    ],
+    [
+      "H_POD_BRIDGE",
+      "H_DEPLOY_ONLY"
+    ],
+    [
+      "H_POD_PHASE",
+      "H_POD_BRIDGE"
+    ],
+    [
+      "H_POD_PHASE",
+      "H_MARGINAL_PHASE"
+    ],
+    [
+      "V_POD_BRIDGE",
+      "V_POD_SEPARATE"
+    ],
+    [
+      "P_U_COMBINED",
+      "P_U_VALUE_BLOCK"
+    ],
+    [
+      "P_U_COMBINED",
+      "P_U_NEIGHBOR_PAIR"
+    ]
+  ],
+  "statistics": {
+    "primary_unit": "event_group",
+    "test": "two-sided Pratt-zero Wilcoxon",
+    "round_difference": 12,
+    "correction": "Holm family 7",
+    "dz": true,
+    "confidence_intervals": false
+  },
+  "attention_max_bytes_per_call": 65536,
+  "attention_max_bytes_per_10000": 1000000000,
+  "retention_bytes_per_completed_call": 2500000,
+  "hybrid_input_ratio_limit": 1.05,
+  "hybrid_input_strictly_lower": false,
+  "hybrid_total_cost_goal": 0.8,
+  "pure_visual_total_cost_limit": 1.1,
+  "pure_visual_mrr_goal": 0.02,
+  "smoke_ids": [
+    "INC-6E627662CA32",
+    "INC-D9245047C658",
+    "INC-018AC5D486B5"
+  ],
+  "require_cross_arm_fact_equality": false,
+  "within_arm_crossmodal_diagnostic_duplication": false,
+  "evidence_policy": "All pure-visual source evidence is retained; hybrid uses the explicitly authorized HybridSummaryBudgetV1 projection. No cross-modal diagnostic duplicates; no new anomaly or root suggestions.",
+  "hybrid_instruction_revision": "RQ46HybridInstructionsV1",
+  "deployment_font_px": 28,
+  "pure_layout_policy": "replace deployment component only; fail capacity, never silently relayout",
+  "qa_schema": "HybridOwnershipAndNumericQAV2",
+  "pruning_min_changed_optional": 0.1,
+  "pruning_min_case_fraction": 0.5,
+  "pruning_max_refinement_steps": 64,
+  "hybrid_arms": [
+    "H_DEPLOY_ONLY",
+    "H_MARGINAL_PHASE",
+    "H_POD_BRIDGE",
+    "H_POD_SEPARATE",
+    "H_POD_PHASE"
+  ],
+  "smoke_qa_arms": [
+    "H_DEPLOY_ONLY",
+    "H_MARGINAL_PHASE",
+    "H_POD_PHASE",
+    "V_POD_BRIDGE",
+    "P_U_COMBINED"
+  ],
+  "hybrid_projection": "HybridSummaryBudgetV1",
+  "hybrid_samples_per_phase": 8,
+  "hybrid_input_ratio_limits": {
+    "T_FULL": 0.9,
+    "H_MARGINAL": 0.9
+  },
+  "hybrid_evidence_loss_authority": "User explicitly permits aggressive evidence removal for hybrid cost reduction, while preserving performance; 2026-10-19. Pure visual retains its complete original evidence.",
+  "pure_visual_input_ratio_limit": 1.1,
+  "pruning_refinement_steps_by_arm": {
+    "P_U_VALUE_BLOCK": 64,
+    "P_U_NEIGHBOR_PAIR": 64,
+    "P_U_COMBINED": 128
+  }
+}
