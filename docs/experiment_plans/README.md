@@ -1,4 +1,4 @@
-2026-10-18 **RQ4.5 六臂静态部署，CPU/GPU未运行。** 三个来源独占 hybrid 臂与三个原图剪枝臂；正式1560位置，总调用上限1700。历史基线复用，不修改Codex。当前仅代码与静态检查范围。[计划](RQ4_5_Exclusive_Modality_Spatial_Pruning_Plan_2026-10-18.md) · [差异与来源](RQ4_5_History_and_Implementation_Review_2026-10-18.md) · [唯一状态](../../RQs/RQ4_5/findings/exp_exclusive_spatial_findings.md)。
+2026-10-19 **RQ4.5 全部 CPU 资格通过并冻结；GPU 未运行。** 27 单测、220例/1320 RCA请求、33例/198 QA输入、30运行探针、传输不变性与重绘均通过；新模型调用0。历史基线复用，Codex 未改。[计划](RQ4_5_Exclusive_Modality_Spatial_Pruning_Plan_2026-10-18.md) · [CPU报告](../experiment_reports/RQ4_5_CPU_Qualification_2026-10-19.md) · [唯一状态](../../RQs/RQ4_5/findings/exp_exclusive_spatial_findings.md)。
 
 2026-10-12 **RQ4.4 840/840正式位置完成，858次实际调用含smoke；完整详细分析已交付。** SOURCE标准/宽容MRR为0.3286/0.3431，未超过历史U，成本为其2.409倍；两项主要比较均未建立收益，局部高清候选按登记结束。QA定位、理由一致性及270份正式attention完成离线审核。[最终报告](../experiment_reports/RQ4_4_Qwen_Analysis_2026-10-12.md) · [计划](RQ4_4_Source_Bound_Multiscale_Plan_2026-10-12.md) · [历史复核](RQ4_4_History_and_Implementation_Review_2026-10-12.md) · [部署报告](../experiment_reports/RQ4_4_GPU_Qualification_2026-10-12.md) · [唯一状态](../../RQs/RQ4_4/findings/exp_source_views_findings.md)。
 

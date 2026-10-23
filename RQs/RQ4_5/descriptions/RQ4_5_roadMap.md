@@ -1,8 +1,7 @@
-# Road map
+# RQ4.5 roadmap
 
-1. Implement approved plan, static-only review, and stop (current delivery).
-2. On later explicit authorization: offline unit/numerical/runtime regressions, complete 220-case preparation, mechanism inputs, actual processor budgets and visible glyph inspection. Each stage is separately source-bound. No current CPU pass is claimed.
-3. Review one fixed example per arm/dataset, plus longest names/densest relations/largest pair cards; verify exact values, pairing, bounds and determinism. Record a source-matched visual review credential; never infer it from a manifest.
-4. Freeze the complete 1560-position queue, all dependencies and baseline references; activate one 18-call/600-second smoke only on authorization.
-5. On qualified authorization, run frozen queue with eight physical CPU workers and eight GPU requests, bounded RAM lookahead. Resume skips atomic commits before packet construction. Pause drains active calls.
-6. Full denominators, strict/tolerant scoring, event/case statistics, costs, repeat stability, QA answer reading and honest collected-attention scope. No winner-driven retuning. Final retention verifies the complete directly readable input/output graph before deleting own caches.
+1. Plan/protocol/code and static checks: complete.
+2. Complete 220-case CPU processor/source/geometry/context/cost qualification: passed.
+3. Independent QA input preparation, one-example-per-arm/dataset visual review, boundary review and actual deterministic repaint: passed.
+4. Unit27, runtime30 and actual passive-region transport-invariance audit: passed. All inputs, source/config and checkpoint provenance frozen; new model calls 0. [Qualification report](../../../docs/experiment_reports/RQ4_5_CPU_Qualification_2026-10-19.md).
+5. Stop. GPU smoke is not run and requires separate authorization/activation; formal also requires passed smoke. Do not infer GPU qualification or ranking gains from CPU passage.

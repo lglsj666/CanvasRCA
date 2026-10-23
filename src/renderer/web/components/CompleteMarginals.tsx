@@ -43,15 +43,14 @@ export default function CompleteMarginals({card}:{card:Card}) {
           {row[2]!==null&&<>; child p50={value(`${p.phase}.conditional.${i}.2`,row[2]!)} ms</>}
           {row[3]!==null&&<>; child p95={value(`${p.phase}.conditional.${i}.3`,row[3]!)} ms</>}
         </div>)}
-        <div style={{display:'grid',gridTemplateColumns:'52px 1fr 1fr',gap:12,marginTop:8}}><span>ID</span><strong>Parent ms</strong><strong>Child ms</strong></div>
+        <div style={{display:'grid',gridTemplateColumns:'52px 1fr 1fr',gap:12,marginTop:8}}><span>ID</span><strong>Parent ms · 0…{max}</strong><strong>Child ms · 0…{max}</strong></div>
         {d.samples!.map((s,i)=>s.phase===p.phase&&<div key={i} {...field(`${card.id}.sample.${i}`)}
           data-parent-ms={s.parent_ms} data-child-ms={s.child_ms} data-phase={s.phase}
-          style={{display:'grid',gridTemplateColumns:'52px 1fr 1fr',gap:12,minHeight:40,alignItems:'center'}}>
+          style={{display:'grid',gridTemplateColumns:'52px 1fr 1fr',gap:12,minHeight:32,alignItems:'center'}}>
           <span>{c.sample_ids[i]}</span>
-          {[s.parent_ms,s.child_ms].map((v,j)=><div key={j} style={{position:'relative',minWidth:0}}>
+          {[s.parent_ms,s.child_ms].map((v,j)=><div key={j} style={{display:'grid',gridTemplateColumns:'minmax(180px,1fr) 1fr',gap:8,alignItems:'center',minWidth:0}}>
             <span style={{fontSize:18,whiteSpace:'nowrap'}}>{c.values[i][j]}</span>
             <svg width="100%" height="12" viewBox="0 0 260 12" aria-label={j?'Child sample':'Parent sample'}>
-              <line x1="8" y1="6" x2="252" y2="6" stroke="var(--axis)" strokeWidth="2"/>
               <circle cx={x(v)} cy="6" r="4" fill={color(p.phase)} className={j?'child-point':'parent-point'}/>
             </svg>
           </div>)}

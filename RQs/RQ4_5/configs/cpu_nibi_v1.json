@@ -1,0 +1,17 @@
+{
+  "schema": "RQ45NibiCPUDeploymentV1",
+  "repo": "/home/lglsj/CanvasRCA_20261018",
+  "python": "/scratch/lglsj/CanvasRCA/.venv-inference/bin/python",
+  "model": "/scratch/lglsj/CanvasRCA/models/Qwen3.8-27B",
+  "source_root": "/project/def-jacobsen/canvasrca_cache/RQ4_5/source_dependencies",
+  "results_root": "/project/def-jacobsen/canvasrca_cache/RQ4_5/cpu_v1",
+  "account": "def-jacobsen_cpu",
+  "partition": "cpubase_bycore_b1",
+  "cpu_workers": 8,
+  "cpus_per_task": 8,
+  "memory": "64G",
+  "stages": ["unit", "preflight", "cpu", "mechanism", "runtime"],
+  "gpu_enabled": false,
+  "formal_enabled": false,
+  "dependency_policy": "afterok; failed qualification prevents dependent stages"
+}

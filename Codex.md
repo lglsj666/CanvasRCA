@@ -189,8 +189,8 @@ The user removes the lower agent-drafted cap. RQ3.1 uses the user's explicit
 40,000-call per-major-RQ ceiling, including prior calls, smoke and retries.
 Do not attribute the removed restriction to a user decision. Current cumulative
 core allocation is 23,752, leaving 16,248 unallocated. This does not increase
-the registered experiment matrix, relax the 18-call/600-second logical-smoke
-limits, reset spent calls or authorize execution; the static-only pause remains.
+the registered experiment matrix, relax the 18-call logical-smoke limit,
+reset spent calls or authorize execution; the static-only pause remains.
 
 ## RQ3.1 direct-per-case revision — current stopping boundary
 
@@ -270,7 +270,7 @@ RQs/RQ3_1/src/renderer/ under the existing renderer exception. Its remaining
 code follows the five-module, 7,500-line rule. Shared recipes, earlier RQs and
 the canonical processed corpus remain protected. New qualification uses three
 primary-dataset eval cases because validation is retired; test is never smoke.
-Existing aggregate smoke limits remain 18 initiated calls and 600 seconds per
+Existing aggregate smoke call limits remain 18 initiated calls per
 registered experiment. Do not start model calls before integrated checks and
 the first-stage review are complete.
 
@@ -734,7 +734,7 @@ vendored native algorithms live under `packages/` with license and provenance.
 No external SIRCL runtime dependency, global renderer or dormant old dispatcher
 is allowed. Copy provenance precedes modifications.
 
-Three experiment smokes each share at most 18 calls and 600 seconds across
+Three experiment smokes each share at most 18 calls across
 sequential Qwen/Gemma phases, including startup/switching/persistence. Their
 cases are one from each primary dataset's selection set, explicitly replacing
 the older RE2 smoke requirement. The RQ2.1-wide hard cap is 39,999 initiated
@@ -749,8 +749,8 @@ smokes and reviews must pass before formal execution. Timeout-only passage
 must report actual live coverage, not claim unexecuted paths passed.
 
 The user subsequently authorized a one-time repaired-overlay supplement:
-at most two additional silhouette calls (one per model), together within
-600 seconds. Preserve the original smoke and its failed visual review.
+at most two additional silhouette calls (one per model).
+Preserve the original smoke and its failed visual review.
 The three initial smokes initiated 52 calls, so this supplement can bring
 their actual total to 54 without changing the RQ-wide 39,999-call cap.
 This is not a general exemption from the per-experiment 18-call smoke rule.
@@ -789,8 +789,8 @@ from this Composer training. Evaluation still includes both datasets.
 Use only isolated AIOPS training/validation cases for RQ3 smokes; this is an
 explicit override of the older RE2-inclusive smoke-selection rule.
 
-Each experiment has one logical smoke with at most 18 aggregate 9B+27B calls
-and 600 seconds from supervisor start. Monitor live smoke every 600 seconds,
+Each experiment has one logical smoke with at most 18 aggregate 9B+27B calls.
+Monitor live smoke every 600 seconds,
 doing no other work while waiting. Count every initiated call, including
 retries, against the RQ3-wide 40,000-call hard limit. Never silently truncate
 a catalogue, substitute a default dashboard, or relabel a failed preflight
@@ -1527,11 +1527,12 @@ truncations remain model outcomes.
 A registered experiment has exactly one logical smoke. Its Qwen3.8 and Gemma
 phases share **one aggregate budget of at most 18 LLM/VLM calls** across all
 cases, arms, stages, retries, and processes. The two model phases run
-sequentially, never concurrently. The complete two-model smoke shares one
-600-second wall-clock timeout measured from the logical smoke supervisor start,
+sequentially, never concurrently. The complete two-model smoke shares the
+explicitly registered wall-clock budget measured from the logical smoke supervisor start,
 including model startup, model switching, requests, persistence, and
 verification. Multiple experiments do not share one smoke budget, and one
-experiment may not be split into several nominal smokes.
+experiment may not be split into several nominal smokes. The current user-authorized
+smoke limit is 15 minutes (900 seconds); no implicit shorter timeout is imposed.
 
 A timeout-only outcome passes for the complete logical smoke;
 any other protocol, numerical, integrity, persistence, or infrastructure error

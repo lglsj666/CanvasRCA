@@ -2532,3 +2532,18 @@ RQ4.3 formal queue launched PID 29940; startup monitored 224.0s, 8/2412 commits,
 ## 2026-10-11 — RQ4.3 v17 扩展与直接可读保留
 
 八个恢复臂 CPU 全部通过、HTML smoke 8/8；4,832 位置队列恢复并完成启动监控。本次部署目标完成，正式实验继续运行。详细资格、豁免、缓存计时与最终密度待核验状态见 `docs/experiment_reports/RQ4_3_Direct_Retention_and_Extension_2026-10-11.md`。
+
+
+### 2026-10-20 — Nibi-only historical pitfalls consolidation and blocked-chain repair
+
+Created `important_docs/CanvasRCA_Nibi_Pitfalls.md` in the Nibi worktree only, covering historical RQ3.8 and RQ4.5 CPU failures, startup/JIT/module/environment issues, NFS accounting, timeouts, numerical/backend mismatches, dependency stalls, provenance and access/storage pitfalls. Job IDs, evidence, known versus unknown causes, fixes and actual verification states are explicit. CPU pass is retained; GPU smoke/throughput and formal remain unqualified/unstarted. SDPA full-encoder job24589226 failed; pending children24589420/24589619 cancelled after preserving scheduler evidence. New zero-generation FA3 padding probe24686266 pending; a draft reintroducing already unsupported FA2 was cancelled before allocation. Local code/RQ4.7 not read or changed.
+
+
+### 2026-10-20 — FA3 padding probe disposition
+
+Job24686266 completed with zero new language-generation calls. pad96 is feature-bit-identical on all three fixed actual packets, but the largest image still takes115.77s (original117.44s); the approximately1.44% aggregate single-probe timing difference is not a demonstrated throughput fix. pad128 is slower and fails the unchanged full-feature gate. Production adoption and a fresh 18-call smoke were therefore not initiated. Existing complete CPU qualifications and all42 spent attempts remain. GPU/throughput still unqualified; formal not started. Full evidence, historical issues and disposition are in `important_docs/CanvasRCA_Nibi_Pitfalls.md` and `qualification/visual_fastpath_disposition_24686266.json`. Nibi-only work; local RQ4.7 untouched.
+
+
+## 2026-10-21 — Nibi operational throughput target and persistent qualification
+
+Remote repository only. User lowers the goal to >=6 actual calls/minute. Round8:24760027 completed18/18, artifacts/answers reviewed, online3.9581/min; KV capacity79,725tokens limited actual batching to2-5. Registered operational0.90 GPU allocation profile, preserved all60 prior attempts and original failed numerical-equivalence records. Static passed; CPU facts/geometry qualifications reused with exact request-preservation proof. Round9 GPU24763295 and CPU review24763332 pending resources. Persistent180-second controller PID261939 verifies all outputs/attention plus measured throughput before submitting CPU input deployment and at most one2-hour GPU job. No full job submitted at this checkpoint. Local repository/running experiment not read or modified.

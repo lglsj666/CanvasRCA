@@ -1,0 +1,46 @@
+{
+  "schema": "RQ45NativeRuntimeChainV1",
+  "recorded_utc": "2026-10-19T17:20:42.476266+00:00",
+  "status": "queued_waiting_for_H100",
+  "formal_authorized": false,
+  "new_model_calls_this_revision": 0,
+  "preserved_prior_ledger": {
+    "complete": 10,
+    "infrastructure_failure": 26,
+    "interrupted": 6,
+    "total": 42
+  },
+  "jobs": [
+    {
+      "job_id": "24589226",
+      "stage": "three-case actual encoder numerical comparison",
+      "resource": "h100:1",
+      "new_language_generation_calls": 0
+    },
+    {
+      "job_id": "24589420",
+      "stage": "guarded config/identity freeze and static checks",
+      "resource": "CPU only",
+      "dependency": "afterok:24589226"
+    },
+    {
+      "job_id": "24589619",
+      "stage": "register round 8 and submit at most 18-call smoke",
+      "resource": "CPU only",
+      "dependency": "afterok:24589420"
+    }
+  ],
+  "automatic_followup": "After a complete native smoke, submit offline artifact/timing checks; manual reading remains required before final qualification. No formal submission.",
+  "minimum_online_completed_calls_per_minute": 7,
+  "maximum_smoke_calls": 18,
+  "maximum_smoke_seconds": 900,
+  "scheduler_estimate_note": "Most recent estimate 2026-10-19 17:01:51 America/Toronto; backfill may change it.",
+  "scripts_sha256": {
+    "runtime_environment_nibi.sh": "1115eb361a1a1ebb41e5cdbec9d0f19dd506b812bc78e9b1009ce178e887303b",
+    "gpu_smoke_nibi.sbatch": "abc8c48d172ffad521d5ceb908518354c917c49d6551ab55511cd915e226046f",
+    "adopt_runtime_backend_nibi.sh": "0b1ad50a3efd7015c748f6eb2db7202f8de4f15b6fe30cd274f2b3f6f9700e15",
+    "adopt_runtime_backend_nibi.sbatch": "476a93cd1b533dd14977c3706e4d09d2f22943483572b6604b44962a839dd488",
+    "submit_native_smoke_nibi.sbatch": "397d2fd51dca84ec106a267907cd5e5032e4daeb9f78f769a2588c5668098420",
+    "review_native_smoke_nibi.sbatch": "f6a77b9dadb26e5e02a06bcef31848465c221cfa0455163e8377959a2338b5d0"
+  }
+}

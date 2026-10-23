@@ -1,0 +1,62 @@
+{
+  "schema": "RQ45NibiCPUSubmissionV2",
+  "date": "2026-10-19",
+  "git_base": "fbf61c2f393a3bf54455f2ec27665c1b65b2837d",
+  "deployment_fixes": "versioned marginal layout, structured endpoint parsing, data-empty transfer, static-rule consolidation, source-interleaved CPU dispatch and explicit cost/determinism/freeze stages",
+  "repo": "/home/lglsj/CanvasRCA_20261018",
+  "run_root": "/project/def-jacobsen/canvasrca_cache/RQ4_5/cpu_v1",
+  "source_files": 3302,
+  "source_bytes": 1437905855,
+  "last_checked_state": "all CPU passed and frozen; final job COMPLETED 0:0",
+  "cpu_workers": 8,
+  "memory": "64 GiB per job",
+  "execution_fingerprint": "64676ea19b7d0f6d98c6d39e6bc3eeb33b70a3514f9798fe134295c87eb74879",
+  "cpu_authorized": true,
+  "gpu_authorized": false,
+  "formal_authorized": false,
+  "new_model_calls": 0,
+  "previous_jobs": {
+    "unit": 24540055,
+    "preflight": 24540056,
+    "population": 24540057,
+    "mechanism": 24540058,
+    "runtime": 24540059
+  },
+  "jobs": {
+    "complete_cpu_qualification": 24546402
+  },
+  "cycles": [
+    {
+      "cycle": "v1",
+      "jobs": {
+        "unit": 24540055,
+        "preflight": 24540056,
+        "population": 24540057,
+        "mechanism": 24540058,
+        "runtime": 24540059
+      },
+      "outcome": "unit20 and preflight3 passed; population93/220; dependent stages cancelled"
+    },
+    {
+      "cycle": "v2",
+      "jobs": {
+        "unit": 24544495,
+        "preflight": 24544496,
+        "population": 24544497,
+        "mechanism": 24544498,
+        "runtime": 24544499
+      },
+      "outcome": "unit22, preflight6 and population220 passed; AegisLab H_TOPOLOGY input-cost gate failed 1.0130625; dependent continuation cancelled"
+    },
+    {
+      "cycle": "v3",
+      "job": 24545452,
+      "outcome": "all CPU component stages passed; cancelled during freeze for passive-region correction"
+    },
+    {
+      "cycle": "v4",
+      "job": 24546402,
+      "outcome": "COMPLETED 0:0; unit27/runtime30/actual transport comparison; unaffected evidence reused with proof; CPU freeze passed"
+    }
+  ]
+}

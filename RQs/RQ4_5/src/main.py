@@ -54,7 +54,8 @@ def runtime_probe(entry):
     try:
         prepared=prepare_runtime(entry);packet=prepared['packet'];request=entry['request']
         images=packet['image_positions'];offset=0;chosen=set();counts=[]
-        for g in packet['batch']['image_grid_thw'].tolist():counts.append(g[0]*g[1]*g[2]//4)
+        grid=packet['batch'].get('image_grid_thw')
+        for g in ([] if grid is None else grid.tolist()):counts.append(g[0]*g[1]*g[2]//4)
         for count,keep in zip(counts,request['retained_by_image'],strict=True):
             chosen.update(images[offset+i] for i in keep);offset+=count
         image_set=set(images);oracle=[i for i in range(packet['batch']['input_ids'].shape[-1]) if i not in image_set or i in chosen]
@@ -71,25 +72,47 @@ def cpu_phase(phase):
     from concurrent.futures import ProcessPoolExecutor,as_completed
     from .exps import mechanism_roster,build_queue
     rows=roster()
-    if phase=='population':
+    if phase in {'population','preflight'}:
         # Compile the current renderer bundle only after CPU authorization.
         node=ROOT/'build/renderer_tooling/node-v24.20.0-linux-x64/bin/node'
-        for source,out in [('render.tsx','dist/render.mjs')]:
-            subprocess.run([str(ROOT/'src/renderer/web/node_modules/.bin/esbuild'),source,'--bundle','--platform=node','--target=node24','--format=esm','--packages=external','--outfile='+out],cwd=ROOT/'src/renderer/web',check=True,env=dict(__import__('os').environ,PATH=str(node.parent)+':'+__import__('os').environ.get('PATH','')))
-        items=rows;fn=cpu_one
+        from renderer.gates import source_fingerprint
+        from .utils import digest
+        stamp=RESULTS/'qualification/renderer_bundle.json';bundle=ROOT/'src/renderer/web/dist/render.mjs';source_stamp=source_fingerprint()['sha256']
+        previous=read(stamp) if stamp.exists() else {}
+        if not (previous.get('source')==source_stamp and bundle.exists() and previous.get('bundle')==digest(bundle)):
+            subprocess.run([str(ROOT/'src/renderer/web/node_modules/.bin/esbuild'),'render.tsx','--bundle','--platform=node','--target=node24','--format=esm','--packages=external','--outfile=dist/render.mjs'],cwd=ROOT/'src/renderer/web',check=True,env=dict(__import__('os').environ,PATH=str(node.parent)+':'+__import__('os').environ.get('PATH','')))
+            save(stamp,{'source':source_stamp,'bundle':digest(bundle)})
+        cfg=read(RQ/'configs/protocol_v1.json');ids=set(cfg.get('cpu_probe_ids',cfg['smoke_ids']))
+        items=[r for r in rows if r['id'] in ids] if phase=='preflight' else rows;fn=cpu_one
     elif phase=='mechanism':
         chosen=mechanism_roster(rows);ids={r['id'] for r in chosen}
         fixed=read(RQ/'configs/protocol_v1.json')['smoke_ids'];items=chosen+[r for r in rows if r['id'] in fixed and r['id'] not in ids];fn=mechanism_one
         save(RESULTS/'mechanism_roster.json',{'formal':chosen,'smoke_ids':fixed})
-    elif phase=='runtime':items=build_queue('smoke');fn=runtime_probe
+    elif phase=='runtime':
+        items=build_queue('smoke');fn=runtime_probe
+        # Also qualify the explicitly registered, data-empty hybrid limit.
+        # These are processor-only checks, not additional smoke/model calls.
+        for row in rows:
+            requests=read(RESULTS/'inputs'/row['id']/'requests.json')
+            for arm,request in requests.items():
+                if request.get('data_empty_transfer'):
+                    items.append({'item':{'key':row['id']+'__'+arm+'__CPU_EMPTY','id':row['id']},'request':request})
     else:raise ValueError('Unknown CPU phase')
+    from RQs.RQ4_1.src.utils import source_order
+    by_id={r['id']:r for r in rows};dispatch=[]
+    for item in items:
+        row=by_id[item['item']['id']] if phase=='runtime' else item
+        dispatch.append({'dataset':row['dataset'],'source':row['source'],'payload':item})
+    dispatch=source_order(dispatch);items=[r['payload'] for r in dispatch]
     ctx=multiprocessing.get_context('spawn');counter=ctx.Value('i',0);cores=physical_cores();results=[]
-    with ProcessPoolExecutor(max_workers=len(cores),mp_context=ctx,initializer=worker_init,initargs=(cores,counter,phase=='population')) as pool:
+    with ProcessPoolExecutor(max_workers=len(cores),mp_context=ctx,initializer=worker_init,initargs=(cores,counter,phase in {'population','preflight'})) as pool:
         futures=[pool.submit(fn,item) for item in items]
         for future in as_completed(futures):
             results.append(future.result());save(RESULTS/'qualification/progress.json',{'phase':phase,'completed':len(results),'total':len(items),'new_model_calls':0})
     report={'status':'passed' if all(r['status']=='passed' for r in results) else 'failed','cases':results,
-        'execution_fingerprint':execution_fingerprint(),'new_model_calls':0,'physical_cores':cores}
+        'execution_fingerprint':execution_fingerprint(),'new_model_calls':0,'physical_cores':cores,
+        'first_wave_source_groups':len({(r['dataset'],r['source']) for r in dispatch[:len(cores)]}),
+        'available_source_groups':len({(r['dataset'],r['source']) for r in dispatch})}
     save(RESULTS/'qualification'/f'{phase}.json',report);return report
 
 
@@ -123,7 +146,8 @@ def execute(scope):
     if scope=='smoke':
         clock_path=root/'logical_clock.json'
         if not clock_path.exists():
-            save(clock_path,{'started_unix':time.time(),'deadline_unix':time.time()+600,'reset_allowed':False})
+            now=time.time();limit=read(RQ/'configs/protocol_v1.json')['smoke_seconds']
+            save(clock_path,{'started_unix':now,'deadline_unix':now+limit,'seconds_limit':limit,'reset_allowed':False})
         clock=read(clock_path);remaining=clock['deadline_unix']-time.time()
         if remaining<=0:raise RuntimeError('The one logical smoke budget is exhausted')
         deadline=time.monotonic()+remaining
@@ -142,7 +166,16 @@ def execute(scope):
         signal.signal(sig,pause)
     provider=None;done=0;error=None
     try:
-        provider=VLLMSolvers(scope,root/'attention',deadline=deadline);session.provider=provider
+        import os
+        allocated=set(os.sched_getaffinity(0));preparation_cores=physical_cores()
+        runtime_cores=allocated-set(preparation_cores)
+        if len(preparation_cores)!=8 or len(runtime_cores)<3:raise RuntimeError('Eight preparation cores plus at least three runtime cores required')
+        os.sched_setaffinity(0,runtime_cores)
+        try:provider=VLLMSolvers(scope,root/'attention',deadline=deadline)
+        finally:os.sched_setaffinity(0,allocated)
+        session.provider=provider
+        save(root/'runtime_cpu_placement.json',{'allocated':sorted(allocated),'preparation':preparation_cores,
+            'inference_control':sorted(runtime_cores),'numa_locality':'not asserted; recorded affinity only'})
         ctx=multiprocessing.get_context('spawn');counter=ctx.Value('i',0);cores=physical_cores()
         prepared=deque();active={};waiting={}
         with concurrent.futures.ProcessPoolExecutor(max_workers=len(cores),mp_context=ctx,
@@ -227,19 +260,37 @@ def launch(scope,resume=False):
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command',choices=['static','cpu','mechanism','runtime','unit','freeze','smoke','formal',
+    parser.add_argument('command',choices=['static','verify-sources','preflight','cpu','budget','mechanism','runtime','unit','determinism','transport-audit','refresh-measurement','freeze','smoke','formal',
         'launch-smoke','launch-formal','resume','pause','status','analyze','view','finalize'])
     parser.add_argument('--key');args=parser.parse_args()
     if args.command=='static':
         from .gates import static_check
         print(static_check())
-    elif args.command in {'cpu','mechanism','runtime'}:print(cpu_phase('population' if args.command=='cpu' else args.command))
+    elif args.command=='verify-sources':
+        from .gates import require_cpu
+        from .utils import verify_source_transfer
+        require_cpu();offline();print(verify_source_transfer())
+    elif args.command in {'preflight','cpu','mechanism','runtime'}:
+        result=cpu_phase('population' if args.command=='cpu' else args.command);print(result)
+        if result['status']!='passed':raise SystemExit(1)
     elif args.command=='unit':
         from .gates import require_cpu,execution_fingerprint
         require_cpu();offline()
         from .tests import run_tests
         result=run_tests();result['execution_fingerprint']=execution_fingerprint();save(RESULTS/'qualification/unit.json',result)
         if result['status']!='passed':raise SystemExit(1)
+    elif args.command=='budget':
+        from .gates import input_budget
+        offline();print(input_budget())
+    elif args.command=='determinism':
+        from .tests import check_visual_determinism
+        print(check_visual_determinism())
+    elif args.command=='transport-audit':
+        from .tests import check_transport_invariance
+        print(check_transport_invariance())
+    elif args.command=='refresh-measurement':
+        from .gates import refresh_measurement_qualification
+        offline();print(refresh_measurement_qualification())
     elif args.command=='freeze':
         from .gates import freeze_cpu
         print(freeze_cpu())

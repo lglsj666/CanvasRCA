@@ -1,5 +1,21 @@
 """RQ4.5 compiler and registered native post-merger model adapter."""
-from .utils import ROOT, RQ, RESULTS, MODEL, read, save, digest, stable, ARMS, NOMINEES
+from .utils import ROOT, RQ, RESULTS, SOURCE_ROOT, MODEL, read, save, digest, stable, ARMS, NOMINEES
+
+def __getattr__(name):
+    """Resolve the GPU worker lazily; CPU compiler imports never load vLLM."""
+    if name!='NativeCapturedWorker':raise AttributeError(name)
+    from vllm.v1.worker.gpu_worker import Worker
+    class NativeCapturedWorker(Worker):
+        def load_model(self,*args,**kwargs):
+            self.rq45_gpu_monitor_device()
+            result=super().load_model(*args,**kwargs)
+            self.rq45_bind_capture_operator()
+            return result
+    NativeCapturedWorker.__module__=__name__
+    NativeCapturedWorker.__qualname__='NativeCapturedWorker'
+    globals()[name]=NativeCapturedWorker
+    return NativeCapturedWorker
+
 
 class VLLMWorkerExtension:
     """One isolated worker extension; never edit vLLM/HF or historical source.
@@ -17,10 +33,12 @@ class VLLMWorkerExtension:
         runner=self.model_runner;model=runner.get_model()
         if self.vllm_config.model_config.dtype!=torch.bfloat16 or self.vllm_config.parallel_config.tensor_parallel_size!=1:
             raise RuntimeError('Only registered BF16 TP1 backend')
-        if self.vllm_config.scheduler_config.enable_chunked_prefill or self.vllm_config.cache_config.enable_prefix_caching:
-            raise RuntimeError('Registered intervention requires fresh, complete prefill')
+        if not self.vllm_config.scheduler_config.enable_chunked_prefill or self.vllm_config.cache_config.enable_prefix_caching:
+            raise RuntimeError('Chunked native prefill required; prefix reuse remains disabled')
         state={'records':[],'requests':{},'batches':0,'decode_batches':0,'max_decode_batch':0,'max_batch':0,'preemptions':0,
-            'store':AttentionStore(attention_folder),'runner':runner,'model':model,'scheduled':None}
+            'store':AttentionStore(attention_folder),'runner':runner,'model':model,'scheduled':None,
+            'step_wall_seconds':{'prefill':0.,'mixed':0.,'decode':0.},'step_counts':{'prefill':0,'mixed':0,'decode':0},
+            'partial_prefill_batches':0,'compiled_path_batches':0,'capture_compiled_batches':0,'capture_operator_calls':0}
         self._rq43_state=state
         old_positions=runner._init_mrope_positions
         def positions(this,req):
@@ -37,12 +55,29 @@ class VLLMWorkerExtension:
             preempted=getattr(schedule,'preempted_req_ids',set())
             state['preemptions']+=len(preempted)
             if preempted:raise RuntimeError(f'KV admission failed to prevent recomputation: {sorted(preempted)}')
-            state['scheduled']=schedule
+            state['scheduled']=schedule;state['counted_schedule']=None
+            import time
+            began=time.monotonic()
             try:return execute(*args,**kwargs)
-            finally:state['scheduled']=None;state['records']=[]
+            finally:
+                records=state['records']
+                if records:
+                    prefills=sum(r['prefill'] for r in records)
+                    kind='prefill' if prefills==len(records) else 'mixed' if prefills else 'decode'
+                    state['step_wall_seconds'][kind]+=time.monotonic()-began
+                    state['step_counts'][kind]+=1
+                state['scheduled']=None;state['records']=[]
         runner.execute_model=execute_wrapper
-        forward=model.forward
-        def model_forward(*args,**kwargs):
+        sample_tokens=runner.sample_tokens
+        def sample_wrapper(*args,**kwargs):
+            import time
+            start=time.monotonic()
+            try:return sample_tokens(*args,**kwargs)
+            finally:state['sample_tokens_host_seconds']=state.get('sample_tokens_host_seconds',0.)+time.monotonic()-start
+        runner.sample_tokens=sample_wrapper
+        from vllm.config import CUDAGraphMode
+        state.update(graph_decode_batches=0,attention_eager_batches=0,counted_schedule=None)
+        def prepare_records():
             schedule=state['scheduled'];records=[]
             if schedule is not None:
                 offset=0
@@ -53,44 +88,195 @@ class VLLMWorkerExtension:
                     if meta is None:raise ValueError('Unregistered request in experiment engine')
                     before=int(runner.input_batch.num_computed_tokens_cpu[runner.input_batch.req_id_to_index[req_id]])
                     prefill=before<req.num_prompt_tokens
-                    if prefill and (before!=0 or length!=meta['length']):
-                        raise ValueError(f'Split/replayed prefill is not registered: request={req_id}, before={before}, scheduled={length}, prompt={meta["length"]}')
+                    if prefill and (before<0 or length<1 or before+length>meta['length']):
+                        raise ValueError(f'Invalid prefill chunk: request={req_id}, before={before}, scheduled={length}, prompt={meta["length"]}')
                     if not prefill and length!=1:raise ValueError('Speculative/multi-token decode is not registered')
                     call_key=req.sampling_params.extra_args['canvasrca_call_key']
                     if call_key not in state['requests']:raise ValueError('Unregistered engine request identity')
-                    records.append({'key':call_key,'start':offset,'end':offset+length,'prefill':prefill,'meta':meta})
+                    records.append({'key':call_key,'start':offset,'end':offset+length,'prefill':prefill,'before':before,
+                                    'prompt_end':prefill and before+length==meta['length'],'meta':meta})
                     offset+=length
+            state['records']=records
+            if schedule is not None and state['counted_schedule'] is not schedule:
+                state['counted_schedule']=schedule
                 state['batches']+=1;state['max_batch']=max(state['max_batch'],len(records))
+                if any(r['prefill'] and (r['before']>0 or not r['prompt_end']) for r in records):state['partial_prefill_batches']+=1
                 decodes=sum(not r['prefill'] for r in records)
                 if decodes:state['decode_batches']+=1;state['max_decode_batch']=max(state['max_decode_batch'],decodes)
-            state['records']=records
-            return forward(*args,**kwargs)
-        model.forward=model_forward
-        layers=model.language_model.model.layers
-        module=layers[3].self_attn
-        def full_attention(positions,output,hidden_states):
-            import torch.nn.functional as F
-            qkv,_=module.qkv_proj(hidden_states)
-            q,k,v,gate=module._project_qkv_gate(qkv,positions)
-            attn=module.attn(q,k,v)
-            for rec in state['records']:
-                entry=state['requests'][rec['key']];meta=rec['meta'];sl=slice(rec['start'],rec['end'])
-                qq=q[sl].view(-1,module.num_heads,module.head_dim).transpose(0,1)[None]
-                kk=k[sl].view(-1,module.num_kv_heads,module.head_dim).transpose(0,1)[None]
-                tap=entry['tap']
-                if tap is not None:
-                    if rec['prefill']:
-                        entry['attention_keys']=kk.clone()
-                        tap.observe(entry['attention_module'],qq,kk,None,module.head_dim**-.5)
-                    elif entry.get('attention_keys') is not None:
-                        keys=torch.cat((entry.pop('attention_keys'),kk),dim=-2)
-                        tap.observe(entry['attention_module'],qq,keys,None,module.head_dim**-.5)
-            if gate is not None:attn=attn*torch.sigmoid(gate)
-            output[:],_=module.o_proj(attn)
-        module.forward=full_attention
-        return {'schema':'RQ43VLLMInstallationV13','status':'installed','backend':'vllm','dtype':'bfloat16',
+            return records
+        dispatcher=runner.cudagraph_dispatcher;dispatch=dispatcher.dispatch
+        def guarded_dispatch(*args,**kwargs):
+            records=prepare_records()
+            capture_pending=any((tap:=state['requests'][r['key']]['tap']) is not None
+                                and tap.active is not None and tap.active['seen']<2 for r in records)
+            if capture_pending or any(r['prefill'] for r in records):
+                # Native uniform-decode detection is shape-based: a one-token
+                # prefill tail can also fit a FULL graph. Route it safely before
+                # dispatch, retaining any stricter native caller restrictions.
+                safe={CUDAGraphMode.NONE,CUDAGraphMode.PIECEWISE}
+                valid=kwargs.get('valid_modes');invalid=set(kwargs.get('invalid_modes') or ())
+                allowed=(safe if valid is None else safe & set(valid))-invalid
+                if not allowed:raise RuntimeError('No safe graph mode under native dispatch restrictions')
+                kwargs=dict(kwargs,valid_modes=allowed,invalid_modes=invalid)
+            result=dispatch(*args,**kwargs)
+            if records:
+                if capture_pending:state['attention_eager_batches']+=1
+                if result[0]==CUDAGraphMode.PIECEWISE:state['compiled_path_batches']+=1
+                if capture_pending and result[0]==CUDAGraphMode.PIECEWISE:state['capture_compiled_batches']+=1
+                if result[0]==CUDAGraphMode.FULL:
+                    if any(r['prefill'] for r in records) or capture_pending:raise RuntimeError('Unsafe graph replay bypasses registered capture')
+                    state['graph_decode_batches']+=1
+            return result
+        dispatcher.dispatch=guarded_dispatch
+        if not getattr(self,'_rq45_capture_operator_installed',False):
+            raise RuntimeError('Capture split must be bound before native compilation')
+        self.rq45_start_gpu_monitor(attention_folder)
+        return {'schema':'RQ43VLLMInstallationV14','status':'installed','backend':'vllm','dtype':'bfloat16',
             'prefill_intervention_layers':[0,1,2,3],'native_batched_decode':True,'prefix_caching':False,
-            'chunked_prefill':False,'new_diagnostic_calls':0}
+            'chunked_prefill':True,'native_compilation_mode':3,'capture_policy':'opaque_layer3_split_other_layers_keep_native_compilation',
+            'runtime_cpu_affinity':sorted(__import__('os').sched_getaffinity(0)),'new_diagnostic_calls':0}
+
+    @staticmethod
+    def rq45_attention_math(module,positions,output,hidden_states,observer=None):
+        """Native full-attention arithmetic; optional passive read before the gate."""
+        import torch
+        qkv,_=module.qkv_proj(hidden_states)
+        q,k,v,gate=module._project_qkv_gate(qkv,positions)
+        attn=module.attn(q,k,v)
+        if observer is not None:observer(q,k,module)
+        if gate is not None:attn=attn*torch.sigmoid(gate)
+        output[:],_=module.o_proj(attn)
+
+    def rq45_bind_capture_operator(self):
+        """Install before warmup so only the observed layer is an eager split."""
+        import torch
+        from vllm.utils.torch_utils import direct_register_custom_op
+        if getattr(self,'_rq45_capture_operator_installed',False):raise RuntimeError('Capture operator installed twice')
+        module=self.model_runner.get_model().language_model.model.layers[3].self_attn
+        def observe(q,k,attention):
+            state=getattr(self,'_rq43_state',None)
+            if state is None:return
+            state['capture_operator_calls']+=1
+            for rec in state['records']:
+                entry=state['requests'][rec['key']];tap=entry['tap']
+                if tap is None or tap.active is None or tap.active['seen']>=2:continue
+                sl=slice(rec['start'],rec['end'])
+                qq=q[sl].view(-1,attention.num_heads,attention.head_dim).transpose(0,1)[None]
+                kk=k[sl].view(-1,attention.num_kv_heads,attention.head_dim).transpose(0,1)[None]
+                VLLMWorkerExtension.rq45_capture_chunk(entry,rec,qq,kk,attention.head_dim**-.5)
+        def source_attention(positions:torch.Tensor,output:torch.Tensor,hidden_states:torch.Tensor)->None:
+            VLLMWorkerExtension.rq45_attention_math(module,positions,output,hidden_states,observe)
+        def fake(positions:torch.Tensor,output:torch.Tensor,hidden_states:torch.Tensor)->None:
+            pass
+        direct_register_custom_op('rq45_source_attention',source_attention,mutates_args=['output'],fake_impl=fake)
+        def forward(positions,output,hidden_states):
+            torch.ops.vllm.rq45_source_attention(positions,output,hidden_states)
+        module.forward=forward
+        self._rq45_capture_operator_installed=True
+
+    @staticmethod
+    def rq45_canonical_gpu_uuid(value):
+        """Compare hardware identity, independent of UUID case/prefix spelling."""
+        from uuid import UUID
+        if isinstance(value,bytes):value=value.decode('ascii')
+        text=str(value).strip()
+        if text[:4].lower()=='gpu-':text=text[4:]
+        return 'GPU-'+str(UUID(text))
+
+    def rq45_gpu_monitor_device(self):
+        """Validate before loading weights; never substitute another physical GPU."""
+        import os,torch,pynvml
+        from .utils import RESULTS,save
+        cached=getattr(self,'_rq45_gpu_monitor_device',None)
+        if cached is not None:return cached
+        pynvml.nvmlInit()
+        raw=torch.cuda.get_device_properties(self.device).uuid
+        handle=pynvml.nvmlDeviceGetHandleByUUID(str(raw))
+        actual=pynvml.nvmlDeviceGetUUID(handle)
+        expected_id=self.rq45_canonical_gpu_uuid(raw);actual_id=self.rq45_canonical_gpu_uuid(actual)
+        record={'schema':'RQ45GPUIdentityV2','torch_uuid_raw':str(raw),
+            'nvml_uuid_raw':actual.decode('ascii') if isinstance(actual,bytes) else str(actual),
+            'torch_uuid_type':type(raw).__name__,'nvml_uuid_type':type(actual).__name__,
+            'torch_uuid_canonical':expected_id,'nvml_uuid_canonical':actual_id,
+            'CUDA_VISIBLE_DEVICES':os.environ.get('CUDA_VISIBLE_DEVICES'),'device':str(self.device),
+            'status':'passed' if expected_id==actual_id else 'failed'}
+        save(RESULTS/'qualification'/('gpu_identity_'+os.environ.get('SLURM_JOB_ID','unknown')+'.json'),record)
+        if expected_id!=actual_id:
+            raise RuntimeError('NVML monitoring device genuinely differs from inference device: '+repr(record))
+        self._rq45_gpu_monitor_device=(actual_id,handle,record)
+        return self._rq45_gpu_monitor_device
+
+    def rq45_start_gpu_monitor(self,attention_folder):
+        """Sample only this worker's allocated device at 1Hz; never all-node GPUs."""
+        import csv,os,threading,time,torch,pynvml
+        from pathlib import Path
+        from .utils import save
+        folder=Path(attention_folder).parent;folder.mkdir(parents=True,exist_ok=True)
+        uuid,handle,identity=self.rq45_gpu_monitor_device()
+        stop=threading.Event();errors=[];path=folder/'gpu_utilization.csv';meta=folder/'gpu_utilization_metadata.json'
+        if path.exists():raise RuntimeError('Refuse to overwrite earlier GPU measurements')
+        record={'schema':'RQ45GPUUtilizationV2','gpu_uuid':uuid,'device_identity':identity,'device':str(self.device),'job_id':os.environ.get('SLURM_JOB_ID'),
+            'sample_period_seconds':1.,'coverage':'after engine warmup before first request through clean provider shutdown; startup not sampled',
+            'clock':'Unix epoch time.time; each NVML sample records query start and completion','started_unix':time.time(),'status':'recording'}
+        save(meta,record)
+        def sample():
+            try:
+                with path.open('x',newline='') as f:
+                    writer=csv.writer(f);writer.writerow(['unix','query_finished_unix','gpu_util_percent','memory_util_percent','memory_used_bytes','memory_total_bytes','power_watts','temperature_c','sm_clock_mhz'])
+                    while not stop.is_set():
+                        began=time.time();u=pynvml.nvmlDeviceGetUtilizationRates(handle);m=pynvml.nvmlDeviceGetMemoryInfo(handle)
+                        writer.writerow([began,time.time(),u.gpu,u.memory,m.used,m.total,pynvml.nvmlDeviceGetPowerUsage(handle)/1000.,
+                            pynvml.nvmlDeviceGetTemperature(handle,pynvml.NVML_TEMPERATURE_GPU),pynvml.nvmlDeviceGetClockInfo(handle,pynvml.NVML_CLOCK_SM)])
+                        f.flush();stop.wait(max(.01,1.-(time.time()-began)))
+            except BaseException as exc:
+                errors.append(repr(exc))
+        thread=threading.Thread(target=sample,name='rq45-nvml-device-monitor',daemon=True);thread.start()
+        self._rq45_gpu_monitor={'thread':thread,'stop':stop,'errors':errors,'record':record,'meta':meta}
+
+    @staticmethod
+    def rq45_utilization_interval(samples,start,end):
+        """Left-held NVML samples clipped to the inference interval; no startup."""
+        import math
+        if not math.isfinite(start+end) or end<=start:raise ValueError('Invalid GPU analysis interval')
+        times=[float(row['unix']) for row in samples]
+        if len(times)<2 or any(b<=a for a,b in zip(times,times[1:])):raise ValueError('Insufficient/nonmonotonic GPU samples')
+        area=covered=0.;gaps=[];values=[]
+        for row,next_time in zip(samples,times[1:]):
+            t=float(row['unix']);value=float(row['gpu_util_percent'])
+            if not math.isfinite(value) or not 0<=value<=100:raise ValueError('Invalid measured GPU utilization')
+            lo=max(t,start);hi=min(next_time,end)
+            if hi<=lo:continue
+            gaps.append(next_time-t);area+=value*(hi-lo);covered+=hi-lo;values.append(value)
+        if covered<=0:raise ValueError('GPU samples do not cover actual requests')
+        return {'time_weighted_mean_gpu_util_percent':area/covered,'minimum_sample_percent':min(values),'maximum_sample_percent':max(values),
+            'samples_integration_intervals':len(values),'sample_count_total':len(samples),'covered_seconds':covered,'interval_seconds':end-start,
+            'coverage_fraction':covered/(end-start),'maximum_sample_gap_seconds':max(gaps),'start_unix':start,'end_unix':end,
+            'interval_definition':'earliest actual request GPU encoding entry through last generation completion; excludes loading, compilation, CPU preparation before first GPU request and final writer/provider drain',
+            'integration':'1Hz NVML utilization, left-held between successive timestamped samples; hardware utilization is sampled, not per-kernel occupancy'}
+
+    @staticmethod
+    def rq45_capture_chunk(entry,rec,query,key,scaling):
+        """Accumulate exact native K across chunks; observe only registered queries."""
+        import torch
+        tap=entry['tap']
+        if tap is None or tap.active is None or tap.active['seen']>=2:return
+        if rec['prefill']:
+            before=rec['before'];processed=entry.get('attention_processed_tokens',0)
+            if before!=processed:raise ValueError('Attention prefill chunks are not contiguous')
+            length=key.shape[-2]
+            if length!=rec['end']-rec['start']:raise ValueError('Attention chunk length mismatch')
+            if before+length>rec['meta']['length']:raise ValueError('Attention chunk exceeds prompt')
+            entry.setdefault('attention_key_chunks',[]).append(key.clone())
+            entry['attention_processed_tokens']=before+length
+            if rec['prompt_end']:
+                if entry['attention_processed_tokens']!=rec['meta']['length']:raise ValueError('Incomplete attention prompt')
+                keys=torch.cat(entry.pop('attention_key_chunks'),dim=-2)
+                entry['attention_keys']=keys
+                tap.observe(entry['attention_module'],query,keys,None,scaling)
+        else:
+            keys=entry.pop('attention_keys',None)
+            if keys is None or tap.active['seen']!=1:raise ValueError('Decode capture lacks complete prompt keys')
+            tap.observe(entry['attention_module'],query,torch.cat((keys,key),dim=-2),None,scaling)
 
     def rq43_encode(self,key,packet):
         """Use the loaded encoder/embedding weights; GPU->RAM transport is explicit."""
@@ -102,6 +288,7 @@ class VLLMWorkerExtension:
         if meta['operation']!='U' or meta['groups']:raise ValueError('RQ4.5 permits only native encoding with post-merger gather')
         if key in state['requests']:raise RuntimeError('Duplicate active engine request')
         began=time.monotonic();batch={k:vllm_tensor_unwire(v) for k,v in packet['batch'].items()};tap=None
+        gpu_request_started_unix=time.time()
         with torch.inference_mode():
             ids=batch['input_ids'].to('cuda');vectors=model.language_model.embed_input_ids(ids[0])
             if packet['image_positions']:
@@ -116,7 +303,7 @@ class VLLMWorkerExtension:
                 tap.begin(key,torch.tensor(a['ids'],device='cuda',dtype=torch.long),a['names'],stable(a['ids']))
             host=vectors.to('cpu')
         state['requests'][key]={'branch_calls':0,'tap':tap,'attention_module':SimpleNamespace(layer_idx=3),
-            'admitted_monotonic':began,'encoder_transport_seconds':time.monotonic()-began}
+            'admitted_monotonic':began,'gpu_request_started_unix':gpu_request_started_unix,'encoder_transport_seconds':time.monotonic()-began}
         return vllm_tensor_wire(host)
 
     def rq43_cache_profile(self):
@@ -129,16 +316,30 @@ class VLLMWorkerExtension:
         tap=entry['tap'];error=None;missed=0
         if tap is not None:
             tap.close();state['store'].queue.join();error=tap.error;missed=tap.missed
-        return {k:v for k,v in entry.items() if k not in {'tap','attention_module','attention_keys'}}|{
+        return {k:v for k,v in entry.items() if k not in {'tap','attention_module','attention_keys','attention_key_chunks'}}|{
             'attention_error':error,'attention_missed':missed,'finished_monotonic':time.monotonic(),
             'engine_batches':state['batches'],'engine_decode_batches':state['decode_batches'],
             'engine_max_batch':state['max_batch'],'engine_max_decode_batch':state['max_decode_batch'],
-            'engine_preemptions':state['preemptions']}
+            'engine_preemptions':state['preemptions'],'graph_decode_batches':state['graph_decode_batches'],
+            'attention_eager_batches':state['attention_eager_batches'],
+            'partial_prefill_batches':state['partial_prefill_batches'],'compiled_path_batches':state['compiled_path_batches'],
+            'capture_compiled_batches':state['capture_compiled_batches'],'capture_operator_calls':state['capture_operator_calls'],
+            'step_wall_seconds_by_kind':dict(state['step_wall_seconds']),'step_counts_by_kind':dict(state['step_counts']),
+            'sample_tokens_host_seconds':state.get('sample_tokens_host_seconds',0.),
+            'step_timing_definition':'host execute_model wall span including synchronous waits; not isolated GPU kernel time'}
 
     def rq43_shutdown(self):
         state=self._rq43_state
         if state['requests']:raise RuntimeError('Refuse clean shutdown with unfinished model requests')
-        state['store'].close();return {'status':'drained','max_decode_batch':state['max_decode_batch']}
+        state['store'].close()
+        monitor=self._rq45_gpu_monitor;monitor['stop'].set();monitor['thread'].join(timeout=5)
+        if monitor['thread'].is_alive():raise RuntimeError('GPU monitor failed to drain')
+        from .utils import save
+        record=dict(monitor['record'],status='passed' if not monitor['errors'] else 'failed',
+            errors=monitor['errors'],stopped_unix=__import__('time').time())
+        save(monitor['meta'],record)
+        if monitor['errors']:raise RuntimeError('GPU monitoring failed: '+repr(monitor['errors']))
+        return {'status':'drained','max_decode_batch':state['max_decode_batch']}
 
 class VLLMSolvers:
     """Synchronous provider boundary backed by one AsyncLLM continuous engine."""
@@ -230,6 +431,7 @@ class VLLMSolvers:
                 extra_args={'canvasrca':meta,'canvasrca_call_key':key},output_kind=RequestOutputKind.FINAL_ONLY)
             language=time.monotonic();last=None;submitted=True
             async for result in self.engine.generate(prompt,params,request_id=key):last=result
+            model_completed_unix=time.time()
             if last is None or not last.finished or len(last.outputs)!=1:raise RuntimeError('Incomplete vLLM response')
             audit=(await self.engine.collective_rpc('rq43_finish',args=(key,)))[0];encoded=False
             self.engine_stats={k:audit[k] for k in ('engine_batches','engine_decode_batches','engine_max_batch','engine_max_decode_batch','engine_preemptions')}
@@ -243,8 +445,10 @@ class VLLMSolvers:
                 'processor_model_seconds':time.monotonic()-began,'vision_seconds':audit['encoder_transport_seconds'],
                 'language_seconds':time.monotonic()-language,'attention_requested':bool(request.get('attention')),
                 'attention_record_key':key if request.get('attention') else None,'stop_reason':answer.finish_reason,
-                'runtime_revision':'vllm_v13','backend':'vllm','request_concurrency':8,'dtype':'bfloat16',
-                'sampling_rng':'vllm_independent_seeded_request','implementation_generation_identity':stable([request['identity'],'vllm_v13']),
+                'runtime_revision':'rq45_capture_partition_v3','backend':'vllm','request_concurrency':8,'dtype':'bfloat16',
+                'model_completed_unix':model_completed_unix,
+                'native_request_timing':{k:float(v) for k,v in vars(last.metrics).items() if isinstance(v,(int,float))} if last.metrics is not None else {},
+                'sampling_rng':'vllm_independent_seeded_request','implementation_generation_identity':stable([request['identity'],'rq45_capture_partition_v3']),
                 'operational_revision':'kv_admission_v19','cache_reservation':reservation,
                 **audit}
             return answer.text,usage
@@ -389,7 +593,7 @@ def audit_ownership(packet):
     return {'union_count':len(seen),'diagnostic_overlap':0,'source_groups':len(groups)}
 
 
-def residual_text(public,packet,qa=False):
+def residual_text(public,packet,qa=False,strip_instructions=False):
     """Delete identified occurrences, never approximate strings/number matches."""
     original=deepcopy(public['texts']['RAW_TEXT']);atoms={a['id']:a for a in public['organization']['atoms']}
     moved={r['occurrence'] for r in packet['records'] if r['owner']=='image'}
@@ -413,9 +617,10 @@ def residual_text(public,packet,qa=False):
                 raw=neutral(atom['raw'])
                 if raw not in text:raise ValueError('Transferred source occurrence not found: '+atom['id'])
                 text=text.replace(raw,'',1);applied.append(atom['id'])
-        if qa and any(items[0]['raw'].startswith(s) for s in ('A fault has occurred','Source reading:',
+        if (qa or strip_instructions) and any(items[0]['raw'].startswith(s) for s in ('A fault has occurred','Source reading:',
                 'Literal reading and evidence citations:','Output cardinality','Based on the above')):
             # These registered parts contain only task/format/reading rules.
+            if any(a['kind']!='literal' for a in items):raise ValueError('Instruction section contains a diagnostic record')
             text=''
         original[pi]['text']=text
     if set(applied)!=moved or len(applied)!=len(moved):raise ValueError('Not every image-owned occurrence was removed')
@@ -476,8 +681,19 @@ def topology_cards(public):
         elif atom['prefix']=='directed_call_edge':edges=[[value['caller'],value['callee'],'calls']]
         elif set(value)=={'from','to','relation'}:edges=[[value['from'],value['to'],value['relation']]]
         elif set(value)=={'parent','child','relation','supporting_span_pairs'}:
-            edges=[[value['parent'],value['child'],value['relation']]]
-            metadata.append({'name':atom['id']+' '+value['parent']+' → '+value['child']+' supporting span pairs',
+            endpoints=[]
+            for side in ('parent','child'):
+                endpoint=value[side]
+                if isinstance(endpoint,list):
+                    if len(endpoint)!=2 or not all(isinstance(x,str) for x in endpoint):raise ValueError('Unknown operation-bound endpoint')
+                    entity,operation=endpoint
+                    metadata.append({'name':atom['id']+' '+side+' '+entity+' operation','value':operation})
+                else:entity=endpoint
+                endpoints.append(entity)
+            relation=value['relation']
+            if relation=='observed parent span -> child span':relation='request_parent'
+            edges=[[*endpoints,relation]]
+            metadata.append({'name':atom['id']+' '+endpoints[0]+' → '+endpoints[1]+' supporting span pairs',
                              'value':str(value['supporting_span_pairs'])})
         else:raise ValueError('Unknown topology record')
         for j,(a,b,kind) in enumerate(edges):
@@ -507,7 +723,8 @@ def hybrid_design(cards):
     for c in cards:
         if c['kind']=='trace_joint':
             # Two phases, paired glyph rows, population quantiles and conditions.
-            height=640+36*len(c['data']['samples'])+32*sum(math.ceil(len(c['data'][k])/80) for k in ('parent_operation','child_operation'))
+            rows=max(sum(s['phase']==p for s in c['data']['samples']) for p in ('reference','current'))
+            height=800+32*rows+32*sum(math.ceil(len(c['data'][k])/80) for k in ('parent_operation','child_operation'))
             component='trace_joint.complete_marginals'
         elif c['kind']=='graph':height=node_link_layout(c,width-48,18)['min_height'];component='graph.node_link'
         else:height=160+36*len(c['data']['details']);component='inventory.identities'
@@ -643,6 +860,8 @@ def render_hybrid(cards,folder,processor,auditor):
     from .utils import object_file
     from PIL import Image
     evidence={'schema':'CanvasEvidenceV1','cards':cards};design=hybrid_design(cards)
+    if any(c['kind']=='trace_joint' for c in cards):
+        folder=folder/('complete_v2_'+stable([evidence,design,digest(ROOT/'src/renderer/web/components/CompleteMarginals.tsx')])[:16])
     # Explicit foreground audit for every bound visible evidence field. No
     # support from invisible HTML fields or full card rectangles.
     bindings=expected_bindings(evidence,True)
@@ -673,7 +892,7 @@ def render_hybrid(cards,folder,processor,auditor):
         'evidence':evidence,'design':design,'support':support,'bindings':bindings,'processed_pixels':processed}
 
 
-def build_request(processor,images,system,text,task,attention=False,hybrid=False,seed=42):
+def build_request(processor,images,system,text,task,attention=False,hybrid=False,seed=42,data_empty=False):
     from PIL import Image
     messages=[{'role':'system','content':system},{'role':'user','content':[
         *({'type':'image'} for _ in images),{'type':'text','text':text}]}]
@@ -681,8 +900,9 @@ def build_request(processor,images,system,text,task,attention=False,hybrid=False
     opened=[]
     for image in images:
         with Image.open(ROOT/image['image']) as im:opened.append(im.convert('RGB'))
-    batch=processor(text=[prompt],images=opened,return_tensors='pt')
-    grids=batch['image_grid_thw'].tolist();counts=[math.prod(g)//4 for g in grids]
+    if not images and not (hybrid and data_empty):raise ValueError('Absent image is not an allowed error fallback')
+    batch=processor(text=[prompt],images=opened or None,return_tensors='pt')
+    grids=batch['image_grid_thw'].tolist() if opened else [];counts=[math.prod(g)//4 for g in grids]
     if any(g!=im['grid_thw'] for g,im in zip(grids,images,strict=True)):raise ValueError('Processor geometry changed in combined request')
     if sum(counts)>16384:raise ValueError('Total original image budget exceeded')
     keeps=[im['retained'] for im in images];text_tokens=batch['input_ids'].shape[-1]-sum(counts);n=text_tokens+sum(map(len,keeps))
@@ -690,7 +910,7 @@ def build_request(processor,images,system,text,task,attention=False,hybrid=False
     request={'schema':'RQ45RequestV1','messages':messages,'prompt':prompt,'images':[im['image'] for im in images],
         'image_sha256':[im['sha256'] for im in images],'grid_thw':grids,'retained_by_image':keeps,
         'geometry':[im['geometry'] for im in images],'input_tokens':n,'text_tokens':text_tokens,'image_tokens_original':sum(counts),
-        'task':task,'attention':attention,'hybrid':hybrid,'seed':seed,'output_tokens':8192,
+        'task':task,'attention':attention,'hybrid':hybrid,'seed':seed,'output_tokens':8192,'data_empty_transfer':data_empty,
         'attention_query_policy':'layer_3_last_prompt_and_first_decode_only; no final-ranking query claim'}
     # Paths/arm names/attention do not distinguish generation; actual prompt,
     # pixels, retained indices, model/processor/decoder/position recipe do.
@@ -705,7 +925,7 @@ def compile_case(row,processor,auditor):
     import time
     from .utils import historical,object_file
     started=time.monotonic();base,old=historical(row);cfg=read(RQ/'configs/protocol_v1.json')
-    source=ROOT/cfg['source_public']/(row['id']+'.json');public=read(source);validate_public(public)
+    source=SOURCE_ROOT/cfg['source_public']/(row['id']+'.json');public=read(source);validate_public(public)
     support=read(base/'token_support.json');provenance=read(base/'provenance.json');previous=read(base/'processor_cpu.json')
     if digest(base/'render/dashboard.png')!=previous['png_sha256']:raise ValueError('Original U PNG changed')
     u_keep=old['actual_retention']['indices'];manifest=read(base/'render/manifest.json')
@@ -730,19 +950,28 @@ def compile_case(row,processor,auditor):
             packet=ownership(public,arm);packets[arm]=packet
             families={r['family'] for r in packet['records'] if r['owner']=='image'}
             images=[im for f in ('topology','pair') if f in families for im in family_images[f]]
-            if not images:raise ValueError('Hybrid has no valid image; not a missing-data fallback')
-            text='\n\n'.join(p['text'] for p in residual_text(public,packet))+'\n'+HYBRID_GUIDE
+            data_empty=not tcards and not pcards
+            if not images and not data_empty:raise ValueError('Hybrid has no valid image; not a missing-data fallback')
+            guide=HYBRID_GUIDE if images else 'Use all original source records, units and phases. Return the registered five-candidate JSON.'
+            instructions=read(RQ/'configs/hybrid_instructions_v2.json')
+            atoms={a['id']:a for a in public['organization']['atoms']}
+            rule_blocks=[public['texts']['RAW_TEXT'][s['part']]['text'] for s in public['organization']['sections']
+                if atoms[s['atoms'][0]]['raw'].startswith(tuple(instructions['original_sections']))]
+            if stable(rule_blocks)!=instructions['original_rule_blocks_sha256']:raise ValueError('Unreviewed source instruction variant')
+            text=instructions['text']+'\n\n'+'\n\n'.join(p['text'] for p in residual_text(public,packet,strip_instructions=True))+'\n'+guide
+            packet['instruction_transform']={'revision':instructions['schema'],'sha256':stable(instructions),
+                'scope':'non-diagnostic task/reading rules only; diagnostic records/order and images unchanged'}
             prompt_system=public['system']
-        inputs[arm]=build_request(processor,images,prompt_system,text,'RCA',hybrid=arm.startswith('H_'))
+        inputs[arm]=build_request(processor,images,prompt_system,text,'RCA',hybrid=arm.startswith('H_'),data_empty=not images)
     save(RESULTS/'inputs'/row['id']/'requests.json',inputs)
     save(RESULTS/'inputs'/row['id']/'ownership.json',packets)
     save(RESULTS/'inputs'/row['id']/'selections.json',selections)
     dependencies={}
     for path in (source,base/'token_support.json',base/'provenance.json',base/'processor_cpu.json',base/'mapping.json',base/'evidence.json',base/'render/manifest.json'):
-        retained,sha=object_file(path);dependencies[str(path.relative_to(ROOT))]={'retained':retained,'sha256':sha}
+        retained,sha=object_file(path);dependencies[str(path.relative_to(SOURCE_ROOT))]={'retained':retained,'sha256':sha}
     # Full structures are retained for provenance, not appended to model text.
     save(RESULTS/'inputs'/row['id']/'source.json',{'dependencies':dependencies,'pair_bindings':pbind,'topology_bindings':tbind,
-        'hybrid_images':family_images,'source_public':dependencies[str(source.relative_to(ROOT))]['retained']})
+        'hybrid_images':family_images,'source_public':dependencies[str(source.relative_to(SOURCE_ROOT))]['retained']})
     return {'id':row['id'],'dataset':row['dataset'],'status':'passed','input_tokens':{a:r['input_tokens'] for a,r in inputs.items()},
         'pair_applicable':bool(pcards),'seconds':time.monotonic()-started,'new_model_calls':0}
 
@@ -762,7 +991,7 @@ def prepare_mechanism(row,processor):
             # Image decode guide only; no RCA task remains in the QA message.
             text+='\nImages use log1p(ms) paired duration positions or typed directed relationships; matched source IDs join evidence.'
         else:text=QA_GUIDE+'\n'+questions
-        output[arm]=build_request(processor,images,'Read public telemetry accurately; answer only the six reading questions.',text,'QA',True,arm.startswith('H_'))
+        output[arm]=build_request(processor,images,'Read public telemetry accurately; answer only the six reading questions.',text,'QA',True,arm.startswith('H_'),data_empty=old.get('data_empty_transfer',False))
     save(RESULTS/'mechanism'/row['id']/'requests.json',output)
     save(RESULTS/'mechanism'/row['id']/'answers_audit_only.json',{'answers':qa['answers'],'provenance':qa['provenance'],'families':qa['families']})
     return {'id':row['id'],'status':'passed','questions':qa['applicable'],'new_model_calls':0}
@@ -780,7 +1009,7 @@ def build_queue(scope='formal'):
     if scope=='smoke':
         fixed={r['id']:r for r in rows};ids=cfg['smoke_ids']
         # Six RCA interfaces + six QA interfaces + six nominees/repeats; no
-        # overlapping correctness retries. One 18-call/600s aggregate budget.
+        # overlapping correctness retries. One registered 18-call smoke budget.
         for j,arm in enumerate(ARMS):add(fixed[ids[j%3]],arm,'RCA','SMOKE_RCA')
         for j,arm in enumerate(ARMS):add(fixed[ids[j%3]],arm,'QA','SMOKE_QA')
         for oid in ids:

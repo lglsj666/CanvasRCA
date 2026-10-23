@@ -1,5 +1,16 @@
 # CanvasRCA project-wide design decisions
 
+## DD-20261019-RQ45-CPU: Complete CPU qualification; preserve explicit comparison scope
+
+**Date:** 2026-10-19
+**Status:** adopted for the current RQ4.5 revision
+
+The user authorizes CPU repair until all checks pass and removes strict cross-arm information equality. Methods may select different public evidence with explicit retained/omitted inventories; changed evidence supports whole-method comparisons. Within-arm cross-modal nonduplication, single-call RCA, private-label isolation and the unified renderer remain required. Codex.md is unchanged.
+
+CPU qualification is now passed and frozen. Correct the new marginal geometry, endpoint format, empty-transfer applicability limit, static-rule repetition, CPU source interleaving and passive multi-image header attribution. Preserve all diagnostic records across the instruction repair; actual hybrid requests save 522 tokens each. Generic instruction savings are not a visual-compression contribution, and rewritten instructions may affect diagnosis. Historical baselines stay unchanged and are reused with their comparability limits disclosed.
+
+Reuse unaffected qualification evidence only with the original report/source hashes and unchanged-payload/model-code proof; rerun affected checks. No model calls occurred. GPU smoke/formal remain closed pending separate authorization. [CPU qualification](../docs/experiment_reports/RQ4_5_CPU_Qualification_2026-10-19.md) · [Current state](../RQs/RQ4_5/findings/exp_exclusive_spatial_findings.md).
+
 ## DD-20261018-RQ45-SCOPE: Reopen exclusive hybrid research alongside pure visual optimization
 
 **Date:** 2026-10-18

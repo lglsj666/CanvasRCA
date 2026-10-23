@@ -3,7 +3,7 @@ import ast
 import json
 from functools import lru_cache
 from pathlib import Path
-from .utils import ROOT,RQ,RESULTS,read,save,digest,stable,ARMS,NOMINEES
+from .utils import ROOT,RQ,RESULTS,SOURCE_ROOT,MODEL,read,save,digest,stable,ARMS,NOMINEES
 
 
 def source_files():
@@ -20,7 +20,8 @@ def source_files():
 
 
 def execution_fingerprint():
-    return stable({str(p.relative_to(ROOT)):digest(p) for p in source_files()})
+    return stable({'sources':{str(p.relative_to(ROOT)):digest(p) for p in source_files()},
+        'deployment':{'results':str(RESULTS),'source_root':str(SOURCE_ROOT),'model':str(MODEL)}})
 
 
 @lru_cache(maxsize=1)
@@ -33,9 +34,9 @@ def generation_recipe():
         'execution':read(RQ/'configs/execution_v1.json')['engine'],
         'temperature':1.0,'top_p':.95,'top_k':-1,'output_tokens':8192,'thinking':False,
         'operation':'original_encoder_post_merger_original_positions_v1',
-        'transport_code':{name:stable(ast.get_source_segment(path.read_text(),node)) for path in (RQ/'src/exps.py',RQ/'src/utils.py')
+        'transport_code':{('worker_factory' if path.name=='exps.py' and name=='__getattr__' else name):stable(ast.get_source_segment(path.read_text(),node)) for path in (RQ/'src/exps.py',RQ/'src/utils.py')
             for node in ast.parse(path.read_text()).body if isinstance(node,(ast.FunctionDef,ast.ClassDef))
-            and (name:=node.name) in {'VLLMWorkerExtension','VLLMSolvers','vllm_prompt_packet','multimodal_gather','rca_schema','qa_schema'}}}
+            and (name:=node.name) in {'__getattr__','VLLMWorkerExtension','VLLMSolvers','vllm_prompt_packet','multimodal_gather','rca_schema','qa_schema'}}}
 
 
 def protected_check():
@@ -46,14 +47,14 @@ def protected_check():
     # Only type/registry additions are allowed in these two integration files.
     import subprocess
     for name in integration:
-        old=subprocess.run(['git','show','HEAD:'+name],cwd=ROOT,text=True,capture_output=True,check=True).stdout
         new=(ROOT/name).read_text()
         if name.endswith('index.ts'):
             new=new.replace("import CompleteMarginals from './CompleteMarginals.js';\n",'').replace("  'trace_joint.complete_marginals':CompleteMarginals,\n",'')
         else:
             first=new.index('         complete?:');last=new.index('         samples?:',first);new=new[:first]+new[last:]
-        if new!=old:raise ValueError('Existing TypeScript runtime semantics changed')
-    old_catalog=json.loads(subprocess.run(['git','show','HEAD:src/renderer/configs/components.json'],cwd=ROOT,text=True,capture_output=True,check=True).stdout)
+        import hashlib
+        if hashlib.sha256(new.encode()).hexdigest()!=snapshot[name]:raise ValueError('Existing TypeScript runtime semantics changed')
+    old_catalog=read(RQ/'configs/renderer_legacy_catalog.json')
     new_catalog=read(ROOT/'src/renderer/configs/components.json')
     if new_catalog['components'][:-1]!=old_catalog['components']:raise ValueError('Existing registered components changed')
     return len(snapshot)
@@ -79,6 +80,10 @@ def static_check(typecheck=True):
         compile(ast.parse(path.read_text(),filename=str(path)),str(path),'exec')
     if lines>7500:raise ValueError('Source line budget')
     cfg=read(RQ/'configs/protocol_v1.json');engine=read(RQ/'configs/execution_v1.json')
+    instructions=read(RQ/'configs/hybrid_instructions_v2.json')
+    if instructions.get('schema')!=cfg['hybrid_instruction_revision'] or not instructions.get('preserved_semantics'):
+        raise ValueError('Unregistered static instruction revision')
+    if 'INC-' in instructions['text']:raise ValueError('Incident identity in static instructions')
     if tuple(cfg['arms'])!=ARMS or tuple(cfg['preselected'])!=NOMINEES:raise ValueError('Arm registration mismatch')
     if any(cfg[k] for k in ('cpu_enabled','smoke_enabled','formal_enabled')) or any(engine[k] for k in ('cpu_enabled','gpu_smoke_enabled','formal_enabled')):
         raise ValueError('Default execution permissions must remain closed')
@@ -86,9 +91,17 @@ def static_check(typecheck=True):
     if cfg['method_positions']!=6*220 or cfg['qa_positions']!=6*30 or cfg['repeat_positions']!=2*30:raise ValueError('Matrix size')
     if any(not (ROOT/p).is_file() for p in cfg['global_configs']):raise ValueError('Missing global configuration')
     e=engine['engine']
-    if (e['dtype'],e['max_model_len'],e['gpu_memory_utilization'],e['max_num_seqs'],e['quantization'])!=('bfloat16',40960,.8,8,None):raise ValueError('Runtime recipe drift')
-    if e['enable_prefix_caching'] or e['enable_chunked_prefill'] or engine['cpu_workers']!=8:raise ValueError('Gather/runtime recipe mismatch')
-    count=protected_check();ts='not_checked'
+    fraction=.9 if engine.get('operational_profile')=='nibi_platform_validation_kv90_20261021' else .8
+    if (e['dtype'],e['max_model_len'],e['gpu_memory_utilization'],e['max_num_seqs'],e['quantization'])!=('bfloat16',40960,fraction,8,None):raise ValueError('Runtime recipe drift')
+    compiled=engine.get('operational_acceleration') in {'chunked_compiled_capture_v2','capture_partition_v3'}
+    if e['enable_prefix_caching'] or bool(e['enable_chunked_prefill'])!=compiled or engine['cpu_workers']!=8:raise ValueError('Gather/runtime recipe mismatch')
+    if compiled and (e['compilation_config']['mode']!=3 or e['max_num_batched_tokens']!=8192 or e['async_scheduling']):
+        raise ValueError('Unregistered compiled/chunked runtime profile')
+    if engine.get('operational_acceleration')=='capture_partition_v3':
+        if e.get('worker_cls')!='RQs.RQ4_5.src.exps.NativeCapturedWorker':raise ValueError('Capture worker not registered')
+        if 'vllm::rq45_source_attention' not in e['compilation_config']['splitting_ops']:raise ValueError('Capture layer not excluded from graph replay')
+        if e['compilation_config']['pass_config'].get('fuse_rope_kvcache') is not False:raise ValueError('Native unfused KV split must remain explicit')
+    count=protected_check();ts='not_checked' 
     if typecheck:
         import subprocess
         node=ROOT/'build/renderer_tooling/node-v24.20.0-linux-x64/bin/node'
@@ -118,7 +131,12 @@ def require_execution(scope):
     if cpu['status']!='passed' or cpu['execution_fingerprint']!=execution_fingerprint():raise RuntimeError('Complete CPU qualification missing')
     if scope=='formal':
         smoke=read(RESULTS/'qualification/smoke.json')
-        if smoke['status']!='passed' or smoke['execution_fingerprint']!=execution_fingerprint():raise RuntimeError('Smoke not qualified')
+        if smoke['status']!='passed' or smoke['execution_fingerprint']!=execution_fingerprint():
+            waiver=read(RESULTS/'qualification/formal_resume_authorization.json')
+            if not (waiver.get('authorized') is True and waiver.get('skip_new_smoke') is True
+                    and waiver.get('execution_fingerprint')==execution_fingerprint()
+                    and waiver.get('previous_smoke_sha256')==digest(RESULTS/'qualification/smoke.json')
+                    and waiver.get('maximum_additional_jobs')==1):raise RuntimeError('Smoke not qualified and no exact user waiver')
     frozen=read(RESULTS/'frozen/manifest.json')
     if frozen['execution_fingerprint']!=execution_fingerprint():raise RuntimeError('Frozen source mismatch')
     for name,info in frozen['model_provenance'].items():
@@ -130,7 +148,7 @@ def require_execution(scope):
 def historical_reference_rows():
     """Offline comparator/accounting only; never passed to the public compiler."""
     from .utils import roster,HISTORY,object_file
-    marginal=ROOT/'RQs/RQ3_16/results/marginal_coverage_v1'
+    marginal=SOURCE_ROOT/'RQs/RQ3_16/results/marginal_coverage_v1'
     refs=[]
     for row in roster():
         for arm in ('T_FULL','A_UNIFORM_E50'):
@@ -161,21 +179,33 @@ def freeze_model_provenance():
     return {str(p):{'sha256':digest(p),'bytes':p.stat().st_size,'mtime_ns':p.stat().st_mtime_ns} for p in paths}
 
 
-def freeze_cpu():
+def input_budget():
+    """Complete CPU input-cost gate, before scheduling dependent qualification."""
     require_cpu()
-    reports={k:read(RESULTS/'qualification'/f'{k}.json') for k in ('population','mechanism','unit','runtime','visual_review')}
-    if any(v.get('status')!='passed' or v.get('execution_fingerprint')!=execution_fingerprint() for v in reports.values()):raise RuntimeError('Qualification incomplete or stale')
-    if len(reports['population']['cases'])!=220:raise ValueError('Not the complete development cohort')
+    report=read(RESULTS/'qualification/population.json')
+    if report.get('status')!='passed' or report.get('execution_fingerprint')!=execution_fingerprint():raise RuntimeError('Population qualification incomplete or stale')
+    if len(report['cases'])!=220:raise ValueError('Not the complete development cohort')
     refs=historical_reference_rows();costs={(r['id'],r['arm']):r['input_tokens'] for r in refs}
-    rows=reports['population']['cases'];budget={}
+    rows=report['cases'];budget={};violations=[]
     for ds in ('aiops2022','aiops2025','aegislab'):
         subset=[r for r in rows if r['dataset']==ds];budget[ds]={}
         for arm in ARMS[:3]:
             avg=sum(r['input_tokens'][arm] for r in subset)/len(subset)
             ratios={b:avg/(sum(costs[(r['id'],b)] for r in subset)/len(subset)) for b in ('T_FULL','MARGINAL_FIVE')}
             budget[ds][arm]=ratios
-            if any(v>=1 for v in ratios.values()):
-                save(RESULTS/'qualification/budget.json',{'status':'failed','ratios':budget});raise ValueError('Hybrid input cost has not decreased')
+            violations.extend({'dataset':ds,'arm':arm,'baseline':b,'ratio':v} for b,v in ratios.items() if v>=1)
+    result={'status':'failed' if violations else 'passed','ratios':budget,'violations':violations,
+        'execution_fingerprint':execution_fingerprint(),'scope':'actual complete processor input only; output/deployment cost remains unmeasured','new_model_calls':0}
+    save(RESULTS/'qualification/budget.json',result)
+    if violations:raise ValueError('Hybrid input cost has not decreased')
+    return result
+
+
+def freeze_cpu():
+    require_cpu()
+    reports={k:read(RESULTS/'qualification'/f'{k}.json') for k in ('population','mechanism','unit','runtime','transport_audit','determinism','visual_review')}
+    if any(v.get('status')!='passed' or v.get('execution_fingerprint')!=execution_fingerprint() for v in reports.values()):raise RuntimeError('Qualification incomplete or stale')
+    budget=input_budget()['ratios']
     from .exps import build_queue
     hashes={}
     for scope in ('smoke','formal'):
@@ -195,6 +225,83 @@ def freeze_cpu():
     save(RESULTS/'qualification/cpu_complete.json',result);return result
 
 
+def refresh_measurement_qualification():
+    """Carry forward unchanged CPU evidence after a passive-region-only repair.
+
+    Never usable after GPU activation/calls. This does not grant any permission,
+    rerun a model, or describe a reused test as newly executed.
+    """
+    require_cpu()
+    from renderer.gates import source_fingerprint
+    q=RESULTS/'qualification';old=q/'history_v3';snapshot=read(old/'source_snapshot.json')
+    previous_sources={}
+    for p in source_files():
+        archived=old/'source'/p.name
+        reference=archived if p.parent==RQ/'src' and archived.exists() else p
+        previous_sources[str(p.relative_to(ROOT))]=digest(reference)
+    reconstructed=stable({'sources':previous_sources,'deployment':{'results':str(RESULTS),'source_root':str(SOURCE_ROOT),'model':str(MODEL)}})
+    if reconstructed!=snapshot['execution_fingerprint']:raise ValueError('Unregistered changes outside the archived CPU/measurement revision')
+    for scope in ('smoke','formal'):
+        if (q/(scope+'_activation.json')).exists() or any((RESULTS/scope).rglob('*.json')):
+            raise RuntimeError('Request identities cannot change after model activation or attempts')
+    if digest(RQ/'src/exps.py')!=snapshot['exps_sha256']:raise ValueError('Compiler/encoder/solver changed')
+    if source_fingerprint()['sha256']!=read(old/'renderer_bundle.json')['source']:raise ValueError('Renderer changed')
+    def functions(path):
+        return {n.name:n for n in ast.parse(path.read_text()).body if isinstance(n,(ast.FunctionDef,ast.ClassDef))}
+    before=functions(old/'source/utils.py');after=functions(RQ/'src/utils.py')
+    if set(after)-set(before)!={'attention_regions'}:raise ValueError('Unexpected utility addition')
+    for name,node in before.items():
+        if name=='vllm_prompt_packet':
+            def core(fn):
+                import copy
+                fn=copy.deepcopy(fn)
+                fn.body=[n for n in fn.body if not (isinstance(n,ast.Assign) and any(isinstance(t,ast.Name) and t.id=='region' for t in n.targets))
+                    and not (isinstance(n,ast.If) and ast.unparse(n.test)=="request.get('attention')")]
+                return ast.dump(fn,include_attributes=False)
+            if core(node)!=core(after[name]):raise ValueError('Model-affecting processor/gather/position code changed')
+        elif ast.dump(node,include_attributes=False)!=ast.dump(after[name],include_attributes=False):raise ValueError('Nonmeasurement utility changed: '+name)
+    old_main=functions(old/'source/main.py');new_main=functions(RQ/'src/main.py')
+    for name in ('worker_init','cpu_one','mechanism_one','prepare_runtime','runtime_probe','cpu_phase','execute'):
+        if ast.dump(old_main[name],include_attributes=False)!=ast.dump(new_main[name],include_attributes=False):raise ValueError('Preparation/scheduler changed')
+    old_recipe=read(old/'generation_recipe.json');new_recipe=generation_recipe()
+    a={k:v for k,v in old_recipe.items() if k!='transport_code'};b={k:v for k,v in new_recipe.items() if k!='transport_code'}
+    if a!=b or {k for k in old_recipe['transport_code'] if old_recipe['transport_code'][k]!=new_recipe['transport_code'][k]}!={'vllm_prompt_packet'}:
+        raise ValueError('Nonmeasurement generation recipe changed')
+    counts={}
+    for category in ('inputs','mechanism'):
+        counts[category]=0
+        for path in sorted((RESULTS/category).glob('*/requests.json')):
+            archive=old/'requests'/category/(path.parent.name+'.json');archive.parent.mkdir(parents=True,exist_ok=True)
+            if not archive.exists():
+                import os
+                os.link(path,archive)
+            reference=read(archive);updated=read(path)
+            for arm,r in updated.items():
+                original=reference[arm]
+                if original['generation_recipe_hash']!=stable(old_recipe):raise ValueError('Unqualified old request recipe')
+                fields=lambda x:{k:v for k,v in x.items() if k not in {'identity','generation_recipe_hash'}}
+                if fields(r)!=fields(original):raise ValueError('Model-visible/request payload changed')
+                r['generation_recipe_hash']=stable(new_recipe)
+                r['identity']=stable({'prompt':r['prompt'],'pixels':r['image_sha256'],'retained':r['retained_by_image'],
+                    'grids':r['grid_thw'],'task':r['task'],'seed':r['seed'],'recipe':new_recipe})
+                counts[category]+=1
+            save(path,updated)
+    if counts!={'inputs':1320,'mechanism':198}:raise ValueError('Incomplete payload preservation audit')
+    proof={'status':'passed','execution_fingerprint':execution_fingerprint(),'old_execution_fingerprint':snapshot['execution_fingerprint'],
+        'scope':'passive region labels only; model-affecting AST and all payloads unchanged; recipe identity updated before any model call',
+        'payloads':counts,'old_recipe':stable(old_recipe),'new_recipe':stable(new_recipe),'new_model_calls':0}
+    save(q/'measurement_revision.json',proof)
+    for name in ('preflight','population','budget','mechanism','visual_review','determinism'):
+        original=read(old/(name+'.json'))
+        if original.get('status')!='passed' or original.get('execution_fingerprint')!=snapshot['execution_fingerprint']:raise ValueError('Invalid prior evidence '+name)
+        result=dict(original,execution_fingerprint=execution_fingerprint(),revalidated_from={
+            'execution_fingerprint':snapshot['execution_fingerprint'],'report_sha256':digest(old/(name+'.json')),
+            'scope':proof['scope'],'rerun':False})
+        save(q/(name+'.json'),result)
+    if (q/'cpu_complete.json').exists():(q/'cpu_complete.json').replace(old/'cpu_complete_superseded.json')
+    return proof
+
+
 def review_smoke():
     require_execution('smoke')
     queue=read(RESULTS/'frozen/smoke_queue.json');root=RESULTS/'smoke';issues=[]
@@ -205,7 +312,9 @@ def review_smoke():
         if r['request_hash']!=request['identity']:issues.append('Request identity mismatch')
         if r.get('usage',{}).get('attention_error'):issues.append('Attention collection failed')
     clock=read(root/'logical_clock.json');summary=read(root/'summary.json')
-    if summary['status']!='passed' or summary['seconds']>600:issues.append('Logical smoke did not finish within shared budget')
+    limit=read(RQ/'configs/protocol_v1.json')['smoke_seconds']
+    if abs(clock['deadline_unix']-clock['started_unix']-limit)>1e-3:issues.append('Smoke clock differs from registered budget')
+    if summary['status']!='passed' or summary['seconds']>limit:issues.append('Logical smoke did not finish within shared budget')
     if not (root/'phase_complete.json').exists():issues.append('Writers not drained')
     result={'status':'failed' if issues else 'passed','issues':issues,'execution_fingerprint':execution_fingerprint(),
         'ranking_accuracy_is_not_a_gate':True,'started_unix':clock['started_unix']}

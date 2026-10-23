@@ -1,0 +1,16 @@
+{
+  "schema": "RQ45NibiResumptionAuthorityV1",
+  "authority": "User explicitly requests completing RQ4.5 on Nibi, repairing failures, smoke throughput >=7 actual calls/minute and no infrastructure errors; remote repository work only, 2026-10-20",
+  "repo": "/home/lglsj/CanvasRCA_20261018",
+  "local_code_access_or_sync": false,
+  "local_RQ4_7_may_not_be_modified": true,
+  "preserve_prior_calls_and_failed_jobs": true,
+  "reuse_passed_CPU_qualification": true,
+  "maximum_calls_per_smoke_round": 18,
+  "maximum_smoke_allocation_seconds": 900,
+  "maximum_simultaneous_smoke_rounds": 1,
+  "formal_authorized_after_qualified_smoke_and_throughput": true,
+  "minimum_online_calls_per_minute": 7,
+  "formal_positions": 1560,
+  "no_accuracy_tuning": true
+}
