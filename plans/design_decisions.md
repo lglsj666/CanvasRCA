@@ -1,5 +1,16 @@
 # CanvasRCA project-wide design decisions
 
+## DD-20261019-RQ45-CPU: Complete CPU qualification; preserve explicit comparison scope
+
+**Date:** 2026-10-19
+**Status:** adopted for the current RQ4.5 revision
+
+The user authorizes CPU repair until all checks pass and removes strict cross-arm information equality. Methods may select different public evidence with explicit retained/omitted inventories; changed evidence supports whole-method comparisons. Within-arm cross-modal nonduplication, single-call RCA, private-label isolation and the unified renderer remain required. Codex.md is unchanged.
+
+CPU qualification is now passed and frozen. Correct the new marginal geometry, endpoint format, empty-transfer applicability limit, static-rule repetition, CPU source interleaving and passive multi-image header attribution. Preserve all diagnostic records across the instruction repair; actual hybrid requests save 522 tokens each. Generic instruction savings are not a visual-compression contribution, and rewritten instructions may affect diagnosis. Historical baselines stay unchanged and are reused with their comparability limits disclosed.
+
+Reuse unaffected qualification evidence only with the original report/source hashes and unchanged-payload/model-code proof; rerun affected checks. No model calls occurred. GPU smoke/formal remain closed pending separate authorization. [CPU qualification](../docs/experiment_reports/RQ4_5_CPU_Qualification_2026-10-19.md) · [Current state](../RQs/RQ4_5/findings/exp_exclusive_spatial_findings.md).
+
 ## DD-20261018-RQ45-SCOPE: Reopen exclusive hybrid research alongside pure visual optimization
 
 **Date:** 2026-10-18
@@ -744,3 +755,51 @@ reporting supplement made during execution, not a retroactive preregistered
 primary comparison. Frozen methods, statistical families, gates and execution
 queue remain unchanged. This decision adds no model calls and does not change
 Codex.md.
+
+
+## DD-20261019-SOURCE-BINDING-AND-U: Preserve useful operating points while testing concrete attribution failures
+**Date:** 2026-10-19
+**Status:** prospective RQ4.6 implementation, static-only; performance untested
+
+**Context.** RQ4.5 H_MARGINAL retains ~0.49 MRR at lower cost; complete topology and alternative spatial selectors did not improve the best historical operating points. The user requests failure-driven U refinements in addition to hybrid work.
+
+**Decision.** Continue the explicitly authorized hybrid route and original-U pure vision route. Register two deployment relation representations per route plus three fixed-budget U support-closure refinements. Reuse completed baseline diagnoses. Fix contradictory static topology wording in new compilation only; preserve old source and scores. Do not modify Codex.md.
+
+**Evidence.** Historical U versus complete vision:76/33/111 RR improve/regress/tie;35/5 top-1 repairs/breaks. Missing-role fractions do not distinguish improved/worsened strata. Exact five-break responses and public source checks motivate numerical/support association hypotheses, not label-informed selectors or established internal causes.
+
+**Alternatives rejected.** Another pruning-ratio sweep; feature-coverage saturation; treating all topology facts as beneficial; rerunning unchanged baselines just to repair a sentence; predicting U success from omission counts alone.
+
+**Consequences.** Seven new RCA arms, 1870 formal positions and2000 total-call ceiling, all inactive. See the RQ4.6 plan and differences ledger. Actual CPU, visual and GPU qualification remain required in a future authorized turn.
+
+
+## DD-20261019-HYBRID-DIFFERENTIAL: Expand the unrun RQ4.6 hybrid branch
+**Date:** 2026-10-19
+**Status:** adopted for prospective RQ4.6, runtime qualification pending
+
+**Context.** The user requests hybrid-specific repair/break analysis and more than two hybrid arms. Existing development results show composition helps pod cases but often harms service cases; actual answers also substitute thresholds/endpoints for population phase comparisons.
+**Decision.** Expand to five exclusive hybrids and five pure-visual conditions. Add deployment-only, phase-comparison marginal-only, and composed phase+pod conditions. Nominate H_POD_PHASE before any new input preparation or calls, retaining the earlier bridge/separate controls. No outcome/label-aware routing or changed old results. Calls remain text in all hybrids; complete pair/deployment source ownership is explicit per arm.
+**Evidence.** See RQ4.6 review attachment and hashed historical_hybrid_review.json: RQ4.5 combination−marginal 24/37/159; pod-only +0.2101 versus service-only −0.0588 is exploratory, not a deployment rule. Eight contrasted cases read, including threshold/phase substitutions. Historical TPV is sourced from preserved reports where raw records were deleted.
+**Alternatives rejected.** Simply adding full topology again; selecting an arm by dataset or true root; restoring duplicated diagnostic facts; claiming better QA guarantees better RCA.
+**Consequences.** 2,620 formal positions and 2,750 total ceiling, seven primary comparisons. Shared renderer receives an additive complete phase-comparison component; old components/defaults and Codex.md remain protected. Static-only delivery; all runtime permissions closed.
+
+
+## DD-20261020-RQ47-VISUAL-WORKSPACE: Preserve the single-call track and test bounded visual actions
+
+**Status:** implemented and statically checked only; runtime qualification and model performance untested.
+
+**Decision.** Preserve the strongest historical pure-visual overview and gather set. Register S_COMPARE/S_GROUND/S_REASON as one-call conditions, and M_CROP/M_CLOSED/M_COMPARE as same-plan two-call controls. S_GROUND and M_COMPARE remain separately preselected. The user's explicit authorization is a round-specific exception to the single-stage rule; Codex.md is unchanged.
+
+**Evidence.** RQ4.6 numerical-support coverage gains did not improve RCA; actual outputs confuse source, statistic and phase. RQ4.4 already falsified the expectation that adding high-resolution cards alone would suffice. Thus source closure, compatible comparison and explicit observable claims are distinct controlled questions, not presumed improvements. The research report records prior negative findings and related-work boundaries.
+
+**Implementation decisions.** A source unit is an original bound panel; no new telemetry or diagnostic scores. Whole-group capacity admission is shared across M controls. Unsupported alignment executes CLOSED and is recorded. Prefix output examples replace the conflicting old ranking-only example rather than appending contradictory schema instructions. Rankings are scored independently of claim truth, without correction. QA uses the full corresponding image input; matched interventions edit every corresponding copy in overview and workspace or are inapplicable. No synthetic QA image enters real-fault ranking. Independent repeats retain the same generation recipe but make fresh calls.
+
+**Consequences.** At most2700 initiated calls including conditional validation, smoke and recovery. Historic U/T_FULL/MARGINAL_FIVE are reused for development. Independent validation needs eligible frozen nominees plus exposure/event and baseline-input audits. No CPU or GPU authorization is created by static success. See docs/experiment_plans/RQ4_7_Source_Bound_Visual_Workspace_Plan_2026-10-20.md.
+
+
+## 2026-10-22 — RQ4.10 evidence domain and outside context
+
+User-approved implementation: preserve all registered D as the main computational base; study O fusion/ink/card/length controls and full-sequence attention redistribution. Reuse historical controls without rerunning batches. Preserve RQ4.9's original DOMAIN−FULL correction; the +0.0428 signal motivates experiments rather than retroactive significance.
+
+Static inspection corrected a factual premise: pure-visual native marginals lacked per-sample numeric columns. The user explicitly authorized a new complete-annotation visual baseline. Four V organization arms share the frozen complete-pair extension; record added visible statistics/values and layout changes. No-pair cases retain their registered identity; capacity failures block admission. Hybrid is authorized only for this experiment, single-call RCA remains, and Codex.md is unchanged.
+
+Implementation: RQs/RQ4_10; additive renderer domain_view; 20 arms, 5,700 call ceiling. Static passed only. No CPU/render/GPU/model work occurred. Plan: docs/experiment_plans/RQ4_10_Evidence_Domain_Context_and_Glyph_Plan_2026-10-22.md.

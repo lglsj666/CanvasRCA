@@ -46,13 +46,13 @@ def _finalize_partial_responses(root: Path | None, elapsed: float) -> dict[str, 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--timeout", type=int, default=600)
+    parser.add_argument("--timeout", type=int, default=900)
     parser.add_argument("--report", type=Path, required=True)
     parser.add_argument("--partial-dir", type=Path)
     parser.add_argument("command", nargs=argparse.REMAINDER)
     args = parser.parse_args()
-    if not args.command or args.timeout > 600:
-        raise SystemExit("a smoke command is required and timeout may not exceed 600 seconds")
+    if not args.command or not 0 < args.timeout <= 900:
+        raise SystemExit("a smoke command is required and timeout must be between 1 and 900 seconds")
     started = time.monotonic()
     timed_out = False
     process = subprocess.Popen(args.command, start_new_session=True)

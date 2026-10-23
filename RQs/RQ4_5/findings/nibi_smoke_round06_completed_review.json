@@ -1,0 +1,515 @@
+{
+  "status": "passed_for_new_completed_answers_only",
+  "scope": "Three new committed answers; ten smoke positions remain incomplete",
+  "new_model_calls": 0,
+  "verified_images": {
+    "/project/def-jacobsen/canvasrca_cache/RQ4_5/cpu_v1/objects/340898a2b8f26df266e9264f86c0af12cf9da8a0c4e61c28b8ba2489834d03ca.png": {
+      "sha256": "340898a2b8f26df266e9264f86c0af12cf9da8a0c4e61c28b8ba2489834d03ca",
+      "size": [
+        8192,
+        3934
+      ]
+    },
+    "/project/def-jacobsen/canvasrca_cache/RQ4_5/cpu_v1/objects/049a93076ac8bc3b44ce31a1db7b233f49b98a46489d6e91925d4c9be63234ee.png": {
+      "sha256": "049a93076ac8bc3b44ce31a1db7b233f49b98a46489d6e91925d4c9be63234ee",
+      "size": [
+        2048,
+        2016
+      ]
+    },
+    "/project/def-jacobsen/canvasrca_cache/RQ4_5/cpu_v1/objects/4a2e774d7ccc2dd51d7a979c0e51832bc0210b287aba021748bc678d52b2ad37.png": {
+      "sha256": "4a2e774d7ccc2dd51d7a979c0e51832bc0210b287aba021748bc678d52b2ad37",
+      "size": [
+        2048,
+        1760
+      ]
+    },
+    "/project/def-jacobsen/canvasrca_cache/RQ4_5/cpu_v1/objects/9e9b39ff89e94c1676bc5b7dc2f5bd4996d1a031e68814b9f2b09cfe47b47909.png": {
+      "sha256": "9e9b39ff89e94c1676bc5b7dc2f5bd4996d1a031e68814b9f2b09cfe47b47909",
+      "size": [
+        2048,
+        992
+      ]
+    },
+    "/project/def-jacobsen/canvasrca_cache/RQ4_5/cpu_v1/objects/10bfa71c11020c2e83ef817b556f8029e963cef4d32a0090b850f7b0d46dc31b.png": {
+      "sha256": "10bfa71c11020c2e83ef817b556f8029e963cef4d32a0090b850f7b0d46dc31b",
+      "size": [
+        2048,
+        1184
+      ]
+    }
+  },
+  "records": [
+    {
+      "key": "INC-018AC5D486B5__V_CONTEXT_FILL__SMOKE_QA",
+      "attempt_id": 24,
+      "task": "QA",
+      "issues": [],
+      "rescore_identical": true,
+      "raw_response": "{\"q1\": {\"entity\": \"325\", \"unit\": \"container.memory.usage\", \"value\": \"9.095e+06\"}, \"q2\": {\"entity\": \"877\", \"unit\": \"k8s.pod.cpu_limit_utilization\", \"value\": \"0.0000202\"}, \"q3\": null, \"q4\": null, \"q5\": {\"entity\": \"702\", \"unit\": \"us\", \"higher_phase\": \"current\"}, \"q6\": {\"entity\": \"877\", \"unit\": \"k8s.pod.cpu.usage\", \"higher_phase\": \"current\"}}",
+      "outcome": {
+        "schema_valid": true,
+        "questions": {
+          "q1": {
+            "applicable": true,
+            "standard": false,
+            "tolerant": false,
+            "raw": {
+              "entity": "325",
+              "unit": "container.memory.usage",
+              "value": "9.095e+06"
+            }
+          },
+          "q2": {
+            "applicable": true,
+            "standard": false,
+            "tolerant": false,
+            "raw": {
+              "entity": "877",
+              "unit": "k8s.pod.cpu_limit_utilization",
+              "value": "0.0000202"
+            }
+          },
+          "q3": {
+            "applicable": true,
+            "standard": false,
+            "tolerant": false,
+            "raw": null
+          },
+          "q4": {
+            "applicable": true,
+            "standard": false,
+            "tolerant": false,
+            "raw": null
+          },
+          "q5": {
+            "applicable": true,
+            "standard": false,
+            "tolerant": false,
+            "raw": {
+              "entity": "702",
+              "unit": "us",
+              "higher_phase": "current"
+            }
+          },
+          "q6": {
+            "applicable": true,
+            "standard": false,
+            "tolerant": false,
+            "raw": {
+              "entity": "877",
+              "unit": "k8s.pod.cpu.usage",
+              "higher_phase": "current"
+            }
+          }
+        },
+        "applicable_questions": 6,
+        "standard": 0.0,
+        "tolerant": 0.0
+      },
+      "preparation": {
+        "packet_bytes": 398066584,
+        "started_monotonic": 234402.488258298,
+        "prepare_seconds": 1.5794562270166352,
+        "pid": 1373566,
+        "core": [
+          11
+        ],
+        "timing_scope": "retained qualified input load/processor; offline compilation/render timing is reported separately"
+      },
+      "timing": {
+        "input_tokens": 6060,
+        "output_tokens": 143,
+        "processor_model_seconds": 196.2025662350061,
+        "vision_seconds": 116.79193617400597,
+        "language_seconds": 47.73060871500638,
+        "cache_reservation": {
+          "reserved_blocks": 22,
+          "wait_seconds": 1.2766016880050302e-05,
+          "pool_blocks": 109
+        },
+        "engine_max_decode_batch": 3,
+        "stop_reason": "stop"
+      },
+      "attention": {
+        "sha256": "c4b35a09eb1caa72c768d652828339b0568f8b6f39eedb5b8d579a25458957ec",
+        "bytes": 3290,
+        "record": {
+          "schema": "AttentionSummaryV1",
+          "status": "measured",
+          "layer": 3,
+          "query_definition": "last_prompt_query_and_first_decode_query_separately",
+          "normalization": "all_visible_keys_mean_over_heads",
+          "text_mass": [
+            0.810606837272644,
+            0.7869153618812561
+          ],
+          "image_mass": [
+            0.18939295277232304,
+            0.16304489655885845
+          ],
+          "other_mass": [
+            0.0,
+            0.05003982409834862
+          ],
+          "text_regions": [
+            {
+              "text:instructions": 0.810606837272644
+            },
+            {
+              "text:instructions": 0.7869153618812561
+            }
+          ],
+          "image_regions": [
+            [
+              0.0026443651877343655,
+              0.0,
+              0.0027804048731923103,
+              0.013399428687989712,
+              0.013370479457080364,
+              0.0022531263530254364,
+              0.0026605199091136456,
+              0.012379585765302181,
+              0.0026623124722391367,
+              0.0122124794870615,
+              0.01671590656042099,
+              0.0007128604920580983,
+              0.009894056245684624,
+              0.0008013026090338826,
+              0.0006722313701175153,
+              0.0008033750928007066,
+              0.0006598865729756653,
+              0.0007964924443513155,
+              0.0009399004047736526,
+              0.0012101058382540941,
+              0.0006833977531641722,
+              0.0005736943567171693,
+              0.000542532536201179,
+              0.0008336906903423369,
+              0.0005694254650734365,
+              0.0007172139594331384,
+              0.0007803234038874507,
+              0.0021435068920254707,
+              0.0007227119640447199,
+              0.0006963913328945637,
+              0.0006504011107608676,
+              0.0006362900021485984,
+              0.0006948440568521619,
+              0.0009570255060680211,
+              0.0007042780634947121,
+              0.0007855991134420037,
+              0.0007233347278088331,
+              0.0014125197194516659,
+              0.009927538223564625,
+              0.00890421587973833,
+              0.002478959271684289,
+              0.002537720138207078,
+              0.0028332285583019257,
+              0.0020556317176669836,
+              0.005549772176891565,
+              0.002487141638994217,
+              0.0031398776918649673,
+              0.002175577450543642,
+              0.004223082214593887,
+              0.004429372027516365,
+              0.0020470465533435345,
+              0.001822520513087511,
+              0.0010794545523822308,
+              0.0011162236332893372,
+              0.0009987305384129286,
+              0.0009776635561138391,
+              0.0013342625461518764,
+              0.0010450287954881787,
+              0.0029248157516121864,
+              0.0025538629852235317,
+              0.0025147083215415478,
+              0.0034850207157433033,
+              0.00243551773019135,
+              0.0019199791131541133
+            ],
+            [
+              0.002076472621411085,
+              0.0,
+              0.002146278042346239,
+              0.013562888838350773,
+              0.012410346418619156,
+              0.0018641069764271379,
+              0.0018669303972274065,
+              0.009032875299453735,
+              0.0014594512758776546,
+              0.012388276867568493,
+              0.01386019866913557,
+              0.0005395095213316381,
+              0.015985112637281418,
+              0.0005081564886495471,
+              0.00044556346256285906,
+              0.0005230213282629848,
+              0.00038807751843705773,
+              0.00038618501275777817,
+              0.0005251581897027791,
+              0.0008931573829613626,
+              0.0006096376455388963,
+              0.0004373517876956612,
+              0.0003465216141194105,
+              0.0006719878292642534,
+              0.00044463324593380094,
+              0.00037492241244763136,
+              0.0005039519164711237,
+              0.001197216915898025,
+              0.000567973533179611,
+              0.0005510261398740113,
+              0.0005708071985282004,
+              0.00040799815906211734,
+              0.0004526936972979456,
+              0.000776806497015059,
+              0.0006058240542188287,
+              0.0007120404043234885,
+              0.0006829646299593151,
+              0.001243773614987731,
+              0.007894651964306831,
+              0.007384123746305704,
+              0.0018745100824162364,
+              0.0025947794783860445,
+              0.0021861025597900152,
+              0.0014810424763709307,
+              0.004211745224893093,
+              0.0013178824447095394,
+              0.0020133331418037415,
+              0.0015136227011680603,
+              0.003226248314604163,
+              0.0041796136647462845,
+              0.0014768936671316624,
+              0.0018595097353681922,
+              0.0010136846685782075,
+              0.0009400483686476946,
+              0.0007702062139287591,
+              0.0005639478331431746,
+              0.0009697111672721803,
+              0.0009218340856023133,
+              0.0025034556165337563,
+              0.002402053214609623,
+              0.0015951391542330384,
+              0.0026473852340132,
+              0.0019131010631099343,
+              0.001570372493006289
+            ]
+          ],
+          "sample_count": 2,
+          "mapping_hash": "488ed2d85f5dafc545cc24823fd15cb56a84c627bddfbea85fc3e1a9fd0b5de6"
+        }
+      }
+    },
+    {
+      "key": "INC-6E627662CA32__H_MARGINAL__SMOKE_QA",
+      "attempt_id": 22,
+      "task": "QA",
+      "issues": [],
+      "rescore_identical": true,
+      "raw_response": "{\"q1\": {\"entity\": \"85240\", \"unit\": \"source_unit\", \"value\": \"123.7\"}, \"q2\": {\"entity\": \"63581\", \"unit\": \"source_unit\", \"value\": \"0.1224\"}, \"q3\": {\"entity\": \"20304\", \"relation\": \"has_instance\", \"targets\": [\"689\"]}, \"q4\": {\"entity\": \"38449\", \"relation\": \"hosts\", \"targets\": [\"7779\"]}, \"q5\": {\"entity\": \"45365\", \"unit\": \"µs\", \"higher_phase\": \"current\"}, \"q6\": {\"entity\": \"63581\", \"unit\": \"source_unit\", \"higher_phase\": \"current\"}}",
+      "outcome": {
+        "schema_valid": true,
+        "questions": {
+          "q1": {
+            "applicable": true,
+            "standard": true,
+            "tolerant": true,
+            "raw": {
+              "entity": "85240",
+              "unit": "source_unit",
+              "value": "123.7"
+            }
+          },
+          "q2": {
+            "applicable": true,
+            "standard": true,
+            "tolerant": true,
+            "raw": {
+              "entity": "63581",
+              "unit": "source_unit",
+              "value": "0.1224"
+            }
+          },
+          "q3": {
+            "applicable": true,
+            "standard": true,
+            "tolerant": true,
+            "raw": {
+              "entity": "20304",
+              "relation": "has_instance",
+              "targets": [
+                "689"
+              ]
+            }
+          },
+          "q4": {
+            "applicable": true,
+            "standard": true,
+            "tolerant": true,
+            "raw": {
+              "entity": "38449",
+              "relation": "hosts",
+              "targets": [
+                "7779"
+              ]
+            }
+          },
+          "q5": {
+            "applicable": true,
+            "standard": false,
+            "tolerant": false,
+            "raw": {
+              "entity": "45365",
+              "unit": "µs",
+              "higher_phase": "current"
+            }
+          },
+          "q6": {
+            "applicable": true,
+            "standard": true,
+            "tolerant": true,
+            "raw": {
+              "entity": "63581",
+              "unit": "source_unit",
+              "higher_phase": "current"
+            }
+          }
+        },
+        "applicable_questions": 6,
+        "standard": 0.8333333333333334,
+        "tolerant": 0.8333333333333334
+      },
+      "preparation": {
+        "packet_bytes": 185816504,
+        "started_monotonic": 234402.487570228,
+        "prepare_seconds": 1.3533111640135758,
+        "pid": 1373563,
+        "core": [
+          14
+        ],
+        "timing_scope": "retained qualified input load/processor; offline compilation/render timing is reported separately"
+      },
+      "timing": {
+        "input_tokens": 21278,
+        "output_tokens": 181,
+        "processor_model_seconds": 320.8794228869956,
+        "vision_seconds": 13.764613667008234,
+        "language_seconds": 305.8701193559973,
+        "cache_reservation": {
+          "reserved_blocks": 41,
+          "wait_seconds": 2.4002016289159656e-05,
+          "pool_blocks": 109
+        },
+        "engine_max_decode_batch": 3,
+        "stop_reason": "stop"
+      },
+      "attention": {
+        "sha256": "1c61dce2a128e6262bdfce9898c1871e7396f210af4e2fd2f005bec69d06025e",
+        "bytes": 685,
+        "record": {
+          "schema": "AttentionSummaryV1",
+          "status": "measured",
+          "layer": 3,
+          "query_definition": "last_prompt_query_and_first_decode_query_separately",
+          "normalization": "all_visible_keys_mean_over_heads",
+          "text_mass": [
+            0.930648148059845,
+            0.916299045085907
+          ],
+          "image_mass": [
+            0.0693503376096487,
+            0.05404839292168617
+          ],
+          "other_mass": [
+            0.0,
+            0.02965683862566948
+          ],
+          "text_regions": [
+            {
+              "text:instructions_and_evidence": 0.930648148059845
+            },
+            {
+              "text:instructions_and_evidence": 0.916299045085907
+            }
+          ],
+          "image_regions": [
+            [
+              0.0,
+              0.0,
+              0.051659535616636276,
+              0.0,
+              0.0,
+              0.01769080199301243
+            ],
+            [
+              0.0,
+              0.0,
+              0.04100123047828674,
+              0.0,
+              0.0,
+              0.01304716244339943
+            ]
+          ],
+          "sample_count": 2,
+          "mapping_hash": "ea8d8c0f40d0dcc4a3da712d17ef52d67d3f7be252553168ef94eb9734ec5701"
+        }
+      }
+    },
+    {
+      "key": "INC-6E627662CA32__H_TOPO_MARGINAL__REPEAT",
+      "attempt_id": 23,
+      "task": "RCA",
+      "issues": [],
+      "rescore_identical": true,
+      "raw_response": "{\"services\": [\"63581\", \"612\", \"790\", \"493\", \"643\"], \"reason\": \"MET-Z shows entity 63581's CPU user/throttle/usage series (MET05, MET08, MET10) jumping from baselines of ~0.1 to peaks of 27/1022/26.7 at bins 34-41, which pairs exactly with the fault window and the ~40,000us exclusive latency spikes in traces 45365, 72685, 79064, and 85949 on operations under service 493, making 63581 the sole candidate with direct metric causality for the worst traced component; primary checks confirm the onset alignment and no preceding primary anomaly, while the network receive blips in 75114, 38449, and 45990 recover immediately and cannot hold a 100ms+ exclusive CPU stall, ruling them out as independent origins.\", \"confidence\": \"high\"}",
+      "outcome": {
+        "standard": {
+          "status": "complete",
+          "error": null,
+          "metrics": {
+            "rank": 1,
+            "mrr": 1.0,
+            "ac@1": 1.0,
+            "ac@3": 1.0,
+            "ac@5": 1.0,
+            "avg@3": 1.0,
+            "avg@5": 1.0
+          }
+        },
+        "tolerant": {
+          "rank": 1,
+          "mrr": 1.0,
+          "ac@1": 1.0,
+          "ac@3": 1.0,
+          "ac@5": 1.0,
+          "avg@3": 1.0,
+          "avg@5": 1.0
+        },
+        "tolerant_policy": "JSON services only; trim and remove explicit type prefix; unknown/duplicate remain misses at original rank; no ID repair"
+      },
+      "preparation": {
+        "packet_bytes": 292781440,
+        "started_monotonic": 234402.489650382,
+        "prepare_seconds": 1.3384997810062487,
+        "pid": 1373567,
+        "core": [
+          10
+        ],
+        "timing_scope": "retained qualified input load/processor; offline compilation/render timing is reported separately"
+      },
+      "timing": {
+        "input_tokens": 20176,
+        "output_tokens": 250,
+        "processor_model_seconds": 567.1508413619886,
+        "vision_seconds": 17.71788431299501,
+        "language_seconds": 534.5316652150068,
+        "cache_reservation": {
+          "reserved_blocks": 40,
+          "wait_seconds": 1.4749995898455381e-05,
+          "pool_blocks": 109
+        },
+        "engine_max_decode_batch": 4,
+        "stop_reason": "stop"
+      }
+    }
+  ]
+}

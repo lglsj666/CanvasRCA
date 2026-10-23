@@ -1,0 +1,366 @@
+{
+  "INC-B646C4677B96": {
+    "retained_evidence": "RQs/RQ4_7/results/source_workspace_v1/objects/b3884152b686f46db20afb81246ecd4f8a21f2bbbd66a9423ad05c2b39f9aae3.json",
+    "trace_cards": [
+      {
+        "id": "TRA001",
+        "kind": "trace",
+        "title": "TRC01 · hipstershop.875/PlaceOrder",
+        "entity": "86432",
+        "unit": "µs",
+        "data": {
+          "before": 9741.55,
+          "after": 17001991.5,
+          "details": [
+            {
+              "name": "bins",
+              "value": "[]"
+            },
+            {
+              "name": "reference span count",
+              "value": "78"
+            },
+            {
+              "name": "current span count",
+              "value": "64"
+            },
+            {
+              "name": "span count change · log2 ratio",
+              "value": "-0.28"
+            },
+            {
+              "name": "entry_index",
+              "value": "4"
+            },
+            {
+              "name": "reference exclusive p95 · µs",
+              "value": "9741.55"
+            },
+            {
+              "name": "current exclusive p95 · µs",
+              "value": "17001991.5"
+            },
+            {
+              "name": "current inclusive p95 · µs",
+              "value": "27087702.85"
+            },
+            {
+              "name": "exclusive latency change · log2 ratio",
+              "value": "10.77"
+            },
+            {
+              "name": "rank_score",
+              "value": "10.77"
+            },
+            {
+              "name": "summary",
+              "value": "exclusive p95: reference 9741.5 ; current 1.7002e+07"
+            }
+          ]
+        }
+      },
+      {
+        "id": "TRA002",
+        "kind": "trace",
+        "title": "TRC02 · hipstershop.216/GetCart",
+        "entity": "86432",
+        "unit": "µs",
+        "data": {
+          "before": 4296.0,
+          "after": 18500668.35,
+          "details": [
+            {
+              "name": "bins",
+              "value": "[]"
+            },
+            {
+              "name": "reference span count",
+              "value": "78"
+            },
+            {
+              "name": "current span count",
+              "value": "64"
+            },
+            {
+              "name": "span count change · log2 ratio",
+              "value": "-0.28"
+            },
+            {
+              "name": "entry_index",
+              "value": "2"
+            },
+            {
+              "name": "reference exclusive p95 · µs",
+              "value": "4296.0"
+            },
+            {
+              "name": "current exclusive p95 · µs",
+              "value": "18500668.35"
+            },
+            {
+              "name": "current inclusive p95 · µs",
+              "value": "18500668.35"
+            },
+            {
+              "name": "exclusive latency change · log2 ratio",
+              "value": "12.07"
+            },
+            {
+              "name": "rank_score",
+              "value": "12.07"
+            },
+            {
+              "name": "summary",
+              "value": "exclusive p95: reference 4296 ; current 1.8501e+07"
+            }
+          ]
+        }
+      },
+      {
+        "id": "TRA003",
+        "kind": "trace",
+        "title": "TRC03 · hipstershop.216/GetCart",
+        "entity": "68465",
+        "unit": "µs",
+        "data": {
+          "before": 4306.0,
+          "after": 20000234.75,
+          "details": [
+            {
+              "name": "bins",
+              "value": "[]"
+            },
+            {
+              "name": "reference span count",
+              "value": "76"
+            },
+            {
+              "name": "current span count",
+              "value": "66"
+            },
+            {
+              "name": "span count change · log2 ratio",
+              "value": "-0.2"
+            },
+            {
+              "name": "entry_index",
+              "value": "0"
+            },
+            {
+              "name": "reference exclusive p95 · µs",
+              "value": "4306.0"
+            },
+            {
+              "name": "current exclusive p95 · µs",
+              "value": "20000234.75"
+            },
+            {
+              "name": "current inclusive p95 · µs",
+              "value": "20000234.75"
+            },
+            {
+              "name": "exclusive latency change · log2 ratio",
+              "value": "12.18"
+            },
+            {
+              "name": "rank_score",
+              "value": "12.18"
+            },
+            {
+              "name": "summary",
+              "value": "exclusive p95: reference 4306 ; current 2e+07"
+            }
+          ]
+        }
+      },
+      {
+        "id": "TRA004",
+        "kind": "trace",
+        "title": "TRC04 · hipstershop.216/GetCart",
+        "entity": "22243",
+        "unit": "µs",
+        "data": {
+          "before": 4343.5,
+          "after": 20000222.4,
+          "details": [
+            {
+              "name": "bins",
+              "value": "[]"
+            },
+            {
+              "name": "reference span count",
+              "value": "76"
+            },
+            {
+              "name": "current span count",
+              "value": "65"
+            },
+            {
+              "name": "span count change · log2 ratio",
+              "value": "-0.22"
+            },
+            {
+              "name": "entry_index",
+              "value": "1"
+            },
+            {
+              "name": "reference exclusive p95 · µs",
+              "value": "4343.5"
+            },
+            {
+              "name": "current exclusive p95 · µs",
+              "value": "20000222.4"
+            },
+            {
+              "name": "current inclusive p95 · µs",
+              "value": "20000222.4"
+            },
+            {
+              "name": "exclusive latency change · log2 ratio",
+              "value": "12.17"
+            },
+            {
+              "name": "rank_score",
+              "value": "12.17"
+            },
+            {
+              "name": "summary",
+              "value": "exclusive p95: reference 4343.5 ; current 2e+07"
+            }
+          ]
+        }
+      },
+      {
+        "id": "TRA005",
+        "kind": "trace",
+        "title": "TRC05 · hipstershop.478/GetProduct",
+        "entity": "86432",
+        "unit": "µs",
+        "data": {
+          "before": 2941.6,
+          "after": 2376322.5,
+          "details": [
+            {
+              "name": "bins",
+              "value": "[]"
+            },
+            {
+              "name": "reference span count",
+              "value": "142"
+            },
+            {
+              "name": "current span count",
+              "value": "107"
+            },
+            {
+              "name": "span count change · log2 ratio",
+              "value": "-0.4"
+            },
+            {
+              "name": "entry_index",
+              "value": "5"
+            },
+            {
+              "name": "reference exclusive p95 · µs",
+              "value": "2941.6"
+            },
+            {
+              "name": "current exclusive p95 · µs",
+              "value": "2376322.5"
+            },
+            {
+              "name": "current inclusive p95 · µs",
+              "value": "2380934.0"
+            },
+            {
+              "name": "exclusive latency change · log2 ratio",
+              "value": "9.66"
+            },
+            {
+              "name": "rank_score",
+              "value": "9.66"
+            },
+            {
+              "name": "summary",
+              "value": "exclusive p95: reference 2941.6 ; current 2.3763e+06"
+            }
+          ]
+        }
+      },
+      {
+        "id": "TRA006",
+        "kind": "trace",
+        "title": "TRC06 · hipstershop.216/GetCart",
+        "entity": "40410",
+        "unit": "µs",
+        "data": {
+          "before": 4532.5,
+          "after": 19478042.2,
+          "details": [
+            {
+              "name": "bins",
+              "value": "[]"
+            },
+            {
+              "name": "reference span count",
+              "value": "71"
+            },
+            {
+              "name": "current span count",
+              "value": "64"
+            },
+            {
+              "name": "span count change · log2 ratio",
+              "value": "-0.15"
+            },
+            {
+              "name": "entry_index",
+              "value": "3"
+            },
+            {
+              "name": "reference exclusive p95 · µs",
+              "value": "4532.5"
+            },
+            {
+              "name": "current exclusive p95 · µs",
+              "value": "19478042.2"
+            },
+            {
+              "name": "current inclusive p95 · µs",
+              "value": "19478042.2"
+            },
+            {
+              "name": "exclusive latency change · log2 ratio",
+              "value": "12.07"
+            },
+            {
+              "name": "rank_score",
+              "value": "12.07"
+            },
+            {
+              "name": "summary",
+              "value": "exclusive p95: reference 4532.5 ; current 1.9478e+07"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "INC-E74124445490": {
+    "retained_evidence": "RQs/RQ4_7/results/source_workspace_v1/objects/b722de0fbb3204b804651e9f2c9c8385773fceaa7a47565e31db6e9f4b0722e0.json",
+    "public_deployment_edges_to_96385": [
+      {
+        "id": "e19",
+        "source": "7574",
+        "target": "96385",
+        "kind": "hosts"
+      },
+      {
+        "id": "e29",
+        "source": "317",
+        "target": "96385",
+        "kind": "has_instance"
+      }
+    ]
+  }
+}

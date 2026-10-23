@@ -1,0 +1,116 @@
+{
+  "schema": "RQ47ProtocolV1",
+  "experiment": "source_workspace_v1",
+  "arms": [
+    "S_COMPARE",
+    "S_GROUND",
+    "S_REASON",
+    "M_CROP",
+    "M_CLOSED",
+    "M_COMPARE"
+  ],
+  "preselected": [
+    "S_GROUND",
+    "M_COMPARE"
+  ],
+  "historical_only": [
+    "A_UNIFORM_E50",
+    "T_FULL",
+    "MARGINAL_FIVE"
+  ],
+  "dataset_counts": {
+    "aiops2022": 60,
+    "aiops2025": 60,
+    "aegislab": 100
+  },
+  "cpu_enabled": false,
+  "smoke_enabled": false,
+  "formal_enabled": false,
+  "confirmation_enabled": false,
+  "single_stage_exception": "Explicit user approval on 2026-10-20: one visual-action call followed by one diagnosis; same registered evidence only; no Codex.md change.",
+  "max_actions": 2,
+  "max_regions_per_action": 2,
+  "max_source_units": 4,
+  "workspace_width": 2048,
+  "workspace_height": 2048,
+  "workspace_tokens": 4096,
+  "retained_image_tokens_max": 16384,
+  "canvas_side_max": 8192,
+  "min_font_px": 18,
+  "min_stroke_px": 1.5,
+  "context": 40960,
+  "output_tokens": 8192,
+  "action_output_tokens": 512,
+  "cpu_workers": 8,
+  "gpu_concurrency": 8,
+  "gpu_memory_utilization": 0.8,
+  "mechanism_per_dataset": 20,
+  "repeat_per_dataset": 10,
+  "confirmation_per_dataset": 30,
+  "method_positions": 1320,
+  "shared_plans": 220,
+  "main_actual_calls": 1540,
+  "qa_calls": 240,
+  "qa_intervention_calls": 240,
+  "repeat_calls": 90,
+  "confirmation_calls": 450,
+  "smoke_calls": 18,
+  "smoke_seconds": 900,
+  "infrastructure_reserve": 122,
+  "total_call_limit": 2700,
+  "primary_comparisons": [
+    [
+      "S_GROUND",
+      "S_COMPARE"
+    ],
+    [
+      "S_GROUND",
+      "S_REASON"
+    ],
+    [
+      "M_CLOSED",
+      "M_CROP"
+    ],
+    [
+      "M_COMPARE",
+      "M_CLOSED"
+    ],
+    [
+      "M_COMPARE",
+      "S_COMPARE"
+    ],
+    [
+      "M_COMPARE",
+      "S_GROUND"
+    ]
+  ],
+  "statistics": {
+    "primary_unit": "dataset_event_group",
+    "test": "two-sided Pratt-zero Wilcoxon",
+    "difference_decimals": 12,
+    "correction": "Holm family 6",
+    "paired_dz": true,
+    "confidence_intervals": false
+  },
+  "attention_max_bytes_per_call": 65536,
+  "attention_max_bytes_per_10000": 1000000000,
+  "retention_bytes_per_completed_call": 2500000,
+  "smoke_ids": [
+    "INC-6E627662CA32",
+    "INC-D9245047C658",
+    "INC-018AC5D486B5"
+  ],
+  "global_configs": [
+    "configs/dataset_segmentation.yaml",
+    "configs/rca_scorer.yaml",
+    "configs/vllm_inference_local.yaml"
+  ],
+  "generation_seed": 42,
+  "repeat_seed": 42,
+  "selector": "modality_round_robin_role_count_per_estimated_token_v1",
+  "runtime_fallback": "invalid action or whole-group capacity skip -> remaining views or original overview; never text fallback",
+  "engineering_mrr_gain": 0.02,
+  "cost_vs_text_limit": 1.05,
+  "authority_boundary": "static_only",
+  "confirmation_requires_exposure_audit": true
+}

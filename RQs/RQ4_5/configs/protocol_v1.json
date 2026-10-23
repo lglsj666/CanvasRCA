@@ -49,7 +49,7 @@
   "qa_positions": 180,
   "repeat_positions": 60,
   "smoke_calls": 18,
-  "smoke_seconds": 600,
+  "smoke_seconds": 900,
   "infrastructure_reserve": 122,
   "total_call_limit": 1700,
   "cpu_enabled": false,
@@ -93,5 +93,18 @@
     "INC-6E627662CA32",
     "INC-D9245047C658",
     "INC-018AC5D486B5"
-  ]
+  ],
+  "require_cross_arm_fact_equality": false,
+  "within_arm_crossmodal_diagnostic_duplication": false,
+  "evidence_policy": "Whole-method comparisons may choose different public evidence; record all omissions and do not attribute differences solely to modality.",
+  "cpu_probe_ids": [
+    "INC-6E627662CA32",
+    "INC-D9245047C658",
+    "INC-018AC5D486B5",
+    "INC-D28AC6CAEFE4",
+    "INC-1FDAD91BB9BE",
+    "INC-FDDF807FBAA4"
+  ],
+  "hybrid_instruction_revision": "RQ45HybridInstructionsV2",
+  "hybrid_instruction_scope": "consolidated static rules; diagnostic records and original graphics unchanged"
 }

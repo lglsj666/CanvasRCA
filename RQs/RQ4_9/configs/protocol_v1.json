@@ -1,0 +1,250 @@
+{
+  "schema": "RQ49ProtocolV1",
+  "experiment": "organization_v1",
+  "arms": [
+    "U28",
+    "V_BIND_LOCAL",
+    "V_BIND_KEY",
+    "V_MARGINAL_DIRECT",
+    "V_MARGINAL_MARKLESS",
+    "H_MARGINAL_DIRECT",
+    "H_MARGINAL_MARKLESS",
+    "H_TPV_BIND",
+    "H_TPV_KEY",
+    "F_LOCAL_MEAN",
+    "F_SOURCE_MEAN",
+    "F_SOURCE_REP",
+    "F_SOURCE_SHAM",
+    "P_SCOPE_E50",
+    "P_SHAPE_E50",
+    "P_FULL",
+    "P_DOMAIN",
+    "S_VIS_REDIST",
+    "S_EVID_REDIST",
+    "S_SUPPRESS",
+    "S_SHAM_REDIST",
+    "D14_FIXED",
+    "D14_PACK"
+  ],
+  "organization": [
+    "V_BIND_LOCAL",
+    "V_BIND_KEY",
+    "V_MARGINAL_DIRECT",
+    "V_MARGINAL_MARKLESS",
+    "H_MARGINAL_DIRECT",
+    "H_MARGINAL_MARKLESS",
+    "H_TPV_BIND",
+    "H_TPV_KEY"
+  ],
+  "fusion": [
+    "F_LOCAL_MEAN",
+    "F_SOURCE_MEAN",
+    "F_SOURCE_REP",
+    "F_SOURCE_SHAM"
+  ],
+  "pruning": [
+    "P_SCOPE_E50",
+    "P_SHAPE_E50",
+    "P_FULL",
+    "P_DOMAIN"
+  ],
+  "sink": [
+    "S_VIS_REDIST",
+    "S_EVID_REDIST",
+    "S_SUPPRESS",
+    "S_SHAM_REDIST"
+  ],
+  "density": [
+    "D14_FIXED",
+    "D14_PACK"
+  ],
+  "nominees": [
+    "U28",
+    "V_MARGINAL_DIRECT",
+    "H_MARGINAL_DIRECT"
+  ],
+  "dataset_counts": {
+    "aiops2022": 60,
+    "aiops2025": 60,
+    "aegislab": 100
+  },
+  "smoke_ids": [
+    "INC-6E627662CA32",
+    "INC-D9245047C658",
+    "INC-018AC5D486B5"
+  ],
+  "total_call_limit": 6000,
+  "formal_calls": 5852,
+  "infrastructure_recovery_calls": 4,
+  "smoke_scopes": {
+    "smoke_organization": 18,
+    "smoke_operators": 18,
+    "smoke_qa": 18,
+    "smoke_performance_v1": 18,
+    "smoke_performance_v2": 18,
+    "smoke_performance_v3": 18,
+    "smoke_performance_v4": 18,
+    "smoke_performance_v5": 18
+  },
+  "smoke_seconds": 900,
+  "context": 40960,
+  "output_tokens": 8192,
+  "qa_output_tokens": 2048,
+  "image_tokens": 16384,
+  "canvas": [
+    4096,
+    4096
+  ],
+  "card_limit": 28,
+  "density_card_limit": 14,
+  "processed_font_min": 18,
+  "processed_line_min": 1.5,
+  "qa_per_dataset": 9,
+  "repeat_per_dataset": 10,
+  "qa_salt": "rq49-mechanisms-v1",
+  "seed": 42,
+  "new_manual_views_max": 6,
+  "attention_layers": [
+    3,
+    23,
+    43,
+    63
+  ],
+  "attention_queries": [
+    "last_prompt",
+    "first_decode"
+  ],
+  "attention_bytes_per_call": 65536,
+  "retention_bytes_per_call": 2500000,
+  "global_configs": [
+    "configs/dataset_segmentation.yaml",
+    "configs/rca_scorer.yaml",
+    "configs/vllm_inference_local.yaml"
+  ],
+  "sink_policy": {
+    "detect_layer": 3,
+    "queries": 8,
+    "min_queries": 6,
+    "density": 5.0,
+    "image_mass": 0.2,
+    "nonsink_fraction": 0.8,
+    "release": 0.4,
+    "layers": [
+      3,
+      7,
+      11,
+      15,
+      19,
+      23,
+      27,
+      31,
+      35,
+      39,
+      43,
+      47,
+      51,
+      55,
+      59
+    ]
+  },
+  "comparisons": {
+    "organization": [
+      [
+        "V_BIND_LOCAL",
+        "U28"
+      ],
+      [
+        "V_BIND_LOCAL",
+        "V_BIND_KEY"
+      ],
+      [
+        "V_MARGINAL_DIRECT",
+        "U28"
+      ],
+      [
+        "V_MARGINAL_DIRECT",
+        "V_MARGINAL_MARKLESS"
+      ],
+      [
+        "H_MARGINAL_DIRECT",
+        "H_MARGINAL_MARKLESS"
+      ],
+      [
+        "H_TPV_BIND",
+        "H_TPV_KEY"
+      ]
+    ],
+    "fusion": [
+      [
+        "F_LOCAL_MEAN",
+        "U28"
+      ],
+      [
+        "F_SOURCE_MEAN",
+        "U28"
+      ],
+      [
+        "F_SOURCE_MEAN",
+        "F_LOCAL_MEAN"
+      ],
+      [
+        "F_SOURCE_MEAN",
+        "F_SOURCE_REP"
+      ],
+      [
+        "F_SOURCE_MEAN",
+        "F_SOURCE_SHAM"
+      ]
+    ],
+    "pruning": [
+      [
+        "P_SCOPE_E50",
+        "U28"
+      ],
+      [
+        "P_SHAPE_E50",
+        "U28"
+      ],
+      [
+        "P_DOMAIN",
+        "P_FULL"
+      ],
+      [
+        "U28",
+        "P_DOMAIN"
+      ]
+    ],
+    "attention": [
+      [
+        "S_VIS_REDIST",
+        "P_FULL"
+      ],
+      [
+        "S_EVID_REDIST",
+        "P_FULL"
+      ],
+      [
+        "S_EVID_REDIST",
+        "S_VIS_REDIST"
+      ],
+      [
+        "S_EVID_REDIST",
+        "S_SUPPRESS"
+      ],
+      [
+        "S_EVID_REDIST",
+        "S_SHAM_REDIST"
+      ]
+    ],
+    "density": [
+      [
+        "D14_FIXED",
+        "U28"
+      ],
+      [
+        "D14_PACK",
+        "D14_FIXED"
+      ]
+    ]
+  }
+}

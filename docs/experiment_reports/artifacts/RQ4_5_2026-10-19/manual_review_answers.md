@@ -1,0 +1,759 @@
+# RQ4.5 QA–RCA full-answer audit sample
+
+Generated complete quotations for manual review; selection rules attached to each case. No score modifications.
+
+## aegislab / INC-01BF937825D4 / H_MARGINAL
+Selection: first opaque ID in fixed QA cohort (outcome independent). QA=1.0000; RCA RR=0.2000.
+
+Expected: `{"q1": {"entity": "932", "unit": "ratio_or_percent", "value": "0.01856"}, "q2": {"entity": "165", "unit": "milliseconds_or_source_unit", "value": "0.00475"}, "q3": {"entity": "932", "relation": "has_instance", "targets": ["67588"]}, "q4": {"entity": "836", "relation": "has_instance", "targets": ["42276"]}, "q5": {"entity": "689", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "762", "higher_phase": "current", "unit": "ratio_or_percent"}}`
+
+QA:
+```json
+{"q1": {"entity": "932", "unit": "ratio_or_percent", "value": "0.01856"}, "q2": {"entity": "165", "unit": "milliseconds_or_source_unit", "value": "0.00475"}, "q3": {"entity": "932", "relation": "has_instance", "targets": ["67588"]}, "q4": {"entity": "836", "relation": "has_instance", "targets": ["42276"]}, "q5": {"entity": "689", "unit": "microseconds", "higher_phase": "current"}, "q6": {"entity": "762", "unit": "ratio_or_percent", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["519", "960", "689", "836", "927"], "reason": "Five-minute caller services 519, 960, and 689 all show dominant latency spikes with exclusive p95 jumps of 4.77-7.11 fold changes (TRC05/04/06) driven by service 927's extensive calling relationships. Observed propagation chain shows 927 calling nearly all downstream services simultaneously from ~7.0m onset, and 732 (acting as a gateway before 927) displays CPU utilization jumping from 2% to 20% around bin 50 (+6.25m), before cascading latency issues appear, pinning 519/927 as the origin.", "confidence": "medium"}
+```
+
+## aegislab / INC-01BF937825D4 / H_TOPOLOGY
+Selection: first opaque ID in fixed QA cohort (outcome independent). QA=0.5000; RCA RR=0.0000.
+
+Expected: `{"q1": {"entity": "932", "unit": "ratio_or_percent", "value": "0.01856"}, "q2": {"entity": "165", "unit": "milliseconds_or_source_unit", "value": "0.00475"}, "q3": {"entity": "932", "relation": "has_instance", "targets": ["67588"]}, "q4": {"entity": "836", "relation": "has_instance", "targets": ["42276"]}, "q5": {"entity": "689", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "762", "higher_phase": "current", "unit": "ratio_or_percent"}}`
+
+QA:
+```json
+{"q1": {"entity": "932", "unit": "ratio_or_percent", "value": "0.01856"}, "q2": {"entity": "165", "unit": "milliseconds_or_source_unit", "value": "0.00475"}, "q3": {"entity": "932", "relation": "has_instance", "targets": []}, "q4": {"entity": "836", "relation": "has_instance", "targets": []}, "q5": {"entity": "689", "unit": "µs", "higher_phase": "current"}, "q6": {"entity": "762", "unit": "ratio_or_percent", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["836", "960", "519", "779", "109"], "reason": "Service 836 is the leading root-cause candidate: MET01 shows a sharp jvm.system.cpu.utilization spike (baseline 0.01847 → peak 0.2026) and TRC01's POST /api/v1/travelservice/trip_detail has the largest exclusive-p95 latency jump (≈2.2 ms → 94 ms, ~42×), and its exclusive duration exceeds 99% of the 203 ms inclusive duration, indicating a local fault rather than downstream waiting. It was verified against the strongest contradictory/alternative origin, 960, whose inclusive p95 (≈472 ms) exceeds its exclusive p95 (≈472 ms vs inclusive 1078 ms shows large child share) and whose propagation onset (+6.9m–7.1m) matches 836's window, consistent with 960 being a downstream/correlated symptom rather than the initiator; 836's onset and exclusive-local signature were not contradicted. Service 519, 779, and 109 are secondary alternatives with large exclusive (519) or latency-tail (779, 109) signatures but no exclusive-local dominance like 836.", "confidence": "medium"}
+```
+
+## aegislab / INC-01BF937825D4 / H_TOPO_MARGINAL
+Selection: first opaque ID in fixed QA cohort (outcome independent). QA=0.5000; RCA RR=0.2500.
+
+Expected: `{"q1": {"entity": "932", "unit": "ratio_or_percent", "value": "0.01856"}, "q2": {"entity": "165", "unit": "milliseconds_or_source_unit", "value": "0.00475"}, "q3": {"entity": "932", "relation": "has_instance", "targets": ["67588"]}, "q4": {"entity": "836", "relation": "has_instance", "targets": ["42276"]}, "q5": {"entity": "689", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "762", "higher_phase": "current", "unit": "ratio_or_percent"}}`
+
+QA:
+```json
+{"q1": {"entity": "932", "unit": "ratio_or_percent", "value": "0.01856"}, "q2": {"entity": "165", "unit": "milliseconds_or_source_unit", "value": "0.00475"}, "q3": {"entity": "932", "relation": "has_instance", "targets": []}, "q4": {"entity": "836", "relation": "has_instance", "targets": []}, "q5": {"entity": "689", "unit": "µs", "higher_phase": "current"}, "q6": {"entity": "762", "unit": "ratio_or_percent", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["519", "960", "836", "927", "689"], "reason": "Five confirmed caller services (519, 960, 836, 927, 689) show the largest exclusive p95 latency degradations (TRC05, TRC04, TRC01, TRC02, TRC06) and handle high-volume traffic. Cross-referencing the graph shows these callers invoke a shared dependency, Service 580, which concurrently exhibits severe memory exhaustion (container.memory.available dropping from 2.4GB to 1.6GB), indicating it is the co-located root cause.", "confidence": "medium"}
+```
+
+## aegislab / INC-01BF937825D4 / V_CONTEXT_FILL
+Selection: first opaque ID in fixed QA cohort (outcome independent). QA=0.0000; RCA RR=0.5000.
+
+Expected: `{"q1": {"entity": "932", "unit": "ratio_or_percent", "value": "0.01856"}, "q2": {"entity": "165", "unit": "milliseconds_or_source_unit", "value": "0.00475"}, "q3": {"entity": "932", "relation": "has_instance", "targets": ["67588"]}, "q4": {"entity": "836", "relation": "has_instance", "targets": ["42276"]}, "q5": {"entity": "689", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "762", "higher_phase": "current", "unit": "ratio_or_percent"}}`
+
+QA:
+```json
+{"q1": {"entity": "732", "unit": "165", "value": "0.00475"}, "q2": {"entity": "165", "unit": "165", "value": "0.00475"}, "q3": {"entity": "732", "relation": "has_instance", "targets": ["826", "932"]}, "q4": {"entity": "109", "relation": "has_instance", "targets": ["836"]}, "q5": {"entity": "689", "unit": "689", "higher_phase": "reference"}, "q6": {"entity": "762", "unit": "762", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["762", "927", "580", "732", "836"], "reason": "Service 762 is the central downstream dependency in the call graph, showing a 5x latency regression in conditional quantiles that propagates directly to the degraded parent service 927. Service 580 is a secondary upstream caller exhibiting the same 5.4ms vs 4.6ms delay inflation. Observed page faults and resource saturation metrics for other candidates (732, 836) provide physical resource context but lack direct latency signatures at the dominant scale of the incident.", "confidence": "medium"}
+```
+
+## aegislab / INC-01BF937825D4 / V_DOMAIN_FULL
+Selection: first opaque ID in fixed QA cohort (outcome independent). QA=0.0000; RCA RR=0.5000.
+
+Expected: `{"q1": {"entity": "932", "unit": "ratio_or_percent", "value": "0.01856"}, "q2": {"entity": "165", "unit": "milliseconds_or_source_unit", "value": "0.00475"}, "q3": {"entity": "932", "relation": "has_instance", "targets": ["67588"]}, "q4": {"entity": "836", "relation": "has_instance", "targets": ["42276"]}, "q5": {"entity": "689", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "762", "higher_phase": "current", "unit": "ratio_or_percent"}}`
+
+QA:
+```json
+{"q1": {"entity": "732", "unit": "165", "value": "0.00475"}, "q2": {"entity": "165", "unit": "165", "value": "0.00475"}, "q3": {"entity": "732", "relation": "has_instance", "targets": ["826", "932"]}, "q4": {"entity": "109", "relation": "has_instance", "targets": ["836"]}, "q5": {"entity": "689", "unit": "689", "higher_phase": "reference"}, "q6": {"entity": "762", "unit": "762", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["762", "927", "580", "732", "836"], "reason": "Service 762 is the central downstream dependency in the call graph, showing a 4x latency regression in conditional quantiles that propagates directly to the degraded parent service 927. Service 580 is a secondary upstream caller exhibiting extreme inclusive latency inflation driven by service 762's slow child spans. Service 836 is ranked third because its span-level trace indicates a 42x exclusive latency increase, suggesting a potential independent fault, while services 732 and 580 (re-listed) complete the primary topological blast radius around the root regression.", "confidence": "high"}
+```
+
+## aegislab / INC-01BF937825D4 / V_SOURCE_UNIFORM
+Selection: first opaque ID in fixed QA cohort (outcome independent). QA=0.0000; RCA RR=1.0000.
+
+Expected: `{"q1": {"entity": "932", "unit": "ratio_or_percent", "value": "0.01856"}, "q2": {"entity": "165", "unit": "milliseconds_or_source_unit", "value": "0.00475"}, "q3": {"entity": "932", "relation": "has_instance", "targets": ["67588"]}, "q4": {"entity": "836", "relation": "has_instance", "targets": ["42276"]}, "q5": {"entity": "689", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "762", "higher_phase": "current", "unit": "ratio_or_percent"}}`
+
+QA:
+```json
+{"q1": {"entity": "732", "unit": "165", "value": "0.00475"}, "q2": {"entity": "165", "unit": "165", "value": "0.00475"}, "q3": {"entity": "732", "relation": "has_instance", "targets": ["826", "932"]}, "q4": {"entity": "109", "relation": "has_instance", "targets": ["836"]}, "q5": {"entity": "689", "unit": "689", "higher_phase": "equal"}, "q6": {"entity": "762", "unit": "762", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["732", "960", "580", "762", "927"], "reason": "Service 732 is the central downstream dependency in the call graph for the slow endpoint POST /travelPlan/quickest, which shows a severe latency degradation (inclusive p50 5.4s vs 4.6s reference). The extreme degradation correlates with specific failures in that subgraph, particularly indicated by the 'JVM utilization' spike on service 779 and potentially resource contention from high memory page faults on service 109 which calls 732.", "confidence": "medium"}
+```
+
+## aegislab / INC-058FC5DD18AD / H_MARGINAL
+Selection: largest combination harm in fixed QA cohort. QA=0.5000; RCA RR=1.0000.
+
+Expected: `{"q1": {"entity": "557", "unit": "microseconds", "value": "534460.24"}, "q2": {"entity": "976", "unit": "source_unit", "value": "2.698e+10"}, "q3": {"entity": "661", "relation": "has_instance", "targets": ["25836"]}, "q4": {"entity": "419", "relation": "has_instance", "targets": ["40039"]}, "q5": {"entity": "661", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "440", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "557", "unit": "counts_microseconds_and_log2_fold_change", "value": "534460.24"}, "q2": {"entity": "976", "unit": "source_unit", "value": "2.698e+10"}, "q3": {"entity": "661", "relation": "has_instance", "targets": ["25836"]}, "q4": {"entity": "419", "relation": "has_instance", "targets": ["40039"]}, "q5": {"entity": "661", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}, "q6": {"entity": "440", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["905", "661", "419", "557", "717"], "reason": "The confirmed caller→callee relationship 661→905 and 419→905 identifies 905 as the root cause; TRC02 shows 905 has the largest exclusive latency regression (1.63ms → 2.0s) compared to its callers, satisfying the callee-origin check, while the co-located filesystem exhaustion (MET-Z z=-685.9) across 7 services confirms 905's environmental failure as the earliest onset in the fault window.", "confidence": "high"}
+```
+
+## aegislab / INC-058FC5DD18AD / H_TOPOLOGY
+Selection: largest combination harm in fixed QA cohort. QA=0.1667; RCA RR=0.5000.
+
+Expected: `{"q1": {"entity": "557", "unit": "microseconds", "value": "534460.24"}, "q2": {"entity": "976", "unit": "source_unit", "value": "2.698e+10"}, "q3": {"entity": "661", "relation": "has_instance", "targets": ["25836"]}, "q4": {"entity": "419", "relation": "has_instance", "targets": ["40039"]}, "q5": {"entity": "661", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "440", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "557", "unit": "counts_microseconds_and_log2_fold_change", "value": "534460.24"}, "q2": {"entity": "976", "unit": "source_unit", "value": "2.698e+10"}, "q3": {"entity": "661", "relation": "has_instance", "targets": ["14700", "19308", "25836", "47867", "53199", "66341", "70996", "81128", "89585"]}, "q4": {"entity": "419", "relation": "has_instance", "targets": ["32423", "47817", "53464", "60008", "75044", "81765", "85815", "90091"]}, "q5": {"entity": "661", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}, "q6": {"entity": "440", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["661", "905", "557", "419", "717"], "reason": "The confirmed caller→callee relationship 905→951 and 717→170 identifies 905 and 717 as upstream callers, not the origin of the delay. Verified that 661's extreme exclusive latency (1.87s) is not attributable to a child span dependency (its latency is local) and that its co-located filesystem exhaustion (identical Z-score to 650) is a symptom of the post-mid-window allocation burst rather than the initiating application fault.", "confidence": "medium"}
+```
+
+## aegislab / INC-058FC5DD18AD / H_TOPO_MARGINAL
+Selection: largest combination harm in fixed QA cohort. QA=0.1667; RCA RR=0.5000.
+
+Expected: `{"q1": {"entity": "557", "unit": "microseconds", "value": "534460.24"}, "q2": {"entity": "976", "unit": "source_unit", "value": "2.698e+10"}, "q3": {"entity": "661", "relation": "has_instance", "targets": ["25836"]}, "q4": {"entity": "419", "relation": "has_instance", "targets": ["40039"]}, "q5": {"entity": "661", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "440", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "557", "unit": "counts_microseconds_and_log2_fold_change", "value": "534460.24"}, "q2": {"entity": "976", "unit": "source_unit", "value": "2.698e+10"}, "q3": {"entity": "661", "relation": "has_instance", "targets": ["14700", "19308", "25836", "47867", "53199", "66341", "70996", "81128", "82372", "83149", "83831", "95084", "96701", "98100"]}, "q4": {"entity": "419", "relation": "has_instance", "targets": ["11277", "13502", "50331", "60008", "99733"]}, "q5": {"entity": "661", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}, "q6": {"entity": "440", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["661", "905", "419", "557", "717"], "reason": "The confirmed caller→callee relationship 661→905 and the consistency of the log 'Attempting to connect' template point to 661 as the initial source, not 905. Check 1 confirmed that 661's 6.01 log2 latency increase and new connection logs align with the incident, whereas 905's 10.26 increase is consistent with a downstream symptom. Check 2 validated 419, 557, and 717 as other independent latency sources, but without upstream logs they are less likely to be the root cause than 661.", "confidence": "medium"}
+```
+
+## aegislab / INC-058FC5DD18AD / V_CONTEXT_FILL
+Selection: largest combination harm in fixed QA cohort. QA=0.0000; RCA RR=0.3333.
+
+Expected: `{"q1": {"entity": "557", "unit": "microseconds", "value": "534460.24"}, "q2": {"entity": "976", "unit": "source_unit", "value": "2.698e+10"}, "q3": {"entity": "661", "relation": "has_instance", "targets": ["25836"]}, "q4": {"entity": "419", "relation": "has_instance", "targets": ["40039"]}, "q5": {"entity": "661", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "440", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "717", "unit": "170", "value": "534400.24"}, "q2": {"entity": "650", "unit": "650", "value": "2.698e+10"}, "q3": null, "q4": null, "q5": {"entity": "661", "unit": "661", "higher_phase": "reference"}, "q6": {"entity": "440", "unit": "440", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["956", "908", "905", "951", "717"], "reason": "Service 956 is the central upstream span in the telemetry (MET04/06/F01), with exclusive latency jumping from ~4.8k µs to 1.08M µs (223x) while CPU remains low (24.2% vs 72.6% ref), matching the Java 'Attempt to connect' timeout in LT05 attributed to Service 57. Candidate 717 (Java HttpClient) is the direct code-level enabler but is downstream of 956's execution path; 908 is excluded as a false positive due to healthy exclusive latency (0.81µs) despite elevated CPU.", "confidence": "medium"}
+```
+
+## aegislab / INC-058FC5DD18AD / V_DOMAIN_FULL
+Selection: largest combination harm in fixed QA cohort. QA=0.0000; RCA RR=0.3333.
+
+Expected: `{"q1": {"entity": "557", "unit": "microseconds", "value": "534460.24"}, "q2": {"entity": "976", "unit": "source_unit", "value": "2.698e+10"}, "q3": {"entity": "661", "relation": "has_instance", "targets": ["25836"]}, "q4": {"entity": "419", "relation": "has_instance", "targets": ["40039"]}, "q5": {"entity": "661", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "440", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "419", "unit": "419", "value": "2703522.58"}, "q2": {"entity": "650", "unit": "650", "value": "2.698e+10"}, "q3": null, "q4": null, "q5": {"entity": "661", "unit": "661", "higher_phase": "reference"}, "q6": {"entity": "440", "unit": "440", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["956", "908", "905", "717", "902"], "reason": "Service 956 is the central upstream dependency in the telemetry graph, showing a 6x latency regression in service 905 (2024.4ms vs 16.90ms) that directly correlates with the parent's SLA breach. While service 908 also exhibits high latency, its dependency on 956 and the graph's connectivity confirm 956 as the dominant root cause. Candidate 717 is ranked third due to its role as a primary parent in the same request chain, while 902 is considered due to its edge latency.", "confidence": "medium"}
+```
+
+## aegislab / INC-058FC5DD18AD / V_SOURCE_UNIFORM
+Selection: largest combination harm in fixed QA cohort. QA=0.0000; RCA RR=0.3333.
+
+Expected: `{"q1": {"entity": "557", "unit": "microseconds", "value": "534460.24"}, "q2": {"entity": "976", "unit": "source_unit", "value": "2.698e+10"}, "q3": {"entity": "661", "relation": "has_instance", "targets": ["25836"]}, "q4": {"entity": "419", "relation": "has_instance", "targets": ["40039"]}, "q5": {"entity": "661", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "440", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "717", "unit": "170", "value": "534160.24"}, "q2": {"entity": "650", "unit": "650", "value": "2.698e+10"}, "q3": null, "q4": null, "q5": {"entity": "661", "unit": "661", "higher_phase": "current"}, "q6": {"entity": "440", "unit": "440", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["902", "717", "905", "956", "650"], "reason": "Service 902 is the central downstream dependency in the call graph, showing a 5x latency regression (12ms vs 2.4ms ref) in TRC02 'GET /v1/routes'. Parent services 717 and 905 exhibit corresponding latency increases (7x and 6x) and elevated latency distributions as a direct consequence of the child 902 slowdown. The connection failure log (LT05) referencing services 956 and 650 provides a plausible upstream hardware or resource constraint trigger, but the primary observed performance impact is localized to the 902->717/905 call path.", "confidence": "high"}
+```
+
+## aiops2022 / INC-0986D6C54EC6 / H_MARGINAL
+Selection: first opaque ID in fixed QA cohort (outcome independent). QA=0.6667; RCA RR=0.0000.
+
+Expected: `{"q1": {"entity": "81384", "unit": "source_unit", "value": "15.25"}, "q2": {"entity": "11282", "unit": "source_unit", "value": "0.01942"}, "q3": {"entity": "81384", "relation": "hosts", "targets": ["4176"]}, "q4": {"entity": "88466", "relation": "hosts", "targets": ["7758"]}, "q5": {"entity": "93361", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "92359", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "81384", "unit": "source_unit", "value": "15.25"}, "q2": {"entity": "11282", "unit": "source_unit", "value": "0.01942"}, "q3": {"entity": "81384", "relation": "hosts", "targets": ["4176"]}, "q4": {"entity": "88466", "relation": "hosts", "targets": ["7758"]}, "q5": {"entity": "93361", "unit": "µs", "higher_phase": "current"}, "q6": {"entity": "92359", "unit": "µs", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["217", "212", "691", "276", "2532"], "reason": "Service 217 is the primary candidate as the earliest onset (+23m) and highest severity (z=999) source, further supported by the extreme exclusive p95 latency increase for SendOrderConfirmation (TRC01, lfc=3.73). Verification of 217 holds because the CFS throttling (MET06) and page faults (MET07) on pod 81384 (an instance of 217) perfectly coincide with the CPU/network bottlenecks in node 2532, whereas alternative origins like 212 and 691 show secondary onsets and lower impact.", "confidence": "high"}
+```
+
+## aiops2022 / INC-0986D6C54EC6 / H_TOPOLOGY
+Selection: first opaque ID in fixed QA cohort (outcome independent). QA=0.3333; RCA RR=0.0000.
+
+Expected: `{"q1": {"entity": "81384", "unit": "source_unit", "value": "15.25"}, "q2": {"entity": "11282", "unit": "source_unit", "value": "0.01942"}, "q3": {"entity": "81384", "relation": "hosts", "targets": ["4176"]}, "q4": {"entity": "88466", "relation": "hosts", "targets": ["7758"]}, "q5": {"entity": "93361", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "92359", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "81384", "unit": "source_unit", "value": "15.25"}, "q2": {"entity": "11282", "unit": "source_unit", "value": "0.01942"}, "q3": {"entity": "81384", "relation": "hosts", "targets": []}, "q4": {"entity": "88466", "relation": "hosts", "targets": ["2532", "4176", "7758"]}, "q5": {"entity": "93361", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}, "q6": {"entity": "92359", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["212", "691", "217", "903", "276"], "reason": "The confirmed caller→callee relationship shows pod 94905 executing hipstershop.841/SendOrderConfirmation making direct child calls to pod 56571 for grpc.hipstershop.691/Charge. The SLA check confirms a decisive local failure where pod 56571's exclusive-p95 latency surged from a baseline of 155.5µs to 254.3µs (TRC02), establishing pod 691 as the root origin while pod 212 (which hosts pod 94905) serves as the immediate failing caller.", "confidence": "high"}
+```
+
+## aiops2022 / INC-0986D6C54EC6 / H_TOPO_MARGINAL
+Selection: first opaque ID in fixed QA cohort (outcome independent). QA=0.3333; RCA RR=0.0000.
+
+Expected: `{"q1": {"entity": "81384", "unit": "source_unit", "value": "15.25"}, "q2": {"entity": "11282", "unit": "source_unit", "value": "0.01942"}, "q3": {"entity": "81384", "relation": "hosts", "targets": ["4176"]}, "q4": {"entity": "88466", "relation": "hosts", "targets": ["7758"]}, "q5": {"entity": "93361", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "92359", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "81384", "unit": "source_unit", "value": "15.25"}, "q2": {"entity": "11282", "unit": "source_unit", "value": "0.01942"}, "q3": null, "q4": null, "q5": {"entity": "93361", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}, "q6": {"entity": "92359", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["93361", "94905", "88466", "81384", "2532"], "reason": "I first confirmed that the largest exclusive p95 latency deviation sits in service 93361 for the SendOrderConfirmation operation (TRC01, 3597us -> 47801us, lfc 3.73), which aligns with the early latency spikes seen in the same operation at child pod 94905 (TRC04). I then verified the causality chain by checking if a lower-level resource exhaustion preceded the latency; this was confirmed by the co-located extreme spikes in page faults (MET07, 15 -> 685.5) and CPU throttling (MET06, 0 -> 0.0313) at pod 81384, establishing a direct resource-to-latency mechanism at the origin.", "confidence": "high"}
+```
+
+## aiops2022 / INC-0986D6C54EC6 / V_CONTEXT_FILL
+Selection: first opaque ID in fixed QA cohort (outcome independent). QA=0.0000; RCA RR=0.0000.
+
+Expected: `{"q1": {"entity": "81384", "unit": "source_unit", "value": "15.25"}, "q2": {"entity": "11282", "unit": "source_unit", "value": "0.01942"}, "q3": {"entity": "81384", "relation": "hosts", "targets": ["4176"]}, "q4": {"entity": "88466", "relation": "hosts", "targets": ["7758"]}, "q5": {"entity": "93361", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "92359", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "121", "unit": "source unit", "value": "739.7"}, "q2": {"entity": "04", "unit": "source unit", "value": "0.39889"}, "q3": {"entity": "121", "relation": "hosts", "targets": []}, "q4": {"entity": "TRC05", "relation": "hosts", "targets": []}, "q5": {"entity": "14", "unit": "microseconds", "higher_phase": "current"}, "q6": {"entity": "TRC06", "unit": "microseconds", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["94905", "82400", "93361", "82400", "94905"], "reason": "The TRC04 trace for pod 94905 shows exclusive latency jumping from ~37971 µs to 55956 µs (rank_score 0.56), driven by its child call to service 82400 which increased from ~36805 µs to ~43776 µs (rank_score 0.37). This indicates the performance regression originated in service 82400, propagating up to the parent, with pod 93361 (TRC01) as the secondary affected initiator (rank_score 0.37).", "confidence": "medium"}
+```
+
+## aiops2022 / INC-0986D6C54EC6 / V_DOMAIN_FULL
+Selection: first opaque ID in fixed QA cohort (outcome independent). QA=0.0000; RCA RR=0.0000.
+
+Expected: `{"q1": {"entity": "81384", "unit": "source_unit", "value": "15.25"}, "q2": {"entity": "11282", "unit": "source_unit", "value": "0.01942"}, "q3": {"entity": "81384", "relation": "hosts", "targets": ["4176"]}, "q4": {"entity": "88466", "relation": "hosts", "targets": ["7758"]}, "q5": {"entity": "93361", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "92359", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "81384", "unit": "source_unit", "value": "739.7"}, "q2": {"entity": "11282", "unit": "source_unit", "value": "0.39889"}, "q3": null, "q4": null, "q5": {"entity": "93361", "unit": "source_unit", "higher_phase": "current"}, "q6": {"entity": "92359", "unit": "source_unit", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["94905", "82400", "93361", "82400", "94905"], "reason": "The TRC04 trace for pod 94905 shows exclusive latency jumping from ~379.71 μs to 559.56 μs (1.56x log2 ratio) at the exact moment of the byte spike. This correlates directly with MET01 (net bytes sent) and MET08 (net bytes received) showing massive spikes on node 2532, indicating a network saturation event. The high CPU throttling signal MET06 and system load on node 2532 support this as the primary driver of the observed slowdown.", "confidence": "high"}
+```
+
+## aiops2022 / INC-0986D6C54EC6 / V_SOURCE_UNIFORM
+Selection: first opaque ID in fixed QA cohort (outcome independent). QA=0.0000; RCA RR=0.0000.
+
+Expected: `{"q1": {"entity": "81384", "unit": "source_unit", "value": "15.25"}, "q2": {"entity": "11282", "unit": "source_unit", "value": "0.01942"}, "q3": {"entity": "81384", "relation": "hosts", "targets": ["4176"]}, "q4": {"entity": "88466", "relation": "hosts", "targets": ["7758"]}, "q5": {"entity": "93361", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "92359", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "81384", "unit": "source unit", "value": "739.7"}, "q2": {"entity": "11282", "unit": "source unit", "value": "0.39889"}, "q3": null, "q4": null, "q5": {"entity": "93361", "unit": "source unit", "higher_phase": "current"}, "q6": {"entity": "92359", "unit": "source unit", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["94905", "82400", "56571", "841", "276"], "reason": "Trace pair PAIR02 isolates pod 94905 (node 2532) running the '841' service as the 'parent' operation (SendOrderConfirmation) with a 0.269 ms jump from reference to current, while child pod 82400 ('276'/PlaceOrder) is flat; this aligns with aux metric 07 showing pod 94905 exclusive latency p95 rising to 47,801 µs from a 3,597 µs reference, and corroborates the correlated `system.load.15` spike to 1.87 on node 2532.", "confidence": "high"}
+```
+
+## aiops2025 / INC-27CBD1F8668A / H_MARGINAL
+Selection: first opaque ID in fixed QA cohort (outcome independent). QA=1.0000; RCA RR=0.0000.
+
+Expected: `{"q1": {"entity": "534", "unit": "source_unit", "value": "0"}, "q2": {"entity": "906", "unit": "source_unit", "value": "1.708e+08"}, "q3": null, "q4": null, "q5": {"entity": "22486", "higher_phase": "current", "unit": "source_unit"}, "q6": {"entity": "1026", "higher_phase": "equal", "unit": "ratio_or_percent"}}`
+
+QA:
+```json
+{"q1": {"entity": "534", "unit": "source_unit", "value": "0"}, "q2": {"entity": "906", "unit": "source_unit", "value": "1.708e+08"}, "q3": null, "q4": null, "q5": {"entity": "22486", "unit": "source_unit", "higher_phase": "current"}, "q6": {"entity": "1026", "unit": "ratio_or_percent", "higher_phase": "equal"}}
+```
+RCA:
+```json
+{"services": ["906", "1026", "2426", "58986", "907"], "reason": "Verification check 1 confirms service 906 as the earliest onset (bin ~32, +18m) with the highest severity z-score (164.9) for memory_usage, preceding the peak memory utilization of pod 58986 (bin 39) and the anomalies on hosts 1026 and 2426; check 2 tests the alternative origin of host-level memory pressure (1026/2426), but the temporal precedence of 906 and the specific memory spike in its associated pod 58986, combined with the lack of trace/log evidence for host-initiated faults, contradict the host origin hypothesis, identifying 906 as the faulty component.", "confidence": "high"}
+```
+
+## aiops2025 / INC-27CBD1F8668A / H_TOPOLOGY
+Selection: first opaque ID in fixed QA cohort (outcome independent). QA=1.0000; RCA RR=0.0000.
+
+Expected: `{"q1": {"entity": "534", "unit": "source_unit", "value": "0"}, "q2": {"entity": "906", "unit": "source_unit", "value": "1.708e+08"}, "q3": null, "q4": null, "q5": {"entity": "22486", "higher_phase": "current", "unit": "source_unit"}, "q6": {"entity": "1026", "higher_phase": "equal", "unit": "ratio_or_percent"}}`
+
+QA:
+```json
+{"q1": {"entity": "534", "unit": "source_unit", "value": "0"}, "q2": {"entity": "906", "unit": "source_unit", "value": "1.708e+08"}, "q3": null, "q4": null, "q5": {"entity": "22486", "unit": "source_unit", "higher_phase": "current"}, "q6": {"entity": "1026", "unit": "ratio_or_percent", "higher_phase": "equal"}}
+```
+RCA:
+```json
+{"services": ["906", "1026", "2426", "58986", "907"], "reason": "Verification check 1 confirms service 906 as the earliest onset (bin ~32, +18m) with the highest severity z-score (164.9) for memory_usage, preceding the peak memory utilization of pod 58986 (bin 39) and the anomalies on hosts 1026 and 2426; check 2 tests the alternative origin of host-level memory pressure (1026/2426), but the temporal precedence of 906 and the specific memory spike in its associated pod 58986, combined with the lack of trace/log evidence for host-initiated faults, contradict the host origin hypothesis, identifying 906 as the faulty component.", "confidence": "high"}
+```
+
+## aiops2025 / INC-27CBD1F8668A / H_TOPO_MARGINAL
+Selection: first opaque ID in fixed QA cohort (outcome independent). QA=1.0000; RCA RR=0.0000.
+
+Expected: `{"q1": {"entity": "534", "unit": "source_unit", "value": "0"}, "q2": {"entity": "906", "unit": "source_unit", "value": "1.708e+08"}, "q3": null, "q4": null, "q5": {"entity": "22486", "higher_phase": "current", "unit": "source_unit"}, "q6": {"entity": "1026", "higher_phase": "equal", "unit": "ratio_or_percent"}}`
+
+QA:
+```json
+{"q1": {"entity": "534", "unit": "source_unit", "value": "0"}, "q2": {"entity": "906", "unit": "source_unit", "value": "1.708e+08"}, "q3": null, "q4": null, "q5": {"entity": "22486", "unit": "source_unit", "higher_phase": "current"}, "q6": {"entity": "1026", "unit": "ratio_or_percent", "higher_phase": "equal"}}
+```
+RCA:
+```json
+{"services": ["906", "1026", "2426", "58986", "907"], "reason": "Verification check 1 confirms service 906 as the earliest onset (bin ~32, +18m) with the highest severity z-score (164.9) for memory_usage, preceding the peak memory utilization of pod 58986 (bin 39) and the anomalies on hosts 1026 and 2426; check 2 tests the alternative origin of host-level memory pressure (1026/2426), but the temporal precedence of 906 and the specific memory spike in its associated pod 58986, combined with the lack of trace/log evidence for host-initiated faults, contradict the host origin hypothesis, identifying 906 as the faulty component.", "confidence": "high"}
+```
+
+## aiops2025 / INC-27CBD1F8668A / V_CONTEXT_FILL
+Selection: first opaque ID in fixed QA cohort (outcome independent). QA=0.0000; RCA RR=0.0000.
+
+Expected: `{"q1": {"entity": "534", "unit": "source_unit", "value": "0"}, "q2": {"entity": "906", "unit": "source_unit", "value": "1.708e+08"}, "q3": null, "q4": null, "q5": {"entity": "22486", "higher_phase": "current", "unit": "source_unit"}, "q6": {"entity": "1026", "higher_phase": "equal", "unit": "ratio_or_percent"}}`
+
+QA:
+```json
+{"q1": {"entity": "534", "unit": "source unit", "value": "0"}, "q2": {"entity": "906", "unit": "source unit", "value": "1.708e+08"}, "q3": null, "q4": null, "q5": {"entity": "22486", "unit": "source unit", "higher_phase": "current"}, "q6": {"entity": "1026", "unit": "ratio or percent", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["1026", "2426", "230", "457", "906"], "reason": "MET10 node 1026 shows a definitive availability drop (2.674e+10 to ~2.4e+10) with the earliest 'Observed anomaly onset' at +18.0m, while its peer node 2426 also exhibits memory pressure. Observed service 534 (MET5 timeout) and 558 (MET08 timeout) correlate with these memory-degraded nodes, with MET05 timeouts further associating service 614 to the node-level resource contention.", "confidence": "high"}
+```
+
+## aiops2025 / INC-27CBD1F8668A / V_DOMAIN_FULL
+Selection: first opaque ID in fixed QA cohort (outcome independent). QA=0.0000; RCA RR=0.0000.
+
+Expected: `{"q1": {"entity": "534", "unit": "source_unit", "value": "0"}, "q2": {"entity": "906", "unit": "source_unit", "value": "1.708e+08"}, "q3": null, "q4": null, "q5": {"entity": "22486", "higher_phase": "current", "unit": "source_unit"}, "q6": {"entity": "1026", "higher_phase": "equal", "unit": "ratio_or_percent"}}`
+
+QA:
+```json
+{"q1": {"entity": "534", "unit": "source unit", "value": "0"}, "q2": {"entity": "906", "unit": "source unit", "value": "1.708e+08"}, "q3": null, "q4": null, "q5": {"entity": "22486", "unit": "source unit", "higher_phase": "current"}, "q6": {"entity": "1026", "unit": "ratio or percent", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["1026", "2426", "230", "457", "906"], "reason": "MET10 node 1026 shows a definitive availability deficit that MET03 node 2426 partially offsets, implying the incident originates with node 1026's depletion affecting other workloads. Severity ranks (MET01 164.9 vs MET10 20.08) and onset timestamps (+18.0m for 1026 vs +28.0m for 2426) confirm node 1026 is the earliest and most severe anomaly. Metrics 190 and 367 on nodes 190 and 367 are static, supporting 1026/2426 as the active fault sources.", "confidence": "high"}
+```
+
+## aiops2025 / INC-27CBD1F8668A / V_SOURCE_UNIFORM
+Selection: first opaque ID in fixed QA cohort (outcome independent). QA=0.0000; RCA RR=0.0000.
+
+Expected: `{"q1": {"entity": "534", "unit": "source_unit", "value": "0"}, "q2": {"entity": "906", "unit": "source_unit", "value": "1.708e+08"}, "q3": null, "q4": null, "q5": {"entity": "22486", "higher_phase": "current", "unit": "source_unit"}, "q6": {"entity": "1026", "higher_phase": "equal", "unit": "ratio_or_percent"}}`
+
+QA:
+```json
+{"q1": {"entity": "534", "unit": "source unit", "value": "0"}, "q2": {"entity": "906", "unit": "source unit", "value": "1.70e+08"}, "q3": null, "q4": null, "q5": {"entity": "22486", "unit": "source unit", "higher_phase": "current"}, "q6": {"entity": "1026", "unit": "ratio or percent", "higher_phase": "reference"}}
+```
+RCA:
+```json
+{"services": ["1026", "2426", "230", "457", "906"], "reason": "MET10 node 1026 shows a definitive availability deficit (1.188e+10 vs ref 2.674e+10) with a strong onset at +20.0m, while MET11 on node 2426 reveals a memory pressure fluctuation (peak 1.188e+10) at the same time. The correlation between physical memory exhaustion on 1026 and the specific memory pressure event on 2426, alongside timeout signals in downstream services (906, 230), points to a resource exhaustion event as the root cause, despite some nodes like 1026 having baseline memory usage.", "confidence": "high"}
+```
+
+## aegislab / INC-332110D70FB3 / H_MARGINAL
+Selection: largest combination improvement in fixed QA cohort. QA=0.5000; RCA RR=0.2000.
+
+Expected: `{"q1": {"entity": "328", "unit": "microseconds", "value": "3489840.46"}, "q2": {"entity": "485", "unit": "source_unit", "value": "7.248e+08"}, "q3": {"entity": "999", "relation": "has_instance", "targets": ["23920"]}, "q4": {"entity": "193", "relation": "has_instance", "targets": ["24463"]}, "q5": {"entity": "915", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "846", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "328", "unit": "counts_microseconds_and_log2_fold_change", "value": "3489840.46"}, "q2": {"entity": "485", "unit": "source_unit", "value": "7.248e+08"}, "q3": {"entity": "999", "relation": "has_instance", "targets": ["23920"]}, "q4": {"entity": "193", "relation": "has_instance", "targets": ["24463"]}, "q5": {"entity": "915", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}, "q6": {"entity": "846", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["193", "199", "485", "763", "328"], "reason": "193 is top-ranked with the earliest metric onset (+4.0m) and highest deviation_sigma (15.0), tested against the alternative of caller-side propagation: callers 180/257/295 show no earlier anomalies than 193. This confirms 193 as an originating component rather than a downstream symptom, though its small absolute page-fault delta (48.8k→49.2k) limits confidence; the cascade flows 193→763→813/328 through observed call edges.", "confidence": "medium"}
+```
+
+## aegislab / INC-332110D70FB3 / H_TOPOLOGY
+Selection: largest combination improvement in fixed QA cohort. QA=0.1667; RCA RR=0.0000.
+
+Expected: `{"q1": {"entity": "328", "unit": "microseconds", "value": "3489840.46"}, "q2": {"entity": "485", "unit": "source_unit", "value": "7.248e+08"}, "q3": {"entity": "999", "relation": "has_instance", "targets": ["23920"]}, "q4": {"entity": "193", "relation": "has_instance", "targets": ["24463"]}, "q5": {"entity": "915", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "846", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "328", "unit": "counts_microseconds_and_log2_fold_change", "value": "3489840.46"}, "q2": {"entity": "485", "unit": "source_unit", "value": "7.248e+08"}, "q3": null, "q4": null, "q5": {"entity": "915", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}, "q6": {"entity": "846", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["199", "485", "193", "763", "813"], "reason": "199 is top-ranked with the earliest onset (+4.0m) and high severity (12.13z), tested against co-located nodes with comparable anomalies (485, 193) showing no decisive evidence that they initiated 199's fault; 813 is a mid-tier candidate (severity 10.08z, onset +7.0m) that is a downstream consumer of 199 in the call graph, consistent with a propagation pattern but not an independent origin.", "confidence": "medium"}
+```
+
+## aegislab / INC-332110D70FB3 / H_TOPO_MARGINAL
+Selection: largest combination improvement in fixed QA cohort. QA=0.1667; RCA RR=1.0000.
+
+Expected: `{"q1": {"entity": "328", "unit": "microseconds", "value": "3489840.46"}, "q2": {"entity": "485", "unit": "source_unit", "value": "7.248e+08"}, "q3": {"entity": "999", "relation": "has_instance", "targets": ["23920"]}, "q4": {"entity": "193", "relation": "has_instance", "targets": ["24463"]}, "q5": {"entity": "915", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "846", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "328", "unit": "counts_microseconds_and_log2_fold_change", "value": "3489840.46"}, "q2": {"entity": "485", "unit": "source_unit", "value": "7.248e+08"}, "q3": null, "q4": null, "q5": {"entity": "915", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}, "q6": {"entity": "846", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["328", "846", "999", "813", "193"], "reason": "Service 328 is the primary fault source, confirmed by its extreme exclusive p95 latency (3.49s vs 3.95ms base, TRC04) and the massive p95 inflation observed at its parent 559 (301ms vs 652ms, PAIR02) which is almost entirely attributable to the child 328 span. The connection attempt to the database in pod 37182 (LT05) corresponds to the same application, supporting a foundational data-layer failure rather than a downstream symptom.", "confidence": "high"}
+```
+
+## aegislab / INC-332110D70FB3 / V_CONTEXT_FILL
+Selection: largest combination improvement in fixed QA cohort. QA=0.0000; RCA RR=0.0000.
+
+Expected: `{"q1": {"entity": "328", "unit": "microseconds", "value": "3489840.46"}, "q2": {"entity": "485", "unit": "source_unit", "value": "7.248e+08"}, "q3": {"entity": "999", "relation": "has_instance", "targets": ["23920"]}, "q4": {"entity": "193", "relation": "has_instance", "targets": ["24463"]}, "q5": {"entity": "915", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "846", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "328", "unit": "container", "value": "3498460.6"}, "q2": {"entity": "485", "unit": "container", "value": "7.246e+08"}, "q3": {"entity": "999", "relation": "has_instance", "targets": []}, "q4": {"entity": "193", "relation": "has_instance", "targets": []}, "q5": {"entity": "165", "unit": "service", "higher_phase": "current"}, "q6": {"entity": "846", "unit": "service", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["192", "559", "337", "999", "730"], "reason": "Service 192 is the central downstream dependency in the call graph and its UPDATE ts.orders operation (observation 22) shows a ~43% inclusive latency increase (0.79s vs 0.77s), supporting it as the root cause. Services 559 and 337 show significant propagation effects, with 559's median latency jumping 25x (3586ms vs 139ms) and 337's exclusive latency increasing (10923µs vs 2312µs). The memory and CPU metrics across the system (observations 48, 65, 16) show correlated resource utilization changes consistent with database bottleneck propagation.", "confidence": "medium"}
+```
+
+## aegislab / INC-332110D70FB3 / V_DOMAIN_FULL
+Selection: largest combination improvement in fixed QA cohort. QA=0.0000; RCA RR=0.0000.
+
+Expected: `{"q1": {"entity": "328", "unit": "microseconds", "value": "3489840.46"}, "q2": {"entity": "485", "unit": "source_unit", "value": "7.248e+08"}, "q3": {"entity": "999", "relation": "has_instance", "targets": ["23920"]}, "q4": {"entity": "193", "relation": "has_instance", "targets": ["24463"]}, "q5": {"entity": "915", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "846", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "328", "unit": "container", "value": "3490060.0"}, "q2": {"entity": "485", "unit": "container", "value": "7.246e+08"}, "q3": {"entity": "999", "relation": "has_instance", "targets": ["pod 24382", "pod 41368"]}, "q4": {"entity": "193", "relation": "has_instance", "targets": ["pod 81195", "pod 83265"]}, "q5": {"entity": "328", "unit": "container", "higher_phase": "current"}, "q6": {"entity": "846", "unit": "container", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["192", "559", "337", "999", "485"], "reason": "Service 192 is the central downstream dependency in the call graph and its UPDATE ts.orders operation (PAIR01) shows an inclusive median latency degradation from 0.72856s to 0.79874s, which correlates with a jump in container memory usage (MET04) and page faults (MET06) for its source unit, indicating a local bottleneck in the database path. This degradation propagates upstream to service 559 (Travel2Controller), whose child duration for the same operation increases from 42.445ms to 3560.1ms, confirming the latency impact flows from 192 to its parents. Service 337 shows secondary latency increases in its order service operations, likely due to the shared database contention observed in 192, while services 999 and 485 show distinct but less impactful memory or network signals (connection logs).", "confidence": "high"}
+```
+
+## aegislab / INC-332110D70FB3 / V_SOURCE_UNIFORM
+Selection: largest combination improvement in fixed QA cohort. QA=0.0000; RCA RR=0.0000.
+
+Expected: `{"q1": {"entity": "328", "unit": "microseconds", "value": "3489840.46"}, "q2": {"entity": "485", "unit": "source_unit", "value": "7.248e+08"}, "q3": {"entity": "999", "relation": "has_instance", "targets": ["23920"]}, "q4": {"entity": "193", "relation": "has_instance", "targets": ["24463"]}, "q5": {"entity": "915", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "846", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "328", "unit": "container", "value": "3490650.67"}, "q2": {"entity": "485", "unit": "container", "value": "7.246e+08"}, "q3": {"entity": "999", "relation": "has_instance", "targets": ["23464", "24382", "28748", "50644", "72219", "75083", "81195", "86336"]}, "q4": {"entity": "193", "relation": "has_instance", "targets": ["34828", "41368", "73347", "81195", "28748", "41368", "6330"]}, "q5": {"entity": "328", "unit": "container", "higher_phase": "current"}, "q6": {"entity": "846", "unit": "container", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["192", "559", "337", "999", "485"], "reason": "Service 192 is the central downstream dependency in the call graph and its UPDATE ts.orders operation shows a latency increase from 0.72ms to 315ms, acting as a severe bottleneck that causes upstream queuing at services 559 and 337; memory metrics (MET04, AUX02) for service 192 show significant RSS increases and page faults, supporting a resource exhaustion hypothesis; while service 337's exclusive latency also rose significantly, it occurs in the same upstream chain, making 192 the more plausible initiating root cause of the end-to-end degradation.", "confidence": "high"}
+```
+
+## aiops2022 / INC-7F84D3BE3772 / H_MARGINAL
+Selection: largest combination improvement in fixed QA cohort. QA=0.8333; RCA RR=0.2000.
+
+Expected: `{"q1": {"entity": "22784", "unit": "microseconds", "value": "2939.3"}, "q2": {"entity": "22784", "unit": "source_unit", "value": "0"}, "q3": {"entity": "22784", "relation": "has_instance", "targets": ["545"]}, "q4": {"entity": "22784", "relation": "has_instance", "targets": ["545"]}, "q5": {"entity": "22784", "higher_phase": "current", "unit": "milliseconds_or_source_unit"}, "q6": {"entity": "191", "higher_phase": "current", "unit": "source_unit"}}`
+
+QA:
+```json
+{"q1": {"entity": "22784", "unit": "µs", "value": "2939.3"}, "q2": {"entity": "22784", "unit": "source_unit", "value": "0"}, "q3": {"entity": "22784", "relation": "has_instance", "targets": ["545"]}, "q4": {"entity": "22784", "relation": "has_instance", "targets": ["545"]}, "q5": {"entity": "22784", "unit": "milliseconds_or_source_unit", "higher_phase": "current"}, "q6": {"entity": "191", "unit": "source_unit", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["22784", "39556", "69245", "78958", "5900"], "reason": "I identified 22784 as the primary suspect because its Istio metrics (MET05/06/09/11) all show massive p95 latency spikes at the fault bin (e.g., 123.8ms) that are not present in the reference, suggesting a localized performance failure. Testing this hypothesis against the logs reveals a 'GetProduct' error burst in 22784, while the directed call graph shows 22784 as a central caller to multiple services, confirming it as the origin of the propagation. Since 22784's memory (median 65.95) is stable, the issue is not memory exhaustion but likely a code-level or resource contention bottleneck in its request handling.", "confidence": "medium"}
+```
+
+## aiops2022 / INC-7F84D3BE3772 / H_TOPOLOGY
+Selection: largest combination improvement in fixed QA cohort. QA=0.5000; RCA RR=1.0000.
+
+Expected: `{"q1": {"entity": "22784", "unit": "microseconds", "value": "2939.3"}, "q2": {"entity": "22784", "unit": "source_unit", "value": "0"}, "q3": {"entity": "22784", "relation": "has_instance", "targets": ["545"]}, "q4": {"entity": "22784", "relation": "has_instance", "targets": ["545"]}, "q5": {"entity": "22784", "higher_phase": "current", "unit": "milliseconds_or_source_unit"}, "q6": {"entity": "191", "higher_phase": "current", "unit": "source_unit"}}`
+
+QA:
+```json
+{"q1": {"entity": "22784", "unit": "counts_microseconds_and_log2_fold_change", "value": "2939.3"}, "q2": {"entity": "22784", "unit": "source_unit", "value": "0"}, "q3": {"entity": "22784", "relation": "has_instance", "targets": ["4500", "5900"]}, "q4": {"entity": "22784", "relation": "has_instance", "targets": ["4500", "5900"]}, "q5": {"entity": "22784", "unit": "milliseconds_or_source_unit", "higher_phase": "current"}, "q6": {"entity": "191", "unit": "source_unit", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["5900", "5912", "876", "191", "530"], "reason": "MET02/MET07 establish an anomalous disk state on node 5900 starting around +14m (pct_usage reaching 19.2% by +19.5m) that precedes the incident's estimated fault window of +21m to +24m. This finding is confirmed by the secondary host-level evidence: system.io.r_await on node 5912 spikes at +18.75m (MET08), and elevated system.load.15 is recorded on both 5900 and 5912, indicating a coordinated infrastructure-level issue affecting the underlying storage/node environment.", "confidence": "high"}
+```
+
+## aiops2022 / INC-7F84D3BE3772 / H_TOPO_MARGINAL
+Selection: largest combination improvement in fixed QA cohort. QA=0.5000; RCA RR=1.0000.
+
+Expected: `{"q1": {"entity": "22784", "unit": "microseconds", "value": "2939.3"}, "q2": {"entity": "22784", "unit": "source_unit", "value": "0"}, "q3": {"entity": "22784", "relation": "has_instance", "targets": ["545"]}, "q4": {"entity": "22784", "relation": "has_instance", "targets": ["545"]}, "q5": {"entity": "22784", "higher_phase": "current", "unit": "milliseconds_or_source_unit"}, "q6": {"entity": "191", "higher_phase": "current", "unit": "source_unit"}}`
+
+QA:
+```json
+{"q1": {"entity": "22784", "unit": "µs", "value": "2939.3"}, "q2": {"entity": "22784", "unit": "source_unit", "value": "0"}, "q3": {"entity": "22784", "relation": "has_instance", "targets": []}, "q4": {"entity": "22784", "relation": "has_instance", "targets": []}, "q5": {"entity": "22784", "unit": "milliseconds_or_source_unit", "higher_phase": "current"}, "q6": {"entity": "191", "unit": "source_unit", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["5900", "5912", "22784", "38774", "876"], "reason": "Node 5900's system.disk free dropped from ~558M to ~480M (bin 39) with pct_usage rising 6.04%->19.2% (316-sigma) at +21-24m, matching the estimated fault window, while node 5912's system.io.r_await peaked 0.5 at bin 50 (~+26m), a credible downstream disk-saturation symptom. Check 1: no service-layer log error burst (LT39/22784 shows a new GetProduct template, not a dominant error) or JVM heap spike supports an app-code origin over the node disk root; check 2: pod 22784's GetProduct latency (123.8ms @36) and pod 38774's 247.5ms @36 both onset with the disk window rather than preceding it, so they are symptoms not the initiator, and JVM classes/heap on 876/191 are late post-deploy (bins 62-63) outliers excluded as co-located noise.", "confidence": "medium"}
+```
+
+## aiops2022 / INC-7F84D3BE3772 / V_CONTEXT_FILL
+Selection: largest combination improvement in fixed QA cohort. QA=0.0000; RCA RR=0.2500.
+
+Expected: `{"q1": {"entity": "22784", "unit": "microseconds", "value": "2939.3"}, "q2": {"entity": "22784", "unit": "source_unit", "value": "0"}, "q3": {"entity": "22784", "relation": "has_instance", "targets": ["545"]}, "q4": {"entity": "22784", "relation": "has_instance", "targets": ["545"]}, "q5": {"entity": "22784", "higher_phase": "current", "unit": "milliseconds_or_source_unit"}, "q6": {"entity": "191", "higher_phase": "current", "unit": "source_unit"}}`
+
+QA:
+```json
+{"q1": {"entity": "823", "unit": "22784", "value": "2685"}, "q2": {"entity": "22784", "unit": "22784", "value": "M6"}, "q3": {"entity": "22784", "relation": "has_instance", "targets": []}, "q4": {"entity": "22784", "relation": "has_instance", "targets": []}, "q5": {"entity": "22784", "unit": "22784", "higher_phase": "equal"}, "q6": {"entity": "191", "unit": "191", "higher_phase": "equal"}}
+```
+RCA:
+```json
+{"services": ["59553", "33806", "78441", "5900", "38774"], "reason": "The symptom is a latency regression on `/hipstershop.374/GetCart` (op 59553), where the 'Observed source summary' for 59553 shows it initiates a service change with a +38.0m rank shift, making it the highest-impact originating span. The root cause is attributed to the `GetCart` implementation on node 5900, evidenced by the severe degradation in `MET01: system.disk.free` (drop from ~5.6e8 to 4.7e8 bytes) and `MET08: system.io_r_await` (spike from baseline to 0.54ms), plus a secondary rise in `system.load.15`. All other signals (memory, pods) are co-located metrics that align with this node-level IO bottleneck.", "confidence": "high"}
+```
+
+## aiops2022 / INC-7F84D3BE3772 / V_DOMAIN_FULL
+Selection: largest combination improvement in fixed QA cohort. QA=0.0000; RCA RR=1.0000.
+
+Expected: `{"q1": {"entity": "22784", "unit": "microseconds", "value": "2939.3"}, "q2": {"entity": "22784", "unit": "source_unit", "value": "0"}, "q3": {"entity": "22784", "relation": "has_instance", "targets": ["545"]}, "q4": {"entity": "22784", "relation": "has_instance", "targets": ["545"]}, "q5": {"entity": "22784", "higher_phase": "current", "unit": "milliseconds_or_source_unit"}, "q6": {"entity": "191", "higher_phase": "current", "unit": "source_unit"}}`
+
+QA:
+```json
+{"q1": {"entity": "823", "unit": "22784", "value": "39412"}, "q2": {"entity": "191", "unit": "22784", "value": "387.5"}, "q3": null, "q4": null, "q5": {"entity": "109", "unit": "22784", "higher_phase": "current"}, "q6": {"entity": "191", "unit": "191", "higher_phase": "reference"}}
+```
+RCA:
+```json
+{"services": ["5900", "1669", "4500", "10311", "11898"], "reason": "Onset summaries show node 5900 (M, +22.0m), node 1669 (M, +38.0m), and node 4500 (M, +23.0m) as early evidence sources for system.load.15, with current readings (2.235) exceeding reference (1.435), suggesting host-level resource pressure. Pods 10311 and 11898 also show M onset (+38.0m) for system.load.15, correlating with the node-level load increase and potentially indicating process-level CPU contention. The widespread elevation of system.load.15 across multiple nodes and pods, with no specific service-level or network metric anomalies detected, supports node resource saturation as the primary driver over application-level failures.", "confidence": "medium"}
+```
+
+## aiops2022 / INC-7F84D3BE3772 / V_SOURCE_UNIFORM
+Selection: largest combination improvement in fixed QA cohort. QA=0.0000; RCA RR=1.0000.
+
+Expected: `{"q1": {"entity": "22784", "unit": "microseconds", "value": "2939.3"}, "q2": {"entity": "22784", "unit": "source_unit", "value": "0"}, "q3": {"entity": "22784", "relation": "has_instance", "targets": ["545"]}, "q4": {"entity": "22784", "relation": "has_instance", "targets": ["545"]}, "q5": {"entity": "22784", "higher_phase": "current", "unit": "milliseconds_or_source_unit"}, "q6": {"entity": "191", "higher_phase": "current", "unit": "source_unit"}}`
+
+QA:
+```json
+{"q1": {"entity": "823", "unit": "22784", "value": "2939.3"}, "q2": {"entity": "22784", "unit": "22784", "value": "387.5"}, "q3": null, "q4": {"entity": "10311", "relation": "has_instance", "targets": ["22784"]}, "q5": {"entity": "22784", "unit": "22784", "higher_phase": "current"}, "q6": {"entity": "191", "unit": "191", "higher_phase": "equal"}}
+```
+RCA:
+```json
+{"services": ["5900", "38774", "22784", "78441", "876"], "reason": "Onset evidence on node 5900 (MET08 system.i.o.r_await, panel 08; TRC01 card panel 06) provides the earliest infrastructure signal at offset +23.0m, and PAIR01's GRPC flow from 38774 to 59553 is causally scoped to the `GetCart`/`EmptyCart` path (panel 33), making pod 38774 the primary in-service trigger. An internal bottleneck in pod 78441 (MET05 exclusive latency +38.0m, panel 06) and anomalous disk utilization on pod 22784 (MET02, panel 04) are considered but serve as either secondary symptoms or alternative origins that do not precede the node-level I/O latency onset.", "confidence": "medium"}
+```
+
+## aiops2022 / INC-89856C07F4EE / H_MARGINAL
+Selection: largest combination harm in fixed QA cohort. QA=0.3333; RCA RR=1.0000.
+
+Expected: `{"q1": {"entity": "48215", "unit": "source_unit", "value": "0"}, "q2": {"entity": "13666", "unit": "microseconds", "value": "1652380.8"}, "q3": {"entity": "13666", "relation": "hosts", "targets": ["1619"]}, "q4": {"entity": "99396", "relation": "has_instance", "targets": ["327"]}, "q5": {"entity": "13666", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "93765", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "48215", "unit": "source_unit", "value": "0"}, "q2": {"entity": "13666", "unit": "counts_microseconds_and_log2_fold_change", "value": "1652380.8"}, "q3": null, "q4": {"entity": "99396", "relation": "has_instance", "targets": ["327"]}, "q5": {"entity": "13666", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}, "q6": {"entity": "93765", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["469", "327", "617", "468", "337"], "reason": "469 services top-ranked exclusive-latency span growth (TRC01/TRC06, 10x exclusive p95 jump at pods 93765/42537 under 617), with no faster 617 caller change to displace it as origin; 617 is the earliest-degraded caller (rank 1) consistent with load-driven onset, 327/468 rank next, and 337 ranks earliest before the CPU/network/metric waves in 48215/99396.", "confidence": "medium"}
+```
+
+## aiops2022 / INC-89856C07F4EE / H_TOPOLOGY
+Selection: largest combination harm in fixed QA cohort. QA=0.1667; RCA RR=0.2000.
+
+Expected: `{"q1": {"entity": "48215", "unit": "source_unit", "value": "0"}, "q2": {"entity": "13666", "unit": "microseconds", "value": "1652380.8"}, "q3": {"entity": "13666", "relation": "hosts", "targets": ["1619"]}, "q4": {"entity": "99396", "relation": "has_instance", "targets": ["327"]}, "q5": {"entity": "13666", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "93765", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "48215", "unit": "source_unit", "value": "0"}, "q2": {"entity": "13666", "unit": "counts_microseconds_and_log2_fold_change", "value": "1652380.8"}, "q3": null, "q4": null, "q5": {"entity": "13666", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}, "q6": {"entity": "93765", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["93765", "42537", "32850", "13666", "80439"], "reason": "93765 is tested as the top-1 fault origin via two evidence checks. Check 1 confirms TRC04 and TRC06 record the largest exclusive p95 latency shifts (11.01 and 11.14 log2 lfc) and TRC06 has the earliest fault onset (entry_index=0), while LT45 shows a severe new error burst (4.1 error rate) specific to 93765. Check 2 tests the alternative that upstream service 469 is the origin, but 469's propagation onset at +20m to +21m is later than 93765's primary latency and error shifts, and 93765 is a downstream callee in the hipstershop.469/GetCart path, establishing it as the primary source of degradation rather than 469.", "confidence": "high"}
+```
+
+## aiops2022 / INC-89856C07F4EE / H_TOPO_MARGINAL
+Selection: largest combination harm in fixed QA cohort. QA=0.0000; RCA RR=0.2000.
+
+Expected: `{"q1": {"entity": "48215", "unit": "source_unit", "value": "0"}, "q2": {"entity": "13666", "unit": "microseconds", "value": "1652380.8"}, "q3": {"entity": "13666", "relation": "hosts", "targets": ["1619"]}, "q4": {"entity": "99396", "relation": "has_instance", "targets": ["327"]}, "q5": {"entity": "13666", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "93765", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "48215", "unit": "source_unit", "value": "36.9"}, "q2": {"entity": "13666", "unit": "counts_microseconds_and_log2_fold_change", "value": "1652380.8"}, "q3": null, "q4": null, "q5": {"entity": "13666", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}, "q6": {"entity": "93765", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["93765", "42537", "32850", "13666", "80439"], "reason": "93765 is tested as the top-1 fault: (1) its log LT45 shows a new error-keyword burst (0→80 errors) plus a ~30x volume drop in the fault window, consistent with an initiating local fault; (2) under an alternative-origin check, the graph shows 93765 in the top tier calling 469 downstream, so the massive exclusive-p95 latency spikes in 42537/32850/13666 (TRC02-06, ~2.4e6–6.8e6 µs) are better explained as downstream 469 symptoms propagated upstream rather than independent root causes, keeping 93765 as origin. Rank alternates 42537, 32850, 13666, 80439 are downstream/colocated latency and memory symptoms.", "confidence": "medium"}
+```
+
+## aiops2022 / INC-89856C07F4EE / V_CONTEXT_FILL
+Selection: largest combination harm in fixed QA cohort. QA=0.0000; RCA RR=0.5000.
+
+Expected: `{"q1": {"entity": "48215", "unit": "source_unit", "value": "0"}, "q2": {"entity": "13666", "unit": "microseconds", "value": "1652380.8"}, "q3": {"entity": "13666", "relation": "hosts", "targets": ["1619"]}, "q4": {"entity": "99396", "relation": "has_instance", "targets": ["327"]}, "q5": {"entity": "13666", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "93765", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "48215", "unit": "pod 48215", "value": "0.01809"}, "q2": {"entity": "13666", "unit": "pod 13666", "value": "1.652e+06"}, "q3": null, "q4": null, "q5": {"entity": "13666", "unit": "pod 13666", "higher_phase": "current"}, "q6": {"entity": "93765", "unit": "pod 93765", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["86924", "80439", "327", "469", "337"], "reason": "Span group PAIR02 shows child hipstershop.327/PlaceOrder latency elevated to p95 4525.07 ms (vs 47.183 ms reference), which propagates to parent hipstershop.469/GetCart p95 4525.08 ms, while co-located Pod 80439 exhibits extreme resource exhaustion with memory_rss at 6.35e+7 (reference 5.53e+7) and jvm_memory_MB_used.nonheap peaking at 54.4 MB, indicating the JVM in Pod 80439 is the primary bottleneck driving the service 327 latency spike observed by the upstream service 469.", "confidence": "high"}
+```
+
+## aiops2022 / INC-89856C07F4EE / V_DOMAIN_FULL
+Selection: largest combination harm in fixed QA cohort. QA=0.0000; RCA RR=0.5000.
+
+Expected: `{"q1": {"entity": "48215", "unit": "source_unit", "value": "0"}, "q2": {"entity": "13666", "unit": "microseconds", "value": "1652380.8"}, "q3": {"entity": "13666", "relation": "hosts", "targets": ["1619"]}, "q4": {"entity": "99396", "relation": "has_instance", "targets": ["327"]}, "q5": {"entity": "13666", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "93765", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "pod 48215", "unit": "source_unit", "value": "0.01809"}, "q2": {"entity": "pod 13666", "unit": "source_unit", "value": "1.6524e+06"}, "q3": null, "q4": null, "q5": {"entity": "pod 13666", "unit": "source_unit", "higher_phase": "current"}, "q6": {"entity": "pod 93765", "unit": "source_unit", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["86924", "80439", "469", "327", "93765"], "reason": "Figure 39 shows the GetCart request on pod 86924 elevated to ~45.2s versus a ~4.16s reference, indicating massive p95 latency regression at the parent of the 494-event burst; Figure 40 confirms the child PlaceOrder on pod 80439 is slow (~47.1ms), confirming 80439 as the downstream offender driving the parent cost. The exclusion shows 86924's exclusive latency is 1.652e+6 µs (~1.65s), far below its inclusive 45.2s, meaning the dominant time is spent in children — consistent with 80439's PlaceOrder being the primary contributor; this rules out 86924 as the root cause in favor of 80439.", "confidence": "high"}
+```
+
+## aiops2022 / INC-89856C07F4EE / V_SOURCE_UNIFORM
+Selection: largest combination harm in fixed QA cohort. QA=0.0000; RCA RR=0.5000.
+
+Expected: `{"q1": {"entity": "48215", "unit": "source_unit", "value": "0"}, "q2": {"entity": "13666", "unit": "microseconds", "value": "1652380.8"}, "q3": {"entity": "13666", "relation": "hosts", "targets": ["1619"]}, "q4": {"entity": "99396", "relation": "has_instance", "targets": ["327"]}, "q5": {"entity": "13666", "higher_phase": "current", "unit": "microseconds"}, "q6": {"entity": "93765", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "48215", "unit": "pod 48215", "value": "0.01809"}, "q2": {"entity": "13666", "unit": "pod 13666", "value": "1.6524e+06"}, "q3": null, "q4": {"entity": "99396", "relation": "has_instance", "targets": []}, "q5": {"entity": "13666", "unit": "pod 13666", "higher_phase": "current"}, "q6": {"entity": "93765", "unit": "pod 93765", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["86924", "80439", "93765", "42537", "32850"], "reason": "The telemetry chain (LTR04/06/05) localizes the regression exclusively to the '80439' leaf 'GetCart' p95 (10.81×) within the '86924' parent 'GetProduct' call, confirmed by AUX04 showing a memory leak in pod 80439. This behavior is bounded by the normal latency of sibling 'PlaceOrder' spans in '32850' and upstream '42537', with '93765' serving as the ingress/routing point.", "confidence": "high"}
+```
+
+## aiops2025 / INC-92A00B34EECF / H_MARGINAL
+Selection: largest combination harm in fixed QA cohort. QA=0.8333; RCA RR=0.5000.
+
+Expected: `{"q1": {"entity": "728", "unit": "milliseconds_or_source_unit", "value": "0.01"}, "q2": {"entity": "772", "unit": "source_unit", "value": "16.55"}, "q3": {"entity": "333", "relation": "has_instance", "targets": ["61332", "61516", "69274"]}, "q4": {"entity": "491", "relation": "has_instance", "targets": ["19214", "37746", "68295"]}, "q5": {"entity": "772", "higher_phase": "current", "unit": "source_unit"}, "q6": {"entity": "728", "higher_phase": "current", "unit": "milliseconds_or_source_unit"}}`
+
+QA:
+```json
+{"q1": {"entity": "728", "unit": "milliseconds_or_source_unit", "value": "0.01"}, "q2": {"entity": "772", "unit": "source_unit", "value": "16.55"}, "q3": {"entity": "333", "relation": "has_instance", "targets": ["61332", "61516", "69274"]}, "q4": {"entity": "491", "relation": "has_instance", "targets": ["19214", "37746", "68295"]}, "q5": {"entity": "772", "unit": "source_unit", "higher_phase": "reference"}, "q6": {"entity": "728", "unit": "milliseconds_or_source_unit", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["728", "772", "927", "966", "852"], "reason": "The confirmed caller chain 927→966→403→852 places the fault inside 403's backend at the +14.2m anomaly onset, eliminating upstream originators as independent causes. Crucially, the 403 service span localizes the degradation to child operation 852, which is the only operation in its call tree with a meaningful exclusive-latency deviation (TRC02 exclusive p95 rises from 2294.6µs to 2826.65µs, reflecting a +0.3 log2 shift), whereas sibling operations like 153 and downstream 966/338 show near-zero local impact. Subsequent deterioration in 728 and 772 (traffic spikes, zeroed block_cache, concurrent raft_apply_wait) at +15.0m is a temporally identical adjacent failure mirroring the 852-induced latency pattern.", "confidence": "high"}
+```
+
+## aiops2025 / INC-92A00B34EECF / H_TOPOLOGY
+Selection: largest combination harm in fixed QA cohort. QA=0.6667; RCA RR=0.2500.
+
+Expected: `{"q1": {"entity": "728", "unit": "milliseconds_or_source_unit", "value": "0.01"}, "q2": {"entity": "772", "unit": "source_unit", "value": "16.55"}, "q3": {"entity": "333", "relation": "has_instance", "targets": ["61332", "61516", "69274"]}, "q4": {"entity": "491", "relation": "has_instance", "targets": ["19214", "37746", "68295"]}, "q5": {"entity": "772", "higher_phase": "current", "unit": "source_unit"}, "q6": {"entity": "728", "higher_phase": "current", "unit": "milliseconds_or_source_unit"}}`
+
+QA:
+```json
+{"q1": {"entity": "728", "unit": "milliseconds_or_source_unit", "value": "0.01"}, "q2": {"entity": "772", "unit": "source_unit", "value": "16.55"}, "q3": {"entity": "403", "relation": "has_instance", "targets": ["17873", "30537", "61668", "67654", "77291"]}, "q4": {"entity": "491", "relation": "has_instance", "targets": ["30537", "44589", "68295"]}, "q5": {"entity": "772", "unit": "source_unit", "higher_phase": "current"}, "q6": {"entity": "728", "unit": "milliseconds_or_source_unit", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["927", "966", "728", "772", "852"], "reason": "927 is top-ranked with the earliest R-sourced onset (+14.2m, sev 280.3), and G shows 927 is the root caller fan-out to 966/659/896 etc., consistent with an origin upstream of the later co-deployed M symptoms. Cross-check 1 (graph/propagation) places 927 as the earliest caller and 728/772 as downstream DB-side metrics (duration/cache spikes) that lag it; cross-check 2 (alternative origin) tests node 6702/9161 as a candidate but their metric onsets (+15–29m) are not earlier and have no caller position, so they are not decisive origins.", "confidence": "medium"}
+```
+
+## aiops2025 / INC-92A00B34EECF / H_TOPO_MARGINAL
+Selection: largest combination harm in fixed QA cohort. QA=0.6667; RCA RR=0.2500.
+
+Expected: `{"q1": {"entity": "728", "unit": "milliseconds_or_source_unit", "value": "0.01"}, "q2": {"entity": "772", "unit": "source_unit", "value": "16.55"}, "q3": {"entity": "333", "relation": "has_instance", "targets": ["61332", "61516", "69274"]}, "q4": {"entity": "491", "relation": "has_instance", "targets": ["19214", "37746", "68295"]}, "q5": {"entity": "772", "higher_phase": "current", "unit": "source_unit"}, "q6": {"entity": "728", "higher_phase": "current", "unit": "milliseconds_or_source_unit"}}`
+
+QA:
+```json
+{"q1": {"entity": "728", "unit": "milliseconds_or_source_unit", "value": "0.01"}, "q2": {"entity": "772", "unit": "source_unit", "value": "16.55"}, "q3": {"entity": "333", "relation": "has_instance", "targets": []}, "q4": {"entity": "491", "relation": "has_instance", "targets": []}, "q5": {"entity": "772", "unit": "source_unit", "higher_phase": "current"}, "q6": {"entity": "728", "unit": "milliseconds_or_source_unit", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["927", "966", "728", "772", "852"], "reason": "The confirmed caller chain runs 927 -> 966 -> 403, and 927/966 are the earliest joint onsets (+14.2 m) with the top R severities (280.3/163); pairing check C32 is decisive, since the same paired request spikes from ~3 ms reference to 80 ms current in 966 (and 728's duration_avg/duration_99th erupt at the same bin 33 while block_cache_size dips) while co-located node 6702 shows no filesystem free-byte movement, ruling out the downstream 852/333/338 leg as the origin.", "confidence": "medium"}
+```
+
+## aiops2025 / INC-92A00B34EECF / V_CONTEXT_FILL
+Selection: largest combination harm in fixed QA cohort. QA=0.0000; RCA RR=0.2500.
+
+Expected: `{"q1": {"entity": "728", "unit": "milliseconds_or_source_unit", "value": "0.01"}, "q2": {"entity": "772", "unit": "source_unit", "value": "16.55"}, "q3": {"entity": "333", "relation": "has_instance", "targets": ["61332", "61516", "69274"]}, "q4": {"entity": "491", "relation": "has_instance", "targets": ["19214", "37746", "68295"]}, "q5": {"entity": "772", "higher_phase": "current", "unit": "source_unit"}, "q6": {"entity": "728", "higher_phase": "current", "unit": "milliseconds_or_source_unit"}}`
+
+QA:
+```json
+{"q1": {"entity": "MET04", "unit": "service 728", "value": "0.02656"}, "q2": {"entity": "MET02", "unit": "service 772", "value": "5.0"}, "q3": {"entity": "TRC04", "relation": "has_instance", "targets": ["878.333/Charge", "service 333"]}, "q4": {"entity": "TRC01", "relation": "has_instance", "targets": ["878.491/GetQuote", "service 491"]}, "q5": {"entity": "MET05", "unit": "service 772", "higher_phase": "current"}, "q6": {"entity": "MET04", "unit": "service 728", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["172", "599", "728", "772", "852"], "reason": "Service 172 is the central upstream dependency in the call graph for the slow operations (TRC04 Charge, TRC05 AddItem) shown with elevated exclusive p95 latencies, indicating it is the initiating bottleneck. This is corroborated by its specific inclusion in the 'Observed anomaly onset' table alongside high-severity score, suggesting it is the root source of the degradation propagated to children 852 and 153. Service 599 is included as a secondary candidate due to correlated host-level anomalies (memory, region pending) that could contribute to latency, though the application-level trace points primarily to 172.", "confidence": "high"}
+```
+
+## aiops2025 / INC-92A00B34EECF / V_DOMAIN_FULL
+Selection: largest combination harm in fixed QA cohort. QA=0.0000; RCA RR=0.2500.
+
+Expected: `{"q1": {"entity": "728", "unit": "milliseconds_or_source_unit", "value": "0.01"}, "q2": {"entity": "772", "unit": "source_unit", "value": "16.55"}, "q3": {"entity": "333", "relation": "has_instance", "targets": ["61332", "61516", "69274"]}, "q4": {"entity": "491", "relation": "has_instance", "targets": ["19214", "37746", "68295"]}, "q5": {"entity": "772", "higher_phase": "current", "unit": "source_unit"}, "q6": {"entity": "728", "higher_phase": "current", "unit": "milliseconds_or_source_unit"}}`
+
+QA:
+```json
+{"q1": {"entity": "728", "unit": "ms or source unit", "value": "0"}, "q2": {"entity": "772", "unit": "ratio or percent", "value": "0.000256"}, "q3": {"entity": "333", "relation": "has_instance", "targets": ["878.333/Charge"]}, "q4": {"entity": "491", "relation": "has_instance", "targets": ["878.491/GetQuote"]}, "q5": {"entity": "772", "unit": "source unit", "higher_phase": "current"}, "q6": {"entity": "728", "unit": "ms or source unit", "higher_phase": "equal"}}
+```
+RCA:
+```json
+{"services": ["172", "599", "728", "772", "852"], "reason": "Service 172 is the central upstream dependency in the call graph for the slow operations (POST /878,403/AddItem and GetCart on service 403), and its onset (-28.03 min) precedes the latency anomalies in service 403's children (852/153). Its node-level CPU (MET7) and memory (MET6) metrics show extreme current-vs-reference deviations (-64 z-score), while the child services (728, 772, 852) exhibit duration spikes and packet reception changes, confirming 172 as the propagating bottleneck and downstream entities as concurrent impact signals.", "confidence": "medium"}
+```
+
+## aiops2025 / INC-92A00B34EECF / V_SOURCE_UNIFORM
+Selection: largest combination harm in fixed QA cohort. QA=0.0000; RCA RR=0.2500.
+
+Expected: `{"q1": {"entity": "728", "unit": "milliseconds_or_source_unit", "value": "0.01"}, "q2": {"entity": "772", "unit": "source_unit", "value": "16.55"}, "q3": {"entity": "333", "relation": "has_instance", "targets": ["61332", "61516", "69274"]}, "q4": {"entity": "491", "relation": "has_instance", "targets": ["19214", "37746", "68295"]}, "q5": {"entity": "772", "higher_phase": "current", "unit": "source_unit"}, "q6": {"entity": "728", "higher_phase": "current", "unit": "milliseconds_or_source_unit"}}`
+
+QA:
+```json
+{"q1": {"entity": "MET04", "unit": "service 728", "value": "0.0003"}, "q2": {"entity": "MET02", "unit": "service 772", "value": "16.5"}, "q3": null, "q4": null, "q5": {"entity": "MET05", "unit": "service 772", "higher_phase": "current"}, "q6": {"entity": "MET04", "unit": "service 728", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["172", "599", "728", "772", "852"], "reason": "Service 172 is the central upstream dependency in the call graph for the slow operations (TRC04 Charge, TRC05 AddItem) shown with heavily elevated exclusive p95 latencies (65910μs vs 1511μs reference), implying it was the initiating bottleneck. Observed anomalies show latency spikes beginning around the same time as increased CPU/memory usage on associated backend nodes (like 599 and 728), with no direct faults found in the child services themselves, pointing to upstream latency propagation or resource exhaustion in the core transaction path (172). The coordinated nature of the slowdown across services 333, 403, and 852 tracing back to 172's operations supports this.", "confidence": "high"}
+```
+
+## aiops2025 / INC-F328F417F5C9 / H_MARGINAL
+Selection: largest combination improvement in fixed QA cohort. QA=0.5000; RCA RR=1.0000.
+
+Expected: `{"q1": {"entity": "323", "unit": "microseconds", "value": "301488.45"}, "q2": {"entity": "787", "unit": "source_unit", "value": "27.62"}, "q3": {"entity": "642", "relation": "has_instance", "targets": ["13373", "20477", "37146"]}, "q4": {"entity": "438", "relation": "has_instance", "targets": ["14019", "28886", "89606"]}, "q5": {"entity": "2647", "higher_phase": "current", "unit": "source_unit"}, "q6": {"entity": "991", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "323", "unit": "counts_microseconds_and_log2_fold_change", "value": "301488.45"}, "q2": {"entity": "787", "unit": "source_unit", "value": "27.62"}, "q3": null, "q4": {"entity": "438", "relation": "has_instance", "targets": ["14019", "28886", "89606"]}, "q5": {"entity": "2647", "unit": "source_unit", "higher_phase": "current"}, "q6": {"entity": "991", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["323", "438", "626", "642", "787"], "reason": "Service 323 is the original fault source, confirmed by exclusive p95 latency exploding to 301,488.45µs (TRC01) alongside a new 'getRandomAds-latency' error log template (40294); this local degradation was not caused by an alternate origin like node 9845, whose memory actually improved (increased MemAvailable in MET07). The exclusive latency shift proves the delay was internal to 323 rather than inherited from upstream caller 228 or distributed co-location effects.", "confidence": "high"}
+```
+
+## aiops2025 / INC-F328F417F5C9 / H_TOPOLOGY
+Selection: largest combination improvement in fixed QA cohort. QA=0.3333; RCA RR=1.0000.
+
+Expected: `{"q1": {"entity": "323", "unit": "microseconds", "value": "301488.45"}, "q2": {"entity": "787", "unit": "source_unit", "value": "27.62"}, "q3": {"entity": "642", "relation": "has_instance", "targets": ["13373", "20477", "37146"]}, "q4": {"entity": "438", "relation": "has_instance", "targets": ["14019", "28886", "89606"]}, "q5": {"entity": "2647", "higher_phase": "current", "unit": "source_unit"}, "q6": {"entity": "991", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "323", "unit": "counts_microseconds_and_log2_fold_change", "value": "301488.45"}, "q2": {"entity": "787", "unit": "source_unit", "value": "27.62"}, "q3": null, "q4": null, "q5": {"entity": "2647", "unit": "source_unit", "higher_phase": "current"}, "q6": {"entity": "991", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["323", "438", "626", "642", "787"], "reason": "The confirmed caller→callee relationship 228→323 and the decisive 56× jump in service 323's exclusive p95 latency (TRC01) confirm it as the initiating fault, bypassing the earlier noisy disk read on node 2647 (MET12) which lacked supporting service-level latency spikes. Log evidence on pod 40294 specifically flagged '323-getRandomAds-latency', and host rrt_max spikes in pod 40294 (MET) successfully corroborated the blast radius into downstream services like 438 and 626.", "confidence": "high"}
+```
+
+## aiops2025 / INC-F328F417F5C9 / H_TOPO_MARGINAL
+Selection: largest combination improvement in fixed QA cohort. QA=0.3333; RCA RR=1.0000.
+
+Expected: `{"q1": {"entity": "323", "unit": "microseconds", "value": "301488.45"}, "q2": {"entity": "787", "unit": "source_unit", "value": "27.62"}, "q3": {"entity": "642", "relation": "has_instance", "targets": ["13373", "20477", "37146"]}, "q4": {"entity": "438", "relation": "has_instance", "targets": ["14019", "28886", "89606"]}, "q5": {"entity": "2647", "higher_phase": "current", "unit": "source_unit"}, "q6": {"entity": "991", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "323", "unit": "counts_microseconds_and_log2_fold_change", "value": "301488.45"}, "q2": {"entity": "787", "unit": "source_unit", "value": "27.62"}, "q3": null, "q4": null, "q5": {"entity": "2647", "unit": "source_unit", "higher_phase": "current"}, "q6": {"entity": "991", "unit": "counts_microseconds_and_log2_fold_change", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["323", "438", "626", "9845", "2647"], "reason": "TRC01 shows 323/GetAds' exclusive p95 jumped from 8045µs to 301488µs (~37x), while log LT3420 on pod 40294 at bin 34 confirms new 'getRandomAds' errors, establishing 323 as the origin. Service 438 (MET01/MET08) shows correlated massive rrt_max spikes (peak 79280), supporting 323's impact, while node 9845's early memory shift (MET07) and node 2647's disk spike (MET12) provide earlier environmental context.", "confidence": "high"}
+```
+
+## aiops2025 / INC-F328F417F5C9 / V_CONTEXT_FILL
+Selection: largest combination improvement in fixed QA cohort. QA=0.0000; RCA RR=1.0000.
+
+Expected: `{"q1": {"entity": "323", "unit": "microseconds", "value": "301488.45"}, "q2": {"entity": "787", "unit": "source_unit", "value": "27.62"}, "q3": {"entity": "642", "relation": "has_instance", "targets": ["13373", "20477", "37146"]}, "q4": {"entity": "438", "relation": "has_instance", "targets": ["14019", "28886", "89606"]}, "q5": {"entity": "2647", "higher_phase": "current", "unit": "source_unit"}, "q6": {"entity": "991", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "702.323/GetAds", "unit": "323", "value": "3.015e+5"}, "q2": {"entity": "MET09", "unit": "service 787", "value": "27.62"}, "q3": {"entity": "702.642/GetSupportedCurrencies", "relation": "has_instance", "targets": ["pod 40111"]}, "q4": {"entity": "service 438", "relation": "has_instance", "targets": ["pod 89606"]}, "q5": {"entity": "node 2647", "unit": "node 2647", "higher_phase": "current"}, "q6": {"entity": "702.991/ListProducts", "unit": "service 991", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["323", "228", "991", "438", "9845"], "reason": "PAIR1 and TDC1 show service 323's GetAds p95 latency surged to ~298 ms (reference 5.25 ms), and the 'Observed calls' graph confirms 323 is called by 228 and 991, making 323 the initiating bottleneck. This is corroborated by node-level resource degradation on its host node 9845, where node_memory_usage_rate is at ~49.7% (near capacity) and node_memory_MemAvailable_bytes is significantly lower in the current interval, indicating a memory pressure root cause propagating up to the service.", "confidence": "high"}
+```
+
+## aiops2025 / INC-F328F417F5C9 / V_DOMAIN_FULL
+Selection: largest combination improvement in fixed QA cohort. QA=0.0000; RCA RR=1.0000.
+
+Expected: `{"q1": {"entity": "323", "unit": "microseconds", "value": "301488.45"}, "q2": {"entity": "787", "unit": "source_unit", "value": "27.62"}, "q3": {"entity": "642", "relation": "has_instance", "targets": ["13373", "20477", "37146"]}, "q4": {"entity": "438", "relation": "has_instance", "targets": ["14019", "28886", "89606"]}, "q5": {"entity": "2647", "higher_phase": "current", "unit": "source_unit"}, "q6": {"entity": "991", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "702.323/GetAds", "unit": "323", "value": "3.015e+5"}, "q2": {"entity": "MET09", "unit": "service 787", "value": "27.62"}, "q3": {"entity": "702.642/GetSupportedCurrencies", "relation": "has_instance", "targets": ["pod 89606"]}, "q4": {"entity": "service 438", "relation": "has_instance", "targets": ["pod 89606"]}, "q5": {"entity": "node 2647", "unit": "node 2647", "higher_phase": "current"}, "q6": {"entity": "702.991/ListProducts", "unit": "service 991", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["323", "948", "438", "9845", "2647"], "reason": "Service 323 is the initiating component, evidenced by an extreme latency regression from a reference p95 of ~8 ms to a current p95 of ~301 s (TRC01) and a corresponding spike in inclusive request time in the parent service 228's GET /ads call. Service 948 is a direct downstream dependency of 323 showing its own substantial latency increase (TRC03, 36.4 ms to 62.0 ms), suggesting a compounding latency factor or distributed stall. Node 9845, hosting service 323, exhibits severe resource exhaustion, with available memory dropping from ~8.4 GB to near zero (~1.1 GB), and network connection counts also spiking, indicating resource-driven performance degradation.", "confidence": "high"}
+```
+
+## aiops2025 / INC-F328F417F5C9 / V_SOURCE_UNIFORM
+Selection: largest combination improvement in fixed QA cohort. QA=0.0000; RCA RR=1.0000.
+
+Expected: `{"q1": {"entity": "323", "unit": "microseconds", "value": "301488.45"}, "q2": {"entity": "787", "unit": "source_unit", "value": "27.62"}, "q3": {"entity": "642", "relation": "has_instance", "targets": ["13373", "20477", "37146"]}, "q4": {"entity": "438", "relation": "has_instance", "targets": ["14019", "28886", "89606"]}, "q5": {"entity": "2647", "higher_phase": "current", "unit": "source_unit"}, "q6": {"entity": "991", "higher_phase": "current", "unit": "microseconds"}}`
+
+QA:
+```json
+{"q1": {"entity": "702.323/GetAds", "unit": "323", "value": "301488.45"}, "q2": {"entity": "connection_count", "unit": "787", "value": "27.62"}, "q3": {"entity": "642", "relation": "has_instance", "targets": ["pod 32720", "pod 36868", "pod 40011", "pod 65243", "pod 68384", "pod 61716", "pod 64817", "pod 65953", "pod 77114", "pod 85027", "pod 89606", "pod 90561", "pod 92235", "pod 55984"]}, "q4": {"entity": "438", "relation": "has_instance", "targets": ["pod 37146", "pod 39668", "pod 64817", "pod 55984", "pod 95984"]}, "q5": {"entity": "node_disk_read_bytes_total", "unit": "2647", "higher_phase": "equal"}, "q6": {"entity": "702.991/ListProducts", "unit": "991", "higher_phase": "current"}}
+```
+RCA:
+```json
+{"services": ["323", "438", "948", "626", "412"], "reason": "Service 323 is the primary source, showing a massive exclusive latency degradation (reference ~0.8ms vs current ~30.1ms) for the `702.323/GetAds` operation without corresponding high utilization of CPU or Memory on its hosting pod (40294) or nodes. While downstream service 438 also shows significant latency increases, its cause is consistent with the propagated delay from its parent 323, whereas no independent resource saturation or error spikes in 438 or upstream callers suggest an alternative origin.", "confidence": "high"}
+```

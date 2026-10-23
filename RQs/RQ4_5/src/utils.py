@@ -5,8 +5,9 @@ import json
 import os
 ROOT = Path(__file__).resolve().parents[3]
 RQ = ROOT / 'RQs/RQ4_5'
-RESULTS = RQ / 'results/exclusive_spatial_v1'
-HISTORY = ROOT / 'RQs/RQ4_1/results/comparison_coding_v1'
+RESULTS = Path(os.environ.get('CANVASRCA_RQ45_ROOT', RQ / 'results/exclusive_spatial_v1'))
+SOURCE_ROOT = Path(os.environ.get('CANVASRCA_RQ45_SOURCE_ROOT', ROOT))
+HISTORY = SOURCE_ROOT / 'RQs/RQ4_1/results/comparison_coding_v1'
 MODEL = Path(os.environ.get('CANVASRCA_QWEN_MODEL', '/home/lglsj/CanvasRCA/models/Qwen3.8-27B'))
 ARMS = ('H_MARGINAL','H_TOPOLOGY','H_TOPO_MARGINAL','V_DOMAIN_FULL','V_SOURCE_UNIFORM','V_CONTEXT_FILL')
 NOMINEES = ('H_TOPO_MARGINAL','V_SOURCE_UNIFORM')
@@ -22,6 +23,33 @@ def digest(path):
         for block in iter(lambda: f.read(1048576), b''):
             h.update(block)
     return h.hexdigest()
+
+
+def verify_source_transfer():
+    """Allocated CPU job verifies staged bytes before any real-case regression."""
+    manifest=SOURCE_ROOT/'source_manifest.json';spec=read(manifest)
+    prior=RESULTS/'qualification/source_transfer_verified.json'
+    if prior.exists():
+        old=read(prior)
+        if old.get('status')=='passed' and old.get('manifest_sha256')==digest(manifest):
+            return {**old,'reuse_scope':'unchanged immutable staged-source manifest; prior byte verification retained'}
+    if spec.get('schema')!='RQ45NibiSourceTransferV1' or spec.get('cases')!=220:
+        raise ValueError('Unregistered source transfer')
+    seen=set();total=0
+    for entry in spec['files']:
+        relative=Path(entry['path'])
+        if relative.is_absolute() or '..' in relative.parts or str(relative) in seen:
+            raise ValueError('Invalid source dependency path')
+        seen.add(str(relative));path=SOURCE_ROOT/relative
+        if path.stat().st_size!=entry['bytes'] or digest(path)!=entry['sha256']:
+            raise ValueError('Source dependency differs: '+str(relative))
+        total+=entry['bytes']
+    if total!=spec['bytes']:raise ValueError('Incomplete source dependency accounting')
+    from .gates import execution_fingerprint
+    report={'status':'passed','files':len(seen),'bytes':total,'manifest_sha256':digest(manifest),
+        'execution_fingerprint':execution_fingerprint(),'new_model_calls':0}
+    save(RESULTS/'qualification/source_transfer_verified.json',report)
+    return report
 
 
 def stable(value):
@@ -74,7 +102,7 @@ def physical_cores():
 def historical(row):
     base = Path(row['base'])
     if not base.is_absolute():
-        base = ROOT/base
+        base = SOURCE_ROOT/base
     record = read(HISTORY / f'formal_v28/completed/{row["id"]}__development__A_UNIFORM_E50__BASE.json')
     return base, record
 
@@ -105,6 +133,31 @@ def multimodal_gather(ids, positions, image_id, image_counts, per_image):
     return keep,coords,int(coords.max())+1-len(keep),image_positions
 
 
+def attention_regions(request,counts,image_positions,keep,length):
+    """Passive region attribution only; every independent dashboard has a header."""
+    names=['other:generated','text:instructions_and_evidence' if request.get('hybrid') else 'text:instructions'];raw=[1]*length;offset=0
+    for image_index,(count,grid,geometry) in enumerate(zip(counts,request['grid_thw'],request['geometry'])):
+        gh,gw=grid[1]//2,grid[2]//2
+        labels=[f'image:{image_index}:background']*count
+        sx=gw*32/geometry['width'];sy=gh*32/geometry['height']
+        for token in range(count):
+            x,y=((token%gw+.5)*32/sx,(token//gw+.5)*32/sy)
+            if y<86:
+                labels[token]=f'image:{image_index}:header'
+            for panel in geometry['panels']:
+                px,py,w,h=panel['box']
+                if px<=x<px+w and py<=y<py+h:
+                    labels[token]=f'image:{image_index}:panel:{panel["card"]}'
+                    break
+        for label in sorted(set(labels)):
+            names.append(label)
+        lookup={label:i for i,label in enumerate(names)}
+        for j,label in enumerate(labels):
+            raw[image_positions[offset+j]]=lookup[label]
+        offset+=count
+    return {'ids':[raw[i] for i in keep],'names':names}
+
+
 def vllm_prompt_packet(request,processor):
     import math,torch
     from PIL import Image
@@ -115,45 +168,27 @@ def vllm_prompt_packet(request,processor):
     for path in request['images']:
         with Image.open(ROOT/path) as im:
             images.append(im.convert('RGB'))
-    batch=processor(text=[request['prompt']],images=images,return_tensors='pt')
+    batch=processor(text=[request['prompt']],images=images or None,return_tensors='pt')
     cfg=AutoConfig.from_pretrained(MODEL,local_files_only=True)
     shell=SimpleNamespace(config=cfg)
     shell.get_vision_position_ids=MethodType(Qwen3_5Model.get_vision_position_ids,shell)
-    positions,_=Qwen3_5Model.get_rope_index(shell,batch['input_ids'],batch['mm_token_type_ids'],
-        image_grid_thw=batch['image_grid_thw'],attention_mask=batch['attention_mask'])
-    counts=[math.prod(g)//4 for g in batch['image_grid_thw'].tolist()]
+    if images:
+        positions,_=Qwen3_5Model.get_rope_index(shell,batch['input_ids'],batch['mm_token_type_ids'],
+            image_grid_thw=batch['image_grid_thw'],attention_mask=batch['attention_mask'])
+        counts=[math.prod(g)//4 for g in batch['image_grid_thw'].tolist()]
+    else:
+        if not request.get('data_empty_transfer') or not request.get('hybrid'):raise ValueError('Unregistered image-free diagnostic request')
+        positions=torch.arange(batch['input_ids'].shape[-1]).repeat(3,1)[:,None,:];counts=[]
     per_image=request['retained_by_image']
     keep,coords,delta,image_positions=multimodal_gather(batch['input_ids'][0],positions[:,0],cfg.image_token_id,counts,per_image)
     n=len(keep)
     if n!=request['input_tokens'] or n+8192>40960:
         raise ValueError('Actual runtime context differs from qualified request')
-    region=None
-    if request.get('attention'):
-        names=['other:generated','text:instructions_and_evidence' if request.get('hybrid') else 'text:instructions'];raw=[1]*len(batch['input_ids'][0]);offset=0
-        for image_index,(count,grid,geometry) in enumerate(zip(counts,batch['image_grid_thw'].tolist(),request['geometry'])):
-            gh,gw=grid[1]//2,grid[2]//2
-            labels=[f'image:{image_index}:background']*count
-            sx=gw*32/geometry['width'];sy=gh*32/geometry['height']
-            for token in range(count):
-                x,y=((token%gw+.5)*32/sx,(token//gw+.5)*32/sy)
-                if y<86 and image_index==0:
-                    labels[token]=f'image:{image_index}:header'
-                for panel in geometry['panels']:
-                    px,py,w,h=panel['box']
-                    if px<=x<px+w and py<=y<py+h:
-                        labels[token]=f'image:{image_index}:panel:{panel["card"]}'
-                        break
-            for label in sorted(set(labels)):
-                names.append(label)
-            lookup={label:i for i,label in enumerate(names)}
-            for j,label in enumerate(labels):
-                raw[image_positions[offset+j]]=lookup[label]
-            offset+=count
-        region={'ids':[raw[i] for i in keep],'names':names}
+    region=attention_regions(request,counts,image_positions,keep,len(batch['input_ids'][0])) if request.get('attention') else None
     # The frozen transport metadata remains compatible; operation U invokes no
     # contiguous-image attention intervention. Region IDs use actual two spans.
     meta={'schema':'RQ43VLLMPromptV13','length':n,'positions':coords.tolist(),'rope_delta':delta,
-          'operation':'U','groups':[],'image_start':image_positions[0],
+          'operation':'U','groups':[],'image_start':image_positions[0] if image_positions else 0,
           'image_count':sum(map(len,per_image)),'attention':region,'task':request['task']}
     from RQs.RQ4_3.src.utils import validate_vllm_metadata
     validate_vllm_metadata(meta)
@@ -165,7 +200,7 @@ def vllm_prompt_packet(request,processor):
 def score_context(oid):
     # Private data is requested only after an answer, not during preprocessing.
     old=read(HISTORY/'deployment_v26/request_index.json')['cases'][oid]
-    private=read(ROOT/old['private'])
+    private=read(SOURCE_ROOT/old['private'])
     return {'candidates':old['candidates'],'numeric_to_natural':private['numeric_to_natural'],
             'accepted':private['accepted_labels']}
 
@@ -192,24 +227,66 @@ def score_response(response, context):
         'tolerant_policy':'JSON services only; trim and remove explicit type prefix; unknown/duplicate remain misses at original rank; no ID repair'}
 
 
+def serialized_call_register(path,limit=1700,scope='',scope_limit=None):
+    """One durable writer; avoid SQLite WAL/SHM locks on the Nibi NFS mount.
+
+    The lifetime owner lock excludes other processes. An in-process mutex
+    serializes transactions on one connection. DELETE/FULL journaling retains
+    crash recovery; nolock disables only redundant SQLite byte-range locks.
+    This is persistent accounting, not a RAM or delayed-durability buffer.
+    """
+    import sqlite3,threading,fcntl
+    from contextlib import contextmanager
+    from vlmrca.run_state import DurableCallRegister
+    class SerializedRegister(DurableCallRegister):
+        def __init__(self):
+            destination=Path(path);destination.parent.mkdir(parents=True,exist_ok=True)
+            self.owner=(destination.parent/(destination.name+'.owner.lock')).open('a')
+            self.mutex=threading.RLock();self.db=None
+            try:
+                fcntl.flock(self.owner,fcntl.LOCK_EX|fcntl.LOCK_NB)
+                self.db=sqlite3.connect(destination.resolve().as_uri()+'?nolock=1',uri=True,check_same_thread=False,timeout=30)
+                if self.db.execute('PRAGMA journal_mode=DELETE').fetchone()[0]!='delete':
+                    raise RuntimeError('Legacy WAL ledger needs stopped-owner migration')
+                self.db.execute('PRAGMA synchronous=FULL')
+                super().__init__(destination,limit,scope=scope,scope_limit=scope_limit)
+            except BaseException:
+                if self.db is not None:self.db.close()
+                self.owner.close();raise
+        @contextmanager
+        def connect(self):
+            with self.mutex:
+                with self.db:yield self.db
+        def close(self):
+            with self.mutex:
+                try:self.db.close()
+                finally:self.owner.close()
+    return SerializedRegister()
+
+
 class RuntimeSession:
     """Per-call atomic boundaries and one lock; no repeated inference on resume."""
     def __init__(self,folder,provider=None,ledger_folder=None,scope='formal'):
         import fcntl
-        from vlmrca.run_state import DurableCallRegister
         self.root=Path(folder);self.root.mkdir(parents=True,exist_ok=True)
         self.lock=(self.root/'owner.lock').open('a')
         try:
             fcntl.flock(self.lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
         except BaseException:
             self.lock.close();raise
-        # All qualification, formal and recoveries share this global ledger.
-        self.calls=DurableCallRegister(Path(ledger_folder or RESULTS)/'calls.sqlite',limit=1700,
-            scope='rq45_'+scope,scope_limit=18 if scope=='smoke' else 1682)
+        # Every round has its own cap; all spent calls remain in the same table.
+        budget=RESULTS/'qualification/call_budget_v2.json'
+        limit=read(budget)['total_limit'] if ledger_folder is None and budget.exists() else 1700
+        name='rq45_'+scope
+        if scope=='smoke' and ledger_folder is None:
+            name+='_round'+str(read(RESULTS/'qualification/smoke_activation.json')['attempt']).zfill(2)
+        try:self.calls=serialized_call_register(Path(ledger_folder or RESULTS)/'calls.sqlite',limit,name,18 if scope=='smoke' else 1682)
+        except BaseException:self.lock.close();raise
         self.provider=provider
 
     def close(self):
-        self.lock.close()
+        try:self.calls.close()
+        finally:self.lock.close()
 
     def completed(self,key):
         if Path(key).name!=key:
@@ -374,7 +451,7 @@ def object_file(path):
         finally:
             if temp.exists():temp.unlink()
     if digest(target)!=checksum:raise ValueError('Object hash mismatch')
-    return str(target.relative_to(ROOT)),checksum
+    return str(target.relative_to(ROOT)) if target.is_relative_to(ROOT) else str(target),checksum
 
 
 def finalize_retention(scope='formal'):
@@ -413,7 +490,8 @@ def finalize_retention(scope='formal'):
     if any(p.is_relative_to(cache) for p in required):raise RuntimeError('Required input still in cache')
     if cache.exists():shutil.rmtree(cache)
     seen={};entries=[];inodes={}
-    for path in sorted(p for p in RQ.rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.name!='retention.json'):
+    retained_paths={p for root in (RQ,RESULTS) for p in root.rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.name!='retention.json'}
+    for path in sorted(retained_paths):
         checksum=digest(path);st=path.stat()
         if checksum in seen and 'sqlite' not in path.name and 'sqlite' not in seen[checksum].name:
             prior=seen[checksum]
@@ -421,7 +499,7 @@ def finalize_retention(scope='formal'):
                 temp=path.with_name(path.name+'.dedup');os.link(prior,temp);os.replace(temp,path);st=path.stat()
         else:seen[checksum]=path
         inodes[(st.st_dev,st.st_ino)]=st.st_size
-        entries.append({'path':str(path.relative_to(ROOT)),'sha256':checksum,'bytes':st.st_size})
+        entries.append({'path':str(path.relative_to(ROOT)) if path.is_relative_to(ROOT) else str(path),'sha256':checksum,'bytes':st.st_size})
     for path in (ROOT/'docs/experiment_plans').glob('RQ4_5*.md'):
         st=path.stat();inodes[(st.st_dev,st.st_ino)]=st.st_size
         entries.append({'path':str(path.relative_to(ROOT)),'sha256':digest(path),'bytes':st.st_size})

@@ -1,0 +1,23 @@
+{
+  "schema": "RQ45HybridInstructionsV2",
+  "scope": "Static task/reading-rule consolidation only; diagnostic records and their order are unchanged.",
+  "text": "Identify the original faulty component, not the largest downstream or co-located symptom. Services use three-digit IDs, nodes four, and pods five. Rank exactly five distinct IDs from the exhaustive candidates; lower ranks are alternatives, not five simultaneous causes.\n\nUse the existing SIRCL* discipline in M -> R -> L -> G order:\n- M: twelve selected metric series have 64 equal relative-time bins, source units, baseline/peak, signed robust deviation and MET-Z statistics. Compare regular/current means and standard deviations at the public trace-derived split; a shift over 3 sigma is a fluctuating metric. Check the series and missingness against the summary.\n- R: operation counts, errors and latency include TRC-L count/exclusive-p95 comparisons. dC/dX are bounded log2 changes; rank_score sums their positive parts. Inclusive duration includes children; explicitly exclusive duration estimates local time after child spans are removed.\n- L: Denum-inspired LT template graph bind entity, relative bin, severity, multiplicity and diagnostic numbers. LOG-R compares error-keyword/total-log rates at the same split, surfacing new templates, error bursts and volume drops; check templates and numbers before accepting the score.\n- G: directed caller -> callee edges and propagation onset test plausible origins. A symptom in caller A can originate in callee B. Calls, hosting and binned/onset order alone do not establish causality.\n\nMissing/null is absent observation, never zero; times start at the observation window. Keep native units: names/unverified labels do not justify conversions. Metric-z and trace scales differ; log2 ratios are not fold changes. Respect each duration's stated scope; do not subtract independent inclusive/exclusive quantiles as paired durations. Gauges, accumulated counters, restart states and request counts differ. Correlated metrics of one entity are not independent votes. Recovery does not exclude an earlier initiating fault. Bind every claim to the correct entity, metric/operation and visible source ID; distinguish measurements from inference.\n\nWithin this single call, form a preliminary top-three, test top-1 with exactly two evidence-answerable checks including a contradiction or alternative origin, then revise if contradicted. Return only the JSON below. Its reason is one compact paragraph, at most three sentences, stating both checks and any decisive relationship. Do not reveal hidden working or output INITIAL/VERIFY/REVISE labels.\n{\"services\":[\"candidate-id\",\"candidate-id\",\"candidate-id\",\"candidate-id\",\"candidate-id\"],\"reason\":\"brief evidence-grounded verification summary\",\"confidence\":\"high|medium|low\"}",
+  "original_sections": [
+    "A fault has occurred",
+    "Source reading:",
+    "Literal reading and evidence citations:",
+    "Output cardinality",
+    "Based on the above"
+  ],
+  "preserved_semantics": [
+    "fault-origin target and exhaustive five-candidate contract",
+    "M/R/L/G source definitions and SIRCL analysis order",
+    "MET-Z public split and 3-sigma rule",
+    "TRC-L dC/dX/rank_score and duration scope",
+    "Denum/LOG-R source bindings and rate interpretation",
+    "native units, missingness, relative clocks and non-causal relations",
+    "correlation/recovery caveats and source citations",
+    "two private verification checks, revise when contradicted, compact JSON-only answer"
+  ],
+  "original_rule_blocks_sha256": "fbf303c268135e435a9504aaf526a731c8066be20531c44ffe0a8325415a5987"
+}

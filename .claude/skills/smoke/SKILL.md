@@ -33,8 +33,9 @@ optimizer step.
 
 The two models share at most 18 calls across all stages, cases, conditions,
 retries, and processes. Model phases run sequentially, never concurrently. The
-complete logical smoke shares one 600-second wall-clock budget, including model
-startup and switching. Use a simple run-local process clock/state; do not
+complete logical smoke uses the user's explicitly registered wall-clock budget,
+currently 15 minutes (900 seconds), including model startup and switching.
+Do not impose a shorter timeout. Use a simple run-local process clock/state; do not
 modify WSL or host clock configuration or build precision timing infrastructure.
 Exit as soon as the smoke completes. If the registered timeout is the only
 error, preserve completed artifacts and treat the bounded smoke as passed.

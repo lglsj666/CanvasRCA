@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "deployment": "local Blackwell / RQ4.4 native backend",
+  "execution_fingerprint": "d2299620a4c36294113dcced4e222b76e50e85b378ae55c41678c2cab0e55dac",
+  "tests": 32,
+  "population_cases": 220,
+  "actual_rca_inputs": 1320,
+  "mechanism_cases": 33,
+  "runtime_probes": 30,
+  "cpu_workers": 8,
+  "physical_cores": [
+    0,
+    2,
+    4,
+    6,
+    8,
+    10,
+    12,
+    14
+  ],
+  "model_files": 27,
+  "model_bytes": 55582674706,
+  "formal_positions": 1560,
+  "smoke_positions": 18,
+  "reports": {
+    "unit": "11213d723b7a086c7b3641a1314fcdf26610c442054acc3bef04a2da3cfe67c9",
+    "preflight": "93eff68cb2848221ccde39ae577b7bcd303d5fe8b82a4535dd3854dfb6579634",
+    "population": "2cf81ea6ddf9a25e6f6abba6cf3669f438ac3c64a86596b4f9af4b2cf517add8",
+    "budget": "60cc9aa7f9f5f95f15e37b71901c4afafe0c869fb5351ce7816c1ae6b364886c",
+    "mechanism": "8996e19e40ef6d6ecfac4e9296e57893d50ed43ae895896275cd8676085fa6f5",
+    "runtime": "7142483a9d46c45a5143e0817b69d7dd959307bfbef7d4d402caad7c74af4c59",
+    "transport_audit": "293eda3a4c1abcfdc521b0f8ac2a0ad25daf54ae2107abcc9b6dfeb783410d84",
+    "determinism": "72817ca4f0976c4c4f2604c5dfe10b67ba6f2fb2cae826c73a12b7a7d869de17",
+    "visual_review": "2054cb7b359abcb777d0a9749e322c1c9d201e06544ff0087dbffe82aec07882",
+    "cpu_complete": "8e20508e1f1c9f073786e9c4361286f7c0a03ec7508e8e88dca0a75d6ecc1b71"
+  },
+  "new_model_calls_in_cpu": 0,
+  "frozen_unix": 1792431749.2094214
+}

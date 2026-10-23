@@ -92,12 +92,98 @@ class OwnershipTests(unittest.TestCase):
         self.assertEqual(exps.wire(exps.lexload(raw)),raw)
         with self.assertRaises(ValueError):exps.lexload('{"a":1,"a":2}')
 
+    def test_instruction_consolidation_preserves_diagnostic_text(self):
+        p=self.fixture()
+        for raw,kind in [('Source reading: task-only rules.','literal'),('LOG01 | observed template: Source reading: 0.0000','literal')]:
+            i=len(p['texts']['RAW_TEXT']);aid='added'+str(i)
+            p['texts']['RAW_TEXT'].append({'type':'text','text':raw})
+            p['organization']['atoms'].append({'id':aid,'kind':kind,'raw':raw,'value_wire':None,'part':i,'prefix':''})
+            p['organization']['sections'].append({'part':i,'atoms':[aid]})
+        packet=exps.ownership(p,'H_TOPOLOGY')
+        old=exps.residual_text(p,packet);new=exps.residual_text(p,packet,strip_instructions=True)
+        self.assertEqual(new,[r for r in old if r['text']!='Source reading: task-only rules.'])
+        self.assertTrue(any('0.0000' in r['text'] for r in new))
+
+    def test_instruction_section_cannot_hide_a_diagnostic_record(self):
+        p=self.fixture();p['organization']['atoms'][3]['raw']='Source reading: MET01 | 0.0000'
+        p['texts']['RAW_TEXT'][3]['text']=p['organization']['atoms'][3]['raw']
+        with self.assertRaises(ValueError):exps.residual_text(p,exps.ownership(p,'H_TOPOLOGY'),strip_instructions=True)
+
     def test_unknown_graph_shape_fails(self):
         p=self.fixture();p['organization']['atoms'][2]['value_wire']='{"from":"123","to":"456","relation":"private_unknown"}'
         with self.assertRaises(ValueError):exps.topology_cards(p)
 
+    def test_operation_bound_parent_child_preserves_directions_and_operation(self):
+        p=self.fixture();value={'parent':['123','parent/op'],'child':['456','child/op'],
+            'relation':'observed parent span -> child span','supporting_span_pairs':12}
+        p['organization']['atoms'][2]['value_wire']=json.dumps(value)
+        cards,bindings=exps.topology_cards(p)
+        edge=cards[0]['data']['edges'][0]
+        self.assertEqual((edge['source'],edge['target'],edge['kind']),('123','456','request_parent'))
+        values=[d['value'] for c in cards if c['kind']=='inventory' for d in c['data']['details']]
+        self.assertEqual(values,['parent/op','child/op','12'])
+
+    def test_pair_canvas_uses_parallel_phase_rows_not_both_added(self):
+        card={'id':'PAIR01','kind':'trace_joint','data':{'parent_operation':'p','child_operation':'c',
+            'samples':[{'phase':phase} for phase in ('reference','current') for _ in range(32)]}}
+        design=exps.hybrid_design([card]);self.assertLess(design['viewport']['height'],2304)
+
+
+class SmokeBudgetTests(unittest.TestCase):
+    def review_at(self,seconds,clock_seconds=900):
+        from unittest.mock import patch
+        from . import gates
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            save(root/'frozen/smoke_queue.json',[])
+            save(root/'smoke/logical_clock.json',{'started_unix':1000,'deadline_unix':1000+clock_seconds})
+            save(root/'smoke/summary.json',{'status':'passed','seconds':seconds})
+            save(root/'smoke/phase_complete.json',{'status':'complete'})
+            with patch.object(gates,'RESULTS',root),patch.object(gates,'require_execution'),patch.object(gates,'execution_fingerprint',return_value='offline'):
+                return gates.review_smoke()
+
+    def test_full_registered_window_is_accepted(self):
+        self.assertEqual(self.review_at(899)['status'],'passed')
+
+    def test_overrun_is_rejected(self):
+        self.assertEqual(self.review_at(901)['status'],'failed')
+
+    def test_old_shorter_clock_cannot_qualify_new_round(self):
+        self.assertEqual(self.review_at(500,clock_seconds=300)['status'],'failed')
+
 
 class RuntimeTests(unittest.TestCase):
+    def test_serial_ledger_eight_writers_and_durable_reopen(self):
+        from concurrent.futures import ThreadPoolExecutor
+        from .utils import serialized_call_register
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'calls.sqlite';ledger=serialized_call_register(path,32,'offline',18)
+            def transaction(i):
+                attempt,_=ledger.begin(str(i),str(i),'QA')
+                ledger.finish(attempt,{'output':i});return attempt
+            with ThreadPoolExecutor(max_workers=8) as pool:ids=list(pool.map(transaction,range(18)))
+            self.assertEqual(len(set(ids)),18);self.assertEqual(ledger.summary(),{'complete':18})
+            self.assertEqual(ledger.db.execute('PRAGMA journal_mode').fetchone()[0],'delete')
+            self.assertEqual(ledger.db.execute('PRAGMA synchronous').fetchone()[0],2)
+            with self.assertRaises(RuntimeError):ledger.begin('overflow','overflow','QA')
+            ledger.close();ledger=serialized_call_register(path,32,'offline',18)
+            try:self.assertEqual(ledger.summary(),{'complete':18});self.assertEqual(ledger.cached('0','0','QA'),{'output':0})
+            finally:ledger.close()
+
+    def test_ledger_owner_excludes_other_run_folders(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);one=RuntimeSession(root/'one',ledger_folder=root)
+            try:
+                with self.assertRaises(BlockingIOError):RuntimeSession(root/'two',ledger_folder=root)
+            finally:one.close()
+
+    def test_cpu_preparation_interleaves_registered_sources(self):
+        from RQs.RQ4_1.src.utils import source_order
+        rows=[{'dataset':ds,'source':str(s),'id':(ds,s,i)} for ds in ('aiops2022','aiops2025') for s in range(4) for i in range(2)]
+        ordered=source_order(rows)
+        self.assertEqual(len({(r['dataset'],r['source']) for r in ordered[:8]}),8)
+        self.assertEqual({r['id'] for r in ordered},{r['id'] for r in rows})
+
     def test_power_loss_commit_reference_repeat_pause(self):
         class OfflineProvider:
             calls=0;last_usage={'input_tokens':10,'output_tokens':3}
@@ -143,6 +229,24 @@ class RuntimeTests(unittest.TestCase):
         from vlmrca.vlm.passive_summary import AttentionStore
         self.assertLessEqual(AttentionStore.storage_ceiling(10000),1000000000)
 
+    def test_attention_distinguishes_every_image_header_and_preserves_text(self):
+        from copy import deepcopy
+        from .utils import attention_regions
+        request={'hybrid':True,'grid_thw':[[1,8,4]]*2,'geometry':[
+            {'width':64,'height':128,'panels':[{'card':'p'+str(i),'box':[0,86,64,42]}]} for i in range(2)]}
+        before=deepcopy(request);images=list(range(8))+list(range(9,17))
+        result=attention_regions(request,[8,8],images,list(range(17)),17)
+        self.assertEqual(request,before)
+        for i in range(2):
+            self.assertEqual(result['ids'].count(result['names'].index(f'image:{i}:header')),6)
+            self.assertEqual(result['ids'].count(result['names'].index(f'image:{i}:panel:p{i}')),2)
+        self.assertEqual(result['ids'][8],1)
+
+    def test_attention_empty_transfer_is_text_only(self):
+        from .utils import attention_regions
+        result=attention_regions({'hybrid':True,'grid_thw':[],'geometry':[]},[],[],[0,2],3)
+        self.assertEqual(result,{'ids':[1,1],'names':['other:generated','text:instructions_and_evidence']})
+
 
 def run_tests():
     import io
@@ -152,3 +256,57 @@ def run_tests():
     buffer=io.StringIO();result=unittest.TextTestRunner(stream=buffer,verbosity=2).run(suite)
     return {'status':'passed' if result.wasSuccessful() else 'failed','tests':result.testsRun,
         'failures':len(result.failures),'errors':len(result.errors),'log':buffer.getvalue(),'new_model_calls':0}
+
+
+def check_visual_determinism():
+    """Actual unified-renderer repaint, independently compared with qualified PNG."""
+    from .utils import RESULTS,read,digest,offline
+    from .gates import require_cpu,execution_fingerprint
+    from renderer.main import render
+    require_cpu();offline()
+    original=read(RESULTS/'inputs/INC-D28AC6CAEFE4/source.json')['hybrid_images']['pair'][1]
+    folder=RESULTS/'cache/determinism'/execution_fingerprint()
+    save(folder/'evidence.json',original['evidence']);save(folder/'design.json',original['design'])
+    target=folder/'render'
+    if not target.exists():render(folder/'evidence.json',folder/'design.json',target)
+    manifest=read(target/'manifest.json');sha=digest(target/'dashboard.png')
+    if manifest['status']!='passed' or sha!=original['sha256']:raise ValueError('Deterministic redraw differs from qualified pixels')
+    result={'status':'passed','execution_fingerprint':execution_fingerprint(),'sha256':sha,
+        'case':'INC-D28AC6CAEFE4','card':'PAIR02','scope':'actual long-operation/extreme-duration source-complete repaint','new_model_calls':0}
+    save(RESULTS/'qualification/determinism.json',result);return result
+
+
+def check_transport_invariance():
+    """Actual CPU packets: corrected passive maps never change model inputs."""
+    import importlib.util,torch
+    from transformers import AutoProcessor
+    from . import utils
+    from .utils import RESULTS,MODEL,read,digest,offline
+    from .gates import require_cpu,execution_fingerprint
+    require_cpu();offline()
+    request=read(RESULTS/'mechanism/INC-D9245047C658/requests.json')['H_TOPO_MARGINAL']
+    processor=AutoProcessor.from_pretrained(MODEL,local_files_only=True)
+    current=utils.vllm_prompt_packet(request,processor)
+    a=current['metadata']['attention']
+    for i in range(len(request['images'])):
+        if f'image:{i}:header' not in a['names']:raise ValueError('Image header is not represented in attention regions')
+    old=RESULTS/'qualification/history_v3/source/utils.py';compared=False
+    if old.exists():
+        snapshot=read(old.parent.parent/'source_snapshot.json')
+        if digest(old)!=snapshot['utils_sha256']:raise ValueError('Qualification reference changed')
+        spec=importlib.util.spec_from_file_location('RQs.RQ4_5.src._cpu_reference_utils',old)
+        module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+        for name in ('ROOT','RQ','RESULTS','SOURCE_ROOT','MODEL','HISTORY'):setattr(module,name,getattr(utils,name))
+        previous=module.vllm_prompt_packet(request,processor)
+        for k,v in previous['batch'].items():
+            if not torch.equal(v,current['batch'][k]):raise ValueError('Model processor tensor changed: '+k)
+        for key in ('keep','source_by_slot','token_ids','image_positions','image_tokens_original'):
+            if previous[key]!=current[key]:raise ValueError('Model gather/sequence changed: '+key)
+        for key in previous['metadata']:
+            if key!='attention' and previous['metadata'][key]!=current['metadata'][key]:raise ValueError('Position/model metadata changed: '+key)
+        if previous['metadata']['attention']==a:raise ValueError('Registered multi-image region intervention did not change attribution')
+        compared=True
+    result={'status':'passed','execution_fingerprint':execution_fingerprint(),'legacy_comparison':compared,
+        'scope':'actual CPU pixel/input tensors, gather, token IDs and MRoPE; only passive attention-region attribution may differ',
+        'images':len(request['images']),'headers':sum(':header' in n for n in a['names']),'new_model_calls':0}
+    save(RESULTS/'qualification/transport_audit.json',result);return result

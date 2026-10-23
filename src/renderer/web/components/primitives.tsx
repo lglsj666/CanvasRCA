@@ -21,6 +21,11 @@ export type Card = {id:string; kind:'contrast'|'comparison'|'inventory'|'metric'
            phases:{phase:'reference'|'current';n:string;sampled:string;binary:string[];quantiles:string[][];conditional_child:(string|null)[][]}[]};
          samples?:{phase:'reference'|'current';parent_ms:number;child_ms:number}[]}};
 export type Rect = {readable_cards?:'source_scopes_v2'|'source_reflow_v3'|'source_scopes_pack_v4';card:string; node:string; component:string; index:number; x:number; y:number; width:number; height:number;
+// BEGIN RQ46 POD_JOIN
+  pod_relation_layout?:{variant:'bridge'|'separate';font:number;cell:number;gap:number;step:number;columns:number;
+    labels:Record<string,string[]>;rows:{pod:string|null;left:string[];right:string[];slots:number;step:number;y:number;height:number}[];
+    isolates:string[];isolate_y:number;content_height:number;min_height:number};
+// END RQ46 POD_JOIN
   dashed_width_scale?:number;
   node_link_layout?:{positions:Record<string,{x:number;y:number}>;rows:number;columns:number;min_height:number;layout:string};
   presentation?:{marks:boolean;details:boolean;neutral_trace?:boolean};

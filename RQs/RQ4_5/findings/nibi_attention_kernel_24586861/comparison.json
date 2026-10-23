@@ -1,0 +1,113 @@
+{
+  "schema": "RQ45AttentionKernelQualificationV1",
+  "new_model_calls": 0,
+  "dtype": "bfloat16",
+  "heads": 16,
+  "head_dim": 72,
+  "causal": false,
+  "results": [
+    {
+      "length": 8192,
+      "backend": "fa3",
+      "status": "passed",
+      "seconds": [
+        0.07271705627441406,
+        0.07078659057617187
+      ],
+      "finite": true,
+      "max_abs_error": 0.0,
+      "mean_abs_error": 0.0,
+      "tolerance": {
+        "rtol": 0.02,
+        "atol": 0.002
+      },
+      "wall_seconds": 0.4327829019748606
+    },
+    {
+      "length": 8192,
+      "backend": "torch_flash_sdpa",
+      "status": "passed",
+      "seconds": [
+        0.0014168319702148437,
+        0.001383296012878418
+      ],
+      "finite": true,
+      "max_abs_error": 0.00048828125,
+      "mean_abs_error": 4.600665761245182e-06,
+      "tolerance": {
+        "rtol": 0.02,
+        "atol": 0.002
+      },
+      "wall_seconds": 0.029606412979774177
+    },
+    {
+      "length": 45824,
+      "backend": "fa3",
+      "status": "passed",
+      "seconds": [
+        2.13704541015625,
+        2.136892822265625
+      ],
+      "finite": true,
+      "max_abs_error": 0.0,
+      "mean_abs_error": 0.0,
+      "tolerance": {
+        "rtol": 0.02,
+        "atol": 0.002
+      },
+      "wall_seconds": 6.417823238996789
+    },
+    {
+      "length": 45824,
+      "backend": "torch_flash_sdpa",
+      "status": "passed",
+      "seconds": [
+        0.038981311798095705,
+        0.03925171279907227
+      ],
+      "finite": true,
+      "max_abs_error": 0.000244140625,
+      "mean_abs_error": 1.0361783324697171e-06,
+      "tolerance": {
+        "rtol": 0.02,
+        "atol": 0.002
+      },
+      "wall_seconds": 0.11941490299068391
+    },
+    {
+      "length": 65160,
+      "backend": "fa3",
+      "status": "passed",
+      "seconds": [
+        4.3191904296875,
+        4.3190615234375
+      ],
+      "finite": true,
+      "max_abs_error": 0.0,
+      "mean_abs_error": 0.0,
+      "tolerance": {
+        "rtol": 0.02,
+        "atol": 0.002
+      },
+      "wall_seconds": 12.962929757020902
+    },
+    {
+      "length": 65160,
+      "backend": "torch_flash_sdpa",
+      "status": "passed",
+      "seconds": [
+        0.07954102325439454,
+        0.07937849426269532
+      ],
+      "finite": true,
+      "max_abs_error": 0.000244140625,
+      "mean_abs_error": 7.353198725468246e-07,
+      "tolerance": {
+        "rtol": 0.02,
+        "atol": 0.002
+      },
+      "wall_seconds": 0.24040304101072252
+    }
+  ],
+  "status": "complete"
+}

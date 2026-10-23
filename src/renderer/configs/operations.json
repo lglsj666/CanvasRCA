@@ -206,8 +206,81 @@
       "index": 23,
       "id": "source_views",
       "file": "source_views.py",
-      "args": ["frozen_html", "source_pixels", "placements", "width", "height"],
+      "args": [
+        "frozen_html",
+        "source_pixels",
+        "placements",
+        "width",
+        "height"
+      ],
       "contract": "Explicit export registry: uniformly enlarged complete original source cards and a matched processor-resized pixel control. Preserves DOM, bindings, original styles and source evidence. Actual font/line/bounds audit required; no normal dashboard default changes."
+    },
+    {
+      "index": 24,
+      "id": "source_workspace",
+      "file": "source_workspace.py",
+      "args": [
+        "frozen_html",
+        "source_pixels",
+        "source_bindings",
+        "groups",
+        "mode"
+      ],
+      "contract": "Explicit complete-source export, literal bounded crops and compatible comparison annotations. Prepares source tiles offline and composes at most four sources in one 2048-square workspace; preserves the original overview separately. Does not change existing component or operation defaults."
+    },
+    {
+      "index": 25,
+      "id": "workspace_qa_intervention",
+      "file": "source_workspace.py",
+      "args": [
+        "source_png",
+        "geometry",
+        "pair",
+        "kind"
+      ],
+      "contract": "Explicit synthetic independent QA only: exchange complete equal-size source units, or every audited occurrence of two matched entity labels. Reject incomplete relabeling or unequal pixel geometry. Never used for real RCA or real-fault scoring."
+    },
+    {
+      "index": 26,
+      "id": "card_subset",
+      "file": "card_subset.py",
+      "args": [
+        "source",
+        "keep",
+        "mode",
+        "destination",
+        "inventory",
+        "swap"
+      ],
+      "contract": "Explicit export: delete whole cards or compact surviving original pixels, indices and foreground masks together; no rescaling, new evidence or change to normal renderer defaults. Synthetic whole-card position swap is QA-only."
+    },
+    {
+      "index": 27,
+      "id": "card_statistic_label_swap",
+      "file": "card_subset.py",
+      "args": [
+        "source",
+        "replacements",
+        "destination"
+      ],
+      "contract": "Synthetic QA only: reciprocal same-unit/same-phase statistic labels, all visible exact copies, unchanged layout and values; fixed original U token indices; never RCA."
+    },
+    {
+      "index": 28,
+      "id": "dashboard_policy",
+      "file": "dashboard_policy.py",
+      "args": [],
+      "contract": "New-design fixed_4096_28_v1: final PNG 4096x4096 at scale 1; at most 28 cards across the whole dashboard. All card kinds count, including diagnostic inventory cards. Reject excess cards or later size changes; never select, truncate or rescale evidence. Historical designs without the policy retain their registered behavior."
+    },
+    {
+      "id": "study_view",
+      "file": "study_view.py",
+      "contract": "Explicit source-bound labels, marginal markless and density/QA exports. Preserve ordinary component defaults; actual bound-fact/geometry audit required."
+    },
+    {
+      "id": "domain_view",
+      "file": "domain_views.py",
+      "contract": "Explicit sample numeral omission, within-card column recovery, sample-only markless, background-fill audit plate, same-scale target isolation and audited entity-bijection QA exports. No normal component/default change. New complete baseline only: require at least 80px sample plots and explicit 4px sample radius, without changing values or card geometry."
     }
   ]
 }

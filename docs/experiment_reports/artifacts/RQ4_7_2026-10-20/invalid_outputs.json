@@ -1,0 +1,1642 @@
+[
+  {
+    "id": "INC-A03DA161313B",
+    "dataset": "aiops2022",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "516",
+      "190",
+      "5179",
+      "23072",
+      "4686"
+    ],
+    "unknown": [
+      "5179"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"notes\": [\"Panel 40 (PAIR01) shows that child p95 latency for the ShipOrder operation jumped from ~0.079ms (reference) to ~1.16ms (current) during the incident, while upstream parent latency barely changed, indicating the local backend service is the source of the slowdown.\", \"Panel 19 (TRC06) reveals that the EmptyCart operation on service 516 experienced a massive degradation in exclusive latency p95, jumping from a reference of 3748 microseconds to a current 42,758 microseconds (a 3.5x log2-ratio change), pointing directly to a resource constraint within the 516 pod.\", \"A potential contradictory or alternative origin is suggested by Panel 23 (container_memory_cache on pod 23072) showing a significant drop in median memory from 1.258e+7 to 1.255e+7. Additionally, the topology links 190 as a distinct service to 516, offering an upstream alternative for failure origin, though the latency\"], \"services\": [\"516\", \"190\", \"5179\", \"23072\", \"4686\"], \"reason\": \"Service 516 (hipstershop) is the most plausible root cause, as TRC06 highlights a 3.5x log2-ratio spike in its exclusive latency to 42,758us and PAIR01 attributes the 1.16ms parent delay directly to its ShipOrder child operation. The latency degradation in 516 is consistent with a local resource exhaustion hypothesis, specifically a container_memory_cache drop observed on pod 23072, which provides a secondary mechanical origin. Although service 190 (an upstream) and pod 5179 (a co-running instance) were considered as alternative origins due to their topological proximity, the exclusive latency spikes prove the delay is internal to the 516 service itself.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-76E86205A1E4",
+    "dataset": "aegislab",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "862",
+      "341",
+      "765",
+      "245",
+      "311"
+    ],
+    "unknown": [
+      "311"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.25,
+    "response": "{\"notes\": [\"Panel TRC03 (service 862) reveals a 13.61x increase in exclusive latency p95 (1595.7 µs to 2.0e7 µs) on 'POST /api/v1/preserveservice/preserve', with minimal resource contention signals for 862 (MET04 CPU at 0.005).\", \"The structural dependency graph and PAIR01 metrics indicate service 862 is the root aggregator, showing its total inclusive duration (35.74 ms) scales with its internal exclusive delay, independent of children like 341 (which completed in 0.77 ms).\", \"The latency explosion (320x) in the exclusive phase of service 862 is a 'local' delay; since its children (341, 765, etc.) show relatively small or improving durations, the bottleneck is internal to 862, not downstream.\"], \"services\": [\"862\", \"341\", \"765\", \"245\", \"311\"], \"reason\": \"Service 862 is the initiating component due to a massive exclusive latency regression (rank_score 13.61) on TRC03 while its CPU utilization (MET04) remains near zero. Its inclusive latency regression is 320x, which is proportional to its local delay and far exceeds the regressions of its direct children 341 and 765, proving the delay is not inherited.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-76E86205A1E4",
+    "dataset": "aegislab",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "346",
+      "862",
+      "245",
+      "311",
+      "437"
+    ],
+    "unknown": [
+      "311"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.3333333333333333,
+    "response": "{\"observations\": [{\"entity\": \"862\", \"signal_or_relation\": \"container.cpu.usage\", \"unit\": \"ratio\", \"statistic\": \"current_inclusive_p95\", \"phase\": \"current\", \"reading\": \"0.005\", \"image\": 0, \"box\": [0, 0, 0, 0]}, {\"entity\": \"346\", \"signal_or_relation\": \"UserRepository.findByUsername\", \"unit\": \"ms\", \"statistic\": \"inclusive_median\", \"phase\": \"current\", \"reading\": \"0.767\", \"image\": 0, \"box\": [0, 0, 0, 0]}, {\"entity\": \"346\", \"signal_or_relation\": \"container.cpu.usage\", \"unit\": \"ratio\", \"statistic\": \"current_inclusive_p95\", \"phase\": \"current\", \"reading\": \"1.2e-05\", \"image\": 0, \"box\": [0, 0, 0, 0]}], \"services\": [\"346\", \"862\", \"245\", \"311\", \"437\"], \"reason\": \"Analysis of service 346 reveals that while it is called from the root service 862, its own CPU usage (0.01% p95) and memory are negligible, ruling it out as the resource-consuming root. Service 862 (FoodService) is the root aggregator with 0.5% CPU usage, which, combined with the lack of resource contention on its children, suggests the fault is likely in the application logic or a downstream dependency rather than local resource exhaustion. Since 862 calls 245 (PreserveService), and PreserveService has a high exclusive latency (2.47e5 µs), it is a prime candidate for the initiating cause of the delay.\", \"confidence\": \"low\"}"
+  },
+  {
+    "id": "INC-1E7AE92CAA11",
+    "dataset": "aiops2025",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "279",
+      "338",
+      "329",
+      "158",
+      "436"
+    ],
+    "unknown": [
+      "329"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"notes\": [\"Panel AUX03 and MC3 bind a significant latency degradation to a specific POST request on service 338 (reference p95 1541.7 µs vs. current 2442.6 µs), showing a +58% increase in the 'AddItem' operation.\", \"Upstream tracing identifies service 279 as the parent of this request; its 'ListProducts' operation exhibits concurrent degradation (reference p95 1859.9 µs vs. current 1917.4 µs), suggesting a bottleneck in its internal processing or a child dependency.\", \"The system graph in panel 31 indicates that service 338 (and its peer service 329) both depend on service 279; the synchronous latency increase across these entry points points to a central defect in service 279 rather than an isolated issue in service 338.\"], \"services\": [\"279\", \"338\", \"329\", \"158\", \"436\"], \"reason\": \"Service 279 is the leading candidate as it is the upstream provider of the impacted service 338 operation, with both showing correlated latency degradation (TRC05 vs TRC03). Service 338 is listed second as the direct source of the observed failed/spike metrics in the POST handler. Service 329 is included as a sibling service of 338 that shares 279 as a dependency, likely experiencing the same root impact.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-7CA062069501",
+    "dataset": "aiops2025",
+    "arm": "S_COMPARE",
+    "variant": "BASE",
+    "services": [
+      "9765",
+      "9752",
+      "9739",
+      "9753",
+      "9763"
+    ],
+    "unknown": [
+      "9752",
+      "9739",
+      "9753",
+      "9763"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"services\": [\"9765\", \"9752\", \"9739\", \"9753\", \"9763\"], \"reason\": \"The initiating component is node 9765, which shows a sharp 'rt' spike (median 8.21e+5 vs ref 8216) and elevated log_rate (136.80) in the 'Observed anomaly onset' and 'LT6659' panels, suggesting a host-level resource contention origin. The paired pods (pod 9752 and pod 9739) exhibit extreme exclusive latency p95 spikes in MET10 and MET5, and the accompanying 'node_memory_usage_rate' (node 6773) chart indicates a severe memory pressure event (median 27.58) that likely propagates to node 9765's placement.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-7CA062069501",
+    "dataset": "aiops2025",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "9765",
+      "3394",
+      "603",
+      "593",
+      "175"
+    ],
+    "unknown": [
+      "3394",
+      "175"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"notes\": [\"Panel 51 (Observed source summary for node 9765) reports the highest severity z-score (13.2) among candidates, serving as the primary ranking signal for node-level resource contention during the incident window.\", \"The fault window aligns with sustained node pressure at 9765, which hosts elevated rt/rt_max samples (e.g., pod 29531/3496) and exhibits memory pressure signals (node_memory_usage_rate), providing a plausible mechanism for the observed root-to-leaf latency degradation.\", \"Tier 2 candidates (3394, 603) show lower severity but represent logical application bottlenecks; Tier 3/4 candidates (593, 175, 715) have minimal z-scores or zero evidence, making them less likely as initiating causes compared to the physical substrate anomalies.\"], \"services\": [\"9765\", \"3394\", \"603\", \"593\", \"175\"], \"reason\": \"Node 9765 ranks first due to the maximum severity z-score (13.2) in the source summary, consistent with high resource pressure visible in rt_max and connection metrics of co-located pods. Services 3394 and 603 are retained as secondary candidates showing lower z-scores (9.99, 8) and operation-level latency degradation, while 593 and 175 are included to satisfy the ranking constraint with negligible evidence.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-9293D99C285C",
+    "dataset": "aiops2022",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "61305",
+      "39926",
+      "57683",
+      "112",
+      "9777"
+    ],
+    "unknown": [
+      "9777"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.5,
+    "response": "{\"observations\": [{\"entity\": \"61305\", \"signal_or_relation\": \"java.lang.MemoryPool_Usage_used_Tenured_Gen\", \"unit\": \"source unit\", \"statistic\": \"level\", \"phase\": \"current\", \"reading\": \"4162e+7\", \"image\": 0, \"box\": [562, 731, 746, 852]}, {\"entity\": \"61305\", \"signal_or_relation\": \"container_cpu_cfs_throttled_seconds\", \"unit\": \"source unit\", \"statistic\": \"level\", \"phase\": \"current\", \"reading\": \"1548.6\", \"image\": 0, \"box\": [353, 729, 538, 843]}, {\"entity\": \"39926\", \"signal_or_relation\": \"hipstershop.803/AddItem\", \"unit\": \"ms\", \"statistic\": \"latency_p95_exclusive\", \"phase\": \"current\", \"reading\": \"8510\", \"image\": 0, \"box\": [674, 881, 849, 984]}], \"services\": [\"61305\", \"39926\", \"57683\", \"112\", \"9777\"], \"reason\": \"The incident is dominated by extreme resource exhaustion in entity 61305 (service 112), evidenced by memory usage spiking to 4.16e+7 and severe CPU throttling at 1548.6, which co-occurs with the latency increase in the primary candidate 39926. This resource starvation in 61305 is the initiating factor, effectively explaining the latency propagation to the downstream operation and subsequent performance degradation in service 112. The 'contradiction' check reveals that while 112 is involved, its specific JVM metrics are likely a symptom of the broader infrastructural constraint placed by 61305's abnormal resource consumption.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-A88DDA849391",
+    "dataset": "aegislab",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "352",
+      "45222",
+      "841",
+      "776",
+      "983"
+    ],
+    "unknown": [
+      "983"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 1.0,
+    "response": "{\"notes\": [\"MET07 shows k8s.pod.memory.working_set spiking on service 352, with a negative signed_z (-179.64) and fluctuating_3sigma (true), indicating a significant deviation from baseline memory usage.\", \"TRC06 shows the exclusive p95 latency for POST /api/v1/travelservice/trips/routes on service 352 increasing from 1676.5 μs to 3511.1 μs (a log2 ratio of 2.05), which is a major latency degradation.\", \"MET01 and MET04 show that a container restart occurred on pod 45222 (which hosts service 352), and the p99 HTTP request duration on this service (MET04) also spiked, corroborating an incident.\"], \"services\": [\"352\", \"45222\", \"841\", \"776\", \"983\"], \"reason\": \"Service 352 is the primary point of failure, evidenced by a massive memory spike on its pod, a subsequent container restart, and a significant increase in exclusive latency for its routes endpoint. The pod 45222 is the specific instance experiencing the restart, and the elevated memory likely led to this restart. Services 841 and 776 are involved in the parent-child request path where a degradation in p95/p99 was observed, but the root cause aligns with the resources and performance of service 352.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-3D65ABCF1DD8",
+    "dataset": "aiops2025",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "396",
+      "5779",
+      "7267",
+      "993",
+      "513"
+    ],
+    "unknown": [
+      "5779"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"97.396/GetProduct\", \"signal_or_relation\": \"TRC01 - Exclusive latency p95\", \"unit\": \"μs\", \"statistic\": \"p95 (exclusive)\", \"phase\": \"current\", \"reading\": \"1043.1 μs\", \"image\": 0, \"box\": [170, 680, 240, 740]}, {\"entity\": \"907.5779\", \"signal_or_relation\": \"MET10 - memory_usage\", \"unit\": \"bytes\", \"statistic\": \"step_change\", \"phase\": \"current\", \"reading\": \"1.768e+08 → 1.773e+08 (sharp upward spike at bin 58)\", \"image\": 0, \"box\": [120, 460, 180, 520]}, {\"entity\": \"907.7267\", \"signal_or_relation\": \"MET05 - node_disk_written_bytes_total\", \"unit\": \"bytes/s\", \"statistic\": \"peak_spike\", \"phase\": \"current\", \"reading\": \"7276.8 (sharp upward spike at bin 56)\", \"image\": 0, \"box\": [530, 630, 600, 680]}], \"services\": [\"396\", \"5779\", \"7267\", \"993\", \"513\"], \"reason\": \"The 'GetProduct' operation (Candidate 396) is the primary observation showing a significant latency regression, jumping from a reference of 997.9 μs to a current 1043.1 μs (TRC01). This degradation correlates temporally and spatially with a sharp memory spike in its dependent service '907.5779' (MET10) and a disk-write spike on the underlying node '907.7267' (MET05), indicating resource contention is driving the slow response. Secondary candidates 993 and 513 are considered due to the high latencies observed in their respective 'EmptyCart' and 'AddItem' transactions, which likely follow the same source-level degradation.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-AF990A16FDD6",
+    "dataset": "aiops2022",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "61117",
+      "746",
+      "6117",
+      "29140",
+      "6117"
+    ],
+    "unknown": [
+      "6117",
+      "6117"
+    ],
+    "duplicate": true,
+    "error": "['61117', '746', '6117', '29140', '6117'] has non-unique elements\n\nFailed validating 'uniqueItems' in schema['properties']['services']:\n    {'type': 'array',\n     'minItems': 5,\n     'maxItems': 5,\n     'uniqueItems': True,\n     'items': {'type': 'string'}}\n\nOn instance['services']:\n    ['61117', '746', '6117', '29140', '6117']",
+    "tolerant_mrr": 1.0,
+    "response": "{\"observations\": [{\"entity\": \"61117\", \"signal_or_relation\": \"hipstershop.746/GetCart\", \"unit\": \"µs\", \"statistic\": \"exclusive_p95\", \"phase\": \"current\", \"reading\": \"}, {\", \"image\": 1, \"box\": [0, 300, 650, 700]}], \"services\": [\"61117\", \"746\", \"6117\", \"29140\", \"6117\"], \"reason\": \"The dashboard shows that the 'Current' exclusive latency for 'hipstershop.746/GetCart' on pod 61117 is 4.22e+6 µs (4.2 seconds), whereas the reference value is approximately 600 µs, a massive spike. This pod also drives high response byte metrics (MET05), indicating it is the primary source of the service degradation.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-9FE4614C417F",
+    "dataset": "aegislab",
+    "arm": "S_GROUND",
+    "variant": "REPEAT",
+    "services": [
+      "849",
+      "407",
+      "550",
+      "7119",
+      "165"
+    ],
+    "unknown": [
+      "7119"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"849\", \"signal_or_relation\": \"hubble_http_request_duration_p95_seconds\", \"unit\": \"s\", \"statistic\": \"p95\", \"phase\": \"current\", \"reading\": \"4.7246\", \"image\": 1, \"box\": [20, 20, 600, 400]}, {\"entity\": \"407\", \"signal_or_relation\": \"http_post_api_v1_baseservice_basic_travels\", \"unit\": \"ms\", \"statistic\": \"p95\", \"phase\": \"current\", \"reading\": \"6238.9\", \"image\": 0, \"box\": [333, 653, 520, 833]}, {\"entity\": \"7119\", \"signal_or_relation\": \"k8s.container.restarts\", \"unit\": \"count\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": \"0.0\", \"image\": 0, \"box\": [520, 140, 700, 360]}], \"services\": [\"849\", \"407\", \"550\", \"7119\", \"165\"], \"reason\": \"Service 849 is the primary initiator, exhibiting an extreme latency spike (4.7s p95) and massive throughput drop (229 to 28 requests) in the SecurityController.check phase. Downstream service 407 shows elevated p95 latency (6238.9ms) and the same throughput reduction, consistent with load propagation from the upstream bottleneck. Service 7119 was checked and cleared as a cause, as its container restarts remained at 0.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-C426468D92A8",
+    "dataset": "aegislab",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "670",
+      "442",
+      "360",
+      "735",
+      "669"
+    ],
+    "unknown": [
+      "670"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.2,
+    "response": "{\"observations\": [{\"entity\": \"670\", \"signal_or_relation\": \"container.memory.page_faults\", \"unit\": \"count\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": \"13610\", \"image\": 0, \"box\": [438, 702, 625, 845]}, {\"entity\": \"442\", \"signal_or_relation\": \"POST /api/v1/travelplanservice/travelPlan/minStation\", \"unit\": \"microseconds\", \"statistic\": \"exclusive p95\", \"phase\": \"current\", \"reading\": \"23750\", \"image\": 0, \"box\": [503, 635, 688, 812]}, {\"entity\": \"360\", \"signal_or_relation\": \"k8s.pod.cpu.utilization\", \"unit\": \"ratio\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": \"0.030811\", \"image\": 0, \"box\": [438, 543, 625, 688]}], \"services\": [\"670\", \"442\", \"360\", \"735\", \"669\"], \"reason\": \"Candidate 670 is identified as the initiating component due to a significant increase in memory page faults (13610 in current vs 0 reference), indicating memory pressure that likely led to latency spikes. This aligns with the 1.14-second exclusive latency increase in service 442's POST operation, suggesting a direct impact from the memory issue. The observed CPU utilization spike in 360 and the latency rise in 735 (POST operation, 3.13ms current) are downstream symptoms rather than the origin, as they follow the initial memory fault event.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-1AC00B482121",
+    "dataset": "aiops2025",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "478",
+      "2172",
+      "38807",
+      "978",
+      "467"
+    ],
+    "unknown": [
+      "478"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.3333333333333333,
+    "response": "{\"observations\": [{\"entity\": \"478\", \"signal_or_relation\": \"AUX03-response\", \"unit\": \"ms\", \"statistic\": \"current\", \"phase\": \"current\", \"reading\": \"11.04\", \"image\": 0, \"box\": [338, 712, 500, 845]}, {\"entity\": \"478\", \"signal_or_relation\": \"node_cpu_usage_rate\", \"unit\": \"%\", \"statistic\": \"current\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [338, 712, 500, 845]}, {\"entity\": \"2172\", \"signal_or_relation\": \"node_cpu_usage_rate\", \"unit\": \"%\", \"statistic\": \"current\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [338, 712, 500, 845]}], \"services\": [\"478\", \"2172\", \"38807\", \"978\", \"467\"], \"reason\": \"Service 478 is the root of the latency increase, as observed in TRC05 (2511.7 -> 4511.4 us) and TRC06 (4511.7 -> 4511.4 us) and the clear elevation in AUX03. This impact propagates to its parent services, such as 2172 and 978, whose TRC01 and TRC04 panels show correlated latency changes. The observed z-score for service 38807 in panel 14 indicates a signal, but the magnitude of the latency spike on 478 suggests it is the origin of the incident.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-3842F45DAA9C",
+    "dataset": "aegislab",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "704",
+      "758",
+      "7573",
+      "134",
+      "256"
+    ],
+    "unknown": [
+      "7573"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.5,
+    "response": "{\"observations\": [{\"entity\": \"704\", \"signal_or_relation\": \"POST /api/v1/preserveservice/preserve\", \"unit\": \"ms\", \"statistic\": \"inclusive_median_ms\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [40, 800, 600, 900]}, {\"entity\": \"758\", \"signal_or_relation\": \"k8s.pod.filesystem.usage\", \"unit\": \"bytes\", \"statistic\": \"count\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [600, 500, 800, 600]}, {\"entity\": \"7573\", \"signal_or_relation\": \"Servert.service() for service\", \"unit\": \"string\", \"statistic\": \"error_count\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [750, 400, 950, 500]}], \"services\": [\"704\", \"758\", \"7573\", \"134\", \"256\"], \"reason\": \"Service 704 is the most plausible initiating component due to a massive increase in latency (from 2962.8 ms to ~960,000 ms) and a reduction in span count, indicating a bottleneck. This is supported by Service 758's high filesystem usage, likely stemming from 704's stalled requests, and the exception logged in pod 7573 for a failing nested call.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-D639854EA9F7",
+    "dataset": "aiops2022",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "44068",
+      "27435",
+      "34365",
+      "49190",
+      "70887"
+    ],
+    "unknown": [
+      "27435"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"44068\", \"signal_or_relation\": \"container_memory_mapped_file\", \"unit\": \"bytes\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": \"4325376.0\", \"image\": 0, \"box\": [820, 80, 1000, 200]}, {\"entity\": \"44068\", \"signal_or_relation\": \"TRC02 · hipstershop.944/ShipOrder\", \"unit\": \"µs\", \"statistic\": \"exclusive_p95\", \"phase\": \"current\", \"reading\": \"38396\", \"image\": 0, \"box\": [520, 580, 700, 700]}, {\"entity\": \"27435\", \"signal_or_relation\": \"container_memory_mapped_file\", \"unit\": \"bytes\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": \"405504.0\", \"image\": 0, \"box\": [820, 220, 1000, 340]}], \"services\": [\"44068\", \"27435\", \"34365\", \"49190\", \"70887\"], \"reason\": \"Pod 44068 shows a massive 10x increase in container_memory_mapped_file (4.3MB vs 405KB) combined with a high exclusive latency for the ShipOrder operation (38ms), suggesting a local resource exhaustion or code defect. While pod 27435 exhibits high memory mapped file usage (405KB), its performance metrics are closer to baseline than 44068. Pod 34365 shows a significant drop in filesystem usage (MET08), which could be a correlated effect or part of the same incident flow, but 44068 remains the primary initiator of the latency spike.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-D639854EA9F7",
+    "dataset": "aiops2022",
+    "arm": "S_GROUND",
+    "variant": "REPEAT",
+    "services": [
+      "44068",
+      "27435",
+      "34365",
+      "49190",
+      "70887"
+    ],
+    "unknown": [
+      "27435"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"44068\", \"signal_or_relation\": \"container_memory_mapped_file\", \"unit\": \"bytes\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": \"4325376.0\", \"image\": 0, \"box\": [820, 80, 1000, 200]}, {\"entity\": \"44068\", \"signal_or_relation\": \"TRC02 · hipstershop.944/ShipOrder\", \"unit\": \"µs\", \"statistic\": \"exclusive_p95\", \"phase\": \"current\", \"reading\": \"38396\", \"image\": 0, \"box\": [520, 580, 700, 700]}, {\"entity\": \"27435\", \"signal_or_relation\": \"container_memory_mapped_file\", \"unit\": \"bytes\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": \"405504.0\", \"image\": 0, \"box\": [820, 220, 1000, 340]}], \"services\": [\"44068\", \"27435\", \"34365\", \"49190\", \"70887\"], \"reason\": \"Pod 44068 shows a massive 10x increase in container_memory_mapped_file (4.3MB vs 405KB) combined with a high exclusive latency for the ShipOrder operation (38ms), suggesting a local resource exhaustion or code defect. While pod 27435 exhibits high memory mapped file usage (405KB), its performance metrics are closer to baseline than 44068. Pod 34365 shows a significant drop in filesystem usage (MET08), which could be a correlated effect or part of the same incident flow, but 44068 remains the primary initiator of the latency spike.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-924208910E84",
+    "dataset": "aiops2022",
+    "arm": "S_COMPARE",
+    "variant": "BASE",
+    "services": [
+      "97265",
+      "4260",
+      "77462",
+      "52571",
+      "97265"
+    ],
+    "unknown": [],
+    "duplicate": true,
+    "error": "['97265', '4260', '77462', '52571', '97265'] has non-unique elements\n\nFailed validating 'uniqueItems' in schema['properties']['services']:\n    {'type': 'array',\n     'minItems': 5,\n     'maxItems': 5,\n     'uniqueItems': True,\n     'items': {'type': 'string'}}\n\nOn instance['services']:\n    ['97265', '4260', '77462', '52571', '97265']",
+    "tolerant_mrr": 1.0,
+    "response": "{\"services\": [\"97265\", \"4260\", \"77462\", \"52571\", \"97265\"], \"reason\": \"Pod 97265 shows a sharp, sustained jump in `system.fs.inodes.used` and `system.fs.inodes_in_use` alongside a corresponding spike in `container_fs_reads_MB./dev/vda`, signaling intense local I/O operations on node 4260. This local contention explains the elevated p95 duration (78ms vs ~7ms) for `hipstershop.761/GetProduct` processed on that pod, confirming a resource-level bottleneck. Node 4260 is listed as a secondary candidate due to its direct hosting relationship, though the issue is localized to the specific pod's I/O.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-924208910E84",
+    "dataset": "aiops2022",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "97265",
+      "59663",
+      "97746",
+      "97742",
+      "97745"
+    ],
+    "unknown": [
+      "97746",
+      "97742",
+      "97745"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 1.0,
+    "response": "{\"observations\": [{\"entity\": \"97265\", \"signal_or_relation\": \"system.cpu.pct_usage\", \"unit\": \"%\", \"statistic\": \"value\", \"phase\": \"current\", \"reading\": \"}, {\", \"image\": 0, \"box\": [420, 540, 500, 620]}, {\"entity\": \"97265\", \"signal_or_relation\": \"container_cpu_user_seconds\", \"unit\": \"s\", \"statistic\": \"value\", \"phase\": \"current\", \"reading\": \"spike observed\", \"image\": 0, \"box\": [420, 700, 500, 780]}, {\"entity\": \"59663\", \"signal_or_relation\": \"hlptershoe.761/GetProduct\", \"unit\": \"ms\", \"statistic\": \"exclusive_p95\", \"phase\": \"current\", \"reading\": \"3542.1\", \"image\": 1, \"box\": [150, 300, 400, 350]}], \"services\": [\"97265\", \"59663\", \"97746\", \"97742\", \"97745\"], \"reason\": \"Candidate 97265 is the most plausible root cause due to a significant CPU usage spike and a corresponding user CPU seconds spike, indicating a resource exhaustion issue. This aligns with the high exclusive latency observed in the dependent service 59663 (hlptershoe.761/GetProduct), suggesting the processing delay originates from the overloaded source 97265. Conversely, the lack of similar CPU resource spikes in other top latency sources makes them less likely to be the primary origin of the incident.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-C9BD40E14E88",
+    "dataset": "aegislab",
+    "arm": "S_GROUND",
+    "variant": "REPEAT",
+    "services": [
+      "238",
+      "334",
+      "434",
+      "762",
+      "534"
+    ],
+    "unknown": [
+      "334"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.2,
+    "response": "{\"observations\": [{\"entity\": \"service 238\", \"signal_or_relation\": \"jvm.system.cpu.utilization\", \"unit\": \"ratio\", \"statistic\": \"peak\", \"phase\": \"current\", \"reading\": \"0.3976\", \"image\": 0, \"box\": [400, 500, 560, 670]}, {\"entity\": \"service 238\", \"signal_or_relation\": \"POST /api/v1/routepplanservice/routePlan/minStopStations\", \"unit\": \"ms\", \"statistic\": \"p95\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [320, 380, 390, 450]}, {\"entity\": \"service 334\", \"signal_or_relation\": \"jvm.system.cpu.utilization\", \"unit\": \"ratio\", \"statistic\": \"peak\", \"phase\": \"current\", \"reading\": \"0.39806\", \"image\": 0, \"box\": [560, 500, 720, 670]}], \"services\": [\"238\", \"334\", \"434\", \"762\", \"534\"], \"reason\": \"Service 238 is the primary candidate due to a z-score of 285.7 on CPU utilization, indicating a 16x increase from its 0.02412 baseline to a 0.3976 peak. This resource saturation directly correlates with the massive latency degradation in the `routepplan` operation (7.21 log2 ratio), serving as the effective cause for the propagation of high latency (rank 2.04e+5) to downstream services 434 and 762. Service 334 is ranked second due to the highest CPU anomaly (peak 0.39806) which mirrors the incident at 238 but with slightly less direct evidence of upstream impact in this view.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-F5B2E7B7AD42",
+    "dataset": "aiops2022",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "6533",
+      "66259",
+      "40319",
+      "93863",
+      "60410"
+    ],
+    "unknown": [
+      "6533"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"6533\", \"signal_or_relation\": \"container_memory_rss\", \"unit\": \"bytes\", \"statistic\": \"max\", \"phase\": \"current\", \"reading\": \"5.22e+7\", \"image\": 0, \"box\": [800, 200, 980, 350]}, {\"entity\": \"6533\", \"signal_or_relation\": \"java.lang.MemoryPool_Usage_used.Tenured_Gen\", \"unit\": \"bytes\", \"statistic\": \"max\", \"phase\": \"current\", \"reading\": \"5.22e+7\", \"image\": 0, \"box\": [800, 200, 980, 350]}, {\"entity\": \"66259\", \"signal_or_relation\": \"istio_request_duration_milliseconds.grpc.200.0.0\", \"unit\": \"ms\", \"statistic\": \"p95\", \"phase\": \"current\", \"reading\": \"580000\", \"image\": 0, \"box\": [400, 400, 600, 550]}], \"services\": [\"6533\", \"66259\", \"40319\", \"93863\", \"60410\"], \"reason\": \"Candidate 6533 exhibits a massive, step-function spike in container RSS memory (MET04, +~2GB to 5.22e7 bytes) that is temporally correlated with a latency spike in the dependent service 66259 (MET10). The increase in memory usage strongly indicates a resource exhaustion event or memory leak in 6533, which likely caused the GC pauses or latency degradation observed downstream in the call path (66259 -> 40319).\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-FDDF807FBAA4",
+    "dataset": "aiops2025",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "372",
+      "699",
+      "304",
+      "527",
+      "707"
+    ],
+    "unknown": [
+      "372"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"372\", \"signal_or_relation\": \"node_filesystem_free_bytes\", \"unit\": \"bytes\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": \"41319\", \"image\": 0, \"box\": [0, 0, 0, 0]}, {\"entity\": \"699\", \"signal_or_relation\": \"MET07_write_wal_mbps\", \"unit\": \"mbps\", \"statistic\": \"peak\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [0, 0, 0, 0]}, {\"entity\": \"304\", \"signal_or_relation\": \"TRC02_520.304/ShipOrder\", \"unit\": \"ms\", \"statistic\": \"exclusive_p95\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [0, 0, 0, 0]}], \"services\": [\"372\", \"699\", \"304\", \"527\", \"707\"], \"reason\": \"Service 527 (pod 38183) exhibits a massive latency increase (p95 1.03e5 ms, z=58.7) with 349 events, and a z-score of 16m on the onset source summary, indicating a strong link to the child operation. Node 372 shows a sharp drop in free filesystem bytes, providing a clear physical root cause for the latency spike in the co-located service. Service 304 is a candidate parent that shows a significant latency increase as a consequence, and Service 707 is the entry point to the flow.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-6FDD214ABC63",
+    "dataset": "aiops2025",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "88409",
+      "8130",
+      "93651",
+      "96228",
+      "88409"
+    ],
+    "unknown": [],
+    "duplicate": true,
+    "error": "['88409', '8130', '93651', '96228', '88409'] has non-unique elements\n\nFailed validating 'uniqueItems' in schema['properties']['services']:\n    {'type': 'array',\n     'minItems': 5,\n     'maxItems': 5,\n     'uniqueItems': True,\n     'items': {'type': 'string'}}\n\nOn instance['services']:\n    ['88409', '8130', '93651', '96228', '88409']",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"88409\", \"signal_or_relation\": \"rt\", \"unit\": \"us\", \"statistic\": \"current_p95\", \"phase\": \"current\", \"reading\": \"}, {\", \"image\": 0, \"box\": [420, 540, 500, 620]}, {\"entity\": \"8130\", \"signal_or_relation\": \"node_memory_usage_rate\", \"unit\": \"percent\", \"statistic\": \"reference_p95\", \"phase\": \"reference\", \"reading\": \"}, {\", \"image\": 0, \"box\": [170, 520, 250, 600]}, {\"entity\": \"93651\", \"signal_or_relation\": \"pod_memory_working_set_bytes\", \"unit\": \"bytes\", \"statistic\": \"peak\", \"phase\": \"current\", \"reading\": \"}, {\", \"image\": 1, \"box\": [10, 10, 350, 350]}], \"services\": [\"88409\", \"8130\", \"93651\", \"96228\", \"88409\"], \"reason\": \"Anomaly onset at 19m shows a sharp spike in latency (rt) for pod 88409, specifically for the 'Recv' operation, coinciding with a drop in network throughput. This aligns with the observed decrease in node_memory_usage_rate for node 8130, indicating resource exhaustion or throttling. The simultaneous spike in pod_memory_working_set_bytes for pod 93651 supports a memory pressure event, though 88409 shows the most severe latency impact.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-77C683F9B6C0",
+    "dataset": "aiops2025",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "204",
+      "8450",
+      "9081",
+      "203",
+      "463"
+    ],
+    "unknown": [
+      "8450"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"notes\": [\"Panel AUX03 and TRC04 identify that the p95 exclusive latency for ID 204 increased from a reference of 3044.8 µs to 4140.8 µs, a significant regression. The exclusive nature of this measurement suggests the degradation is local to ID 204's execution context.\", \"A correlated drop in ID 8450's transmit bytes (Panel 24) serves as a supporting signal, indicating resource saturation or queuing. However, the drop is minor in absolute terms, meaning it is a symptom of the latency spike rather than the primary cause.\", \"Error rates in upstream components (service 203, service 463) were observed to spike, but the lack of local infrastructure anomalies on the target host (ID 9081) isolates the fault to the specific process rather than the node network.\"], \"services\": [\"204\", \"8450\", \"9081\", \"203\", \"463\"], \"reason\": \"ID 204 is the primary candidate because the exclusive p95 latency (3044.8 µs reference vs 4140.8 µs current) proves it is the root point of the latency increase rather than a victim of downstream propagation. ID 8450 is selected because its network transmit bytes dropped concurrently (24.485 to 11.1), corroborating the processing delay. ID 9081 is included as the host for ID 204; while its local metrics appear healthy, ID 204 is responsible for the anomaly. Upstream IDs 203 and 463 are ranked last as their observed error spikes are downstream symptoms of the increased propagation time.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-65CE2F2F3440",
+    "dataset": "aiops2022",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "87242",
+      "8728",
+      "87154",
+      "87268",
+      "8728"
+    ],
+    "unknown": [
+      "87242",
+      "87268"
+    ],
+    "duplicate": true,
+    "error": "['87242', '8728', '87154', '87268', '8728'] has non-unique elements\n\nFailed validating 'uniqueItems' in schema['properties']['services']:\n    {'type': 'array',\n     'minItems': 5,\n     'maxItems': 5,\n     'uniqueItems': True,\n     'items': {'type': 'string'}}\n\nOn instance['services']:\n    ['87242', '8728', '87154', '87268', '8728']",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"87242\", \"signal_or_relation\": \"java_lang_GarbageCollector_LastGcInfo_memoryUsageBeforeGc_Used_Eden_Space\", \"unit\": \"bytes\", \"statistic\": \"value\", \"phase\": \"current\", \"reading\": \"], \", \"image\": 0, \"box\": [560, 670, 720, 740]}, {\"entity\": \"8728\", \"signal_or_relation\": \"system_net_tcp_retrans_segs\", \"unit\": \"count\", \"statistic\": \"value\", \"phase\": \"current\", \"reading\": \"8.29\", \"image\": 0, \"box\": [320, 680, 440, 750]}, {\"entity\": \"8728\", \"signal_or_relation\": \"system_net_tcp_out_segs\", \"unit\": \"count\", \"statistic\": \"value\", \"phase\": \"current\", \"reading\": \"7360.8\", \"image\": 0, \"box\": [440, 680, 560, 750]}], \"services\": [\"87242\", \"8728\", \"87154\", \"87268\", \"8728\"], \"reason\": \"The massive latency spike in the grpc response (panel 62) is directly caused by the GC pause on the hipstershop service (pod 87242). This CPU stall on the local node (8728) results in network packet retransmissions (8.29 vs 0 baseline), creating a systemic latency event.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-28E6F5E88478",
+    "dataset": "aiops2025",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "153",
+      "3190",
+      "638",
+      "277",
+      "613"
+    ],
+    "unknown": [
+      "613"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"notes\": [\"Panel 21 (LT6165) logs show a spike of 201 conversion events with a timestamp of 19m, directly correlating with the onset time of node_disk_write_time_seconds_total (MET04) on service 638. Panel 38 displays node_disk_write_time_seconds_total for service 638 with a peak of 0.02 (current) vs 0.01 (reference), confirming \", \"The fault hierarchy is centered on node_disk_write_time_seconds_total (26) for service 638. Service 638 depends on service 153 (as per the ARCS in Panel 3). Service 153 is observed to be the root cause, with a high probability of being the originating fault.\", \"Service 153 is a service, not a node. Node 3190 is also a high-probability candidate, but service 153 is more likely the root cause, as it is a service and its latency (TRC05) is 5924.3us.\"], \"services\": [\"153\", \"3190\", \"638\", \"277\", \"613\"], \"reason\": \"Service 153 has a high probability (0.5) of being the root cause, supported by the 3m onset time in Panel 21. Node 3190 has a high probability (0.4) and is the next most likely candidate. Service 638 has a medium probability (0.3) and is the third most likely candidate.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-28E6F5E88478",
+    "dataset": "aiops2025",
+    "arm": "S_COMPARE",
+    "variant": "BASE",
+    "services": [
+      "613",
+      "288",
+      "959",
+      "869",
+      "638"
+    ],
+    "unknown": [
+      "613"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"services\": [\"613\", \"288\", \"959\", \"869\", \"638\"], \"reason\": \"The confirmed caller is the POST /921.615/AddItem operation (pair01/02, exclusive p95 ~3.8s current vs ~2.9ms reference), which is owned by service 613 per the 'Candidate ID -> deployment' mapping; it exhibits near-total child latency inheritance (parent p95 ≈ child p95 for both children 288 and 959), so 613 itself contains the cost. The exclusion shows 921.869/GetSupportedCurrencies (service 869) is marginally high (rank 0.09) and not on the AddItem path, and disk/node signals (3190, 8410) show only small or isolated changes, leaving 613's internal handling as the initiating point with 288/959 as downstream confirmations.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-E74124445490",
+    "dataset": "aiops2025",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "5967",
+      "14325",
+      "307",
+      "317",
+      "1263"
+    ],
+    "unknown": [
+      "5967"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.3333333333333333,
+    "response": "{\"notes\": [\"Panel TRO1 (s307 PlaceOrder) and TRO6 (s317 Recv.) show dominant absolute latency degradation (2.0ms and 4.7ms respectively) compared to baselines, while upstream s628 and s551 exhibit stable or minor shifts.\", \"Panel M004 (s5967 working_set) exhibits a sharp sustained increase in memory. Crucially, M024/M022 show that resource saturation (CPU/memory percent) and network drop metrics remain stable across the entire fleet, isolating the memory accumulation to s5967.\", \"Panel M017 (s14325) shows a log error spike (approx. 200 err/min) that temporally correlates with the memory growth on pod 5967; s14325 is upstream of s5967 per the 33-panel topology, suggesting an upstream trigger or shared-fate replica failure.\"], \"services\": [\"5967\", \"14325\", \"307\", \"317\", \"1263\"], \"reason\": \"The investigation identifies pod 5967 as the initiating component, exhibiting a massive increase in working set memory (M004) that coincides with TRO1 PlaceOrder latency exceeding 2.0ms. This latency impact propagates upstream to s317 (TRO6), creating a highly correlated cluster in the application 307/317 subtree, while global resource checks (M014/M021) rule out host-level saturation. The presence of log errors on s14325 (M017) suggests a possible upstream origin, but the isolation of the memory spike to 5967 makes it the most plausible root.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-9AB0165E6803",
+    "dataset": "aiops2022",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "62583",
+      "6985",
+      "62635",
+      "62629",
+      "62583"
+    ],
+    "unknown": [
+      "62629"
+    ],
+    "duplicate": true,
+    "error": "['62583', '6985', '62635', '62629', '62583'] has non-unique elements\n\nFailed validating 'uniqueItems' in schema['properties']['services']:\n    {'type': 'array',\n     'minItems': 5,\n     'maxItems': 5,\n     'uniqueItems': True,\n     'items': {'type': 'string'}}\n\nOn instance['services']:\n    ['62583', '6985', '62635', '62629', '62583']",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"62583\", \"signal_or_relation\": \"container_memory_cache\", \"unit\": \"bytes\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": \"}, {\", \"image\": 0, \"box\": [420, 540, 500, 620]}, {\"entity\": \"6985\", \"signal_or_relation\": \"system.load.15\", \"unit\": \"\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": \"}, {\", \"image\": 0, \"box\": [510, 460, 650, 540]}, {\"entity\": \"62583\", \"signal_or_relation\": \"container_memory_working_set_MB\", \"unit\": \"MB\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": \"}, {\", \"image\": 0, \"box\": [300, 200, 400, 300]}], \"services\": [\"62583\", \"6985\", \"62635\", \"62629\", \"62583\"], \"reason\": \"Pod 62583 (running a copy of Service 720) exhibits a severe 30% drop in memory cache (Panel 31) and a 24% drop in working set (Panel 22), which is strongly correlated with a 21% rise in 15-minute load on its host node 6985 (Panel 27). The workload on these pods is characterized by low requests per second but extremely high request duration (397ms to 401ms p50 in Panel 70), suggesting a resource exhaustion loop causing heavy compute load and subsequent performance degradation, with the collocated pod 62635 likely sharing the host-level impact.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-9AB0165E6803",
+    "dataset": "aiops2022",
+    "arm": "S_GROUND",
+    "variant": "REPEAT",
+    "services": [
+      "62583",
+      "6985",
+      "62635",
+      "62629",
+      "62583"
+    ],
+    "unknown": [
+      "62629"
+    ],
+    "duplicate": true,
+    "error": "['62583', '6985', '62635', '62629', '62583'] has non-unique elements\n\nFailed validating 'uniqueItems' in schema['properties']['services']:\n    {'type': 'array',\n     'minItems': 5,\n     'maxItems': 5,\n     'uniqueItems': True,\n     'items': {'type': 'string'}}\n\nOn instance['services']:\n    ['62583', '6985', '62635', '62629', '62583']",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"62583\", \"signal_or_relation\": \"container_memory_cache\", \"unit\": \"bytes\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": \"}, {\", \"image\": 0, \"box\": [420, 540, 500, 620]}, {\"entity\": \"6985\", \"signal_or_relation\": \"system.load.15\", \"unit\": \"\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": \"}, {\", \"image\": 0, \"box\": [510, 460, 650, 540]}, {\"entity\": \"62583\", \"signal_or_relation\": \"hipstershop.720/ShipOrder\", \"unit\": \"us\", \"statistic\": \"Exclusive latency p95\", \"phase\": \"current\", \"reading\": \"9165.0\", \"image\": 0, \"box\": [430, 740, 520, 810]}], \"services\": [\"62583\", \"6985\", \"62635\", \"62629\", \"62583\"], \"reason\": \"The incident is driven by a resource exhaustion loop in pod 62583, which exhibits a massive spike in 'container_memory_cache' (dropping from ~1.2GB to 5.3MB current median relative to reference) and a 28x increase in exclusive latency for 'ShipOrder'. The coincident surge in 'system.load.15' on node 6985 (from 0.83 to 1.01) indicates the performance degradation is causing the host to saturate, likely due to the heavy memory thrashing or processing overhead in pod 62583.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-3C072440A74A",
+    "dataset": "aegislab",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "871",
+      "835",
+      "379",
+      "213",
+      "598"
+    ],
+    "unknown": [
+      "213"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"notes\": [\"Memory fault rate on service 871 increased by ~10% (1.48e5 to 1.59e5) and RSS peaked at 6.458e8 during the incident window, suggesting resource exhaustion.\", \"The database query SELECT ts.auth_user on service 835 showed a severe latency regression (26114 µs ref to 680531 µs curr) coinciding with high CPU utilization spikes.\", \"CPU and memory stress on service 871 correlates with slow response times in downstream services (213, 598, 813), but CPU spikes elsewhere (871, 379) may be secondary to queuing.\"], \"services\": [\"871\", \"835\", \"379\", \"213\", \"598\"], \"reason\": \"Service 871 is the primary suspect due to simultaneous high RSS, elevated page faults, and CPU spikes that align with latency regressions in its downstream dependency (835). While service 835 shows the most severe latency change (traced to a slow auth_user query), the memory/cpu pressure on 871 suggests it is the upstream initiator of the resource contention.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-9C8982A9736C",
+    "dataset": "aiops2025",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "38958",
+      "25922",
+      "88058",
+      "9715",
+      "35171"
+    ],
+    "unknown": [
+      "9715"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.5,
+    "response": "{\"observations\": [{\"entity\": \"38958\", \"signal_or_relation\": \"rt\", \"unit\": \"ms\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": \"4.719e+05\", \"image\": 0, \"box\": [240, 500, 480, 700]}, {\"entity\": \"25922\", \"signal_or_relation\": \"rt_max\", \"unit\": \"ms\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": \"471014.33\", \"image\": 0, \"box\": [720, 250, 960, 450]}, {\"entity\": \"38958\", \"signal_or_relation\": \"node_filesystem_free_bytes\", \"unit\": \"bytes\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": \"7.432e+09\", \"image\": 0, \"box\": [480, 500, 720, 700]}], \"services\": [\"38958\", \"25922\", \"88058\", \"9715\", \"35171\"], \"reason\": \"Candidate 38958 is identified as the most plausible cause due to a massive deviation in 'rt' (4.7e+05 ms vs 1.1e+03 ms reference) indicating severe latency in its service layer. This latency spike is independently corroborated by the 'rt_max' spike observed on its host node 25922. Conversely, 'node_filesystem_free_bytes' remains stable (approx. 7.4e+09), effectively ruling out disk space exhaustion as the origin of the performance degradation.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-9C8982A9736C",
+    "dataset": "aiops2025",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "265",
+      "198",
+      "845",
+      "374",
+      "1435"
+    ],
+    "unknown": [
+      "1435"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 1.0,
+    "response": "{\"notes\": [\"Panel 58 (707.265/PlaceOrder) reveals the P95 inclusive latency increased from 213.45 ms to 8750.1 ms, establishing a 40x regression in service 265. Panel 34 confirms this is driven by an 'Observed anomaly onset' at 17 min. The entire 8.5s delta is captured locally in the service's internal processing.\", \"The latency regression is almost exclusively exclusive: Panel 14 (707.198/Recv) shows its downstream dependency at a baseline of 3793.3 us, while 265's own internal (exclusive) latency is 3739.3 us. This indicates the delay is originating locally within 265's processing rather than being inherited from service 198.\", \"While panel 22 (node 2924) shows a synchronized ~30% drop in available memory starting around 17 min (correlating with service 845/374), no Pod-level memory, filesystem, or CPU spike is observed on Pod 42027 or Node 1435 where service 265 runs, making a node-level resource exhaustion an alternative but unproven origin.\"], \"services\": [\"265\", \"198\", \"845\", \"374\", \"1435\"], \"reason\": \"Service 265 exhibits the dominant latency regression (8.7s p95) driven by a jump in exclusive latency (3.7ms) that coincides with the observed 17-min anomaly onset. A local check of its dependency (198) and the host resource profile (1435) reveals no corresponding metric anomalies, isolating the failure signature to 265 itself. While a correlated memory dip on Node 2924 (associated with service 845) provides a potential alternative resource-hypothetical, its isolated nature keeps the primary cause attribution with service 265.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-18A2FBB6BB2D",
+    "dataset": "aegislab",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "234",
+      "561",
+      "125",
+      "50863",
+      "571"
+    ],
+    "unknown": [
+      "50863"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"notes\": [\"Memory pressure on service 234 is severe (MET07 peak 1.59GB, MET08 limit utilization 49%), directly correlating with the latency jump in TRC05 (StationFoodController on service 561) which calls into the affected cluster.\", \"Observed logs LT214 show 'Request processing failed' exceptions at pod 508632, which is a pod of service 234, confirming an application-level failure mode alongside resource exhaustion.\", \"Trace topology indicates service 125 calls 234; while 125 shows latency regression (485ms vs 318ms), the resource saturation on 234 is the stronger root indicator for the downstream slowness.\"], \"services\": [\"234\", \"561\", \"125\", \"50863\", \"571\"], \"reason\": \"Service 234 exhibits high memory utilization (MET10 49%) and RSS spikes (MET07/MET08), triggering failure modes (LT214 logs) that propagate latency to its client service 561 (TRC05 p95 4903us vs 3329us) and upstream service 125 (325ms increase). Pod 50863 in service 234 is a specific failure instance. Confidence is high due to consistent multi-modal evidence (metrics, traces, logs) binding the anomaly to the memory state of 234.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-16A4DF199613",
+    "dataset": "aiops2022",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "63663",
+      "41368",
+      "42751",
+      "41368",
+      "42751"
+    ],
+    "unknown": [],
+    "duplicate": true,
+    "error": "['63663', '41368', '42751', '41368', '42751'] has non-unique elements\n\nFailed validating 'uniqueItems' in schema['properties']['services']:\n    {'type': 'array',\n     'minItems': 5,\n     'maxItems': 5,\n     'uniqueItems': True,\n     'items': {'type': 'string'}}\n\nOn instance['services']:\n    ['63663', '41368', '42751', '41368', '42751']",
+    "tolerant_mrr": 0.3333333333333333,
+    "response": "{\"observations\": [{\"entity\": \"63663\", \"signal_or_relation\": \"container_memory_cache\", \"unit\": \"bytes\", \"statistic\": \"max\", \"phase\": \"current\", \"reading\": \"3.87e+7\", \"image\": 0, \"box\": [10, 220, 300, 450]}, {\"entity\": \"63663\", \"signal_or_relation\": \"container_cpu_user_seconds\", \"unit\": \"seconds\", \"statistic\": \"max\", \"phase\": \"current\", \"reading\": \"26.42\", \"image\": 0, \"box\": [505, 510, 695, 700]}, {\"entity\": \"41368\", \"signal_or_relation\": \"istio_request_duration_milliseconds.http.200\", \"unit\": \"ms\", \"statistic\": \"p95\", \"phase\": \"current\", \"reading\": \"95276.0\", \"image\": 0, \"box\": [70, 710, 180, 980]}], \"services\": [\"63663\", \"41368\", \"42751\", \"41368\", \"42751\"], \"reason\": \"Candidate 63663 is the primary initiater, evidenced by a massive jump in CPU usage to 26.42 seconds and memory cache peaking at 38.7 MB during the current phase, establishing a clear resource exhaustion condition. The latency cascade in downstream services 41368 and 42751 is consistent with this upstream bottleneck as the primary cause, with the latency increase in 41368 reaching 95.27 seconds. The system metric observations further support the resource contention on node 9812 where 63663 is running.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-BF08743A4A7D",
+    "dataset": "aegislab",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "91353",
+      "24488",
+      "714",
+      "574",
+      "996"
+    ],
+    "unknown": [
+      "574"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 1.0,
+    "response": "{\"notes\": [\"Panel 58 k8s.container.restarts shows a clear, sustained restart increase on pod 91353, coinciding with a synchronized drop in k8s.pod.memory.available on service 714 (Panel 10). The restart behavior on pod 91353 is the earliest anomaly in the fault window.\", \"The restarts correlate with a CPU spike on pod 24488 (Panel 24), which is part of the same service cluster (574/714). This suggests a resource exhaustion or crash-restart loop rather than a simple traffic increase.\", \"The exclusion of 996 from the primary failures is supported by stable memory (Panel 07) and absent container restarts, though it is the parent service for the failing calls in Trace01/Trace03.\"], \"services\": [\"91353\", \"24488\", \"714\", \"574\", \"996\"], \"reason\": \"The fault originates from a pod-level failure where pod 91353 (services 574/714) experiences persistent container restarts, consistent with a resource or health-check crash loop. This failure triggers a synchronized memory drop on service 714 and a secondary CPU spike on co-located pod 24488, leading to downstream latency in service 996 and a degradation in payment operations (service 104/966).\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-6DCAE95A54B2",
+    "dataset": "aiops2025",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "5301",
+      "154",
+      "998",
+      "370",
+      "1238"
+    ],
+    "unknown": [
+      "1238"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 1.0,
+    "response": "{\"notes\": [\"Panel AUX01 (node 5301) reveals a severe Node Not Ready anomaly with an onset z-score of +34.0m and a memory usage spike, placing the node as the primary root cause trigger.\", \"The failure propagates through pods on node 5301 to service 154, where the 'Charge' operation (Panel TRC05) exhibits a massive latency jump from a 2.3ms reference to 68.2ms current p95.\", \"An observed contradiction is present in Service 998 (Panel TRC02), which also shows high latency; however, since the parent-child relationship indicates 998 is a caller of 154 (and potentially 370), the local latency in 154 on the faulty node remains the most plausible primary origin.\"], \"services\": [\"5301\", \"154\", \"998\", \"370\", \"1238\"], \"reason\": \"Node 5301 is the most plausible initiating component due to an extreme z-score anomaly (+34.0m) and memory spike that precedes the service-level latency failures. This resource exhaustion on the node likely caused the 68ms latency spike in service 154 ('Charge'), which in turn propagated delay to callers like 998. While 998 and 370 exhibit high latency, their roles as parents in the call graph to the affected child 154 suggest they are downstream symptoms rather than independent root causes.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-058FC5DD18AD",
+    "dataset": "aegislab",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "650",
+      "661",
+      "576",
+      "845",
+      "717"
+    ],
+    "unknown": [
+      "576"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"notes\": [\"Panel MET08 (k8s.pod.filesystem.available on service 650) shows a critical negative dip reaching bin 54, indicating root volume exhaustion. This aligns with the onset of high-severity signals on upstream services 717 and 419.\", \"The observed 'Attempting to connect to' log on service 661 correlates with a massive spike in its exclusive latency (panel TRC01) and pressure signals on dependency service 576, confirming a downstream timeout cascade.\", \"Co-localization of the disk metric (650) with the network failure logs (661) and memory faults (845) suggests a systemic resource pressure or node-level hardware failure rather than an application-level logic error.\"], \"services\": [\"650\", \"661\", \"576\", \"845\", \"717\"], \"reason\": \"The root cause is diagnosed as resource exhaustion (storage I/O or disk space) on service 650, evidenced by the MET08 metric collapse. This exhaustion propagated to service 661, causing connect-time failures and latency spikes, while secondary pressure (memory/CPU) affected co-located or dependent services 576 and 845.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-1EF3346D26B2",
+    "dataset": "aegislab",
+    "arm": "S_GROUND",
+    "variant": "REPEAT",
+    "services": [
+      "373",
+      "117",
+      "733",
+      "933",
+      "435"
+    ],
+    "unknown": [
+      "733"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.2,
+    "response": "{\"observations\": [{\"entity\": \"373\", \"signal_or_relation\": \"AssuranceRepository.save\", \"unit\": \"ms\", \"statistic\": \"p50\", \"phase\": \"current\", \"reading\": \"}, {\", \"image\": 1, \"box\": [40, 40, 960, 950]}, {\"entity\": \"117\", \"signal_or_relation\": \"Queue/Buffer\", \"unit\": \"count\", \"statistic\": \"p95\", \"phase\": \"current\", \"reading\": \"}, {\", \"image\": 0, \"box\": [60, 60, 400, 500]}, {\"entity\": \"733\", \"signal_or_relation\": \"memory_rss\", \"unit\": \"bytes\", \"statistic\": \"p95\", \"phase\": \"current\", \"reading\": \"}, {\", \"image\": 0, \"box\": [600, 50, 950, 400]}], \"services\": [\"373\", \"117\", \"733\", \"933\", \"435\"], \"reason\": \"Candidate 373 (AssuranceRepository.save) shows a severe regression in p50/p95 latency (844μs reference to 3789μs current), which aligns with the 'Initiating' nature of the incident. Upstream services 117 and 733 (identifying likely travel route planning logic) exhibit corresponding p95 latency increases (147μs vs 227μs) and inclusive span count drops, indicating they are propagating this slowness. Co-located node metrics (389, 791) show no significant saturation, supporting the hypothesis of a specific logic/DB interaction issue in 373 rather than general infra failure.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-8D7BC30E2DAB",
+    "dataset": "aegislab",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "652",
+      "657",
+      "931",
+      "307",
+      "96090"
+    ],
+    "unknown": [
+      "657"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.2,
+    "response": "{\"observations\": [{\"entity\": \"652\", \"signal_or_relation\": \"AUX03 - container.memory.page_faults\", \"unit\": \"count\", \"statistic\": \"current_mean\", \"phase\": \"current\", \"reading\": \"168100.0\", \"image\": 0, \"box\": [0, 0, 1000, 1000]}, {\"entity\": \"657\", \"signal_or_relation\": \"kbs.container.restarts\", \"unit\": \"count\", \"statistic\": \"current_mean\", \"phase\": \"current\", \"reading\": \"1.0\", \"image\": 0, \"box\": [531, 195, 820, 380]}, {\"entity\": \"931\", \"signal_or_relation\": \"TRC05 - POST /api/v1/inside_pay_service/inside_payment\", \"unit\": \"ms\", \"statistic\": \"exclusive_latency_p95\", \"phase\": \"current\", \"reading\": \"358953.93\", \"image\": 0, \"box\": [390, 740, 490, 890]}], \"services\": [\"652\", \"657\", \"931\", \"307\", \"96090\"], \"reason\": \"Service 652 (foodservice) exhibits a massive increase in memory page faults (AUX03) from ~1.4k to ~1.6e5, likely causing the downstream latency in service 931 (TRC05). Service 657 is a relevant observation showing a container restart that correlates with the incident timeline, potentially serving as the trigger or recovery attempt for the underlying memory or logic issue. The high latency in 931 (TRC05) is a direct consequence of the resource exhaustion or thread blocking observed in the dependency chain.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-9AF32547D264",
+    "dataset": "aegislab",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "521",
+      "592",
+      "721",
+      "375",
+      "441"
+    ],
+    "unknown": [
+      "521"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"notes\": [\"Panel AUX03 (s.592) and PageFaults (s.721) show a sudden, step-change increase in `container.memory.page_faults` from ~2.4e9 to 8.4e10, signaling a systemic memory pressure event across the fleet.\", \"The memory anomaly correlates temporally with a sharp latency spike in `hubble_http_request_duration` (s.441, s.547, s.741) and the reduction of `k8s.pod.cpu.usage` (s.375) to 0, consistent with nodes struggling to satisfy swap demands.\", \"Leading candidate 521 (s.721) is strongly supported by the direct page-fault signal; a contradiction/alternative is that s.592 exhibits an identical memory pattern, suggesting the fault might have originated there rather than at s.721.\"], \"services\": [\"521\", \"592\", \"721\", \"375\", \"441\"], \"reason\": \"Candidate 521 is the primary driver, evidenced by the extreme spike in memory.page_faults (AUX03) which directly correlates with the latency explosion (MET12) and the subsequent CPU throttling (MET03). A check of the secondary candidate 592 reveals a matching page-fault profile, introducing an alternative origin for the initial memory strain. These observations suggest a cascading resource exhaustion starting from the 521/592 units, propagating through the network services.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-B9652C6DC060",
+    "dataset": "aiops2025",
+    "arm": "S_COMPARE",
+    "variant": "BASE",
+    "services": [
+      "758",
+      "118",
+      "12288",
+      "603",
+      "969"
+    ],
+    "unknown": [
+      "118"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.2,
+    "response": "{\"services\": [\"758\", \"118\", \"12288\", \"603\", \"969\"], \"reason\": \"TRC05 shows the primary exclusive latency degradation (+14.9k µs, max rank score 0.75) at the leading service 758, indicating a local resource saturation or dependency failure; this is supported by the 45% jump in node_cpu_usage_rate (22.46 vs 15.62) on co-located node 118 and the +20% increase in pod_network_receive_bytes (671.01 vs 540.5) on the same node's pod 12288, which together provide corroborating local infrastructure stress for the latency event.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-50C26A55D214",
+    "dataset": "aegislab",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "871",
+      "872",
+      "852",
+      "850",
+      "899"
+    ],
+    "unknown": [
+      "872",
+      "850"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"871\", \"signal_or_relation\": \"k8s.pod.memory.node.utilization\", \"unit\": \"ratio\", \"statistic\": \"p50\", \"phase\": \"current\", \"reading\": \"0.080694\", \"image\": 0, \"box\": [50, 620, 330, 850]}, {\"entity\": \"871\", \"signal_or_relation\": \"k8s.pod.memory.node.utilization\", \"unit\": \"ratio\", \"statistic\": \"p50\", \"phase\": \"reference\", \"reading\": \"0.00505\", \"image\": 0, \"box\": [330, 620, 500, 850]}, {\"entity\": \"872\", \"signal_or_relation\": \"k8s.pod.memory.available\", \"unit\": \"bytes\", \"statistic\": \"mean\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [50, 200, 330, 450]}], \"services\": [\"871\", \"872\", \"852\", \"850\", \"899\"], \"reason\": \"Node 871 exhibits a critical memory exhaustion event with node utilization spiking from 0.005 to 0.081 (MET06), 16x the reference. This likely induced GC pressure on collocated pods such as 852 (Service 852), explaining the latency regression in SELECT ts.inside_money from 1141.1µs to 3033.5µs (TRC05).\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-32757906019C",
+    "dataset": "aiops2022",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "569",
+      "4265",
+      "524",
+      "593",
+      "567"
+    ],
+    "unknown": [
+      "593",
+      "567"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"notes\": [\"Panel 567 (POD 56767) shows MET2: container_memory_failures.hierarchy.pgmajfault at 18714, an extreme deviation from baseline 0 that indicates hard OOM pressure in service 569. Panel 389 (Node 4265) reports system.mem.free at only 1.03kB in the current interval versus a 4662kB reference, confirming a host-level memory-\"], \"services\": [\"569\", \"4265\", \"524\", \"593\", \"567\"], \"reason\": \"The investigation identifies Node 4265 (4265) as the initiating component due to a critical system.mem.free anomaly (1.03kB vs. 4.662MB reference). This memory exhaustion explains the observed pgmajfault spike in Service 569 (569) and the propagation of latency into downstream RPCs (TRC05/TRC10). A check of the trace logs confirms that while Service 567 (567) is a client, its absence of memory or log anomalies rules it out as a primary cause; instead, its exclusive latency degradation is a consequence of the resource contention on Node 4265.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-56A429CF3650",
+    "dataset": "aiops2022",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "6258",
+      "95391",
+      "31548",
+      "24521",
+      "20302"
+    ],
+    "unknown": [
+      "6258"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"6258\", \"signal_or_relation\": \"lt_1001_warning_log\", \"unit\": \"count\", \"statistic\": \"total\", \"phase\": \"current\", \"reading\": \"}\", \"image\": 0, \"box\": [438, 0, 500, 62]}, {\"entity\": \"95391\", \"signal_or_relation\": \"container_memory_max_usage_MB\", \"unit\": \"MB\", \"statistic\": \"max\", \"phase\": \"current\", \"reading\": \">20302\", \"image\": 0, \"box\": [438, 15, 500, 30]}, {\"entity\": \"95391\", \"signal_or_relation\": \"trace_hipstershop.137.SendOrderConfirmation\", \"unit\": \"ms\", \"statistic\": \"exclusive_p95\", \"phase\": \"current\", \"reading\": \">31548\", \"image\": 0, \"box\": [375, 0, 438, 140]}], \"services\": [\"6258\", \"95391\", \"31548\", \"24521\", \"20302\"], \"reason\": \"Candidate 6258 is identified as the initiating component due to a unique log event (LT1001) indicating an Envoy configuration stream closure and an observed decrease in node disk space (MET11). This configuration failure likely caused downstream anomalies in service 95391, which exhibits extreme memory consumption and the highest observed latency in SendOrderConfirmation. The co-occurrence of the mTLS configuration error and the subsequent resource/latency spikes across the order flow suggests the 6258 event triggered the system degradation.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-A826539241B0",
+    "dataset": "aegislab",
+    "arm": "S_COMPARE",
+    "variant": "BASE",
+    "services": [
+      "738",
+      "743",
+      "753",
+      "741",
+      "738"
+    ],
+    "unknown": [],
+    "duplicate": true,
+    "error": "['738', '743', '753', '741', '738'] has non-unique elements\n\nFailed validating 'uniqueItems' in schema['properties']['services']:\n    {'type': 'array',\n     'minItems': 5,\n     'maxItems': 5,\n     'uniqueItems': True,\n     'items': {'type': 'string'}}\n\nOn instance['services']:\n    ['738', '743', '753', '741', '738']",
+    "tolerant_mrr": 1.0,
+    "response": "{\"services\": [\"738\", \"743\", \"753\", \"741\", \"738\"], \"reason\": \"Service 738 is the central downstream dependency where TRC04 (InsidePaymentController.pay) and TRC05/06 (POST /inside_payment) exhibit exclusive p95 latencies increasing ~260x and ~7.3x respectively (34. Observed anomaly onset, 46 Observed source summary, 48 Observed source summary, 15 TRC02, 16 TRC03, 19 TRC06), coinciding with CPU utilization spiking to 1.08 (31 MET12) and memory usage anomalies (31 MET10). Service 743 (TrainFoodController) and Service 753 (OrderOtherController) propagate this latency to the edge (20 LTI4915, 21 LTI4915, 17 TRC04, 18 TRC05, 20 TRC06), but their internal metrics are stable, pointing to 738 as the originating resource bottleneck.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-90722DCD5A51",
+    "dataset": "aiops2022",
+    "arm": "S_COMPARE",
+    "variant": "BASE",
+    "services": [
+      "859",
+      "837",
+      "448",
+      "911",
+      "859"
+    ],
+    "unknown": [],
+    "duplicate": true,
+    "error": "['859', '837', '448', '911', '859'] has non-unique elements\n\nFailed validating 'uniqueItems' in schema['properties']['services']:\n    {'type': 'array',\n     'minItems': 5,\n     'maxItems': 5,\n     'uniqueItems': True,\n     'items': {'type': 'string'}}\n\nOn instance['services']:\n    ['859', '837', '448', '911', '859']",
+    "tolerant_mrr": 0.0,
+    "response": "{\"services\": [\"859\", \"837\", \"448\", \"911\", \"859\"], \"reason\": \"The confirmed caller chain (hipstershop.859/GetSupportedCurrencies -> hipstershop.911/SendOrderConfirmation) shows the leading signature in TRC01/TRC02 (exclusive p95 ~1.50e5 µs) and PAIR02, placing the fault at the initiating hipstershop.859 span rather than its child 911. The step-wise rise of exclusive latency in 448/EmptyCart (TRC05: 3338.6 → 4290.3 µs, rank_score 0.36) and the static, non-rising sidecar signals (MET10, rank M3) argue against a systemic edge origin, keeping 859 as primary with 448 as the secondary local-time contributor. The checks confirm that 911 is a downstream span (its inclusive time is contained by 859, so it is an alternative propagation rather than an origin) and that 837's memory/RSS increase (AUX04/AUX05) is a co-located node-level signal without a matching latency signature, supporting 859's primacy.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-E687A1412352",
+    "dataset": "aiops2025",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "485",
+      "487",
+      "358",
+      "391",
+      "441"
+    ],
+    "unknown": [
+      "487"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.2,
+    "response": "{\"observations\": [{\"entity\": \"485\", \"signal_or_relation\": \"663.485/EmptyCart\", \"unit\": \"ms\", \"statistic\": \"exclusive_latency_p95\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [0, 0, 0, 0]}, {\"entity\": \"487\", \"signal_or_relation\": \"663.487/GetProduct\", \"unit\": \"ms\", \"statistic\": \"exclusive_latency_p95\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [0, 0, 0, 0]}, {\"entity\": \"358\", \"signal_or_relation\": \"pod_memory_working_set_bytes\", \"unit\": \"bytes\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [0, 0, 0, 0]}], \"services\": [\"485\", \"487\", \"358\", \"391\", \"441\"], \"reason\": \"The telemetry demonstrates a latency propagation pattern where service 487 (GetProduct) exhibits a substantial latency increase (p95 approx 13.25ms vs 0.8ms reference) which directly causes parent service 485 (EmptyCart) to exceed its 7.5ms threshold. This 1:1 child-to-parent relationship is further corroborated by a co-located CPU usage spike on pod 358, the host of service 485. An alternative origin is checked against service 358's own CPU metrics which are high (0.06 vs 0.05 reference), suggesting local saturation in 485 may be a contributing factor, though the dominant delay originates downstream in 487.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-E687A1412352",
+    "dataset": "aiops2025",
+    "arm": "S_GROUND",
+    "variant": "REPEAT",
+    "services": [
+      "485",
+      "487",
+      "358",
+      "391",
+      "441"
+    ],
+    "unknown": [
+      "487"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.2,
+    "response": "{\"observations\": [{\"entity\": \"485\", \"signal_or_relation\": \"663.485/EmptyCart\", \"unit\": \"ms\", \"statistic\": \"exclusive_latency_p95\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [0, 0, 0, 0]}, {\"entity\": \"487\", \"signal_or_relation\": \"663.487/GetProduct\", \"unit\": \"ms\", \"statistic\": \"exclusive_latency_p95\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [0, 0, 0, 0]}, {\"entity\": \"358\", \"signal_or_relation\": \"pod_memory_working_set_bytes\", \"unit\": \"bytes\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [0, 0, 0, 0]}], \"services\": [\"485\", \"487\", \"358\", \"391\", \"441\"], \"reason\": \"The telemetry demonstrates a latency propagation pattern where service 487 (GetProduct) exhibits a substantial latency increase (p95 approx 13.25ms vs 0.8ms reference) which directly causes parent service 485 (EmptyCart) to exceed its 7.5ms threshold. This 1:1 child-to-parent relationship is further corroborated by a co-located CPU usage spike on pod 358, the host of service 485. An alternative origin is checked against service 358's own CPU metrics which are high (0.06 vs 0.05 reference), suggesting local saturation in 485 may be a contributing factor, though the dominant delay originates downstream from 487.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-F8B9BD5ADA9C",
+    "dataset": "aiops2022",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "7036",
+      "2887",
+      "32709",
+      "59602",
+      "44835"
+    ],
+    "unknown": [
+      "32709"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"7036\", \"signal_or_relation\": \"system.load.5\", \"unit\": \"source_unit\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [22, 894, 280, 962]}, {\"entity\": \"7036\", \"signal_or_relation\": \"system.load.5\", \"unit\": \"source_unit\", \"statistic\": \"reference_median\", \"phase\": \"reference\", \"reading\": null, \"image\": 0, \"box\": [22, 894, 280, 962]}, {\"entity\": \"32709\", \"signal_or_relation\": \"container_memory_failures.hierarchy.pgfault\", \"unit\": \"source_unit\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [301, 906, 358, 975]}], \"services\": [\"7036\", \"2887\", \"32709\", \"59602\", \"44835\"], \"reason\": \"Node 7036 exhibits a massive correlation across system.load.5, disk, and inode metrics with 3-sigma deviations, indicating a severe host-level resource contention incident. This contention directly caused the observed gRPC 200 errors (MET08) and latency spikes in co-located pods, with pod 32709 and 59602 showing the most acute downstream effects in pgfault failures. While load is a load-bearing symptom of the node issue, it serves as the primary propagation vector to the failing application components.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-C10F5EA649A5",
+    "dataset": "aiops2025",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "619",
+      "1694",
+      "5788",
+      "64389",
+      "64567"
+    ],
+    "unknown": [
+      "1694"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"619\", \"signal_or_relation\": \"rt_max\", \"unit\": \"ms\", \"statistic\": \"peak\", \"phase\": \"current\", \"reading\": \"229955.0\", \"image\": 0, \"box\": [0, 0, 120, 150]}, {\"entity\": \"1694\", \"signal_or_relation\": \"pod_memory_working_set_bytes\", \"unit\": \"bytes\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": \"205203.0\", \"image\": 0, \"box\": [10, 280, 130, 330]}, {\"entity\": \"5788\", \"signal_or_relation\": \"node_disk_read_bytes_total\", \"unit\": \"bytes\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": \"1146.485\", \"image\": 0, \"box\": [340, 300, 470, 350]}], \"services\": [\"619\", \"1694\", \"5788\", \"64389\", \"64567\"], \"reason\": \"Evidence shows that Pod 1694 is the critical initiating component, as it hosts Service 619 and exhibits a pod memory working set spike (205203.0 bytes) that exceeds the shared node's available capacity. This memory exhaustion causes CPU overscheduling on Node 5788, leading to the extreme latency spike observed in the PlaceOrder operation for Service 619. The high rt_max values on Pods 64389 and 64567 are downstream symptoms of the same node-level resource contention.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-B861B23C1EB4",
+    "dataset": "aiops2022",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "81873",
+      "195",
+      "88971",
+      "29659",
+      "22325"
+    ],
+    "unknown": [
+      "88971"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"notes\": [\"Panel 43 (PAIR02) shows a latency increase on pod 29659 (Child) during its parent call (81873), but its span count is zero (count=0/0), indicating a sampling outlier rather than a systemic node failure. The leading indicators are resource-exhaustion signals on the parent service.\", \"A correlated resource signature emerges on pod 88971 (container_file_descriptors) and service 195 (Tenured_Gen GC / MemoryPool) around the same time window, suggesting infrastructure-level resource pressure on the parent service is driving the child latency. This points to the parent (81873) or its service (195) as the\"], \"services\": [\"81873\", \"195\", \"88971\", \"29659\", \"22325\"], \"reason\": \"Pod 88971 (candidate) exhibits file descriptor spikes while service 195 shows memory/GC pressure, pointing to parent-side resource exhaustion (81873) that is affecting its interactions (traced by pod 29659). The zero-count samples on pod 29659 (Candidate) suggest the 'failure' is a symptom of the parent's instability (81873) rather than a local application defect.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-A140F0C90613",
+    "dataset": "aiops2022",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "30206",
+      "77844",
+      "40583",
+      "77298",
+      "98823"
+    ],
+    "unknown": [
+      "77844"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 1.0,
+    "response": "{\"observations\": [{\"entity\": \"30206\", \"signal_or_relation\": \"container_memory_mapped_file\", \"unit\": \"bytes\", \"statistic\": \"value\", \"phase\": \"current\", \"reading\": \"}, {\", \"image\": 0, \"box\": [750, 0, 1000, 250]}, {\"entity\": \"77844\", \"signal_or_relation\": \"container_file_descriptors\", \"unit\": \"count\", \"statistic\": \"value\", \"phase\": \"current\", \"reading\": \"}, {\", \"image\": 0, \"box\": [550, 250, 850, 350]}, {\"entity\": \"30206\", \"signal_or_relation\": \"container_memory_mapped_file\", \"unit\": \"bytes\", \"statistic\": \"value\", \"phase\": \"reference\", \"reading\": \"}\", \"image\": 0, \"box\": [750, 0, 1000, 250]}], \"services\": [\"30206\", \"77844\", \"40583\", \"77298\", \"98823\"], \"reason\": \"The low-level resource metrics identify pod 30206 as the root cause, exhibiting a massive increase in memory mapped files (MET07) and abnormal file descriptor usage (TCR02) that the other pods do not. This resource exhaustion in pod 30206 propagates up the call chain to pod 77844 and the hiphstershop services (77298, 98823), resulting in the observed latency degradation (TRC01/05) at the service level. The signal in 40583 is likely a co-effect of the same underlying resource contention or general node pressure.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-EDDC755A08F5",
+    "dataset": "aiops2025",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "511",
+      "959",
+      "852",
+      "867",
+      "903"
+    ],
+    "unknown": [
+      "511"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"130.511/GetProduct\", \"signal_or_relation\": \"Exclusive latency p95\", \"unit\": \"µs\", \"statistic\": \"Reference 170248, Current 40028014.0\", \"phase\": \"Current\", \"reading\": \"Metric MET06 (Box 14)\", \"image\": 0, \"box\": [772, 602, 968, 747]}, {\"entity\": \"service 511\", \"signal_or_relation\": \"MET10 - failed_query_ops\", \"unit\": \"source unit\", \"statistic\": \"Current Spike ~2.61e+07 vs Reference 0\", \"phase\": \"Current\", \"reading\": \"Time series spike (Box 11)\", \"image\": 0, \"box\": [276, 654, 447, 765]}, {\"entity\": \"130.959/GetCart\", \"signal_or_relation\": \"Exclusive latency p95\", \"unit\": \"µs\", \"statistic\": \"Reference 4737.4, Current 6255.8\", \"phase\": \"Current\", \"reading\": \"Metric TRC02 (Box 15)\", \"image\": 0, \"box\": [772, 746, 968, 881]}], \"services\": [\"511\", \"959\", \"852\", \"867\", \"903\"], \"reason\": \"The catastrophic latency spike in operation 130.511/GetProduct correlates strongly with a simultaneous, massive spike in failed_query_ops (MET10) for service 511, identified as the primary initiating component. While downstream operations 130.959/GetCart and 130.852/ShipOrder show slight latency increases, they lack the magnitude of change seen in 511, suggesting a local failure at 511 rather than a shared infrastructure cause. The exclusive p95 increase in 511 (40,028,014 µs) indicates local processing stall, consistent with query failure loops, distinguishing it from the much lower latency overheads observed in 959.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-F4FCAFBEC78A",
+    "dataset": "aegislab",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "377",
+      "373",
+      "379",
+      "375",
+      "371"
+    ],
+    "unknown": [
+      "379",
+      "375",
+      "371"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"37\", \"signal_or_relation\": \"calls\", \"unit\": \"ms\", \"statistic\": \"inclusive_median\", \"phase\": \"current\", \"reading\": \"8.1305\", \"image\": 0, \"box\": [540, 80, 720, 150]}, {\"entity\": \"175\", \"signal_or_relation\": \"calls\", \"unit\": \"ms\", \"statistic\": \"inclusive_median\", \"phase\": \"current\", \"reading\": \"60.974\", \"image\": 0, \"box\": [740, 80, 920, 150]}, {\"entity\": \"37\", \"signal_or_relation\": \"calls\", \"unit\": \"ms\", \"statistic\": \"inclusive_median\", \"phase\": \"reference\", \"reading\": \"6.6017\", \"image\": 0, \"box\": [540, 80, 720, 150]}], \"services\": [\"377\", \"373\", \"379\", \"375\", \"371\"], \"reason\": \"Service 400, which calls service 37, exhibits a significant latency spike (60.97ms vs 44.38ms reference) with 40 requests, whereas service 37 itself only shows a minor increase (8.13ms vs 6.60ms) with 113 requests, indicating the bottleneck likely exists in service 37's downstream dependencies. The call graph shows service 37 initiates calls to a wide distribution of services (IDs 371-379 and 390s/400s), suggesting the issue is in the backend layer rather than service 37's local processing. Candidate 377 is the top suspect due to its position in the dependency tree and the volume of traffic flowing through this path.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-A19BB8DA9651",
+    "dataset": "aiops2022",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "67831",
+      "17627",
+      "73981",
+      "83223",
+      "62120"
+    ],
+    "unknown": [
+      "17627"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"67831\", \"signal_or_relation\": \"container_memory_mapped_file\", \"unit\": \"bytes\", \"statistic\": \"value\", \"phase\": \"current\", \"reading\": \"}, {\", \"image\": 0, \"box\": [400, 0, 520, 150]}, {\"entity\": \"17627\", \"signal_or_relation\": \"container_memory_mapped_file\", \"unit\": \"bytes\", \"statistic\": \"value\", \"phase\": \"current\", \"reading\": \"2.379e+05\", \"image\": 0, \"box\": [520, 0, 640, 150]}], \"services\": [\"67831\", \"17627\", \"73981\", \"83223\", \"62120\"], \"reason\": \"Pods 67831 and 17627 (services 922 and 540) exhibit the highest ranked and most severe memory spikes in container_memory_mapped_file (MET09, MET12). This memory pressure on the hiplstershop.922 (SendOrderConfirmation) and 540 (PlaceOrder) nodes corresponds directly to the extreme latency degradation seen in TRC05 (SendOrderConfirmation 3602us vs 1606us ref) and TRC06 (PlaceOrder 11867us vs 10533us ref). Pods 73981, 83223, and 62120 are included as they are either directly impacted by the load or participate in the request path, with 83223/62120 hosting the high-latency operations identified in the traces.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-A19BB8DA9651",
+    "dataset": "aiops2022",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "17627",
+      "73981",
+      "83223",
+      "62120",
+      "15282"
+    ],
+    "unknown": [
+      "17627"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"notes\": [\"Panel 23 (container_memory_mapped_file on Pod 17627) reveals a step-change from ~2.33e+5 to ~2.37e+5 bytes around relative time bin 60, a signal elevated far above baseline (signed_z 237.1k, max 2.376e+5). This points to a latent file-backed resource exhaustion. This memory growth correlates temporally with an Observed\"], \"services\": [\"17627\", \"73981\", \"83223\", \"62120\", \"15282\"], \"reason\": \"The abrupt, sustained increase in mapped memory on Pod 17627 (MET12) is the most plausible initiating event, given its high magnitude relative to baseline (PEAK 2.376e+5) and lack of other primary resource spikes. Downstream effects manifest in latency and CFS throttling metrics on Pods 73981 (MET08/MET09), 83223 (MET04/MET05), and 62120 (MET07/MET09), suggesting resource pressure propagation. The causal chain is supported by the temporal overlap of the memory event and the subsequent latency and throughput degradation across dependent services, although direct causality cannot be proven without internal resource accounting.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-6E6E1B20F2D5",
+    "dataset": "aiops2025",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "882",
+      "820",
+      "27350",
+      "977",
+      "8569"
+    ],
+    "unknown": [
+      "820"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"notes\": [\"Panel MET12 (service 882) shows a massive latency spike (rt_max) peaking at ~145,000 μs, with a Z-score of 19.7 and a current mean deviation of 5.65 sigma. This is the dominant signal in the observed telemetry.\", \"Observed source summary for entity 882 indicates a relative onset time of +19.0 minutes and a high severity Z-score of 999. The exception log (lt71923) confirms a connection success to pod 27350 at the start of the incident window, linking the service-level failure to the upstream node/pod interaction.\", \"The duration p95 for the request (panel 17) increased from a reference of 2102 μs to a current 7498.8 μs (a >3x increase), confirming that the latency anomaly in service 882 is not a sampling artifact but a persistent degradation of the local processing stack.\"], \"services\": [\"882\", \"820\", \"27350\", \"977\", \"8569\"], \"reason\": \"Service 882 exhibits a definitive exclusive latency anomaly (MET12) with a 19.7 Z-score, which aligns with the 3.5x increase in p95 request duration and a +19.0 minute onset recorded in the source summary. Although the 16.0 minute onset for service 977 precedes the failure of 882, the magnitude of the deviation in 882's local exclusive time indicates the processing delay originates there rather than being purely inherited from a parent dependency. The node co-located with the affected workloads (820) and the specific pod (27350) are plausible root sources for the resource contention or network saturation driving the extreme rt_max values.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-6E6E1B20F2D5",
+    "dataset": "aiops2025",
+    "arm": "S_COMPARE",
+    "variant": "BASE",
+    "services": [
+      "882",
+      "977",
+      "8569",
+      "8886",
+      "940"
+    ],
+    "unknown": [
+      "8886"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"services\": [\"882\", \"977\", \"8569\", \"8886\", \"940\"], \"reason\": \"MET12 on service 882 shows a signed z-score of 19.7 with a 3.5e+4 ms peak in rt_max, and TRC04 confirms an exclusive p95 latency spike to 13663 µs (reference 12808 µs), identifying it as the primary performance degradation source. The root cause is attributed to node 8569, evidenced by severe memory exhaustion where available bytes dropped from 2.11e+10 to 1.18e+10 (panel 25), which likely triggered resource starvation for the co-located pod 8886. The near-stable baseline of service 977 (z-score 0.02) validates that the incident is isolated to the 882/8569 cluster.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-8682AD2CADE1",
+    "dataset": "aiops2022",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "27316",
+      "92179",
+      "27859",
+      "99682",
+      "8428"
+    ],
+    "unknown": [
+      "27859"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"notes\": [\"Panel MET01 (container_memory_cache, pod 27316) shows an immediate step-change from ~4.95e+6 to ~3.35e+7 (+7.7x) that temporally precedes the latency spikes in TRC01/02/05.\", \"TRC05 (hipstershop.593/EmptyCart, pod 92179) exhibits a 12x exclusive latency surge (4,204µs to 50,079µs), indicating a local fault at the lowest layer of the call chain.\", \"Resource checks (MET03/MET11) show stable CPU and RSS on pod 27316, ruling out a compute/scheduling bottleneck and supporting a memory or kernel-level anomaly.\"], \"services\": [\"27316\", \"92179\", \"27859\", \"99682\", \"8428\"], \"reason\": \"Pod 27316 is the most plausible initiating component, evidenced by the large, early shift in container_memory_cache (MET01) which precedes the localized latency explosion in hipstershop.593 (TRC05). While TRC05 indicates a local processing fault, its onset aligns with the state change on pod 27316, suggesting a propagated infrastructure or dependency issue rather than a service-level bug. The lack of change in the host's system.mem.free (8428) rules out global cluster memory pressure, localizing the fault to the container level.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-8682AD2CADE1",
+    "dataset": "aiops2022",
+    "arm": "S_COMPARE",
+    "variant": "BASE",
+    "services": [
+      "27316",
+      "99682",
+      "88681",
+      "92179",
+      "27316"
+    ],
+    "unknown": [],
+    "duplicate": true,
+    "error": "['27316', '99682', '88681', '92179', '27316'] has non-unique elements\n\nFailed validating 'uniqueItems' in schema['properties']['services']:\n    {'type': 'array',\n     'minItems': 5,\n     'maxItems': 5,\n     'uniqueItems': True,\n     'items': {'type': 'string'}}\n\nOn instance['services']:\n    ['27316', '99682', '88681', '92179', '27316']",
+    "tolerant_mrr": 0.0,
+    "response": "{\"services\": [\"27316\", \"99682\", \"88681\", \"92179\", \"27316\"], \"reason\": \"Pod 27316 (hipstershop.102) shows direct local degradation with TRC01 Exclusive p95 jumping from reference 354µs to current 27870µs. This local stall correlates with memory pressure signals on the same pod, including container_memory_rss (MET03) jumping from reference ~45MB to current 109.61MB and a container_fs_inodes spike in MET10, supporting a resource constraint or GC stall as the initiating root cause. Downstream propagations to children 99682 (hipstershop.315) and 88681 (hipstershop.315) and sister 92179 (hipstershop.593) are consistent with this upstream serialization backpressure.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-331437929E47",
+    "dataset": "aegislab",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "955",
+      "857",
+      "489",
+      "827",
+      "897"
+    ],
+    "unknown": [
+      "857"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"notes\": [\"Memory metrics (MET05-08, MET11-12) on service 955 show abrupt increases in Working Set and RSS from ~1.93e8 to ~1.945e8 bytes, starting around relative time bin 40. Observed source summaries for service 955 report a severity Z-score of 313.5 and onset at +4.0m.\", \"The delay propagates to the frontend. TRC04 (GET /api/v1/foodservice...) shows a 13.16x latency spike (~20s exclusive), and the inclusive duration for parent service 287 (Travel2Controller) increases to ~108ms, indicating the backend foodservice is a blocking dependency.\", \"Candidate 857 (Service) and 489 (Pod) also show high memory usage and severity scores (11.86 Z), but the magnitude of the memory spike and the specific onset timing (matching +4.0m anomaly) on Service 955 makes it the primary initiating component for this degradation.\"], \"services\": [\"955\", \"857\", \"489\", \"827\", \"897\"], \"reason\": \"Service 955 is the primary candidate due to a 1.6x magnitude jump in memory working set (MET05) and RSS (MET07) starting precisely at the observed anomaly onset (+4.0m), accompanied by the highest observed severity score (Z-score 313.5). This local resource exhaustion in service 955 causes latency spikes in downstream consumers like TRC04 (13.16x latency increase). Candidates 857, 489, 827, and 897 are ranked next based on correlated high memory states (high Z-scores) and their positional proximity to service 955 in the call graph, representing potential secondary saturation points or sibling nodes in the failure cascade.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-977EEEDB6E71",
+    "dataset": "aiops2022",
+    "arm": "S_COMPARE",
+    "variant": "BASE",
+    "services": [
+      "544",
+      "92610",
+      "95835",
+      "92610",
+      "95835"
+    ],
+    "unknown": [],
+    "duplicate": true,
+    "error": "['544', '92610', '95835', '92610', '95835'] has non-unique elements\n\nFailed validating 'uniqueItems' in schema['properties']['services']:\n    {'type': 'array',\n     'minItems': 5,\n     'maxItems': 5,\n     'uniqueItems': True,\n     'items': {'type': 'string'}}\n\nOn instance['services']:\n    ['544', '92610', '95835', '92610', '95835']",
+    "tolerant_mrr": 0.0,
+    "response": "{\"services\": [\"544\", \"92610\", \"95835\", \"92610\", \"95835\"], \"reason\": \"The primary evidence is the latency spike in the 'hipstershop.544/PlaceOrder' child operation (pod 92610), where exclusive p95 latency increased from 3206.3 μs to 3816.3 μs. This is further supported by the 'TRC04 · hipstershop.470/GetProduct' metric on pod 92610, showing a similar increase in exclusive latency (reference 3206.3 to current 3816.3), indicating a local performance degradation in these services. The 'hipstershop.481/SendOrderConfirmation' operation (pod 95835) also shows an increase from 17003 to 29720, suggesting a downstream impact.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-D195A4C0D9B6",
+    "dataset": "aiops2022",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "3781",
+      "23875",
+      "103",
+      "122",
+      "123"
+    ],
+    "unknown": [
+      "3781"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"3781\", \"signal_or_relation\": \"container_memory_rss\", \"unit\": \"bytes\", \"statistic\": \"current\", \"phase\": \"current\", \"reading\": \"1220007010.0\", \"image\": 0, \"box\": [20, 800, 450, 900]}, {\"entity\": \"23875\", \"signal_or_relation\": \"hlpostsrhop.579/ShipOrder\", \"unit\": \"us\", \"statistic\": \"p95_exclusive\", \"phase\": \"current\", \"reading\": \"{0: 27810.85, 32: 27810.85}\", \"image\": 0, \"box\": [800, 100, 950, 250]}, {\"entity\": \"103\", \"signal_or_relation\": \"container_memory_working_set_MB\", \"unit\": \"bytes\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": \"143.0\", \"image\": 0, \"box\": [10, 940, 100, 1000]}], \"services\": [\"3781\", \"23875\", \"103\", \"122\", \"123\"], \"reason\": \"Service 3781 (pod 23781) exhibits extreme memory exhaustion (1.22GB RSS) combined with a massive spike in the hlipstershop.ShipOrder exclusive latency (27,811µs vs 2,956µs reference). This indicates that the initiating failure occurred within service 103, which is hosting the pod identified as 3781, likely triggering a performance or availability issue that cascaded to dependent services.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-3316B6DBC59B",
+    "dataset": "aiops2025",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "879",
+      "877",
+      "833",
+      "999",
+      "751"
+    ],
+    "unknown": [
+      "877"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"879\", \"signal_or_relation\": \"MET04 · client_error_ratio\", \"unit\": \"ratio or percent\", \"statistic\": \"p50\", \"phase\": \"current\", \"reading\": \"35.996\", \"image\": 0, \"box\": [700, 560, 1000, 750]}, {\"entity\": \"877\", \"signal_or_relation\": \"MET02 · client_error_ratio\", \"unit\": \"ratio or percent\", \"statistic\": \"p50\", \"phase\": \"current\", \"reading\": \"3.3696\", \"image\": 0, \"box\": [330, 530, 500, 680]}, {\"entity\": \"833\", \"signal_or_relation\": \"TRC01 · POST /194.833/AddItem\", \"unit\": \"µs\", \"statistic\": \"exclusive_p95\", \"phase\": \"current\", \"reading\": \"206.5\", \"image\": 0, \"box\": [670, 780, 1000, 880]}], \"services\": [\"879\", \"877\", \"833\", \"999\", \"751\"], \"reason\": \"The incident initiates at candidate ID 879, which exhibits the highest client_error_ratio (MET04) at 35.996, significantly higher than candidate 877 (MET02) at 3.3696. The call graph demonstrates a direct edge from 879 to 877, supporting 877's subsequent elevated error rate (approx. 3.4%) as a downstream effect. Candidate 833 (AddItem) is considered a less likely primary source than 879 given the aggressive anomaly in the 879 signal.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-96E8C237EFAF",
+    "dataset": "aiops2025",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "888",
+      "2619",
+      "240",
+      "718",
+      "7223"
+    ],
+    "unknown": [
+      "7223"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.3333333333333333,
+    "response": "{\"observations\": [{\"entity\": \"888\", \"signal_or_relation\": \"rt_max\", \"unit\": \"ms\", \"statistic\": \"p95\", \"phase\": \"current\", \"reading\": \"1.173e+6\", \"image\": 0, \"box\": [894, 200, 968, 331]}, {\"entity\": \"2619\", \"signal_or_relation\": \"node_memory_usage_rate\", \"unit\": \"%\", \"statistic\": \"max\", \"phase\": \"current\", \"reading\": \"/><37.67, \", \"image\": 0, \"box\": [515, 200, 593, 353]}, {\"entity\": \"240\", \"signal_or_relation\": \"rt_max\", \"unit\": \"ms\", \"statistic\": \"max\", \"phase\": \"current\", \"reading\": \"1.113e+5\", \"image\": 0, \"box\": [894, 453, 968, 570]}], \"services\": [\"888\", \"2619\", \"240\", \"718\", \"7223\"], \"reason\": \"Service 888 (The Free Tavern) exhibits catastrophic latency spikes, with rt_max reaching 1.173s (1173ms), which is consistent with the 'Pause' application 1ms throttle mentioned in the narrative context, likely triggered by a memory limit. This behavior correlates with high memory usage on node 2619 (37.67%), the node hosting 888, suggesting that the service is exhausting its memory resources. The observed rt spike on service 240 (111ms) is likely a cascading effect due to 888's resource exhaustion, or vice-versa, causing the inter-service call to time out or block.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-4D6E62700175",
+    "dataset": "aiops2022",
+    "arm": "S_COMPARE",
+    "variant": "BASE",
+    "services": [
+      "672",
+      "8953",
+      "59042",
+      "13702",
+      "133"
+    ],
+    "unknown": [
+      "133"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.25,
+    "response": "{\"services\": [\"672\", \"8953\", \"59042\", \"13702\", \"133\"], \"reason\": \"Service 672 is the initiating candidate: its MET03 jvm_memory_pool allocated Tenured_Gen (panel 38) steps from ~89.6 to ~89.85 at the fault onset, and its MET04/MET08 istio_request_bytes.gRPC.200 spikes to 847.8 in a single bin, consistent with a large new request burst that propagates downstream. Downstream pods 59042 and 13702 show the latency amplification (TRC06 exclusive p95 5109→5.246e+5 µs, TRC02 2433.7→1.077e+5 µs) and the correlated memory rise (AUX06 working_set 42.565→52.384 on 59042; AUV03 46.63e+7→169.33 on 12484, a child of 672 via the call graph), confirming the upstream service 672 (pod 16435) as the source of the initiating burst.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-F0B46AA8EB55",
+    "dataset": "aegislab",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "874",
+      "827",
+      "778",
+      "827",
+      "943"
+    ],
+    "unknown": [],
+    "duplicate": true,
+    "error": "['874', '827', '778', '827', '943'] has non-unique elements\n\nFailed validating 'uniqueItems' in schema['properties']['services']:\n    {'type': 'array',\n     'minItems': 5,\n     'maxItems': 5,\n     'uniqueItems': True,\n     'items': {'type': 'string'}}\n\nOn instance['services']:\n    ['874', '827', '778', '827', '943']",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"874\", \"signal_or_relation\": \"jjm_system.cpu.utilization\", \"unit\": \"utilization\", \"statistic\": \"source unit\", \"phase\": \"current\", \"reading\": \"0.310952179\", \"image\": 0, \"box\": [708, 260, 1000, 424]}, {\"entity\": \"827\", \"signal_or_relation\": \"hubble_http_request_duration_p90_seconds\", \"unit\": \"milliseconds\", \"statistic\": \"p90\", \"phase\": \"current\", \"reading\": \"10.0215\", \"image\": 0, \"box\": [635, 712, 812, 810]}, {\"entity\": \"778\", \"signal_or_relation\": \"queueSize\", \"unit\": \"count\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [350, 522, 541, 690]}], \"services\": [\"874\", \"827\", \"778\", \"827\", \"943\"], \"reason\": \"Candidate 874 is the most plausible root cause, as the jjm_system.cpu.utilization chart (box 45) shows a massive spike in CPU usage in the current interval. This CPU saturation on entity 874 correlates with the latency spike seen on service 827 in box 7 (hubble_http_request_duration_p90_seconds); the call graph in box 25 shows that entity 827 is a direct dependent on entity 943, which is a downstream service of 874. The latency degradation on 827 and its downstream 943 is a consequence of the upstream resource exhaustion on 874.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-5A327CFD860F",
+    "dataset": "aiops2025",
+    "arm": "S_COMPARE",
+    "variant": "BASE",
+    "services": [
+      "945",
+      "960",
+      "963",
+      "341",
+      "306"
+    ],
+    "unknown": [
+      "963"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"services\": [\"945\", \"960\", \"963\", \"341\", \"306\"], \"reason\": \"Service 945 is the initiating component, supported by TRC01 showing a 9x latency regression in /SendOrderConfirmation (reference 97µs vs current 882µs) and MET05 recording a corresponding 3.405e+6 µs response-time spike that serves as the check for local latency correlation. The exception is that the call graph places 945 as a parent to 960, 963, and 341, but their TRC panels (TRC02, TRC03, TRC06) show only minor absolute changes (~20-30µs), which contradicts 945 as a downstream victim of child latency and supports an origin at the 945 entry point.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-1A47F4D45593",
+    "dataset": "aegislab",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "540",
+      "459",
+      "120",
+      "961",
+      "548"
+    ],
+    "unknown": [
+      "540"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.25,
+    "response": "{\"notes\": [\"Panel AUX01 (container.memory.page_faults) and AUX02 (k8s.pod.memory.page_faults) on service 459 and service 120 show a synchronized onset of high memory pressure, beginning earlier than the service-level latency degradation.\", \"On the deployment graph, service 540 is upstream of service 459; combined with the extreme spike in service 540's CPU usage (MET04), this suggests service 540 is the origin of the fault, likely through a resource-exhaustion chain (e.g., memory leak/crash loop) causing downstream pressure in 459.\", \"The investigation window shows latency and volume shifts in services 961 (orderservice), 596, and 548, which appear as concurrent symptoms or broader mesh impact of the core failure in 540/459.\"], \"services\": [\"540\", \"459\", \"120\", \"961\", \"548\"], \"reason\": \"Service 540 is the leading candidate as the upstream initiator, evidenced by its extreme CPU spike (MET04) and its position feeding into service 459, where synchronized, early memory page-fault spikes (AUX01/02) indicate resource exhaustion. The co-occurring latency surge and volume drop in 459 directly impact downstream calls to service 961 (PAI01).\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-CDC8083CEEE3",
+    "dataset": "aiops2022",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "4809",
+      "3466",
+      "40194",
+      "2265",
+      "96990"
+    ],
+    "unknown": [
+      "4809",
+      "3466",
+      "2265"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.2,
+    "response": "{\"notes\": [\"Panel TRC02 shows pod 48409 (svc 4809) with a p95 latency increase (log2 ratio 7.99) to ~584 ms during the observation window, whereas pod 22856 (svc 2265) in panel TRC05 maintains a stable baseline p95 of ~248 ms.\", \"The structural dependency graph in panel 31 confirms that service 4809 (hipstershop, port 635) is the direct downstream consumer of service 3466, the only service exhibiting a correlated disk I/O spike (MET07, peak 38.88 writes).\", \"No other candidate services show a synchronous increase in latency magnitude; the divergence between pods 48409 and 22856 indicates a localized component failure rather than a cluster-wide or network-wide outage.\"], \"services\": [\"4809\", \"3466\", \"40194\", \"2265\", \"96990\"], \"reason\": \"The leading candidate 4809 is supported by the high latency outlier in TRC02 and its position as the exclusive dependent of the disk-degraded component 3466; this is validated by the co-occurring disk write spike in MET07 and the lack of similar degradation in the sibling pod 22856 (TRC05).\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-0E6F68EDF409",
+    "dataset": "aegislab",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "872",
+      "887",
+      "881",
+      "879",
+      "877"
+    ],
+    "unknown": [
+      "879",
+      "877"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"872\", \"signal_or_relation\": \"k8s.container.restarts\", \"unit\": \"count\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [420, 240, 500, 320]}, {\"entity\": \"872\", \"signal_or_relation\": \"k8s.container.restarts\", \"unit\": \"count\", \"statistic\": \"reference_median\", \"phase\": \"reference\", \"reading\": null, \"image\": 0, \"box\": [420, 240, 500, 320]}, {\"entity\": \"872\", \"signal_or_relation\": \"jvm.cpu.recent_utilization\", \"unit\": \"ratio\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [130, 720, 230, 850]}], \"services\": [\"872\", \"887\", \"881\", \"879\", \"877\"], \"reason\": \"Candidate 872 is the only entity exhibiting a discrete jump in k8s.container.restarts (from reference 0 to current 15), which directly correlates with the onset of a performance drop. This evidence contradicts a root cause of high CPU load (MET10), as utilization is merely a low-level spike (1.7e-4) relative to the severity of the container disruption. The cascade in downstream latency (e.g., TRC05) is a probable consequence of the instability at the primary restarting node.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-CCE2A7ACCA59",
+    "dataset": "aiops2022",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "2877",
+      "90507",
+      "58064",
+      "74416",
+      "91683"
+    ],
+    "unknown": [
+      "90507"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"notes\": [\"Node 2877 exhibits a massive, synchronized spike in disk_used, disk_free, and fs.inodes_used metrics, reaching peak values of ~1.7e+9, while node 7127 shows only minor fluctuations.\", \"The gRPC latency for ShipOrder (pod 90507) spiked to ~2686µs and Charge (pod 58064) to 176µs. Observed call paths trace these requests to pod 74416 on node 2877, suggesting a causal link between the node's disk state and service latency.\", \"Resource checks (memory, CPU) remain stable and no code faults (logs) are present. The disk state anomalies on node 2877 are the most severe telemetry deviations, providing a plausible environmental root cause for the observed service degradation.\"], \"services\": [\"2877\", \"90507\", \"58064\", \"74416\", \"91683\"], \"reason\": \"The initiative event is a severe disk resource anomaly (disk_used/inodes) on node 2877 (MET04/MET07), which temporally correlates with latency spikes in services 90507 (ShipOrder) and 58064 (Charge). Downstream pods like 74416 and 91683 are listed as co-located candidates on the affected node, making the node the primary suspect. These service latencies confirm the impact but the node infrastructure remains the leading candidate for the initiating root cause.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-B8CEA35848D0",
+    "dataset": "aiops2025",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "92519",
+      "3430",
+      "917",
+      "750",
+      "64168"
+    ],
+    "unknown": [
+      "750"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"92519\", \"signal_or_relation\": \"request.complete\", \"unit\": \"count\", \"statistic\": \"current\", \"phase\": \"current\", \"reading\": \"73\", \"image\": 0, \"box\": [15, 438, 152, 680]}, {\"entity\": \"3430\", \"signal_or_relation\": \"node_memory_MemAvailable_bytes\", \"unit\": \"bytes\", \"statistic\": \"current\", \"phase\": \"current\", \"reading\": \"2.72E+10\", \"image\": 0, \"box\": [475, 253, 612, 382]}, {\"entity\": \"917\", \"signal_or_relation\": \"GET /969.219/AddItem\", \"unit\": \"ms\", \"statistic\": \"p95\", \"phase\": \"current\", \"reading\": \"6043.0\", \"image\": 0, \"box\": [553, 705, 640, 743]}], \"services\": [\"92519\", \"3430\", \"917\", \"750\", \"64168\"], \"reason\": \"Pod 92519 (LT9672) serves as the primary entry point with a heavy request load (73 events), which cascades to 917 where the GET /969.219/AddItem latency hits 6.04s. While the parent service 75 shows normal performance (0.91s), the extreme response times in the downstream 917 operation suggest a resource-induced delay, potentially linked to the memory contention on node 3430 or network latency from 64168.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-B8CEA35848D0",
+    "dataset": "aiops2025",
+    "arm": "S_COMPARE",
+    "variant": "BASE",
+    "services": [
+      "917",
+      "755",
+      "262",
+      "917",
+      "755"
+    ],
+    "unknown": [
+      "755",
+      "755"
+    ],
+    "duplicate": true,
+    "error": "['917', '755', '262', '917', '755'] has non-unique elements\n\nFailed validating 'uniqueItems' in schema['properties']['services']:\n    {'type': 'array',\n     'minItems': 5,\n     'maxItems': 5,\n     'uniqueItems': True,\n     'items': {'type': 'string'}}\n\nOn instance['services']:\n    ['917', '755', '262', '917', '755']",
+    "tolerant_mrr": 0.3333333333333333,
+    "response": "{\"services\": [\"917\", \"755\", \"262\", \"917\", \"755\"], \"reason\": \"The confirmed caller chain (755 → 917) and the 'same-request' observations (PAIR01/PAIR02) show a step-change in the p95 child operation (969,219/PlaceOrder) from a reference of ~0.1 ms to a current of ~205 ms. Tracing this back to the root caller 755, the metric MET05 · rt (service 755) shows a sharp increase in response time (from a baseline of ~53 to a current ~205 ms), which aligns with the downstream exclusive latency increase observed on the child operation 969,219/PlaceOrder in service 917.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-2A292B511B14",
+    "dataset": "aiops2025",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "118",
+      "245",
+      "952",
+      "952",
+      "952"
+    ],
+    "unknown": [],
+    "duplicate": true,
+    "error": "['118', '245', '952', '952', '952'] has non-unique elements\n\nFailed validating 'uniqueItems' in schema['properties']['services']:\n    {'type': 'array',\n     'minItems': 5,\n     'maxItems': 5,\n     'uniqueItems': True,\n     'items': {'type': 'string'}}\n\nOn instance['services']:\n    ['118', '245', '952', '952', '952']",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"118\", \"signal_or_relation\": \"MET05_memory_usage\", \"unit\": \"bytes\", \"statistic\": \"peak\", \"phase\": \"current\", \"reading\": \"1.048e+09\", \"image\": 0, \"box\": [700, 20, 850, 300]}, {\"entity\": \"245\", \"signal_or_relation\": \"MET01_cpu_usage\", \"unit\": \"ratio\", \"statistic\": \"peak\", \"phase\": \"current\", \"reading\": \"0.468\", \"image\": 0, \"box\": [550, 400, 700, 600]}, {\"entity\": \"952.995\", \"signal_or_relation\": \"TRC04_POST_GetCart_latency\", \"unit\": \"ms\", \"statistic\": \"exclusive_p95\", \"phase\": \"current\", \"reading\": \"1717.8\", \"image\": 1, \"box\": [0, 200, 1000, 500]}], \"services\": [\"118\", \"245\", \"952\", \"952\", \"952\"], \"reason\": \"The initiating component is identified as service 118 based on the extreme memory usage spike to 1.048e+09 bytes (MET05), which indicates severe resource pressure and acts as the bottleneck. This hypothesis is supported by the moderate CPU usage increase (MET01) in the dependent service 245 and the resulting latency degradation observed in the root service's exclusive latency (TRC04). Conversely, the lack of similar memory pressure in the root service 952.995 suggests the issue is propagated downstream from 118 rather than originating at the entry point.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-8E1DFDBC7F96",
+    "dataset": "aiops2025",
+    "arm": "S_COMPARE",
+    "variant": "BASE",
+    "services": [
+      "891",
+      "287",
+      "8201",
+      "8291",
+      "8266"
+    ],
+    "unknown": [
+      "8266"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 1.0,
+    "response": "{\"services\": [\"891\", \"287\", \"8201\", \"8291\", \"8266\"], \"reason\": \"Service 891 (POST /215.891/AddItem) exhibits the primary exclusive p95 latency jump from 2219 μs to 2506 μs (TRC01) with 80 captured requests. This increase is directly attributable to its child dependency Service 287 (TRC06), whose exclusive p95 latency spiked from 1948.3 μs to 5,989.6 μs (ratio 11.59) and is logically consistent with the inclusive latency of the parent (598,814 μs). Nodes 8201 and 8291 are ranked as alternative physical origins due to observed onset markers and significant node-level metric changes (network_receive_bytes_total and filesystem_usage_rate), but the application-level trace evidence strongly favors Service 287 as the initiating component.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-8E1DFDBC7F96",
+    "dataset": "aiops2025",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "8201",
+      "891",
+      "287",
+      "8291",
+      "8271"
+    ],
+    "unknown": [
+      "8271"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.5,
+    "response": "{\"observations\": [{\"entity\": \"8201\", \"signal_or_relation\": \"node_memory_MemAvailable_bytes\", \"unit\": \"bytes\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": \"1.116e+10\", \"image\": 0, \"box\": [20, 806, 475, 914]}, {\"entity\": \"215.891/AddItem\", \"signal_or_relation\": \"exclusive_latency\", \"unit\": \"microseconds\", \"statistic\": \"p95\", \"phase\": \"current\", \"reading\": \"}2506\", \"image\": 0, \"box\": [20, 820, 350, 940]}, {\"entity\": \"8201\", \"signal_or_relation\": \"node_memory_usage_rate\", \"unit\": \"ratio\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": \"#REF!\", \"image\": 0, \"box\": [55, 806, 240, 914]}], \"services\": [\"8201\", \"891\", \"287\", \"8291\", \"8271\"], \"reason\": \"Candidate 8201 is identified as the initiating component because it is the parent of the failing service 891 and exhibits a severe memory anomaly (MemAvailable_bytes dropped to 1.116e+10). This resource exhaustion on the node likely caused the elevated exclusive latency in service 891 (2506us), which in turn degraded the end-to-end transaction response times.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-8E1DFDBC7F96",
+    "dataset": "aiops2025",
+    "arm": "S_GROUND",
+    "variant": "REPEAT",
+    "services": [
+      "8201",
+      "891",
+      "8291",
+      "8271",
+      "8266"
+    ],
+    "unknown": [
+      "8271",
+      "8266"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.5,
+    "response": "{\"observations\": [{\"entity\": \"8201\", \"signal_or_relation\": \"node_memory_MemAvailable_bytes\", \"unit\": \"bytes\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": \"1.116e+10\", \"image\": 0, \"box\": [20, 80, 40, 120]}, {\"entity\": \"891\", \"signal_or_relation\": \"POST /215.891/AddItem\", \"unit\": \"us\", \"statistic\": \"exclusive p95\", \"phase\": \"current\", \"reading\": \"2506\", \"image\": 0, \"box\": [20, 300, 35, 350]}, {\"entity\": \"8201\", \"signal_or_relation\": \"node_memory_working_set_bytes\", \"unit\": \"bytes\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": \"1.570e+05\", \"image\": 0, \"box\": [20, 400, 40, 450]}], \"services\": [\"8201\", \"891\", \"8291\", \"8271\", \"8266\"], \"reason\": \"Node 8201 is identified as the initiating component due to a significant drop in node_memory_MemAvailable_bytes (MET24) compared to the reference, indicating memory exhaustion that likely induced GC pauses. This memory pressure correlates with the increased exclusive p95 latency (TRC01) in service 891, the primary consumer of these resources. Service 891 is the primary impacted node, followed by 8291 (parent latency increase), while 8271 and 8266 are related components exhibiting elevated resource usage (MET10, MET12) or propagation effects.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-9C225C04C814",
+    "dataset": "aiops2025",
+    "arm": "S_REASON",
+    "variant": "BASE",
+    "services": [
+      "6685",
+      "50822",
+      "6249",
+      "6604",
+      "93183"
+    ],
+    "unknown": [
+      "50822"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"notes\": [\"Panel 56 (node 6685) shows a severe anomaly in node_memory_MemAvailable_bytes with a severity_z_display of 999, indicating near-total memory exhaustion.\", \"This node hosts pod 50822, which exhibits a direct dependency on the affected nodes (6685, 6249, 6604) as per the 'calls' and 'has_instance' graph.\", \"Panel 28 (node 6685) corroborates the root cause with a massive spike in node_disk_write_time_seconds_total (3.4ms vs 0.01ms baseline), consistent with heavy I/O pressure from memory swapping.\"], \"services\": [\"6685\", \"50822\", \"6249\", \"6604\", \"93183\"], \"reason\": \"Node 6685 is the primary initiator, evidenced by critical memory exhaustion (severity Z=999) and disk write latency anomalies (MET01). Pod 50822 is implicated as a heavy consumer on the same node, triggering the resource depletion. Secondary nodes 6249 and 6604 show correlated load spikes, likely via network interaction with the failing component.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-2CABCD159021",
+    "dataset": "aiops2022",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "8777",
+      "981",
+      "948",
+      "9413",
+      "9414"
+    ],
+    "unknown": [
+      "8777",
+      "9413",
+      "9414"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"8777\", \"signal_or_relation\": \"grpc.hipstershop.981/Charge\", \"unit\": \"µs\", \"statistic\": \"exclusive_p95\", \"phase\": \"current\", \"reading\": \"}, {\", \"image\": 1, \"box\": [0, 300, 750, 700]}], \"services\": [\"8777\", \"981\", \"948\", \"9413\", \"9414\"], \"reason\": \"Candidate 8777 is the dominant cost driver in the exclusive latency tree (TRC04), showing a significant increase in local processing time (approx. 249µs) which propagates to the ancestors, despite a reduction in span count. This local degradation on the Charge service pod is consistent with the general network stress observed on node 9343, but the root cause of the latency hierarchy is the application-level delay within 8777.\", \"confidence\": \"high\"}"
+  },
+  {
+    "id": "INC-03AEF8BDD4EF",
+    "dataset": "aiops2025",
+    "arm": "S_COMPARE",
+    "variant": "BASE",
+    "services": [
+      "828",
+      "816",
+      "808",
+      "752",
+      "816"
+    ],
+    "unknown": [],
+    "duplicate": true,
+    "error": "['828', '816', '808', '752', '816'] has non-unique elements\n\nFailed validating 'uniqueItems' in schema['properties']['services']:\n    {'type': 'array',\n     'minItems': 5,\n     'maxItems': 5,\n     'uniqueItems': True,\n     'items': {'type': 'string'}}\n\nOn instance['services']:\n    ['828', '816', '808', '752', '816']",
+    "tolerant_mrr": 1.0,
+    "response": "{\"services\": [\"828\", \"816\", \"808\", \"752\", \"816\"], \"reason\": \"The confirmed caller chain /927.828/ListProducts -> /927.816/ListRecommendations shows service 828 leading with the largest exclusive p95 regression (9561µs vs 4279µs ref) and service 816 showing a significant secondary regression (2861µs vs 1755µs ref), indicating 828's exclusive local work is the primary anomaly source before propagating to 816. Checking 828 against the trace confirms its child call (816) has higher inclusive latency but 828's own exclusive time dominates, ruling out pure child-propagated latency, while service 752 shows an observed duration extension (Ref 26.858ms -> Cur 777.32ms) that acts as a likely upstream trigger or parallel dependency.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "id": "INC-493A8D7F2EC5",
+    "dataset": "aiops2025",
+    "arm": "S_GROUND",
+    "variant": "BASE",
+    "services": [
+      "966",
+      "953",
+      "962",
+      "996",
+      "914"
+    ],
+    "unknown": [
+      "966",
+      "962"
+    ],
+    "duplicate": false,
+    "error": "unknown/duplicate entity",
+    "tolerant_mrr": 0.0,
+    "response": "{\"observations\": [{\"entity\": \"service 96\", \"signal_or_relation\": \"139.996/GetAds\", \"unit\": \"µs\", \"statistic\": \"exclusive_p95\", \"phase\": \"current\", \"reading\": \"9768.5\", \"image\": 0, \"box\": [856, 673, 994, 744]}, {\"entity\": \"service 96\", \"signal_or_relation\": \"139.996/GetAds\", \"unit\": \"µs\", \"statistic\": \"exclusive_p95\", \"phase\": \"reference\", \"reading\": \"7160.0\", \"image\": 0, \"box\": [856, 642, 994, 713]}, {\"entity\": \"service 96\", \"signal_or_relation\": \"139.996/GetAds\", \"unit\": \"µs\", \"statistic\": \"exclusive_p95\", \"phase\": \"delta\", \"reading\": \"2608.5\", \"image\": 0, \"box\": [856, 704, 994, 775]}], \"services\": [\"966\", \"953\", \"962\", \"996\", \"914\"], \"reason\": \"Service 96 (TRC03) exhibits the highest exclusive latency anomaly (Z-score ~2.6) compared to all other services, identifying it as the bottleneck. The correlation in onset timing and the call-graph linkage with service 666 (which has a Z-score ~1.7) suggest a cascading impact, but service 96's self-contained latency increase is the most significant performance signal. Ranking of backend services 953, 962, and 914 is based on their direct involvement in the observed call topology and secondary anomaly detection scores.\", \"confidence\": \"medium\"}"
+  }
+]

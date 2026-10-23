@@ -59,7 +59,7 @@ Later CPU qualification must establish full source union, empty cross-modal diag
 | Six arms x 220 | 1320 |
 | Six independent QA conditions x 30 fixed cases | 180 |
 | Two nominees x 30 independent repeats | 60 |
-| One future logical smoke, 600 seconds | 18 |
+| One future logical smoke, 15 minutes (900 seconds) | 18 |
 | Infrastructure recovery reserve | 122 |
 | **Total** | **1700** |
 
@@ -78,3 +78,21 @@ Five functional modules in `RQs/RQ4_5/src/`, <=7500 nonblank noncomment lines; n
 This delivery writes plan/protocol, compiler/selector/runtime/analysis and future tests, then runs only AST/syntax, TypeScript type checking, configuration/registration/import, source protection, line-budget/private-boundary and default-switch static checks. Do not run tests, preparation, renderer/browser, processor, features, CPU regression or GPU smoke. Final state: code implemented, static passed; CPU/GPU qualification pending.
 
 Retention: <=2,500,000 bytes per actual completed call and <=1 decimal GB attention per 10,000 calls, including sidecars/dependencies. Preserve directly readable exact prompts/images/outputs/conversations, scores, mappings, token operations, accounting and all attention actually collected. Verified references/hardlinks; no archives. Cleanup only after commits/writers drain and reference/hash verification. Do not mutate historical records.
+
+## Authorized implementation amendments — 2026-10-18
+
+The user subsequently authorizes CPU regression and implementation repair on Nibi until all CPU checks pass; GPU smoke and formal inference are not authorized in this session. The initial static-only boundary above records the original delivery, not the current CPU authorization.
+
+The user also removes strict cross-arm information equality. Methods may select different public evidence or detail levels, with explicit per-arm retained/transferred/omitted inventories. A comparison that changes evidence availability evaluates the whole method; it does not isolate modality. Private-label isolation, the original case denominator, single-call RCA, actual-cost accounting and within-arm cross-modal nonduplication remain in force. This does not require removing evidence: the current compiler repairs retain the original frozen records. The size, context and legibility limits remain unchanged.
+
+CPU v1 exposed three implementation classes: excessive pair-canvas height (122 cases), a data-empty transfer limit with no eligible pair or observed graph (four cases), and operation-bound parent/child endpoint lists (one case). The revised C39 component counts parallel phase rows once and removes redundant per-sample axis lines; it preserves exact sample labels and statistics. Endpoint parsing preserves both operations and support counts. With no eligible transfer target, the three hybrid conditions share the complete residual-text request with zero images and are explicitly flagged as data-empty applicability cases; no graph is fabricated, no warning panel is drawn, and no rendering/capacity error can use this path. Pure-visual conditions still require their unchanged original PNG. Report the actual carrier and this limit separately.
+
+Failed reports and renders remain available. The staged source hash proof and unchanged topology renders remain reusable; changed pair graphics receive versioned content-addressed paths. Repaired input and runtime checks must pass before CPU qualification is complete.
+
+### CPU v3 instruction revision
+
+The complete v2 capacity/legibility/context audit passed 220/220 cases. The remaining input gate failed only for H_TOPOLOGY/AegisLab (T_FULL ratio 1.0130625). Before any model call, consolidate the five duplicate non-diagnostic task/reading/output blocks using `RQs/RQ4_5/configs/hybrid_instructions_v2.json`; retain every diagnostic record, original diagnostic number/string/order, and qualified image. The source blocks have the same hash across all 220 cases. Preserve the existing diagnostic discipline and unique reading rules; reject unreviewed source variants. Do not label this rewording behaviorally inert: historical contrasts evaluate the whole method with this explicit interface revision. All hybrid arms share it; pure visual and independent QA are unchanged. Recheck actual processor inputs, full cost gates and runtime; do not loosen thresholds. See DD-RQ45-6 for the failure evidence and detailed semantic inventory. CPU authorization continues; GPU remains closed.
+
+### Passive attention correction and scoped CPU evidence reuse
+
+RQ4.5 uses multiple independent dashboards, so every image header receives its own attention region. The inherited image-0-only rule is repaired before any collection. Add two-image/empty-transfer mapping tests and actual CPU old/new packet comparison; keep all model inputs, positions, selections, solver and query/layer policy unchanged. Preserve successful v3 input/geometry/budget/QA/repaint evidence with source/hash provenance and unchanged-payload verification; rerun affected unit/runtime/transport checks, not the complete data batch. Request recipe identity metadata is updated before any model activation because the transport function's source hash changes, without changing model-visible payloads. GPU remains closed. See DD-RQ45-7.

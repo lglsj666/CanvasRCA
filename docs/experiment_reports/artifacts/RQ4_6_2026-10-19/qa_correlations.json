@@ -1,0 +1,146 @@
+[
+  {
+    "kind": "within_arm",
+    "arm": "H_DEPLOY_ONLY",
+    "n": 30,
+    "rho": 0.08201233012259661,
+    "p_exploratory": 0.6665847952820226,
+    "historical_rca": false
+  },
+  {
+    "kind": "within_arm",
+    "arm": "H_MARGINAL_PHASE",
+    "n": 30,
+    "rho": 0.01294045392805201,
+    "p_exploratory": 0.945890101901133,
+    "historical_rca": false
+  },
+  {
+    "kind": "within_arm",
+    "arm": "H_POD_BRIDGE",
+    "n": 30,
+    "rho": -0.34979947546894424,
+    "p_exploratory": 0.058108712578092164,
+    "historical_rca": false
+  },
+  {
+    "kind": "within_arm",
+    "arm": "H_POD_SEPARATE",
+    "n": 30,
+    "rho": 0.2932119396710247,
+    "p_exploratory": 0.11582632277334323,
+    "historical_rca": false
+  },
+  {
+    "kind": "within_arm",
+    "arm": "H_POD_PHASE",
+    "n": 30,
+    "rho": -0.3097654330851492,
+    "p_exploratory": 0.09574879496154916,
+    "historical_rca": false
+  },
+  {
+    "kind": "within_arm",
+    "arm": "V_POD_BRIDGE",
+    "n": 30,
+    "rho": -0.185910842959884,
+    "p_exploratory": 0.3253035629783263,
+    "historical_rca": false
+  },
+  {
+    "kind": "within_arm",
+    "arm": "V_POD_SEPARATE",
+    "n": 30,
+    "rho": -0.128430561276245,
+    "p_exploratory": 0.4988106921486922,
+    "historical_rca": false
+  },
+  {
+    "kind": "within_arm",
+    "arm": "P_U_VALUE_BLOCK",
+    "n": 30,
+    "rho": 0.054437830072177895,
+    "p_exploratory": 0.7750998906567974,
+    "historical_rca": false
+  },
+  {
+    "kind": "within_arm",
+    "arm": "P_U_NEIGHBOR_PAIR",
+    "n": 30,
+    "rho": -0.33510622830842124,
+    "p_exploratory": 0.07026354503539718,
+    "historical_rca": false
+  },
+  {
+    "kind": "within_arm",
+    "arm": "P_U_COMBINED",
+    "n": 30,
+    "rho": -0.34130463979587755,
+    "p_exploratory": 0.06491589047938669,
+    "historical_rca": false
+  },
+  {
+    "kind": "within_arm",
+    "arm": "U_QA",
+    "n": 30,
+    "rho": 0.06456911619813585,
+    "p_exploratory": 0.734620210454876,
+    "historical_rca": true
+  },
+  {
+    "kind": "paired_change",
+    "arm": "H_POD_BRIDGE - H_POD_SEPARATE",
+    "n": 30,
+    "rho": 0.23447249668159276,
+    "p_exploratory": 0.21233773384911525,
+    "historical_rca": false
+  },
+  {
+    "kind": "paired_change",
+    "arm": "H_POD_PHASE - H_POD_BRIDGE",
+    "n": 30,
+    "rho": -0.1343778005339884,
+    "p_exploratory": 0.47896758995632116,
+    "historical_rca": false
+  },
+  {
+    "kind": "paired_change",
+    "arm": "H_POD_PHASE - H_MARGINAL_PHASE",
+    "n": 30,
+    "rho": -0.2526299277042433,
+    "p_exploratory": 0.1780180765399041,
+    "historical_rca": false
+  },
+  {
+    "kind": "paired_change",
+    "arm": "V_POD_BRIDGE - V_POD_SEPARATE",
+    "n": 30,
+    "rho": 0.009600270449544502,
+    "p_exploratory": 0.9598438274278565,
+    "historical_rca": false
+  },
+  {
+    "kind": "paired_change",
+    "arm": "P_U_VALUE_BLOCK - U_QA",
+    "n": 30,
+    "rho": 0.1657458444425526,
+    "p_exploratory": 0.3813947942602939,
+    "historical_rca": true
+  },
+  {
+    "kind": "paired_change",
+    "arm": "P_U_NEIGHBOR_PAIR - U_QA",
+    "n": 30,
+    "rho": -0.16565193114268567,
+    "p_exploratory": 0.38166844021397783,
+    "historical_rca": true
+  },
+  {
+    "kind": "paired_change",
+    "arm": "P_U_COMBINED - U_QA",
+    "n": 30,
+    "rho": -0.1518887618977268,
+    "p_exploratory": 0.42299044036756495,
+    "historical_rca": true
+  }
+]

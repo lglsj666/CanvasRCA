@@ -1,0 +1,1839 @@
+[
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-D9ABFB644D29",
+    "dataset": "aegislab",
+    "variant": "BASE",
+    "index": 2,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "521",
+      "signal_or_relation": "OrderOtherRepository.findByAccountId (Inclusive Latency)",
+      "unit": "ms",
+      "statistic": "median",
+      "phase": "current",
+      "reading": "1.4949",
+      "image": 0,
+      "box": [
+        250,
+        0,
+        450,
+        180
+      ]
+    },
+    "location_cards": [
+      "GRCALL"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "CMP001.comparison.0.current",
+        "source": "a78",
+        "entity": "521",
+        "signal": "OrderOtherRepository.findByAccountId",
+        "unit": "ms",
+        "statistic": "inclusive_median_ms",
+        "phase": "current",
+        "value": "1.4949495",
+        "card": "CMP001",
+        "scale_id": "43e061c15fac980d419c53090f35fc52f8d99bfd6fa4bd3b90d2e202c6a083a9",
+        "scale_min": 0.0,
+        "scale_max": 1.652972
+      }
+    ],
+    "rca_standard_mrr": 0.0,
+    "rca_response": "{\"observations\": [{\"entity\": \"303\", \"signal_or_relation\": \"Log Denormalization Error\", \"unit\": \"count\", \"statistic\": \"severe\", \"phase\": \"current\", \"reading\": \"196\", \"image\": 0, \"box\": [0, 400, 200, 560]}, {\"entity\": \"481\", \"signal_or_relation\": \"GET /api/v1/consignservice/consigns/account... (Exclusive Latency)\", \"unit\": \"ms\", \"statistic\": \"p95\", \"phase\": \"current\", \"reading\": \"721.4\", \"image\": 0, \"box\": [0, 820, 350, 950]}, {\"entity\": \"521\", \"signal_or_relation\": \"OrderOtherRepository.findByAccountId (Inclusive Latency)\", \"unit\": \"ms\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": \"1.4949\", \"image\": 0, \"box\": [250, 0, 450, 180]}], \"services\": [\"303\", \"481\", \"521\", \"956\", \"659\"], \"reason\": \"Service 303 is the primary initiator, evidenced by 196 severe 'Denormalization error' logs and a dramatically elevated Z-score in its observed source summary. Service 481 is the primary symptom, as its exclusive p95 latency spiked from a 6.6ms reference to 721.4ms current, identifying a local processing stall. Service 521 is a primary candidate for the cause, as the 'L7211 - severe' error in 303 explicitly names 'OrderOtherRepository.findByAccountId', which corresponds to a span in service 521 that is the destination of the failing call from 481.\", \"confidence\": \"high\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-A03DA161313B",
+    "dataset": "aiops2022",
+    "variant": "BASE",
+    "index": 1,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "61897",
+      "signal_or_relation": "hipstershop.190/GetQuote",
+      "unit": "us",
+      "statistic": "exclusive_latency_p95",
+      "phase": "current",
+      "reading": "1.557e+5",
+      "image": 0,
+      "box": [
+        350,
+        330,
+        530,
+        400
+      ]
+    },
+    "location_cards": [
+      "CMP010"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "TRA004.after",
+        "source": "a60",
+        "entity": "95506",
+        "signal": "hipstershop.190/GetQuote",
+        "unit": "µs",
+        "statistic": "exclusive p95",
+        "phase": "current",
+        "value": "155746.3",
+        "card": "TRA004",
+        "scale_id": "94e0e015b89c755fe52aedc735171c964e29cbe174830632c8a362e0734006dc",
+        "scale_min": 0.0,
+        "scale_max": 200513.6
+      }
+    ],
+    "rca_standard_mrr": 1.0,
+    "rca_response": "{\"observations\": [{\"entity\": \"61897\", \"signal_or_relation\": \"container_memory_mapped_file\", \"unit\": \"bytes\", \"statistic\": \"value\", \"phase\": \"current\", \"reading\": \"}, {\", \"image\": 1, \"box\": [40, 80, 920, 350]}, {\"entity\": \"61897\", \"signal_or_relation\": \"hipstershop.190/GetQuote\", \"unit\": \"us\", \"statistic\": \"exclusive_latency_p95\", \"phase\": \"current\", \"reading\": \"1.557e+5\", \"image\": 0, \"box\": [350, 330, 530, 400]}, {\"entity\": \"61897\", \"signal_or_relation\": \"system.net.udp.out_datagrams\", \"unit\": \"count\", \"statistic\": \"current\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [530, 350, 700, 430]}], \"services\": [\"61897\", \"24448\", \"95506\", \"74466\", \"516\"], \"reason\": \"Candidate 61897 is the parent of the incident trace (PAIR01) and exhibits a massive spike in 'container_memory_mapped_file' (MET10) reaching 5.475e+6 bytes, concurrent with elevated exclusive latency in its child operation 'GetQuote' (TRC04). The high z-score (162.7) for this memory metric on 61897 strongly suggests a resource exhaustion or memory contention issue on this pod that is initiating the degradation. While 24448 (the parent's parent) shows network output changes, the distinct 'mapped file' spike on the leaf service 61897 is a more specific anomaly pattern likely driving the local slowdown.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-76E86205A1E4",
+    "dataset": "aegislab",
+    "variant": "BASE",
+    "index": 1,
+    "audit_status": "invalid_location",
+    "claim": {
+      "entity": "346",
+      "signal_or_relation": "UserRepository.findByUsername",
+      "unit": "ms",
+      "statistic": "inclusive_median",
+      "phase": "current",
+      "reading": "0.767",
+      "image": 0,
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "location_cards": [],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "CMP006.comparison.0.current",
+        "source": "a67",
+        "entity": "346",
+        "signal": "UserRepository.findByUsername",
+        "unit": "ms",
+        "statistic": "inclusive_median_ms",
+        "phase": "current",
+        "value": "0.7676875",
+        "card": "CMP006",
+        "scale_id": "c9e16a643a8787e57ce585cd022b3baf5a0d8eb7214cec5183d800662d4404de",
+        "scale_min": 0.0,
+        "scale_max": 0.8261405
+      }
+    ],
+    "rca_standard_mrr": 0.0,
+    "rca_response": "{\"observations\": [{\"entity\": \"862\", \"signal_or_relation\": \"container.cpu.usage\", \"unit\": \"ratio\", \"statistic\": \"current_inclusive_p95\", \"phase\": \"current\", \"reading\": \"0.005\", \"image\": 0, \"box\": [0, 0, 0, 0]}, {\"entity\": \"346\", \"signal_or_relation\": \"UserRepository.findByUsername\", \"unit\": \"ms\", \"statistic\": \"inclusive_median\", \"phase\": \"current\", \"reading\": \"0.767\", \"image\": 0, \"box\": [0, 0, 0, 0]}, {\"entity\": \"346\", \"signal_or_relation\": \"container.cpu.usage\", \"unit\": \"ratio\", \"statistic\": \"current_inclusive_p95\", \"phase\": \"current\", \"reading\": \"1.2e-05\", \"image\": 0, \"box\": [0, 0, 0, 0]}], \"services\": [\"346\", \"862\", \"245\", \"311\", \"437\"], \"reason\": \"Analysis of service 346 reveals that while it is called from the root service 862, its own CPU usage (0.01% p95) and memory are negligible, ruling it out as the resource-consuming root. Service 862 (FoodService) is the root aggregator with 0.5% CPU usage, which, combined with the lack of resource contention on its children, suggests the fault is likely in the application logic or a downstream dependency rather than local resource exhaustion. Since 862 calls 245 (PreserveService), and PreserveService has a high exclusive latency (2.47e5 µs), it is a prime candidate for the initiating cause of the delay.\", \"confidence\": \"low\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-1E7AE92CAA11",
+    "dataset": "aiops2025",
+    "variant": "BASE",
+    "index": 0,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "87263",
+      "signal_or_relation": "rt_max",
+      "unit": "ms",
+      "statistic": "current_median",
+      "phase": "current",
+      "reading": "11661",
+      "image": 0,
+      "box": [
+        438,
+        502,
+        680,
+        645
+      ]
+    },
+    "location_cards": [
+      "TRA001"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "CMP002.comparison.0.current",
+        "source": "a67",
+        "entity": "87263",
+        "signal": "rrt_max",
+        "unit": "source_unit",
+        "statistic": "median",
+        "phase": "current",
+        "value": "11661.0",
+        "card": "CMP002",
+        "scale_id": "c9dfd90201e5f3e3dc19c5d8085e8d72916d8707c24c653645c97c9919bef3eb",
+        "scale_min": 0.0,
+        "scale_max": 20124965.0
+      }
+    ],
+    "rca_standard_mrr": 0.0,
+    "rca_response": "{\"observations\": [{\"entity\": \"87263\", \"signal_or_relation\": \"rt_max\", \"unit\": \"ms\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": \"11661\", \"image\": 0, \"box\": [438, 502, 680, 645]}, {\"entity\": \"87263\", \"signal_or_relation\": \"request_complete\", \"unit\": \"count\", \"statistic\": \"count\", \"phase\": \"current\", \"reading\": \"45\", \"image\": 0, \"box\": [15, 405, 155, 510]}, {\"entity\": \"148.158/Recs\", \"signal_or_relation\": \"TRC01\", \"unit\": \"ms\", \"statistic\": \"current_exclusive_p95\", \"phase\": \"current\", \"reading\": \"2442.4\", \"image\": 0, \"box\": [15, 750, 225, 840]}], \"services\": [\"87263\", \"158\", \"279\", \"338\", \"812\"], \"reason\": \"The signature combination of extreme RT spikes (current median 11.6s vs 341ms ref) and volume drop (45 vs 1740 ref) on pod 87263 aligns with the +33.0m anomaly onset timestamp, identifying it as the primary root cause entity. Observed latency degradation in service 158 is a direct downstream consequence of the parent-pod failure, while the lack of cross-node resource saturation on other candidates rules out cluster-level contention. Although node 8965 shows normal disk write activity, the absence of elevated node-level metrics there prevents it from being an independent cause.\", \"confidence\": \"high\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-1E7AE92CAA11",
+    "dataset": "aiops2025",
+    "variant": "BASE",
+    "index": 2,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "148.158/Recs",
+      "signal_or_relation": "TRC01",
+      "unit": "ms",
+      "statistic": "current_exclusive_p95",
+      "phase": "current",
+      "reading": "2442.4",
+      "image": 0,
+      "box": [
+        15,
+        750,
+        225,
+        840
+      ]
+    },
+    "location_cards": [
+      "INV010"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "TRA002.after",
+        "source": "a52",
+        "entity": "338",
+        "signal": "148.338/AddItem",
+        "unit": "µs",
+        "statistic": "exclusive p95",
+        "phase": "current",
+        "value": "2442.4",
+        "card": "TRA002",
+        "scale_id": "cf9efbfa870719b8099b100bdb294a30d7b16a34eac6eca5a974028e09738899",
+        "scale_min": 0.0,
+        "scale_max": 2442.4
+      }
+    ],
+    "rca_standard_mrr": 0.0,
+    "rca_response": "{\"observations\": [{\"entity\": \"87263\", \"signal_or_relation\": \"rt_max\", \"unit\": \"ms\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": \"11661\", \"image\": 0, \"box\": [438, 502, 680, 645]}, {\"entity\": \"87263\", \"signal_or_relation\": \"request_complete\", \"unit\": \"count\", \"statistic\": \"count\", \"phase\": \"current\", \"reading\": \"45\", \"image\": 0, \"box\": [15, 405, 155, 510]}, {\"entity\": \"148.158/Recs\", \"signal_or_relation\": \"TRC01\", \"unit\": \"ms\", \"statistic\": \"current_exclusive_p95\", \"phase\": \"current\", \"reading\": \"2442.4\", \"image\": 0, \"box\": [15, 750, 225, 840]}], \"services\": [\"87263\", \"158\", \"279\", \"338\", \"812\"], \"reason\": \"The signature combination of extreme RT spikes (current median 11.6s vs 341ms ref) and volume drop (45 vs 1740 ref) on pod 87263 aligns with the +33.0m anomaly onset timestamp, identifying it as the primary root cause entity. Observed latency degradation in service 158 is a direct downstream consequence of the parent-pod failure, while the lack of cross-node resource saturation on other candidates rules out cluster-level contention. Although node 8965 shows normal disk write activity, the absence of elevated node-level metrics there prevents it from being an independent cause.\", \"confidence\": \"high\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-C83F01A1BA7F",
+    "dataset": "aiops2022",
+    "variant": "BASE",
+    "index": 2,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "85794",
+      "signal_or_relation": "system.mem.free",
+      "unit": "bytes",
+      "statistic": "value",
+      "phase": "current",
+      "reading": "14404",
+      "image": 0,
+      "box": [
+        530,
+        520,
+        700,
+        750
+      ]
+    },
+    "location_cards": [
+      "INV027"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "MET003.detail.2",
+        "source": "a39/peak",
+        "entity": "25796",
+        "signal": "istio_agent_go_memstats_frees",
+        "unit": "source_unit",
+        "statistic": "peak",
+        "phase": "whole_window",
+        "value": "1.438e+04",
+        "card": "MET003",
+        "original_field_label": "peak",
+        "scale_id": "f8f36f71bcac78fe2850030c02022f2549d4802ceb9dabfc99cd6c9d08733e34",
+        "scale_min": 0.0,
+        "scale_max": 14380.0
+      },
+      {
+        "binding": "CMP004.comparison.0.current",
+        "source": "a72",
+        "entity": "3775",
+        "signal": "system.mem.free",
+        "unit": "source_unit",
+        "statistic": "median",
+        "phase": "current",
+        "value": "14404.0",
+        "card": "CMP004",
+        "scale_id": "daf630a6cce60e03c6da69278264bfb8afb8b45ecc119e7f2dd0bd2b182d0c5f",
+        "scale_min": 0.0,
+        "scale_max": 14404.0
+      },
+      {
+        "binding": "CMP005.comparison.0.current",
+        "source": "a74",
+        "entity": "3775",
+        "signal": "system.mem.free",
+        "unit": "source_unit",
+        "statistic": "median",
+        "phase": "current",
+        "value": "14404.0",
+        "card": "CMP005",
+        "scale_id": "daf630a6cce60e03c6da69278264bfb8afb8b45ecc119e7f2dd0bd2b182d0c5f",
+        "scale_min": 0.0,
+        "scale_max": 14404.0
+      }
+    ],
+    "rca_standard_mrr": 0.25,
+    "rca_response": "{\"observations\": [{\"entity\": \"85794\", \"signal_or_relation\": \"container_memory_cache\", \"unit\": \"bytes\", \"statistic\": \"value\", \"phase\": \"current\", \"reading\": \"1.65e+7\", \"image\": 0, \"box\": [10, 520, 300, 750]}, {\"entity\": \"85794\", \"signal_or_relation\": \"grpc.hipstershop.609/ListProducts\", \"unit\": \"ms\", \"statistic\": \"p95\", \"phase\": \"current\", \"reading\": \"1.714\", \"image\": 0, \"box\": [620, 30, 990, 200]}, {\"entity\": \"85794\", \"signal_or_relation\": \"system.mem.free\", \"unit\": \"bytes\", \"statistic\": \"value\", \"phase\": \"current\", \"reading\": \"14404\", \"image\": 0, \"box\": [530, 520, 700, 750]}], \"services\": [\"85794\", \"69942\", \"8564\", \"3775\", \"90187\"], \"reason\": \"Candidate 85794 is the parent of the operation pair PAIR02, which exhibits a massive deviation in conditional duration quantiles compared to the reference phase. This performance regression is strongly correlated with a sharp drop in container_memory_cache on pod 85794 and a subsequent rise in system.mem.free, suggesting the parent pod triggered the root cause. While 69942 is the direct child, it likely inherits the latency from 85794, making 85794 the primary initiating component.\", \"confidence\": \"high\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-7CA062069501",
+    "dataset": "aiops2025",
+    "variant": "BASE",
+    "index": 0,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "6773",
+      "signal_or_relation": "node_memory_usage_rate",
+      "unit": "%",
+      "statistic": "current_median",
+      "phase": "current",
+      "reading": "27.58",
+      "image": 0,
+      "box": [
+        438,
+        502,
+        688,
+        667
+      ]
+    },
+    "location_cards": [
+      "TRA006"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "CMP004.comparison.0.current",
+        "source": "a83",
+        "entity": "6773",
+        "signal": "node_memory_usage_rate",
+        "unit": "source_unit",
+        "statistic": "median",
+        "phase": "current",
+        "value": "27.58",
+        "card": "CMP004",
+        "scale_id": "6d16656279a067a966e52055777c8fc9371394d03e64e3226d84fb7dec7a7f19",
+        "scale_min": 0.0,
+        "scale_max": 53.32
+      }
+    ],
+    "rca_standard_mrr": 0.5,
+    "rca_response": "{\"observations\": [{\"entity\": \"6773\", \"signal_or_relation\": \"node_memory_usage_rate\", \"unit\": \"%\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": \"27.58\", \"image\": 0, \"box\": [438, 502, 688, 667]}, {\"entity\": \"477\", \"signal_or_relation\": \"/603.477/ListProducts\", \"unit\": \"ms\", \"statistic\": \"exclusive_p95\", \"phase\": \"current\", \"reading\": \"3350.6\", \"image\": 0, \"box\": [490, 673, 685, 782]}, {\"entity\": \"993\", \"signal_or_relation\": \"/603.993/Recv\", \"unit\": \"ms\", \"statistic\": \"inclusive_p95\", \"phase\": \"current\", \"reading\": \"89.315\", \"image\": 0, \"box\": [222, 141, 395, 170]}], \"services\": [\"6773\", \"477\", \"993\", \"353\", \"428\"], \"reason\": \"The telemetry dashboard identifies entity 6773 (node_memory_usage_rate) with a high severity z-score (17.82) and a 10.6% usage drop between reference and current phases, indicating a significant infrastructure anomaly. Entity 477 (rt for /ListProducts) exhibits a coincident latency spike (median 33410 us) consistent with downstream degradation caused by node resource contention, while the root service 993 remains nominal. Although co-location of the entity 477 spike with the 6773 signal is a strong indicator, it does not strictly prove causal origin.\", \"confidence\": \"high\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-7CA062069501",
+    "dataset": "aiops2025",
+    "variant": "BASE",
+    "index": 1,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "477",
+      "signal_or_relation": "/603.477/ListProducts",
+      "unit": "ms",
+      "statistic": "exclusive_p95",
+      "phase": "current",
+      "reading": "3350.6",
+      "image": 0,
+      "box": [
+        490,
+        673,
+        685,
+        782
+      ]
+    },
+    "location_cards": [
+      "INV005"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "TRA006.after",
+        "source": "a67",
+        "entity": "477",
+        "signal": "/603.477/ListProducts",
+        "unit": "µs",
+        "statistic": "exclusive p95",
+        "phase": "current",
+        "value": "3350.6",
+        "card": "TRA006",
+        "scale_id": "fa3492183ba9cb46ead038c754cf72fc7a38b33681b32ae3ee710447ad455620",
+        "scale_min": 0.0,
+        "scale_max": 3350.6
+      }
+    ],
+    "rca_standard_mrr": 0.5,
+    "rca_response": "{\"observations\": [{\"entity\": \"6773\", \"signal_or_relation\": \"node_memory_usage_rate\", \"unit\": \"%\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": \"27.58\", \"image\": 0, \"box\": [438, 502, 688, 667]}, {\"entity\": \"477\", \"signal_or_relation\": \"/603.477/ListProducts\", \"unit\": \"ms\", \"statistic\": \"exclusive_p95\", \"phase\": \"current\", \"reading\": \"3350.6\", \"image\": 0, \"box\": [490, 673, 685, 782]}, {\"entity\": \"993\", \"signal_or_relation\": \"/603.993/Recv\", \"unit\": \"ms\", \"statistic\": \"inclusive_p95\", \"phase\": \"current\", \"reading\": \"89.315\", \"image\": 0, \"box\": [222, 141, 395, 170]}], \"services\": [\"6773\", \"477\", \"993\", \"353\", \"428\"], \"reason\": \"The telemetry dashboard identifies entity 6773 (node_memory_usage_rate) with a high severity z-score (17.82) and a 10.6% usage drop between reference and current phases, indicating a significant infrastructure anomaly. Entity 477 (rt for /ListProducts) exhibits a coincident latency spike (median 33410 us) consistent with downstream degradation caused by node resource contention, while the root service 993 remains nominal. Although co-location of the entity 477 spike with the 6773 signal is a strong indicator, it does not strictly prove causal origin.\", \"confidence\": \"high\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-B646C4677B96",
+    "dataset": "aiops2022",
+    "variant": "BASE",
+    "index": 0,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "875",
+      "signal_or_relation": "hipstershop.216/GetCart",
+      "unit": "ms",
+      "statistic": "exclusive latency p95",
+      "phase": "current",
+      "reading": "1.7e+7",
+      "image": 0,
+      "box": [
+        0.56,
+        0.51,
+        0.68,
+        0.68
+      ]
+    },
+    "location_cards": [],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "TRA001.after",
+        "source": "a60",
+        "entity": "86432",
+        "signal": "hipstershop.875/PlaceOrder",
+        "unit": "µs",
+        "statistic": "exclusive p95",
+        "phase": "current",
+        "value": "17001991.5",
+        "card": "TRA001",
+        "scale_id": "a0f0702ba58bdff24c4b27927ef7c51d6ea709a743a57a7abf4fff2c7253d6f1",
+        "scale_min": 0.0,
+        "scale_max": 17001991.5
+      }
+    ],
+    "rca_standard_mrr": 1.0,
+    "rca_response": "{\"observations\": [{\"entity\": \"875\", \"signal_or_relation\": \"hipstershop.216/GetCart\", \"unit\": \"ms\", \"statistic\": \"exclusive latency p95\", \"phase\": \"current\", \"reading\": \"1.7e+7\", \"image\": 0, \"box\": [0.56, 0.51, 0.68, 0.68]}, {\"entity\": \"875\", \"signal_or_relation\": \"container_memory_rss\", \"unit\": \"count\", \"statistic\": \"reference vs current interval\", \"phase\": \"current\", \"reading\": \"reference 1.215e+7, current 1.212e+7\", \"image\": 0, \"box\": [0.81, 0.03, 1.0, 0.24]}, {\"entity\": \"216\", \"signal_or_relation\": \"istio_request_duration_milliseconds.http.202\", \"unit\": \"ms\", \"statistic\": \"response duration\", \"phase\": \"current\", \"reading\": \"37714 (peak)\", \"image\": 0, \"box\": [0.04, 0.60, 0.19, 0.72]}], \"services\": [\"875\", \"216\", \"478\", \"86432\", \"12534\"], \"reason\": \"The initiat ing component is service 875, exhibiting a massive spike in exclusive latency for hipstershop.216/GetCart (current 1.7e+7 ms vs reference 741.5 µs). This local degradation aligns with the propagation of high latency (approx. 37s) observed in the upstream service 216 and the downstream 478 service. While service 478 also shows high latency, the exclusive increase in 875 suggests it is the primary source of the delay, independent of the GC/copy load seen in 362.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-D28AC6CAEFE4",
+    "dataset": "aegislab",
+    "variant": "BASE",
+    "index": 0,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "370",
+      "signal_or_relation": "PreserveController.preserve",
+      "unit": "µs",
+      "statistic": "p95 exclusive latency",
+      "phase": "current",
+      "reading": "541376",
+      "image": 1,
+      "box": [
+        0,
+        200,
+        500,
+        400
+      ]
+    },
+    "location_cards": [
+      "MET011"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "TRA004.after",
+        "source": "a54",
+        "entity": "370",
+        "signal": "PreserveController.preserve",
+        "unit": "µs",
+        "statistic": "exclusive p95",
+        "phase": "current",
+        "value": "541376.43",
+        "card": "TRA004",
+        "scale_id": "acaad41b43f54c9286d0ae7554f8b47ad35402f176715471669be821f6744d4e",
+        "scale_min": 0.0,
+        "scale_max": 541376.43
+      }
+    ],
+    "rca_standard_mrr": 0.0,
+    "rca_response": "{\"observations\": [{\"entity\": \"370\", \"signal_or_relation\": \"PreserveController.preserve\", \"unit\": \"µs\", \"statistic\": \"p95 exclusive latency\", \"phase\": \"current\", \"reading\": \"541376\", \"image\": 1, \"box\": [0, 200, 500, 400]}, {\"entity\": \"370\", \"signal_or_relation\": \"PreserveController.preserve\", \"unit\": \"count\", \"statistic\": \"span count\", \"phase\": \"current\", \"reading\": \"6\", \"image\": 1, \"box\": [0, 500, 500, 700]}, {\"entity\": \"550\", \"signal_or_relation\": \"k8s.pod.memory_limit_utilization\", \"unit\": \"percent\", \"statistic\": \"current_mean\", \"phase\": \"current\", \"reading\": \"0.03\", \"image\": 1, \"box\": [0, 0, 500, 200]}], \"services\": [\"370\", \"318\", \"136\", \"464\", \"698\"], \"reason\": \"Candidate 370 shows a massive 20x increase in exclusive latency p95 (541ms vs 26ms) for 'PreserveController.preserve', establishing it as the initiating component with the highest rank score of 4.36. While service 550 exhibits memory availability issues, its low memory_limit_utilization (0.03) suggests it is not memory-starved, reducing its likelihood as the root cause. The low span count (6) for 370 indicates the latency increase is a high-severity issue on a low-traffic path.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-5D92F3402F88",
+    "dataset": "aiops2025",
+    "variant": "BASE",
+    "index": 0,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "486",
+      "signal_or_relation": "rt_max",
+      "unit": "ms",
+      "statistic": "median",
+      "phase": "current",
+      "reading": "95963",
+      "image": 0,
+      "box": [
+        540,
+        800,
+        700,
+        960
+      ]
+    },
+    "location_cards": [
+      "INV001"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "CMP004.comparison.0.reference",
+        "source": "a87",
+        "entity": "3024",
+        "signal": "node_disk_written_bytes_total",
+        "unit": "source_unit",
+        "statistic": "median",
+        "phase": "reference",
+        "value": "95163.735",
+        "card": "CMP004",
+        "scale_id": "61acf5ab1f60bd7b5a7aef1a6ddbff4d72ccfa1e6fc3d7f4c4c588e8abd660e6",
+        "scale_min": 0.0,
+        "scale_max": 466722.14
+      },
+      {
+        "binding": "CMP010.comparison.0.reference",
+        "source": "a99",
+        "entity": "3024",
+        "signal": "node_disk_written_bytes_total",
+        "unit": "source_unit",
+        "statistic": "median",
+        "phase": "reference",
+        "value": "95163.735",
+        "card": "CMP010",
+        "scale_id": "61acf5ab1f60bd7b5a7aef1a6ddbff4d72ccfa1e6fc3d7f4c4c588e8abd660e6",
+        "scale_min": 0.0,
+        "scale_max": 466722.14
+      }
+    ],
+    "rca_standard_mrr": 0.0,
+    "rca_response": "{\"observations\": [{\"entity\": \"486\", \"signal_or_relation\": \"rt_max\", \"unit\": \"ms\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": \"95963\", \"image\": 0, \"box\": [540, 800, 700, 960]}, {\"entity\": \"711\", \"signal_or_relation\": \"443.711/Convert\", \"unit\": \"ms\", \"statistic\": \"exclusive_p95\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [40, 580, 200, 730]}, {\"entity\": \"5429\", \"signal_or_relation\": \"node_memory_MemAvailable_bytes\", \"unit\": \"bytes\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": \"9.953e+09\", \"image\": 0, \"box\": [0, 350, 180, 500]}], \"services\": [\"486\", \"711\", \"5429\", \"636\", \"712\"], \"reason\": \"Candidate 486 is the primary suspect due to an extreme latency spike (median ~95,963 ms) that is a magnitude higher than any other service and significantly exceeds the 243.96ms x-axis limit. While service 711 also shows latency issues (child ref p95 ~60,000 ms), these are coincident with the downstream stall from 486 rather than an independent root cause. The reference node memory (5429) was at ~9.76GB, closer to potential exhaustion than current, suggesting memory pressure on the host as a potential underlying trigger for the I/O stall.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-5D92F3402F88",
+    "dataset": "aiops2025",
+    "variant": "BASE",
+    "index": 2,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "5429",
+      "signal_or_relation": "node_memory_MemAvailable_bytes",
+      "unit": "bytes",
+      "statistic": "median",
+      "phase": "current",
+      "reading": "9.953e+09",
+      "image": 0,
+      "box": [
+        0,
+        350,
+        180,
+        500
+      ]
+    },
+    "location_cards": [
+      "MET003"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "CMP007.comparison.0.current",
+        "source": "a93",
+        "entity": "5429",
+        "signal": "node_memory_MemAvailable_bytes",
+        "unit": "source_unit",
+        "statistic": "median",
+        "phase": "current",
+        "value": "9951860700.0",
+        "card": "CMP007",
+        "scale_id": "e6d21bfbe1f7b1cd5148906df00b7015c6d59d23caff0fc605ac931ca1d3bc7d",
+        "scale_min": 0.0,
+        "scale_max": 9951860700.0
+      }
+    ],
+    "rca_standard_mrr": 0.0,
+    "rca_response": "{\"observations\": [{\"entity\": \"486\", \"signal_or_relation\": \"rt_max\", \"unit\": \"ms\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": \"95963\", \"image\": 0, \"box\": [540, 800, 700, 960]}, {\"entity\": \"711\", \"signal_or_relation\": \"443.711/Convert\", \"unit\": \"ms\", \"statistic\": \"exclusive_p95\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [40, 580, 200, 730]}, {\"entity\": \"5429\", \"signal_or_relation\": \"node_memory_MemAvailable_bytes\", \"unit\": \"bytes\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": \"9.953e+09\", \"image\": 0, \"box\": [0, 350, 180, 500]}], \"services\": [\"486\", \"711\", \"5429\", \"636\", \"712\"], \"reason\": \"Candidate 486 is the primary suspect due to an extreme latency spike (median ~95,963 ms) that is a magnitude higher than any other service and significantly exceeds the 243.96ms x-axis limit. While service 711 also shows latency issues (child ref p95 ~60,000 ms), these are coincident with the downstream stall from 486 rather than an independent root cause. The reference node memory (5429) was at ~9.76GB, closer to potential exhaustion than current, suggesting memory pressure on the host as a potential underlying trigger for the I/O stall.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-FDC8B6B87BEB",
+    "dataset": "aiops2022",
+    "variant": "BASE",
+    "index": 0,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "68315",
+      "signal_or_relation": "system.disk.total",
+      "unit": "bytes",
+      "statistic": "total",
+      "phase": "current",
+      "reading": "3.91e+09",
+      "image": 0,
+      "box": [
+        0,
+        320,
+        250,
+        470
+      ]
+    },
+    "location_cards": [
+      "CMP004"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "MET008.detail.0",
+        "source": "a43/baseline",
+        "entity": "6950",
+        "signal": "system.disk.used",
+        "unit": "source_unit",
+        "statistic": "baseline",
+        "phase": "whole_window",
+        "value": "3.946e+09",
+        "card": "MET008",
+        "original_field_label": "baseline",
+        "scale_id": "843dd8f4ddcdfc850820baf2ca9d032e609b2410e42eb40426b785466cfda1b3",
+        "scale_min": 0.0,
+        "scale_max": 3946000000.0
+      }
+    ],
+    "rca_standard_mrr": 0.0,
+    "rca_response": "{\"observations\": [{\"entity\": \"68315\", \"signal_or_relation\": \"system.disk.total\", \"unit\": \"bytes\", \"statistic\": \"total\", \"phase\": \"current\", \"reading\": \"3.91e+09\", \"image\": 0, \"box\": [0, 320, 250, 470]}, {\"entity\": \"68315\", \"signal_or_relation\": \"container_fs_usage_MB_/dev/vda1\", \"unit\": \"MB\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": \"79.895\", \"image\": 0, \"box\": [10, 550, 260, 720]}, {\"entity\": \"68315\", \"signal_or_relation\": \"hipstershop.714/SendOrderConfirmation\", \"unit\": \"microseconds\", \"statistic\": \"p95_exclusive\", \"phase\": \"current\", \"reading\": \"<<unknown>>\", \"image\": 0, \"box\": [260, 730, 510, 930]}], \"services\": [\"68315\", \"6950\", \"5958\", \"63764\", \"68103\"], \"reason\": \"Pod 68315 shows a significant shift in disk utilization (MET06) and a change in the proportion of used space (MET08), which correlates with latency degradations in its services. The leading candidate is consistent with the co-location of node-level disk saturation (Node 6950) and extreme response times for requests flowing through this pod, although high CPU and load on related pods suggest a potential compounding factor.\", \"confidence\": \"high\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-FDC8B6B87BEB",
+    "dataset": "aiops2022",
+    "variant": "BASE",
+    "index": 1,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "68315",
+      "signal_or_relation": "container_fs_usage_MB_/dev/vda1",
+      "unit": "MB",
+      "statistic": "median",
+      "phase": "current",
+      "reading": "79.895",
+      "image": 0,
+      "box": [
+        10,
+        550,
+        260,
+        720
+      ]
+    },
+    "location_cards": [
+      "TRA001"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "CMP001.comparison.0.current",
+        "source": "a65",
+        "entity": "68315",
+        "signal": "container_fs_usage_MB./dev/vda1",
+        "unit": "source_unit",
+        "statistic": "median",
+        "phase": "current",
+        "value": "79.894531",
+        "card": "CMP001",
+        "scale_id": "abdf9c16d1a93c21dd0f652232bbcff7ebab62393a540dbf6e29443d6795a6b5",
+        "scale_min": 0.0,
+        "scale_max": 126.60547
+      }
+    ],
+    "rca_standard_mrr": 0.0,
+    "rca_response": "{\"observations\": [{\"entity\": \"68315\", \"signal_or_relation\": \"system.disk.total\", \"unit\": \"bytes\", \"statistic\": \"total\", \"phase\": \"current\", \"reading\": \"3.91e+09\", \"image\": 0, \"box\": [0, 320, 250, 470]}, {\"entity\": \"68315\", \"signal_or_relation\": \"container_fs_usage_MB_/dev/vda1\", \"unit\": \"MB\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": \"79.895\", \"image\": 0, \"box\": [10, 550, 260, 720]}, {\"entity\": \"68315\", \"signal_or_relation\": \"hipstershop.714/SendOrderConfirmation\", \"unit\": \"microseconds\", \"statistic\": \"p95_exclusive\", \"phase\": \"current\", \"reading\": \"<<unknown>>\", \"image\": 0, \"box\": [260, 730, 510, 930]}], \"services\": [\"68315\", \"6950\", \"5958\", \"63764\", \"68103\"], \"reason\": \"Pod 68315 shows a significant shift in disk utilization (MET06) and a change in the proportion of used space (MET08), which correlates with latency degradations in its services. The leading candidate is consistent with the co-location of node-level disk saturation (Node 6950) and extreme response times for requests flowing through this pod, although high CPU and load on related pods suggest a potential compounding factor.\", \"confidence\": \"high\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-01BF937825D4",
+    "dataset": "aegislab",
+    "variant": "BASE",
+    "index": 0,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "service 836",
+      "signal_or_relation": "POST /api/v1/travelplanservice/trip_detail",
+      "unit": "microseconds",
+      "statistic": "exclusive p95",
+      "phase": "current",
+      "reading": "94248",
+      "image": 0,
+      "box": [
+        666,
+        587,
+        832,
+        720
+      ]
+    },
+    "location_cards": [],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "TRA001.after",
+        "source": "a48",
+        "entity": "836",
+        "signal": "POST /api/v1/travelservice/trip_detail",
+        "unit": "µs",
+        "statistic": "exclusive p95",
+        "phase": "current",
+        "value": "94248.28",
+        "card": "TRA001",
+        "scale_id": "60668c3a0bd78f2515d50a6e39dc8241234e16dc3122c3f28fdabd29ee2b0aea",
+        "scale_min": 0.0,
+        "scale_max": 94248.28
+      }
+    ],
+    "rca_standard_mrr": 0.5,
+    "rca_response": "{\"observations\": [{\"entity\": \"service 836\", \"signal_or_relation\": \"POST /api/v1/travelplanservice/trip_detail\", \"unit\": \"microseconds\", \"statistic\": \"exclusive p95\", \"phase\": \"current\", \"reading\": \"94248\", \"image\": 0, \"box\": [666, 587, 832, 720]}, {\"entity\": \"service 836\", \"signal_or_relation\": \"jvm.system.cpu.utilization\", \"unit\": \"ratio\", \"statistic\": \"peak\", \"phase\": \"current\", \"reading\": \"0.21749\", \"image\": 0, \"box\": [0, 387, 333, 555]}, {\"entity\": \"service 732\", \"signal_or_relation\": \"jvm.system.cpu.utilization\", \"unit\": \"ratio\", \"statistic\": \"peak\", \"phase\": \"current\", \"reading\": \"0.3598\", \"image\": 0, \"box\": [499, 437, 666, 587]}], \"services\": [\"836\", \"732\", \"927\", \"580\", \"762\"], \"reason\": \"Service 836 is the top candidate due to a massive degradation in its 'trip_detail' endpoint (current 94248us vs ref 214.8us) and a visible CPU spike (0.217), suggesting internal resource contention or a CPU-bound regression. Service 732 is a secondary suspect showing a higher CPU utilization spike (0.360) but with much less dramatic latency evidence in the highlighted panels. The Pairs 01/02 top-right panels show that the parent operation (927, service 960) is 'slow' in the reference interval but the child (762) is not, which helps isolate the root cause to the leaf services rather than the aggregation layer.\", \"confidence\": \"high\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-9FE4614C417F",
+    "dataset": "aegislab",
+    "variant": "BASE",
+    "index": 1,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "407",
+      "signal_or_relation": "k8s_container_restarts",
+      "unit": "count",
+      "statistic": "sum",
+      "phase": "current",
+      "reading": "1",
+      "image": 0,
+      "box": [
+        40,
+        15,
+        60,
+        50
+      ]
+    },
+    "location_cards": [
+      "INV002"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "MET002.detail.2",
+        "source": "a43/peak",
+        "entity": "32402",
+        "signal": "k8s.container.restarts",
+        "unit": "source_unit",
+        "statistic": "peak",
+        "phase": "whole_window",
+        "value": "1",
+        "card": "MET002",
+        "original_field_label": "peak",
+        "scale_id": "095fc41bf2e22edbeb7fec1b0c1910c65e1cfdb5f397dbb0a710e9ae62056acc",
+        "scale_min": 0.0,
+        "scale_max": 1.0
+      },
+      {
+        "binding": "MET002.detail.5",
+        "source": "a43/sircl_met_z/current_mean",
+        "entity": "32402",
+        "signal": "k8s.container.restarts",
+        "unit": "source_unit",
+        "statistic": "sircl_met_z · current_mean",
+        "phase": "current",
+        "value": "1.00",
+        "card": "MET002",
+        "original_field_label": "sircl_met_z · current_mean",
+        "scale_id": "ee46f97b37c94906c7b0169ab735fa853b8447fc288d7fb6cf0ce56f0bc5eb80",
+        "scale_min": 0.0,
+        "scale_max": 1.0
+      },
+      {
+        "binding": "LOG001.detail.12",
+        "source": "a66/numeric_preview/{num1}/distinct_count",
+        "entity": "24252",
+        "signal": "LT1050 · info",
+        "unit": "count",
+        "statistic": "template {num1} · distinct count",
+        "phase": "observed_window",
+        "value": "1",
+        "card": "LOG001",
+        "original_field_label": "template {num1} · distinct count · count",
+        "scale_id": "edd6756f0296c16a4a78f40713e1456a25b0b26b75e992e4130077d06c147152",
+        "scale_min": 0.0,
+        "scale_max": 1.0
+      },
+      {
+        "binding": "LOG001.detail.13",
+        "source": "a66/numeric_preview/{num1}/first",
+        "entity": "24252",
+        "signal": "LT1050 · info",
+        "unit": "source_unit",
+        "statistic": "template {num1} · first",
+        "phase": "observed_window",
+        "value": "1",
+        "card": "LOG001",
+        "original_field_label": "template {num1} · first · source_unit",
+        "scale_id": "ac5b2b8afdfab9fcaf83819f5b0ba81aca0e1cc548210ac96ad77833025a3ca4",
+        "scale_min": 0.0,
+        "scale_max": 1.0
+      },
+      {
+        "binding": "LOG001.detail.14",
+        "source": "a66/numeric_preview/{num1}/last",
+        "entity": "24252",
+        "signal": "LT1050 · info",
+        "unit": "source_unit",
+        "statistic": "template {num1} · last",
+        "phase": "observed_window",
+        "value": "1",
+        "card": "LOG001",
+        "original_field_label": "template {num1} · last · source_unit",
+        "scale_id": "fa03a6ab3153a71740a775b82092290c033b3e0488c747a6352112868d2aee96",
+        "scale_min": 0.0,
+        "scale_max": 1.0
+      },
+      {
+        "binding": "LOG001.detail.15",
+        "source": "a66/numeric_preview/{num1}/most_common/0/0",
+        "entity": "24252",
+        "signal": "LT1050 · info",
+        "unit": "source_unit",
+        "statistic": "template {num1} · value",
+        "phase": "observed_window",
+        "value": "1",
+        "card": "LOG001",
+        "original_field_label": "template {num1} · value · source_unit",
+        "scale_id": "ea13dc5bf5e37364bd3f6507fa328aa644cf36f135eb7d8292c0fe7f446515ad",
+        "scale_min": 0.0,
+        "scale_max": 1.0
+      },
+      {
+        "binding": "LOG001.detail.18",
+        "source": "a66/numeric_preview/{uuid1}/distinct_count",
+        "entity": "24252",
+        "signal": "LT1050 · info",
+        "unit": "count",
+        "statistic": "template {uuid1} · distinct count",
+        "phase": "observed_window",
+        "value": "1",
+        "card": "LOG001",
+        "original_field_label": "template {uuid1} · distinct count · count",
+        "scale_id": "4aea5298cf417d5afe1f52579d3a326bbee877c126c546a4dd7b6414920800c7",
+        "scale_min": 0.0,
+        "scale_max": 1.0
+      },
+      {
+        "binding": "CMP001.comparison.0.current",
+        "source": "a71",
+        "entity": "32402",
+        "signal": "k8s.container.restarts",
+        "unit": "source_unit",
+        "statistic": "median",
+        "phase": "current",
+        "value": "1.0",
+        "card": "CMP001",
+        "scale_id": "a6485296661e26f3bd6440ba9708d73ef67fc9c84afcd72607d3a1d3e5c8ff42",
+        "scale_min": 0.0,
+        "scale_max": 1.0
+      },
+      {
+        "binding": "CMP003.comparison.0.current",
+        "source": "a76",
+        "entity": "32402",
+        "signal": "k8s.container.restarts",
+        "unit": "source_unit",
+        "statistic": "median",
+        "phase": "current",
+        "value": "1.0",
+        "card": "CMP003",
+        "scale_id": "a6485296661e26f3bd6440ba9708d73ef67fc9c84afcd72607d3a1d3e5c8ff42",
+        "scale_min": 0.0,
+        "scale_max": 1.0
+      },
+      {
+        "binding": "INV027.detail.9",
+        "source": "a115/PAIR01/phases/current/binary/2",
+        "entity": "",
+        "signal": "PAIR01",
+        "unit": "count",
+        "statistic": "PAIR01 · current · parent>p95 child≤p95",
+        "phase": "current",
+        "value": "1",
+        "card": "INV027",
+        "original_field_label": "PAIR01 · current · parent>p95 child≤p95 · count",
+        "scale_id": "f78d0620c0c4ecd6d0c49f06af5afebc1f90f059f4aac1e5f98d44962133b65b",
+        "scale_min": 0.0,
+        "scale_max": 1.0
+      }
+    ],
+    "rca_standard_mrr": 0.0,
+    "rca_response": "{\"observations\": [{\"entity\": \"849\", \"signal_or_relation\": \"hubble_http_request_duration_p95_seconds\", \"unit\": \"s\", \"statistic\": \"p95\", \"phase\": \"current\", \"reading\": \"4.7246\", \"image\": 0, \"box\": [20, 80, 60, 140]}, {\"entity\": \"407\", \"signal_or_relation\": \"k8s_container_restarts\", \"unit\": \"count\", \"statistic\": \"sum\", \"phase\": \"current\", \"reading\": \"1\", \"image\": 0, \"box\": [40, 15, 60, 50]}, {\"entity\": \"550\", \"signal_or_relation\": \"SecurityController.check\", \"unit\": \"ms\", \"statistic\": \"exclusive_p95\", \"phase\": \"current\", \"reading\": \"124300\", \"image\": 0, \"box\": [70, 30, 90, 60]}], \"services\": [\"849\", \"407\", \"550\", \"174\", \"165\"], \"reason\": \"The exclusive p95 latency for entity 849 spiked to 4.72s (image 0, top-left), indicating internal processing failures that align with the severe latency degradation observed in its parent 407 (image 0, center-right). Entity 407 shows a container restart count of 1 during the incident window, providing a strong correlation between the resource event and the cascade of latency failures. The inclusive span for 550 similarly shows a 6x increase, confirming a systemic impact on dependent services likely triggered by the resource exhaustion in 849.\", \"confidence\": \"high\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-9FE4614C417F",
+    "dataset": "aegislab",
+    "variant": "BASE",
+    "index": 2,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "550",
+      "signal_or_relation": "SecurityController.check",
+      "unit": "ms",
+      "statistic": "exclusive_p95",
+      "phase": "current",
+      "reading": "124300",
+      "image": 0,
+      "box": [
+        70,
+        30,
+        90,
+        60
+      ]
+    },
+    "location_cards": [
+      "INV002"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "TRA006.after",
+        "source": "a62",
+        "entity": "656",
+        "signal": "HTTP GET http://782:8080/api/v1/foodservice/foods/2025-08-10/shanghaihongqiao/hangzhou/K1345",
+        "unit": "µs",
+        "statistic": "exclusive p95",
+        "phase": "current",
+        "value": "124295.13",
+        "card": "TRA006",
+        "scale_id": "42f46b66469832475717e2484b5d67be167a23223ebcc37ee18e2b502d633e48",
+        "scale_min": 0.0,
+        "scale_max": 124295.13
+      }
+    ],
+    "rca_standard_mrr": 0.0,
+    "rca_response": "{\"observations\": [{\"entity\": \"849\", \"signal_or_relation\": \"hubble_http_request_duration_p95_seconds\", \"unit\": \"s\", \"statistic\": \"p95\", \"phase\": \"current\", \"reading\": \"4.7246\", \"image\": 0, \"box\": [20, 80, 60, 140]}, {\"entity\": \"407\", \"signal_or_relation\": \"k8s_container_restarts\", \"unit\": \"count\", \"statistic\": \"sum\", \"phase\": \"current\", \"reading\": \"1\", \"image\": 0, \"box\": [40, 15, 60, 50]}, {\"entity\": \"550\", \"signal_or_relation\": \"SecurityController.check\", \"unit\": \"ms\", \"statistic\": \"exclusive_p95\", \"phase\": \"current\", \"reading\": \"124300\", \"image\": 0, \"box\": [70, 30, 90, 60]}], \"services\": [\"849\", \"407\", \"550\", \"174\", \"165\"], \"reason\": \"The exclusive p95 latency for entity 849 spiked to 4.72s (image 0, top-left), indicating internal processing failures that align with the severe latency degradation observed in its parent 407 (image 0, center-right). Entity 407 shows a container restart count of 1 during the incident window, providing a strong correlation between the resource event and the cascade of latency failures. The inclusive span for 550 similarly shows a 6x increase, confirming a systemic impact on dependent services likely triggered by the resource exhaustion in 849.\", \"confidence\": \"high\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-C426468D92A8",
+    "dataset": "aegislab",
+    "variant": "BASE",
+    "index": 0,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "670",
+      "signal_or_relation": "container.memory.page_faults",
+      "unit": "count",
+      "statistic": "median",
+      "phase": "current",
+      "reading": "13610",
+      "image": 0,
+      "box": [
+        438,
+        702,
+        625,
+        845
+      ]
+    },
+    "location_cards": [
+      "INV003"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "CMP004.comparison.0.current",
+        "source": "a72",
+        "entity": "758",
+        "signal": "container.memory.page_faults",
+        "unit": "source_unit",
+        "statistic": "median",
+        "phase": "current",
+        "value": "13618.0",
+        "card": "CMP004",
+        "scale_id": "c93d2b4c77fd70e4dbcecf493c3a210c4029974c05aad0b15717daa3ccd71e1a",
+        "scale_min": 0.0,
+        "scale_max": 155496.67
+      }
+    ],
+    "rca_standard_mrr": 0.0,
+    "rca_response": "{\"observations\": [{\"entity\": \"670\", \"signal_or_relation\": \"container.memory.page_faults\", \"unit\": \"count\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": \"13610\", \"image\": 0, \"box\": [438, 702, 625, 845]}, {\"entity\": \"442\", \"signal_or_relation\": \"POST /api/v1/travelplanservice/travelPlan/minStation\", \"unit\": \"microseconds\", \"statistic\": \"exclusive p95\", \"phase\": \"current\", \"reading\": \"23750\", \"image\": 0, \"box\": [503, 635, 688, 812]}, {\"entity\": \"360\", \"signal_or_relation\": \"k8s.pod.cpu.utilization\", \"unit\": \"ratio\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": \"0.030811\", \"image\": 0, \"box\": [438, 543, 625, 688]}], \"services\": [\"670\", \"442\", \"360\", \"735\", \"669\"], \"reason\": \"Candidate 670 is identified as the initiating component due to a significant increase in memory page faults (13610 in current vs 0 reference), indicating memory pressure that likely led to latency spikes. This aligns with the 1.14-second exclusive latency increase in service 442's POST operation, suggesting a direct impact from the memory issue. The observed CPU utilization spike in 360 and the latency rise in 735 (POST operation, 3.13ms current) are downstream symptoms rather than the origin, as they follow the initial memory fault event.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-C426468D92A8",
+    "dataset": "aegislab",
+    "variant": "BASE",
+    "index": 1,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "442",
+      "signal_or_relation": "POST /api/v1/travelplanservice/travelPlan/minStation",
+      "unit": "microseconds",
+      "statistic": "exclusive p95",
+      "phase": "current",
+      "reading": "23750",
+      "image": 0,
+      "box": [
+        503,
+        635,
+        688,
+        812
+      ]
+    },
+    "location_cards": [
+      "INV003"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "TRA005.before",
+        "source": "a58",
+        "entity": "735",
+        "signal": "TravelPlanController.getByCheapest",
+        "unit": "µs",
+        "statistic": "exclusive p95",
+        "phase": "reference",
+        "value": "23592.55",
+        "card": "TRA005",
+        "scale_id": "957d6d76bff676c0c94b01435afdface821ba9276d5eaab148bde7160d3478c6",
+        "scale_min": 0.0,
+        "scale_max": 259250.11
+      }
+    ],
+    "rca_standard_mrr": 0.0,
+    "rca_response": "{\"observations\": [{\"entity\": \"670\", \"signal_or_relation\": \"container.memory.page_faults\", \"unit\": \"count\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": \"13610\", \"image\": 0, \"box\": [438, 702, 625, 845]}, {\"entity\": \"442\", \"signal_or_relation\": \"POST /api/v1/travelplanservice/travelPlan/minStation\", \"unit\": \"microseconds\", \"statistic\": \"exclusive p95\", \"phase\": \"current\", \"reading\": \"23750\", \"image\": 0, \"box\": [503, 635, 688, 812]}, {\"entity\": \"360\", \"signal_or_relation\": \"k8s.pod.cpu.utilization\", \"unit\": \"ratio\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": \"0.030811\", \"image\": 0, \"box\": [438, 543, 625, 688]}], \"services\": [\"670\", \"442\", \"360\", \"735\", \"669\"], \"reason\": \"Candidate 670 is identified as the initiating component due to a significant increase in memory page faults (13610 in current vs 0 reference), indicating memory pressure that likely led to latency spikes. This aligns with the 1.14-second exclusive latency increase in service 442's POST operation, suggesting a direct impact from the memory issue. The observed CPU utilization spike in 360 and the latency rise in 735 (POST operation, 3.13ms current) are downstream symptoms rather than the origin, as they follow the initial memory fault event.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-D9245047C658",
+    "dataset": "aiops2025",
+    "variant": "BASE",
+    "index": 0,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "326",
+      "signal_or_relation": "rt_max",
+      "unit": "ms",
+      "statistic": "peak",
+      "phase": "current",
+      "reading": "52980",
+      "image": 0,
+      "box": [
+        540,
+        80,
+        720,
+        200
+      ]
+    },
+    "location_cards": [
+      "INV028"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": true,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "MET001.detail.2",
+        "source": "a43/peak",
+        "entity": "53618",
+        "signal": "rrt_max",
+        "unit": "source_unit",
+        "statistic": "peak",
+        "phase": "whole_window",
+        "value": "5.298e+04",
+        "card": "MET001",
+        "original_field_label": "peak",
+        "scale_id": "61c55a0530a71d90420d080fffdd5c6b7da39cf25ce06ab383fec75bab0efe48",
+        "scale_min": 0.0,
+        "scale_max": 71950.0
+      },
+      {
+        "binding": "MET008.detail.2",
+        "source": "a50/peak",
+        "entity": "786",
+        "signal": "rrt_max",
+        "unit": "source_unit",
+        "statistic": "peak",
+        "phase": "whole_window",
+        "value": "5.298e+04",
+        "card": "MET008",
+        "original_field_label": "peak",
+        "scale_id": "61c55a0530a71d90420d080fffdd5c6b7da39cf25ce06ab383fec75bab0efe48",
+        "scale_min": 0.0,
+        "scale_max": 71950.0
+      }
+    ],
+    "rca_standard_mrr": 0.0,
+    "rca_response": "{\"observations\": [{\"entity\": \"326\", \"signal_or_relation\": \"rt_max\", \"unit\": \"ms\", \"statistic\": \"peak\", \"phase\": \"current\", \"reading\": \"52980\", \"image\": 0, \"box\": [540, 80, 720, 200]}, {\"entity\": \"123\", \"signal_or_relation\": \"266.123/GetSupportedCurrencies\", \"unit\": \"us\", \"statistic\": \"exclusive p95\", \"phase\": \"current\", \"reading\": \"1085\", \"image\": 0, \"box\": [15, 800, 330, 850]}, {\"entity\": \"4856\", \"signal_or_relation\": \"node_memory_usage_rate\", \"unit\": \"ms\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": \"44.58\", \"image\": 0, \"box\": [335, 55, 490, 110]}], \"services\": [\"326\", \"123\", \"4856\", \"186\", \"130\"], \"reason\": \"Anomaly onset data explicitly flags service 326 as the first entity to deviate at 15m, marking it as the initiating component. While its maximum runtime (rt_max) spiked to ~53s, its exclusive processing latency (TRC02) remained negligible (1682us), suggesting the fault is likely resource contention or scheduling rather than a code path performance regression. The leading candidate 326 is supported by the temporal 'onset' marker and contradicted as a pure code-slowdown by the absence of exclusive time growth.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-D9245047C658",
+    "dataset": "aiops2025",
+    "variant": "BASE",
+    "index": 1,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "123",
+      "signal_or_relation": "266.123/GetSupportedCurrencies",
+      "unit": "us",
+      "statistic": "exclusive p95",
+      "phase": "current",
+      "reading": "1085",
+      "image": 0,
+      "box": [
+        15,
+        800,
+        330,
+        850
+      ]
+    },
+    "location_cards": [
+      "INV006"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "TRA004.after",
+        "source": "a61",
+        "entity": "466",
+        "signal": "/266.466/SendOrderConfirmation",
+        "unit": "µs",
+        "statistic": "exclusive p95",
+        "phase": "current",
+        "value": "1085.1",
+        "card": "TRA004",
+        "scale_id": "94a3c6a489ca8a2af0a3eb2285f7d93e58a7443bbafd55e859e355845cfe94e6",
+        "scale_min": 0.0,
+        "scale_max": 1085.1
+      },
+      {
+        "binding": "TRA004.detail.7",
+        "source": "a61/inl_p95_fault_us",
+        "entity": "466",
+        "signal": "/266.466/SendOrderConfirmation",
+        "unit": "µs",
+        "statistic": "inclusive p95",
+        "phase": "current",
+        "value": "1085.1",
+        "card": "TRA004",
+        "original_field_label": "current inclusive p95 · µs",
+        "scale_id": "6bfd9b2757346a5db0ae8416c9da60891d264159aa1d258b65b56c9fa0412ea3",
+        "scale_min": 0.0,
+        "scale_max": 1085.1
+      }
+    ],
+    "rca_standard_mrr": 0.0,
+    "rca_response": "{\"observations\": [{\"entity\": \"326\", \"signal_or_relation\": \"rt_max\", \"unit\": \"ms\", \"statistic\": \"peak\", \"phase\": \"current\", \"reading\": \"52980\", \"image\": 0, \"box\": [540, 80, 720, 200]}, {\"entity\": \"123\", \"signal_or_relation\": \"266.123/GetSupportedCurrencies\", \"unit\": \"us\", \"statistic\": \"exclusive p95\", \"phase\": \"current\", \"reading\": \"1085\", \"image\": 0, \"box\": [15, 800, 330, 850]}, {\"entity\": \"4856\", \"signal_or_relation\": \"node_memory_usage_rate\", \"unit\": \"ms\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": \"44.58\", \"image\": 0, \"box\": [335, 55, 490, 110]}], \"services\": [\"326\", \"123\", \"4856\", \"186\", \"130\"], \"reason\": \"Anomaly onset data explicitly flags service 326 as the first entity to deviate at 15m, marking it as the initiating component. While its maximum runtime (rt_max) spiked to ~53s, its exclusive processing latency (TRC02) remained negligible (1682us), suggesting the fault is likely resource contention or scheduling rather than a code path performance regression. The leading candidate 326 is supported by the temporal 'onset' marker and contradicted as a pure code-slowdown by the absence of exclusive time growth.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-D9245047C658",
+    "dataset": "aiops2025",
+    "variant": "BASE",
+    "index": 2,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "4856",
+      "signal_or_relation": "node_memory_usage_rate",
+      "unit": "ms",
+      "statistic": "median",
+      "phase": "current",
+      "reading": "44.58",
+      "image": 0,
+      "box": [
+        335,
+        55,
+        490,
+        110
+      ]
+    },
+    "location_cards": [
+      "JNT001"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "CMP001.comparison.0.current",
+        "source": "a73",
+        "entity": "4856",
+        "signal": "node_memory_usage_rate",
+        "unit": "source_unit",
+        "statistic": "median",
+        "phase": "current",
+        "value": "44.58",
+        "card": "CMP001",
+        "scale_id": "6d16656279a067a966e52055777c8fc9371394d03e64e3226d84fb7dec7a7f19",
+        "scale_min": 0.0,
+        "scale_max": 44.58
+      },
+      {
+        "binding": "CMP002.comparison.0.current",
+        "source": "a75",
+        "entity": "4856",
+        "signal": "node_memory_usage_rate",
+        "unit": "source_unit",
+        "statistic": "median",
+        "phase": "current",
+        "value": "44.58",
+        "card": "CMP002",
+        "scale_id": "6d16656279a067a966e52055777c8fc9371394d03e64e3226d84fb7dec7a7f19",
+        "scale_min": 0.0,
+        "scale_max": 44.58
+      },
+      {
+        "binding": "CMP005.comparison.0.current",
+        "source": "a81",
+        "entity": "4856",
+        "signal": "node_memory_usage_rate",
+        "unit": "source_unit",
+        "statistic": "median",
+        "phase": "current",
+        "value": "44.58",
+        "card": "CMP005",
+        "scale_id": "6d16656279a067a966e52055777c8fc9371394d03e64e3226d84fb7dec7a7f19",
+        "scale_min": 0.0,
+        "scale_max": 44.58
+      }
+    ],
+    "rca_standard_mrr": 0.0,
+    "rca_response": "{\"observations\": [{\"entity\": \"326\", \"signal_or_relation\": \"rt_max\", \"unit\": \"ms\", \"statistic\": \"peak\", \"phase\": \"current\", \"reading\": \"52980\", \"image\": 0, \"box\": [540, 80, 720, 200]}, {\"entity\": \"123\", \"signal_or_relation\": \"266.123/GetSupportedCurrencies\", \"unit\": \"us\", \"statistic\": \"exclusive p95\", \"phase\": \"current\", \"reading\": \"1085\", \"image\": 0, \"box\": [15, 800, 330, 850]}, {\"entity\": \"4856\", \"signal_or_relation\": \"node_memory_usage_rate\", \"unit\": \"ms\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": \"44.58\", \"image\": 0, \"box\": [335, 55, 490, 110]}], \"services\": [\"326\", \"123\", \"4856\", \"186\", \"130\"], \"reason\": \"Anomaly onset data explicitly flags service 326 as the first entity to deviate at 15m, marking it as the initiating component. While its maximum runtime (rt_max) spiked to ~53s, its exclusive processing latency (TRC02) remained negligible (1682us), suggesting the fault is likely resource contention or scheduling rather than a code path performance regression. The leading candidate 326 is supported by the temporal 'onset' marker and contradicted as a pure code-slowdown by the absence of exclusive time growth.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-1AC00B482121",
+    "dataset": "aiops2025",
+    "variant": "BASE",
+    "index": 0,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "478",
+      "signal_or_relation": "AUX03-response",
+      "unit": "ms",
+      "statistic": "current",
+      "phase": "current",
+      "reading": "11.04",
+      "image": 0,
+      "box": [
+        338,
+        712,
+        500,
+        845
+      ]
+    },
+    "location_cards": [
+      "INV003"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "INV030.detail.7",
+        "source": "a111/PAIR02/phases/current/conditional_child/1/3",
+        "entity": "414",
+        "signal": "467.414/ListRecommendations",
+        "unit": "ms",
+        "statistic": "PAIR02 · current · parent>ref p95 · child p95",
+        "phase": "current",
+        "value": "11.058499999999999",
+        "card": "INV030",
+        "original_field_label": "PAIR02 · current · parent>ref p95 · child p95 · ms",
+        "scale_id": "74097d58bfb6cb6f504a3fc9da736ca227922d7628676b2910a4e2972b6c2753",
+        "scale_min": 0.0,
+        "scale_max": 11.058499999999999
+      },
+      {
+        "binding": "INV030.detail.19",
+        "source": "a111/PAIR02/phases/reference/conditional_child/1/3",
+        "entity": "414",
+        "signal": "467.414/ListRecommendations",
+        "unit": "ms",
+        "statistic": "PAIR02 · reference · parent>ref p95 · child p95",
+        "phase": "reference",
+        "value": "11.1262",
+        "card": "INV030",
+        "original_field_label": "PAIR02 · reference · parent>ref p95 · child p95 · ms",
+        "scale_id": "572c56c1ae8a4363d1196f5f6a8a583204ae21e2423f93d982563d508eff9b35",
+        "scale_min": 0.0,
+        "scale_max": 11.1262
+      }
+    ],
+    "rca_standard_mrr": 0.0,
+    "rca_response": "{\"observations\": [{\"entity\": \"478\", \"signal_or_relation\": \"AUX03-response\", \"unit\": \"ms\", \"statistic\": \"current\", \"phase\": \"current\", \"reading\": \"11.04\", \"image\": 0, \"box\": [338, 712, 500, 845]}, {\"entity\": \"478\", \"signal_or_relation\": \"node_cpu_usage_rate\", \"unit\": \"%\", \"statistic\": \"current\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [338, 712, 500, 845]}, {\"entity\": \"2172\", \"signal_or_relation\": \"node_cpu_usage_rate\", \"unit\": \"%\", \"statistic\": \"current\", \"phase\": \"current\", \"reading\": null, \"image\": 0, \"box\": [338, 712, 500, 845]}], \"services\": [\"478\", \"2172\", \"38807\", \"978\", \"467\"], \"reason\": \"Service 478 is the root of the latency increase, as observed in TRC05 (2511.7 -> 4511.4 us) and TRC06 (4511.7 -> 4511.4 us) and the clear elevation in AUX03. This impact propagates to its parent services, such as 2172 and 978, whose TRC01 and TRC04 panels show correlated latency changes. The observed z-score for service 38807 in panel 14 indicates a signal, but the magnitude of the latency spike on 478 suggests it is the origin of the incident.\", \"confidence\": \"medium\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-EAA097A406D6",
+    "dataset": "aiops2022",
+    "variant": "BASE",
+    "index": 0,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "849",
+      "signal_or_relation": "hipstershop.849/PlaceOrder",
+      "unit": "μs",
+      "statistic": "exclusive p95",
+      "phase": "current",
+      "reading": "15636990.1",
+      "image": 0,
+      "box": [
+        260,
+        870,
+        480,
+        900
+      ]
+    },
+    "location_cards": [
+      "INV030"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "TRA001.after",
+        "source": "a61",
+        "entity": "70651",
+        "signal": "hipstershop.849/PlaceOrder",
+        "unit": "µs",
+        "statistic": "exclusive p95",
+        "phase": "current",
+        "value": "15636990.1",
+        "card": "TRA001",
+        "scale_id": "8ff53d361b794abd9b278f6d587cba412a81239bf68650ac95e0cfd80d77a7fe",
+        "scale_min": 0.0,
+        "scale_max": 15636990.1
+      }
+    ],
+    "rca_standard_mrr": 1.0,
+    "rca_response": "{\"observations\": [{\"entity\": \"849\", \"signal_or_relation\": \"hipstershop.849/PlaceOrder\", \"unit\": \"μs\", \"statistic\": \"exclusive p95\", \"phase\": \"current\", \"reading\": \"15636990.1\", \"image\": 0, \"box\": [260, 870, 480, 900]}, {\"entity\": \"849\", \"signal_or_relation\": \"container_memory_cache\", \"unit\": \"bytes\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": \"41246722.0\", \"image\": 0, \"box\": [635, 485, 810, 500]}, {\"entity\": \"329\", \"signal_or_relation\": \"istio_request_duration_milliseconds.http.202\", \"unit\": \"ms\", \"statistic\": \"peak\", \"phase\": \"current\", \"reading\": \"1.33e+05\", \"image\": 0, \"box\": [40, 740, 210, 790]}], \"services\": [\"849\", \"329\", \"850\", \"897\", \"918\"], \"reason\": \"The metric TRC01 shows that service 849 (PlaceOrder) is the root of the anomaly, with an exclusive latency of 15.6s compared to a reference of 9.5ms, indicating the delay occurs locally within this service rather than in downstream dependencies. The leading candidate 849 is supported by a significant increase in cache usage (41MB) and network retransmissions (1.11), which checks against potential external causes; however, the co-occurrence of high retransmissions with service 329's distinct latency spike (130s) serves as an alternative origin, suggesting a possible network-level stress affecting the cluster. While 850 and 897 show high throughput and connection counts, their latency values are stable, ruling them out as the initiating component for this specific incident.\", \"confidence\": \"high\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-EAA097A406D6",
+    "dataset": "aiops2022",
+    "variant": "BASE",
+    "index": 1,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "849",
+      "signal_or_relation": "container_memory_cache",
+      "unit": "bytes",
+      "statistic": "current_median",
+      "phase": "current",
+      "reading": "41246722.0",
+      "image": 0,
+      "box": [
+        635,
+        485,
+        810,
+        500
+      ]
+    },
+    "location_cards": [
+      "MET006"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "CMP004.comparison.0.current",
+        "source": "a81",
+        "entity": "77091",
+        "signal": "container_memory_cache",
+        "unit": "source_unit",
+        "statistic": "median",
+        "phase": "current",
+        "value": "41246720.0",
+        "card": "CMP004",
+        "scale_id": "2114fffd7ae47da43c663818d497e8e0b2c6a3329d4f7959d4c2dd9bdc0f3f0b",
+        "scale_min": 0.0,
+        "scale_max": 45981696.0
+      }
+    ],
+    "rca_standard_mrr": 1.0,
+    "rca_response": "{\"observations\": [{\"entity\": \"849\", \"signal_or_relation\": \"hipstershop.849/PlaceOrder\", \"unit\": \"μs\", \"statistic\": \"exclusive p95\", \"phase\": \"current\", \"reading\": \"15636990.1\", \"image\": 0, \"box\": [260, 870, 480, 900]}, {\"entity\": \"849\", \"signal_or_relation\": \"container_memory_cache\", \"unit\": \"bytes\", \"statistic\": \"current_median\", \"phase\": \"current\", \"reading\": \"41246722.0\", \"image\": 0, \"box\": [635, 485, 810, 500]}, {\"entity\": \"329\", \"signal_or_relation\": \"istio_request_duration_milliseconds.http.202\", \"unit\": \"ms\", \"statistic\": \"peak\", \"phase\": \"current\", \"reading\": \"1.33e+05\", \"image\": 0, \"box\": [40, 740, 210, 790]}], \"services\": [\"849\", \"329\", \"850\", \"897\", \"918\"], \"reason\": \"The metric TRC01 shows that service 849 (PlaceOrder) is the root of the anomaly, with an exclusive latency of 15.6s compared to a reference of 9.5ms, indicating the delay occurs locally within this service rather than in downstream dependencies. The leading candidate 849 is supported by a significant increase in cache usage (41MB) and network retransmissions (1.11), which checks against potential external causes; however, the co-occurrence of high retransmissions with service 329's distinct latency spike (130s) serves as an alternative origin, suggesting a possible network-level stress affecting the cluster. While 850 and 897 show high throughput and connection counts, their latency values are stable, ruling them out as the initiating component for this specific incident.\", \"confidence\": \"high\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-018AC5D486B5",
+    "dataset": "aegislab",
+    "variant": "BASE",
+    "index": 0,
+    "audit_status": "invalid_location",
+    "claim": {
+      "entity": "325",
+      "signal_or_relation": "container.memory.usage",
+      "unit": "bytes",
+      "statistic": "current_inclusive",
+      "phase": "current",
+      "reading": "9095000.000",
+      "image": 0,
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "location_cards": [],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "MET005.detail.2",
+        "source": "a44/peak",
+        "entity": "325",
+        "signal": "container.memory.working_set",
+        "unit": "source_unit",
+        "statistic": "peak",
+        "phase": "whole_window",
+        "value": "9.085e+06",
+        "card": "MET005",
+        "original_field_label": "peak",
+        "scale_id": "4cb03547a704d46c8f22e08b27ec20821e9f4a7a0f3552dc7355b5416c88550c",
+        "scale_min": 0.0,
+        "scale_max": 9085000.0
+      },
+      {
+        "binding": "MET010.detail.2",
+        "source": "a49/peak",
+        "entity": "325",
+        "signal": "container.memory.usage",
+        "unit": "source_unit",
+        "statistic": "peak",
+        "phase": "whole_window",
+        "value": "9.085e+06",
+        "card": "MET010",
+        "original_field_label": "peak",
+        "scale_id": "bc28c87f1cbf3bca3af033b6d15af73de98b6bd04718f07e7f08583946eca53e",
+        "scale_min": 0.0,
+        "scale_max": 9085000.0
+      }
+    ],
+    "rca_standard_mrr": 0.5,
+    "rca_response": "{\"observations\": [{\"entity\": \"325\", \"signal_or_relation\": \"container.memory.usage\", \"unit\": \"bytes\", \"statistic\": \"current_inclusive\", \"phase\": \"current\", \"reading\": \"9095000.000\", \"image\": 0, \"box\": [0, 0, 0, 0]}, {\"entity\": \"702\", \"signal_or_relation\": \"k8s_pod_cpu_limit_utilization\", \"unit\": \"percent\", \"statistic\": \"peak\", \"phase\": \"current\", \"reading\": \"/><3.00, \", \"image\": 0, \"box\": [515, 631, 633, 753]}, {\"entity\": \"510\", \"signal_or_relation\": \"span_time_post_users_login\", \"unit\": \"ms\", \"statistic\": \"exclusive_p95\", \"phase\": \"current\", \"reading\": \"21555.000\", \"image\": 0, \"box\": [370, 722, 487, 795]}], \"services\": [\"325\", \"702\", \"510\", \"341\", \"344\"], \"reason\": \"Candidate 325 is the primary root, indicated by a sustained 30% increase in container memory usage (9.1MB) and a highly abnormal negative signed Z-score of -31.4. Candidate 702 contributes as a probable secondary cause or bottleneck, evidenced by its peak k8s_pod_cpu_limit_utilization of 3.00%, which correlates with the extreme exclusive latency increase (4082μs to 21555μs) observed in downstream service 510.\", \"confidence\": \"high\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-018AC5D486B5",
+    "dataset": "aegislab",
+    "variant": "BASE",
+    "index": 2,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "510",
+      "signal_or_relation": "span_time_post_users_login",
+      "unit": "ms",
+      "statistic": "exclusive_p95",
+      "phase": "current",
+      "reading": "21555.000",
+      "image": 0,
+      "box": [
+        370,
+        722,
+        487,
+        795
+      ]
+    },
+    "location_cards": [
+      "INV005"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "TRA004.after",
+        "source": "a58",
+        "entity": "702",
+        "signal": "POST /api/v1/users/login",
+        "unit": "µs",
+        "statistic": "exclusive p95",
+        "phase": "current",
+        "value": "21555.35",
+        "card": "TRA004",
+        "scale_id": "a579c43875945442ea42605e6fbffd89ed4d6e4174c2cb0413e95920ec52f955",
+        "scale_min": 0.0,
+        "scale_max": 20004001.46
+      }
+    ],
+    "rca_standard_mrr": 0.5,
+    "rca_response": "{\"observations\": [{\"entity\": \"325\", \"signal_or_relation\": \"container.memory.usage\", \"unit\": \"bytes\", \"statistic\": \"current_inclusive\", \"phase\": \"current\", \"reading\": \"9095000.000\", \"image\": 0, \"box\": [0, 0, 0, 0]}, {\"entity\": \"702\", \"signal_or_relation\": \"k8s_pod_cpu_limit_utilization\", \"unit\": \"percent\", \"statistic\": \"peak\", \"phase\": \"current\", \"reading\": \"/><3.00, \", \"image\": 0, \"box\": [515, 631, 633, 753]}, {\"entity\": \"510\", \"signal_or_relation\": \"span_time_post_users_login\", \"unit\": \"ms\", \"statistic\": \"exclusive_p95\", \"phase\": \"current\", \"reading\": \"21555.000\", \"image\": 0, \"box\": [370, 722, 487, 795]}], \"services\": [\"325\", \"702\", \"510\", \"341\", \"344\"], \"reason\": \"Candidate 325 is the primary root, indicated by a sustained 30% increase in container memory usage (9.1MB) and a highly abnormal negative signed Z-score of -31.4. Candidate 702 contributes as a probable secondary cause or bottleneck, evidenced by its peak k8s_pod_cpu_limit_utilization of 3.00%, which correlates with the extreme exclusive latency increase (4082μs to 21555μs) observed in downstream service 510.\", \"confidence\": \"high\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-DD972245679A",
+    "dataset": "aiops2022",
+    "variant": "BASE",
+    "index": 2,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "36424",
+      "signal_or_relation": "log.warning (StreamAggregatedResources)",
+      "unit": "count",
+      "statistic": "value",
+      "phase": "current",
+      "reading": "1",
+      "image": 0,
+      "box": [
+        513,
+        11,
+        691,
+        290
+      ]
+    },
+    "location_cards": [
+      "JNT002"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "LOG001.detail.11",
+        "source": "a67/numeric_preview/{num1}/distinct_count",
+        "entity": "22885",
+        "signal": "LT10858 · unknown",
+        "unit": "count",
+        "statistic": "template {num1} · distinct count",
+        "phase": "observed_window",
+        "value": "1",
+        "card": "LOG001",
+        "original_field_label": "template {num1} · distinct count · count",
+        "scale_id": "ca10b4fafe4e96b6d80f42a206943e0e9d03d454f331fb11807badbf8b8bdd38",
+        "scale_min": 0.0,
+        "scale_max": 1.0
+      },
+      {
+        "binding": "LOG001.detail.15",
+        "source": "a67/numeric_preview/{num1}/most_common/0/1",
+        "entity": "22885",
+        "signal": "LT10858 · unknown",
+        "unit": "count",
+        "statistic": "template {num1} · occurrences",
+        "phase": "observed_window",
+        "value": "1",
+        "card": "LOG001",
+        "original_field_label": "template {num1} · occurrences · count",
+        "scale_id": "1a03fda267f37362d47adddb1869ba6520bfaf7a741cb69ace8fb7631aab169c",
+        "scale_min": 0.0,
+        "scale_max": 1.0
+      },
+      {
+        "binding": "LOG001.detail.16",
+        "source": "a67/numeric_preview/{num1}/sample_count",
+        "entity": "22885",
+        "signal": "LT10858 · unknown",
+        "unit": "count",
+        "statistic": "template {num1} · sample count",
+        "phase": "observed_window",
+        "value": "1",
+        "card": "LOG001",
+        "original_field_label": "template {num1} · sample count · count",
+        "scale_id": "05a31ca8726e1155b3212846c1f8fbb597ee23c53ebb9a1a20dd78fcb5b3b379",
+        "scale_min": 0.0,
+        "scale_max": 1.0
+      },
+      {
+        "binding": "INV030.detail.15",
+        "source": "a123/PAIR01/phases/reference/binary/3",
+        "entity": "",
+        "signal": "PAIR01",
+        "unit": "count",
+        "statistic": "PAIR01 · reference · parent>p95 child>p95",
+        "phase": "reference",
+        "value": "1",
+        "card": "INV030",
+        "original_field_label": "PAIR01 · reference · parent>p95 child>p95 · count",
+        "scale_id": "abe033e8e9f5c6fae746ee472dc125511538117664f32ad86a4d03ea394ac9f4",
+        "scale_min": 0.0,
+        "scale_max": 1.0
+      }
+    ],
+    "rca_standard_mrr": 0.0,
+    "rca_response": "{\"observations\": [{\"entity\": \"36424\", \"signal_or_relation\": \"container_memory_rss\", \"unit\": \"bytes\", \"statistic\": \"value\", \"phase\": \"current\", \"reading\": \"}, {\", \"image\": 0, \"box\": [42, 894, 200, 968]}, {\"entity\": \"50918\", \"signal_or_relation\": \"container_threads\", \"unit\": \"count\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": \"}\", \"image\": 0, \"box\": [691, 894, 851, 968]}, {\"entity\": \"36424\", \"signal_or_relation\": \"log.warning (StreamAggregatedResources)\", \"unit\": \"count\", \"statistic\": \"value\", \"phase\": \"current\", \"reading\": \"1\", \"image\": 0, \"box\": [513, 11, 691, 290]}], \"services\": [\"36424\", \"50918\", \"40356\", \"10884\", \"49899\"], \"reason\": \"pod 36424 is the initiating component: its envoy log explicitly records 'StreamAggregatedResources... is closing' (panel 40), which is the only incident-specific signal in the fleet. Its golang heap_inuse_bytes shows a sharp spike (panel 21) and RSS jumped from 1.06e7 to 1.24e7 bytes (panel 03), consistent with resource exhaustion triggering the stream close. Downstream pods 40356 and 50918 show elevated memory_usage, thread counts, and CPU/system_iow (panels 23-30), while their exclusive p95 latencies remained near reference, indicating they are affected consumers rather than the origin.\", \"confidence\": \"high\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-C94A18F2915E",
+    "dataset": "aiops2025",
+    "variant": "BASE",
+    "index": 0,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "610.174/Recv.",
+      "signal_or_relation": "TRC03 - Exclusive latency p95",
+      "unit": "µs",
+      "statistic": "p95",
+      "phase": "current",
+      "reading": "4243.5",
+      "image": 0,
+      "box": [
+        60,
+        870,
+        420,
+        940
+      ]
+    },
+    "location_cards": [
+      "INV017"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "TRA003.before",
+        "source": "a53",
+        "entity": "174",
+        "signal": "610.174/Recv.",
+        "unit": "µs",
+        "statistic": "exclusive p95",
+        "phase": "reference",
+        "value": "4206.1",
+        "card": "TRA003",
+        "scale_id": "699cd9927a7447071c9b2469cb3faa7b38402c52c1d9c8024d65b8c71966d28e",
+        "scale_min": 0.0,
+        "scale_max": 42436.0
+      }
+    ],
+    "rca_standard_mrr": 0.0,
+    "rca_response": "{\"observations\": [{\"entity\": \"610.174/Recv.\", \"signal_or_relation\": \"TRC03 - Exclusive latency p95\", \"unit\": \"µs\", \"statistic\": \"p95\", \"phase\": \"current\", \"reading\": \"4243.5\", \"image\": 0, \"box\": [60, 870, 420, 940]}, {\"entity\": \"610.998/EmptyCart\", \"signal_or_relation\": \"TRC04 - Exclusive latency p95\", \"unit\": \"µs\", \"statistic\": \"p95\", \"phase\": \"current\", \"reading\": \"2185.8\", \"image\": 0, \"box\": [680, 830, 970, 900]}, {\"entity\": \"29100\", \"signal_or_relation\": \"pod_network_transmit_bytes\", \"unit\": \"bytes\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": \"69.98\", \"image\": 0, \"box\": [700, 170, 980, 220]}], \"services\": [\"174\", \"998\", \"29100\", \"424\", \"501\"], \"reason\": \"Service 174 (pod 29100) exhibits the highest z-score (9.64) for exclusive latency (109x reference) and elevated network transmit bytes, indicating a primary bottleneck in the 'Recv.' operation. Service 998 (pod 36470) shows a moderate latency increase, likely reflecting secondary impact or propagation, while its downstream child 501 remains stable, effectively ruling it out as the initiating component. Pod 29100 is ranked as the distinct infrastructural source given its aggressive anomaly score compared to other peers.\", \"confidence\": \"high\"}"
+  },
+  {
+    "selection": "posthoc_numeric_elsewhere_not_located_card",
+    "id": "INC-C94A18F2915E",
+    "dataset": "aiops2025",
+    "variant": "BASE",
+    "index": 1,
+    "audit_status": "unverified_no_exact_registered_tuple",
+    "claim": {
+      "entity": "610.998/EmptyCart",
+      "signal_or_relation": "TRC04 - Exclusive latency p95",
+      "unit": "µs",
+      "statistic": "p95",
+      "phase": "current",
+      "reading": "2185.8",
+      "image": 0,
+      "box": [
+        680,
+        830,
+        970,
+        900
+      ]
+    },
+    "location_cards": [
+      "INV014"
+    ],
+    "numeric_reading": true,
+    "exact_value_in_located_card": false,
+    "value_1pct_in_located_card": false,
+    "value_entity_1pct_in_located_card": false,
+    "entity_supported_in_located_card": false,
+    "value_1pct_somewhere_in_image": true,
+    "local_matching_rows": [],
+    "global_matching_rows": [
+      {
+        "binding": "TRA004.after",
+        "source": "a54",
+        "entity": "998",
+        "signal": "POST /610.998/GetCart",
+        "unit": "µs",
+        "statistic": "exclusive p95",
+        "phase": "current",
+        "value": "2185.75",
+        "card": "TRA004",
+        "scale_id": "18c9fe53aa255d7187e3bd95b10c2bab1241664d53881b901f50661bbf87ea18",
+        "scale_min": 0.0,
+        "scale_max": 2185.75
+      }
+    ],
+    "rca_standard_mrr": 0.0,
+    "rca_response": "{\"observations\": [{\"entity\": \"610.174/Recv.\", \"signal_or_relation\": \"TRC03 - Exclusive latency p95\", \"unit\": \"µs\", \"statistic\": \"p95\", \"phase\": \"current\", \"reading\": \"4243.5\", \"image\": 0, \"box\": [60, 870, 420, 940]}, {\"entity\": \"610.998/EmptyCart\", \"signal_or_relation\": \"TRC04 - Exclusive latency p95\", \"unit\": \"µs\", \"statistic\": \"p95\", \"phase\": \"current\", \"reading\": \"2185.8\", \"image\": 0, \"box\": [680, 830, 970, 900]}, {\"entity\": \"29100\", \"signal_or_relation\": \"pod_network_transmit_bytes\", \"unit\": \"bytes\", \"statistic\": \"median\", \"phase\": \"current\", \"reading\": \"69.98\", \"image\": 0, \"box\": [700, 170, 980, 220]}], \"services\": [\"174\", \"998\", \"29100\", \"424\", \"501\"], \"reason\": \"Service 174 (pod 29100) exhibits the highest z-score (9.64) for exclusive latency (109x reference) and elevated network transmit bytes, indicating a primary bottleneck in the 'Recv.' operation. Service 998 (pod 36470) shows a moderate latency increase, likely reflecting secondary impact or propagation, while its downstream child 501 remains stable, effectively ruling it out as the initiating component. Pod 29100 is ranked as the distinct infrastructural source given its aggressive anomaly score compared to other peers.\", \"confidence\": \"high\"}"
+  }
+]

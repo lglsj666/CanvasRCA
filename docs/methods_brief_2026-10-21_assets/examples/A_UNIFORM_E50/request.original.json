@@ -1,0 +1,56 @@
+{
+  "unit": {
+    "key": "INC-058FC5DD18AD__development__A_UNIFORM_E50__BASE",
+    "id": "INC-058FC5DD18AD",
+    "dataset": "aegislab",
+    "kind": "development",
+    "arm": "A_UNIFORM_E50",
+    "variant": "BASE",
+    "seed": 953070777,
+    "calls_per_diagnosis": 1,
+    "label_scoring_allowed": true,
+    "execution_state": "not_authorized",
+    "availability": "pending_CPU_and_GPU",
+    "new_features": false,
+    "prior_results_used": false,
+    "reference_allowed": true,
+    "independent_call": false,
+    "queue_index": 314,
+    "backend": "hf",
+    "request_key": "INC-058FC5DD18AD__VISUAL__BASE",
+    "attention": false
+  },
+  "request": {
+    "id": "INC-058FC5DD18AD",
+    "variant": "BASE",
+    "arm": "VISUAL",
+    "png": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-058FC5DD18AD/render/dashboard.png",
+    "label_scoring_allowed": true,
+    "system": "You are an expert Site Reliability Engineer performing Root Cause Analysis for a microservice application on Kubernetes.",
+    "parts": [
+      {
+        "type": "text",
+        "text": "Diagnose the initiating component using the complete telemetry dashboard. All incident observations and the exhaustive candidate IDs are in the image. Use only its candidate inventory and return exactly five distinct IDs ranked by plausibility; alternatives do not imply simultaneous causes.\nRead metrics, traces, logs and observed relationships together. Bind each observation to its original entity, signal/operation, unit and reference/current interval. Native-unit axes are independent unless marked shared. Inclusive span durations include children; only explicitly exclusive latency estimates local time. Do not subtract independent quantiles. A calls B is a directed observation, not proof of causal origin. Co-location, observed onset order and correlated signals alone do not prove a cause. Missing source samples are not zeros; connecting plotted observations creates no additional measurement.\nCheck the leading candidate against two available observations, including one possible contradiction or alternative origin, within this single call. Return only JSON: {\"services\":[\"id1\",\"id2\",\"id3\",\"id4\",\"id5\"],\"reason\":\"at most three sentences with evidence references and the checks\",\"confidence\":\"high|medium|low\"}. Do not output intermediate rankings or hidden reasoning.\nIdentifier transcription rule: The services array contains bare candidate IDs exactly as printed in the card titled \"Candidate IDs · exhaustive fixed order\". The JSON key services also permits node and pod candidates. Copy each whole ID character for character, including every digit; do not add an entity-type prefix. Card numbers, row indices, axis ticks, measurements and operation-name fragments are not candidate IDs. Before returning JSON, verify that each chosen string occurs in the candidate inventory and that all five strings differ.\nPublic identity encoding: service IDs have three digits, node IDs four digits and pod IDs five digits, with no leading zero. The services array accepts these three entity types. Copy IDs only from the candidate inventory; a correctly formatted number is not necessarily a candidate."
+      }
+    ],
+    "png_sha256": "1f8a862d448c091c1b5bcc37f8cbac7a8ff35b9f2591ffd562945344d5e8a449",
+    "manifest": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-058FC5DD18AD/render/manifest.json",
+    "support": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-058FC5DD18AD/token_support.json",
+    "grid_thw": [
+      1,
+      184,
+      352
+    ],
+    "provenance": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-058FC5DD18AD/provenance.json",
+    "input_tokens": 16613,
+    "prompt": "<|im_start|>system\nYou are an expert Site Reliability Engineer performing Root Cause Analysis for a microservice application on Kubernetes.<|im_end|>\n<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Diagnose the initiating component using the complete telemetry dashboard. All incident observations and the exhaustive candidate IDs are in the image. Use only its candidate inventory and return exactly five distinct IDs ranked by plausibility; alternatives do not imply simultaneous causes.\nRead metrics, traces, logs and observed relationships together. Bind each observation to its original entity, signal/operation, unit and reference/current interval. Native-unit axes are independent unless marked shared. Inclusive span durations include children; only explicitly exclusive latency estimates local time. Do not subtract independent quantiles. A calls B is a directed observation, not proof of causal origin. Co-location, observed onset order and correlated signals alone do not prove a cause. Missing source samples are not zeros; connecting plotted observations creates no additional measurement.\nCheck the leading candidate against two available observations, including one possible contradiction or alternative origin, within this single call. Return only JSON: {\"services\":[\"id1\",\"id2\",\"id3\",\"id4\",\"id5\"],\"reason\":\"at most three sentences with evidence references and the checks\",\"confidence\":\"high|medium|low\"}. Do not output intermediate rankings or hidden reasoning.\nIdentifier transcription rule: The services array contains bare candidate IDs exactly as printed in the card titled \"Candidate IDs · exhaustive fixed order\". The JSON key services also permits node and pod candidates. Copy each whole ID character for character, including every digit; do not add an entity-type prefix. Card numbers, row indices, axis ticks, measurements and operation-name fragments are not candidate IDs. Before returning JSON, verify that each chosen string occurs in the candidate inventory and that all five strings differ.\nPublic identity encoding: service IDs have three digits, node IDs four digits and pod IDs five digits, with no leading zero. The services array accepts these three entity types. Copy IDs only from the candidate inventory; a correctly formatted number is not necessarily a candidate.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+    "preprocessing_cost": {
+      "cache_reused": true,
+      "renderer_seconds_from_original_build": 1.924634144,
+      "renderer_python_seconds_from_original_build": 4.158,
+      "cold_compiler_seconds": null,
+      "scope": "historical measured renderer build; cold compiler cost not measured"
+    },
+    "request_hash": "db2c0bf31dc2a62d7513ebf69523d98b2c938c9d690b7ff2602eaa0392ea511d"
+  }
+}

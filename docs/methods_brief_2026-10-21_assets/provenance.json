@@ -1,0 +1,152 @@
+{
+  "analysis_only": true,
+  "new_model_calls": 0,
+  "manual_images_opened": 0,
+  "example_case": "INC-058FC5DD18AD",
+  "canonical_arms": [
+    "T_FULL",
+    "H_TOPOLOGY",
+    "MARGINAL_FIVE",
+    "H_MARGINAL",
+    "A_UNIFORM_E50"
+  ],
+  "rows": 1760,
+  "main_rows": 1100,
+  "aggregate_matches": [
+    "T_FULL/all",
+    "T_FULL/aiops2022",
+    "T_FULL/aiops2025",
+    "T_FULL/aegislab",
+    "MARGINAL_FIVE/all",
+    "MARGINAL_FIVE/aiops2022",
+    "MARGINAL_FIVE/aiops2025",
+    "MARGINAL_FIVE/aegislab",
+    "A_UNIFORM_E50/all",
+    "A_UNIFORM_E50/aiops2022",
+    "A_UNIFORM_E50/aiops2025",
+    "A_UNIFORM_E50/aegislab"
+  ],
+  "source_tables": {
+    "RQs/RQ4_1/results/comparison_coding_v1/final_analysis_v1/calls.csv": "c479cb28abbebf3b3a33bc56e48722c3ba5c421064a1d89cc01bdbee02b1e7ec",
+    "RQs/RQ3_16/results/marginal_coverage_v1/analysis_detailed_v1/case_metrics.csv": "13db88f7dbfa65b12d5f97661cf8a9ab5f32d503119c9c5592cf7480b237e378",
+    "docs/experiment_reports/artifacts/RQ4_5_2026-10-19/per_case.csv": "907987c66b566288229700fd989b6800c3d7db35142e0ca369dd074da3fd630b",
+    "docs/experiment_reports/artifacts/RQ4_5_2026-10-19/historical.csv": "5035723d638236ad4d2955fb5eb42b90696146cce8d9709ca954e48666ce1af1"
+  },
+  "examples": [
+    {
+      "arm": "T_FULL",
+      "id": "INC-058FC5DD18AD",
+      "images": [],
+      "request": {
+        "file": "examples/T_FULL/request.original.json",
+        "sha256": "914548eb60919e76e363922e54edaf6e662bb295a118dafc80f53eae2d231ddc",
+        "source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/requests/INC-058FC5DD18AD__development__T_FULL__BASE.json"
+      },
+      "record": {
+        "file": "examples/T_FULL/result.original.json",
+        "sha256": "226b5db83b04b66566f28245d98d5262b939bd64765c6e23893f7936ec93fb69",
+        "source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-058FC5DD18AD__development__T_FULL__BASE.json"
+      }
+    },
+    {
+      "arm": "H_TOPOLOGY",
+      "id": "INC-058FC5DD18AD",
+      "images": [
+        {
+          "file": "examples/H_TOPOLOGY/dashboard_1.png",
+          "sha256": "99d7976e649f24c4ce4603e501fbc760cac0000d60016568858a83f42eb5f270",
+          "source": "RQs/RQ4_5/results/exclusive_spatial_v1/objects/99d7976e649f24c4ce4603e501fbc760cac0000d60016568858a83f42eb5f270.png"
+        },
+        {
+          "file": "examples/H_TOPOLOGY/dashboard_2.png",
+          "sha256": "ec4bcbb3514f65334a936186d3e5d8a7dd2123c5a4d510f7b190015b3d03ccb1",
+          "source": "RQs/RQ4_5/results/exclusive_spatial_v1/objects/ec4bcbb3514f65334a936186d3e5d8a7dd2123c5a4d510f7b190015b3d03ccb1.png"
+        }
+      ],
+      "request": {
+        "file": "examples/H_TOPOLOGY/request.original.json",
+        "sha256": "e8801662632c3cc4c48ea831ea6af3eb32aa8accd7c8b506cf53f15295a91476",
+        "source": "RQs/RQ4_5/results/exclusive_spatial_v1/formal/requests/INC-058FC5DD18AD__H_TOPOLOGY__BASE__call1132.json"
+      },
+      "record": {
+        "file": "examples/H_TOPOLOGY/result.original.json",
+        "sha256": "f77308b032b610bed935fec1925fa13424beca3fb778bd9fd57161165079bfd1",
+        "source": "RQs/RQ4_5/results/exclusive_spatial_v1/formal/completed/INC-058FC5DD18AD__H_TOPOLOGY__BASE.json"
+      }
+    },
+    {
+      "arm": "MARGINAL_FIVE",
+      "id": "INC-058FC5DD18AD",
+      "images": [
+        {
+          "file": "examples/MARGINAL_FIVE/dashboard_1.png",
+          "sha256": "2fcc0a0ba3a8d0abecd802bf60d66ee749357990cecce49a36cb5669b0debd4f",
+          "source": "RQs/RQ3_16/results/marginal_coverage_v1/formal/renders/e6c7fbb04d0472c4104e5195cad54928637ed8188a3f651c745ea3645f946b6a_0.png"
+        }
+      ],
+      "request": {
+        "file": "examples/MARGINAL_FIVE/request.original.json",
+        "sha256": "fd508592647e87f5c3dd353848b1e46c6ce0811464b18783a71867e35451b649",
+        "source": "RQs/RQ3_16/results/marginal_coverage_v1/formal/prompts/e6c7fbb04d0472c4104e5195cad54928637ed8188a3f651c745ea3645f946b6a.json"
+      },
+      "record": {
+        "file": "examples/MARGINAL_FIVE/result.original.json",
+        "sha256": "174c28aa9c425b10f16f582818b4465163ebd4edf3e8865748f596806723087b",
+        "source": "RQs/RQ3_16/results/marginal_coverage_v1/formal/outputs/e6c7fbb04d0472c4104e5195cad54928637ed8188a3f651c745ea3645f946b6a.json"
+      }
+    },
+    {
+      "arm": "H_MARGINAL",
+      "id": "INC-058FC5DD18AD",
+      "images": [
+        {
+          "file": "examples/H_MARGINAL/dashboard_1.png",
+          "sha256": "c25fc67095129aed19179a4ec4593d850e93fb17f07d8c8a07f3e2a36c7c3e7d",
+          "source": "RQs/RQ4_5/results/exclusive_spatial_v1/objects/c25fc67095129aed19179a4ec4593d850e93fb17f07d8c8a07f3e2a36c7c3e7d.png"
+        },
+        {
+          "file": "examples/H_MARGINAL/dashboard_2.png",
+          "sha256": "6f3062e5d605bd8d22eb69c06934bdb07a0578d9ea334be8d937c1e8ae7121e1",
+          "source": "RQs/RQ4_5/results/exclusive_spatial_v1/objects/6f3062e5d605bd8d22eb69c06934bdb07a0578d9ea334be8d937c1e8ae7121e1.png"
+        }
+      ],
+      "request": {
+        "file": "examples/H_MARGINAL/request.original.json",
+        "sha256": "0f8368532369d44582d41c78958177cf910cc991c6aea4a00f81e0de8d2a490a",
+        "source": "RQs/RQ4_5/results/exclusive_spatial_v1/formal/requests/INC-058FC5DD18AD__H_MARGINAL__BASE__call1131.json"
+      },
+      "record": {
+        "file": "examples/H_MARGINAL/result.original.json",
+        "sha256": "eda77d80edf7fe22a9f49b1546c943bb796b8575b8f9f19645859dd8e31325ba",
+        "source": "RQs/RQ4_5/results/exclusive_spatial_v1/formal/completed/INC-058FC5DD18AD__H_MARGINAL__BASE.json"
+      }
+    },
+    {
+      "arm": "A_UNIFORM_E50",
+      "id": "INC-058FC5DD18AD",
+      "images": [
+        {
+          "file": "examples/A_UNIFORM_E50/dashboard_1.png",
+          "sha256": "1f8a862d448c091c1b5bcc37f8cbac7a8ff35b9f2591ffd562945344d5e8a449",
+          "source": "RQs/RQ4_1/results/comparison_coding_v1/cpu_admission_v4/typed_source_render/INC-058FC5DD18AD/render/dashboard.png"
+        }
+      ],
+      "request": {
+        "file": "examples/A_UNIFORM_E50/request.original.json",
+        "sha256": "89770c0a19e767cefff507151d3610db074f7e57aad482a4c301e997629d82c6",
+        "source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/requests/INC-058FC5DD18AD__development__A_UNIFORM_E50__BASE.json"
+      },
+      "record": {
+        "file": "examples/A_UNIFORM_E50/result.original.json",
+        "sha256": "e9221c734b4c29e6d9087f58bb1067f40d083025ff0e689606fd62bee5c5fac9",
+        "source": "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/completed/INC-058FC5DD18AD__development__A_UNIFORM_E50__BASE.json"
+      }
+    }
+  ],
+  "text_split": "Exact original part offsets; concatenation verified before display regrouping.",
+  "run_status_files": [
+    "RQs/RQ4_1/results/comparison_coding_v1/formal_v28/phase_complete.hf.json",
+    "RQs/RQ4_5/results/exclusive_spatial_v1/formal/phase_complete.json",
+    "RQs/RQ3_16/results/marginal_coverage_v1/formal/phase_complete.qwen3.8-27b.json"
+  ]
+}

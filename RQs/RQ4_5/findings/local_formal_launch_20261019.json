@@ -1,0 +1,71 @@
+{
+  "schema": "RQ45VerifiedLocalFormalLaunchV1",
+  "status": "running_verified",
+  "execution_fingerprint": "d2299620a4c36294113dcced4e222b76e50e85b378ae55c41678c2cab0e55dac",
+  "authority": "user goal: local CPU and GPU smoke pass, then local formal queue launch completes the goal",
+  "cpu_passed": true,
+  "local_unit_tests": 32,
+  "local_population_cases": 220,
+  "smoke_actual_completed": 18,
+  "smoke_reviewed": true,
+  "formal_positions": 1560,
+  "formal_owner": {
+    "pid": 114471,
+    "started_unix": 1792432014.7746565,
+    "log": "/home/lglsj/CanvasRCA_nibi/RQs/RQ4_5/results/exclusive_spatial_v1/formal/worker_1792432014774139952.log",
+    "scope": "formal",
+    "boot_id": "edc28b13-999a-4332-95a1-1355208244fc"
+  },
+  "observed_progress": {
+    "scope": "formal",
+    "status": "running",
+    "new_commits": 6,
+    "completed": 6,
+    "total": 1560,
+    "gpu_active": 8,
+    "cpu_active_or_pending": 0,
+    "ram_ready": 16,
+    "remaining": 1530,
+    "elapsed_seconds": 152.22172905499974,
+    "calls": {
+      "complete": 25,
+      "started": 7
+    }
+  },
+  "checked_initial_commits": [
+    {
+      "key": "INC-331437929E47__H_MARGINAL__BASE",
+      "record_sha256": "a14ee8eba60b457824b0de00bdc291aa388dd2f89a8ccb1624e57db37ff83cbd",
+      "request_identity": "959d69f0347b084443a872fea14ef600d671d331335f0e0fd35cb9b5dc03851b",
+      "attempt_id": 21,
+      "response_saved": true,
+      "scores_saved": true
+    },
+    {
+      "key": "INC-331437929E47__H_TOPOLOGY__BASE",
+      "record_sha256": "fdc3d0bc0d10cd4baff76da1d036347ba3f5c09d3cffdf2d85d22e180400c189",
+      "request_identity": "87897af4081f0d0f755dd20dcf6e120d2532aa263ffc6f232f417d30358148bc",
+      "attempt_id": 20,
+      "response_saved": true,
+      "scores_saved": true
+    },
+    {
+      "key": "INC-331437929E47__V_DOMAIN_FULL__BASE",
+      "record_sha256": "020d852846f85fdfecc7bbae1992f999899a0212d8743a555f0edf0445d7da19",
+      "request_identity": "567005a8dd6518bc6fa6faff398a4ef5628c2ab2c01a6106a30a93d270876324",
+      "attempt_id": 26,
+      "response_saved": true,
+      "scores_saved": true
+    }
+  ],
+  "blackwell_native_backend": "FlashAttention 2, same RQ4.4 engine apart from registered RQ4.5 interfaces/image capacity",
+  "nibi_jobs_left_queued": [
+    24589226,
+    24589420,
+    24589619
+  ],
+  "nibi_formal_started": false,
+  "resume_command": "bash RQs/RQ4_5/scripts/launch_local.sh resume",
+  "status_command": "bash RQs/RQ4_5/scripts/launch_local.sh status",
+  "verified_unix": 1792432167.439518
+}

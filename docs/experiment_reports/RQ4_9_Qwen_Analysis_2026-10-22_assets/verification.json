@@ -1,0 +1,208 @@
+{
+  "schema": "RQ49ReportVerificationV1",
+  "status": "passed",
+  "formal_positions": 5850,
+  "main_cases": 5060,
+  "QA_questions": 4075,
+  "registered_tests_reproduced": 44,
+  "all_RCA_Holm_p_ge_05": true,
+  "links_checked": 32,
+  "functional_modules": 5,
+  "functional_lines": 4887,
+  "AST": "passed",
+  "generation_sources_match_frozen": {
+    "RQs/RQ4_9/src/exps.py": true,
+    "RQs/RQ4_9/src/main.py": true,
+    "src/scorer/core.py": true
+  },
+  "utils_generation_AST_unchanged": true,
+  "prior_storage_only_utils_changes": [
+    "roster",
+    "view_conversation"
+  ],
+  "qualitative_cases": 9,
+  "qualitative_responses": 25,
+  "new_dashboard_images_opened": 0,
+  "statistical_figures": 6,
+  "statistical_figures_visually_sampled": 4,
+  "original_manifest_sha256": "15926cd93711f8d46e9059e07de91180ab3dd81555abbc7e4b0f828a99df0cc6",
+  "originals_modified": false,
+  "new_model_calls": 0,
+  "Nibi_accessed": false,
+  "original_result_bytes": 6846857217,
+  "actual_completed_call_denominator": 5908,
+  "additional_material_files": {
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22.md": {
+      "bytes": 51141,
+      "sha256": "dae430f921ebdf37d185248a0e4d5dea4cb2a5ed69660efcb4e180ead0c53f22"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/performance_cost.png": {
+      "bytes": 98620,
+      "sha256": "39441a149fb52f7fa2ef75d9d9bcdad235b97195d20bb749135bdd4cad70a96d"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/attention_regions.png": {
+      "bytes": 96000,
+      "sha256": "f02d39ed8890a04db57a6dd70e50e487dc4415b1e2ec304d6a6cab3032bc1d7f"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/README.md": {
+      "bytes": 1511,
+      "sha256": "8da1adf4e3aaa28baefb9466339d44484aeacad22638d265c631690d6ed65dac"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/qa_cases.csv": {
+      "bytes": 127966,
+      "sha256": "91fc267c87da09c7a7142d7d501a7e8c0549eb9dfc542f2e1015acd79a214246"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/strata.csv": {
+      "bytes": 23295,
+      "sha256": "0c8ed2005419fa2d1efdab88d573642a867b3df5820995a65f5014f58a6e9f5d"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/qa_rca.svg": {
+      "bytes": 92230,
+      "sha256": "9b3945fefe2b1e5c11184bea0d969093eecef2791821c313ab734553be750801"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/pruning_decomposition.svg": {
+      "bytes": 62276,
+      "sha256": "07f113008f5a9d2608310b1904c0e4198cf7c2db61d88462ff84f7b31984faeb"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/pruning_decomposition.png": {
+      "bytes": 99354,
+      "sha256": "1c415260af1528e6382c9875b7370e547a22ccfd66da8b7384a13c2f7f628746"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/qualitative_review.json": {
+      "bytes": 15165,
+      "sha256": "cbe3c018c61cc559e46f0d8fec141a6f7b3d88a04644c9ea21e1cb594b45b6de"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/qa_rca.png": {
+      "bytes": 130305,
+      "sha256": "6783d2d492639587e7fd3d1cd318c605d587fcbc046073b960e92a6ac118904b"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/source_coverage.csv": {
+      "bytes": 2044,
+      "sha256": "c48f100292a3d3afbe5becc12d05baf70165cb4e87f2bba64b4a821fdc71c47d"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/model_failures.csv": {
+      "bytes": 21536,
+      "sha256": "e232f9c23a34fe406c51c2dbce6c37fac42e3ef2d7734dd769d091af5b2615b5"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/repeats.csv": {
+      "bytes": 862,
+      "sha256": "05adaa430bd83998f4c3740a14e74854e6ec5c0b1be6240ce6c509b435f79c84"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/qa_target_hint_audit.csv": {
+      "bytes": 3671,
+      "sha256": "cda640c9c60662980fc17927f96f22795951379a973763544072f8b6140538a3"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/registered_contrasts.png": {
+      "bytes": 176301,
+      "sha256": "284b5fd257d9b4a828386f284cf84910cc1c4e6fbf08e26baf2cda9138f17238"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/registered_contrasts.svg": {
+      "bytes": 113274,
+      "sha256": "57b7bceee3cf9f3d50690eeeff3e34ba5ac3f2e834c714ffaabea032de44f005"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/details.json": {
+      "bytes": 738851,
+      "sha256": "6cbe55c3b49aae78908551e0a1e901421c0261ed3a93177b01ed90cf884db135"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/qa_items.csv": {
+      "bytes": 768451,
+      "sha256": "14de66bea58d5185befacc2f77b4d22c58fd09f39fbf54c291251f45a6b3f123"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/prefixes.csv": {
+      "bytes": 2564,
+      "sha256": "27f59fdd47e4e70c0614e111d1911cfa4b2d6fbd82be16baef5ea724da515002"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/runtime.csv": {
+      "bytes": 5698,
+      "sha256": "d29dc297ec9ec3f76af15c2afb914bdbcee477365f5047077a4f1d7febd31bd5"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/qa_majority.csv": {
+      "bytes": 1595,
+      "sha256": "5886af8695361b86fddca6c6e36f0aacba355cdc0694662c0e400ee84291d0ed"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/qa_summary.csv": {
+      "bytes": 4986,
+      "sha256": "4d12bf2a2b2d44d0f206bc2badb56107be4a745a3a0a7c70e2c8b59bc0104702"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/density_tradeoff.svg": {
+      "bytes": 51514,
+      "sha256": "561b85fa8022329880e3e21e6a9bde9317b6fedf0c155c8332cc81d2d356af0f"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/attention_regions.svg": {
+      "bytes": 66253,
+      "sha256": "18b809b4ea45769dd419d16bb2a4b38789e9539d2d7a6a9dbea1d5e299cb54aa"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/snapshot.json": {
+      "bytes": 255880,
+      "sha256": "8f49752297f7558178596e89cba82d9f1940cb696ff53a192ab0bd6d7510b422"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/density_tradeoff.png": {
+      "bytes": 73234,
+      "sha256": "ed349c71df86c4605a1b9f459b2556b15a9b363d7b8a58107c00cea6cd958cb9"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/faults.csv": {
+      "bytes": 94998,
+      "sha256": "a6daa79a5862eee1d9634c8cab5276ea6391b54fdc4cdd7a25657f74d9b9b5a0"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/metrics.csv": {
+      "bytes": 39648,
+      "sha256": "d0d23a277577ba14f808ef3ded2ed98b72fcf1f2c43d1afd4004d2283ac2a460"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/statistics.csv": {
+      "bytes": 6785,
+      "sha256": "e159468148088d6841762c72d49a35b3127d82e7f155c9402ff71bc4fa598037"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/qa_controls.csv": {
+      "bytes": 248,
+      "sha256": "73f899c4d0650aaf5fe96672e5eba76b55d1e4ee02afcb0489be7a117211bfc1"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/case_metrics.csv": {
+      "bytes": 3589717,
+      "sha256": "86b99402c572d8d8ba9eb831de6b9bfaed234a1614db519a7df2d6b5c6473ab5"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/qa_exploratory.csv": {
+      "bytes": 527,
+      "sha256": "53e365f02bf994a14f3276ea5c81eb548b3cfd894b20acd8a8248b43961f69d1"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/sink_cases.csv": {
+      "bytes": 191641,
+      "sha256": "b9a43b770a20187da21f3b11948b42716d4e0886ebebc533a249446093ee7f1d"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/operators.csv": {
+      "bytes": 389938,
+      "sha256": "1cf6ccc43527c83adbb3a2227943441ede008153c6ac327474aeeffcd3c929ac"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/case_selection.csv": {
+      "bytes": 28776,
+      "sha256": "5d32bb4104bd7efe84e189f7b2b790ebb0cefd36b88775762cd857c52a5a48ed"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/performance_cost.svg": {
+      "bytes": 65664,
+      "sha256": "d517e80e2589d47a967948b952a5a7988c9f33c931495f8346d85ebccadc2fcf"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/historical_baselines.csv": {
+      "bytes": 1596,
+      "sha256": "54e1d25292ff3bee009318d4a749f810c0f3b853b60280bb7e88b6bf53926ef1"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/build_report.py": {
+      "bytes": 51820,
+      "sha256": "d35a5a7d8189b8eadf073ec1b971d06027095316c1a5067422a5d9ca9b8b0229"
+    },
+    "docs/experiment_reports/RQ4_9_Qwen_Analysis_2026-10-22_assets/attention_rows.csv": {
+      "bytes": 4754650,
+      "sha256": "c73d3c9c91015b6d27c972da6d3c35b9fa9e4874ba04d77969c5cb3063938e99"
+    },
+    "RQs/RQ4_9/results/report_analysis_v1/logs/2026-10-22_analysis.md": {
+      "bytes": 3213,
+      "sha256": "7f5c5082308d5697ca52570c2e7166ef51ef9f2b5d07446101a861c476e1a418"
+    }
+  },
+  "receipt_self_hash_excluded": true,
+  "additional_material_bytes": 12313399,
+  "combined_bytes": 6859170616,
+  "GB_per_10000_calls": 11.60997057549086,
+  "attention_GB_per_10000_calls_original": 0.7106187830060934,
+  "attention_GB_per_10000_calls_conservative_all_new_materials": 0.7314606905890318,
+  "total_budget_passed": true,
+  "attention_budget_passed_conservative": true
+}

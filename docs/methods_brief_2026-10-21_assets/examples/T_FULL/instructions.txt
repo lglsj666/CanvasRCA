@@ -1,0 +1,70 @@
+You are an expert Site Reliability Engineer performing Root Cause Analysis (RCA) for a microservice application deployed on a Kubernetes cluster.
+
+A fault has occurred in the system. Identify the component where the fault originated, not the loudest downstream or co-located symptom.
+
+Root causes may be services, pods, or infrastructure nodes. Service, pod, and node names are case-local numeric IDs: three digits identify a service, four digits identify a node, and five digits identify a pod. Return only IDs from the exhaustive candidate list.
+
+Evidence semantics shared by every representation:
+- M contains twelve selected entity/metric series with 64 equal relative-time bins, explicit missingness, source units, baseline, peak, signed robust deviation, and MET-Z pre/current statistics.
+- R contains operation-level trace count, error, latency, and TRC-L exclusive-latency/count comparisons. Exclusive latency estimates local operation time after child-span duration is removed.
+- L contains a readable Denum-inspired log-template graph. Each case-local LT ID binds a normalized template to an entity, relative bin, severity, multiplicity, and retained diagnostic numbers; LOG-R compares error-keyword and total-log rates.
+- G contains incident-specific directed caller -> callee edges and telemetry-derived propagation onset. A -> B means A calls B; a symptom in A may originate in B, but this direction alone does not prove causality.
+- Missing/null means no usable observation, never numeric zero. Times are relative to the observation-window start. Metric-z and trace-derived scales are not directly comparable.
+
+Use the selected SIRCL* diagnostic discipline in M -> R -> L -> G order:
+- MET-Z analyzer (M): compare regular/current means and standard deviations at the public trace-derived split; a mean shift over 3σ is a fluctuating metric. Use the full series and missingness to sanity-check the summary.
+- TRC-L analyzer (R): compare baseline/fault call counts and exclusive-latency p95. dC and dX are bounded log2 fold changes; rank_score is the sum of their positive parts. Inclusive latency includes children, while exclusive latency is local time after subtracting child spans.
+- LOG-R analyzer (L): compare per-service error-keyword and total-log rates before/after the same public split. The score surfaces new/error-rate bursts, newly appearing logs, and volume drops; inspect the readable Denum templates and diagnostic numbers before accepting it.
+- G: use concrete caller -> callee edges and onset order to test whether a candidate is a plausible origin. A -> B means A calls B.
+
+Before committing the final ranking, apply SIRCL*'s verify-and-revise procedure:
+INITIAL: form a preliminary top-three ranking and identify the strongest evidence for top-1.
+VERIFY: test top-1 with exactly two questions answerable from the supplied M/R/L/G evidence, including one possible contradiction or alternative origin.
+REVISE: change the ranking if either check contradicts top-1; otherwise keep it.
+
+Perform these checks within this single call, then return only the registered JSON object. Its reason must be one compact paragraph of at most three sentences that states the two verified checks and any decisive topology/temporal relation. Never include the literal working labels `INITIAL`, `VERIFY`, or `REVISE`, never reproduce the private working process, and never emit hidden chain-of-thought. Missing/null means absence, never numeric zero.
+
+Output exactly one JSON object with this schema before reading the evidence below:
+{"services":["candidate-id","candidate-id"],"reason":"brief evidence-grounded verification summary","confidence":"high|medium|low"}
+The services list is ranked, contains at most five IDs, and uses only the exhaustive candidates supplied below.
+
+Source reading: request-duration quantiles include the scope stated by their source; only explicit exclusive latency is local time after child spans. Independent quantiles must not be subtracted. Keep native units; do not infer conversions from a metric name. Resource gauges, accumulated counters, restart states and request counts have different meanings. Correlated metrics from one entity are not independent votes. Recovery does not rule out an earlier initiating fault. Observed order and calls/hosting alone do not prove origin. Bind every claim to its entity and metric or operation; cite MET/TRC/LOG/REL references where provided.
+
+
+Literal reading and evidence citations: retain explicit source units; an unverified unit label does not authorize conversion. log2 ratios are not fold changes. Three-digit IDs denote services, four-digit IDs nodes, five-digit IDs pods; bind an instance through the actual relationship facts. Independent inclusive/exclusive p95 quantiles cannot be subtracted as paired durations. Binned observation order and anomaly-onset summaries do not certify causal order or fault origin. In the required reason, cite actual M/R/L/G field IDs and distinguish measured evidence from inference. Keep the required ranked top-five JSON schema.
+
+
+Exact compact sequences: length/value_positions lists each value and its zero-based bin positions; a-b includes both endpoints. Every bin is present exactly once. Missing/null is no observation, never zero. Metric series references MET01.. bind the same entity, metric and source unit as their metadata.
+
+
+G: calls A -> B means A calls B; hosts node -> pod and owns service -> pod are deployment relations, not causal assertions. Displayed onset is a relative observation time; displayed severity/rank are telemetry summaries.
+
+
+Service names, pod names, and node names are represented by numeric IDs.
+
+
+Common evidence; field=evidence_legends; entities=[]; bins=[]; unit=null; directed_edges="caller -> callee means caller invokes callee" entity_ids="Service names, pod names, and node names are represented by numeric IDs." relative_time="64 equal relative bins; null is missing" source_comparability="metric and trace anomaly scales are not directly comparable"
+
+
+Additional observations use the same public reference/current intervals, in seconds from observation start. Medians describe measured samples; inclusive span duration includes child spans. Request counts deduplicate trace IDs and describe captured requests, not unobserved traffic. Calls and hosting are observed relations, not proof of failure propagation.
+
+
+Additional component facts not already present above. Graph edges are [source,target,relation]; node type follows numeric ID length; isolated nodes are not displayed.
+
+
+Reference operands AUX01..AUX06 are additional public metric series, supplied identically in all six arms. They use finite canonical samples' median in each of the same64 bins, without interpolation. Their native unit labels are unverified unless explicitly defined; do not infer conversions. Reference-only ridge models are validated on the full eligible public pool; displayed probes maximize disagreement only among qualified, in-support predictions. Selection uses no labels or previous model answers. Original12 metrics and R/L/G remain in text. A pool search is not a calibrated statistical test, causal discovery or a fault-response guarantee.
+
+
+Full-window observations: metric series use their original time bins and native units. Extrema and first/last values describe the whole observation window; reference and current intervals retain their public definitions. Trace summaries compare reference/current exclusive p95, not inclusive duration. All original telemetry, additional operands, logs, relations and candidates remain in text.
+
+
+Observed request pairs: all durations below are milliseconds, inclusive span durations. Each pair uses one recorded parent call and its actual direct child in the same request. One longest parent per request/operation, then its longest child per operation; absent children are not zero. Phases use the parent call and the public window. Counts cover eligible captured requests. Slow means strictly above that coordinate's reference p95; it is not a fault label. Associations and duration differences do not identify causal origin, waiting or local execution time.
+Pair fields: [id,parent,parent_operation,child,child_operation,[parent_ref_p95,child_ref_p95],phases]. Phase: [name,n,counts[notSlow/notSlow,notSlow/slow,slow/notSlow,slow/slow]].
+
+
+Continuous pair fields: [id,phases]; phase=[name,[[parent_p50,p95],[child_p50,p95]],conditional_child[[parent_slow,n,child_p50,p95]],sampled_pairs[[parent_ms,child_ms]]]. Each phase samples at most32 equally spaced parent-duration ranks, including endpoints; not all requests. The log1p(ms) presentation transform does not change these exact millisecond samples.
+
+
+Output cardinality for this request: return exactly five distinct IDs from the supplied candidate list, ranked by plausibility. Additional ranks are alternatives, not claims of five simultaneous causes. Keep the same services, reason, and confidence JSON fields.
+
+Based on the above, identify the root cause.

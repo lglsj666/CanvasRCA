@@ -1,0 +1,29 @@
+{
+  "call_key": "e6c7fbb04d0472c4104e5195cad54928637ed8188a3f651c745ea3645f946b6a",
+  "dataset": "aegislab",
+  "dimensions": {
+    "arm": "MARGINAL_FIVE",
+    "replicate": 0
+  },
+  "fault_type": "HTTPResponseDelay",
+  "model": "qwen3.8-27b",
+  "opaque_incident_id": "INC-058FC5DD18AD",
+  "record_hash": "ddd3b73ea61c2ace27ff5d78a04491661cecb8a07350cbcbedf86caf6dfabc0b",
+  "response": "{\"services\": [\"905\", \"419\", \"661\", \"557\", \"717\"], \"reason\": \"TRC02 shows service 905 has the largest exclusive-local degradation (exl_p95 fault 2,006,618.20\u00b5s vs 1,630.94\u00b5s, latency_lfc=10.26) confirming it is not merely an inflated caller, and PAIR01 proves its slowness is local by showing parent 905 slow (~2009-3336ms) while child 951 stays fast (~4-5ms) in the current window; this is corroborated by G (905 is a shared callee of 419, 557, 661, 908 so its latency propagates downstream) and 661's near-zero jvm.cpu (MET) ruling out a self CPU cause.\", \"confidence\": \"medium\"}",
+  "reuse_reference": null,
+  "schema_version": "RQ31OutputV1",
+  "score": {
+    "error": null,
+    "metrics": {
+      "ac@1": 1.0,
+      "ac@3": 1.0,
+      "ac@5": 1.0,
+      "avg@3": 1.0,
+      "avg@5": 1.0,
+      "mrr": 1.0,
+      "rank": 1
+    },
+    "status": "complete"
+  },
+  "status": "complete"
+}

@@ -1,0 +1,14 @@
+{
+  "schema": "RQ45AdditionalSmokeAuthorityV1",
+  "authority": "User: start GPU smoke; five opportunities, each at most 18 calls",
+  "authorized_date": "2026-10-19",
+  "maximum_attempts": 5,
+  "maximum_calls_per_attempt": 18,
+  "maximum_calls_across_attempts": 90,
+  "formal_authorized": false,
+  "formal_positions_unchanged": 1560,
+  "prior_consumed_model_calls": 0,
+  "policy": "Preserve every attempt and spent call. Stop after qualified smoke; no automatic formal launch. Do not change frozen model inputs or reset an existing attempt clock. The original 1700-call ledger remains an additional bound until an explicit operational migration is needed.",
+  "superseded": true,
+  "current_authority": "smoke_goal_authority_20261019.json"
+}

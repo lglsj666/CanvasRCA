@@ -128,6 +128,9 @@ def export_public_case(row, context, source):
 
 def preset(evidence, name="operations"):
     """Generate an editable explicit tree. Layout never selects/removes cards."""
+    if name == "fixed_4096":
+        from .fixed_canvas import preset as fixed_preset
+        return fixed_preset(evidence)
     if name not in {"operations", "relations_first", "matrix", "pairs"}:
         raise ValueError("Unknown preset")
     cards = evidence["cards"]

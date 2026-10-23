@@ -1,0 +1,48 @@
+{
+  "schema": "RQ46ExecutionV1",
+  "backend": "vllm",
+  "cpu_workers": 8,
+  "request_concurrency": 8,
+  "gpu_smoke_enabled": false,
+  "formal_enabled": false,
+  "engine": {
+    "model": "/home/lglsj/CanvasRCA/models/Qwen3.8-27B",
+    "dtype": "bfloat16",
+    "quantization": null,
+    "max_model_len": 40960,
+    "gpu_memory_utilization": 0.8,
+    "max_num_seqs": 8,
+    "max_num_batched_tokens": 40960,
+    "enable_chunked_prefill": false,
+    "enable_prefix_caching": false,
+    "enable_prompt_embeds": true,
+    "enforce_eager": true,
+    "async_scheduling": false,
+    "tensor_parallel_size": 1,
+    "seed": 42,
+    "generation_config": "vllm",
+    "mm_processor_cache_gb": 0,
+    "skip_mm_profiling": true,
+    "limit_mm_per_prompt": {
+      "image": 8,
+      "video": 0
+    },
+    "mamba_cache_dtype": "auto",
+    "mamba_ssm_cache_dtype": "float32",
+    "worker_extension_cls": "RQs.RQ4_6.src.exps.VLLMWorkerExtension",
+    "logits_processors": [
+      "RQs.RQ4_6.src.utils:RQ46RankingProcessor"
+    ],
+    "structured_outputs_config": {
+      "backend": "xgrammar",
+      "disable_any_whitespace": true
+    },
+    "disable_log_stats": true
+  },
+  "scientific_scope": "Five exclusive hybrid ownership/comparison conditions; two pure deployment conditions and three fixed-U-budget pruning refinements. All single-call.",
+  "transport": "CPU exact packet, loaded GPU vision encoder, RAM embeddings, explicit worker MRoPE override; no extra model call",
+  "activation": "All CPU, visual and runtime qualifications required before the single registered smoke; smoke required before formal.",
+  "cpu_enabled": false,
+  "ram_prefetch_items": 16,
+  "ram_prefetch_bytes": 24000000000
+}

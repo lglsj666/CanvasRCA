@@ -1,5 +1,5 @@
 """RQ4.5 compiler and registered native post-merger model adapter."""
-from .utils import ROOT, RQ, RESULTS, MODEL, read, save, digest, stable, ARMS, NOMINEES
+from .utils import ROOT, RQ, RESULTS, SOURCE_ROOT, MODEL, read, save, digest, stable, ARMS, NOMINEES
 
 class VLLMWorkerExtension:
     """One isolated worker extension; never edit vLLM/HF or historical source.
@@ -389,7 +389,7 @@ def audit_ownership(packet):
     return {'union_count':len(seen),'diagnostic_overlap':0,'source_groups':len(groups)}
 
 
-def residual_text(public,packet,qa=False):
+def residual_text(public,packet,qa=False,strip_instructions=False):
     """Delete identified occurrences, never approximate strings/number matches."""
     original=deepcopy(public['texts']['RAW_TEXT']);atoms={a['id']:a for a in public['organization']['atoms']}
     moved={r['occurrence'] for r in packet['records'] if r['owner']=='image'}
@@ -413,9 +413,10 @@ def residual_text(public,packet,qa=False):
                 raw=neutral(atom['raw'])
                 if raw not in text:raise ValueError('Transferred source occurrence not found: '+atom['id'])
                 text=text.replace(raw,'',1);applied.append(atom['id'])
-        if qa and any(items[0]['raw'].startswith(s) for s in ('A fault has occurred','Source reading:',
+        if (qa or strip_instructions) and any(items[0]['raw'].startswith(s) for s in ('A fault has occurred','Source reading:',
                 'Literal reading and evidence citations:','Output cardinality','Based on the above')):
             # These registered parts contain only task/format/reading rules.
+            if any(a['kind']!='literal' for a in items):raise ValueError('Instruction section contains a diagnostic record')
             text=''
         original[pi]['text']=text
     if set(applied)!=moved or len(applied)!=len(moved):raise ValueError('Not every image-owned occurrence was removed')
@@ -476,8 +477,19 @@ def topology_cards(public):
         elif atom['prefix']=='directed_call_edge':edges=[[value['caller'],value['callee'],'calls']]
         elif set(value)=={'from','to','relation'}:edges=[[value['from'],value['to'],value['relation']]]
         elif set(value)=={'parent','child','relation','supporting_span_pairs'}:
-            edges=[[value['parent'],value['child'],value['relation']]]
-            metadata.append({'name':atom['id']+' '+value['parent']+' → '+value['child']+' supporting span pairs',
+            endpoints=[]
+            for side in ('parent','child'):
+                endpoint=value[side]
+                if isinstance(endpoint,list):
+                    if len(endpoint)!=2 or not all(isinstance(x,str) for x in endpoint):raise ValueError('Unknown operation-bound endpoint')
+                    entity,operation=endpoint
+                    metadata.append({'name':atom['id']+' '+side+' '+entity+' operation','value':operation})
+                else:entity=endpoint
+                endpoints.append(entity)
+            relation=value['relation']
+            if relation=='observed parent span -> child span':relation='request_parent'
+            edges=[[*endpoints,relation]]
+            metadata.append({'name':atom['id']+' '+endpoints[0]+' → '+endpoints[1]+' supporting span pairs',
                              'value':str(value['supporting_span_pairs'])})
         else:raise ValueError('Unknown topology record')
         for j,(a,b,kind) in enumerate(edges):
@@ -507,7 +519,8 @@ def hybrid_design(cards):
     for c in cards:
         if c['kind']=='trace_joint':
             # Two phases, paired glyph rows, population quantiles and conditions.
-            height=640+36*len(c['data']['samples'])+32*sum(math.ceil(len(c['data'][k])/80) for k in ('parent_operation','child_operation'))
+            rows=max(sum(s['phase']==p for s in c['data']['samples']) for p in ('reference','current'))
+            height=800+32*rows+32*sum(math.ceil(len(c['data'][k])/80) for k in ('parent_operation','child_operation'))
             component='trace_joint.complete_marginals'
         elif c['kind']=='graph':height=node_link_layout(c,width-48,18)['min_height'];component='graph.node_link'
         else:height=160+36*len(c['data']['details']);component='inventory.identities'
@@ -643,6 +656,8 @@ def render_hybrid(cards,folder,processor,auditor):
     from .utils import object_file
     from PIL import Image
     evidence={'schema':'CanvasEvidenceV1','cards':cards};design=hybrid_design(cards)
+    if any(c['kind']=='trace_joint' for c in cards):
+        folder=folder/('complete_v2_'+stable([evidence,design,digest(ROOT/'src/renderer/web/components/CompleteMarginals.tsx')])[:16])
     # Explicit foreground audit for every bound visible evidence field. No
     # support from invisible HTML fields or full card rectangles.
     bindings=expected_bindings(evidence,True)
@@ -673,7 +688,7 @@ def render_hybrid(cards,folder,processor,auditor):
         'evidence':evidence,'design':design,'support':support,'bindings':bindings,'processed_pixels':processed}
 
 
-def build_request(processor,images,system,text,task,attention=False,hybrid=False,seed=42):
+def build_request(processor,images,system,text,task,attention=False,hybrid=False,seed=42,data_empty=False):
     from PIL import Image
     messages=[{'role':'system','content':system},{'role':'user','content':[
         *({'type':'image'} for _ in images),{'type':'text','text':text}]}]
@@ -681,8 +696,9 @@ def build_request(processor,images,system,text,task,attention=False,hybrid=False
     opened=[]
     for image in images:
         with Image.open(ROOT/image['image']) as im:opened.append(im.convert('RGB'))
-    batch=processor(text=[prompt],images=opened,return_tensors='pt')
-    grids=batch['image_grid_thw'].tolist();counts=[math.prod(g)//4 for g in grids]
+    if not images and not (hybrid and data_empty):raise ValueError('Absent image is not an allowed error fallback')
+    batch=processor(text=[prompt],images=opened or None,return_tensors='pt')
+    grids=batch['image_grid_thw'].tolist() if opened else [];counts=[math.prod(g)//4 for g in grids]
     if any(g!=im['grid_thw'] for g,im in zip(grids,images,strict=True)):raise ValueError('Processor geometry changed in combined request')
     if sum(counts)>16384:raise ValueError('Total original image budget exceeded')
     keeps=[im['retained'] for im in images];text_tokens=batch['input_ids'].shape[-1]-sum(counts);n=text_tokens+sum(map(len,keeps))
@@ -690,7 +706,7 @@ def build_request(processor,images,system,text,task,attention=False,hybrid=False
     request={'schema':'RQ45RequestV1','messages':messages,'prompt':prompt,'images':[im['image'] for im in images],
         'image_sha256':[im['sha256'] for im in images],'grid_thw':grids,'retained_by_image':keeps,
         'geometry':[im['geometry'] for im in images],'input_tokens':n,'text_tokens':text_tokens,'image_tokens_original':sum(counts),
-        'task':task,'attention':attention,'hybrid':hybrid,'seed':seed,'output_tokens':8192,
+        'task':task,'attention':attention,'hybrid':hybrid,'seed':seed,'output_tokens':8192,'data_empty_transfer':data_empty,
         'attention_query_policy':'layer_3_last_prompt_and_first_decode_only; no final-ranking query claim'}
     # Paths/arm names/attention do not distinguish generation; actual prompt,
     # pixels, retained indices, model/processor/decoder/position recipe do.
@@ -705,7 +721,7 @@ def compile_case(row,processor,auditor):
     import time
     from .utils import historical,object_file
     started=time.monotonic();base,old=historical(row);cfg=read(RQ/'configs/protocol_v1.json')
-    source=ROOT/cfg['source_public']/(row['id']+'.json');public=read(source);validate_public(public)
+    source=SOURCE_ROOT/cfg['source_public']/(row['id']+'.json');public=read(source);validate_public(public)
     support=read(base/'token_support.json');provenance=read(base/'provenance.json');previous=read(base/'processor_cpu.json')
     if digest(base/'render/dashboard.png')!=previous['png_sha256']:raise ValueError('Original U PNG changed')
     u_keep=old['actual_retention']['indices'];manifest=read(base/'render/manifest.json')
@@ -730,19 +746,28 @@ def compile_case(row,processor,auditor):
             packet=ownership(public,arm);packets[arm]=packet
             families={r['family'] for r in packet['records'] if r['owner']=='image'}
             images=[im for f in ('topology','pair') if f in families for im in family_images[f]]
-            if not images:raise ValueError('Hybrid has no valid image; not a missing-data fallback')
-            text='\n\n'.join(p['text'] for p in residual_text(public,packet))+'\n'+HYBRID_GUIDE
+            data_empty=not tcards and not pcards
+            if not images and not data_empty:raise ValueError('Hybrid has no valid image; not a missing-data fallback')
+            guide=HYBRID_GUIDE if images else 'Use all original source records, units and phases. Return the registered five-candidate JSON.'
+            instructions=read(RQ/'configs/hybrid_instructions_v2.json')
+            atoms={a['id']:a for a in public['organization']['atoms']}
+            rule_blocks=[public['texts']['RAW_TEXT'][s['part']]['text'] for s in public['organization']['sections']
+                if atoms[s['atoms'][0]]['raw'].startswith(tuple(instructions['original_sections']))]
+            if stable(rule_blocks)!=instructions['original_rule_blocks_sha256']:raise ValueError('Unreviewed source instruction variant')
+            text=instructions['text']+'\n\n'+'\n\n'.join(p['text'] for p in residual_text(public,packet,strip_instructions=True))+'\n'+guide
+            packet['instruction_transform']={'revision':instructions['schema'],'sha256':stable(instructions),
+                'scope':'non-diagnostic task/reading rules only; diagnostic records/order and images unchanged'}
             prompt_system=public['system']
-        inputs[arm]=build_request(processor,images,prompt_system,text,'RCA',hybrid=arm.startswith('H_'))
+        inputs[arm]=build_request(processor,images,prompt_system,text,'RCA',hybrid=arm.startswith('H_'),data_empty=not images)
     save(RESULTS/'inputs'/row['id']/'requests.json',inputs)
     save(RESULTS/'inputs'/row['id']/'ownership.json',packets)
     save(RESULTS/'inputs'/row['id']/'selections.json',selections)
     dependencies={}
     for path in (source,base/'token_support.json',base/'provenance.json',base/'processor_cpu.json',base/'mapping.json',base/'evidence.json',base/'render/manifest.json'):
-        retained,sha=object_file(path);dependencies[str(path.relative_to(ROOT))]={'retained':retained,'sha256':sha}
+        retained,sha=object_file(path);dependencies[str(path.relative_to(SOURCE_ROOT))]={'retained':retained,'sha256':sha}
     # Full structures are retained for provenance, not appended to model text.
     save(RESULTS/'inputs'/row['id']/'source.json',{'dependencies':dependencies,'pair_bindings':pbind,'topology_bindings':tbind,
-        'hybrid_images':family_images,'source_public':dependencies[str(source.relative_to(ROOT))]['retained']})
+        'hybrid_images':family_images,'source_public':dependencies[str(source.relative_to(SOURCE_ROOT))]['retained']})
     return {'id':row['id'],'dataset':row['dataset'],'status':'passed','input_tokens':{a:r['input_tokens'] for a,r in inputs.items()},
         'pair_applicable':bool(pcards),'seconds':time.monotonic()-started,'new_model_calls':0}
 
@@ -762,7 +787,7 @@ def prepare_mechanism(row,processor):
             # Image decode guide only; no RCA task remains in the QA message.
             text+='\nImages use log1p(ms) paired duration positions or typed directed relationships; matched source IDs join evidence.'
         else:text=QA_GUIDE+'\n'+questions
-        output[arm]=build_request(processor,images,'Read public telemetry accurately; answer only the six reading questions.',text,'QA',True,arm.startswith('H_'))
+        output[arm]=build_request(processor,images,'Read public telemetry accurately; answer only the six reading questions.',text,'QA',True,arm.startswith('H_'),data_empty=old.get('data_empty_transfer',False))
     save(RESULTS/'mechanism'/row['id']/'requests.json',output)
     save(RESULTS/'mechanism'/row['id']/'answers_audit_only.json',{'answers':qa['answers'],'provenance':qa['provenance'],'families':qa['families']})
     return {'id':row['id'],'status':'passed','questions':qa['applicable'],'new_model_calls':0}
@@ -780,7 +805,7 @@ def build_queue(scope='formal'):
     if scope=='smoke':
         fixed={r['id']:r for r in rows};ids=cfg['smoke_ids']
         # Six RCA interfaces + six QA interfaces + six nominees/repeats; no
-        # overlapping correctness retries. One 18-call/600s aggregate budget.
+        # overlapping correctness retries. One registered 18-call smoke budget.
         for j,arm in enumerate(ARMS):add(fixed[ids[j%3]],arm,'RCA','SMOKE_RCA')
         for j,arm in enumerate(ARMS):add(fixed[ids[j%3]],arm,'QA','SMOKE_QA')
         for oid in ids:

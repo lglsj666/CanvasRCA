@@ -1,0 +1,33 @@
+{
+  "schema": "RQ45LocalFallbackAuthorityV1",
+  "authority": "active user local fallback goal; subsequent user Blackwell/RQ4.4 runtime instruction",
+  "date": "2026-10-19",
+  "local_cpu_regression_authorized": true,
+  "local_smoke_authorized": true,
+  "formal_authorized_after_clean_local_qualification": true,
+  "stop_after_verified_local_formal_launch": true,
+  "nibi_jobs": "leave queued unchanged; no Nibi formal launch by this authority",
+  "smoke_calls_per_round": 18,
+  "smoke_seconds": 900,
+  "formal_positions": 1560,
+  "formal_recovery_reserve": 122,
+  "local_attempt_budget": 1700,
+  "inherited_nibi_attempts_at_fork": {
+    "schema": "RQ45RemoteAttemptSnapshotV1",
+    "host": "nibi",
+    "observed_unix": 1792431195.638677,
+    "ledger": "/project/def-jacobsen/canvasrca_cache/RQ4_5/cpu_v1/calls.sqlite",
+    "states": {
+      "complete": 10,
+      "infrastructure_failure": 26,
+      "interrupted": 6
+    },
+    "total_attempts": 42,
+    "local_counter_reset": false,
+    "counting": "Different host ledger; preserve and aggregate both ledgers, never count Nibi answers as local completions"
+  },
+  "aggregate_accounting": "Keep both host ledgers and every earlier spent attempt; local isolation does not erase or relabel prior attempts.",
+  "local_runtime": "successful RQ4.4 native Blackwell backend; no provisional H100 SDPA successor",
+  "execution_fingerprint": "d2299620a4c36294113dcced4e222b76e50e85b378ae55c41678c2cab0e55dac",
+  "created_unix": 1792431688.9323127
+}

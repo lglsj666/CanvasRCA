@@ -1,0 +1,28 @@
+{
+  "scope": "Active local and Nibi smoke authority and runtime; historical frozen experiments and observed failures preserved",
+  "user_authorized_seconds": 900,
+  "removed": "Shorter hard stop, fixed shared supervisor cap, normative Codex/AGENTS/skill clauses, RQ4.5 old runtime clock/gate/activation values",
+  "unchanged": "18 calls/round, source inputs, model precision, actual historical clocks/call accounting; remaining 600-valued monitoring intervals and canvas dimensions are not timeouts",
+  "local_sha256": {
+    "Codex.md": "6903201ab573f61ea19f0ad086f6f61eb82cac8f4390b5662700a74da8bb79e9",
+    "AGENTS.md": "6903201ab573f61ea19f0ad086f6f61eb82cac8f4390b5662700a74da8bb79e9",
+    ".claude/skills/smoke/SKILL.md": "e471051e69ed77974921e02f3b433703132761c747681cfa30aae9d22c259d73",
+    "src/cli/smoke_e2e.py": "682af0a2d7ff8f16379b25a05fa7f684afd6765c14ebcc49748a72d7776cb429",
+    "RQs/RQ4_5/configs/protocol_v1.json": "05bdbd5ed8a41246a71f3b44b45e78248b94afbf73db67dfa8bbfa0227da6201",
+    "RQs/RQ4_5/src/main.py": "8f2c3b26a629ed83f985804bb16c07035058713e58d4dad4627c237b097360f9",
+    "RQs/RQ4_5/src/gates.py": "4379a4c83c341f70be87c57aaff4914aebd0fd81d289f61c4122cde1b4652229",
+    "RQs/RQ4_5/src/exps.py": "6a7eb224fd74fa94260ee828804c76db0cc366278d0e71918a7a39257d0d5836",
+    "RQs/RQ4_5/src/tests.py": "5837f74e23133540f235c63cacf5ed61cc8b9488bde4b034fdde992c335a97a2",
+    "RQs/RQ4_5/scripts/gpu_smoke_nibi.sbatch": "7d60aa097635aef02f8bd225f8ecf81d5a8994739a91ae28d833515c254abe83",
+    "RQs/RQ4_5/scripts/submit_gpu_smoke_nibi.sh": "1c08f4e900b508364e893320c65a9506f77c346cae388cca5a5bb2dd78f1652d",
+    "RQs/RQ4_5/findings/smoke_goal_authority_20261019.json": "8762958a958014e971d42812bc4a9146d07549d4e11738d340545b39826b91e8"
+  },
+  "local_time_regression": "3/3 passed; shared supervisor boundary checks passed",
+  "nibi_verification": {
+    "status": "passed",
+    "matching_files": 12,
+    "verified_seconds": 900,
+    "deployment": "/home/lglsj/CanvasRCA_20261018",
+    "scope": "Current project rules, skill, generic supervisor and RQ4.5 active execution; historical snapshots and measured timeouts preserved"
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "ledger_revision": {
+    "status": "passed",
+    "execution_fingerprint": "8574a6725ac370e463f981a4d556572a4fffe5a8452a76039b7ffe72fb787cf6",
+    "old_execution_fingerprint": "64676ea19b7d0f6d98c6d39e6bc3eeb33b70a3514f9798fe134295c87eb74879",
+    "generation_recipe_unchanged": true,
+    "frozen_input_queues_unchanged": true,
+    "new_model_calls": 0,
+    "spent_calls_preserved": 8,
+    "prior_round_job": "24552318",
+    "changed_sources": [
+      "RQs/RQ4_5/src/tests.py",
+      "RQs/RQ4_5/src/utils.py"
+    ],
+    "targeted_unit_tests": 29,
+    "network_probe_seconds": 1.3036892469972372,
+    "unaffected_cpu_inputs_reused": 1518,
+    "new_scientific_cpu_preparation": false
+  },
+  "ledger_network_probe": {
+    "status": "passed",
+    "execution_fingerprint": "8574a6725ac370e463f981a4d556572a4fffe5a8452a76039b7ffe72fb787cf6",
+    "threads": 8,
+    "transactions": 36,
+    "seconds": 1.3036892469972372,
+    "new_model_calls": 0,
+    "mount": "/project/def-jacobsen/canvasrca_cache/RQ4_5/cpu_v1/cache/ledger_network_probe_v2/calls.sqlite",
+    "journal": "DELETE",
+    "synchronous": "FULL",
+    "lifetime_owner_lock": true,
+    "sqlite_byte_range_locks": false
+  },
+  "call_budget_v2": {
+    "schema": "RQ45ReviewedCallBudgetV2",
+    "total_limit": 1772,
+    "formal_scope_limit": 1682,
+    "registered_smoke_rounds": 5,
+    "per_smoke_round_limit": 18,
+    "old_hard_limit": 1700,
+    "preserved_spent_calls": 8,
+    "authority": "Existing user goal authorizes unlimited serial bounded rounds; preserve all spent attempts",
+    "no_call_counter_reset": true
+  },
+  "precompiled_kernel": {
+    "schema": "RQ45SameKernelPrecompiledCacheV1",
+    "status": "passed",
+    "cpu_build_job": "24550313",
+    "published_unix": 1792388206.950952,
+    "architecture": "sm90a (registered H100 only)",
+    "flashinfer_version": "0.6.12",
+    "build_graph_sha256": "0e3fc61fff176823551e067fde788f4c1408093ec949bdfcfeda74bbbee35cef",
+    "native_binary": "/project/def-jacobsen/canvasrca_cache/shared/flashinfer/0.6.12/90a/cached_ops/gdn_prefill_sm90/gdn_prefill_sm90.so",
+    "native_binary_sha256": "8be70538b629d46a1745332113b616732ac9feb33f3cad79d05675ad29b25a8a",
+    "published_binary": "/project/def-jacobsen/canvasrca_cache/shared/flashinfer/precompiled_0.6.12_sm90a/gdn_prefill_sm90/gdn_prefill_sm90.so",
+    "published_binary_sha256": "8be70538b629d46a1745332113b616732ac9feb33f3cad79d05675ad29b25a8a",
+    "provider_path": "/project/def-jacobsen/canvasrca_cache/shared/flashinfer/cache_provider_0.6.12",
+    "provider_sha256": "a8aa8060823f802121752cf5bdd3331fe9d749c54562c6b1c5de5ece8388a4d5",
+    "mechanism": "Official flashinfer_jit_cache get_jit_cache_dir interface; identical .so, no JIT graph/path regeneration",
+    "weights_precision_inputs_and_registered_worker_unchanged": true,
+    "new_model_calls": 0
+  },
+  "smoke_submission_05": {
+    "job_id": "24553470",
+    "attempt": 5,
+    "submitted_unix": 1792389251.323152,
+    "calls_limit": 18,
+    "seconds_limit": 600,
+    "gpu": "h100:1",
+    "cpus": 8,
+    "memory": "96G",
+    "formal_authorized": false
+  }
+}

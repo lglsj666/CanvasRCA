@@ -1,0 +1,334 @@
+{
+  "status": "passed_for_these_five_only",
+  "scope": "Five preserved round-5 answers only; not complete GPU qualification",
+  "new_model_calls": 0,
+  "verified_input_pngs": 6,
+  "records": [
+    {
+      "key": "INC-018AC5D486B5__H_TOPO_MARGINAL__SMOKE_QA",
+      "task": "QA",
+      "issues": [],
+      "png_count": 2,
+      "input_tokens": 20074,
+      "output_tokens": 138,
+      "stop_reason": "stop",
+      "raw_response": "{\"q1\": {\"entity\": \"325\", \"unit\": \"source_unit\", \"value\": \"8.966e+06\"}, \"q2\": {\"entity\": \"877\", \"unit\": \"ratio_or_percent\", \"value\": \"0.001202\"}, \"q3\": null, \"q4\": null, \"q5\": {\"entity\": \"702\", \"unit\": \"counts_microseconds_and_log2_fold_change\", \"higher_phase\": \"current\"}, \"q6\": {\"entity\": \"877\", \"unit\": \"source_unit\", \"higher_phase\": \"current\"}}",
+      "rescore_identical": true,
+      "qa_standard": 0.5,
+      "qa_tolerant": 0.5,
+      "expected_answers": {
+        "q1": {
+          "entity": "325",
+          "unit": "source_unit",
+          "value": "8.966e+06"
+        },
+        "q2": {
+          "entity": "877",
+          "unit": "ratio_or_percent",
+          "value": "0.001202"
+        },
+        "q3": {
+          "entity": "702",
+          "relation": "has_instance",
+          "targets": [
+            "86114"
+          ]
+        },
+        "q4": {
+          "entity": "780",
+          "relation": "has_instance",
+          "targets": [
+            "27167"
+          ]
+        },
+        "q5": {
+          "entity": "702",
+          "higher_phase": "current",
+          "unit": "microseconds"
+        },
+        "q6": {
+          "entity": "877",
+          "higher_phase": "current",
+          "unit": "source_unit"
+        }
+      },
+      "questions": [
+        "<|vision_start|><|image_pad|><|vision_end|><|vision_start|><|image_pad|><|vision_end|>Answer q1 through q6 from the supplied observations. This is an independent reading task, not RCA. Return null for a question marked unavailable. Preserve source IDs and units; numeric values are strings. Do not rank root causes or infer unobserved causes.",
+        "Reading questions: {\"q1\": \"For MET10, report its entity, source unit and recorded baseline value as a string.\", \"q2\": \"For MET07, report its entity, source unit and recorded baseline value as a string.\", \"q3\": \"Find the entity bound to TRC04. Using only explicit has_instance edges, report all its outgoing direct endpoints in targets, and that entity and relation.\", \"q4\": \"Find the entity bound to MET06. Using only explicit has_instance edges, report all its outgoing direct endpoints in targets, and that entity and relation.\", \"q5\": \"For TRC04, compare exl_p95_base_us (reference) with exl_p95_fault_us (current). Report entity, source unit, and higher_phase (reference/current/equal); do not convert units.\", \"q6\": \"For MET04, compare regular_mean (reference) with current_mean (current). Report entity, source unit, and higher_phase (reference/current/equal); do not convert units.\"}"
+      ],
+      "attention": {
+        "bytes": 694,
+        "record": {
+          "schema": "AttentionSummaryV1",
+          "status": "measured",
+          "layer": 3,
+          "query_definition": "last_prompt_query_and_first_decode_query_separately",
+          "normalization": "all_visible_keys_mean_over_heads",
+          "text_mass": [
+            0.9565680027008057,
+            0.9360107183456421
+          ],
+          "image_mass": [
+            0.04343346692621708,
+            0.036848919466137886
+          ],
+          "other_mass": [
+            0.0,
+            0.027141403406858444
+          ],
+          "text_regions": [
+            {
+              "text:instructions_and_evidence": 0.9565680027008057
+            },
+            {
+              "text:instructions_and_evidence": 0.9360107183456421
+            }
+          ],
+          "image_regions": [
+            [
+              0.0,
+              0.0,
+              0.026051713153719902,
+              0.0,
+              0.0,
+              0.017381753772497177
+            ],
+            [
+              0.0,
+              0.0,
+              0.02148384600877762,
+              0.0,
+              0.0,
+              0.015365073457360268
+            ]
+          ],
+          "sample_count": 2,
+          "mapping_hash": "0a516e01f5464d402f5afaaeea8e204a9da5fc30733893c0676c620959a07dbc"
+        }
+      }
+    },
+    {
+      "key": "INC-018AC5D486B5__H_TOPO_MARGINAL__SMOKE_RCA",
+      "task": "RCA",
+      "issues": [],
+      "png_count": 2,
+      "input_tokens": 20430,
+      "output_tokens": 202,
+      "stop_reason": "stop",
+      "raw_response": "{\"services\": [\"877\", \"780\", \"445\", \"125\", \"325\"], \"reason\": \"Service 877 is the earliest onset (+5.2m) and highest severity (z=572.3), exhibiting a sustained CPU spike across all four correlated metrics (MET03, MET04, MET07, MET12) starting at bin 40; service 780 is co-deployed with 445 and shows an identical CPU load anomaly (z=76.61, peak 508 at bin 32) to 445, suggesting a shared upstream node or co-located bottleneck. This common node-level CPU saturation propagates to callers 510 and 702, whose traces (TRC01, TRC03) show massive exclusive latency increases and count drops.\", \"confidence\": \"high\"}",
+      "rescore_identical": true,
+      "illegal_candidates": [],
+      "distinct_candidates": 5,
+      "mrr": 0.0,
+      "tolerant_mrr": 0.0,
+      "mapped_ranking": [
+        "ts-admin-order-service",
+        "ts-gateway-service",
+        "ts-route-plan-service",
+        "ts-execute-service",
+        "ts-news-service"
+      ],
+      "accepted_root": [
+        "ts-auth-service",
+        "ts-verification-code-service"
+      ]
+    },
+    {
+      "key": "INC-6E627662CA32__H_MARGINAL__SMOKE_RCA",
+      "task": "RCA",
+      "issues": [],
+      "png_count": 2,
+      "input_tokens": 21636,
+      "output_tokens": 189,
+      "stop_reason": "stop",
+      "raw_response": "{\"services\": [\"493\", \"612\", \"790\", \"643\", \"5937\"], \"reason\": \"Service 493 is the original faulty component: its exclusive p95 latency exploded to ~85-91ms (a ~35x increase) across all pods (TRC01-06) while its root cause traces to extreme CPU throttling (MET02, MET08) and user CPU spikes (MET05) specifically on its instance 63581. The alternative origin hypothesis of a node-level fault (5937) is contradicted by stable system.load.15 metrics, and the downstream service 612 (rank 2, MET03) shows only a momentary blip, confirming 493 as the primary propagation origin.\", \"confidence\": \"high\"}",
+      "rescore_identical": true,
+      "illegal_candidates": [],
+      "distinct_candidates": 5,
+      "mrr": 0.0,
+      "tolerant_mrr": 0.0,
+      "mapped_ranking": [
+        "currencyservice",
+        "adservice",
+        "currencyservice-grpc",
+        "frontend",
+        "node-5"
+      ],
+      "accepted_root": [
+        "currencyservice-2"
+      ]
+    },
+    {
+      "key": "INC-D9245047C658__H_TOPOLOGY__SMOKE_QA",
+      "task": "QA",
+      "issues": [],
+      "png_count": 2,
+      "input_tokens": 17954,
+      "output_tokens": 216,
+      "stop_reason": "stop",
+      "raw_response": "{\"q1\": {\"entity\": \"123\", \"unit\": \"counts_microseconds_and_log2_fold_change\", \"value\": \"4314.9\"}, \"q2\": {\"entity\": \"53618\", \"unit\": \"source_unit\", \"value\": \"1470\"}, \"q3\": {\"entity\": \"844\", \"relation\": \"has_instance\", \"targets\": [\"44906\", \"80653\"]}, \"q4\": {\"entity\": \"53618\", \"relation\": \"hosts\", \"targets\": [\"6305\", \"7721\", \"8990\", \"9686\"]}, \"q5\": {\"entity\": \"844\", \"unit\": \"counts_microseconds_and_log2_fold_change\", \"higher_phase\": \"current\"}, \"q6\": {\"entity\": \"130\", \"unit\": \"counts_microseconds_and_log2_fold_change\", \"higher_phase\": \"current\"}}",
+      "rescore_identical": true,
+      "qa_standard": 0.16666666666666666,
+      "qa_tolerant": 0.16666666666666666,
+      "expected_answers": {
+        "q1": {
+          "entity": "123",
+          "unit": "microseconds",
+          "value": "4314.9"
+        },
+        "q2": {
+          "entity": "53618",
+          "unit": "source_unit",
+          "value": "1470"
+        },
+        "q3": {
+          "entity": "844",
+          "relation": "has_instance",
+          "targets": [
+            "48973",
+            "52119"
+          ]
+        },
+        "q4": {
+          "entity": "53618",
+          "relation": "hosts",
+          "targets": [
+            "8990"
+          ]
+        },
+        "q5": {
+          "entity": "844",
+          "higher_phase": "current",
+          "unit": "microseconds"
+        },
+        "q6": {
+          "entity": "130",
+          "higher_phase": "current",
+          "unit": "microseconds"
+        }
+      },
+      "questions": [
+        "<|vision_start|><|image_pad|><|vision_end|><|vision_start|><|image_pad|><|vision_end|>Answer q1 through q6 from the supplied observations. This is an independent reading task, not RCA. Return null for a question marked unavailable. Preserve source IDs and units; numeric values are strings. Do not rank root causes or infer unobserved causes.",
+        "Reading questions: {\"q1\": \"For TRC06, report its entity, source unit and recorded exl_p95_fault_us value as a string.\", \"q2\": \"For MET09, report its entity, source unit and recorded baseline value as a string.\", \"q3\": \"Find the entity bound to TRC05. Using only explicit has_instance edges, report all its outgoing direct endpoints in targets, and that entity and relation.\", \"q4\": \"Find the entity bound to MET09. Using only explicit hosts edges, report all its incoming direct endpoints in targets, and that entity and relation.\", \"q5\": \"For TRC05, compare exl_p95_base_us (reference) with exl_p95_fault_us (current). Report entity, source unit, and higher_phase (reference/current/equal); do not convert units.\", \"q6\": \"For TRC03, compare exl_p95_base_us (reference) with exl_p95_fault_us (current). Report entity, source unit, and higher_phase (reference/current/equal); do not convert units.\"}"
+      ],
+      "attention": {
+        "bytes": 690,
+        "record": {
+          "schema": "AttentionSummaryV1",
+          "status": "measured",
+          "layer": 3,
+          "query_definition": "last_prompt_query_and_first_decode_query_separately",
+          "normalization": "all_visible_keys_mean_over_heads",
+          "text_mass": [
+            0.9619151949882507,
+            0.9290342330932617
+          ],
+          "image_mass": [
+            0.038084851577878,
+            0.03753436170518398
+          ],
+          "other_mass": [
+            0.0,
+            0.03343123942613602
+          ],
+          "text_regions": [
+            {
+              "text:instructions_and_evidence": 0.9619151949882507
+            },
+            {
+              "text:instructions_and_evidence": 0.9290342330932617
+            }
+          ],
+          "image_regions": [
+            [
+              0.0,
+              0.0,
+              0.021110517904162407,
+              0.0,
+              0.0,
+              0.01697433367371559
+            ],
+            [
+              0.0,
+              0.0,
+              0.022797415032982826,
+              0.0,
+              0.0,
+              0.014736946672201157
+            ]
+          ],
+          "sample_count": 2,
+          "mapping_hash": "c9d262a2d4e20d298292052f34715af50ede1bb7645f0a598e0089d50a156774"
+        }
+      }
+    },
+    {
+      "key": "INC-D9245047C658__H_TOPOLOGY__SMOKE_RCA",
+      "task": "RCA",
+      "issues": [],
+      "png_count": 2,
+      "input_tokens": 18293,
+      "output_tokens": 156,
+      "stop_reason": "stop",
+      "raw_response": "{\"services\": [\"123\", \"466\", \"130\", \"186\", \"945\"], \"reason\": \"123 is top-ranked with the earliest onset (+15.0m) and a decisive MET-Z severity of 30.02. Verification confirms 466 and 130 as the next strongest signals based on their earlier onsets (+16.0m and +18.4m) and significant severity deviations, while 815 is downgraded to a lower alternative due to a connection count shift that lacks corresponding latency evidence. The causality chain supports 123 as the initiating fault upstream of 466.\", \"confidence\": \"high\"}",
+      "rescore_identical": true,
+      "illegal_candidates": [],
+      "distinct_candidates": 5,
+      "mrr": 0.0,
+      "tolerant_mrr": 0.0,
+      "mapped_ranking": [
+        "currencyservice",
+        "emailservice",
+        "shippingservice",
+        "adservice",
+        "productcatalogservice"
+      ],
+      "accepted_root": [
+        "node-6"
+      ]
+    }
+  ],
+  "reviewed_unix": 1792390953.8813684,
+  "manual_reviewed_unix": 1792391086.6796467,
+  "manual_review": {
+    "actual_pngs_opened": 6,
+    "png_sha256_rechecked_locally": true,
+    "raw_answers_read": 5,
+    "full_gpu_qualification": false,
+    "infrastructure_or_persistence_errors_found": [],
+    "model_outcomes": {
+      "rca_valid_distinct_legal_five": 3,
+      "rca_standard_mrr": [
+        0,
+        0,
+        0
+      ],
+      "rca_tolerant_mrr": [
+        0,
+        0,
+        0
+      ],
+      "qa_correct": [
+        3,
+        1
+      ],
+      "qa_applicable_each": 6
+    },
+    "unit_reading_caveat": "Four QA items have correct entity and value/phase but copy the composite Trace record unit counts_microseconds_and_log2_fold_change instead of the selected _us field microseconds. The question says source unit while the record exposes a composite unit; retain this interface ambiguity in later interpretation. No score or prompt is changed.",
+    "ranking_reason_mismatch": "AI22 reason explicitly mentions correct root pod 63581/currencyservice-2 but the five ranked IDs exclude it and lead with service 493. This is a granularity/ranking error, not missing output or illegal candidate rejection.",
+    "graph_check": "Inspected all six original PNGs and checked raw typed edges for the QA targets: 844 -> 48973/52119 has_instance; 8990 -> 53618 hosts; 702 -> 86114 and 780 -> 27167 has_instance. Expected targets match public observations. Deployment edges cross heavily and make following endpoints difficult; no confirmed wrong endpoint binding found in these checks.",
+    "attention": {
+      "requested_qa_records": 2,
+      "bytes": [
+        694,
+        690
+      ],
+      "layer": 3,
+      "queries": "last prompt and first decode only",
+      "finite_normalized": true,
+      "not_final_decision_attention": true
+    },
+    "coverage_limit": "All five are hybrid conditions; remaining thirteen include pure-visual paths and repeats. Do not promote this partial audit to full smoke passage.",
+    "new_model_calls_for_review": 0
+  }
+}

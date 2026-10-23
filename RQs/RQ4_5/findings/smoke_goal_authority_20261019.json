@@ -1,0 +1,23 @@
+{
+  "schema": "RQ45SmokeGoalAuthorityV5",
+  "authority": "Active user goal reopens serial smoke qualification, authorizes virtual-environment and deployment repairs, and ends once measured formal-equivalent inference throughput reaches at least seven actual completed calls per minute",
+  "authorized_date": "2026-10-19",
+  "maximum_attempts": null,
+  "additional_smoke_authorized": true,
+  "latest_smoke_authority": "User explicitly authorizes unlimited serial smoke rounds, each at most 18 calls; preserve previous attempts and counters. Read official Nibi environment documentation before diagnosis and repair.",
+  "maximum_calls_per_attempt": 18,
+  "maximum_seconds_per_attempt": 900,
+  "time_authority": "User explicitly removes the old shorter smoke timeout and permits the full 15-minute job limit; preserve historical clocks and spent calls",
+  "maximum_simultaneous_rounds": 1,
+  "formal_authorized_after_clean_smoke": false,
+  "minimum_formal_completed_calls_per_minute": 7,
+  "formal_requires_measured_throughput": true,
+  "formal_positions": 1560,
+  "formal_recovery_reserve": 122,
+  "formal_maximum_block_seconds": 7200,
+  "formal_maximum_total_seconds": 43200,
+  "stop_after_formal_submission": false,
+  "stop_after_verified_throughput": true,
+  "environment_changes_authorized": true,
+  "policy": "This forward authority supersedes the earlier closure after round 6. Preserve every failed attempt, original clock and spent call; supplement each new round prospectively without resetting counters. Do not tune on answer accuracy, count references as new calls, or treat a timeout-only batch as full qualification. Separate environment/model startup from the online request path and disclose cold versus amortized timing. Stop after verified throughput qualification; do not submit formal jobs under this goal."
+}

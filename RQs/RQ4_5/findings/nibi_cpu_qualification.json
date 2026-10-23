@@ -1,0 +1,187 @@
+{
+  "schema": "RQ45CPUQualificationV1",
+  "date": "2026-10-19",
+  "status": "passed",
+  "scope": "CPU_only",
+  "execution_fingerprint": "64676ea19b7d0f6d98c6d39e6bc3eeb33b70a3514f9798fe134295c87eb74879",
+  "job": 24546402,
+  "scheduler": "24546402|COMPLETED|00:04:45|billing=16000,cpu=8,mem=64G,node=1|0:0",
+  "unit_tests": 27,
+  "population_cases": 220,
+  "actual_RCA_processor_requests": 1320,
+  "QA_preparation_cases": 33,
+  "actual_QA_processor_requests": 198,
+  "runtime_probes": 30,
+  "transport_audit": {
+    "status": "passed",
+    "execution_fingerprint": "64676ea19b7d0f6d98c6d39e6bc3eeb33b70a3514f9798fe134295c87eb74879",
+    "legacy_comparison": true,
+    "scope": "actual CPU pixel/input tensors, gather, token IDs and MRoPE; only passive attention-region attribution may differ",
+    "images": 4,
+    "headers": 4,
+    "new_model_calls": 0
+  },
+  "determinism": {
+    "status": "passed",
+    "execution_fingerprint": "64676ea19b7d0f6d98c6d39e6bc3eeb33b70a3514f9798fe134295c87eb74879",
+    "sha256": "7da99fb9d78711c2f064f9eb0ac63d24eef332e6a6fb5078273be10453e948ff",
+    "case": "INC-D28AC6CAEFE4",
+    "card": "PAIR02",
+    "scope": "actual long-operation/extreme-duration source-complete repaint",
+    "new_model_calls": 0,
+    "revalidated_from": {
+      "execution_fingerprint": "28a2f7d877daa0e6ef44c285b04257040cfe22c9d4357772c07b1185cfaee75e",
+      "report_sha256": "981ce98ca898b4159becedc970da2fc4101b92f4662d7c23acfbf0b42ab1f01f",
+      "scope": "passive region labels only; model-affecting AST and all payloads unchanged; recipe identity updated before any model call",
+      "rerun": false
+    }
+  },
+  "input_budget": {
+    "aiops2022": {
+      "H_MARGINAL": {
+        "T_FULL": 0.9536670778427488,
+        "MARGINAL_FIVE": 0.9174316244680001
+      },
+      "H_TOPOLOGY": {
+        "T_FULL": 0.9178910521758727,
+        "MARGINAL_FIVE": 0.8830149416369052
+      },
+      "H_TOPO_MARGINAL": {
+        "T_FULL": 0.8894828373521841,
+        "MARGINAL_FIVE": 0.8556861229333304
+      }
+    },
+    "aiops2025": {
+      "H_MARGINAL": {
+        "T_FULL": 0.9388317354467767,
+        "MARGINAL_FIVE": 0.9004815476359554
+      },
+      "H_TOPOLOGY": {
+        "T_FULL": 0.9645938998971325,
+        "MARGINAL_FIVE": 0.92519135753993
+      },
+      "H_TOPO_MARGINAL": {
+        "T_FULL": 0.9252673378748326,
+        "MARGINAL_FIVE": 0.8874712399768083
+      }
+    },
+    "aegislab": {
+      "H_MARGINAL": {
+        "T_FULL": 0.9308526264310628,
+        "MARGINAL_FIVE": 0.8983257704995403
+      },
+      "H_TOPOLOGY": {
+        "T_FULL": 0.9909024992443514,
+        "MARGINAL_FIVE": 0.9562773159232474
+      },
+      "H_TOPO_MARGINAL": {
+        "T_FULL": 0.9383946795540146,
+        "MARGINAL_FIVE": 0.9056042810719395
+      }
+    }
+  },
+  "statistics": {
+    "aiops2022": {
+      "cases": 60,
+      "input_means": {
+        "H_MARGINAL": 21441.233333333334,
+        "H_TOPOLOGY": 20636.883333333335,
+        "H_TOPO_MARGINAL": 19998.183333333334,
+        "V_DOMAIN_FULL": 6407.133333333333,
+        "V_SOURCE_UNIFORM": 5765.516666666666,
+        "V_CONTEXT_FILL": 6407.133333333333
+      }
+    },
+    "aiops2025": {
+      "cases": 60,
+      "input_means": {
+        "H_MARGINAL": 17964.216666666667,
+        "H_TOPOLOGY": 18457.166666666668,
+        "H_TOPO_MARGINAL": 17704.666666666668,
+        "V_DOMAIN_FULL": 5885.816666666667,
+        "V_SOURCE_UNIFORM": 5234.266666666666,
+        "V_CONTEXT_FILL": 5885.816666666667
+      }
+    },
+    "aegislab": {
+      "cases": 100,
+      "input_means": {
+        "H_MARGINAL": 21927.09,
+        "H_TOPOLOGY": 23341.62,
+        "H_TOPO_MARGINAL": 22104.75,
+        "V_DOMAIN_FULL": 6379.58,
+        "V_SOURCE_UNIFORM": 5816.87,
+        "V_CONTEXT_FILL": 6379.58
+      }
+    }
+  },
+  "stage_provenance": {
+    "unit": "executed",
+    "preflight": "reused_with_unchanged_payload_and_source_proof",
+    "population": "reused_with_unchanged_payload_and_source_proof",
+    "budget": "executed",
+    "mechanism": "reused_with_unchanged_payload_and_source_proof",
+    "runtime": "executed",
+    "transport_audit": "executed",
+    "determinism": "reused_with_unchanged_payload_and_source_proof",
+    "visual_review": "reused_with_unchanged_payload_and_source_proof",
+    "measurement_revision": "executed"
+  },
+  "physical_cores": [
+    1,
+    2,
+    3,
+    64,
+    65,
+    66,
+    67,
+    68
+  ],
+  "source_dispatch": {
+    "population": {
+      "first_wave_source_groups": 8,
+      "available_source_groups": 108
+    },
+    "mechanism": {
+      "first_wave_source_groups": 8,
+      "available_source_groups": 18
+    },
+    "runtime": {
+      "first_wave_source_groups": 3,
+      "available_source_groups": 3
+    }
+  },
+  "inspected_images": 16,
+  "preserved_payloads": {
+    "inputs": 1320,
+    "mechanism": 198
+  },
+  "frozen_manifest_sha256": "15ad10577ba0de23148a39a771bb9ef11bdff78d7238f7773b61cd204bb2fbf6",
+  "frozen_queues": {
+    "smoke": {
+      "bytes": 3220703,
+      "sha256": "c4c283b77bb6468d51063c2c0d5729dd54d2910debc2c3aa27bd8d091f957d1c",
+      "verified": true
+    },
+    "formal": {
+      "bytes": 326543043,
+      "sha256": "6fc88d8f188fc3ec7bab7aa39687b364f4542012714fc96b1c392d04b1b7f7f8",
+      "verified": true
+    }
+  },
+  "calls": {
+    "formal": 1560,
+    "smoke": 18,
+    "recovery": 122,
+    "total": 1700
+  },
+  "source_files_frozen": 139,
+  "model_files_hash_verified": 27,
+  "model_provenance_bytes": 55582674402,
+  "new_model_calls": 0,
+  "gpu_smoke": "not_run",
+  "formal": "not_started",
+  "gpu_activation": false,
+  "remote_artifact_root": "/project/def-jacobsen/canvasrca_cache/RQ4_5/cpu_v1",
+  "output_cost_and_ranking": "not_measured"
+}
